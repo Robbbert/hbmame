@@ -10,18 +10,18 @@
 
 
 @source:1942.cpp
-1942			//parent
+1942                                   //parent
 1942h
-1942c64			// 1942 with C64 sounds (by minwah)
-1942fpa			// 1942 with free play (by cmonkey)
-galagax 		/* Jerky - Chris Moore hack of 1942 */
+1942c64                                // 1942 with C64 sounds (by minwah)
+1942fpa                                // 1942 with free play (by cmonkey)
+galagax
 
 @source:1943.cpp
-1943			//parent
-1943h			/* Hacked to have the vendor name and phone number */
-1943kai			//parent
+1943                                   //parent
+1943h
+1943kai                                //parent
 1943kais01
-1943b2			// from FBN
+1943b2
 
 @source:8080bw.cpp
 invaders                               //parent
@@ -49,30 +49,30 @@ karatblzas01
 karatblzas02
 
 @source:arkanoid.cpp
-arkanoid		//parent
-akblc2dx		/* hack */
-akgcdx			/* hack */
-aktaytdx		/* hack */
+arkanoid                               //parent
+akblc2dx
+akgcdx
+aktaytdx
 //arkll32                              // broke mid-2022 after Z80 changes
 arkcrsn5
 
 @source:asteroid.cpp
-asteroid		//parent
-asteroid6		/* Clay Cowgill Bullet Hack */
+asteroid                               //parent
+asteroid6
 astdelux4
-starslayer		// star destroyer, hack of asteroid2
+stardest
 astdelux
-//amulti			// test only
+//amulti                                // skeleton
 
 @source:astrocde.cpp
-tst_gorf		/* Gorf test rom */
-tst_gor1		/* Gorf test rom */
-tst_wow2		/* Wow test rom */
-tst_wow3		/* Wow test rom */
+tst_gorf
+tst_gor1
+tst_wow2
+tst_wow3
 
 @source:astrof.cpp
-astrof			//parent
-astrofbl		/* Black Background */
+astrof                                 //parent
+astrofbl
 
 @source:asuka.cpp
 asuka                                  //parent
@@ -81,20 +81,20 @@ bonzeadv                               //parent
 jigkmgri01
 
 @source:atarisy1.cpp
-atarisy1		//bios
-indytemp		//parent
+atarisy1                               //bios
+indytemp                               //parent
 ataris1hw
 ataris1rt
 
 @source:bagman.cpp
-bagman			//parent
+bagman                                 //parent
 bagturbo
-pickin			//parent
-pickinpi		/* Color Hack by Pi */
+pickin                                 //parent
+pickinpi
 
 @source:blktiger.cpp
-blktiger		//parent
-blkdrgonk		/* Korean Translation */
+blktiger                               //parent
+blkdrgonk
 
 @source:blockhl.cpp
 blockhl                                //parent
@@ -105,23 +105,23 @@ bloodbro                               //parent
 bloodbro01
 
 @source:bombjack.cpp
-bombjack		//parent
-bmbjckgr		/* Vag @ GreekRoms */
-bombjckb		/* bootleg */
-bombjred		/* hack by unknown French person */
+bombjack                               //parent
+bmbjckgr
+bombjckb
+bombjred
 bombjacks01
 
 @source:btime.cpp
-btime			//parent
-brubber			//parent
-lnc				//parent
-bnjr			/* Bump N Jump Reverse Mod */
-pnc				/* Pac N Chase */
-stictime		/* Marks Hack of btime */
-vecbtime		/* T-Bone hack of Burgertime */
+btime                                  //parent
+brubber                                //parent
+lnc                                    //parent
+bnjr
+pnc
+stictime
+vecbtime
 
 @source:bublbobl.cpp
-bublbobl		//parent
+bublbobl                               //parent
 bublboblu
 bublboblu2
 bub68705a

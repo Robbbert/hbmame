@@ -23,7 +23,7 @@ INPUT_PORTS_END
  *
  *************************************/
 
-ROM_START( starslayer ) // This name does not appear anywhere, but it does say Star Destroyer at the end.
+ROM_START( stardest ) // Says Star Destroyer where you enter your initials after game over.
 	ROM_REGION( 0x8000, "maincpu", 0 )
 	ROM_LOAD( "035145-02.ef2",  0x6800, 0x0800, CRC(0cc75459) SHA1(2af85c9689b878155004da47fedbde5853a18723) )
 	ROM_LOAD( "035144-02.h2",   0x7000, 0x0800, CRC(096ed35c) SHA1(064d680ded7f30c543f93ae5ca85f90d550f73e5) )
@@ -60,12 +60,14 @@ ROM_START( astdelux4 )
 	/* DVG PROM */
 	ROM_REGION( 0x100, "dvg:prom", 0 )
 	ROM_LOAD( "034602-01.c8",   0x0000, 0x0100, CRC(97953db8) SHA1(8cbded64d1dd35b18c4d5cece00f77e7b2cab2ad) )
+
+	ROM_REGION( 0x40, "earom", ROMREGION_ERASE00 ) // default to zero fill to suppress invalid high score display
 ROM_END
 
 
 GAME( 1979, asteroid6,  asteroid, asteroid, asteroid, asteroid_state, empty_init, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", MACHINE_SUPPORTS_SAVE )
 GAMEL(1980, astdelux4,  asteroid, astdelux, astdelu4, asteroid_state, empty_init, ROT0, "Atari", "Asteroids Deluxe (Unknown Revision) [h]", MACHINE_SUPPORTS_SAVE, layout_astdelux )
-GAME( 1979, starslayer, asteroid, asteroid, asteroid, asteroid_state, empty_init, ROT0, "Nufekop", "Starslayer (hack of Asteroids (rev 2))", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, stardest,   asteroid, asteroid, asteroid, asteroid_state, empty_init, ROT0, "Nufekop", "Star Destroyer (hack of Asteroids (rev 2))", MACHINE_SUPPORTS_SAVE )
 
 
 /*********************************************************************************************************************/
@@ -163,7 +165,9 @@ void amulti_state::init_amulti()
 	}
 	uint8_t* srcregion = memregion("user3")->base();
 	uint8_t* dstregion = memregion("maincpu")->base();
-	memcpy(dstregion, srcregion, 0x10000);
+	memcpy(dstregion+0x8000, srcregion, 0x2000);
+	memcpy(dstregion+0x6000, srcregion+0x4000, 0x2000);
+	memcpy(dstregion+0xe000, srcregion+0x4000, 0x2000);
 
 
 //	for (i = 0x10000; i < 0x18000; i++)
