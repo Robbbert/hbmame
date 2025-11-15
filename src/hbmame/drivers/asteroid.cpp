@@ -1,6 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/asteroid.cpp"
+#include "machine/eepromser.h"
 
 static INPUT_PORTS_START( astdelu4 )
 	PORT_INCLUDE(astdelux)
@@ -83,13 +84,16 @@ class amulti_state : public asteroid_state
 public:
 	amulti_state(const machine_config &mconfig, device_type type, const char *tag)
 		: asteroid_state(mconfig, type, tag)
+		, m_eeprom(*this, "nvram")
 //		, m_maincpu(*this, "maincpu")
-//		, m_p_ram(*this, "ram")
 	{ }
 
 	void amulti(machine_config &config);
 	void init_amulti();
 	void mem_map(address_map &map);
+	void gfxbank_w(offs_t, u8 data) { };
+	void rombank_w(offs_t, u8 data);
+	required_device<eeprom_serial_93cxx_device> m_eeprom;
 };
 
 ROM_START( amulti )
@@ -136,6 +140,12 @@ void amulti_state::mem_map(address_map &map)
 	map(0x3c00, 0x3c07).w("audiolatch", FUNC(ls259_device::write_d7));
 	map(0x3e00, 0x3e00).w(FUNC(asteroid_state::asteroid_noise_reset_w));
 	map(0x4000, 0x47ff).ram();                     // vector RAM
+	map(0xd900, 0xd900).w(FUNC(amulti_state::gfxbank_w));
+	map(0xda00, 0xda00).w(FUNC(amulti_state::rombank_w));
+	map(0xd300, 0xd300).lw8(NAME([this] (u8 data) {m_eeprom->clk_write(BIT(data,0)); }));
+	map(0xd500, 0xd500).lw8(NAME([this] (u8 data) {m_eeprom->di_write(BIT(data,7)); }));
+	map(0xd800, 0xd800).lr8(NAME([this] () {return m_eeprom->do_read() ? 128 : 0; }));
+	map(0xdc00, 0xdc00).lw8(NAME([this] (u8 data) {m_eeprom->cs_write(BIT(data,0)); }));
 }
 
 void amulti_state::amulti(machine_config &config)
@@ -143,6 +153,8 @@ void amulti_state::amulti(machine_config &config)
 	astdelux(config);
 
 	m_maincpu->set_addrmap(AS_PROGRAM, &amulti_state::mem_map);
+
+	EEPROM_93C46_8BIT(config, m_eeprom);
 }
 
 void amulti_state::init_amulti()
@@ -166,8 +178,8 @@ void amulti_state::init_amulti()
 	uint8_t* srcregion = memregion("user3")->base();
 	uint8_t* dstregion = memregion("maincpu")->base();
 	memcpy(dstregion+0x8000, srcregion, 0x2000);
-	memcpy(dstregion+0x6000, srcregion+0x4000, 0x2000);
-	memcpy(dstregion+0xe000, srcregion+0x4000, 0x2000);
+	memcpy(dstregion+0x6000, srcregion+0x2000, 0x2000);
+	memcpy(dstregion+0xe000, srcregion+0x2000, 0x2000);
 
 
 //	for (i = 0x10000; i < 0x18000; i++)
@@ -184,6 +196,38 @@ void amulti_state::init_amulti()
 //		src[i] = dst[i];
 }
 
+void amulti_state::rombank_w(offs_t, u8 data)
+{
+	uint8_t* srcregion = memregion("user3")->base();
+	uint8_t* dstregion = memregion("maincpu")->base();
+	printf("switch to rombank %X\n",data);
+	switch (data)
+	{
+		case 0x00:
+			memcpy(dstregion+0x8000, srcregion, 0x2000);
+			memcpy(dstregion+0x6000, srcregion+0x2000, 0x2000);
+			memcpy(dstregion+0xe000, srcregion+0x2000, 0x2000);
+			return;
+		case 0x40: // asteroids?
+			memcpy(dstregion+0x8000, srcregion+0x4000, 0x2000);
+			memcpy(dstregion+0x6000, srcregion+0x2000, 0x2000);
+			memcpy(dstregion+0xe000, srcregion+0x2000, 0x2000);
+			return;
+		case 0x80: // astdelux?
+			memcpy(dstregion+0x8000, srcregion+0x7f00, 0x2000);
+			memcpy(dstregion+0x6000, srcregion+0x4000, 0x2000);
+			memcpy(dstregion+0xe000, srcregion+0x4000, 0x2000);
+			return;
+		case 0xc0: // llander?
+			memcpy(dstregion+0x8000, srcregion+0xbf00, 0x2000);
+			memcpy(dstregion+0x6000, srcregion+0x7f00, 0x2000);
+			memcpy(dstregion+0xe000, srcregion+0x7f00, 0x2000);
+			return;
+		default:
+			printf("Unknown rombank: %X\n",data);
+			return;
+	}
+}
 
 GAME( 2002, amulti, astdelux, amulti, astdelux, amulti_state, init_amulti, ROT0, "Braze", "Asteroids Multigame", MACHINE_NOT_WORKING )
 
