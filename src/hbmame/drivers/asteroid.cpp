@@ -77,6 +77,11 @@ GAME( 1979, stardest,   asteroid, asteroid, asteroid, asteroid_state, empty_init
 
 such a confusing pile of roms
 
+Status: Selftest screen shows. Main rom unscrambled, passes the seflftest. NVram implemented.
+        Vector rom not unscrambled yet.
+        Numerous hacks to be removed. Proper rom banking to be done.
+        On the selftest, VEC is supposed to show the vector rom version (ex 1.1A).
+
 */
 
 class amulti_state : public asteroid_state
@@ -85,13 +90,12 @@ public:
 	amulti_state(const machine_config &mconfig, device_type type, const char *tag)
 		: asteroid_state(mconfig, type, tag)
 		, m_eeprom(*this, "nvram")
-//		, m_maincpu(*this, "maincpu")
 	{ }
 
 	void amulti(machine_config &config);
 	void init_amulti();
 	void mem_map(address_map &map);
-	void gfxbank_w(offs_t, u8 data) { };
+	void gfxbank_w(offs_t, u8 data);
 	void rombank_w(offs_t, u8 data);
 	required_device<eeprom_serial_93cxx_device> m_eeprom;
 };
@@ -115,18 +119,34 @@ ROM_START( amulti )
 	ROM_REGION( 0x18000, "user2", 0 )
 	//ROM_LOAD( "adla-11a.512",   0x0000, 0x10000, CRC(43ad0f95) SHA1(6105926b4d734ec12e23579faa4453b4d5a981f9) )
 	ROM_LOAD( "adld-11a.512",   0x0000, 0x10000, CRC(44e8583b) SHA1(945074d1efff3af83805bd3bcc403362038a1858) )
-	ROM_LOAD( "adlv-11a.256",   0x10000, 0x8000, CRC(a03b957c) SHA1(45819fafdb34b9da0c3100e5ff143ba8e164c9d0) )
+	//ROM_LOAD( "adlv-11a.256",   0x10000, 0x8000, CRC(a03b957c) SHA1(45819fafdb34b9da0c3100e5ff143ba8e164c9d0) )
 
 	ROM_REGION( 0x18000, "user3", ROMREGION_ERASEFF )
+	// asteroid
+	ROM_LOAD( "035127-02.np3", 0x11000, 0x0800, CRC(8b71fd9e) SHA1(8cd5005e531eafa361d6b7e9eed159d164776c70) ) //5000
+	ROM_FILL(0x10800,2,0xEA)
+	ROM_FILL(0x10802,1,1)
+	ROM_FILL(0x117fe,1,0)
+	// astdelux
+	ROM_LOAD( "036800-02.r2",  0x12800, 0x0800, CRC(bb8cabe1) SHA1(cebaa1b91b96e8b80f2b2c17c6fd31fa9f156386) ) //4800
+	ROM_LOAD( "036799-01.np2", 0x13000, 0x0800, CRC(7d511572) SHA1(1956a12bccb5d3a84ce0c1cc10c6ad7f64e30b40) ) //5000
+	ROM_FILL(0x12800,2,0xEA)
+	ROM_FILL(0x12802,1,1)
+	ROM_FILL(0x137fe,1,0)
+	// llander
+	ROM_LOAD( "034599-01.r3",  0x14800, 0x0800, CRC(355a9371) SHA1(6ecb40169b797d9eb623bcb17872f745b1bf20fa) ) //4800
+	ROM_LOAD( "034598-01.np3", 0x15000, 0x0800, CRC(9c4ffa68) SHA1(eb4ffc289d254f699f821df3146aa2c6cd78597f) ) //5000
+	ROM_LOAD( "034597-01.m3",  0x15800, 0x0800, CRC(ebb744f2) SHA1(e685b094c1261a351e4e82dfb487462163f136a4) ) //5800
+	ROM_FILL(0x14800,2,0xEA)
+	ROM_FILL(0x14802,1,1)
+	ROM_FILL(0x157fe,1,0)
 ROM_END
 
 void amulti_state::mem_map(address_map &map)
 {
-	//map.global_mask(0x7fff);
 	map(0x0000, 0x01ff).ram();
 	map(0x0200, 0x02ff).bankrw("ram1");
 	map(0x0300, 0x03ff).bankrw("ram2");
-	map(0x0400, 0xffff).rom();
 	map(0x2000, 0x2007).r(FUNC(asteroid_state::asteroid_IN0_r)).nopw(); // IN0
 	map(0x2400, 0x2407).r(FUNC(asteroid_state::asteroid_IN1_r)).nopw(); // IN1
 	map(0x2800, 0x2803).r(FUNC(asteroid_state::asteroid_DSW1_r));       // DSW1
@@ -140,8 +160,12 @@ void amulti_state::mem_map(address_map &map)
 	map(0x3c00, 0x3c07).w("audiolatch", FUNC(ls259_device::write_d7));
 	map(0x3e00, 0x3e00).w(FUNC(asteroid_state::asteroid_noise_reset_w));
 	map(0x4000, 0x47ff).ram();                     // vector RAM
+	map(0x4800, 0x5fff).rom();                     // vector ROM
+	map(0x6000, 0x7fff).rom().mirror(0x8000);      // game ROM
+	map(0x8000, 0x9fff).rom();                     // boot rom
 	map(0xd900, 0xd900).w(FUNC(amulti_state::gfxbank_w));
 	map(0xda00, 0xda00).w(FUNC(amulti_state::rombank_w));
+	// NVram interface
 	map(0xd300, 0xd300).lw8(NAME([this] (u8 data) {m_eeprom->clk_write(BIT(data,0)); }));
 	map(0xd500, 0xd500).lw8(NAME([this] (u8 data) {m_eeprom->di_write(BIT(data,7)); }));
 	map(0xd800, 0xd800).lr8(NAME([this] () {return m_eeprom->do_read() ? 128 : 0; }));
@@ -165,6 +189,7 @@ void amulti_state::init_amulti()
 	offs_t i,j;
 	u8 t;
 
+	// unscramble main rom
 	for (i = 0; i < 0x10000; i++)
 	{
 		t = bitswap<8>(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
@@ -175,15 +200,18 @@ void amulti_state::init_amulti()
 
 		dst[j] = t;
 	}
-	uint8_t* srcregion = memregion("user3")->base();
-	uint8_t* dstregion = memregion("maincpu")->base();
-	memcpy(dstregion+0x8000, srcregion, 0x2000);
-	memcpy(dstregion+0x6000, srcregion+0x2000, 0x2000);
-	memcpy(dstregion+0xe000, srcregion+0x2000, 0x2000);
 
+	dst[0x5a9] = 0x80;
+	dst[0x5c6] = 0xd0;
+	dst[0x6f8] = 0xd0;
+	dst[0x78f] = 0x1a;
+	dst[0x790] = 0x1a;
+	dst[0x791] = 0x1a;
 
-//	for (i = 0x10000; i < 0x18000; i++)
-//		src[i] = bitswap<8>(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
+	// unscramble vector rom (to do later - in the meantime we will just use the original roms)
+
+	//for (i = 0x10000; i < 0x18000; i++)
+		//src[i] = bitswap<8>(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
 
 //	for (i = 0x10000; i < 0x18000; i++)
 //	{
@@ -191,9 +219,8 @@ void amulti_state::init_amulti()
 //		dst[j|0x10000] = src[i];
 //	}
 
-//	src = memregion("maincpu")->base()+0x6000;
-//	for (i = 0; i < 0x2000; i++)
-//		src[i] = dst[i];
+	rombank_w(0,0);
+	gfxbank_w(0,0);
 }
 
 void amulti_state::rombank_w(offs_t, u8 data)
@@ -206,25 +233,42 @@ void amulti_state::rombank_w(offs_t, u8 data)
 		case 0x00:
 			memcpy(dstregion+0x8000, srcregion, 0x2000);
 			memcpy(dstregion+0x6000, srcregion+0x2000, 0x2000);
-			memcpy(dstregion+0xe000, srcregion+0x2000, 0x2000);
 			return;
 		case 0x40: // asteroids?
 			memcpy(dstregion+0x8000, srcregion+0x4000, 0x2000);
 			memcpy(dstregion+0x6000, srcregion+0x2000, 0x2000);
-			memcpy(dstregion+0xe000, srcregion+0x2000, 0x2000);
 			return;
 		case 0x80: // astdelux?
 			memcpy(dstregion+0x8000, srcregion+0x7f00, 0x2000);
 			memcpy(dstregion+0x6000, srcregion+0x4000, 0x2000);
-			memcpy(dstregion+0xe000, srcregion+0x4000, 0x2000);
 			return;
 		case 0xc0: // llander?
 			memcpy(dstregion+0x8000, srcregion+0xbf00, 0x2000);
 			memcpy(dstregion+0x6000, srcregion+0x7f00, 0x2000);
-			memcpy(dstregion+0xe000, srcregion+0x7f00, 0x2000);
 			return;
 		default:
 			printf("Unknown rombank: %X\n",data);
+			return;
+	}
+}
+
+void amulti_state::gfxbank_w(offs_t, u8 data)
+{
+	uint8_t* srcregion = memregion("user3")->base()+0x10000;
+	uint8_t* dstregion = memregion("maincpu")->base()+0x4800;
+	printf("switch to gfxbank %X\n",data);
+	switch (data)
+	{
+		case 0x00:
+			memcpy(dstregion, srcregion+0x2800, 0x1800);
+			dstregion[0xffe] = 0x80;
+			return;
+		case 0x80: 
+			memcpy(dstregion, srcregion+0x2800, 0x1800);
+			dstregion[0xffe] = 0x40;
+			return;
+		default:
+			printf("Unknown gfxbank: %X\n",data);
 			return;
 	}
 }

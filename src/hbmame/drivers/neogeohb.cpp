@@ -393,7 +393,7 @@ YEAR COMPANY                          TITLE
 2022 Tigerskunk                       Inviyya II / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
-2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
+2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs) (cancelled due to bankruptcy)
 2023 Bitmap Bureau                    Final Vendetta (there's talk of a NeoGeo release, but...?)
 2023 NeoHomeBrew                      Flippers Demo (on youtube)
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
