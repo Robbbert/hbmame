@@ -40,6 +40,17 @@ ROM_START( drmario01 )
 	PALETTE_2C04_0003("ppu1:palette")
 ROM_END
 
+ROM_START( drluigi )
+	ROM_REGION( 0x10000, "prg", 0 )
+	ROM_LOAD( "dl-uiprg",                  0x00000, 0x10000, CRC(bcef3c87) SHA1(797f09e3c7b07a1b0828d44b0302a81a9d62a0e8) )
+
+	ROM_REGION( 0x8000, "gfx1", 0 )
+	ROM_LOAD( "dl-u3chr",                  0x0000, 0x8000, CRC(07f8d222) SHA1(f6a0e418ab6da29eda25d0b871df072c16ded4fe) )
+
+	ROM_REGION( 0xc0, "ppu1:palette", 0 )
+	ROM_LOAD( "dl_rp2c04-0003.pal", 0x00, 0xc0, CRC(c40eea5f) SHA1(2b4a03f709441e8d4344d6e39060b8d9a376074f) )
+ROM_END
+
 static INPUT_PORTS_START( frombelow )
 	PORT_INCLUDE( vsnes_rev )
 
@@ -139,6 +150,7 @@ GAME( 2002, mrio2002,    suprmrio,     vsnes,    suprmrio,  vsnes_state, init_vs
 GAME( 2025, mightybj01,  nvs_mightybj, mightybj, mightybj,  vsnes_state, init_vsnormal, ROT0, "Vag", "Mighty Bomb Jack (Greek)", 0 )
 GAME( 1986, suprsktr,    suprmrio,     vsnes,    suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
 GAME( 2002, drmario01,   drmario,      vsnes,    drmario,   vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
+GAME( 2019, drluigi,     drmario,      vsnes,    drmario,   vsnes_state, init_drmario,  ROT0, "Szemigi", "Dr. Luigi", 0 )
 GAME( 2020, frombelow,   suprmrio,     vsnes,    frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
 GAME( 2020, vs_urban,    drmario,      vsnes,    vs_urban,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
 
