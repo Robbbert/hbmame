@@ -81,6 +81,11 @@ asuka01
 bonzeadv                               //parent
 jigkmgri01
 
+@source:atarigt.cpp
+primrage
+primrage01
+primrage02
+
 @source:atarisy1.cpp
 atarisy1                               //bios
 indytemp                               //parent

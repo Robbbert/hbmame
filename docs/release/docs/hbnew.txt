@@ -13,6 +13,8 @@ New Games
 - [gmultic]             Galaxian Multigame (2025) [Macro]
 - [maglord02]           Magician Lord (Again Changes From Hell v1.0.0) [Boomchild]
 - [mightybj01]          Mighty Bomb Jack (Greek) [Vag]
+- [primrage01]          Primal Rage (version X.0)
+- [primrage02]          Primal Rage (Hack Menu)
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.6)
 - [sinvtest4]           Space Invaders Test ROM (SMv1.1, 2025-07-11) [philmurr]
 - [smulti]              Scramble MultiKit v1.0 (Not Working)
