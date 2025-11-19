@@ -8651,6 +8651,10 @@ snowbros04
 solomon                                //parent
 solomon01
 
+@source:sonson.cpp
+sonson                                 //parent
+sonson01
+
 @source:spacmiss.cpp
 spacmissx                              // extra sounds
 

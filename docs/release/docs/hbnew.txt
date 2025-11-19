@@ -16,6 +16,7 @@ New Games
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.6)
 - [sinvtest4]           Space Invaders Test ROM (SMv1.1, 2025-07-11) [philmurr]
 - [smulti]              Scramble MultiKit v1.0 (Not Working)
+- [sonson01]            Son Son (Greek) [Vag]
 - [umk3wn]              Ultimate Mortal Kombat 3 (WaveNet) [Neotendo]
 - [wjammers01]          Windjammers (Let me play longer) [Boomchild]
 - [wwesstar]            WWE Superstars (Basic Fun)
