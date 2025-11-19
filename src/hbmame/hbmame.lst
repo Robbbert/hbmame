@@ -42,6 +42,7 @@ sinvtest0
 sinvtest1
 sinvtest2
 sinvtest3
+sinvtest4
 
 @source:aerofgt.cpp
 karatblz                               //parent
@@ -8916,6 +8917,8 @@ drmario                                //parent
 drmario01
 frombelow
 vs_urban
+nvs_mightybj                           //parent
+mightybj01
 
 @source:warriorb.cpp
 sagaiav2
