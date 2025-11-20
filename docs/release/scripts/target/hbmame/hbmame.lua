@@ -361,7 +361,10 @@ createHBMAMEProjects(_target, _subtarget, "atari")
 files {
 	MAME_DIR .. "src/hbmame/drivers/asteroid.cpp",
 	MAME_DIR .. "src/mame/machine/asteroid.cpp",
+	MAME_DIR .. "src/hbmame/drivers/atarigt.cpp",
+	MAME_DIR .. "src/mame/video/atarigt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/atarisy1.cpp",
+	MAME_DIR .. "src/mame/video/atarirle.cpp",  -- for atarigt
 	MAME_DIR .. "src/mame/video/atarisy1.cpp",
 	MAME_DIR .. "src/mame/audio/asteroid.cpp",
 	MAME_DIR .. "src/hbmame/drivers/bwidow.cpp",
@@ -403,6 +406,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/blktiger.cpp",
 	MAME_DIR .. "src/hbmame/drivers/commando.cpp",
 	MAME_DIR .. "src/mame/video/commando.cpp",
+	MAME_DIR .. "src/hbmame/drivers/sonson.cpp",
+	MAME_DIR .. "src/mame/video/sonson.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps1.cpp",
 	MAME_DIR .. "src/hbmame/video/cps1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps2.cpp",
@@ -648,6 +653,7 @@ files {
 	MAME_DIR .. "src/mame/video/k054156_k054157_k056832.cpp",
 	MAME_DIR .. "src/mame/video/k053936.cpp",
 	MAME_DIR .. "src/mame/video/k055555.cpp",
+	MAME_DIR .. "src/hbmame/machine/galser.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "metro")
@@ -1047,6 +1053,10 @@ files {
 	MAME_DIR .. "src/mame/video/shadfrce.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ddragon.cpp",
 	MAME_DIR .. "src/mame/video/ddragon.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ddragon3.cpp",
+	MAME_DIR .. "src/mame/video/ddragon3.cpp",
+	MAME_DIR .. "src/hbmame/drivers/wwfsstar.cpp",
+	MAME_DIR .. "src/mame/video/wwfsstar.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")

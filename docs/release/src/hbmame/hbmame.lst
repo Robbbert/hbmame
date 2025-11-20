@@ -10,18 +10,18 @@
 
 
 @source:1942.cpp
-1942			//parent
+1942                                   //parent
 1942h
-1942c64			// 1942 with C64 sounds (by minwah)
-1942fpa			// 1942 with free play (by cmonkey)
-galagax 		/* Jerky - Chris Moore hack of 1942 */
+1942c64                                // 1942 with C64 sounds (by minwah)
+1942fpa                                // 1942 with free play (by cmonkey)
+galagax
 
 @source:1943.cpp
-1943			//parent
-1943h			/* Hacked to have the vendor name and phone number */
-1943kai			//parent
+1943                                   //parent
+1943h
+1943kai                                //parent
 1943kais01
-1943b2			// from FBN
+1943b2
 
 @source:8080bw.cpp
 invaders                               //parent
@@ -42,6 +42,7 @@ sinvtest0
 sinvtest1
 sinvtest2
 sinvtest3
+sinvtest4
 
 @source:aerofgt.cpp
 karatblz                               //parent
@@ -49,29 +50,30 @@ karatblzas01
 karatblzas02
 
 @source:arkanoid.cpp
-arkanoid		//parent
-akblc2dx		/* hack */
-akgcdx			/* hack */
-aktaytdx		/* hack */
+arkanoid                               //parent
+akblc2dx
+akgcdx
+aktaytdx
 //arkll32                              // broke mid-2022 after Z80 changes
 arkcrsn5
 
 @source:asteroid.cpp
-asteroid		//parent
-asteroid6		/* Clay Cowgill Bullet Hack */
+asteroid                               //parent
+asteroid6
 astdelux4
-starslayer		// star destroyer, hack of asteroid2
-//amg			// test only
+stardest
+astdelux
+//amulti                                // skeleton
 
 @source:astrocde.cpp
-tst_gorf		/* Gorf test rom */
-tst_gor1		/* Gorf test rom */
-tst_wow2		/* Wow test rom */
-tst_wow3		/* Wow test rom */
+tst_gorf
+tst_gor1
+tst_wow2
+tst_wow3
 
 @source:astrof.cpp
-astrof			//parent
-astrofbl		/* Black Background */
+astrof                                 //parent
+astrofbl
 
 @source:asuka.cpp
 asuka                                  //parent
@@ -79,21 +81,26 @@ asuka01
 bonzeadv                               //parent
 jigkmgri01
 
+@source:atarigt.cpp
+primrage
+primrage01
+primrage02
+
 @source:atarisy1.cpp
-atarisy1		//bios
-indytemp		//parent
+atarisy1                               //bios
+indytemp                               //parent
 ataris1hw
 ataris1rt
 
 @source:bagman.cpp
-bagman			//parent
+bagman                                 //parent
 bagturbo
-pickin			//parent
-pickinpi		/* Color Hack by Pi */
+pickin                                 //parent
+pickinpi
 
 @source:blktiger.cpp
-blktiger		//parent
-blkdrgonk		/* Korean Translation */
+blktiger                               //parent
+blkdrgonk
 
 @source:blockhl.cpp
 blockhl                                //parent
@@ -104,23 +111,23 @@ bloodbro                               //parent
 bloodbro01
 
 @source:bombjack.cpp
-bombjack		//parent
-bmbjckgr		/* Vag @ GreekRoms */
-bombjckb		/* bootleg */
-bombjred		/* hack by unknown French person */
+bombjack                               //parent
+bmbjckgr
+bombjckb
+bombjred
 bombjacks01
 
 @source:btime.cpp
-btime			//parent
-brubber			//parent
-lnc				//parent
-bnjr			/* Bump N Jump Reverse Mod */
-pnc				/* Pac N Chase */
-stictime		/* Marks Hack of btime */
-vecbtime		/* T-Bone hack of Burgertime */
+btime                                  //parent
+brubber                                //parent
+lnc                                    //parent
+bnjr
+pnc
+stictime
+vecbtime
 
 @source:bublbobl.cpp
-bublbobl		//parent
+bublbobl                               //parent
 bublboblu
 bublboblu2
 bub68705a
@@ -836,6 +843,7 @@ dinos280
 dinos281
 dinos282
 dinos283
+dinos284
 dinot01                                // Turbo-97
 dinot02
 dinot03
@@ -1026,20 +1034,6 @@ sf2koryu01
 sf2koryu02
 sf2koryu03
 sf2koryu04
-sf2mix96
-sf2mix96d
-sf2mix97
-sf2mix98
-sf2mix98a
-sf2mix98b
-sf2mix98c
-sf2mix99
-sf2mix99a
-sf2mix100
-sf2mix110
-sf2mix120
-sf2mix130
-sf2mix140
 sf2mix
 sf2mkot01
 sf2red01
@@ -1711,6 +1705,10 @@ futaribljc
 ddragon2                               //parent
 ddragon2s01
 
+@source:ddragon3.cpp
+wwfwfest                               //parent
+wwewfest
+
 @source:dbz.cpp
 dbz                                    //parent
 dbz01
@@ -1984,8 +1982,9 @@ vectrgal	/* T-Bone hack of Galaxian */
 fourplay
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
-//multigameb                           // skeleton
-//scramblemk                             // skeleton
+gmultib
+gmultic
+smulti                                // skeleton
 
 @source:gauntlet.cpp
 gaunt2		//parent
@@ -4470,6 +4469,7 @@ umk3r13b1			/* UMK3 1.3 public beta 1 */
 umk3te				/* UMK3 Tournament Edition 2.0.032b8 */
 umk3te2				/* UMK3 Tournament Edition 2.0.035 */
 umk3te42			/* UMK3 Tournament Edition 2.0.042 */
+umk3wn
 umk3z				/* UMK3 1.2 Zeus hack */
 umk3ze
 umk3r13b101
@@ -6140,11 +6140,12 @@ abyssal
 abyssal1
 akiradmo
 amazonn
-badapple			// BEY
+badapple
 badapplea
 badappleb
 baddudesn
-beast		/* 2002 (c) 1989 Psygnosis */
+bbb2
+beast
 bonusstage                             // HB
 bpanicdx                               // HB
 cabalng                                // port
@@ -6186,16 +6187,17 @@ gladmort
 gladmortd
 gladmortd2
 goldaxen
+//greenspace
 gxg
 horekidb3
 hypernoid
 //igla
 inthuntn
-iocero		// BEY
+iocero
 jumpnrund
 jurl
 karnovn
-knacki		// KnackiBalls by Furrtek
+knacki
 knightsch
 lernit
 lhbb
@@ -6207,27 +6209,29 @@ looptrsp
 ltorb
 ndo_a_td
 neo2048
-neo2500		/* Blastar */
-neo3d		// Oxygene
-neocstlv	// BarfHappy
-neodemo		/* Charles Doty */
-neofight	// Kannagi
+neo2500
+neo3d
+neocstlv
+neodemo
+//neodemo02
+neofight
 neofightb
 neofighto
-neogal1		// BEY
-neogal1d	// BEY
-neogal1t	// BEY
-neogal2		// BEY
-neonopon	/* (c) 2002-10-05 Blastar */
+neogal1
+neogal1d
+neogal1t
+neogal2
+//neohw
+neonopon
 //neonopon_d1 // unplayable demo
 //neonopon_d2 // unplayable demo
 //neonopon_d3 // unplayable demo
 neopang
-neopong		/* (c) 2002 Neodev */
-neoponga	/* (c) 2002 Neodev */
-neoromjb	// CeL
-neotest		// BEY
-neothund	// Sebastian Mihai
+neopong
+neoponga
+neoromjb
+neotest
+neothund
 neotrisd1
 neotrisd2
 neotrisd3
@@ -6394,7 +6398,8 @@ magdrop3s01
 magdrop3s02
 magdrop3s03
 magdrop3s04
-maglordpx
+maglord01
+maglord02
 matrim01
 matrim02
 matrim03
@@ -6503,8 +6508,9 @@ wakuwak7s02
 wakuwak7s03
 wakuwak7s04
 wakuwak7s05
-wjammersf
-wjammersk
+wjammers01
+wjammers02
+wjammers03
 zupapad
 zupapadd
 blazstarcm
@@ -8650,6 +8656,10 @@ snowbros04
 solomon                                //parent
 solomon01
 
+@source:sonson.cpp
+sonson                                 //parent
+sonson01
+
 @source:spacmiss.cpp
 spacmissx                              // extra sounds
 
@@ -8914,8 +8924,11 @@ mrio2002                               // Vs. Super Mario Bros. 2002
 suprsktr                               // Vs. Super Skater Bros. - Vs. Super Mario Skaters
 drmario                                //parent
 drmario01
+drluigi
 frombelow
 vs_urban
+nvs_mightybj                           //parent
+mightybj01
 
 @source:warriorb.cpp
 sagaiav2
@@ -8946,6 +8959,10 @@ stinger2s01
 
 @source:wmg.cpp
 wmg
+
+@source:wwfsstar.cpp
+wwfsstar                               //parent
+wwesstar
 
 @source:yiear.cpp
 yiear                                  //parent

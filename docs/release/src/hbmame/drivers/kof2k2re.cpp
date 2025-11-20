@@ -12,18 +12,18 @@ class kof2k2re_hbmame : public neogeo_state
 public:
 	kof2k2re_hbmame(const machine_config &mconfig, device_type type, const char *tag)
 		: neogeo_state(mconfig, type, tag)
-		, m2_audiocpu(*this, "audiocpu_m2")
-		, m2_ym(*this, "ymsnd_m2")
+		, m2_audiocpu(*this, "audiocpu2")
+		, m2_ym(*this, "ymsnd2")
 		, m2_soundlatch(*this, "soundlatch_m2")
 		, m2_soundlatch2(*this, "soundlatch2_m2")
 		, m2_bank_audio_main(*this, "audio2_main")
-		, m3_audiocpu(*this, "audiocpu_m3")
-		, m3_ym(*this, "ymsnd_m3")
+		, m3_audiocpu(*this, "audiocpu3")
+		, m3_ym(*this, "ymsnd3")
 		, m3_soundlatch(*this, "soundlatch_m3")
 		, m3_soundlatch2(*this, "soundlatch2_m3")
 		, m3_bank_audio_main(*this, "audio3_main")
-		, m4_audiocpu(*this, "audiocpu_m4")
-		, m4_ym(*this, "ymsnd_m4")
+		, m4_audiocpu(*this, "audiocpu4")
+		, m4_ym(*this, "ymsnd4")
 		, m4_soundlatch(*this, "soundlatch_m4")
 		, m4_soundlatch2(*this, "soundlatch2_m4")
 		, m4_bank_audio_main(*this, "audio4_main")
@@ -98,14 +98,12 @@ void kof2k2re_hbmame::machine_start()
 	m4_ym->reset();
 
 	/* set the initial audio CPU ROM banks */
-	u8 *rgn = memregion("audiocpu_m2")->base();
+	u8 *rgn = memregion("audiocpu2")->base();
 
 	/* audio bios/cartridge selection */
-	m2_bank_audio_main->configure_entry(1, memregion("audiocpu_m2")->base());
+	m2_bank_audio_main->configure_entry(1, memregion("audiocpu2")->base());
 	if (memregion("audiobios"))
 		m2_bank_audio_main->configure_entry(0, memregion("audiobios")->base());
-	else /* on hardware with no SM1 ROM, the cart ROM is always enabled */
-		m2_bank_audio_main->configure_entry(0, memregion("audiocpu_m2")->base());
 
 	m2_bank_audio_main->set_entry(m_use_cart_audio);
 
@@ -115,7 +113,7 @@ void kof2k2re_hbmame::machine_start()
 	m2_bank_audio_cart[2] = membank("audio2_c000");
 	m2_bank_audio_cart[3] = membank("audio2_8000");
 
-	u32 address_mask = (memregion("audiocpu_m2")->bytes() - 0x10000 - 1) & 0x3ffff;
+	u32 address_mask = (memregion("audiocpu2")->bytes() - 0x10000 - 1) & 0x3ffff;
 
 
 	for (u8 region = 0; region < 4; region++)
@@ -133,14 +131,12 @@ void kof2k2re_hbmame::machine_start()
 	m2_bank_audio_cart[3]->set_entry(0x02);
 
 	/* set the initial audio CPU ROM banks */
-	rgn = memregion("audiocpu_m3")->base();
+	rgn = memregion("audiocpu3")->base();
 
 	/* audio bios/cartridge selection */
-	m3_bank_audio_main->configure_entry(1, memregion("audiocpu_m3")->base());
+	m3_bank_audio_main->configure_entry(1, memregion("audiocpu3")->base());
 	if (memregion("audiobios"))
 		m3_bank_audio_main->configure_entry(0, memregion("audiobios")->base());
-	else /* on hardware with no SM1 ROM, the cart ROM is always enabled */
-		m3_bank_audio_main->configure_entry(0, memregion("audiocpu_m3")->base());
 
 	m3_bank_audio_main->set_entry(m_use_cart_audio);
 
@@ -150,7 +146,7 @@ void kof2k2re_hbmame::machine_start()
 	m3_bank_audio_cart[2] = membank("audio3_c000");
 	m3_bank_audio_cart[3] = membank("audio3_8000");
 
-	address_mask = (memregion("audiocpu_m3")->bytes() - 0x10000 - 1) & 0x3ffff;
+	address_mask = (memregion("audiocpu3")->bytes() - 0x10000 - 1) & 0x3ffff;
 
 
 	for (u8 region = 0; region < 4; region++)
@@ -168,14 +164,12 @@ void kof2k2re_hbmame::machine_start()
 	m3_bank_audio_cart[3]->set_entry(0x02);
 
 	/* set the initial audio CPU ROM banks */
-	rgn = memregion("audiocpu_m4")->base();
+	rgn = memregion("audiocpu4")->base();
 
 	/* audio bios/cartridge selection */
-	m4_bank_audio_main->configure_entry(1, memregion("audiocpu_m4")->base());
+	m4_bank_audio_main->configure_entry(1, memregion("audiocpu4")->base());
 	if (memregion("audiobios"))
 		m4_bank_audio_main->configure_entry(0, memregion("audiobios")->base());
-	else /* on hardware with no SM1 ROM, the cart ROM is always enabled */
-		m4_bank_audio_main->configure_entry(0, memregion("audiocpu_m4")->base());
 
 	m4_bank_audio_main->set_entry(m_use_cart_audio);
 
@@ -185,7 +179,7 @@ void kof2k2re_hbmame::machine_start()
 	m4_bank_audio_cart[2] = membank("audio4_c000");
 	m4_bank_audio_cart[3] = membank("audio4_8000");
 
-	address_mask = (memregion("audiocpu_m4")->bytes() - 0x10000 - 1) & 0x3ffff;
+	address_mask = (memregion("audiocpu4")->bytes() - 0x10000 - 1) & 0x3ffff;
 
 
 	for (u8 region = 0; region < 4; region++)
@@ -237,7 +231,7 @@ u8 kof2k2re_hbmame::audio2_command_r()
 }
 
 u8 kof2k2re_hbmame::audio2_bank_select_r(offs_t offset)
-{
+{printf("2=%X ",offset);
 	m2_bank_audio_cart[offset & 3]->set_entry(offset >> 8);
 	return 0;
 }
@@ -276,7 +270,7 @@ u8 kof2k2re_hbmame::audio3_command_r()
 }
 
 u8 kof2k2re_hbmame::audio3_bank_select_r(offs_t offset)
-{
+{//printf("3=%X ",offset);
 	m3_bank_audio_cart[offset & 3]->set_entry(offset >> 8);
 	return 0;
 }
@@ -315,7 +309,7 @@ u8 kof2k2re_hbmame::audio4_command_r()
 }
 
 u8 kof2k2re_hbmame::audio4_bank_select_r(offs_t offset)
-{
+{//printf("4=%X ",offset);
 	m4_bank_audio_cart[offset & 3]->set_entry(offset >> 8);
 	return 0;
 }
@@ -326,9 +320,9 @@ void kof2k2re_hbmame::ps2_map(address_map &map)
 	//map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
 	//map(0x340000, 0x340001).mirror(0x01fffe).portr("IN1");
 	//map(0x3a0000, 0x3a001f).mirror(0x01ffe0).w(FUNC(kof2k2re_hbmame::system_control_w_m4));
-	map(0xba0000, 0xba0001).mirror(0x01fffe).rw(FUNC(kof2k2re_hbmame::audio4_result_r),FUNC(kof2k2re_hbmame::audio4_command_w));
-	map(0xbc0000, 0xbc0001).mirror(0x01fffe).rw(FUNC(kof2k2re_hbmame::audio3_result_r),FUNC(kof2k2re_hbmame::audio3_command_w));
-	map(0xbe0000, 0xbe0001).mirror(0x01fffe).rw(FUNC(kof2k2re_hbmame::audio2_result_r),FUNC(kof2k2re_hbmame::audio2_command_w));
+	map(0xba0000, 0xba0001).rw(FUNC(kof2k2re_hbmame::audio4_result_r),FUNC(kof2k2re_hbmame::audio4_command_w));
+	map(0xbc0000, 0xbc0001).rw(FUNC(kof2k2re_hbmame::audio3_result_r),FUNC(kof2k2re_hbmame::audio3_command_w));
+	map(0xbe0000, 0xbe0001).rw(FUNC(kof2k2re_hbmame::audio2_result_r),FUNC(kof2k2re_hbmame::audio2_command_w));
 	//map(0xba0000,0xba0001).w(FUNC(kof2k2re_hbmame::audio4_command_w)).umask16(0xff00);
 	//map(0xbc0000,0xbc0001).w(FUNC(kof2k2re_hbmame::audio3_command_w)).umask16(0xff00);
 	//map(0xbe0000,0xbe0001).w(FUNC(kof2k2re_hbmame::audio2_command_w)).umask16(0xff00);
@@ -347,7 +341,7 @@ void kof2k2re_hbmame::audio2_map(address_map &map)
 void kof2k2re_hbmame::audio2_io(address_map &map)
 {
 	map(0x00,0x00).mirror(0xff00).r(FUNC(kof2k2re_hbmame::audio2_command_r)).w("soundlatch_m2",FUNC(generic_latch_8_device::clear_w));
-	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m2",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd2",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
 	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(kof2k2re_hbmame::audio2_enable_nmi_w));
 	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(kof2k2re_hbmame::audio2_bank_select_r));
 	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m2",FUNC(generic_latch_8_device::write));
@@ -366,7 +360,7 @@ void kof2k2re_hbmame::audio3_map(address_map &map)
 void kof2k2re_hbmame::audio3_io(address_map &map)
 {
 	map(0x00,0x00).mirror(0xff00).r(FUNC(kof2k2re_hbmame::audio3_command_r)).w("soundlatch_m3",FUNC(generic_latch_8_device::clear_w));
-	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m3",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd3",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
 	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(kof2k2re_hbmame::audio3_enable_nmi_w));
 	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(kof2k2re_hbmame::audio3_bank_select_r));
 	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m3",FUNC(generic_latch_8_device::write));
@@ -385,7 +379,7 @@ void kof2k2re_hbmame::audio4_map(address_map &map)
 void kof2k2re_hbmame::audio4_io(address_map &map)
 {
 	map(0x00,0x00).mirror(0xff00).r(FUNC(kof2k2re_hbmame::audio4_command_r)).w("soundlatch_m4",FUNC(generic_latch_8_device::clear_w));
-	map(0x04,0x07).mirror(0xff00).rw("ymsnd_m4",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
+	map(0x04,0x07).mirror(0xff00).rw("ymsnd4",FUNC(ym2610_device::read),FUNC(ym2610_device::write));
 	map(0x08,0x08).mirror(0xff00).select(0x0010).w(FUNC(kof2k2re_hbmame::audio4_enable_nmi_w));
 	map(0x08,0x0b).mirror(0x00f0).select(0xff00).r(FUNC(kof2k2re_hbmame::audio4_bank_select_r));
 	map(0x0c,0x0c).mirror(0xff00).w("soundlatch2_m4",FUNC(generic_latch_8_device::write));
@@ -446,29 +440,29 @@ ROM_START( kf2k2ps2re )
 
 	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1C661A4B)  SHA1(4E5AA862A0A182A806D538996DDC68D9F2DFFAF7) )
 
-	ROM_REGION( 0x30000, "audiocpu_m2", 0 )
+	ROM_REGION( 0x30000, "audiocpu2", 0 )
 	ROM_LOAD( "214.m1", 0x00000, 0x20000, CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
 	ROM_RELOAD(     0x10000, 0x20000 )
 
-	ROM_REGION( 0x50000, "audiocpu_m3", 0 )
+	ROM_REGION( 0x50000, "audiocpu3", 0 )
 	ROM_LOAD( "262n.m1", 0x00000, 0x40000, CRC(4BCC537B) SHA1(9FCF1342BCD53D5EEC12C46EE41A51BF543256C2) )
 	ROM_RELOAD(     0x10000, 0x40000 )
 
-	ROM_REGION( 0x90000, "audiocpu_m4", 0 )
+	ROM_REGION( 0x90000, "audiocpu4", 0 )
 	ROM_LOAD( "269dd.m1", 0x00000, 0x80000, CRC(7B7BF462) SHA1(7466A6962DE5242F71B9C52D7BD21A9832115E11) )
 	ROM_RELOAD(     0x10000, 0x80000 )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0FC9A58D) SHA1(9D79EF00E2C2ABD9F29AF5521C2FBE5798BF336F) )
 	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(B8C475A4) SHA1(10CAF9C69927A223445D2C4B147864C02CE520A8) )
-	ROM_REGION( 0x1000000, "ymsnd_m2:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd2:adpcma", 0 )
 	ROM_LOAD( "214.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
 	ROM_LOAD( "214.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
 	ROM_LOAD( "214.v3", 0x800000, 0x200000, CRC(92a2257d) SHA1(5064aec78fa0d104e5dd5869b95382aa170214ee) )
-	ROM_REGION( 0x1000000, "ymsnd_m3:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd3:adpcma", 0 )
 	ROM_LOAD( "262d.v1", 0x000000, 0x800000, CRC(AC2913BF) SHA1(1721EC3D19684AF702F6C93DA25BB787A5D9DBFF) )
 	ROM_LOAD( "262d.v2", 0x800000, 0x800000, CRC(15042F30) SHA1(F92E49110BDE007104590BE1A0FDC8064C216C37) )
-	ROM_REGION( 0x1000000, "ymsnd_m4:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd4:adpcma", 0 )
 	ROM_LOAD( "269pcbd.v1", 0x000000, 0x800000, CRC(FF64CD56) SHA1(E2754C554ED5CA14C2020C5D931021D5AC82660C) )
 	ROM_LOAD( "269pcbd.v2", 0x800000, 0x800000, CRC(A8DD6446) SHA1(8972AAB271C33F8AF344BFFE6359D9DDC4B8AF2E) )
 
@@ -497,29 +491,29 @@ ROM_START( kf2k2ps2re1 )
 
 	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1C661A4B)  SHA1(4E5AA862A0A182A806D538996DDC68D9F2DFFAF7) )
 
-	ROM_REGION( 0x30000, "audiocpu_m2", 0 )
+	ROM_REGION( 0x30000, "audiocpu2", 0 )
 	ROM_LOAD( "214.m1", 0x00000, 0x20000, CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
 	ROM_RELOAD(     0x10000, 0x20000 )
 
-	ROM_REGION( 0x50000, "audiocpu_m3", 0 )
+	ROM_REGION( 0x50000, "audiocpu3", 0 )
 	ROM_LOAD( "262n.m1", 0x00000, 0x40000, CRC(4BCC537B) SHA1(9FCF1342BCD53D5EEC12C46EE41A51BF543256C2) )
 	ROM_RELOAD(     0x10000, 0x40000 )
 
-	ROM_REGION( 0x90000, "audiocpu_m4", 0 )
+	ROM_REGION( 0x90000, "audiocpu4", 0 )
 	ROM_LOAD( "269dd.m1", 0x00000, 0x80000, CRC(7B7BF462) SHA1(7466A6962DE5242F71B9C52D7BD21A9832115E11) )
 	ROM_RELOAD(     0x10000, 0x80000 )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0FC9A58D) SHA1(9D79EF00E2C2ABD9F29AF5521C2FBE5798BF336F) )
 	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(B8C475A4) SHA1(10CAF9C69927A223445D2C4B147864C02CE520A8) )
-	ROM_REGION( 0x1000000, "ymsnd_m2:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd2:adpcma", 0 )
 	ROM_LOAD( "214.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
 	ROM_LOAD( "214.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
 	ROM_LOAD( "214.v3", 0x800000, 0x200000, CRC(92a2257d) SHA1(5064aec78fa0d104e5dd5869b95382aa170214ee) )
-	ROM_REGION( 0x1000000, "ymsnd_m3:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd3:adpcma", 0 )
 	ROM_LOAD( "262d.v1", 0x000000, 0x800000, CRC(AC2913BF) SHA1(1721EC3D19684AF702F6C93DA25BB787A5D9DBFF) )
 	ROM_LOAD( "262d.v2", 0x800000, 0x800000, CRC(15042F30) SHA1(F92E49110BDE007104590BE1A0FDC8064C216C37) )
-	ROM_REGION( 0x1000000, "ymsnd_m4:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd4:adpcma", 0 )
 	ROM_LOAD( "269pcbd.v1", 0x000000, 0x800000, CRC(FF64CD56) SHA1(E2754C554ED5CA14C2020C5D931021D5AC82660C) )
 	ROM_LOAD( "269pcbd.v2", 0x800000, 0x800000, CRC(A8DD6446) SHA1(8972AAB271C33F8AF344BFFE6359D9DDC4B8AF2E) )
 

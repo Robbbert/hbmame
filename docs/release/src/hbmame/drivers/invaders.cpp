@@ -878,7 +878,7 @@ void invaders_state::invadpt2(machine_config &config)
 /*                                                     */
 /*******************************************************/
 
-static INPUT_PORTS_START( superinv )
+static INPUT_PORTS_START( sinvrdzm )
 	PORT_INCLUDE( sicv_base )
 
 	PORT_MODIFY("IN1")
@@ -886,11 +886,9 @@ static INPUT_PORTS_START( superinv )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_COIN2 )
 
 	PORT_MODIFY("IN2")
-	PORT_DIPUNKNOWN_DIPLOC( 0x04, 0x00, "SW1:3" )
-	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW1:4")
-	PORT_DIPSETTING(    0x08, "1500" )
-	PORT_DIPSETTING(    0x00, "2500" )
-	PORT_DIPUNKNOWN_DIPLOC( 0x80, 0x00, "SW1:8" )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Coinage ) )      PORT_DIPLOCATION("SW1:8")
+	PORT_DIPSETTING(    0x80, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )
 INPUT_PORTS_END
 
 
@@ -1113,6 +1111,16 @@ ROM_START( sinvtest3 )
 	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
 ROM_END
 
+ROM_START( sinvtest4 ) // for flip, turn on Cocktail mode in dips. Then button is a toggle and press 2 times per direction.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sinvtest4.h",  0x0000, 0x0800, CRC(8218a7c0) SHA1(91ebc7958c952852d929b97cc98e6b6b301dd8ca) ) // Test rom
+	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
+
+	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF ) // because using invadpt2
+ROM_END
+
 ROM_START( sinvrdzm )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "sinvrdzm.1",  0x0000, 0x0400, CRC(f625f153) SHA1(2a19f7b4f5687e89eebf02cfdf3d1d23624879fb) )
@@ -1203,7 +1211,8 @@ GAMEL(2013, sinvtest0,   invaders, invaders,  invaders,  invaders_state, empty_i
 GAMEL(2017, sinvtest1,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Fabrice Girardot",      "Space Invaders Test ROM (v1.1, 2017-09-17)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(2017, sinvtest2,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.2, 2017-10-14)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(2019, sinvtest3,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Marc Deslauriers",      "Space Invaders Test ROM (v1.3, 2019-03-27)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAMEL(1978, sinvrdzm,    invaders, invaders,  superinv,  invaders_state, empty_init,    ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAME (2025, sinvtest4,   invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.1, 2025-07-11)", MACHINE_SUPPORTS_SAVE )
+GAMEL(1978, sinvrdzm,    invaders, invaders,  sinvrdzm,  invaders_state, empty_init,    ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAME( 2002, invmulti,    0,        invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.03D)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, invmultim3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.03A)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, invmultim2c, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.02C)", MACHINE_SUPPORTS_SAVE )

@@ -405,6 +405,7 @@ YEAR COMPANY                          TITLE
 2025 Neofid Studios                   Copper Storm
 2025 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
 2025 Retro Sumus                      SovietBorgs (video on youtube)
+2025 Bit Beam Cannon                  Metal Mack
 
 
 *********************************************************************************************************/

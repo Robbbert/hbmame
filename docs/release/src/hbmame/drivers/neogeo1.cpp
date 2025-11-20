@@ -302,7 +302,8 @@ ROM_START( dragons1 )
 	ROM_LOAD16_BYTE( "336.p2", 0x000001, 0x080000, CRC(f353448c) SHA1(f0f966ca15d503e01b40e901765ff0888463b65d) )
 
 	//NEO_SFIX_128K( "094.s1", CRC(2f8748a2) SHA1(5cc723c4284120473d63d8b0c1a3b3be74bdc324) )
-	NEO_SFIX_128K( "336.s1", CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) )
+	//NEO_SFIX_128K( "336.s1", CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) )
+	NEO_SFIX_128K( "336a.s1", CRC(b3cee12d) SHA1(3391038bac062b9bad2e2d9f6b25f7fe3e9871cb) )
 
 	NEO_BIOS_AUDIO_128K( "094.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
 
@@ -685,11 +686,35 @@ ROM_START( lresortpx )
 ROM_END
 
 
-ROM_START( maglordpx )
+ROM_START( maglord01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "005px.p1", 0x000000, 0x080000, CRC(8d3e68d1) SHA1(9f1b5d78138feb9d372a7b7788cb2b52f3fb8c5a) )
+	ROM_LOAD16_WORD_SWAP( "005s01.p1", 0x000000, 0x080000, CRC(8d3e68d1) SHA1(9f1b5d78138feb9d372a7b7788cb2b52f3fb8c5a) )
 
 	NEO_SFIX_128K( "005.s1", CRC(1c5369a2) SHA1(db0dba0a7dced6c9ca929c5abda491b05d84199c) )
+
+	NEO_BIOS_AUDIO_256K( "005.m1", CRC(26259f0f) SHA1(4f3e500093d61585048767dbd9fa09b3911a05d6) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "005.v11", 0x000000, 0x080000, CRC(cc0455fd) SHA1(a8ff4270e7705e263d25ff0b301f503bccea7e59) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "005.v21", 0x000000, 0x080000, CRC(f94ab5b7) SHA1(2c16985102e3585e08622d8c54ac5c60425b9ff8) )
+	ROM_LOAD( "005.v22", 0x080000, 0x080000, CRC(232cfd04) SHA1(61b66a9decbbd1f500a8c186615e7fd077c6861e) )
+
+	ROM_REGION( 0x300000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "005.c1", 0x000000, 0x80000, CRC(806aee34) SHA1(3c32a0edbbddb694495b510c13979c44b83de8bc) )
+	ROM_LOAD16_BYTE( "005.c2", 0x000001, 0x80000, CRC(34aa9a86) SHA1(cec97e1ff7f91158040c629ba75742db82c4ae5e) )
+	ROM_LOAD16_BYTE( "005.c3", 0x100000, 0x80000, CRC(c4c2b926) SHA1(478bfafca21f5a1338808251a06ab405e6a9e65f) )
+	ROM_LOAD16_BYTE( "005.c4", 0x100001, 0x80000, CRC(9c46dcf4) SHA1(4c05f3dc25777a87578ce09a6cefb3a4cebf3266) )
+	ROM_LOAD16_BYTE( "005.c5", 0x200000, 0x80000, CRC(69086dec) SHA1(7fa47f4a765948813ebf366168275dcc3c42e951) )
+	ROM_LOAD16_BYTE( "005.c6", 0x200001, 0x80000, CRC(ab7ac142) SHA1(e6ad2843947d35d8e913d2666f87946c1ba7944f) )
+ROM_END
+
+ROM_START( maglord02 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "005s02.p1", 0x000000, 0x080000, CRC(9486bcf4) SHA1(7edde8d2929196e3e3b2b8ec82d5d5de826081d1) )
+
+	NEO_SFIX_128K( "005s02.s1", CRC(0e1839b2) SHA1(2c833521b70635c90af4e3301b564e7901ab60a7) )
 
 	NEO_BIOS_AUDIO_256K( "005.m1", CRC(26259f0f) SHA1(4f3e500093d61585048767dbd9fa09b3911a05d6) )
 
@@ -1483,9 +1508,30 @@ ROM_START( viewpointr ) /* Viewpoint - Hack by KiWi Starlight - (Unlimited lives
 ROM_END
 
 
-ROM_START( wjammersf )
+ROM_START( wjammers01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "065f.p1", 0x000000, 0x100000, CRC(a458cc18) SHA1(0d476edef593c4fa6f50ec4457f69629b2be37e7) )
+	ROM_LOAD16_WORD_SWAP( "065s01.p1", 0x000000, 0x100000, CRC(bd442f8f) SHA1(cfea13fa5567637ebcc913c288c22455d53606ef) )
+
+	NEO_SFIX_128K( "065s01.s1", CRC(d282ba6d) SHA1(749565f96aad882a1c235eec92a135715d669e1e) )
+
+	NEO_BIOS_AUDIO(0x20000, "065.m1", CRC(52c23cfc) SHA1(809a7e072ad9acbffc25e9bd27cdb97638d09d07) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "065.v1", 0x000000, 0x100000, CRC(ce8b3698) SHA1(7d75e2a5cf8c90be422f8b425447e81597fe145a) )
+	ROM_LOAD( "065.v2", 0x100000, 0x100000, CRC(659f9b96) SHA1(62f40365212153bc3b92a1187fa44f6cdc7f7b83) )
+	ROM_LOAD( "065.v3", 0x200000, 0x100000, CRC(39f73061) SHA1(ec57cd58e7f8569cff925d11e2320d588ce4fe49) )
+	ROM_LOAD( "065.v4", 0x300000, 0x100000, CRC(5dee7963) SHA1(f8e6de73d65dd80b29c711f00835a574a770cb4e) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "065.c1", 0x000000, 0x100000, CRC(c7650204) SHA1(42918d700d59864f8ab15caf968a062a563c9b09) )
+	ROM_LOAD16_BYTE( "065.c2", 0x000001, 0x100000, CRC(d9f3e71d) SHA1(fad1f64061eac1bf85bf6d75d2eae974a8c94069) )
+	ROM_LOAD16_BYTE( "065.c3", 0x200000, 0x100000, CRC(40986386) SHA1(65795a50197049681265946713d416c9cdb68f08) )
+	ROM_LOAD16_BYTE( "065.c4", 0x200001, 0x100000, CRC(715e15ff) SHA1(ac8b8b01f5c7384b883afbe0cf977430378e3fef) )
+ROM_END
+
+ROM_START( wjammers02 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "065s02.p1", 0x000000, 0x100000, CRC(a458cc18) SHA1(0d476edef593c4fa6f50ec4457f69629b2be37e7) )
 
 	NEO_SFIX_128K( "065.s1", CRC(074b5723) SHA1(86d3b3bb5414f43e4d3b7a2af0db23cc71ce8412) )
 
@@ -1504,7 +1550,7 @@ ROM_START( wjammersf )
 	ROM_LOAD16_BYTE( "065.c4", 0x200001, 0x100000, CRC(715e15ff) SHA1(ac8b8b01f5c7384b883afbe0cf977430378e3fef) )
 ROM_END
 
-ROM_START( wjammersk )
+ROM_START( wjammers03 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "065.p1", 0x000000, 0x100000, CRC(6692c140) SHA1(5da574e906974fac92bb2f49bdeea257c014a897) )
 
@@ -1519,8 +1565,8 @@ ROM_START( wjammersk )
 	ROM_LOAD( "065.v4", 0x300000, 0x100000, CRC(5dee7963) SHA1(f8e6de73d65dd80b29c711f00835a574a770cb4e) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "065k.c1",   0x000000, 0x100000, CRC(ebded27e) SHA1(574a0086bf13a5ac5d27de90c4d4611a19668cf8) )
-	ROM_LOAD16_BYTE( "065k.c2",   0x000001, 0x100000, CRC(f5483767) SHA1(756dd8e161bf428659c642b5056aa0bcf5e0d9a8) )
+	ROM_LOAD16_BYTE( "065s03.c1",   0x000000, 0x100000, CRC(ebded27e) SHA1(574a0086bf13a5ac5d27de90c4d4611a19668cf8) )
+	ROM_LOAD16_BYTE( "065s03.c2",   0x000001, 0x100000, CRC(f5483767) SHA1(756dd8e161bf428659c642b5056aa0bcf5e0d9a8) )
 	ROM_LOAD16_BYTE( "065.c3", 0x200000, 0x100000, CRC(40986386) SHA1(65795a50197049681265946713d416c9cdb68f08) )
 	ROM_LOAD16_BYTE( "065.c4", 0x200001, 0x100000, CRC(715e15ff) SHA1(ac8b8b01f5c7384b883afbe0cf977430378e3fef) )
 ROM_END
@@ -1603,7 +1649,8 @@ GAME( 2004, lans2k4d,      shocktr2, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1990, lbowlingcd,    lbowling, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "League Bowling (CD Conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, lresortpx,     lresort,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Last Resort (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1990, maglordpx,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Magician Lord (Plus Max)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, maglord01,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Magician Lord (Plus Max)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, maglord02,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Boomchild", "Magician Lord (Again Changes From Hell v1.0.0)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Pipi899", "Mutation Nation (Ex version)", MACHINE_SUPPORTS_SAVE )
 
@@ -1646,8 +1693,9 @@ GAME( 1996, twinsprih,     twinspri, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 2004, viewpoinf,     viewpoin, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Viewpoint (French Traduction, 2004-07-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, viewpointr,    viewpoin, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "KiWi Starlight", "Viewpoint (Enhanced Version)", MACHINE_SUPPORTS_SAVE ) // Unlimited lives and mega-bombs for p1 and p2
 
-GAME( 1994, wjammersf,     wjammers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Windjammers (Traduction French v0.1)(beta)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wjammersk,     wjammers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Aneue Bannzai", "Windjammers (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, wjammers01,    wjammers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Boomchild", "Windjammers (Let me play longer)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wjammers02,    wjammers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Windjammers (Traduction French v0.1)(beta)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wjammers03,    wjammers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Aneue Bannzai", "Windjammers (Korean)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2001, zupapad,       zupapa,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "SNK", "Zupapa! (Custom decrypted C Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, zupapadd,      zupapa,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "SNK", "Zupapa! (Custom decrypted C Set 2)", MACHINE_SUPPORTS_SAVE )
