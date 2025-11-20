@@ -177,6 +177,7 @@ NUM GAME YEAR COMPANY                 TITLE
 414 2019 2022 Blastar                 Looptris Plus
 415 9999 2023 Blastar                 Flappy Chicken (2023-04-30)
 416 2023 2025 Blastar                 Block Panic DX 250101
+417 2026 2025 Blastar                 World Racer (2025-11-14)
 418 1234 2008 Crim                    Neogeo 2-player Tetris
 419 1234 2011 Sebastian Mihai         Neo Thunder
 420 0420 2023 tcdev                   Xevious
@@ -1513,6 +1514,24 @@ ROM_START( bpanicdx )
 ROM_END
 
 
+// 417 : World Racer by Blastar
+ROM_START( wrldracr )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "417.p1", 0x000000, 0x100000, CRC(cc59276f) SHA1(3e12619b00996816025e0cba5c1d6e141fe95d1f) )
+
+	NEO_SFIX_128K( "417.s1", CRC(312508af) SHA1(4370a16fc089dd01ff00d3096a9a97cb1ad6359a) )
+
+	NEO_BIOS_AUDIO_64K( "417.m1", CRC(6178075b) SHA1(1cfb82931b74868460f864fc2756dfded68d36b7) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "417.v1", 0x000000, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "417.c1", 0x000000, 0x80000, CRC(44423f83) SHA1(cd6d7a9bb15033741c570d59e4788a3917f2a1ca) )
+	ROM_LOAD16_BYTE( "417.c2", 0x000001, 0x80000, CRC(57008242) SHA1(24616e9a40063eb45749127cc58e6f1e46760939) )
+ROM_END
+
+
 // 418 : Tetris by Crim
 ROM_START( ngtetris )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1525,7 +1544,7 @@ ROM_START( ngtetris )
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "418.v1", 0x000000, 0x80000, CRC(2be8e290) SHA1(198cff1b1d70f7d05344d6ab38a4354f993dc4b8) )
 
-	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "418.c1", 0x000000, 0x80000, CRC(acc6d1d4) SHA1(1f6ad8578d8edaa22a35ad58dc76de8543a96db9) )
 	ROM_LOAD16_BYTE( "418.c2", 0x000001, 0x80000, CRC(7ec06ab5) SHA1(3a8503be7f14d451f5ae964888b385334c12e8c6) )
 ROM_END
@@ -4107,6 +4126,7 @@ GAME( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, vaporous,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "TTE", "Vaporous intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Venus Wars demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2019, xeno,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bitmap Bureau", "Xeno Crisis v1.0.0", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, xeviousn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
