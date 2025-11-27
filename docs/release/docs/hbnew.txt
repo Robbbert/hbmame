@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French)
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
+- [xeviousn01]          Zetsu Xevious
 
 
 
