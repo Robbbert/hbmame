@@ -4851,9 +4851,9 @@ ROM_START( cps1frog )
 	ROM_LOAD( "frog.m1",   0x00000, 0x08000, CRC(3ac7fb5c) SHA1(01057078b67dc82d80403533a3dca3deb95f166c) )
 	ROM_CONTINUE(              0x10000, 0x08000 )
 
-	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_REGION( 0x40000, "oki", ROMREGION_ERASE00 )
 	ROM_LOAD( "frog.v1",  0x00000, 0x20000, CRC(65d1ef07) SHA1(0bc2dbf5053430f659d64d1b287799bb5cc4db65) )
-	ROM_LOAD( "frog.v2",  0x20000, 0x20000, CRC(7ee8cdcd) SHA1(67dfd19f3eb3649d6f3f6631e44d0bd36b8d8d19) )
+	// other rom is all zero
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "cps1frog.key", 0x00, 0x80, CRC(3adeff30) SHA1(5d242a4e5edcf47905fb50d767d41c2977bfd78b) )
