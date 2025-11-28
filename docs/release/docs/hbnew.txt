@@ -7,7 +7,8 @@
 
 New Games
 ---------------------------------
-- [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French)
+- [gradius2s01]         Gradius II - GOFER no Yabou (Ver xH, 2008-08-28)
+- [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French/English)
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
 - [xeviousn01]          Zetsu Xevious
 

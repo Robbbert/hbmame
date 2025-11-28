@@ -636,6 +636,8 @@ files {
 	MAME_DIR .. "src/mame/machine/konami1.cpp",
 	MAME_DIR .. "src/mame/audio/trackfld.cpp",
 	MAME_DIR .. "src/mame/video/trackfld.cpp",
+	MAME_DIR .. "src/hbmame/drivers/twin16.cpp",
+	MAME_DIR .. "src/mame/video/twin16.cpp",
 	MAME_DIR .. "src/mame/video/tutankhm.cpp",
 	MAME_DIR .. "src/hbmame/drivers/yiear.cpp",
 	MAME_DIR .. "src/mame/video/yiear.cpp",
