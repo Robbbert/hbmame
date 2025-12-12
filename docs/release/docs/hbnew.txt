@@ -12,7 +12,9 @@ New Games
 - [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French/English)
 - [ng4psyschk]          MVS 4P Key System Check
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
-- [xeviousn01]          Zetsu Xevious
+- [xeviousn01]          Zetsu Xevious (beta 1)
+- [xeviousn02]          Zetsu Xevious (beta 2)
+- [xeviousn03]          Zetsu Xevious (beta 3)
 
 
 
