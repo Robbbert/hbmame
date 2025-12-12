@@ -2564,7 +2564,7 @@ ROM_END
 
 
 // 515: Bang Bang Busters 2 demo
-ROM_START( bbb2 )
+ROM_START( bbb2d1 ) // demo 1
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "515.p1", 0x000000, 0x100000, CRC(3659f253) SHA1(78474a0dbf812e987cae7b7ca0f8d00c35060939) )
 
@@ -2578,6 +2578,23 @@ ROM_START( bbb2 )
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "515.c1", 0x000000, 0x800000, CRC(739173e2) SHA1(5703a97bba12c63411700341abe4e2981650d59e) )
 	ROM_LOAD16_BYTE( "515.c2", 0x000001, 0x800000, CRC(9a439c98) SHA1(faa43e7c892d1ec76da6e88ccf85b5262faf0f93) )
+ROM_END
+
+ROM_START( bbb2d2 ) // demo 2
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "515s02.p1", 0x000000, 0x100000, CRC(b6f02669) SHA1(e35e612fbe7aa829d3f2dab9f5975affe31687de) )
+
+	NEO_SFIX_128K( "515.s1", CRC(e53ef3d0) SHA1(ef3ade7aadc1b57a20c1830bf1d3444dfc9ce1fb) )
+
+	NEO_BIOS_AUDIO_64K( "515s02.m1", CRC(4c134828) SHA1(110848755185eac24b552e949ce22daf37d7085f) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "515s02.v1", 0x000000, 0x400000, CRC(da7cb2b8) SHA1(daccb8bb9c445b5b4a2ce70f5fb008685e063421) )
+	ROM_LOAD( "515s02.v2", 0x400000, 0x400000, CRC(0043d4f2) SHA1(22535283d3501feca3459746e4438a677da79432) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "515s02.c1", 0x000000, 0x800000, CRC(c887be9b) SHA1(ed36d80a3dbb1f17c3bf9e8072380a15c8a16857) )
+	ROM_LOAD16_BYTE( "515s02.c2", 0x000001, 0x800000, CRC(13c6dd38) SHA1(a6fcc704106f3f64eba60eed9e88325cfda68acd) )
 ROM_END
 
 
@@ -4048,7 +4065,8 @@ GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, baddudesn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Bad Dudes vs Dragonninja Burger Edition demo (2025-06-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, bbb2,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, bbb2d1,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, bbb2d2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
