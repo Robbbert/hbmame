@@ -152,5 +152,5 @@ GAME( 1986, suprsktr,    suprmrio,     vsnes,    suprmrio,  vsnes_state, init_vs
 GAME( 2002, drmario01,   drmario,      vsnes,    drmario,   vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
 GAME( 2019, drluigi,     drmario,      vsnes,    drmario,   vsnes_state, init_drmario,  ROT0, "Szemigi", "Dr. Luigi", 0 )
 GAME( 2020, frombelow,   suprmrio,     vsnes,    frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
-GAME( 2020, vs_urban,    drmario,      vsnes,    vs_urban,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
+GAME( 2020, vs_urban,    0,            vsnes,    vs_urban,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
 

@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [gradius2s01]         Gradius II - GOFER no Yabou (Ver xH, 2008-08-28) [Tailsnic]
+- [karnovr05]           Karnov's Revenge (Revolution v0.2)
 - [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French/English)
 - [ng4psyschk]          MVS 4P Key System Check
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
