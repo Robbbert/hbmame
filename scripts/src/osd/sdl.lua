@@ -266,6 +266,7 @@ if BASE_TARGETOS=="unix" then
 		linkoptions {
 			"-framework QuartzCore",
 			"-framework OpenGL",
+			"-rpath " .. _OPTIONS["SDL_FRAMEWORK_PATH"],
 		}
 
 
