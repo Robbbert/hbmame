@@ -12,6 +12,7 @@ New Games
 - [karnovr05]           Karnov's Revenge (Revolution v0.2)
 - [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French/English)
 - [ng4psyschk]          MVS 4P Key System Check
+- [violentv]            Violent Vengeance: the universe hero (beta)
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
 - [xeviousn01]          Zetsu Xevious (beta 1)
 - [xeviousn02]          Zetsu Xevious (beta 2)
