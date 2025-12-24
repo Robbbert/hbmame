@@ -210,7 +210,9 @@ bool adpcm_a_channel::clock()
 		delta = -delta;
 
 	// the 12-bit accumulator wraps on the ym2610 and ym2608 (like the msm5205)
-	m_accumulator = (m_accumulator + delta) & 0xfff;
+	//m_accumulator = (m_accumulator + delta) & 0xfff;
+	// fix for crackly sound from geolith emulator
+	m_accumulator = clamp(m_accumulator + delta, -2048, 2047);
 
 	// adjust ADPCM step
 	static int8_t const s_step_inc[8] = { -1, -1, -1, -1, 2, 5, 7, 9 };

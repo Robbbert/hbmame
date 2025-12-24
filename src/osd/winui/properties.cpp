@@ -2711,8 +2711,8 @@ static void BuildDataMap(void)
 	datamap_set_trackbar_range(properties_datamap, IDC_CONTRAST,      0.1, 2.0, 0.1);
 	datamap_set_trackbar_range(properties_datamap, IDC_PAUSEBRIGHT,   0.0, 1.0, 0.05);
 	datamap_set_trackbar_range(properties_datamap, IDC_BOOTDELAY,     0, 5, 1);
-	datamap_set_trackbar_range(properties_datamap, IDC_INTSCALEX,     0, 4, 1);
-	datamap_set_trackbar_range(properties_datamap, IDC_INTSCALEY,     0, 4, 1);
+	datamap_set_trackbar_range(properties_datamap, IDC_INTSCALEX,     0, 10, 1);
+	datamap_set_trackbar_range(properties_datamap, IDC_INTSCALEY,     0, 10, 1);
 
 #ifdef MESS
 	// MESS specific stuff
