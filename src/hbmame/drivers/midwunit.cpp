@@ -2,6 +2,9 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/midwunit.cpp"
 
+//
+// If pic supplied, choose machine_config wunit_picemu, otherwise choose wunit_picsim
+//
 
 /*********************
  Mortal Kombat 3
@@ -2313,6 +2316,34 @@ ROM_START( wwfmania01 ) // wwfmanac
 	ROM_LOAD32_BYTE( "wwf_image_rom_l1.u118", 0x0c00003, 0x100000, CRC(46668e97) SHA1(282ca2e561f7553717d60b5a745f8e3fc1bda610) )
 ROM_END
 
+/***************************************************
+ NBA JAM Tournament Edition (ported from midtunit)
+****************************************************/
+ROM_START( nbajam06 ) // ver 5.05 beta
+	ROM_REGION16_LE( 0xA00000, "dcs", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "nbajam06.u2", 0x000000, 0x100000, CRC(e7abf014) SHA1(8d4774235d2b5d2a0eb0d8b3f7b5b68b2c03c1b1) )
+	ROM_LOAD16_BYTE( "nbajam06.u3", 0x200000, 0x100000, CRC(2760465f) SHA1(09d5e3775e4389ebf0ec2bc5c34a58c14e7543cd) )
+	ROM_LOAD16_BYTE( "nbajam06.u4", 0x400000, 0x100000, CRC(382153c1) SHA1(0d6fe1162ae052890adbe5e205516735ebd112cf) )
+	ROM_LOAD16_BYTE( "nbajam06.u5", 0x600000, 0x100000, CRC(24a972e3) SHA1(75def99586cf5522748b222eae3638b08d25750a) )
+	ROM_LOAD16_BYTE( "nbajam06.u6", 0x800000, 0x100000, CRC(f4915367) SHA1(b47d35f29a3587c084baaa2ced6391913924d4dd) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "nbajam06.u54",  0x00000, 0x80000, CRC(321976a3) SHA1(6d3893dcbf1f4b1be15662f64970962017ec8445) )
+	ROM_LOAD16_BYTE( "nbajam06.u63",  0x00001, 0x80000, CRC(3b124fed) SHA1(a3f8e2d6e3be9b9551f5047479f27e231fa12264) )
+
+	ROM_REGION( 0x2000000, "gfxrom", ROMREGION_ERASEFF )
+	ROM_LOAD32_BYTE( "nbajam06.u129",  0x0400000, 0x100000, CRC(1d448803) SHA1(720c928783b63054ee2003a0ebe1748491b37019) )
+	ROM_LOAD32_BYTE( "nbajam06.u128",  0x0400001, 0x100000, CRC(860b34a4) SHA1(9e7a64c23b494c530a5a72ac7c26680fac97794b) )
+	ROM_LOAD32_BYTE( "nbajam06.u127",  0x0400002, 0x100000, CRC(2ce04388) SHA1(5fbeae251c01d97458c35e243218c4d93b3a7567) )
+	ROM_LOAD32_BYTE( "nbajam06.u126",  0x0400003, 0x100000, CRC(11870a50) SHA1(a9b404002cd4909737d5efa53bc9b7787116f39b) )
+
+	ROM_LOAD32_BYTE( "nbajam06.u125",  0x0800000, 0x100000, CRC(140acee3) SHA1(8144e6c15f66a6e9c4e0c64bd64ee7207dfcdf42) )
+	ROM_LOAD32_BYTE( "nbajam06.u124",  0x0800001, 0x100000, CRC(f6da1a70) SHA1(aff9a749f72c84f37776f9092073368d1e290334) )
+	ROM_LOAD32_BYTE( "nbajam06.u123",  0x0800002, 0x100000, CRC(98702ff3) SHA1(640e453f80bb5883bd9a41d8803a02d8529c4ab1) )
+	ROM_LOAD32_BYTE( "nbajam06.u122",  0x0800003, 0x100000, CRC(ddf1bc38) SHA1(c181bf07a548005015a6d6d211d06ee5514cd1cb) )
+ROM_END
+
+
 // Mortal Kombat 3
 GAME( 2018, mk3s01,         mk3,  wunit_picsim, mk3, midwunit_state, init_mk3,  ROT0, "hack", "Mortal Kombat 3 (Revision 2.1 K, 2018-02-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mk3s02,         mk3,  wunit_picsim, mk3, midwunit_state, init_mk3,  ROT0, "hack", "Mortal Kombat 3 (Revision 2.1 SP4K, 2021-08-05)", MACHINE_SUPPORTS_SAVE )
@@ -2368,4 +2399,7 @@ GAME( 2022, umk3plus20220307,  umk3,  wunit_picsim, mk3, midwunit_state, init_mk
 GAME( 2025, umk3wn,         umk3, wunit_picsim, mk3, midwunit_state, init_mk3, ROT0, "Neotendo", "Ultimate Mortal Kombat 3 (WaveNet)", MACHINE_SUPPORTS_SAVE )
 // WWF Wrestlemania
 GAME( 2020, wwfmania01, wwfmania, wunit_picsim, wwfmania, midwunit_state, init_wwfmania, ROT0, "hack", "WWF: Wrestlemania (Acid Clown Edition, SP2, 2020-12-02)", MACHINE_SUPPORTS_SAVE )
+// NBA JAM TE
+GAME( 2025, nbajam06, nbajamte, wunit_picsim, nbahangt, midwunit_state, empty_init, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.05, 2025-12-23)(Wolf h/w, preview)", MACHINE_SUPPORTS_SAVE )
+
 
