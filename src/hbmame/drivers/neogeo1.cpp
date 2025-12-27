@@ -74,9 +74,9 @@ ROM_START( 2020bbcd )
 ROM_END
 
 
-ROM_START( aofbh )
+ROM_START( aof01 )  // aofbh
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "044bh.p1", 0x000000, 0x080000, CRC(202a60d8) SHA1(f0caa8b6a18dff1b9568aaae552cf6d10a9db722) )
+	ROM_LOAD16_WORD_SWAP( "044s01.p1", 0x000000, 0x080000, CRC(202a60d8) SHA1(f0caa8b6a18dff1b9568aaae552cf6d10a9db722) )
 
 	NEO_SFIX_128K( "044.s1", CRC(89903f39) SHA1(a04a0c244a5d5c7a595fcf649107969635a6a8b6) )
 
@@ -97,11 +97,11 @@ ROM_START( aofbh )
 	ROM_CONTINUE( 0x600001, 0x100000 )
 ROM_END
 
-ROM_START( aofkt )
+ROM_START( aof02 )  // aofkt
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "044kt.p1", 0x000000, 0x080000, CRC(a69b9af2) SHA1(5c8e922f48950ac79f42f4b0fc4f136dc4ef16ca) )
+	ROM_LOAD16_WORD_SWAP( "044s02.p1", 0x000000, 0x080000, CRC(a69b9af2) SHA1(5c8e922f48950ac79f42f4b0fc4f136dc4ef16ca) )
 
-	NEO_SFIX_128K( "044kt.s1", CRC(6e7c531e) SHA1(b0ede854b16216a97214a294d246af757f2500e8) )
+	NEO_SFIX_128K( "044s02.s1", CRC(6e7c531e) SHA1(b0ede854b16216a97214a294d246af757f2500e8) )
 
 	NEO_JAPAN_BIOS_AUDIO(0x20000, "044.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
 
@@ -117,6 +117,29 @@ ROM_START( aofkt )
 	ROM_LOAD16_BYTE( "044.c3", 0x200000, 0x100000, CRC(403e898a) SHA1(dd5888f8b24a33b2c1f483316fe80c17849ccfc4) )
 	ROM_CONTINUE( 0x600000, 0x100000 )
 	ROM_LOAD16_BYTE( "044.c4", 0x200001, 0x100000, CRC(6235fbaa) SHA1(9090e337d7beed25ba81ae0708d0aeb57e6cf405) )
+	ROM_CONTINUE( 0x600001, 0x100000 )
+ROM_END
+
+ROM_START( aof03 )  // aofbr
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "044s03.p1", 0x000000, 0x080000, CRC(ea8577a1) SHA1(3cdf1302893620a09d5796059009915d55da5edf) )
+
+	NEO_SFIX_128K( "044s03.s1", CRC(a6d76be7) SHA1(1b7e438b9f79a6e278ee8a04fbba128bbf9f1c12) )
+
+	NEO_BIOS_AUDIO_128K( "044.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "044.v2", 0x000000, 0x200000, CRC(3ec632ea) SHA1(e3f413f580b57f70d2dae16dbdacb797884d3fce) )
+	ROM_LOAD( "044.v4", 0x200000, 0x200000, CRC(4b0f8e23) SHA1(105da0cc5ba19869c7147fba8b177500758c232b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "044.c1", 0x000000, 0x100000, CRC(ddab98a7) SHA1(f20eb81ec431268798c142c482146c1545af1c24) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "044.c2", 0x000001, 0x100000, CRC(d8ccd575) SHA1(f697263fe92164e274bf34c55327b3d4a158b332) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "044s03.c3", 0x200000, 0x100000, CRC(7b312e56) SHA1(c33fee3e6c26deb7d93c7509421b92c622dfd189) )
+	ROM_CONTINUE( 0x600000, 0x100000 )
+	ROM_LOAD16_BYTE( "044s03.c4", 0x200001, 0x100000, CRC(4d31b52b) SHA1(327658905e9ac754ceb4065810b3c1ea5510ed41) )
 	ROM_CONTINUE( 0x600001, 0x100000 )
 ROM_END
 
@@ -1632,8 +1655,9 @@ ROM_END
 
 GAME( 1991, 2020bbcd,      2020bb,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "2020 Super Baseball (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, aofbh,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, aofkt,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Art of Fighting (Korean Voice)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, aof01,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, aof02,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Art of Fighting (Korean Voice)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, aof03,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "NeoGeo BR Team", "Art of Fighting (Brazil)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, aof3b,         aof3,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG]", "Art of Fighting 3 (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, aof3bh,        aof3,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting 3 (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 
