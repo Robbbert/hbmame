@@ -954,6 +954,8 @@ files {
 	MAME_DIR .. "src/mame/machine/seibucop_dma.hxx",
 	MAME_DIR .. "src/mame/machine/seibucop_cmd.hxx",
 	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
+	MAME_DIR .. "src/hbmame/drivers/toki.cpp",
+	MAME_DIR .. "src/mame/video/toki.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wiz.cpp",
 	MAME_DIR .. "src/mame/video/wiz.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mustache.cpp",

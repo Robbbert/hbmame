@@ -175,5 +175,5 @@ GAME( 2001, rastan02, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, 
 GAME( 2001, rastan03, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Enemy Hack", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, rastan04, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Enemy Hack (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, rastan05, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Vogel", "Wacky Rastan", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, rastsaga01,   rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "hack",  "Rastan Saga (Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, rastsaga01,   rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Antigeno",  "Rastan Saga (Brazil)", MACHINE_SUPPORTS_SAVE )
 

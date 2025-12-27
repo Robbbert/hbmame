@@ -8901,6 +8901,10 @@ pipibibs02
 truxton2                               //parent
 truxton2s01
 
+@source:toki.cpp
+toki                                   //parent
+toki01
+
 @source:trackfld.cpp
 trackfld                               //parent
 athens04                               //Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas
