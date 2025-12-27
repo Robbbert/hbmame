@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [aof03]               Art of Fighting (Brazil)
 - [bbb2d2]              Bang Bang Busters 2 (demo 2) [Pixelheart]
+- [galaxian01]          Galaxian (name and maker removed)
 - [gradius2s01]         Gradius II - GOFER no Yabou (Ver xH, 2008-08-28) [Tailsnic]
 - [karnovr05]           Karnov's Revenge (Revolution v0.2)
 - [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French/English)

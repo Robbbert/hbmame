@@ -196,6 +196,22 @@ ROM_START( galaxni )
 ROM_END
 
 
+ROM_START( galaxian01 )  // real bootleg dump -  name and maker removed
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "galmidw.u",    0x0000, 0x0800, CRC(745e2d61) SHA1(e65f74e35b1bfaccd407e168ea55678ae9b68edf) ) // sp.7f
+	ROM_LOAD( "galmidw.v",    0x0800, 0x0800, CRC(9c999a40) SHA1(02fdcd95d8511e64c0d2b007b874112d53e41045) ) // sp.7h
+	ROM_LOAD( "galmidw.w",    0x1000, 0x0800, CRC(b5894925) SHA1(0046b9ed697a34d088de1aead8bd7cbe526a2396) ) // sp.7j
+	ROM_LOAD( "galaxian01.y",    0x1800, 0x0800, CRC(f96100db) SHA1(f4af839a57f261399279f71b7fca287acec836b4) ) // sp.7k
+	ROM_LOAD( "galmxian01.z",    0x2000, 0x0800, CRC(6f0602a8) SHA1(4b91425185df5d43031c18678e256a000ee3af88) ) // sp.7l
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "piii7",   0x0000, 0x0800, CRC(d0ba22c9) SHA1(678b22d10e1ae7dcea068da838bf6bd648e9ee28) ) // sp.1hj
+	ROM_LOAD( "galaxian01.1k",   0x0800, 0x0800, CRC(52b7080d) SHA1(2b10367e808ecb6fbc45ab42a7ad7efba2a4c346) ) // sp.1kl
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) ) // sp.6l
+ROM_END
+
 ROM_START( buglaxn )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "galmidw.u",    0x0000, 0x0800, CRC(745e2d61) SHA1(e65f74e35b1bfaccd407e168ea55678ae9b68edf) )
@@ -860,6 +876,7 @@ GAME( 2019, scobtest,   scobra,   scobra,   scobra,   galaxian_state,  init_scob
 
 
 // Galaxian
+GAME( 1979, galaxian01, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (name and maker removed)", MACHINE_SUPPORTS_SAVE)
 GAME( 1979, andromd,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Andromeda", MACHINE_SUPPORTS_SAVE)
 GAME( 1998, buglaxn,    galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, galapxis,   galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "International Scientific", "Galaxian Part X (Philip)", MACHINE_SUPPORTS_SAVE )
