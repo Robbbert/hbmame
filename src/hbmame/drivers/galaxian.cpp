@@ -212,6 +212,22 @@ ROM_START( galaxian01 )  // real bootleg dump -  name and maker removed
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) ) // sp.6l
 ROM_END
 
+ROM_START( galaxian02 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "galaxian02.u",   0x0000, 0x0800, CRC(e8f3aa67) SHA1(a0e9576784dbe602dd9780e667f01f31defd7c00) ) // g8
+	ROM_LOAD( "galaxiab.v",   0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) ) // f8
+	ROM_LOAD( "galaxiab.w",   0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) ) // e8
+	ROM_LOAD( "galaxian02.y",   0x1800, 0x0800, CRC(097d92a2) SHA1(63ef86657286a4e1fae4f795e0e6b410ca2ef06b) ) // d8
+	ROM_LOAD( "galaxian02.z",   0x2000, 0x0800, CRC(5341d75a) SHA1(40bc8fcc598f58c6ff944e2a4a9288463e75a09d) ) // c8
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "piii.6",       0x0000, 0x0800, CRC(977e37cf) SHA1(88ff1e4edadf5cfc83413a1fe999aecf4ba72232) ) // j1
+	ROM_LOAD( "galaxian02.1k",  0x0800, 0x0800, CRC(58e878df) SHA1(bc301fe208934105f12c913ac2f06a2dae110afd) ) // k1
+
+	ROM_REGION( 0x0020, "proms", 0 ) // not supplied, using standard prom
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 ROM_START( buglaxn )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "galmidw.u",    0x0000, 0x0800, CRC(745e2d61) SHA1(e65f74e35b1bfaccd407e168ea55678ae9b68edf) )
@@ -876,7 +892,8 @@ GAME( 2019, scobtest,   scobra,   scobra,   scobra,   galaxian_state,  init_scob
 
 
 // Galaxian
-GAME( 1979, galaxian01, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (name and maker removed)", MACHINE_SUPPORTS_SAVE)
+GAME( 1979, galaxian01, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (bootleg 01)", MACHINE_SUPPORTS_SAVE)
+GAME( 1979, galaxian02, galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (bootleg 02)", MACHINE_SUPPORTS_SAVE)
 GAME( 1979, andromd,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Andromeda", MACHINE_SUPPORTS_SAVE)
 GAME( 1998, buglaxn,    galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, galapxis,   galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "International Scientific", "Galaxian Part X (Philip)", MACHINE_SUPPORTS_SAVE )

@@ -9,7 +9,8 @@ New Games
 ---------------------------------
 - [aof03]               Art of Fighting (Brazil)
 - [bbb2d2]              Bang Bang Busters 2 (demo 2) [Pixelheart]
-- [galaxian01]          Galaxian (name and maker removed)
+- [galaxian01]          Galaxian (bootleg 01)
+- [galaxian02]          Galaxian (bootleg 02)
 - [gradius2s01]         Gradius II - GOFER no Yabou (Ver xH, 2008-08-28) [Tailsnic]
 - [karnovr05]           Karnov's Revenge (Revolution v0.2)
 - [kof2001s50]          The King of Fighters 2001 (All Boss Plus 2025-12-17)
