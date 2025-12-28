@@ -20,6 +20,7 @@ New Games
 - [toki01]              Toki (Brazil)
 - [violentv]            Violent Vengeance: the universe hero (beta)
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
+- [wrldracr01]          World Racer (2025-12-12) [Blastar]
 - [xeviousn01]          Zetsu Xevious (beta 1)
 - [xeviousn02]          Zetsu Xevious (beta 2)
 - [xeviousn03]          Zetsu Xevious (beta 3)
