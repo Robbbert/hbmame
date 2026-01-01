@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2025-12-xx 0.245.29
+2026-01-02 0.245.29
 
 
 
@@ -18,6 +18,7 @@ New Games
 - [mkyawdim6]           Mortal Kombat (Yawdim bootleg, set 6)
 - [mspacman05]          Ms Pac-Man (alt bootleg dump)
 - [nbajam06]            NBA Jam Tournament Edition SE (rev 5.05, 2025-12-23)(Wolf h/w, preview)
+- [nbajam07]            NBA Rewind 4 Jam (unprotected, v1.2)
 - [ng4psyschk]          MVS 4P Key System Check
 - [rastsaga01]          Rastan Saga (Brazil)
 - [sfpp]                Street Fighter (Plus Plus)

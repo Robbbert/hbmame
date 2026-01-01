@@ -4454,7 +4454,7 @@ nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
 nbajam03                               // NBA Jam Tournament Edition SE r5.0
 nbajam04                               // NBA Jam Tournament Edition Rewind r1.2
 nbajam05
-nbajam06
+nbajam07                               //06 is in midwunit
 roadkill
 umk2s01                                // Ultimate MKII Tournament Edition r5.0.050
 umk2s02                                // Ultimate MKII Tournament Edition r5.0.051
@@ -4466,6 +4466,7 @@ umk2s05                                // Ultimate MKII Tournament Edition r5.0.
 mk3                                    //parent
 mk3s01
 mk3s02
+nbajam06
 wwfmania                               //parent
 wwfmania01
 umk3                                   //parent
