@@ -418,6 +418,7 @@ files {
 --	MAME_DIR .. "src/hbmame/drivers/cps1bl_5205.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mitchell.cpp",
 	MAME_DIR .. "src/mame/machine/kabuki.cpp",
+	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cave")
