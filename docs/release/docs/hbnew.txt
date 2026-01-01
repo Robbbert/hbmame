@@ -15,6 +15,7 @@ New Games
 - [karnovr05]           Karnov's Revenge (Revolution v0.2)
 - [kof2001s50]          The King of Fighters 2001 (All Boss Plus 2025-12-17)
 - [maglord03]           Magician Lord (Again Changes From Hell v1.0.0, French/English)
+- [mkyawdim6]           Mortal Kombat (Yawdim bootleg, set 6)
 - [mspacman05]          Ms Pac-Man (alt bootleg dump)
 - [nbajam06]            NBA Jam Tournament Edition SE (rev 5.05, 2025-12-23)(Wolf h/w, preview)
 - [ng4psyschk]          MVS 4P Key System Check

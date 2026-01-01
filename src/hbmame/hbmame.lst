@@ -4521,6 +4521,8 @@ umk3plus20220307                       // umk3pb2
 @source:midyunit.cpp
 smashtv                                //parent
 mkla4d                                 // MK protection hack
+mk                                     //parent
+mkyawdim6
 y_test
 
 @source:missile.cpp
