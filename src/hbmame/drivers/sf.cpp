@@ -71,6 +71,6 @@ ROM_START( sfpp )
 	ROM_LOAD( "sf-33.4g", 0x030000, 0x010000, CRC(3e99d3d5) SHA1(9168a977e80f8c23c6126b9e64eb176290cf941a) )
 ROM_END
 
-GAME( 2020, sfpp, sf, sfus, sfus, sf_state, empty_init, ROT0, "Yumeji", "Street Fighter (plus plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sfpp, sf, sfus, sfus, sf_state, empty_init, ROT0, "Yumeji", "Street Fighter (Plus Plus)", MACHINE_SUPPORTS_SAVE )
 
 

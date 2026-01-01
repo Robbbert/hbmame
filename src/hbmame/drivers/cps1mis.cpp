@@ -16660,6 +16660,43 @@ ROM_START( sf2s15 ) //sf2g12,sf2js02
 	ROM_LOAD( "sf2.key",  0x00, 0x80, CRC(3cf6f06f) SHA1(7512a185d461f2b37edfc19e31a45d53600fbe44) )
 ROM_END
 
+ROM_START( sf2s16 ) //sf2pp
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "c14s16.p1", 0x00000, 0x20000, CRC(b5ecbb3a) SHA1(69ff399b1e654a539178f8387eacee78d09216c3) )
+	ROM_LOAD16_BYTE( "c14s16.p2", 0x00001, 0x20000, CRC(ddf2d988) SHA1(95a2a8a482cb0101a9d938428d4b507ccc94bb9f) )
+	ROM_LOAD16_BYTE( "c14s12.p3", 0x40000, 0x20000, CRC(7e4af671) SHA1(86391415edc6d6669eec586be91d78e9c6ce6d34) )
+	ROM_LOAD16_BYTE( "c14s16.p4", 0x40001, 0x20000, CRC(2c70718a) SHA1(9094e8b5b985fda3425ec6721ccd90f77b067a2b) )
+	ROM_LOAD16_BYTE( "c14s14.p5",  0x80000, 0x20000, CRC(3d96d4d2) SHA1(e525345b0ad81cb2dfdc2b229071c492068d5d52) )
+	ROM_LOAD16_BYTE( "c14s14.p6",  0x80001, 0x20000, CRC(c02a2be3) SHA1(eff499e7ddf0c8e0d357290db84acc3c3fb71945) )
+	ROM_LOAD16_BYTE( "c14s12.p7", 0xc0000, 0x20000, CRC(0bb77024) SHA1(71f501fd50a6658b1b2cb5f3c8d9961dce9beeb5) )
+	ROM_LOAD16_BYTE( "c14s12.p8", 0xc0001, 0x20000, CRC(48256574) SHA1(bc9b151000fd75233129a3dd1140e224734cab49) )
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c14.c01",  0x000000, 0x80000, CRC(22c9cc8e) SHA1(b9194fb337b30502c1c9501cd6c64ae4035544d4) )
+	ROM_LOAD64_WORD( "c14.c03",  0x000002, 0x80000, CRC(57213be8) SHA1(3759b851ac0904ec79cbb67a2264d384b6f2f9f9) )
+	ROM_LOAD64_WORD( "c14.c05",  0x000004, 0x80000, CRC(ba529b4f) SHA1(520840d727161cf09ca784919fa37bc9b54cc3ce) )
+	ROM_LOAD64_WORD( "c14.c07",  0x000006, 0x80000, CRC(4b1b33a8) SHA1(2360cff890551f76775739e2d6563858bff80e41) )
+	ROM_LOAD64_WORD( "c14.c09",  0x200000, 0x80000, CRC(2c7e2229) SHA1(357c2275af9133fd0bd6fbb1fa9ad5e0b490b3a2) )
+	ROM_LOAD64_WORD( "c14.c11",  0x200002, 0x80000, CRC(b5548f17) SHA1(baa92b91cf616bc9e2a8a66adc777ffbf962a51b) )
+	ROM_LOAD64_WORD( "c14.c13",  0x200004, 0x80000, CRC(14b84312) SHA1(2eea16673e60ba7a10bd4d8f6c217bb2441a5b0e) )
+	ROM_LOAD64_WORD( "c14.c15",  0x200006, 0x80000, CRC(5e9cd89a) SHA1(f787aab98668d4c2c54fc4ba677c0cb808e4f31e) )
+	ROM_LOAD64_WORD( "c14s13.c17",  0x400000, 0x80000, CRC(4267b696) SHA1(af65e3b2cc3b7a7f39d5e7e598da7f4c9d351eea) )
+	ROM_LOAD64_WORD( "c14s13.c19", 0x400002, 0x80000, CRC(df9b9146) SHA1(2029aa59c1646af0fd7fa06f353edcbf7f7792de) )
+	ROM_LOAD64_WORD( "c14s13.c21",  0x400004, 0x80000, CRC(a08a9786) SHA1(80a79e45c003fbc95cc5cd0d037b55f2f7fec64c) )
+	ROM_LOAD64_WORD( "c14s13.c23",  0x400006, 0x80000, CRC(80feac31) SHA1(f16ce88634d2328eae93f8128423bb311cac88e6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c14.m1",  0x00000, 0x08000, CRC(a4823a1b) SHA1(7b6bf59dfd578bfbbdb64c27988796783442d659) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c14.v1",    0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
+	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sf2.key",  0x00, 0x80, CRC(3cf6f06f) SHA1(7512a185d461f2b37edfc19e31a45d53600fbe44) )
+ROM_END
+
 /**************************************
  Street Fighter II: Champion Edition
 ***************************************/
@@ -18795,7 +18832,7 @@ ROM_START( sf2ce67 )
 	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
-ROM_START( sf2ce68 )
+ROM_START( sf2ce68 ) // sf2cre.blogspot.com
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c19s68.p1", 0x000000, 0x80000, CRC(ffa481c9) SHA1(4a980dbc7ed668ce2617b6bc73b244852b8f987d) ) // 8f
 	ROM_LOAD16_WORD_SWAP( "c19s68.p2", 0x080000, 0x80000, CRC(e2944558) SHA1(da83405d8a4ddd6f4d91a45e6207331900bfe6dc) ) // 7f
@@ -28476,6 +28513,7 @@ GAME( 2014, sf2s12,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,
 GAME( 1992, sf2s13,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': The World Warrior (3-region version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, sf2s14,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II: The World Warrior (King Of The Four Heavenly Kings)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, sf2s15,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II: The World Warrior (12 Person Version 2016-01-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2s16,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "Yumeji", "Street Fighter II: The World Warrior (Plus Plus, 2020-07-19)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter II: Champion Edition
 GAME( 1992, sf2ce01,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Brazil)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ce02,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Hispanic)", MACHINE_SUPPORTS_SAVE )

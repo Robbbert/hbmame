@@ -20,7 +20,8 @@ New Games
 - [nbajam06]            NBA Jam Tournament Edition SE (rev 5.05, 2025-12-23)(Wolf h/w, preview)
 - [ng4psyschk]          MVS 4P Key System Check
 - [rastsaga01]          Rastan Saga (Brazil)
-- [sfpp]                Street Fighter (plus plus)
+- [sfpp]                Street Fighter (Plus Plus)
+- [sf2s16]              Street Fighter II: The World Warrior (Plus Plus)
 - [toki01]              Toki (Brazil)
 - [violentv]            Violent Vengeance: the universe hero (beta)
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
