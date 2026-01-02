@@ -2488,7 +2488,7 @@ ROM_START( zolavect )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( mspacmans01 )
+ROM_START( mspacman01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
 	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
@@ -2504,7 +2504,7 @@ ROM_START( mspacmans01 )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( mspacmans02 )
+ROM_START( mspacman02 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
 	ROM_LOAD( "fastplus.2",   0x1000, 0x1000, CRC(a8d6c227) SHA1(b5891f911bb054ca2547e663a3c27c93897f2075) )
@@ -2520,7 +2520,7 @@ ROM_START( mspacmans02 )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( mspacmans03 )
+ROM_START( mspacman03 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
 	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
@@ -2536,7 +2536,7 @@ ROM_START( mspacmans03 )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( mspacmans04 )
+ROM_START( mspacman04 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "robot.1",      0x0000, 0x1000, CRC(8c5d136a) SHA1(5356dec1026dc2beaae57152312b1b0bcaf9fa26) )
 	ROM_LOAD( "fastplus.2",   0x1000, 0x1000, CRC(a8d6c227) SHA1(b5891f911bb054ca2547e663a3c27c93897f2075) )
@@ -2548,6 +2548,22 @@ ROM_START( mspacmans04 )
 	ROM_REGION( 0x2000, "gfx1" , 0 )
 	ROM_LOAD( "s01.5e",       0x0000, 0x1000, CRC(73cb7028) SHA1(44c3e7de28dd04d2b08fd21d20e91e73a4781f87) )
 	ROM_LOAD( "s01.5f",       0x1000, 0x1000, CRC(38506811) SHA1(7471bfab185141718f6e5f684538bd45c5acd3b8) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( mspacman05 ) // only program roms supplied, looks same as mspacman
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "s05.1",        0x0000, 0x1000, CRC(2671b2fd) SHA1(dff5224806a417641bf7bf14a4a92295a3a69f2a) )
+	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
+	ROM_LOAD( "robot.3",      0x2000, 0x1000, CRC(1ae6f796) SHA1(7d0e0fbf7379d8df7c48b9eccfa0bc0defeec5f9) )
+	ROM_LOAD( "s05.4",        0x3000, 0x1000, CRC(5afa0e42) SHA1(a8ed868275cb402469e70f7182ee72312529b9dd) )
+	ROM_LOAD( "robot.5",      0x8000, 0x1000, CRC(655796dd) SHA1(cc4747e4572b2a1d01a407adbb20d94799d81e76) )
+	ROM_LOAD( "s05.6",        0x9000, 0x1000, CRC(a16f14db) SHA1(3d101e5dfb90615b7fdc0bd592e48c65724dbcc5) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "5e",           0x0000, 0x1000, CRC(5c281d01) SHA1(5e8b472b615f12efca3fe792410c23619f067845) )
+	ROM_LOAD( "5f",           0x1000, 0x1000, CRC(615af909) SHA1(fd6a1dde780b39aea76bf1c4befa5882573c2ef4) )
 
 	PACMAN_PROMS
 ROM_END
@@ -2807,10 +2823,11 @@ GAME( 2000, zolapac,  mspacman, zolapac,  mspacman, puckman_state, empty_init,  
 GAME( 2000, zolaslow, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Slow)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, zolatunl, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Tunnels)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, zolavect, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Vector Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans01, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (hack s01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans02, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Fast)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans03, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans04, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacman01, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (hack s01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacman02, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Fast)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacman03, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacman04, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacman05, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "bootleg", "Ms Pac-Man", MACHINE_SUPPORTS_SAVE )
 
 /* Others Hacks */
 GAME( 2018, mspacmadp,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Pac Droid Plus)", MACHINE_SUPPORTS_SAVE )

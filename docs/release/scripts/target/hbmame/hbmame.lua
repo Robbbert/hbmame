@@ -418,6 +418,7 @@ files {
 --	MAME_DIR .. "src/hbmame/drivers/cps1bl_5205.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mitchell.cpp",
 	MAME_DIR .. "src/mame/machine/kabuki.cpp",
+	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cave")
@@ -636,6 +637,8 @@ files {
 	MAME_DIR .. "src/mame/machine/konami1.cpp",
 	MAME_DIR .. "src/mame/audio/trackfld.cpp",
 	MAME_DIR .. "src/mame/video/trackfld.cpp",
+	MAME_DIR .. "src/hbmame/drivers/twin16.cpp",
+	MAME_DIR .. "src/mame/video/twin16.cpp",
 	MAME_DIR .. "src/mame/video/tutankhm.cpp",
 	MAME_DIR .. "src/hbmame/drivers/yiear.cpp",
 	MAME_DIR .. "src/mame/video/yiear.cpp",
@@ -952,6 +955,8 @@ files {
 	MAME_DIR .. "src/mame/machine/seibucop_dma.hxx",
 	MAME_DIR .. "src/mame/machine/seibucop_cmd.hxx",
 	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
+	MAME_DIR .. "src/hbmame/drivers/toki.cpp",
+	MAME_DIR .. "src/mame/video/toki.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wiz.cpp",
 	MAME_DIR .. "src/mame/video/wiz.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mustache.cpp",

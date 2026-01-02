@@ -74,9 +74,9 @@ ROM_START( 2020bbcd )
 ROM_END
 
 
-ROM_START( aofbh )
+ROM_START( aof01 )  // aofbh
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "044bh.p1", 0x000000, 0x080000, CRC(202a60d8) SHA1(f0caa8b6a18dff1b9568aaae552cf6d10a9db722) )
+	ROM_LOAD16_WORD_SWAP( "044s01.p1", 0x000000, 0x080000, CRC(202a60d8) SHA1(f0caa8b6a18dff1b9568aaae552cf6d10a9db722) )
 
 	NEO_SFIX_128K( "044.s1", CRC(89903f39) SHA1(a04a0c244a5d5c7a595fcf649107969635a6a8b6) )
 
@@ -97,11 +97,11 @@ ROM_START( aofbh )
 	ROM_CONTINUE( 0x600001, 0x100000 )
 ROM_END
 
-ROM_START( aofkt )
+ROM_START( aof02 )  // aofkt
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "044kt.p1", 0x000000, 0x080000, CRC(a69b9af2) SHA1(5c8e922f48950ac79f42f4b0fc4f136dc4ef16ca) )
+	ROM_LOAD16_WORD_SWAP( "044s02.p1", 0x000000, 0x080000, CRC(a69b9af2) SHA1(5c8e922f48950ac79f42f4b0fc4f136dc4ef16ca) )
 
-	NEO_SFIX_128K( "044kt.s1", CRC(6e7c531e) SHA1(b0ede854b16216a97214a294d246af757f2500e8) )
+	NEO_SFIX_128K( "044s02.s1", CRC(6e7c531e) SHA1(b0ede854b16216a97214a294d246af757f2500e8) )
 
 	NEO_JAPAN_BIOS_AUDIO(0x20000, "044.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
 
@@ -117,6 +117,29 @@ ROM_START( aofkt )
 	ROM_LOAD16_BYTE( "044.c3", 0x200000, 0x100000, CRC(403e898a) SHA1(dd5888f8b24a33b2c1f483316fe80c17849ccfc4) )
 	ROM_CONTINUE( 0x600000, 0x100000 )
 	ROM_LOAD16_BYTE( "044.c4", 0x200001, 0x100000, CRC(6235fbaa) SHA1(9090e337d7beed25ba81ae0708d0aeb57e6cf405) )
+	ROM_CONTINUE( 0x600001, 0x100000 )
+ROM_END
+
+ROM_START( aof03 )  // aofbr
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "044s03.p1", 0x000000, 0x080000, CRC(ea8577a1) SHA1(3cdf1302893620a09d5796059009915d55da5edf) )
+
+	NEO_SFIX_128K( "044s03.s1", CRC(a6d76be7) SHA1(1b7e438b9f79a6e278ee8a04fbba128bbf9f1c12) )
+
+	NEO_BIOS_AUDIO_128K( "044.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "044.v2", 0x000000, 0x200000, CRC(3ec632ea) SHA1(e3f413f580b57f70d2dae16dbdacb797884d3fce) )
+	ROM_LOAD( "044.v4", 0x200000, 0x200000, CRC(4b0f8e23) SHA1(105da0cc5ba19869c7147fba8b177500758c232b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "044.c1", 0x000000, 0x100000, CRC(ddab98a7) SHA1(f20eb81ec431268798c142c482146c1545af1c24) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "044.c2", 0x000001, 0x100000, CRC(d8ccd575) SHA1(f697263fe92164e274bf34c55327b3d4a158b332) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "044s03.c3", 0x200000, 0x100000, CRC(7b312e56) SHA1(c33fee3e6c26deb7d93c7509421b92c622dfd189) )
+	ROM_CONTINUE( 0x600000, 0x100000 )
+	ROM_LOAD16_BYTE( "044s03.c4", 0x200001, 0x100000, CRC(4d31b52b) SHA1(327658905e9ac754ceb4065810b3c1ea5510ed41) )
 	ROM_CONTINUE( 0x600001, 0x100000 )
 ROM_END
 
@@ -713,6 +736,30 @@ ROM_END
 ROM_START( maglord02 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "005s02.p1", 0x000000, 0x080000, CRC(9486bcf4) SHA1(7edde8d2929196e3e3b2b8ec82d5d5de826081d1) )
+
+	NEO_SFIX_128K( "005s02.s1", CRC(0e1839b2) SHA1(2c833521b70635c90af4e3301b564e7901ab60a7) )
+
+	NEO_BIOS_AUDIO_256K( "005.m1", CRC(26259f0f) SHA1(4f3e500093d61585048767dbd9fa09b3911a05d6) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "005.v11", 0x000000, 0x080000, CRC(cc0455fd) SHA1(a8ff4270e7705e263d25ff0b301f503bccea7e59) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "005.v21", 0x000000, 0x080000, CRC(f94ab5b7) SHA1(2c16985102e3585e08622d8c54ac5c60425b9ff8) )
+	ROM_LOAD( "005.v22", 0x080000, 0x080000, CRC(232cfd04) SHA1(61b66a9decbbd1f500a8c186615e7fd077c6861e) )
+
+	ROM_REGION( 0x300000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "005.c1", 0x000000, 0x80000, CRC(806aee34) SHA1(3c32a0edbbddb694495b510c13979c44b83de8bc) )
+	ROM_LOAD16_BYTE( "005.c2", 0x000001, 0x80000, CRC(34aa9a86) SHA1(cec97e1ff7f91158040c629ba75742db82c4ae5e) )
+	ROM_LOAD16_BYTE( "005.c3", 0x100000, 0x80000, CRC(c4c2b926) SHA1(478bfafca21f5a1338808251a06ab405e6a9e65f) )
+	ROM_LOAD16_BYTE( "005.c4", 0x100001, 0x80000, CRC(9c46dcf4) SHA1(4c05f3dc25777a87578ce09a6cefb3a4cebf3266) )
+	ROM_LOAD16_BYTE( "005.c5", 0x200000, 0x80000, CRC(69086dec) SHA1(7fa47f4a765948813ebf366168275dcc3c42e951) )
+	ROM_LOAD16_BYTE( "005.c6", 0x200001, 0x80000, CRC(ab7ac142) SHA1(e6ad2843947d35d8e913d2666f87946c1ba7944f) )
+ROM_END
+
+ROM_START( maglord03 ) // French and English, use Shift to choose
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "005s03.p1", 0x000000, 0x080000, CRC(f201c65a) SHA1(61173b0922bb0c1386d6312a819b492d402b4b7f) )
 
 	NEO_SFIX_128K( "005s02.s1", CRC(0e1839b2) SHA1(2c833521b70635c90af4e3301b564e7901ab60a7) )
 
@@ -1608,8 +1655,9 @@ ROM_END
 
 GAME( 1991, 2020bbcd,      2020bb,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "2020 Super Baseball (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1992, aofbh,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, aofkt,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Art of Fighting (Korean Voice)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, aof01,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, aof02,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Art of Fighting (Korean Voice)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, aof03,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "NeoGeo BR Team", "Art of Fighting (Brazil)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, aof3b,         aof3,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG]", "Art of Fighting 3 (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, aof3bh,        aof3,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting 3 (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 
@@ -1651,6 +1699,7 @@ GAME( 1992, lresortpx,     lresort,  neogeo_noslot, neogeo, neogeo_state, init_n
 
 GAME( 1990, maglord01,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Magician Lord (Plus Max)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, maglord02,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Boomchild", "Magician Lord (Again Changes From Hell v1.0.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, maglord03,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Boomchild", "Magician Lord (Again Changes From Hell v1.0.0, French)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Pipi899", "Mutation Nation (Ex version)", MACHINE_SUPPORTS_SAVE )
 
@@ -2706,9 +2755,29 @@ ROM_START( karnovr03 ) // karnovrh
 	ROM_LOAD16_BYTE( "066.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
 ROM_END
 
-ROM_START( karnovr04 ) // karnovre
+ROM_START( karnovr04 ) // karnovre 0.1
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "066s04.p1", 0x000000, 0x100000, CRC(06b066a0) SHA1(9fd2e9ee723b922acc5a361d3e3553b950507d0b) )
+
+	NEO_SFIX_128K( "066.s1", CRC(bae5d5e5) SHA1(aa69d9b235b781ec51f72a528fada9cb12e72cbc) )
+
+	NEO_BIOS_AUDIO_128K( "066.m1", CRC(030beae4) SHA1(ceb6ee6c09514504efacdbca7b280901e4c97084) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "066.v1", 0x000000, 0x200000, CRC(0b7ea37a) SHA1(34e7d4f6db053674a7e8c8b2e3e398777d5b02e6) )
+
+	ROM_REGION( 0xc00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "066.c1", 0x000000, 0x200000, CRC(09dfe061) SHA1(ca4c0f0ce80967b4be2f18b72435c468bbfbac4c) )
+	ROM_LOAD16_BYTE( "066.c2", 0x000001, 0x200000, CRC(e0f6682a) SHA1(addb4fbc30da2b8ffc86819d92a874eb232f67dd) )
+	ROM_LOAD16_BYTE( "066.c3", 0x400000, 0x200000, CRC(a673b4f7) SHA1(d138f5b38fd65c61549ce36f5c4983f7c8a3e7f6) )
+	ROM_LOAD16_BYTE( "066.c4", 0x400001, 0x200000, CRC(cb3dc5f4) SHA1(865d9ccfc3df517c341d6aac16120f6b6aa759fe) )
+	ROM_LOAD16_BYTE( "066.c5", 0x800000, 0x200000, CRC(9a28785d) SHA1(19723e1f7ff429e8a038d89488b279f830dfaf6e) )
+	ROM_LOAD16_BYTE( "066.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
+ROM_END
+
+ROM_START( karnovr05 ) // karnovre 0.2
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "066s05.p1", 0x000000, 0x100000, CRC(07af175f) SHA1(8b471838108f714cba10aacf694e999b406a5531) )
 
 	NEO_SFIX_128K( "066.s1", CRC(bae5d5e5) SHA1(aa69d9b235b781ec51f72a528fada9cb12e72cbc) )
 
@@ -4846,6 +4915,7 @@ GAME( 1994, karnovr01,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1994, karnovr02,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Karnov's Revenge (Add hidden characters-Enable Bull v1)", MACHINE_SUPPORTS_SAVE ) // Big Tornado
 GAME( 2017, karnovr03,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "mountainmanjed", "Karnov's Revenge (Add Clown and Karnov stages)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, karnovr04,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "GameHackFan", "Karnov's Revenge (Revolution v0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, karnovr05,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "GameHackFan", "Karnov's Revenge (Revolution v0.2)", MACHINE_SUPPORTS_SAVE )
 // Kizuna Encounter
 GAME( 1996, kizuna01,       kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kizuna02,       kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v2)", MACHINE_SUPPORTS_SAVE )

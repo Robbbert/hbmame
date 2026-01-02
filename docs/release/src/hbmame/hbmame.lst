@@ -1058,6 +1058,7 @@ sf2s12
 sf2s13
 sf2s14
 sf2s15
+sf2s16
 sf2tlona01
 sf2tlona02
 sf2tlona03
@@ -1970,6 +1971,8 @@ ramokromok                             // HB
 galnamco	/* The Original Namco */
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */
+galaxian01
+galaxian02
 galapxis
 galaxiabh	/* unknown hack of Galaxian */
 galaxkyo	/* unknown hack of Galaxian Part X */
@@ -3579,6 +3582,7 @@ kof2001s46
 kof2001s47
 kof2001s48
 kof2001s49
+kof2001s50
 
 @source:kof2002.cpp
 kof200215
@@ -4450,6 +4454,7 @@ nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
 nbajam03                               // NBA Jam Tournament Edition SE r5.0
 nbajam04                               // NBA Jam Tournament Edition Rewind r1.2
 nbajam05
+nbajam07                               //06 is in midwunit
 roadkill
 umk2s01                                // Ultimate MKII Tournament Edition r5.0.050
 umk2s02                                // Ultimate MKII Tournament Edition r5.0.051
@@ -4461,6 +4466,7 @@ umk2s05                                // Ultimate MKII Tournament Edition r5.0.
 mk3                                    //parent
 mk3s01
 mk3s02
+nbajam06
 wwfmania                               //parent
 wwfmania01
 umk3                                   //parent
@@ -4517,6 +4523,8 @@ umk3plus20220307                       // umk3pb2
 @source:midyunit.cpp
 smashtv                                //parent
 mkla4d                                 // MK protection hack
+mk                                     //parent
+mkyawdim6
 y_test
 
 @source:missile.cpp
@@ -5875,10 +5883,11 @@ zolapac		/* PacMAME Hacks */
 zolaslow	/* PacMAME Hacks */
 zolatunl	/* PacMAME Hacks */
 zolavect	/* PacMAME Hacks */
-mspacmans01
-mspacmans02
-mspacmans03
-mspacmans04
+mspacman01
+mspacman02
+mspacman03
+mspacman04
+mspacman05
 mspacmabscre
 mspacmadp
 mspacatttur
@@ -6144,7 +6153,8 @@ badapple
 badapplea
 badappleb
 baddudesn
-bbb2
+bbb2d1
+bbb2d2
 beast
 bonusstage                             // HB
 bpanicdx                               // HB
@@ -6236,10 +6246,11 @@ neotrisd1
 neotrisd2
 neotrisd3
 nblktiger
+ng4psyschk
 ng4ptest
 neopl
 ngem2k
-ngftdemo	// CeL
+ngftdemo
 ngmontst
 ngmontst3
 ngtd2
@@ -6299,10 +6310,17 @@ totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 vaporous
 //venuswars
+violentv
 //vlad2000
+wrldracr
+wrldracr01
 //ww2demo
 xeno
 xeviousn
+xeviousn01
+xeviousn02
+xeviousn03
+xeviousn04
 xmas2017
 yoyoshkn
 zintrckbh
@@ -6315,8 +6333,9 @@ zintricks01
 2020bbcd
 androdun01
 androdun02
-aofbh
-aofkt
+aof01
+aof02
+aof03
 aof2s01
 aof2s02
 aof2s03
@@ -6382,6 +6401,7 @@ karnovr01
 karnovr02
 karnovr03
 karnovr04
+karnovr05
 kizuna01
 kizuna02
 kizuna03
@@ -6400,6 +6420,7 @@ magdrop3s03
 magdrop3s04
 maglord01
 maglord02
+maglord03
 matrim01
 matrim02
 matrim03
@@ -8490,11 +8511,12 @@ nrallyv
 
 @source:rastan.cpp
 rastan                                 //parent
-rastandh
-rastand2
-rastaneh
-rastane2
-rastwack
+rastan01
+rastan02
+rastan03
+rastan04
+rastan05
+rastsaga01
 
 @source:retofinv.cpp
 retofinv                               //parent
@@ -8612,6 +8634,10 @@ grdians38
 grdians39
 grdians40
 grdians41
+
+@source:sf.cpp
+sf                                     //parent
+sfpp
 
 @source:shadfrce.cpp
 shadfrce                               //parent
@@ -8890,6 +8916,10 @@ pipibibs02
 truxton2                               //parent
 truxton2s01
 
+@source:toki.cpp
+toki                                   //parent
+toki01
+
 @source:trackfld.cpp
 trackfld                               //parent
 athens04                               //Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas
@@ -8903,6 +8933,10 @@ trkftest13b
 trkftest11t
 trkftest12t
 trkftest12tu
+
+@source:twin16.cpp
+vulcan                                 //parent
+gradius2s01
 
 @source:twincobr.cpp
 twincobr                               //parent
