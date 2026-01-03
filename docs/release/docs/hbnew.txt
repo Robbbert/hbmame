@@ -1,9 +1,20 @@
 ﻿What's new in HBMAME
 ====================
 
+2026-0x-xx 0.245.30
+
+
+
+New Games
+---------------------------------
+- [galaxian09]          Galaxian (bootleg 09)
+
+
+
+
 2026-01-02 0.245.29
 
-
+Fixed crackly sound in various Neo-Geo homebrew.
 
 New Games
 ---------------------------------

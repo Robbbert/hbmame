@@ -25476,4 +25476,29 @@ GAME( 2023, sf2mix130,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,
 GAME( 2025, sf2mix140,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.5)", MACHINE_SUPPORTS_SAVE )
 
+#if 0
+ROM_START( gmunch )
+	/* There was gmunch and gmunch2, using same roms, different proms. But colours are completely wrong in either case
+	   Both games have now been removed (replaced by ghostmun) */
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pac1.bin",     0x0000, 0x1000, CRC(19338c70) SHA1(cc2665b7d534d324627d12025ee099ff415d4214) )
+	ROM_LOAD( "pac2.bin",     0x1000, 0x1000, CRC(18db074d) SHA1(a70ed18f632e947493e648e6fc057dfb7a2a3322) )
+	ROM_LOAD( "pac3.bin",     0x2000, 0x1000, CRC(abb98b1d) SHA1(bb0109d353359bb192a3e6856a857c2f842838cb) )
+	ROM_LOAD( "pac4.bin",     0x3000, 0x1000, CRC(2403c78e) SHA1(52d8c8a4efcf47871485080ab217098a019e6579) )
+	/* this rom isn't loaded into rom space so what is it for? */
+	ROM_LOAD_OPTIONAL( "pac7.bin",     0x5000, 0x1000, CRC(6566c07b) SHA1(8047350e5f6a39d34dfc9242fa0747db9819fe99) )
+
+	ROM_REGION( 0x3000, "gfx1" , 0 )
+	ROM_LOAD( "pac5.bin",     0x0000, 0x1000, CRC(a5965fa6) SHA1(c746f90b4c4620ef6190f9ae85d5036bda3b81ae) )
+	ROM_LOAD( "pac8.bin",     0x1000, 0x1000, CRC(0491a967) SHA1(868f7c7efdbe40c8e0977557bc2cedefb9a3ea81) )
+	/* this rom contains gfx from uniwars and mame doesn't process it */
+	ROM_LOAD_OPTIONAL( "pac6.bin",     0x2000, 0x1000, CRC(2145e7ea) SHA1(a2e3a54fa25b030d72431f42e12783db08e95e2e) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD_OPTIONAL( "sk.bpr",       0x0000, 0x0020, CRC(bce79607) SHA1(49d60fde149240bcd025f721b0fbbbdbc549a42f) ) /* gmunch */
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) ) /* gmunch2 */
+ROM_END
+#endif
+
+
 
