@@ -25500,5 +25500,93 @@ ROM_START( gmunch )
 ROM_END
 #endif
 
+//-----------------------------------------------------------------------------------------------------------------------
 
+Congorilla - clone of Crazy Kong, roms most closely resemble ckongmc2 which doesn't work.
+
+SHA1 D ( congor )
+        ROM_LOAD( "cg10.bin",     0x000000, 0x000800, CRC(8bec5d92) SHA1(af1baff2aeba42bc91cde261c8a86e9cc2425a78) )
+        ROM_LOAD( "cg11.bin",     0x000000, 0x000800, CRC(451a4d22) SHA1(9aa627ba1e29554888133d84ccc1243a1ca223d6) )
+        ROM_LOAD( "cg12.bin",     0x000000, 0x000800, CRC(bea1f855) SHA1(d0c3a250e7a6b47e8c6837b16162a696b8357e25) )
+        ROM_LOAD( "cg13.bin",     0x000000, 0x000800, CRC(bc4353f5) SHA1(6dce930c1afb928014450d691b44f66cccdde5e3) )
+        ROM_LOAD( "cg4.bin",      0x000000, 0x000800, CRC(1b5ebf51) SHA1(6910cee16afa38b303a0b887a1a1c4c19f75bf0d) )
+        ROM_LOAD( "cg6.bin",      0x000000, 0x000800, CRC(6b796492) SHA1(5383d4a9ef654457c399e967a70b2c97896c4dff) )
+        ROM_LOAD( "cg7.bin",      0x000000, 0x000800, CRC(7f5aeb79) SHA1(67e6e45194d118bfa80e5a43119b4f9e5fd99ce4) )
+        ROM_LOAD( "cg9.bin",      0x000000, 0x000800, CRC(5a9c20a3) SHA1(fdbde28cbfa93c7c412f4c61f61380ef4d4057a2) )
+CG6.BIN      NO MATCH
+CG10.BIN     NO MATCH
+CG11.BIN     NO MATCH
+CG12.BIN     NO MATCH
+CG13.BIN     NO MATCH
+CG2.BIN      = c11-02.bin    Crazy Kong (set 1)
+             = c11-02.bin    Crazy Kong (set 2)
+             = c11-02.bin    Crazy Kong (Jeutel bootleg)
+             = c11-02.bin    Crazy Kong (Orca bootleg)
+             = c11-02.bin    Big Kong
+             = canballs.11c  Cannon Ball (Crazy Climber hardware)
+             = c11-2.bin     Crazy Kong (Alternative levels)
+CG4.BIN      NO MATCH
+CG1.BIN      = a11-01.bin    Crazy Kong (set 1)
+             = a11-01.bin    Crazy Kong (set 2)
+             = a11-01.bin    Crazy Kong (Jeutel bootleg)
+             = a11-01.bin    Crazy Kong (Orca bootleg)
+             = a11-01.bin    Big Kong
+             = canballs.11a  Cannon Ball (Crazy Climber hardware)
+             = a11-1.bin     Crazy Kong (Alternative levels)
+CG7.BIN      NO MATCH
+CG8.BIN      NO MATCH
+CG9.BIN      NO MATCH
+
+incomplete, also CG8 is missing
+
+ROM_START( congor )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkprom1.bin",  0x0000, 0x0800, CRC(0fc3bea3) SHA1(fce1dfa404be37b948bcab5d1fb0d1c86b6615af) )
+	//ROM_LOAD( "dkprom2.bin",  0x0800, 0x0800, CRC(5a321026) SHA1(db77bfa4a458439bb94e991cc9c35d95c77dd2df) )
+	ROM_LOAD( "cg7.bin",  0x0800, 0x0800, CRC(7f5aeb79) SHA1(67e6e45194d118bfa80e5a43119b4f9e5fd99ce4) )
+	ROM_LOAD( "dkprom3.bin",  0x1000, 0x0800, CRC(c6c018e0) SHA1(87c87610cc98eb226b4e9f3ee7e6c9d4f574095c) )
+	ROM_LOAD( "dkprom4.bin",  0x1800, 0x0800, CRC(2141e537) SHA1(941320ede2addc68879cf1a09f18f821126d71fa) )
+	ROM_LOAD( "dkprom5.bin",  0x2000, 0x0800, CRC(74f15a59) SHA1(a8a806dcd949c4bce6161bf7c2477f1a2fda7bf0) )
+	//ROM_LOAD( "dkprom6.bin",  0x2800, 0x0800, CRC(5f8a4544) SHA1(ccc88d1f0a599afd2762bdbadf2b34812b1f27a0) )
+	ROM_LOAD( "cg9.bin",  0x2800, 0x0800, CRC(5a9c20a3) SHA1(fdbde28cbfa93c7c412f4c61f61380ef4d4057a2) )
+	ROM_LOAD( "dkprom7.bin",  0x3000, 0x0800, CRC(8e0be5c3) SHA1(e29ded9f290931a671a1883b75ae60e94b2c3709) )
+	//ROM_LOAD( "dkprom8.bin",  0x3800, 0x0800, CRC(82290105) SHA1(441173d7f9080a7d7439ffbe9224501ef7ea7282) )
+	ROM_LOAD( "cg10.bin",  0x3800, 0x0800, CRC(8bec5d92) SHA1(af1baff2aeba42bc91cde261c8a86e9cc2425a78) )
+	ROM_LOAD( "dkprom9.bin",  0x4000, 0x0800, CRC(5a9ee1ed) SHA1(1bc420a42a4931c389b4f8db451de7c59786dfbc) )
+	ROM_LOAD( "dkprom10.bin", 0x4800, 0x0800, CRC(da9216d8) SHA1(79dcc754c9f1b64b4ed89976a8a62c549cea4026) )
+	//ROM_LOAD( "cg11.bin", 0x4800, 0x0800, CRC(451a4d22) SHA1(9aa627ba1e29554888133d84ccc1243a1ca223d6) )
+	ROM_LOAD( "dkprom11.bin", 0x5000, 0x0800, CRC(61900dc8) SHA1(12e96d4fb99c74a71707b3cf2bb74dacec5a0d72) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "cg2.bin",   0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
+	ROM_LOAD( "cg1.bin",   0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "dk_cprom.bin",     0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
+ROM_END
+
+GAME( 1981, congor,     ckong,    ckongmc,  ckongmc2, galaxian_state,  init_ckongs,   ROT90, "bootleg", "Congorilla", MACHINE_NO_COCKTAIL | MACHINE_WRONG_COLORS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// 516: Violent Vengeance: the Universe Hero by Balek Corp
+ROM_START( violentv ) // beta 1
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "516.p1", 0x000000, 0x100000, CRC(fc6852b8) SHA1(fa53caf10f603e912d7fcd1429d9d866bcf6a0f1) )
+	ROM_LOAD16_WORD_SWAP( "516.p2", 0x100000, 0x800000, CRC(a810b0ab) SHA1(2c1b650da40882cccb6c0d76e2d59652c6ee02b5) )
+
+	NEO_SFIX_128K( "516.s1", CRC(f7302142) SHA1(5812ff4a2fedaf33ad085d09673ce2a42fda34fb) )
+
+	NEO_BIOS_AUDIO_64K( "516.m1", CRC(988f0366) SHA1(cf6c5068445b8f5f1720c90cb45d7836f090e7ab) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "516.v1", 0x000000, 0x800000, CRC(f8def124) SHA1(36d5f473c35e8b5288ed4091214b740abc041af4) )
+	ROM_LOAD( "516.v2", 0x800000, 0x800000, CRC(357babe6) SHA1(3767aec1f11b2e53e66739287ca15684946daecf) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "516.c1", 0x000000, 0x1000000, CRC(a5b714a5) SHA1(3577db302103b34d360ec9c26826cacb4d6baf3c) )
+	ROM_LOAD16_BYTE( "516.c2", 0x000001, 0x1000000, CRC(9c9b726c) SHA1(df484179642c09ff5d131d32647e74695cb64fdd) )
+ROM_END
+
+GAME( 2025, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 1)", MACHINE_SUPPORTS_SAVE )
 

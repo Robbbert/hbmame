@@ -20059,7 +20059,33 @@ ROM_START( theglad08 )
 	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
 ROM_END
 
+ROM_START( ket01 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "ket_matsuriver.u38", 0x000000, 0x200000, CRC(d6dbd74d) SHA1(dc9f90445ddfc4db6ba8ab1d71c862437dfb3a36) )
 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "ket_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "cave_t04701w064.u19",   0x180000, 0x800000, CRC(2665b041) SHA1(fb1107778b66f2af0de77ac82e1ee2902f53a959) )
+
+	ROM_REGION16_LE( 0x1000000, "sprcol", 0 )
+	ROM_LOAD( "cave_a04701w064.u7",    0x0000000, 0x0800000, CRC(5ef1b94b) SHA1(f10dfa46e0a4d297c3a856aea5b49d648f98935c) )
+	ROM_LOAD( "cave_a04702w064.u8",    0x0800000, 0x0800000, CRC(26d6da7f) SHA1(f20e07a7994f41b5ed917f8b0119dc5542f3541c) )
+
+	ROM_REGION16_LE( 0x0800000, "sprmask", 0 )
+	ROM_LOAD( "cave_b04701w064.u1",    0x0000000, 0x0800000, CRC(1bec008d) SHA1(07d117dc2eebb35727fb18a7c563acbaf25a8d36) )
+
+	ROM_REGION( 0x800000, "ics", ROMREGION_ERASE00 )
+	ROM_LOAD( "cave_m04701b032.u17",   0x400000, 0x400000, CRC(b46e22d1) SHA1(670853dc485942fb96380568494bdf3235f446ee) )
+
+	ROM_REGION( 0x20000, "sram", 0 )
+	ROM_LOAD( "ket_defaults.nv",  0x0000000, 0x020000, CRC(3ca892d8) SHA1(67430df5217e453ae8140c5653deeadfad8fa684) )
+ROM_END
+
+// Ketsui
+GAME( 2007, ket01,       ket,       pgm,  iq_ddp3,     iq_pgm_arm_type1, init_pgm,      ROT270, "Cave (AMI license)", "Ketsui: Kizuna Jigoku Tachi (2003/01/01 Master Ver.)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // Homebrew
 GAME( 2024, pgmcabal,    pgm,       pgm,                 iq_pgm,      iq_pgm,           init_pgm,        ROT0,   "IQ_132", "Cabal (PGM)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2023, pgmsnake,    pgm,       pgm,                 iq_pgm,      iq_pgm,           init_pgm,        ROT0,   "IQ_132", "PGM test program", MACHINE_SUPPORTS_SAVE )

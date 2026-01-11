@@ -150,7 +150,7 @@ spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
 @source:bzone.cpp
 //bzone                                  //parent
-//bzone01
+//bzone01          full of bugs
 
 @source:cabal.cpp
 cabal                                  //parent
@@ -8029,6 +8029,7 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
+//ket01    black screen
 
 @source:phoenix.cpp
 phoenix                                //parent
