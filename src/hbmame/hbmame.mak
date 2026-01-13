@@ -12,7 +12,7 @@ GEN_FOLDERS += $(GENDIR)/mame/layout/
 
 # MAME layouts that we use
 LAYOUTS += \
-	$(SRC)/hbmame/layout/spacmissx.lay \
+	$(SRC)/mame/layout/galactic.lay \
 	$(SRC)/mame/layout/segabill.lay \
 	$(SRC)/mame/layout/warrior.lay \
 	$(SRC)/mame/layout/bzone.lay \

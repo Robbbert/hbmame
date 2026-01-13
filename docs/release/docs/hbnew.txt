@@ -7,8 +7,9 @@
 
 New Games
 ---------------------------------
+- [galactic]            Galactica - Batalha Espacial (Extra Sounds)
 - [galaxian09]          Galaxian (bootleg 09)
-- [violentv]            Violent Vengeance: the universe hero (2026-01-10)
+- [violentv]            Violent Vengeance: the universe hero (beta 2.05, 2026-01-10)
 
 
 
@@ -36,7 +37,7 @@ New Games
 - [sfpp]                Street Fighter (Plus Plus)
 - [sf2s16]              Street Fighter II: The World Warrior (Plus Plus)
 - [toki01]              Toki (Brazil)
-- [violentv]            Violent Vengeance: the universe hero (beta)
+- [violentv]            Violent Vengeance: the universe hero (beta 1.04)
 - [wrldracr]            World Racer (2025-11-14) [Blastar]
 - [wrldracr01]          World Racer (2025-12-12) [Blastar]
 - [xeviousn01]          Zetsu Xevious (beta 1)

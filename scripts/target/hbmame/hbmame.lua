@@ -1142,7 +1142,7 @@ createHBMAMEProjects(_target, _subtarget, "misc")
 files {
 	MAME_DIR .. "src/hbmame/drivers/dotrikun.cpp",
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
-	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",
+	MAME_DIR .. "src/hbmame/drivers/galactic.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",

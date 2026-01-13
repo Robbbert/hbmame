@@ -1902,6 +1902,10 @@ asurabus				//parent
 asurabuss01
 asurabuss02
 
+@source:galactic.cpp
+galactic                               // extra sounds
+spacmiss                               // extra sounds
+
 @source:galaga.cpp
 galaga		//parent
 xevious		//parent
@@ -8688,9 +8692,6 @@ solomon01
 @source:sonson.cpp
 sonson                                 //parent
 sonson01
-
-@source:spacmiss.cpp
-spacmissx                              // extra sounds
 
 @source:spcenctr.cpp
 spcenctr                               //parent

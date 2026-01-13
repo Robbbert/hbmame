@@ -2,11 +2,13 @@
 // copyright-holders:Robbbert
 /****************************************************************************************
 
-Space Missile
+Games:
+- Space Missile
+- Galactic
 
-Galaxian running on Space Invaders hardware
+Galaxian-like game with biplanes, running on Space Invaders hardware
 
-2013-06-26
+2013-06-26 spacmiss.cpp ; renamed 2026-01-13 to galactic.cpp
 
 *******************************************************************************************/
 
@@ -17,7 +19,7 @@ Galaxian running on Space Invaders hardware
 #include "sound/samples.h"
 #include "screen.h"
 #include "speaker.h"
-#include "spacmissx.lh"
+#include "galactic.lh"
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
@@ -48,7 +50,7 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
-	void spacmissx(machine_config &config);
+	void galactic(machine_config &config);
 
 private:
 
@@ -58,15 +60,15 @@ private:
 	u8 m_port_1_last_extra = 0U;
 	u8 m_port_2_last_extra = 0U;
 	emu_timer   *m_interrupt_timer = nullptr;
-	u8 spacmissx_02_r();
-	void spacmissx_03_w(u8 data);
-	void spacmissx_05_w(u8 data);
-	void spacmissx_07_w(u8 data);
+	u8 galactic_02_r();
+	void galactic_03_w(u8 data);
+	void galactic_05_w(u8 data);
+	void galactic_07_w(u8 data);
 	void machine_start() override;
 	void machine_reset() override;
 	u8 vpos_to_vysnc_chain_counter( int vpos );
 	int vysnc_chain_counter_to_vpos( u8 counter, int vblank );
-	u32 screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	u32 screen_update_galactic(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
@@ -79,7 +81,7 @@ private:
 	required_device<screen_device> m_screen;
 };
 
-static const discrete_dac_r1_ladder spacmissx_music_dac =
+static const discrete_dac_r1_ladder galactic_music_dac =
 	{3, {0, RES_K(47), RES_K(12)}, 0, 0, 0, CAP_U(0.1)};
 
 static const discrete_comp_adder_table invaders_thump_resistors =
@@ -111,7 +113,7 @@ static const discrete_mixer_desc mix1 =
 	0, RES_K(100), 0, CAP_U(.1), 0, 20
 };
 
-#define spacmissx_MUSIC_CLK      (150000)
+#define GALACTIC_MUSIC_CLK      (150000)
 
 /* Nodes - Inputs */
 /* Nodes - Sounds */
@@ -119,7 +121,7 @@ static const discrete_mixer_desc mix1 =
  * Fleet movement
  ************************************************/
 
-DISCRETE_SOUND_START(spacmissx_disc)
+DISCRETE_SOUND_START(galactic_disc)
 /******************************************************************************
  *
  * Background Hum
@@ -152,12 +154,12 @@ DISCRETE_SOUND_START(spacmissx_disc)
  ******************************************************************************/
 	DISCRETE_INPUT_DATA (NODE_01)
 
-	DISCRETE_NOTE(NODE_20, 1, spacmissx_MUSIC_CLK, NODE_01, 255, 5, DISC_CLK_IS_FREQ)
+	DISCRETE_NOTE(NODE_20, 1, GALACTIC_MUSIC_CLK, NODE_01, 255, 5, DISC_CLK_IS_FREQ)
 
 	// Convert count to 7492 output
 	DISCRETE_TRANSFORM2(NODE_21, NODE_20, 2, "01>0+")
 
-	DISCRETE_DAC_R1(NODE_22, NODE_21, DEFAULT_TTL_V_LOGIC_1, &spacmissx_music_dac)
+	DISCRETE_DAC_R1(NODE_22, NODE_21, DEFAULT_TTL_V_LOGIC_1, &galactic_music_dac)
 
 /******************************************************************************
  *
@@ -176,12 +178,12 @@ DISCRETE_SOUND_START(spacmissx_disc)
 
 DISCRETE_SOUND_END
 
-void sm_state::spacmissx_07_w(u8 data)
+void sm_state::galactic_07_w(u8 data)
 {
 	m_discrete->write(NODE_01, data | 0xc0);
 }
 
-void sm_state::spacmissx_03_w(u8 data)
+void sm_state::galactic_03_w(u8 data)
 {
 	u8 rising_bits = data & ~m_port_1_last_extra;
 
@@ -192,7 +194,7 @@ void sm_state::spacmissx_03_w(u8 data)
 }
 
 // bits 0-3 make a variable background tone
-void sm_state::spacmissx_05_w(u8 data)
+void sm_state::galactic_05_w(u8 data)
 {
 	if (BIT(m_port_1_last_extra, 5))
 		m_discrete->write(NODE_02, data & 0x0f);
@@ -302,7 +304,7 @@ void sm_state::machine_reset()
 
 
 
-u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+u32 sm_state::screen_update_galactic(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	u8 x = 0;
 	u8 y = MW8080BW_VCOUNTER_START_NO_VBLANK;
@@ -358,7 +360,7 @@ u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitma
 	return 0;
 }
 
-u8 sm_state::spacmissx_02_r()
+u8 sm_state::galactic_02_r()
 {
 	u8 data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
@@ -375,12 +377,12 @@ void sm_state::mem_map(address_map &map) {
 void sm_state::io_map(address_map &map) {
 	map(0x00,0x00).portr("IN0");
 	map(0x01,0x01).portr("IN1");
-	map(0x02,0x02).r(FUNC(sm_state::spacmissx_02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
-	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(sm_state::spacmissx_03_w));
+	map(0x02,0x02).r(FUNC(sm_state::galactic_02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
+	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(sm_state::galactic_03_w));
 	map(0x04,0x04).w("mb14241",FUNC(mb14241_device::shift_data_w));
-	map(0x05,0x05).w(FUNC(sm_state::spacmissx_05_w));
+	map(0x05,0x05).w(FUNC(sm_state::galactic_05_w));
 	map(0x06,0x06).nopw();  //(watchdog_reset_w)
-	map(0x07,0x07).w(FUNC(sm_state::spacmissx_07_w));
+	map(0x07,0x07).w(FUNC(sm_state::galactic_07_w));
 }
 
 static const char *const invaders_sample_names[] =
@@ -393,7 +395,7 @@ static const char *const invaders_sample_names[] =
 };
 
 
-void sm_state::spacmissx(machine_config &config)
+void sm_state::galactic(machine_config &config)
 {
 	/* basic machine hardware */
 	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
@@ -403,7 +405,7 @@ void sm_state::spacmissx(machine_config &config)
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
-	m_screen->set_screen_update(FUNC(sm_state::screen_update_spacmissx));
+	m_screen->set_screen_update(FUNC(sm_state::screen_update_galactic));
 
 	/* add shifter */
 	MB14241(config, "mb14241");
@@ -415,12 +417,12 @@ void sm_state::spacmissx(machine_config &config)
 	m_samples->set_samples_names(invaders_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 0.50);
 
-	DISCRETE(config, m_discrete, spacmissx_disc);
+	DISCRETE(config, m_discrete, galactic_disc);
 	m_discrete->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
 
-static INPUT_PORTS_START( spacmissx )
+static INPUT_PORTS_START( galactic )
 	PORT_START("IN0")
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNKNOWN ) // gets read into memory (0x2012) then never used
 
@@ -435,21 +437,18 @@ static INPUT_PORTS_START( spacmissx )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNKNOWN )
 
 	PORT_START("IN2")
-	PORT_DIPNAME( 0x03, 0x02, DEF_STR( Bonus_Life ) )
+	PORT_DIPNAME( 0x03, 0x01, DEF_STR( Bonus_Life ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x01, "4000" )
 	PORT_DIPSETTING(    0x02, "5000" )
 	PORT_DIPSETTING(    0x03, "7000" )
-	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Lives ) )
+	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Lives ) )
 	PORT_DIPSETTING(    0x00, "3" )
-	PORT_DIPSETTING(    0x08, "6" )
+	PORT_DIPSETTING(    0x08, "5" )
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT  ) PORT_2WAY PORT_PLAYER(2)
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_2WAY PORT_PLAYER(2)
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNKNOWN )
+	PORT_BIT( 0x84, IP_ACTIVE_HIGH, IPT_UNKNOWN )
 
 	/* Dummy port for cocktail mode */
 	PORT_START("CAB")
@@ -458,19 +457,28 @@ static INPUT_PORTS_START( spacmissx )
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
 
-ROM_START( spacmissx )
+ROM_START( galactic )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "1",       0x0000, 0x0800, CRC(e212dc88) SHA1(bc56052bf43d18081f777b936b2be792e91ba842) )
-	ROM_LOAD( "2",       0x0800, 0x0800, CRC(f97410ee) SHA1(47f1f296c905fa13f6c521edc12c10f1f0e42400) )
-	ROM_LOAD( "3",       0x1000, 0x0800, CRC(c1175feb) SHA1(83bf955ed3a52e1ce8c688d89725d8dee1bcc866) )
-	ROM_LOAD( "4",       0x1800, 0x0800, CRC(b4451d7c) SHA1(62a18e8e927ef00a7f6cb933cdc5aeae9f074dc0) )
-	ROM_LOAD( "5",       0x4000, 0x0800, CRC(74c9da61) SHA1(cb98105729f0fa4343b71af3c658b378ade1ed46) )
-	ROM_LOAD( "6",       0x4800, 0x0800, CRC(5e7c6c44) SHA1(be7eeef10462377909018cf40503766f38466022) )
-	ROM_LOAD( "7",       0x5000, 0x0800, CRC(02619e18) SHA1(4c59f17fbc96ca08090f08c41ca9fc72c074e9c0) )
-
-	ROM_REGION( 0x0800, "user1", 0 )
-	ROM_LOAD( "8",       0x0000, 0x0800, CRC(942e5261) SHA1(e8af51d644eab4e7b31c14dc66bb036ad8940c42) ) // ?
+	ROM_LOAD( "galactic.1",       0x0000, 0x0800, CRC(b5098f1e) SHA1(9d1d045d8abeafd4716d3052fe93e52c6b347049) )
+	ROM_LOAD( "galactic.2",       0x0800, 0x0800, CRC(f97410ee) SHA1(47f1f296c905fa13f6c521edc12c10f1f0e42400) )
+	ROM_LOAD( "galactic.3",       0x1000, 0x0800, CRC(c1175feb) SHA1(83bf955ed3a52e1ce8c688d89725d8dee1bcc866) )
+	ROM_LOAD( "galactic.4",       0x1800, 0x0800, CRC(b4451d7c) SHA1(62a18e8e927ef00a7f6cb933cdc5aeae9f074dc0) )
+	ROM_LOAD( "galactic.5",       0x4000, 0x0800, CRC(74c9da61) SHA1(cb98105729f0fa4343b71af3c658b378ade1ed46) )
+	ROM_LOAD( "galactic.6",       0x4800, 0x0800, CRC(5e7c6c44) SHA1(be7eeef10462377909018cf40503766f38466022) )
+	ROM_LOAD( "galactic.7",       0x5000, 0x0800, CRC(02619e18) SHA1(4c59f17fbc96ca08090f08c41ca9fc72c074e9c0) )
 ROM_END
 
-GAMEL(1980?,spacmissx, 0, spacmissx, spacmissx, sm_state, empty_init, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_spacmissx )
+ROM_START( spacmiss )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "spacmiss.1",       0x0000, 0x0800, CRC(e212dc88) SHA1(bc56052bf43d18081f777b936b2be792e91ba842) )
+	ROM_LOAD( "galactic.2",       0x0800, 0x0800, CRC(f97410ee) SHA1(47f1f296c905fa13f6c521edc12c10f1f0e42400) )
+	ROM_LOAD( "galactic.3",       0x1000, 0x0800, CRC(c1175feb) SHA1(83bf955ed3a52e1ce8c688d89725d8dee1bcc866) )
+	ROM_LOAD( "galactic.4",       0x1800, 0x0800, CRC(b4451d7c) SHA1(62a18e8e927ef00a7f6cb933cdc5aeae9f074dc0) )
+	ROM_LOAD( "galactic.5",       0x4000, 0x0800, CRC(74c9da61) SHA1(cb98105729f0fa4343b71af3c658b378ade1ed46) )
+	ROM_LOAD( "galactic.6",       0x4800, 0x0800, CRC(5e7c6c44) SHA1(be7eeef10462377909018cf40503766f38466022) )
+	ROM_LOAD( "galactic.7",       0x5000, 0x0800, CRC(02619e18) SHA1(4c59f17fbc96ca08090f08c41ca9fc72c074e9c0) )
+ROM_END
+
+GAMEL(1980?,galactic, 0,        galactic, galactic, sm_state, empty_init, ROT270, "Taito do Brasil", "Galactica - Batalha Espacial (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_galactic )
+GAMEL(1980?,spacmiss, galactic, galactic, galactic, sm_state, empty_init, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_galactic )
 

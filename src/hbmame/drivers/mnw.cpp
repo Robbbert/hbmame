@@ -25570,7 +25570,7 @@ GAME( 1981, congor,     ckong,    ckongmc,  ckongmc2, galaxian_state,  init_ckon
 //-------------------------------------------------------------------------------------------------------------------
 
 // 516: Violent Vengeance: the Universe Hero by Balek Corp
-ROM_START( violentv ) // beta 1
+ROM_START( violentv ) // beta 1.04
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "516.p1", 0x000000, 0x100000, CRC(fc6852b8) SHA1(fa53caf10f603e912d7fcd1429d9d866bcf6a0f1) )
 	ROM_LOAD16_WORD_SWAP( "516.p2", 0x100000, 0x800000, CRC(a810b0ab) SHA1(2c1b650da40882cccb6c0d76e2d59652c6ee02b5) )
