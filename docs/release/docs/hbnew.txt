@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [claybust]            Claybuster (Extra Sounds)
 - [dkong24]             Donkey Kong (longtime hack)
 - [galactic]            Galactica - Batalha Espacial (Extra Sounds)
 - [galaxian09]          Galaxian (bootleg 09)

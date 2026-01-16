@@ -226,6 +226,9 @@ warrior					//parent
 warrior4j1
 warrior4j2
 
+@source:claybust.cpp
+claybust
+
 @source:cninja.cpp
 mutantf                                //parent
 deathbrd01
