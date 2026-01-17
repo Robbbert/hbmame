@@ -92,6 +92,9 @@ indytemp                               //parent
 ataris1hw
 ataris1rt
 
+@source:atarisy1.cpp
+attackfc
+
 @source:bagman.cpp
 bagman                                 //parent
 bagturbo

@@ -9,6 +9,7 @@
 #include "sound/samples.h"
 #include "screen.h"
 #include "speaker.h"
+#include "attackfc.lh"
 
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
@@ -32,10 +33,10 @@
 #define MW8080BW_HPIXCOUNT                (MW8080BW_HBSTART + 4)
 
 
-class claybust_state : public driver_device
+class attackfc_state : public driver_device
 {
 public:
-	claybust_state(const machine_config &mconfig, device_type type, const char *tag)
+	attackfc_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this,"maincpu")
 		, m_mb14241(*this,"mb14241")
@@ -43,9 +44,6 @@ public:
 		, m_main_ram(*this, "main_ram")
 		, m_samples(*this, "samples")
 		, m_screen(*this, "screen")
-		, m_gunx(*this, "GUNX")
-		, m_guny(*this, "GUNY")
-		, m_gun_on(*this, "claybust_gun")
 	{ }
 
 	required_device<i8085a_cpu_device> m_maincpu;
@@ -54,22 +52,14 @@ public:
 	required_shared_ptr<uint8_t> m_main_ram;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
-	required_ioport m_gunx;
-	required_ioport m_guny;
-	required_device<timer_device> m_gun_on;
 
-	void claybust(machine_config &config);
-
-	DECLARE_INPUT_CHANGED_MEMBER(gun_trigger);
-	DECLARE_READ_LINE_MEMBER(gun_on_r);
+	void attackfc(machine_config &config);
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 
-	uint8_t gun_lo_r();
-	uint8_t gun_hi_r();
+	void init_attackfc();
 	void sound_w(uint8_t data);
-	TIMER_DEVICE_CALLBACK_MEMBER(gun_callback);
 	TIMER_CALLBACK_MEMBER(interrupt_trigger);
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	DECLARE_WRITE_LINE_MEMBER(int_enable_w);
@@ -83,11 +73,11 @@ public:
 	void main_map(address_map &map);
 	void io_map(address_map &map);
 
-	uint16_t m_gun_pos = 0;
+	uint8_t m_sound_en = 0;
 };
 
 
-uint8_t claybust_state::vpos_to_vysnc_chain_counter( int vpos )
+uint8_t attackfc_state::vpos_to_vysnc_chain_counter( int vpos )
 {
 	/* convert from a vertical position to the actual values on the vertical sync counters */
 	uint8_t counter;
@@ -101,7 +91,7 @@ uint8_t claybust_state::vpos_to_vysnc_chain_counter( int vpos )
 	return counter;
 }
 
-int claybust_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
+int attackfc_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 {
 	/* convert from the vertical sync counters to an actual vertical position */
 	int vpos;
@@ -114,7 +104,7 @@ int claybust_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 	return vpos;
 }
 
-TIMER_CALLBACK_MEMBER(claybust_state::interrupt_trigger)
+TIMER_CALLBACK_MEMBER(attackfc_state::interrupt_trigger)
 {
 	int const vpos = m_screen->vpos();
 	uint8_t const counter = vpos_to_vysnc_chain_counter(vpos);
@@ -146,12 +136,12 @@ TIMER_CALLBACK_MEMBER(claybust_state::interrupt_trigger)
 }
 
 
-WRITE_LINE_MEMBER(claybust_state::int_enable_w)
+WRITE_LINE_MEMBER(attackfc_state::int_enable_w)
 {
 	m_int_enable = state;
 }
 
-IRQ_CALLBACK_MEMBER(claybust_state::interrupt_vector)
+IRQ_CALLBACK_MEMBER(attackfc_state::interrupt_vector)
 {
 	int vpos = m_screen->vpos();
 	if (machine().time() < m_interrupt_time)
@@ -163,7 +153,7 @@ IRQ_CALLBACK_MEMBER(claybust_state::interrupt_vector)
 	return vector;
 }
 
-uint32_t claybust_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+uint32_t attackfc_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	uint8_t x = 0;
 	uint8_t y = MW8080BW_VCOUNTER_START_NO_VBLANK;
@@ -210,14 +200,12 @@ uint32_t claybust_state::screen_update(screen_device &screen, bitmap_rgb32 &bitm
 	return 0;
 }
 
-void claybust_state::machine_start()
+void attackfc_state::machine_start()
 {
-	m_interrupt_timer = timer_alloc(FUNC(claybust_state::interrupt_trigger), this);
-
-	save_item(NAME(m_gun_pos));
+	m_interrupt_timer = timer_alloc(FUNC(attackfc_state::interrupt_trigger), this);
 }
 
-void claybust_state::machine_reset()
+void attackfc_state::machine_reset()
 {
 	int vpos = vysnc_chain_counter_to_vpos(MW8080BW_INT_TRIGGER_COUNT_1, MW8080BW_INT_TRIGGER_VBLANK_1);
 	m_interrupt_timer->adjust(m_screen->time_until_pos(vpos));
@@ -225,133 +213,117 @@ void claybust_state::machine_reset()
 	m_interrupt_time = attotime::zero;
 }
 
-TIMER_DEVICE_CALLBACK_MEMBER(claybust_state::gun_callback)
+static const char *const attackfc_sample_names[] =
 {
-	// reset gun latch
-	m_gun_pos = 0;
-}
-
-READ_LINE_MEMBER(claybust_state::gun_on_r)
-{
-	return m_gun_pos ? 1 : 0;
-}
-
-INPUT_CHANGED_MEMBER(claybust_state::gun_trigger)
-{
-	if (newval)
-	{
-		uint8_t const gunx = m_gunx->read();
-		uint8_t const guny = m_guny->read();
-		m_gun_pos = ((gunx >> 3) | (guny << 5)) + 2;
-		m_gun_on->adjust(attotime::from_msec(250)); // timing is a guess
-	}
-}
-
-uint8_t claybust_state::gun_lo_r()
-{
-	return m_gun_pos;
-}
-
-uint8_t claybust_state::gun_hi_r()
-{
-	return BIT(m_gun_pos,8,8);
-}
-
-static const char *const claybust_sample_names[] =
-{
-	"*claybust",
-	"1",        /* hit target */
-	"2",        /* shoot gun */
+	"*invaders",
+	"6",
+	"5",
+	"7",
+	"2",
+	"4",
 	0
 };
 
-void claybust_state::sound_w(uint8_t data)
+void attackfc_state::sound_w(uint8_t data)
 {
-	if (data == 0xf1)
-		m_samples->start(0,0);
-	else
-	if (data == 0xef)
-		m_samples->start(1,1);
+	if (m_sound_en)
+	{
+		if (data == 1)
+			m_samples->start(0,0);
+		else
+		if (data == 2)
+			m_samples->start(1,1);
+		else
+		if (data == 3)
+			m_samples->start(2,2);
+		else
+		if (data == 8)
+			m_samples->start(3,3);
+		else
+		if (data == 0x10)
+			m_samples->start(4,4);
+	}
 }
 
-void claybust_state::main_map(address_map &map)
+void attackfc_state::main_map(address_map &map)
 {
 	map.global_mask(0x7fff);
-	map(0x0000, 0x1fff).rom().nopw();
+	map(0x0000, 0x1fff).rom();
 	map(0x2000, 0x3fff).ram().share("main_ram");
 	map(0x4000, 0x4fff).noprw();
 }
 
-void claybust_state::io_map(address_map &map)
+void attackfc_state::io_map(address_map &map)
 {
-	map(0x00, 0x00).nopw(); // ?
-	map(0x01, 0x01).portr("IN1").w(m_mb14241, FUNC(mb14241_device::shift_count_w));
-	map(0x02, 0x02).r(FUNC(claybust_state::gun_lo_r)).w(m_mb14241, FUNC(mb14241_device::shift_data_w));
-	map(0x03, 0x03).r(m_mb14241, FUNC(mb14241_device::shift_result_r)).w(FUNC(claybust_state::sound_w));
-	map(0x04, 0x04).w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
-	map(0x05, 0x05).nopw(); // ?
-	map(0x06, 0x06).r(FUNC(claybust_state::gun_hi_r));
+	map(0x00, 0x00).portr("IN0");
+	map(0x02, 0x02).nopw(); // lamp?
+	map(0x03, 0x03).rw(m_mb14241, FUNC(mb14241_device::shift_result_r), FUNC(mb14241_device::shift_data_w));
+	map(0x04, 0x04).lw8(NAME([this] (u8 data) {m_sound_en = data; }));
+	map(0x05, 0x05).w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
+	map(0x06, 0x06).w(FUNC(attackfc_state::sound_w));
+	map(0x07, 0x07).w(m_mb14241, FUNC(mb14241_device::shift_count_w));
 }
 
-
-static INPUT_PORTS_START( claybust )
-	PORT_START("IN1")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(claybust_state, gun_on_r)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_IMPULSE(2) PORT_CHANGED_MEMBER(DEVICE_SELF, claybust_state, gun_trigger, 0)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW,  IPT_COIN1 )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_START1 )
-
-	// switch is 6-pos, but DNS06:5 and DNS06:6 are not connected
-	PORT_DIPNAME( 0x10, 0x10, "Shots" )             PORT_DIPLOCATION("DNS06:1")
-	PORT_DIPSETTING(    0x10, "4" )
-	PORT_DIPSETTING(    0x00, "2" )
-	PORT_DIPUNKNOWN_DIPLOC( 0x20, 0x20, "DNS06:2" )
-	PORT_DIPNAME( 0x40, 0x00, "Number of Flings" )  PORT_DIPLOCATION("DNS06:3")
-	PORT_DIPSETTING(    0x40, "8" )
-	PORT_DIPSETTING(    0x00, "10" )
-	PORT_DIPUNKNOWN_DIPLOC( 0x80, 0x80, "DNS06:4" )
-
-	PORT_START( "GUNX" )
-	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_X ) PORT_MINMAX(0x00, 0xff) PORT_CROSSHAIR(X, 1.0 - (MW8080BW_HPIXCOUNT-256)/256.0, (MW8080BW_HPIXCOUNT-256)/256.0, 0) PORT_SENSITIVITY(56) PORT_KEYDELTA(5)
-	PORT_START( "GUNY" )
-	PORT_BIT( 0xff, 0xa0, IPT_LIGHTGUN_Y ) PORT_MINMAX(0x20, 0xff) PORT_CROSSHAIR(Y, 1.0, 0.0, 0) PORT_SENSITIVITY(64) PORT_KEYDELTA(5)
+static INPUT_PORTS_START( attackfc )
+	PORT_START("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_2WAY
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_2WAY
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON1 )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN1 )
 INPUT_PORTS_END
 
-void claybust_state::claybust(machine_config &config)
+void attackfc_state::attackfc(machine_config &config)
 {
 	/* basic machine hardware */
 	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
-	m_maincpu->set_addrmap(AS_PROGRAM, &claybust_state::main_map);
-	m_maincpu->set_addrmap(AS_IO, &claybust_state::io_map);
-	m_maincpu->set_irq_acknowledge_callback(FUNC(claybust_state::interrupt_vector));
-	m_maincpu->out_inte_func().set(FUNC(claybust_state::int_enable_w));
+	m_maincpu->set_addrmap(AS_PROGRAM, &attackfc_state::main_map);
+	m_maincpu->set_addrmap(AS_IO, &attackfc_state::io_map);
+	m_maincpu->set_irq_acknowledge_callback(FUNC(attackfc_state::interrupt_vector));
+	m_maincpu->out_inte_func().set(FUNC(attackfc_state::int_enable_w));
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
-	m_screen->set_screen_update(FUNC(claybust_state::screen_update));
+	m_screen->set_screen_update(FUNC(attackfc_state::screen_update));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SAMPLES(config, m_samples);
-	m_samples->set_channels(2);
-	m_samples->set_samples_names(claybust_sample_names);
+	m_samples->set_channels(5);
+	m_samples->set_samples_names(attackfc_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 0.50);
 
-	WATCHDOG_TIMER(config, m_watchdog).set_time(255 * attotime::from_hz(MW8080BW_60HZ));
+	WATCHDOG_TIMER(config, m_watchdog).set_time(555 * attotime::from_hz(MW8080BW_60HZ));
 	MB14241(config, m_mb14241);
-	TIMER(config, "claybust_gun").configure_generic(FUNC(claybust_state::gun_callback));
 }
 
-ROM_START( claybust )
+void attackfc_state::init_attackfc()
+{
+	uint8_t *rom = memregion("maincpu")->base();
+	uint32_t len = memregion("maincpu")->bytes();
+	std::vector<uint8_t> buffer(len);
+
+	// swap a8/a9
+	for (int i = 0; i < len; i++)
+		buffer[bitswap<16>(i, 15,14,13,12,11,10,8,9, 7,6,5,4,3,2,1,0)] = rom[i];
+
+	memcpy(rom, &buffer[0], len);
+}
+
+ROM_START( attackfc )
 	ROM_REGION( 0x2000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD( "0.a1",         0x0000, 0x0400, CRC(90810582) SHA1(a5c3655bae6f92a3cd0eae3a5a3c25e414d4fdf0) )
-	ROM_LOAD( "1.a2",         0x0400, 0x0400, CRC(5ce6fb0e) SHA1(19fa3fbc0dd7e0fa4fffc005ded5a814c3b48f2d) )
-	ROM_LOAD( "2.a4",         0x0800, 0x0400, CRC(d4c1d523) SHA1(1a4785095caa8200d7e1d8d53a93c8e298f52c65) )
-	ROM_LOAD( "3.a5",         0x0c00, 0x0400, CRC(1ca00825) SHA1(74633a4903a51f1eebdd09679597dbe86db2e001) )
-	ROM_LOAD( "4.a6",         0x1000, 0x0400, CRC(09a21120) SHA1(e976d2c173c649e51b032bc5dad54f006864155c) )
-	ROM_LOAD( "5.a8",         0x1400, 0x0400, CRC(92cd4da8) SHA1(217e00012a52c479bf0b0cf37ce556387755740d) )
+	ROM_LOAD( "30a.bin",       0x0000, 0x0400, CRC(c12e3386) SHA1(72b1d3d67a83edf0be0b0c37ef6dcffba450f16f) )
+	ROM_LOAD( "36a.bin",       0x0400, 0x0400, CRC(6738dcb9) SHA1(e4c68553fc3f2d3db3d251b9cb325e2409d9c02a) )
+	ROM_LOAD( "31a.bin",       0x0800, 0x0400, CRC(787a4658) SHA1(5be3143bdba6a32256603be94400034a8ea1fda6) )
+	ROM_LOAD( "37a.bin",       0x0c00, 0x0400, CRC(ad6bfbbe) SHA1(5f5437b6c8e7dfe9649b25040862f8a51d8c43ed) )
+	ROM_LOAD( "32a.bin",       0x1000, 0x0400, CRC(cbe0a711) SHA1(6e5f4214a4b48b70464005f4263c9b1ec3cbbeb1) )
+	ROM_LOAD( "33a.bin",       0x1800, 0x0400, CRC(53147393) SHA1(57e078f1734e382e8a46be09c133daab30c75681) )
+	ROM_LOAD( "39a.bin",       0x1c00, 0x0400, CRC(f538cf08) SHA1(4a375a41ab5d9f0d9f9a2ebef4c448038c139204) )
 ROM_END
 
-GAME( 1978, claybust, 0, claybust, claybust, claybust_state, empty_init, ROT0, "Model Racing", "Claybuster", MACHINE_SUPPORTS_SAVE )
+GAMEL(1979?,attackfc,  0, attackfc, attackfc,  attackfc_state, init_attackfc, ROT0, "Electronic Games Systems", "Attack Force (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_attackfc )
 

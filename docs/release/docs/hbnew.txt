@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [attackfc]            Attack Force (Extra Sounds)
 - [claybust]            Claybuster (Extra Sounds)
 - [dkong24]             Donkey Kong (longtime hack)
 - [galactic]            Galactica - Batalha Espacial (Extra Sounds)
