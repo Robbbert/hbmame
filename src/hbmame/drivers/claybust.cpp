@@ -48,6 +48,11 @@ public:
 		, m_gun_on(*this, "claybust_gun")
 	{ }
 
+	void claybust(machine_config &config);
+	DECLARE_INPUT_CHANGED_MEMBER(gun_trigger);
+	DECLARE_READ_LINE_MEMBER(gun_on_r);
+
+private:
 	required_device<i8085a_cpu_device> m_maincpu;
 	required_device<mb14241_device> m_mb14241;
 	optional_device<watchdog_timer_device> m_watchdog;
@@ -57,11 +62,6 @@ public:
 	required_ioport m_gunx;
 	required_ioport m_guny;
 	required_device<timer_device> m_gun_on;
-
-	void claybust(machine_config &config);
-
-	DECLARE_INPUT_CHANGED_MEMBER(gun_trigger);
-	DECLARE_READ_LINE_MEMBER(gun_on_r);
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;

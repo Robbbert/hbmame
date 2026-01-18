@@ -46,6 +46,10 @@ public:
 		, m_screen(*this, "screen")
 	{ }
 
+	void attackfc(machine_config &config);
+	void init_attackfc();
+
+private:
 	required_device<i8085a_cpu_device> m_maincpu;
 	required_device<mb14241_device> m_mb14241;
 	optional_device<watchdog_timer_device> m_watchdog;
@@ -53,12 +57,9 @@ public:
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
 
-	void attackfc(machine_config &config);
-
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 
-	void init_attackfc();
 	void sound_w(uint8_t data);
 	TIMER_CALLBACK_MEMBER(interrupt_trigger);
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
