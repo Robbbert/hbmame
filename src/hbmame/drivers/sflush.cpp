@@ -10,9 +10,10 @@
 // Controls are crap. Use -mouse to at least have a small chance. Keyboard is useless.
 #include "emu.h"
 #include "cpu/m6800/m6800.h"
-#include "machine/mb14241.h"
+#include "machine/mb14241.h"   // used for ball movement
 #include "machine/timer.h"
-#include "sound/samples.h"
+#include "sound/beep.h"
+#include "sound/spkrdev.h"
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
@@ -47,7 +48,8 @@ public:
 		, m_maincpu(*this,"maincpu")
 		, m_mb14241(*this,"mb14241")
 		, m_main_ram(*this, "main_ram")
-		, m_samples(*this, "samples")
+		, m_beep(*this, "beep_%u",0)
+		, m_speaker(*this, "speaker")
 		, m_screen(*this, "screen")
 		, m_palette(*this, "palette")
 	{ }
@@ -73,7 +75,8 @@ private:
 	required_device<cpu_device> m_maincpu;
 	required_device<mb14241_device> m_mb14241;
 	required_shared_ptr<uint8_t> m_main_ram;
-	required_device<samples_device> m_samples;
+	required_device_array<beep_device, 6> m_beep;
+	required_device<speaker_sound_device> m_speaker;
 	required_device<screen_device> m_screen;
 	required_device<palette_device> m_palette;
 
@@ -83,11 +86,9 @@ private:
 	int vysnc_chain_counter_to_vpos(uint8_t counter, int vblank);
 	attotime m_interrupt_time;
 	bool m_int_enable = true;
-	emu_timer   *m_interrupt_timer = nullptr;
+	emu_timer *m_interrupt_timer = nullptr;
 	void main_map(address_map &map);
 	void set_pixel( bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, int color );
-	void set_8_pixels(bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, uint8_t data, int fore_color, int back_color);
-	void clear_extra_columns( bitmap_rgb32 &bitmap, int color );
 	uint8_t sflush_in0_r();
 	void sound_w(uint8_t data);
 	uint8_t m_sound_en = 0;
@@ -198,33 +199,6 @@ inline void sflush_state::set_pixel(bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, 
 }
 
 
-inline void sflush_state::set_8_pixels(bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, uint8_t data, int fore_color, int back_color)
-{
-	for (int i = 0; i < 8; i++)
-	{
-		set_pixel(bitmap, y, x, BIT(data, 0) ? fore_color : back_color);
-
-		x += 1;
-		data >>= 1;
-	}
-}
-
-
-// this is needed as this driver doesn't emulate the shift register like mw8080bw does
-void sflush_state::clear_extra_columns(bitmap_rgb32 &bitmap, int color)
-{
-	for (uint8_t x = 0; x < 4; x++)
-	{
-		for (uint8_t y = MW8080BW_VCOUNTER_START_NO_VBLANK; y != 0; y++)
-		{
-			if (m_flip_screen)
-				bitmap.pix(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - (256 + x)) =  m_palette->pen_color(color);
-			else
-				bitmap.pix(y - MW8080BW_VCOUNTER_START_NO_VBLANK, 256 + x) = m_palette->pen_color(color);
-		}
-	}
-}
-
 uint32_t sflush_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	for (offs_t offs = 0; offs < m_main_ram.bytes(); offs++)
@@ -235,31 +209,31 @@ uint32_t sflush_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap
 		uint8_t data = m_main_ram[offs];
 		uint8_t fore_color = m_colorram[(offs & 0x1f) | ((offs & 0x1f80) >> 2)] & 0x07;
 
-		set_8_pixels(bitmap, y, x, data, fore_color, 0);
+		for (uint8_t i = 0; i < 8; i++)
+		{
+			set_pixel(bitmap, y, x, BIT(data, 0) ? fore_color : 0);
+			x++;
+			data >>= 1;
+		}
 	}
 
-	clear_extra_columns(bitmap, 0);
 
 	return 0;
 }
 
-static const char *const sflush_sample_names[] =
-{
-	"*invaders",
-	"6",
-	"5",
-	"7",
-	"2",
-	"4",
-	0
-};
-
 void sflush_state::sound_w(uint8_t data)
 {
-	if (BIT(m_sound_en, 2))
-		for (uint8_t i = 0; i < 5; i++)
-			if (BIT(data, i))
-				m_samples->start(i,i);
+	if (!BIT(m_sound_en, 2))
+		data = 0;
+
+	//if (data) printf("%X ",data);
+
+	data = bitswap<8>(data, 5, 7, 6, 4, 3, 2, 1, 0);   // now, speaker on bit 7, beeper on bits 5-0
+
+	for (uint8_t i = 0; i < 6; i++)
+		m_beep[i]->set_state(BIT(data, i));
+
+	m_speaker->level_w(BIT(data, 7));  // tune when completing a level
 }
 
 void sflush_state::sflush_map(address_map &map)
@@ -321,6 +295,9 @@ void sflush_state::machine_reset()
 	int vpos = vysnc_chain_counter_to_vpos(MW8080BW_INT_TRIGGER_COUNT_1, MW8080BW_INT_TRIGGER_VBLANK_1);
 	m_interrupt_timer->adjust(m_screen->time_until_pos(vpos));
 	m_interrupt_time = attotime::zero;
+
+	for (uint8_t i = 0; i < 6; i++)
+		m_beep[i]->set_state(0);
 }
 
 void sflush_state::sflush(machine_config &config)
@@ -336,10 +313,13 @@ void sflush_state::sflush(machine_config &config)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	SAMPLES(config, m_samples);
-	m_samples->set_channels(5);
-	m_samples->set_samples_names(sflush_sample_names);
-	m_samples->add_route(ALL_OUTPUTS, "mono", 0.50);
+	BEEP(config, m_beep[0], 250).add_route(ALL_OUTPUTS, "mono", 0.30);
+	BEEP(config, m_beep[1], 700).add_route(ALL_OUTPUTS, "mono", 0.30);
+	BEEP(config, m_beep[2], 800).add_route(ALL_OUTPUTS, "mono", 0.30);
+	BEEP(config, m_beep[3], 400).add_route(ALL_OUTPUTS, "mono", 0.30);
+	BEEP(config, m_beep[4], 900).add_route(ALL_OUTPUTS, "mono", 0.30);
+	BEEP(config, m_beep[5], 1100).add_route(ALL_OUTPUTS, "mono", 0.30);
+	SPEAKER_SOUND(config, m_speaker).add_route(ALL_OUTPUTS, "mono", 0.50);
 
 	/* add shifter */
 	MB14241(config, m_mb14241);
@@ -357,5 +337,5 @@ ROM_START( sflush )
 	ROM_LOAD( "fr01.sc6",     0xf800, 0x800, CRC(55d688c6) SHA1(574a3a2ca73cabb4b8f3444aa4464e6d64daa3ad) )
 ROM_END
 
-GAME( 1979, sflush, 0, sflush, sflush, sflush_state, empty_init, ROT270, "Taito", "Straight Flush (Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME( 1979, sflush, 0, sflush, sflush, sflush_state, empty_init, ROT270, "Taito", "Straight Flush (Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL | MACHINE_NOT_WORKING )
 
