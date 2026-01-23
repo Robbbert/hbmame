@@ -12,6 +12,7 @@ New Games
 - [dkong24]             Donkey Kong (longtime hack)
 - [galactic]            Galactica - Batalha Espacial (Extra Sounds)
 - [galaxian09]          Galaxian (bootleg 09)
+- [gunchamp]            Gun Champ (Extra Sounds)
 - [sflush]              Straight Flush (Extra Sounds)
 - [violentv]            Violent Vengeance: the universe hero (beta 2.05, 2026-01-10)
 - [wrldracr02]          World Racer (2025-12-26)

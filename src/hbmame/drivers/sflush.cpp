@@ -85,14 +85,14 @@ private:
 	uint8_t vpos_to_vysnc_chain_counter(int vpos);
 	int vysnc_chain_counter_to_vpos(uint8_t counter, int vblank);
 	attotime m_interrupt_time;
-	bool m_int_enable = true;
+	bool m_int = 0;
 	emu_timer *m_interrupt_timer = nullptr;
 	void main_map(address_map &map);
 	void set_pixel( bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, int color );
 	uint8_t sflush_in0_r();
 	void sound_w(uint8_t data);
 	uint8_t m_sound_en = 0;
-	uint8_t m_flip_screen = 0;
+	bool m_flip_screen = 0;
 };
 
 uint8_t sflush_state::vpos_to_vysnc_chain_counter( int vpos )
@@ -127,13 +127,8 @@ TIMER_CALLBACK_MEMBER(sflush_state::interrupt_trigger)
 	int const vpos = m_screen->vpos();
 	uint8_t const counter = vpos_to_vysnc_chain_counter(vpos);
 
-	if (m_int_enable)
-	{
-		m_maincpu->set_input_line(0, ASSERT_LINE);
-		m_interrupt_time = machine().time();
-	}
-	else
-		m_maincpu->set_input_line(0, CLEAR_LINE);
+	m_maincpu->set_input_line(0, ASSERT_LINE);
+	m_int = 1;
 
 	// set up for next interrupt
 	uint8_t next_counter;
@@ -149,7 +144,7 @@ TIMER_CALLBACK_MEMBER(sflush_state::interrupt_trigger)
 		next_vblank = MW8080BW_INT_TRIGGER_VBLANK_1;
 	}
 
-	int const next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
+	int const next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);  // alternates between 0x60 and 0xE0
 	m_interrupt_timer->adjust(m_screen->time_until_pos(next_vpos));
 }
 
@@ -161,8 +156,12 @@ READ_LINE_MEMBER(sflush_state::sflush_80_r)
 uint8_t sflush_state::sflush_in0_r()
 {
 	// guess at interrupt acknowledgement
-	if (!machine().side_effects_disabled())
+	if (m_int)
+	{
+		//printf("in0 ");
+		m_int = 0;
 		m_maincpu->set_input_line(0, CLEAR_LINE);
+	}
 
 	uint8_t t = ioport("IN0")->read();
 	m_flip_screen = !BIT(t,7) && BIT(m_sound_en,5);
@@ -238,13 +237,13 @@ void sflush_state::sound_w(uint8_t data)
 
 void sflush_state::sflush_map(address_map &map)
 {
-	map(0x0000, 0x3fff).ram();
+	map(0x0000, 0x03ff).ram().mirror(0x3c00);
 	map(0x4000, 0x5fff).ram().share("main_ram");
 	map(0x8008, 0x8008).portr("PADDLE");
 	map(0x8009, 0x8009).r(m_mb14241, FUNC(mb14241_device::shift_result_r));
 	map(0x800a, 0x800a).portr("IN2");
 	map(0x800b, 0x800b).r(FUNC(sflush_state::sflush_in0_r));
-	map(0x8018, 0x8018).nopr().w(m_mb14241, FUNC(mb14241_device::shift_data_w));
+	map(0x8018, 0x8018).w(m_mb14241, FUNC(mb14241_device::shift_data_w));
 	map(0x8019, 0x8019).w(m_mb14241, FUNC(mb14241_device::shift_count_w));
 	map(0x801a, 0x801a).nopw();  // watchdog?
 	map(0x801c, 0x801c).w(FUNC(sflush_state::sound_w));

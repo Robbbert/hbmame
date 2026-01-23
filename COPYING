@@ -10,7 +10,7 @@ The license requires that the source code of the release binary be available for
 
 a. The original MAME(tm) source, available at https://www.mamedev.org/release.html (if current), or https://www.mamedev.org/oldrel.html (for older versions), and
 
-b. The extra source to be applied over the top of the MAME(tm) source, and from November 2022 will be supplied with the binary. Earlier versions are available at https://www.progettosnaps.net/hbmame
+b. The extra source to be applied over the top of the MAME(tm) source, and from November 2022 the current code can be found at the Github respository at https://github.com/Robbbert/hbmame. Earlier versions are available at https://www.progettosnaps.net/hbmame
 
 Currently, there's also a live github repository located at https://github.com/Robbbert/hbmame . You can pull this source anytime to make your own build, however these are works in progress and might not function as expected. The continued existence of this repository is not guaranteed.
 

@@ -69,7 +69,7 @@ private:
 	int vysnc_chain_counter_to_vpos(uint8_t counter, int vblank);
 	attotime m_interrupt_time;
 	bool m_int_enable = true;
-	emu_timer   *m_interrupt_timer = nullptr;
+	emu_timer *m_interrupt_timer = nullptr;
 
 	void main_map(address_map &map);
 	void io_map(address_map &map);
