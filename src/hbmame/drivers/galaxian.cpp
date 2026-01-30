@@ -171,8 +171,8 @@ ROM_END
 ROM_START( galaxian02 ) // real bootleg dump
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "galaxian02.u",  0x0000, 0x0800, CRC(e8f3aa67) SHA1(a0e9576784dbe602dd9780e667f01f31defd7c00) ) // g8
-	ROM_LOAD( "galaxiab.v",    0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) ) // f8
-	ROM_LOAD( "galaxiab.w",    0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) ) // e8
+	ROM_LOAD( "galaxian02.v",  0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) ) // f8
+	ROM_LOAD( "galaxian02.w",  0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) ) // e8
 	ROM_LOAD( "galaxian02.y",  0x1800, 0x0800, CRC(097d92a2) SHA1(63ef86657286a4e1fae4f795e0e6b410ca2ef06b) ) // d8
 	ROM_LOAD( "galaxian02.z",  0x2000, 0x0800, CRC(5341d75a) SHA1(40bc8fcc598f58c6ff944e2a4a9288463e75a09d) ) // c8
 
@@ -208,8 +208,8 @@ ROM_END
 ROM_START( galaxian04 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "galaxian04.u",  0x0000, 0x0800, CRC(63e6d8ab) SHA1(ec2ade4d93903ba99bc9565b68328bd7d0830eac) )
-	ROM_LOAD( "galaxian04.v",  0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) )
-	ROM_LOAD( "galaxian04.w",  0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) )
+	ROM_LOAD( "galaxian02.v",  0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) )
+	ROM_LOAD( "galaxian02.w",  0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) )
 	ROM_LOAD( "galaxian04.y",  0x1800, 0x0800, CRC(faa0bd8c) SHA1(30dd130298609632212b34874a0819340b1c8037) )
 	ROM_LOAD( "galaxian04.z",  0x2000, 0x0800, CRC(5766c95b) SHA1(cf6c226df0cc9d088b04ade43d6db87d278f8b09) )
 
@@ -283,7 +283,7 @@ ROM_END
 
 ROM_START( galaxian09 ) // dump from darran
 	ROM_REGION( 0x4000, "maincpu", 0 )
-	ROM_LOAD( "galturbo.u",    0x0000, 0x0800, CRC(e8f3aa67) SHA1(a0e9576784dbe602dd9780e667f01f31defd7c00) )
+	ROM_LOAD( "galaxian02.u",  0x0000, 0x0800, CRC(e8f3aa67) SHA1(a0e9576784dbe602dd9780e667f01f31defd7c00) )
 	ROM_LOAD( "galx.v",        0x0800, 0x0800, CRC(bc16064e) SHA1(4e3220fd63c8184bf9581a89dffb6944d8fae3bb) )
 	ROM_LOAD( "superg.w",      0x1000, 0x0800, CRC(ddeabdae) SHA1(daa5109a32c7c9a80bdb212dc3e4e3e3c104a731) )
 	ROM_LOAD( "galaxian09.y",  0x1800, 0x0800, CRC(4ba676f3) SHA1(4115dcdfc72a177f8cbd191102df37d6ab404c7c) )
@@ -934,32 +934,32 @@ GAME( 2023, ramokromok, 0,        galaxian, galaxian, galaxian_hbmame, init_gala
 
 ROM_START( gmultib )
 	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD( "code.bin",     0x00000, 0x80000, CRC(5635ed48) SHA1(703aa21c58f58902c56fa3710db2523ae84877e0) )
+	ROM_LOAD( "b_code.bin",   0x00000, 0x80000, CRC(5635ed48) SHA1(703aa21c58f58902c56fa3710db2523ae84877e0) )
 
 	ROM_REGION( 0x20000, "gfx1", 0 )
-	ROM_LOAD( "gfx1.bin",     0x00000, 0x10000, CRC(63b8420d) SHA1(3cbc101165b02c0a64b8406bf91af42f9142512c) )
-	ROM_LOAD( "gfx2.bin",     0x10000, 0x10000, CRC(f962d3f7) SHA1(bd9aab0a511a8679280a83a2f8bbd1e82faf64d1) )
+	ROM_LOAD( "b_gfx1.bin",   0x00000, 0x10000, CRC(63b8420d) SHA1(3cbc101165b02c0a64b8406bf91af42f9142512c) )
+	ROM_LOAD( "b_gfx2.bin",   0x10000, 0x10000, CRC(f962d3f7) SHA1(bd9aab0a511a8679280a83a2f8bbd1e82faf64d1) )
 
 	ROM_REGION( 0x20, "proms", ROMREGION_ERASEFF )
 
 	ROM_REGION( 0x400, "user1", 0 )
-	ROM_LOAD( "col.bin",      0x000, 0x400, CRC(c9320883) SHA1(814d42545a81f3316b564e52817c72b193f974ea) )
-	//ROM_LOAD( "bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
+	ROM_LOAD( "b_col.bin",    0x000, 0x400, CRC(c9320883) SHA1(814d42545a81f3316b564e52817c72b193f974ea) )
+	//ROM_LOAD( "b_bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
 ROM_END
 
 ROM_START( gmultic )
 	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD( "code.bin",     0x00000, 0x80000, CRC(24f914a4) SHA1(8263722ea7b6a0a70d46e6543947aa04fbdcd5aa) )
+	ROM_LOAD( "c_code.bin",   0x00000, 0x80000, CRC(24f914a4) SHA1(8263722ea7b6a0a70d46e6543947aa04fbdcd5aa) )
 
 	ROM_REGION( 0x20000, "gfx1", 0 )
-	ROM_LOAD( "gfx1.bin",     0x00000, 0x10000, CRC(3216af7c) SHA1(226368d935c014e8ddfb9a1f16d6d3d663ccfa17) )
-	ROM_LOAD( "gfx2.bin",     0x10000, 0x10000, CRC(cb68a779) SHA1(40abd97f83cf45d9d347ce4b24df657e3a25e99b) )
+	ROM_LOAD( "c_gfx1.bin",   0x00000, 0x10000, CRC(3216af7c) SHA1(226368d935c014e8ddfb9a1f16d6d3d663ccfa17) )
+	ROM_LOAD( "c_gfx2.bin",   0x10000, 0x10000, CRC(cb68a779) SHA1(40abd97f83cf45d9d347ce4b24df657e3a25e99b) )
 
 	ROM_REGION( 0x20, "proms", ROMREGION_ERASEFF )
 
 	ROM_REGION( 0x400, "user1", 0 )
-	ROM_LOAD( "col.bin",      0x000000, 0x400, CRC(945bece6) SHA1(3bcc18d17a93db0cc5e6ceb978623040b077e3ba) )
-	//ROM_LOAD( "bigcol.bin",   0x000000, 0x10000, CRC(515132db) SHA1(0d099c70dbd50a7b792b88807f589bbc886e8e22) )
+	ROM_LOAD( "c_col.bin",    0x000000, 0x400, CRC(945bece6) SHA1(3bcc18d17a93db0cc5e6ceb978623040b077e3ba) )
+	//ROM_LOAD( "c_bigcol.bin",   0x000000, 0x10000, CRC(515132db) SHA1(0d099c70dbd50a7b792b88807f589bbc886e8e22) )
 ROM_END
 
 ROM_START( smulti )

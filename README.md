@@ -27,7 +27,6 @@ Where can I find out more?
 ==========================
 
 * [Official HBMAME site] http://hbmame.1emulation.com/
-* [Forum] https://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame (bug reports go here too)
 * [Forum] https://www.1emulation.com/forums/forum/125-mameui/
 
 
