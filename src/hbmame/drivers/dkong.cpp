@@ -782,6 +782,35 @@ ROM_START( dkong24 ) // longtime hack from 10yard
 ROM_END
 
 
+ROM_START( dkong25 ) // Bowser's Takeover
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "s25.5et",        0x0000, 0x1000, CRC(2680ae9e) SHA1(5239366465edc95979ff1e4b575b1dc4f690086c) )
+	ROM_LOAD( "s25.5ct",        0x1000, 0x1000, CRC(5cc230f1) SHA1(ae35ae204e6b6ebaa053540af7f7252fbc2d09fc) )
+	ROM_LOAD( "s25.5bt",        0x2000, 0x1000, CRC(c1918928) SHA1(6868c23e5f024fc2edfa570f227f7dce3c2a9365) )
+	ROM_LOAD( "s25.5at",        0x3000, 0x1000, CRC(7f3b508b) SHA1(8fce60753304c0d1df37c3a0da521701754cd879) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s25.3i",         0x0000, 0x0800, CRC(9e77db35) SHA1(d6e239fb68f61a82e7c45c57e9add0424693dde2) )
+	ROM_RELOAD(                 0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "s25.5h",         0x0000, 0x0800, CRC(bbf41cd4) SHA1(8d2ff109837d050c06f9a16b4c8b1f9b20279e13) )
+	ROM_LOAD( "s25.3pt",        0x0800, 0x0800, CRC(1653cadb) SHA1(62a80a3fbc1d68bac2a9128111eb8d4431f67512) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "s25.4m",         0x0000, 0x0800, CRC(c8563065) SHA1(112404a9736c9378f068d64a8fece7984b9900fb) )
+	ROM_LOAD( "s25.4n",         0x0800, 0x0800, CRC(acb90323) SHA1(d4978893a58fcb2ff80ba990ec445cf02a0f76f0) )
+	ROM_LOAD( "s25.4r",         0x1000, 0x0800, CRC(18e81522) SHA1(fac5a434305779d4daf0f30b7b7e1adad2466923) )
+	ROM_LOAD( "s25.4s",         0x1800, 0x0800, CRC(5aae0c7a) SHA1(f357a81b87021ae37a0977f1e8112144797da50d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "s25.2k",         0x0000, 0x0100, CRC(cd5154ef) SHA1(4d4f993d148b2e7c8c382af559de44b2b2b8302d) )
+	ROM_LOAD( "s25.2j",         0x0100, 0x0100, CRC(1a687240) SHA1(0549a500a4efa28672e15a7ed545d810d498921a) )
+	ROM_LOAD( "s25.5e",         0x0200, 0x0100, CRC(a1444094) SHA1(3d8ccda152b3f1f8879b8183610bd0b35ff49287) )
+ROM_END
+
+
 ROM_START( dkrdemo )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "dkrdemo.5et",    0x0000, 0x1000, CRC(f9fdff29) SHA1(c2eb8f0ede8384369e17d8616f4ce063ae12b6c2) )
@@ -2514,6 +2543,7 @@ GAME( 2024, dkong21,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2024, dkong22,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong (hitboxes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, dkong23,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong (hitboxes and sprites)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, dkong24,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (longtime hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, dkong25,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong (Bowser's Takeover v1.00)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pac-man graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, nadkong,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, dkongex,   dkong, dkong2b,   dkongex, dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )

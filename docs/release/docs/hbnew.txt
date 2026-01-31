@@ -10,6 +10,7 @@ New Games
 - [attackfc]            Attack Force (Extra Sounds)
 - [claybust]            Claybuster (Extra Sounds)
 - [dkong24]             Donkey Kong (longtime hack)
+- [dkong25]             Donkey Kong (Bowser's Takeover v1.00)
 - [galactic]            Galactica - Batalha Espacial (Extra Sounds)
 - [galaxian09]          Galaxian (bootleg 09)
 - [gunchamp]            Gun Champ (Extra Sounds)
