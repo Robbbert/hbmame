@@ -158,7 +158,6 @@ uint8_t sflush_state::sflush_in0_r()
 	// guess at interrupt acknowledgement
 	if (m_int)
 	{
-		//printf("in0 ");
 		m_int = 0;
 		m_maincpu->set_input_line(0, CLEAR_LINE);
 	}
@@ -224,8 +223,6 @@ void sflush_state::sound_w(uint8_t data)
 {
 	if (!BIT(m_sound_en, 2))
 		data = 0;
-
-	//if (data) printf("%X ",data);
 
 	data = bitswap<8>(data, 5, 7, 6, 4, 3, 2, 1, 0);   // now, speaker on bit 7, beeper on bits 5-0
 

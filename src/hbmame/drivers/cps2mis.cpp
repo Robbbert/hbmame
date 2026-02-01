@@ -6451,12 +6451,12 @@ ROM_END
  /************************************************
  Hyper Street Fighter II: The Anniversary Edition
 ***************************************************/
-ROM_START( sf2prime ) // v0.70 - press 9 to insert coin
+ROM_START( sf2prime ) // v0.71 - press 9 to insert coin
 	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(5378235e) SHA1(96539f2091f2b35dbf4fa6c6b3ce920f3bd1538a) ) // 03
-	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(18875e7d) SHA1(02e2893d1ca5d77f336a8ae35f9d00fccd17f2e4) ) // 04
-	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(b1c2be59) SHA1(a826cc885988769bf7cbf8eeaea78d7413ecbf40) ) // 05
-	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(0f058403) SHA1(1eec9d23bc7a3e30ebba1bebf1909c4e5aae8acc) ) // 06
+	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(7ce61f91) SHA1(dbed9276b93b4e83a5813e2cc3aa97c9c2b435d6) ) // 03
+	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(5c5cd805) SHA1(0c9a58eb89f0e6d9f7fb94049ee0002e54111ee1) ) // 04
+	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(9828b2f9) SHA1(cc1caf277cdd6b8d9b9c9b53519a90a53d8d2794) ) // 05
+	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(cabc33b4) SHA1(7bfa927673147102189797276fdb98fc1c5a6ea6) ) // 06
 
 	ROM_REGION( 0x2000000, "gfx", 0 )
 	ROM_LOAD64_WORD( "c88pr.c1",   0x0000000, 0x800000, CRC(0ab76f89) SHA1(e159fce55bb36ce0d00eabaea78aaaa481e3fb50) ) // 13m
@@ -7011,7 +7011,7 @@ GAME( 2006, vampj01,    dstlk,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 // Giga Wing
 GAME( 1999, gigawings01,gigawing, cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "LB70", "Giga Wing (990222U, Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 // Hyper Street Fighter II
-GAME( 2025, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.70)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.71)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s02,    hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji/MasterStiller", "Hyper Street Fighter II: The Anniversary Edition (040202J, Enabled Hidden Characters In Normal Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s03,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blue-Ray", "Hyper Street Fighter II: The Anniversary Edition (031222J, Simplify The Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, hsf2s04,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Hyper Street Fighter II: The Anniversary Edition (031222J, Gouki Edition, 2018-07-29)", MACHINE_SUPPORTS_SAVE )

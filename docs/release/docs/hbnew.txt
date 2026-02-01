@@ -14,7 +14,7 @@ New Games
 - [galactic]            Galactica - Batalha Espacial (Extra Sounds)
 - [galaxian09]          Galaxian (bootleg 09)
 - [gunchamp]            Gun Champ (Extra Sounds)
-- [sf2prime]            Street Fighter II': Prime (v0.70)
+- [sf2prime]            Street Fighter II': Prime (v0.71)
 - [sflush]              Straight Flush (Extra Sounds)
 - [violentv]            Violent Vengeance: the universe hero (beta 2.05, 2026-01-10)
 - [wrldracr02]          World Racer (2025-12-26)
