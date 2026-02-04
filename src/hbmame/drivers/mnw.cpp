@@ -25588,7 +25588,28 @@ ROM_START( violentv ) // beta 1.04
 	ROM_LOAD16_BYTE( "516.c2", 0x000001, 0x1000000, CRC(9c9b726c) SHA1(df484179642c09ff5d131d32647e74695cb64fdd) )
 ROM_END
 
+// 516: Violent Vengeance: the Universe Hero by Balek Corp
+ROM_START( violentv ) // beta 2.05
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "516a.p1", 0x000000, 0x100000, CRC(9836c86f) SHA1(30af2401c94cf94faae6896fe889a4509c5e620d) )
+	ROM_LOAD16_WORD_SWAP( "516a.p2", 0x100000, 0x800000, CRC(66ed28cb) SHA1(867eb70644cfce70d950d2542595eff027d071a2) )
+
+	NEO_SFIX_128K( "516.s1", CRC(f7302142) SHA1(5812ff4a2fedaf33ad085d09673ce2a42fda34fb) )
+
+	NEO_BIOS_AUDIO_64K( "516a.m1", CRC(a78e1e3f) SHA1(b5ae2a96386d9bc4efc5bdad29caf1f00a6fdc44) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "516a.v1", 0x000000, 0x800000, CRC(065669cc) SHA1(aa9a82683e0637df0d1c3749dfd30300ea795652) )
+	ROM_LOAD( "516a.v2", 0x800000, 0x800000, CRC(1e9d342d) SHA1(a00bbb196b21f656b6c823060be493e33fb90392) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "516a.c1", 0x000000, 0x1000000, CRC(261d65ae) SHA1(c8884206b9bdc85c60d08c4e8b60cfb3fd49cf58) )
+	ROM_LOAD16_BYTE( "516a.c2", 0x000001, 0x1000000, CRC(500965ca) SHA1(3f9d6683bf493ec15d4750bf17b68d44fe563efe) )
+ROM_END
+
+
 GAME( 2025, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (2026-01-10)", MACHINE_SUPPORTS_SAVE )
 
 //-------------------------------------------------------------------------------------------------------------------
 

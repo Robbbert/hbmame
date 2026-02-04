@@ -2648,22 +2648,22 @@ ROM_START( bbb2d2 ) // demo 2
 ROM_END
 
 // 516: Violent Vengeance: the Universe Hero by Balek Corp
-ROM_START( violentv ) // beta 2.05
+ROM_START( violentv ) // beta 3.28
 	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "516a.p1", 0x000000, 0x100000, CRC(9836c86f) SHA1(30af2401c94cf94faae6896fe889a4509c5e620d) )
-	ROM_LOAD16_WORD_SWAP( "516a.p2", 0x100000, 0x800000, CRC(66ed28cb) SHA1(867eb70644cfce70d950d2542595eff027d071a2) )
+	ROM_LOAD16_WORD_SWAP( "516b.p1", 0x000000, 0x100000, CRC(59b78bc5) SHA1(12dbf637041a9b0b16a24b830a035407e76798bd) )
+	ROM_LOAD16_WORD_SWAP( "516b.p2", 0x100000, 0x800000, CRC(fdad36d7) SHA1(8d8af3bb540185fc25d459608b0c67fd587f49fb) )
 
 	NEO_SFIX_128K( "516.s1", CRC(f7302142) SHA1(5812ff4a2fedaf33ad085d09673ce2a42fda34fb) )
 
-	NEO_BIOS_AUDIO_64K( "516a.m1", CRC(a78e1e3f) SHA1(b5ae2a96386d9bc4efc5bdad29caf1f00a6fdc44) )
+	NEO_BIOS_AUDIO_64K( "516b.m1", CRC(2cf78121) SHA1(e29f9787a98513a5ae3fd4c1ffb374ec1c0b7634) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "516a.v1", 0x000000, 0x800000, CRC(065669cc) SHA1(aa9a82683e0637df0d1c3749dfd30300ea795652) )
-	ROM_LOAD( "516a.v2", 0x800000, 0x800000, CRC(1e9d342d) SHA1(a00bbb196b21f656b6c823060be493e33fb90392) )
+	ROM_LOAD( "516b.v1", 0x000000, 0x800000, CRC(dd128a57) SHA1(d3431e9aa946c3aa294477b46a01e4454ccaf855) )
+	ROM_LOAD( "516b.v2", 0x800000, 0x800000, CRC(b6ff9217) SHA1(da84a7ee79cfad282f8ed7b8763604a814edb2fc) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "516a.c1", 0x000000, 0x1000000, CRC(261d65ae) SHA1(c8884206b9bdc85c60d08c4e8b60cfb3fd49cf58) )
-	ROM_LOAD16_BYTE( "516a.c2", 0x000001, 0x1000000, CRC(500965ca) SHA1(3f9d6683bf493ec15d4750bf17b68d44fe563efe) )
+	ROM_LOAD16_BYTE( "516b.c1", 0x000000, 0x1000000, CRC(5b3ef4e1) SHA1(7c9a8b22c994d25880e36bb493a16a6b321f950d) )
+	ROM_LOAD16_BYTE( "516b.c2", 0x000001, 0x1000000, CRC(970ba8c2) SHA1(c75444236de9aba99f9415f8ab0748376435046e) )
 ROM_END
 
 
@@ -4279,7 +4279,7 @@ GAME( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, vaporous,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "TTE", "Vaporous intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Venus Wars demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (2026-01-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 3.28, 2026-02-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
