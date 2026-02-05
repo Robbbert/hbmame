@@ -14,6 +14,7 @@ New Games
 - [galactic]            Galactica - Batalha Espacial (Extra Sounds)
 - [galaxian09]          Galaxian (bootleg 09)
 - [gunchamp]            Gun Champ (Extra Sounds)
+- [kof2002s118]         Kof2002 (Magic Plus 3)
 - [sf2prime]            Street Fighter II': Prime (v0.71)
 - [sflush]              Straight Flush (Extra Sounds)
 - [violentv]            Violent Vengeance: the universe hero (beta 3.28, 2026-02-01)
