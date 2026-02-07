@@ -8670,6 +8670,9 @@ kfjohnny
 @source:skimaxx.cpp
 skimaxx                                // HB, no parent
 
+@source:skylove.cpp
+skylove
+
 @source:snk6502.cpp
 vantris                                // HB, no parent
 

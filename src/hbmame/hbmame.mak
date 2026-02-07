@@ -18,6 +18,7 @@ LAYOUTS += \
 	$(SRC)/mame/layout/galactic.lay \
 	$(SRC)/mame/layout/gunchamp.lay \
 	$(SRC)/mame/layout/invaders.lay \
+	$(SRC)/mame/layout/shuttlei.lay \
 	$(SRC)/mame/layout/spcenctr.lay \
 	$(SRC)/mame/layout/segabill.lay \
 	$(SRC)/mame/layout/warrior.lay \
