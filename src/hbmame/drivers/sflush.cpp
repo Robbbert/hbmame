@@ -18,6 +18,7 @@
 #include "screen.h"
 #include "speaker.h"
 
+namespace {
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
@@ -332,6 +333,8 @@ ROM_START( sflush )
 	ROM_LOAD( "fr02.sc5",     0xf000, 0x800, CRC(291c9b1f) SHA1(7e5b3e1605581abf3d8165f4de9d4e32a5ee3bb0) )
 	ROM_LOAD( "fr01.sc6",     0xf800, 0x800, CRC(55d688c6) SHA1(574a3a2ca73cabb4b8f3444aa4464e6d64daa3ad) )
 ROM_END
+
+} // anonymous namespace
 
 GAME( 1979, sflush, 0, sflush, sflush, sflush_state, empty_init, ROT270, "Taito", "Straight Flush (Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL | MACHINE_NOT_WORKING )
 

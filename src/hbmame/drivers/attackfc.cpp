@@ -11,6 +11,7 @@
 #include "speaker.h"
 #include "attackfc.lh"
 
+namespace {
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
@@ -325,6 +326,8 @@ ROM_START( attackfc )
 	ROM_LOAD( "33a.bin",       0x1800, 0x0400, CRC(53147393) SHA1(57e078f1734e382e8a46be09c133daab30c75681) )
 	ROM_LOAD( "39a.bin",       0x1c00, 0x0400, CRC(f538cf08) SHA1(4a375a41ab5d9f0d9f9a2ebef4c448038c139204) )
 ROM_END
+
+} // anonymous namespace
 
 GAMEL(1979?,attackfc,  0, attackfc, attackfc,  attackfc_state, init_attackfc, ROT0, "Electronic Games Systems", "Attack Force (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_attackfc )
 

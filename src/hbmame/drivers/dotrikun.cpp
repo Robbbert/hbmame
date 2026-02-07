@@ -96,6 +96,8 @@ Colours:
 
 ***************************************************************************/
 
+namespace {
+
 class mineswp_state : public dotrikun_state
 {
 public:
@@ -198,6 +200,7 @@ ROM_START( mineswp )
 	ROM_FILL(0x000A, 1, 0x03)
 ROM_END
 
+} // anonymous namespace
 
 GAME( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, empty_init, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE )
 

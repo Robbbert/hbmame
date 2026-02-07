@@ -21,6 +21,8 @@ Galaxian-like game with biplanes, running on Space Invaders hardware
 #include "speaker.h"
 #include "galactic.lh"
 
+namespace {
+
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
 #define MW8080BW_PIXEL_CLOCK              (MW8080BW_MASTER_CLOCK / 4)
@@ -478,6 +480,8 @@ ROM_START( spacmiss )
 	ROM_LOAD( "galactic.6",       0x4800, 0x0800, CRC(5e7c6c44) SHA1(be7eeef10462377909018cf40503766f38466022) )
 	ROM_LOAD( "galactic.7",       0x5000, 0x0800, CRC(02619e18) SHA1(4c59f17fbc96ca08090f08c41ca9fc72c074e9c0) )
 ROM_END
+
+} // anonymous namespace
 
 GAMEL(1980?,galactic, 0,        galactic, galactic, sm_state, empty_init, ROT270, "Taito do Brasil", "Galactica - Batalha Espacial (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_galactic )
 GAMEL(1980?,spacmiss, galactic, galactic, galactic, sm_state, empty_init, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_galactic )

@@ -11,6 +11,7 @@
 #include "speaker.h"
 #include "gunchamp.lh"
 
+namespace {
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
@@ -386,6 +387,7 @@ ROM_START( gunchamp )
 	ROM_LOAD( "258.a10",      0x1c00, 0x0400, CRC(471d4052) SHA1(c8ccda2eba44c2ab49f5fc2874fe70c2bdae35d3) )
 ROM_END
 
+} // anonymous namespace
 
 GAME( 1978, claybust, 0, claybust, claybust, claybust_state, empty_init, ROT0, "Model Racing", "Claybuster (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
 GAMEL(1980, gunchamp, 0, claybust, gunchamp, claybust_state, empty_init, ROT0, "Model Racing", "Gun Champ (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_gunchamp )

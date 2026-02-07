@@ -5,6 +5,8 @@ Some sounds are missing
 - Wind
 - Screech
 - Player Shot
+
+Can't use namespace here, won't compile
 ***************************************************************************************/
 #include "emu.h"
 #include "cpu/i8085/i8085.h"

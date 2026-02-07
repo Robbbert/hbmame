@@ -22,6 +22,8 @@ The multigame roms:
 #include "speaker.h"
 #include "invaders.lh"
 
+namespace {
+
 #define CABINET_PORT_TAG                  "CAB"
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
@@ -43,7 +45,6 @@ The multigame roms:
 
 // +4 is added to HBSTART because the hardware displays that many pixels after setting HBLANK
 #define MW8080BW_HPIXCOUNT                (MW8080BW_HBSTART + 4)
-#define INVADERS_CAB_TYPE_PORT_TAG      ("CAB")
 #define INVADERS_P1_CONTROL_PORT_TAG    ("CONTP1")
 #define INVADERS_P2_CONTROL_PORT_TAG    ("CONTP2")
 #define INVADERS_SW6_SW7_PORT_TAG       ("SW6SW7")
@@ -63,7 +64,7 @@ The multigame roms:
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_2WAY PORT_PLAYER(player)
 
 #define INVADERS_CAB_TYPE_PORT \
-	PORT_START(INVADERS_CAB_TYPE_PORT_TAG) \
+	PORT_START("CAB") \
 	PORT_CONFNAME( 0x01, 0x00, DEF_STR( Cabinet ) ) \
 	PORT_CONFSETTING(    0x00, DEF_STR( Upright ) ) \
 	PORT_CONFSETTING(    0x01, DEF_STR( Cocktail ) )
@@ -80,7 +81,7 @@ public:
 		, m_main_ram(*this, "main_ram")
 		, m_screen(*this, "screen")
 		, m_player_controls(*this, "CONTP%u", 1U)
-		, m_cabinet_type(*this, INVADERS_CAB_TYPE_PORT_TAG)
+		, m_cabinet_type(*this, "CAB")
 		, m_sn(*this, "snsnd")
 		, m_samples(*this, "samples")
 		, m_palette(*this, "palette")
@@ -98,7 +99,6 @@ public:
 	DECLARE_CUSTOM_INPUT_MEMBER(invaders_in0_control_r);
 	DECLARE_CUSTOM_INPUT_MEMBER(invaders_in1_control_r);
 	DECLARE_CUSTOM_INPUT_MEMBER(invaders_in2_control_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(sicv_in2_control_r);
 	DECLARE_CUSTOM_INPUT_MEMBER(invadpt2_in1_control_r);
 	DECLARE_CUSTOM_INPUT_MEMBER(invadpt2_in2_control_r);
 	IRQ_CALLBACK_MEMBER(interrupt_vector);
@@ -112,8 +112,6 @@ protected:
 	void invadpt2_sh_port_2_w(uint8_t data);
 
 	DECLARE_WRITE_LINE_MEMBER(int_enable_w);
-
-	u8 mw8080bw_shift_result_rev_r();
 
 	uint32_t screen_update_mw8080bw(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_invaders(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -341,13 +339,6 @@ void invaders_state::machine_reset()
  *  Special shifter circuit
  *
  *************************************/
-
-u8 invaders_state::mw8080bw_shift_result_rev_r()
-{
-	uint8_t ret = m_mb14241->shift_result_r();
-
-	return bitswap<8>(ret,0,1,2,3,4,5,6,7);
-}
 
 inline void invaders_state::set_pixel(bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, int color)
 {
@@ -721,11 +712,6 @@ void invaders_state::invadpt2_sh_port_2_w(uint8_t data)
 /*                                                     */
 /*******************************************************/
 
-CUSTOM_INPUT_MEMBER(invaders_state::sicv_in2_control_r)
-{
-	return m_player_controls[is_cabinet_cocktail() ? 1 : 0]->read() | ioport("P2GATE")->read();
-}
-
 static INPUT_PORTS_START( sicv_base )
 	// common port definitions used by SICV and clones, based on sicv unless otherwise noted
 
@@ -839,7 +825,7 @@ static INPUT_PORTS_START( invadpt2 )
 	// P2 controls (read via IN2, and also via IN1 on upright cabinets)
 	INVADERS_CONTROL_PORT_P2
 
-	PORT_START(INVADERS_CAB_TYPE_PORT_TAG)
+	PORT_START("CAB")
 	PORT_DIPNAME( 0x07, 0x00, DEF_STR( Cabinet ) )  PORT_DIPLOCATION("SW1:5,6,7") // couples player inputs in upright mode
 	PORT_DIPSETTING(    0x00, DEF_STR( Upright ) )
 	PORT_DIPSETTING(    0x07, DEF_STR( Cocktail ) )
@@ -1203,6 +1189,7 @@ ROM_START( invmultip )
 	ROM_LOAD("s10.bin",  0x00000, 0x20000, CRC(1b43e4d3) SHA1(c50decd9caaec7f2d8b3ba74f718372d31bc1c3b) )
 ROM_END
 
+} // anonymous namespace
 
 GAMEL(1978, invaders,    0,        invaders,  invaders,  invaders_state, empty_init,    ROT270, "Taito / Midway",        "Space Invaders", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAME( 1978, tst_invd,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Taito",                 "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE )
