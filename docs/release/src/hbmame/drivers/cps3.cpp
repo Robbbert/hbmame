@@ -2,6 +2,8 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/cps3.cpp"
 
+namespace {
+
 class cps3_hbmame : public cps3_state
 {
 public:
@@ -1236,27 +1238,6 @@ ROM_START( sfiii4rd )
 	ROM_REGION( 0x200000, "simm6.7", 0 )
 	ROM_LOAD( "sfiii3-simm6.7", 0x00000, 0x200000, CRC(cc5f4187) SHA1(248ddace21ed4736a56e92f77cc6ad219d7fef0b) )
 ROM_END
-
-GAME( 2009, jojobbh2,  jojobanc,   jojoba,   cps3_jojo, cps3_hbmame, init_jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V2 2009-08-08)", 0 )
-GAME( 2009, jojobbss,  jojobanc,   jojoba,   cps3_jojo, cps3_hbmame, init_jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V1 2009-07-15)", 0 )
-GAME( 2009, jojobpow,  jojobanc,   jojoba,   cps3_jojo, cps3_hbmame, init_jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Infinite Power 2009-07-15)", 0 )
-GAME( 2009, jojonbss,  jojonc,     jojo,     cps3_jojo, cps3_hbmame, init_jojon,     ROT0, "Pipi899", "JoJo's Venture (Enable Hidden Characters V1 2009-07-09)", 0 )
-GAME( 2009, jojonpow,  jojonc,     jojo,     cps3_jojo, cps3_hbmame, init_jojon,     ROT0, "Pipi899", "JoJo's Venture (Infinite Power 2009-07-11)", 0 )
-GAME( 1998, jojoan,    jojonc,     jojo,     cps3_jojo, cps3_hbmame, init_jojon,     ROT0, "Capcom", "JoJo's Venture (Asia, 981202, NO CD)", 0 )
-GAME( 1996, redeartn,  0,          redeartn, cps3_ren,  cps3_hbmame, init_redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
-GAME( 1996, redeartno, redeartn,   redeartn, cps3_ren,  cps3_hbmame, init_redeartno, ROT0, "Capcom", "Red Earth (Asia 961121, NO CD/Old Set)", 0 )
-GAME( 2009, redearex,  redeartn,   redeartn, cps3_ren,  cps3_hbmame, init_redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version 2009-09-08)", 0 )
-GAME( 2009, sfiiibhp,  sfiiinc,    sfiii,    cps3,      cps3_hbmame, init_sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Enable Hidden Characters V1 2009-08-08)", 0 )
-GAME( 2009, sfiiipmp,  sfiiinc,    sfiii,    cps3,      cps3_hbmame, init_sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Infinite Power 2009-07-06)", 0 )
-GAMEL(1997, sfiii2bh,  sfiii2nc,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Yumeji", "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V1)", 0, layout_sfiii2 )
-GAMEL(2009, sfiii2np,  sfiii2nc,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Pipi899", "Street Fighter III 2nd Impact: Giant Attack (Enhanced power 2009-07-14)", 0, layout_sfiii2 )
-GAMEL(1997, sfiii2pl,  sfiii2nc,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Krysofun", "Street Fighter III 2nd Impact: Giant Attack (Plus v1.0)", 0, layout_sfiii2 )
-GAME( 1999, sfiii3bh,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Yumeji", "Street Fighter III 3rd Strike: Fight for the Future (Enable Hidden Characters)", 0 )
-GAME( 1999, sfiii3mh,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "2ch", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color)", 0 )
-GAME( 2009, sfiii3ng,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating 2009-07-14)", 0 )
-GAME( 2009, sfiii3np,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked 2009-07-14)", 0 )
-GAME( 2013, sfiii4rd,  sfiii3nc,   sfiii3,   cps3,      cps3_state,  init_sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition", 0 )
-
 
  /************************
  JoJo's Bizarre Adventure
@@ -3423,6 +3404,8 @@ ROM_START( redearthep )
 	ROM_LOAD( "redearth-simm5.1", 0x00000, 0x200000, CRC(9b8cb56b) SHA1(2ff1081dc99bb7c2f1e036f4c112137c96b83d23) )
 ROM_END
 
+} // anonymous namespace
+
 /* NO CD sets - use NO CD BIOS roms - don't require the CD image to boot */
 GAME( 1997, sfiiinc,       0,    sfiii,    cps3,      cps3_state, init_sfiii,    ROT0, "Capcom", "Street Fighter III: New Generation (Asia 970204, NO CD)", 0 )
 GAMEL(1997, sfiii2nc,      0,    sfiii2,   cps3,      cps3_state, init_sfiii2,   ROT0, "Capcom", "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)", 0, layout_sfiii2 )
@@ -3438,15 +3421,29 @@ GAME( 2009, jojos03,        jojobanc,   jojoba,      cps3_jojo,  cps3_hbmame,   
 GAME( 2009, jojos04,        jojobanc,   jojoba,      cps3_jojo,  cps3_hbmame,     init_jojoban,  ROT0,  "hack",    "JoJo's Bizarre Adventure (Oceania 990913, NO CD)", 0 )
 GAME( 2009, jojos05,        jojobanc,   jojoba,      cps3_jojo,  cps3_hbmame,     init_jojoban,  ROT0,  "hack",    "JoJo's Bizarre Adventure (U.S.A 990913, NO CD)", 0 )
 GAME( 2018, jojos06,        jojobanc,   jojoba,      cps3_jojo,  cps3_state,      init_jojoba,   ROT0,  "hack",    "JoJo's Bizarre Adventure (Super Plus)", 0 )
+GAME( 2009, jojobbh2,  jojobanc,   jojoba,   cps3_jojo, cps3_hbmame, init_jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V2 2009-08-08)", 0 )
+GAME( 2009, jojobbss,  jojobanc,   jojoba,   cps3_jojo, cps3_hbmame, init_jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Enable Hidden Characters V1 2009-07-15)", 0 )
+GAME( 2009, jojobpow,  jojobanc,   jojoba,   cps3_jojo, cps3_hbmame, init_jojoban,   ROT0, "Pipi899", "JoJo's Bizarre Adventure (Infinite Power 2009-07-15)", 0 )
+GAME( 2009, jojonbss,  jojonc,     jojo,     cps3_jojo, cps3_hbmame, init_jojon,     ROT0, "Pipi899", "JoJo's Venture (Enable Hidden Characters V1 2009-07-09)", 0 )
+GAME( 2009, jojonpow,  jojonc,     jojo,     cps3_jojo, cps3_hbmame, init_jojon,     ROT0, "Pipi899", "JoJo's Venture (Infinite Power 2009-07-11)", 0 )
+GAME( 1998, jojoan,    jojonc,     jojo,     cps3_jojo, cps3_hbmame, init_jojon,     ROT0, "Capcom", "JoJo's Venture (Asia, 981202, NO CD)", 0 )
 // Red Earth
 GAME( 1996, redeartns01,    redeartn,   redeartn,    cps3_ren,   cps3_hbmame,     init_redearth, ROT0,  "Capcom",  "Red Earth (Asia 961023, NO CD)", 0 )
 GAME( 2024, redearthep,     redeartn,   redeartn,    cps3_ren,   cps3_hbmame,     init_redearth, ROT0,  "HB Productions",  "Red Earth (NO CD, Easy Password)", 0 )
+GAME( 1996, redeartn,  0,          redeartn, cps3_ren,  cps3_hbmame, init_redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
+GAME( 1996, redeartno, redeartn,   redeartn, cps3_ren,  cps3_hbmame, init_redeartno, ROT0, "Capcom", "Red Earth (Asia 961121, NO CD/Old Set)", 0 )
+GAME( 2009, redearex,  redeartn,   redeartn, cps3_ren,  cps3_hbmame, init_redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version 2009-09-08)", 0 )
 // Street Fighter III: New Generation
 GAME( 2016, sfiiins01,      sfiiinc,    sfiii,       cps3,       cps3_state,      init_sfiii,    ROT0,  "hack",    "Street Fighter III: New Generation (Simple Attack, 2016-01-21)", 0 )
+GAME( 2009, sfiiibhp,  sfiiinc,    sfiii,    cps3,      cps3_hbmame, init_sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Enable Hidden Characters V1 2009-08-08)", 0 )
+GAME( 2009, sfiiipmp,  sfiiinc,    sfiii,    cps3,      cps3_hbmame, init_sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Infinite Power 2009-07-06)", 0 )
 // Street Fighter III 2nd Impact Giant Attack
 GAMEL(1997, sfiii2ns01,     sfiii2nc,   sfiii2,      cps3,       cps3_state,      init_sfiii2,   ROT0,  "yumeji",  "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V2)", 0, layout_sfiii2 )
 GAMEL(2016, sfiii2ns02,     sfiii2nc,   sfiii2,      cps3,       cps3_state,      init_sfiii2,   ROT0,  "hack",    "Street Fighter III 2nd Impact: Giant Attack (Boss With Simple Attack Edition, 2016-01-11)", 0, layout_sfiii2 )
 GAMEL(2016, sfiii2ns03,     sfiii2nc,   sfiii2,      cps3,       cps3_state,      init_sfiii2,   ROT0,  "hack",    "Street Fighter III 2nd Impact: Giant Attack (Hits The Second Time, 2014-11-19)", 0, layout_sfiii2 )
+GAMEL(1997, sfiii2bh,  sfiii2nc,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Yumeji", "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V1)", 0, layout_sfiii2 )
+GAMEL(2009, sfiii2np,  sfiii2nc,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Pipi899", "Street Fighter III 2nd Impact: Giant Attack (Enhanced power 2009-07-14)", 0, layout_sfiii2 )
+GAMEL(1997, sfiii2pl,  sfiii2nc,   sfiii2,   cps3,      cps3_hbmame, init_sfiii2n,   ROT0, "Krysofun", "Street Fighter III 2nd Impact: Giant Attack (Plus v1.0)", 0, layout_sfiii2 )
 // Street Fighter III 3rd Strike Fight for the Future
 GAME( 1999, sfiii3ns01,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Characters Makoto)", 0 )
 GAME( 1999, sfiii3ns03,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Ex Super Version)", 0 )
@@ -3460,4 +3457,9 @@ GAME( 1999, sfiii3ns11,     sfiii3nc,   sfiii3,      cps3,       cps3_state,    
 GAME( 1999, sfiii3ns12,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "Capcom",  "Street Fighter III 3rd Strike: Fight for the Future (USA 990608, NO CD)", 0 ) //Boot Bios System
 GAME( 2013, sfiii3ns13,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: 4rd Arrange Edition, 2013-07-16", 0 )
 GAME( 2013, sfiii3ns14,     sfiii3nc,   sfiii3,      cps3,       cps3_hbmame,     init_sfiii3n,  ROT0,  "hack",    "Street Fighter III 3rd Strike: 4rd Arrange Edition, 2013-07-14 (Set Old)", 0 )
+GAME( 1999, sfiii3bh,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Yumeji", "Street Fighter III 3rd Strike: Fight for the Future (Enable Hidden Characters)", 0 )
+GAME( 1999, sfiii3mh,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "2ch", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color)", 0 )
+GAME( 2009, sfiii3ng,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating 2009-07-14)", 0 )
+GAME( 2009, sfiii3np,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked 2009-07-14)", 0 )
+GAME( 2013, sfiii4rd,  sfiii3nc,   sfiii3,   cps3,      cps3_state,  init_sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition", 0 )
 

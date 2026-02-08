@@ -35,6 +35,8 @@ Changes:
 #include "screen.h"
 #include "speaker.h"
 
+namespace {
+
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
 #define MW8080BW_PIXEL_CLOCK              (MW8080BW_MASTER_CLOCK / 4)
@@ -596,6 +598,8 @@ ROM_START( schasrcv )
 	ROM_LOAD( "9",            0x4000, 0x0400, CRC(3d1a2ae3) SHA1(672ad6590aebdfebc2748455fa638107f3934c41) )
 	ROM_LOAD( "10",           0x4400, 0x0400, CRC(037edb99) SHA1(f2fc5e61f962666e7f6bb81753ac24ea0b97e581) )
 ROM_END
+
+} // anonymous namespace
 
 GAME( 1979, schasrcv, 0, schasercv, schasercv, sc_state, empty_init, ROT270, "Taito", "Space Chaser (CV version)(Extra Sounds)", MACHINE_SUPPORTS_SAVE )
 

@@ -7,6 +7,7 @@
 #include "sound/namco.h"
 #include "speaker.h"
 
+namespace {
 
 class jrpacman_state : public puckman_state
 {
@@ -322,6 +323,7 @@ void jrpacman_state::init_jrpacman()
 }
 
 
+} // anonymous namespace
 
 /*************************************
  *
@@ -1064,8 +1066,6 @@ ROM_START( jryumyum )
 	ROM_LOAD( "a290-27axv-dxhd.7p",          0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
 	ROM_LOAD( "a290-27axv-exhd.5s",          0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
-
-
 
 GAME( 2000, jr1000,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 1000", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, jr1000_2, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man 1000 (Alt)", MACHINE_SUPPORTS_SAVE )

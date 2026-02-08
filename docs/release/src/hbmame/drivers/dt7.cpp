@@ -32,6 +32,8 @@
 #include "speaker.h"
 #include "tilemap.h"
 
+namespace {
+
 class toaplan2_dt7_state : public driver_device
 {
 public:
@@ -667,6 +669,8 @@ ROM_START( dt7 )
 	ROM_REGION( 0x40000, "oki2", 0 )     /* ADPCM Samples */
 	ROM_LOAD( "7adpcm.43", 0x00000, 0x40000, CRC(aefce555) SHA1(0d47190287957122fefdae17ccf6bcfaef8cd430) )
 ROM_END
+
+} // anonymous namespace
 
 // The region comes from the EEPROM? so will need clones like FixEight
 GAME( 1993, dt7, 0, dt7, dt7, toaplan2_dt7_state,empty_init, ROT270, "Toaplan", "Dynamic Trial 7 (prototype)", MACHINE_NOT_WORKING )

@@ -12,13 +12,16 @@ GEN_FOLDERS += $(GENDIR)/mame/layout/
 
 # MAME layouts that we use
 LAYOUTS += \
-	$(SRC)/hbmame/layout/spacmissx.lay \
-	$(SRC)/mame/layout/segabill.lay \
-	$(SRC)/mame/layout/warrior.lay \
+	$(SRC)/mame/layout/attackfc.lay \
 	$(SRC)/mame/layout/bzone.lay \
 	$(SRC)/mame/layout/contcirc.lay \
+	$(SRC)/mame/layout/galactic.lay \
+	$(SRC)/mame/layout/gunchamp.lay \
 	$(SRC)/mame/layout/invaders.lay \
+	$(SRC)/mame/layout/shuttlei.lay \
 	$(SRC)/mame/layout/spcenctr.lay \
+	$(SRC)/mame/layout/segabill.lay \
+	$(SRC)/mame/layout/warrior.lay \
 	$(SRC)/mame/layout/vr.lay
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME

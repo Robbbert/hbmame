@@ -2,6 +2,8 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/rallyx.cpp"
 
+namespace {
+
 INPUT_PORTS_START( nrallyv )
 	PORT_START("P1")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN3 )
@@ -92,6 +94,8 @@ ROM_START( nrallyv )
 	ROM_LOAD( "nrallyv.spr",  0x0000, 0x0100, CRC(b75c4e87) SHA1(450f79a5ae09e34f7624d37769815baf93c0028e) )
 	ROM_LOAD( "rx1-4.2m",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
+
+} // anonymous namespace
 
 GAME( 1998, rxtron,  rallyx, rallyx, rallyx,  rallyx_state, empty_init, ROT0,  "Jerky and Sil", "Rally-X Tron", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, nrallyv, rallyx, rallyx, nrallyv, rallyx_state, empty_init, ROT90, "hack", "New Rally X (Vertical Screen)", MACHINE_SUPPORTS_SAVE )

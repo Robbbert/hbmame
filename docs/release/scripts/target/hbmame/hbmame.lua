@@ -369,9 +369,9 @@ files {
 	MAME_DIR .. "src/mame/audio/asteroid.cpp",
 	MAME_DIR .. "src/hbmame/drivers/bwidow.cpp",
 	MAME_DIR .. "src/mame/audio/bwidow.cpp",
---	MAME_DIR .. "src/hbmame/drivers/bzone.cpp",
---	MAME_DIR .. "src/mame/audio/bzone.cpp",
---	MAME_DIR .. "src/mame/audio/redbaron.cpp",
+--	MAME_DIR .. "src/hbmame/drivers/bzone.cpp",  -- bzone01
+--	MAME_DIR .. "src/mame/audio/bzone.cpp",      -- bzone01
+--	MAME_DIR .. "src/mame/audio/redbaron.cpp",   -- bzone01
 	MAME_DIR .. "src/hbmame/drivers/cball.cpp",
 	MAME_DIR .. "src/hbmame/drivers/centiped.cpp",
 	MAME_DIR .. "src/mame/video/centiped.cpp",
@@ -1140,9 +1140,13 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "misc")
 files {
+	MAME_DIR .. "src/hbmame/drivers/attackfc.cpp",
+	MAME_DIR .. "src/hbmame/drivers/claybust.cpp",
 	MAME_DIR .. "src/hbmame/drivers/dotrikun.cpp",
+	MAME_DIR .. "src/hbmame/drivers/galactic.cpp",
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
-	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",
+	MAME_DIR .. "src/hbmame/drivers/sflush.cpp",
+	MAME_DIR .. "src/hbmame/drivers/skylove.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",

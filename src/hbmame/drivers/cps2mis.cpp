@@ -7214,7 +7214,7 @@ GAME( 1996, xmvsfs05,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2009, xmvsfs06,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blackheart", "X-Men Vs. Street Fighter (960910E, Easy Moves, 2009-04-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, xmvsfs07,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Ydmis", "X-Men Vs. Street Fighter (960910E, Change character in battle)", MACHINE_SUPPORTS_SAVE )
 // Misc hacks
-GAME( 2022, ffightaec2, 0,        dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Grego and Gnawtor", "Fight Fight Anniversary Edition (CPS2 hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ffightaec2, 0,        dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Grego and Gnawtor", "Final Fight Anniversary Edition (CPS2 hardware)", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( cps2xx )  // not working, bad tiles

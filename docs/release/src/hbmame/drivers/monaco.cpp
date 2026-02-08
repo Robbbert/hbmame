@@ -175,6 +175,7 @@ There is a bunch more things to be done
 #include "speaker.h"
 #include "monaco.lh"
 
+namespace {
 
 #define kRESCUE_CAR_SPEED (1.75)
 #define SCREEN_WIDTH    384 /* 12 car lengths */
@@ -2178,6 +2179,8 @@ ROM_START( monaco )
  *  score and possibly when you plug in the game.
  */
 ROM_END
+
+} // anonymous namespace
 
 /*          rom     parent  machine inp     init */
 GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, init_monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )

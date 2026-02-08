@@ -92,6 +92,9 @@ indytemp                               //parent
 ataris1hw
 ataris1rt
 
+@source:atarisy1.cpp
+attackfc
+
 @source:bagman.cpp
 bagman                                 //parent
 bagturbo
@@ -150,7 +153,7 @@ spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
 @source:bzone.cpp
 //bzone                                  //parent
-//bzone01
+//bzone01          full of bugs
 
 @source:cabal.cpp
 cabal                                  //parent
@@ -225,6 +228,10 @@ bbugtest1
 warrior					//parent
 warrior4j1
 warrior4j2
+
+@source:claybust.cpp
+claybust
+gunchamp
 
 @source:cninja.cpp
 mutantf                                //parent
@@ -1467,17 +1474,6 @@ progearj01
 progearj02
 rockman2k
 sf2prime
-sf2prime3
-sf2prime4
-sf2prime41
-sf2prime45
-sf2prime50
-sf2prime55
-sf2prime56
-sf2prime57
-sf2prime59
-sf2prime60
-sf2prime63
 sfas01
 sfas02
 sfas03
@@ -1770,6 +1766,8 @@ dkong20
 dkong21
 dkong22
 dkong23
+dkong24
+dkong25
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -1902,6 +1900,10 @@ asurabus				//parent
 asurabuss01
 asurabuss02
 
+@source:galactic.cpp
+galactic                               // extra sounds
+spacmiss                               // extra sounds
+
 @source:galaga.cpp
 galaga		//parent
 xevious		//parent
@@ -1940,12 +1942,28 @@ sxeviouss01
 
 @source:galaxian.cpp
 amidar                                 //parent
-amidarf		/* ArkaMAME */
-amidargr	/* GreekRoms 2004 */
-amidars01
+amidar01
+amidar02
+amidar03
+galnamco	/* The Original Namco */
+galaxian01
+galaxian02
+galaxian03
+galaxian04
+galaxian05
+galaxian06
+galaxian07
+galaxian08
+galaxian09
+galapx01
+galapx02
+galapx03
+galapx04
+galxtest1
+galxtest2
 mooncrst                               //parent
-mooncmst
-mooncrs5f	/* clone of fantazia */
+mooncrst01
+mooncrst02
 moontest
 pisces                                 //parent
 starfgh2	/* Bootleg of Pisces */
@@ -1968,20 +1986,6 @@ cosmicw
 pandajump                              // HB
 pandajump2                             // HB
 ramokromok                             // HB
-galnamco	/* The Original Namco */
-andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
-buglaxn		/* The Dog hack of Galaxian */
-galaxian01
-galaxian02
-galapxis
-galaxiabh	/* unknown hack of Galaxian */
-galaxkyo	/* unknown hack of Galaxian Part X */
-galaxni		/* Petaco bootleg of Galaxian Part X */
-galinvad	/* T-Bone hack of Galaxian */
-galxtest1
-galxtest2
-gaylaxn		/* The Dog hack of Galaxian Part X */
-vectrgal	/* T-Bone hack of Galaxian */
 fourplay
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
@@ -3846,6 +3850,124 @@ kof2002s113
 kof2002s114
 kof2002s115
 kof2002s116
+kof2002s118
+kof2002s201
+kof2002s202
+kof2002s203
+kof2002s204
+kof2002s205
+kof2002s207
+kof2002s208
+kof2002s209
+kof2002s210
+kof2002s211
+kof2002s212
+kof2002s213
+kof2002s214
+kof2002s215
+kof2002s216
+kof2002s217
+kof2002s218
+kof2002s219
+kof2002s220
+kof2002s221
+kof2002s223
+kof2002s224
+kof2002s225
+kof2002s226
+kof2002s227
+kof2002s228
+kof2002s229
+kof2002s230 // no sound in attract mode
+kof2002s231
+kof2002s233
+kof2002s234
+kof2002s235
+kof2002s236
+kof2002s237
+kof2002s238
+kof2002s239
+kof2002s240
+kof2002s241
+kof2002s242
+kof2002s243
+kof2002s244
+kof2002s245
+kof2002s246
+kof2002s247
+kof2002s248
+kof2002s249
+kof2002s250
+kof2002s251
+kof2002s252
+kof2002s253
+kof2002s254
+kof2002s255
+kof2002s256
+kof2002s257
+kof2002s259
+kof2002s260
+kof2002s261
+kof2002s262
+kof2002s263
+kof2002s264
+kof2002s265
+kof2002s266
+kof2002s267
+kof2002s268
+kof2002s269
+kof2002s270
+kof2002s271
+kof2002s272
+kof2002s273
+kof2002s274
+kof2002s275
+kof2002s276
+kof2002s277
+kof2002s278
+kof2002s279
+kof2002s280
+kof2002s281
+kof2002s282
+kof2002s283
+kof2002s284
+kof2002s285
+kof2002s286
+kof2002s287
+kof2002s288
+kof2002s289
+kof2002s290
+kof2002s291
+kof2002s292
+kof2002s293
+kof2002s294
+kof2002s295
+kof2002s296
+kof2002s297
+kof2002s298
+kof2002s299
+kof2002s300
+kof2002s301
+kof2002s302
+kof2002s303
+kof2002s304
+kof2002s305
+kof2002s306
+kof2002s307
+kof2002s308
+kof2002s309
+kof2002s310
+kof2002s311
+kof2002s312
+kof2002s313
+kof2002s314
+kof2002s315
+kof2002s316
+kof2002s317
+kof2002s318
+kof2002s319
+kof2002s320
+kof2002s321
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -3965,123 +4087,6 @@ kf2k2plas47
 kf2k2plas48
 kof2k2ps2as01
 kof2k2ps2as02
-kof2k2s01
-kof2k2s02
-kof2k2s03
-kof2k2s04
-kof2k2s05
-kof2k2s07
-kof2k2s08
-kof2k2s09
-kof2k2s10
-kof2k2s11
-kof2k2s12
-kof2k2s13
-kof2k2s14
-kof2k2s15
-kof2k2s16
-kof2k2s17
-kof2k2s18
-kof2k2s19
-kof2k2s20
-kof2k2s21
-kof2k2s23
-kof2k2s24
-kof2k2s25
-kof2k2s26
-kof2k2s27
-kof2k2s28
-kof2k2s29
-kof2k2s30 // no sound in attract mode
-kof2k2s31
-kof2k2s33
-kof2k2s34
-kof2k2s35
-kof2k2s36
-kof2k2s37
-kof2k2s38
-kof2k2s39
-kof2k2s40
-kof2k2s41
-kof2k2s42
-kof2k2s43
-kof2k2s44
-kof2k2s45
-kof2k2s46
-kof2k2s47
-kof2k2s48
-kof2k2s49
-kof2k2s50
-kof2k2s51
-kof2k2s52
-kof2k2s53
-kof2k2s54
-kof2k2s55
-kof2k2s56
-kof2k2s57
-kof2k2s59
-kof2k2s60
-kof2k2s61
-kof2k2s62
-kof2k2s63
-kof2k2s64
-kof2k2s65
-kof2k2s66
-kof2k2s67
-kof2k2s68
-kof2k2s69
-kof2k2s70
-kof2k2s71
-kof2k2s72
-kof2k2s73
-kof2k2s74
-kof2k2s75
-kof2k2s76
-kof2k2s77
-kof2k2s78
-kof2k2s79
-kof2k2s80
-kof2k2s81
-kof2k2s82
-kof2k2s83
-kof2k2s84
-kof2k2s85
-kof2k2s86
-kof2k2s87
-kof2k2s88
-kof2k2s89
-kof2k2s90
-kof2k2s91
-kof2k2s92
-kof2k2s93
-kof2k2s94
-kof2k2s95
-kof2k2s96
-kof2k2s97
-kof2k2s98
-kof2k2s99
-kof2k2s100
-kof2k2s101
-kof2k2s102
-kof2k2s103
-kof2k2s104
-kof2k2s105
-kof2k2s106
-kof2k2s107
-kof2k2s108
-kof2k2s109
-kof2k2s110
-kof2k2s111
-kof2k2s112
-kof2k2s113
-kof2k2s114
-kof2k2s115
-kof2k2s116
-kof2k2s117
-kof2k2s118
-kof2k2s119
-kof2k2s120
-kof2k2s121
 
 @source:kof2003.cpp
 kof2003d
@@ -6314,6 +6319,7 @@ violentv
 //vlad2000
 wrldracr
 wrldracr01
+wrldracr02
 //ww2demo
 xeno
 xeviousn
@@ -7157,100 +7163,99 @@ sengoku3s14
 sengoku3s15
 
 @source:ngsvc.cpp
-svccprw
-svcd
-svcd1
-svcee
-svcesv
-svcg
-svch
-svch2
-svcice
-svclspc
-svcnd
-svcnh
-svcplusa2016
-svcplusb
-svcplusd
-svcplusg
-svcplusp
-svcplusp2
-svcpryu
-svcps2
-svcryu
-svcspjoy
-svcsplus2016
-svcspryu
-svcstdse
-svcxlb
 svccpru
-svcpsv2
-svchs02
-svchs03
-svchs04
-svchs05
-svchs06
-svchs07
-svchs08
-svchs09
-svchs10
-svchs11
-svchs12
-svchs13
-svchs14
-svchs15
-svchs16
-svchs17
-svchs18
-svchs19
-svchs20
-svchs21
-svchs22
-svchs23
-svchs24
-svchs25
-svchs26
-svchs27
-svchs28
-svchs29
-svchs30
-svchs31
-svchs32
-svchs33
-svchs34
-svchs35
-svchs36
-svchs37
-svchs38
-svcpluss01
-svcpluss02
-svcpluss03
-svcpluss04
-svcpluss05
-svcpluss06
-svcpluss07
-svcpluss08
-svcpluss09
-svcpluss10
-svcpluss11
-svcpluss12
-svcpluss13
-svcpluss14
-svcpluss15
-svcpluss16
-svcpluss17
-svcpluss18
-svcpluss19
-svcpluss20
-svcpluss21
-svcpluss22
-svcpluss23
-svcpluss24
-svcpluss25
-svcpluss26
-svcpluss27
-svcpluss28
-svcpluss29
+svc01
+svc02
+svc03
+svc04
+svc05
+svc06
+svc07
+svc08
+svc09
+svc10
+svc11
+svc12
+svc13
+svc14
+svc15
+svc16
+svc17
+svc18
+svc19
+svc20
+svc21
+svc22
+svc23
+svc24
+svc25
+svc26
+svc27
+svc28
+svc29
+svc30
+svc31
+svc32
+svc33
+svc34
+svc35
+svc36
+svc37
+svc38
+svc39
+svc40
+svc41
+svc42
+svc43
+svc44
+svc45
+svc46
+svc47
+svc48
+svc49
+svc50
+svc51
+svc52
+svc53
+svc54
+svc55
+svc56
+svc57
+svc58
+svc59
+svcplus01
+svcplus02
+svcplus03
+svcplus04
+svcplus05
+svcplus06
+svcplus07
+svcplus08
+svcplus09
+svcplus10
+svcplus11
+svcplus12
+svcplus13
+svcplus14
+svcplus15
+svcplus16
+svcplus17
+svcplus18
+svcplus19
+svcplus20
+svcplus21
+svcplus22
+svcplus23
+svcplus24
+svcplus25
+svcplus26
+svcplus27
+svcplus28
+svcplus29
+svcplus30
+svcplus31
+svcplus32
+svcplus33
 svcsplus01
 svcsplus02
 svcsplus03
@@ -7269,6 +7274,7 @@ svcsplus15
 svcsplus16
 svcsplus17
 svcsplus18
+svcsplus19
 
 @source:ngwh.cpp
 whpb
@@ -8027,6 +8033,7 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
+//ket01    black screen
 
 @source:phoenix.cpp
 phoenix                                //parent
@@ -8639,6 +8646,9 @@ grdians41
 sf                                     //parent
 sfpp
 
+@source:sflush.cpp
+sflush
+
 @source:shadfrce.cpp
 shadfrce                               //parent
 shadfrce01
@@ -8659,6 +8669,9 @@ kfjohnny
 
 @source:skimaxx.cpp
 skimaxx                                // HB, no parent
+
+@source:skylove.cpp
+skylove
 
 @source:snk6502.cpp
 vantris                                // HB, no parent
@@ -8685,9 +8698,6 @@ solomon01
 @source:sonson.cpp
 sonson                                 //parent
 sonson01
-
-@source:spacmiss.cpp
-spacmissx                              // extra sounds
 
 @source:spcenctr.cpp
 spcenctr                               //parent

@@ -7,6 +7,8 @@
     Use left & right arrows to move the sprite around.
 */
 
+namespace {
+
 class hb_sys16 : public segas1x_bootleg_state
 {
 public:
@@ -60,6 +62,8 @@ ROM_START( sys16dem )
 	ROM_REGION( 0x40000, "soundcpu", 0 )
 	ROM_LOAD( "epr12168.a7", 0x0000, 0x8000, CRC(bd9ba01b) SHA1(fafa7dc36cc057a50ae4cdf7a35f3594292336f4) )
 ROM_END
+
+} // anonymous namespace
 
 GAME( 1988, sys16dem, 0, tetrisbl, tetris, hb_sys16, init_sys16dem, ROT0, "Charles Doty", "Demo - Sega System 16", 0 )
 
