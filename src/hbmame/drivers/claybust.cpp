@@ -57,7 +57,7 @@ public:
 private:
 	required_device<i8085a_cpu_device> m_maincpu;
 	required_device<mb14241_device> m_mb14241;
-	optional_device<watchdog_timer_device> m_watchdog;
+	required_device<watchdog_timer_device> m_watchdog;
 	required_shared_ptr<uint8_t> m_main_ram;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;

@@ -11,6 +11,8 @@
 #include "emupal.h"
 #include "screen.h"
 #include "tilemap.h"
+#include "sound/samples.h"
+#include "speaker.h"
 
 
 class cball_state : public driver_device
@@ -23,6 +25,7 @@ public:
 		m_screen(*this, "screen"),
 		m_palette(*this, "palette"),
 		m_video_ram(*this, "video_ram")
+		, m_samples(*this, "samples")
 	{ }
 
 	/* devices */
@@ -33,6 +36,7 @@ public:
 
 	/* memory pointers */
 	required_shared_ptr<uint8_t> m_video_ram;
+	required_device<samples_device> m_samples;
 
 	/* video-related */
 	tilemap_t* m_bg_tilemap = nullptr;
@@ -55,6 +59,7 @@ public:
 
 	void cball(machine_config &config);
 	void cpu_map(address_map &map);
+	void sound_w(uint8_t);
 };
 
 
@@ -143,7 +148,33 @@ void cball_state::wram_w(offs_t offset, uint8_t data)
 	m_video_ram[0x380 + offset] = data;
 }
 
+static const char *const sample_names[] =
+{
+	"*invaders",
+	"1",        /* shot */
+	"2",        /* explosion */
+	"3",        /* invader hit */
+	"4",        /* fleet move 1 */
+	"5",        /* fleet move 2 */
+	"6",        /* fleet move 3 */
+	"7",        /* fleet move 4 */
+	nullptr
+};
 
+void cball_state::sound_w(uint8_t data)
+{
+	// bit 3 - crawling
+	// bit 5 - walking
+	// bit 7 - happy man
+	if (BIT(data, 7))
+		m_samples->start(0,2);
+	else
+	if (BIT(data, 5))
+		m_samples->start(1,4);
+	else
+	if (BIT(data, 3))
+		m_samples->start(2,6);
+}
 
 void cball_state::cpu_map(address_map &map)
 {
@@ -161,7 +192,7 @@ void cball_state::cpu_map(address_map &map)
 	map(0x0000, 0x03ff).w(FUNC(cball_state::wram_w)).mask(0x7f);
 	map(0x0400, 0x07ff).ram().w(FUNC(cball_state::vram_w)).share("video_ram");
 	map(0x1800, 0x1800).noprw(); /* watchdog? */
-	map(0x1810, 0x1811).noprw();
+	map(0x1810, 0x1811).w(FUNC(cball_state::sound_w));
 	map(0x1820, 0x1821).noprw();
 	map(0x1830, 0x1831).noprw();
 	map(0x1840, 0x1841).noprw();
@@ -264,6 +295,11 @@ void cball_state::cball(machine_config &config)
 	PALETTE(config, m_palette, FUNC(cball_state::cball_palette), 6);
 
 	/* sound hardware */
+	SPEAKER(config, "mono").front_center();
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(3);
+	m_samples->set_samples_names(sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
 
@@ -289,4 +325,4 @@ ROM_START( cball )
 ROM_END
 
 
-GAME( 1976, cball, 0, cball, cball, cball_state, empty_init, ROT0, "Atari", "Cannonball (Atari, prototype)", MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1976, cball, 0, cball, cball, cball_state, empty_init, ROT0, "Atari", "Cannonball (Atari, prototype)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
