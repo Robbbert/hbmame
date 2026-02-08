@@ -3,6 +3,8 @@
 #include "../mame/drivers/asteroid.cpp"
 #include "machine/eepromser.h"
 
+namespace {
+
 static INPUT_PORTS_START( astdelu4 )
 	PORT_INCLUDE(astdelux)
 	PORT_MODIFY("IN1")
@@ -64,6 +66,8 @@ ROM_START( astdelux4 )
 
 	ROM_REGION( 0x40, "earom", ROMREGION_ERASE00 ) // default to zero fill to suppress invalid high score display
 ROM_END
+
+} // anonymous namespace
 
 
 GAME( 1979, asteroid6,  asteroid, asteroid, asteroid, asteroid_state, empty_init, ROT0, "Clay Cowgill", "Asteroids (Six-Bullet Hack)", MACHINE_SUPPORTS_SAVE )

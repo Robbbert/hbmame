@@ -2,6 +2,8 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/dynax.cpp"
 
+namespace {
+
 /**********************
  Mahjong Electron Base
 *************************/
@@ -50,6 +52,8 @@ ROM_START( tenkaibbs01 ) //tenkaibbc
 	ROM_LOAD( "lzc-02.u19", 0x100000, 0x100000, CRC(90a19443) SHA1(8f593c00e39dd5acc76b058591019d117967a17b) )
 	ROM_LOAD( "lzc-03.u15", 0x200000, 0x020000, CRC(5b552cdf) SHA1(86aaa02dcf8dab670d818287c91c8cb296362401) )  // 1xxxxxxxxxxxxxxxx = 0xFF
 ROM_END
+
+} // anonymous namespace
 
 // Mahjong Electron Base
 GAME( 2004, mjelct3s01,  mjelctrn, mjelctrn, mjelct3,  dynax_state, init_mjelct3,  ROT180, "hack",   "Mahjong Electron Base (parts 2 & 3, No AI Cheat, 2004-09-17)",   MACHINE_SUPPORTS_SAVE )

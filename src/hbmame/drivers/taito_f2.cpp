@@ -2,6 +2,8 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/taito_f2.cpp"
 
+namespace {
+
 class taitof2_hbmame : public taitof2_state
 {
 public:
@@ -326,6 +328,8 @@ ROM_START( thundfox01 )
 	ROM_REGION( 0x80000, "ymsnd:adpcmb", 0 )
 	ROM_LOAD( "c28-05.42", 0x00000, 0x80000, CRC(d3b238fa) SHA1(b4a0cdd7174e60527e7a47018d6117adc5518da1) )
 ROM_END
+
+} // anonymous namespace
 
 /*    YEAR  NAME            PARENT    MACHINE    INPUT       CLASS           INIT          MONITOR  COMPANY         FULLNAME  FLAGS */
 // Cameltry

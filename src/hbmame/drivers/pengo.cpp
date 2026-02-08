@@ -12,6 +12,7 @@
 #include "screen.h"
 #include "speaker.h"
 
+namespace {
 
 class pengo_state : public puckman_state
 {
@@ -745,6 +746,7 @@ void pengo_state::init_penta()
 	decode_penta(0x8000, 0x8000);
 }
 
+} // anonymous namespace
 
 /*************************************
  *
@@ -885,7 +887,6 @@ ROM_START( vecpengo )
 	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
 	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
-
 
 GAME( 2021, jrpacplus, jrpacman, jrpacmbl, jrpacmbl, pengo_state, empty_init, ROT90, "Mr McScrewup", "Jr. Pac-Plus (Pengo hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, pacpen,    pengo,    pengou,   pacpen,   pengo_state, empty_init, ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )

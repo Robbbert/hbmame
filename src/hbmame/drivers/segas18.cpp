@@ -3,6 +3,8 @@
 // Thanks-to: Various people who shall remain unnamed for their own safety
 #include "../mame/drivers/segas18.cpp"
 
+namespace {
+
 static INPUT_PORTS_START( aquario )
 	PORT_INCLUDE( system18_generic )
 
@@ -62,6 +64,8 @@ ROM_START( aquario )
 	ROM_LOAD( "c5.bin",       0x100000, 0x080000, CRC(6a380dca) SHA1(4589efc9e994ef9d07d4033e20c21afca4875005) )
 	ROM_LOAD( "c4.bin",       0x180000, 0x080000, CRC(1bd081f8) SHA1(e5b0b5d8334486f813d7c430bb7fce3f69605a21) )
 ROM_END
+
+} // anonymous namespace
 
 GAME( 2021, aquario, 0, system18, aquario, segas18_state, init_generic_5987, ROT0,  "ININ / Westone", "Clockwork Aquario", 0 )
 

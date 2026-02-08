@@ -12,6 +12,8 @@ Tim Appleton: https://www.oocities.org/wigglebeat
 Paul Goes: https://www.donkeykonghacks.net
 */
 
+namespace {
+
 static INPUT_PORTS_START( dkongex )
 	PORT_INCLUDE( dkong )
 	PORT_MODIFY("DSW0")
@@ -2516,7 +2518,7 @@ ROM_START( dkongjr01 )
 	ROM_LOAD( "djr1-v-2n.2n",     0x0200, 0x0100, CRC(dbf185bf) SHA1(2697a991a4afdf079dd0b7e732f71c7618f43b70) )
 ROM_END
 
-
+} // anonymous namespace
 
 // Donkey Kong
 GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong (Barrel control coloring)", MACHINE_SUPPORTS_SAVE )

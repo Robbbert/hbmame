@@ -22,6 +22,8 @@ at 1. And X indicates ram couldn't be reliably tested.
 
 #include "../mame/drivers/cinemat.cpp"
 
+namespace {
+
 class cinemat_hbmame : public cinemat_color_state
 {
 public:
@@ -68,6 +70,8 @@ ROM_START( bbugtest1 )
 	ROM_LOAD("prom.j14", 0x160, 0x020, CRC(a481ca71) SHA1(ce145d61686f600cc16b77febfd5c783bf8c13b0) )
 	ROM_LOAD("prom.e8",  0x180, 0x020, CRC(791ec9e1) SHA1(6f7fcce4aa3be9020595235568381588adaab88e) )
 ROM_END
+
+} // anonymous namespace
 
 GAME(1981, bbugtest,  0,        boxingb, boxingb, cinemat_hbmame, init_bbugtest, ORIENTATION_FLIP_Y, "Test Rom", "Test Rom - Boxing Bugs", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
 GAME(2018, bbugtest1, bbugtest, boxingb, boxingb, cinemat_hbmame, init_bbugtest, ORIENTATION_FLIP_Y, "Timothy Shiels", "Test Rom - Cinematic", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
@@ -133,7 +137,6 @@ ROM_START( warrior4j2 )
 
 	CCPU_PROMS
 ROM_END
-
 
 GAME(2014, warrior4j1, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v1)", MACHINE_SUPPORTS_SAVE )
 GAME(2014, warrior4j2, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v2)", MACHINE_SUPPORTS_SAVE )

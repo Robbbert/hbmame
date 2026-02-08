@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/tempest.cpp"
 
+namespace {
 
 /* most of these inputs are not verified */
 static INPUT_PORTS_START( aliensv )
@@ -819,6 +820,7 @@ ROM_START( tempmg )
 	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
+} // anonymous namespace
 
 GAME( 2000, temped,    tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tempall,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
