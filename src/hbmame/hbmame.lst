@@ -8565,7 +8565,13 @@ schmeisr                               //parent
 schmeisr01
 
 @source:schaser.cpp
-schasrcv                               // extra sounds
+schaser
+//schasera
+//schaserb
+//schaserc
+//schaserm
+//crashrd
+schasercv                              // extra sounds
 
 @source:scramble.cpp
 mrkougar                               //parent
