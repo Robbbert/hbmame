@@ -3481,6 +3481,9 @@ kof2000s64
 kof2000s65
 kof2000s66
 kof2000s67
+kof2000s68
+kof2000s69
+kof2000s70
 
 @source:kof2001.cpp
 kof2001d
@@ -3611,6 +3614,7 @@ kof2001s47
 kof2001s48
 kof2001s49
 kof2001s50
+kof2001s51
 
 @source:kof2002.cpp
 kof200215

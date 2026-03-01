@@ -3384,6 +3384,35 @@ ROM_START( kof2001s50 ) //kf2k1ult
 	ROM_LOAD16_BYTE( "262s49.c14", 0x6000001, 0x800000, CRC(9b169e23) SHA1(cb8c63ea0907e786898b9805252597c76f7bbe77) )
 ROM_END
 
+ROM_START( kof2001s51 ) //kf2k1pkz,kof2001hc03
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "262_hc03.p1", 0x000000, 0x100000, CRC(b6df1dac) SHA1(e0de0805417428e82477c0e54323403771492894) )
+	ROM_LOAD16_WORD_SWAP( "262_hc03.p2", 0x100000, 0x400000, CRC(4cb062de) SHA1(1ab0659354cb85ef98322e25932567c0d172001b) )
+
+	NEO_SFIX_128K( "262_hc03.s1", CRC(73efb81d) SHA1(9d294c5ecd658c2133a7d9f8c61c29715db33810) )
+
+	NEO_BIOS_AUDIO_128K( "262_hc03.m1", CRC(6d5a43db) SHA1(996d1e1bb53a745f15c315b7368532a9e924ab62) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "262.v1", 0x000000, 0x400000, CRC(83d49ecf) SHA1(2f2c116e45397652e77fcf5d951fa5f71b639572) )
+	ROM_LOAD( "262.v2", 0x400000, 0x400000, CRC(003f1843) SHA1(bdd58837ad542548bd4053c262f558af88e3b989) )
+	ROM_LOAD( "262.v3", 0x800000, 0x400000, CRC(2ae38dbe) SHA1(4e82b7dd3b899d61907620517a5a27bdaba0725d) )
+	ROM_LOAD( "262_hc03.v4", 0xc00000, 0x400000, CRC(912f3f3b) SHA1(e25a9f1284e6fb080102042c627487b53d63c47c) )
+
+	ROM_REGION( 0x5000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "262d.c1", 0x0000000, 0x800000, CRC(103225b1) SHA1(41486c7bb421b6b54f3ca07621aabd907bf10e15) )
+	ROM_LOAD16_BYTE( "262d.c2", 0x0000001, 0x800000, CRC(f9d05d99) SHA1(c135dd3d5584dc58a46315d64f663e34bb64bebf) )
+	ROM_LOAD16_BYTE( "262d.c3", 0x1000000, 0x800000, CRC(4c7ec427) SHA1(0156e2f79e7a62b15acc2314ac6563a67af0f256) )
+	ROM_LOAD16_BYTE( "262d.c4", 0x1000001, 0x800000, CRC(1d237aa6) SHA1(b007fe9f1f32f0ff947c6575741b47fb70976728) )
+	ROM_LOAD16_BYTE( "262d.c5", 0x2000000, 0x800000, CRC(c2256db5) SHA1(dae6b7b0673b431f223d82f7c3a685de70a1c035) )
+	ROM_LOAD16_BYTE( "262d.c6", 0x2000001, 0x800000, CRC(8d6565a9) SHA1(137C950D588D40C812C36967EC17D04D4FC56362) )
+	ROM_LOAD16_BYTE( "262_hc03.c7",  0x3000000, 0x800000, CRC(c29bc0f3) SHA1(433c0be2e33f812674ff249a34887bb367c77da0) )
+	ROM_LOAD16_BYTE( "262_hc03.c8",  0x3000001, 0x800000, CRC(3f1b51d2) SHA1(e220aecbb17a7ecf763987b2033ec77e6bd981a7) )
+	ROM_LOAD16_BYTE( "262_hc03.c9",  0x4000000, 0x800000, CRC(e9bb1f55) SHA1(9f9f8dc0e4e49fb6dcbbc6c049d617919808a590) )
+	ROM_LOAD16_BYTE( "262_hc03.c10", 0x4000001, 0x800000, CRC(3853693b) SHA1(0c03ad2bd2598b93fd37da0192caecd60e82e986) )
+ROM_END
+
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2001
 GAME( 2001, kof2001d,   kof2001,  neogeo_noslot, neogeo, neogeo_state, init_kof2001, ROT0, "Eolith / SNK", "Kof2001 (NGM-262)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
@@ -3512,6 +3541,7 @@ GAME( 2019, kof2001s45,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2019, kof2001s46,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2001 (PS2 Krizalid Edition, 2019-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, kof2001s47,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2001 (PS2 Plus, 2015-02-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2001s48,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2001 (Plus Blue Simplified Edition, 2020-02-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, kof2001s49,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_kof2001,   ROT0, "hack", "The King of Fighters 2001 (All Boss Plus 2025-05-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, kof2001s50,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_kof2001,   ROT0, "hack", "The King of Fighters 2001 (All Boss Plus 2025-12-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, kof2001s49,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_kof2001,   ROT0, "hack", "The King of Fighters 2001 (All Boss Plus, 2025-05-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, kof2001s50,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_kof2001,   ROT0, "hack", "The King of Fighters 2001 (All Boss Plus, 2025-12-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, kof2001s51,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_kof2001,  ROT0, "hack", "Kof2001 (PS2 Krizalid Edition, 2021-01-30)", MACHINE_SUPPORTS_SAVE )
 
