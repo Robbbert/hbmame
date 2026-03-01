@@ -2396,6 +2396,34 @@ ROM_START( dksprfin2 ) // v1.02
 	ROM_LOAD( "v-5e.bpr",       0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
 ROM_END
 
+ROM_START( dksprfin3 ) // v1.03
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dksprfin.5et",   0x0000, 0x1000, CRC(fd23db80) SHA1(2188bf0c8943e9c4771c3f9ff3bd1cfcc14a5ba4) )
+	ROM_LOAD( "dksprfin2.5ct",  0x1000, 0x1000, CRC(257fee24) SHA1(284c7b73c1f08b5161582807d218e901da61aeda) )
+	ROM_LOAD( "dksprfin3.5bt",  0x2000, 0x1000, CRC(0af06019) SHA1(b270b0994a8b8f7513c854a7fa154663c73bfef0) )
+	ROM_LOAD( "dksprfin3.5at",  0x3000, 0x1000, CRC(dbbec3de) SHA1(38c905cb2399fa7cd8cb734cf56c4d02d7168403) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",     0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(                 0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "dksprfin.5h",    0x0000, 0x0800, CRC(b41e2713) SHA1(2a4e37e5bb997b0a6a0d8aef61fd8f89d97d8213) )
+	ROM_LOAD( "dksprfin.3pt",   0x0800, 0x0800, CRC(b33f2ba7) SHA1(900ff22f44b4504da4f3b8fe9dcdf7f5b88ea597) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",     0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",     0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",     0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",     0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "dksprfin.2k",    0x0000, 0x0100, CRC(6baa5ba0) SHA1(2c0e9f4b4ac2d14aeeeba9afa9bf675337650276) )
+	ROM_LOAD( "dksprfin.2j",    0x0100, 0x0100, CRC(1a144a25) SHA1(6e73470b7589ea5f14cf0dd9a9fbfd176e5e1c36) )
+	ROM_LOAD( "v-5e.bpr",       0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
 
 ROM_START( dkbrlbss )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -2599,10 +2627,11 @@ GAME( 2022, dkwizard0, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dkwizard1, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.01 (2022-02-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkwizard2, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.02 (2022-02-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkwizard,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.03 (2022-05-22)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, dksprfin,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Springfinity v1.01 (2022-04-29)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2023, dksprfin2, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Springfinity v1.02 (2023-08-15)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2022, dksprfin,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Springfinity v1.01 (2022-04-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, dksprfin2, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Springfinity v1.02 (2023-08-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, dksprfin3, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Springfinity v1.03 (2023-09-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkonghh,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong HeartHunt v1.01 (2022-10-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, dkbrlbss,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Barrel Boss v1.01 (2023-08-16)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2023, dkbrlbss,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Barrel Boss v1.01 (2023-08-16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dkongacc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Accelerate v1.01 (2023-09-05)", MACHINE_SUPPORTS_SAVE )
 // Donkey Kong Junior
 GAME( 1982, dkongjr01, dkongjr,  dkongjr,   dkongjr,  dkong_state, empty_init,    ROT270, "John Kowalski", "Donkey Kong Junior (bugfixed)", MACHINE_SUPPORTS_SAVE )

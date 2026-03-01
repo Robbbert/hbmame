@@ -59,7 +59,6 @@ public:
 	READ_LINE_MEMBER(sflush_80_r);
 private:
 
-	IRQ_CALLBACK_MEMBER(interrupt_vector);
 	TIMER_CALLBACK_MEMBER(interrupt_trigger);
 
 	virtual void machine_start() override;

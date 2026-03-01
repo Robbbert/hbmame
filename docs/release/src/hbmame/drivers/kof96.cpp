@@ -1255,7 +1255,7 @@ ROM_START( kof96s57 ) //kof96ae20x
 	ROM_LOAD16_BYTE( "214s46.c6", 0x2000001, 0x800000, CRC(059fa364) SHA1(0e701f66fbf14089943c03c2a2e0401ebc10a0f2) )
 ROM_END
 
-ROM_START( kof96s58 ) /* The King of Fighters '96 - Hack by UNKNOWN - (Can choose Chizuru Kagura and Goenitz) */
+ROM_START( kof96s58 ) // Hack by UNKNOWN - (Can choose Chizuru Kagura and Goenitz)
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214s58.p1", 0x000000, 0x100000, CRC(0b385fab) SHA1(ea544d95438b373e3f5f530528413ff583d2b329) )
 	ROM_LOAD16_WORD_SWAP( "214.p2", 0x100000, 0x200000, CRC(002ccb73) SHA1(3ae8df682c75027ca82db25491021eeba00a267e) )
@@ -1330,7 +1330,7 @@ ROM_START( kof96s60 )
 	ROM_LOAD16_BYTE( "214.c8", 0x1800001, 0x400000, CRC(fa1461ad) SHA1(6c71a7f08e4044214223a6bf80984582ab5e0328) )
 ROM_END
 
-ROM_START( kof96s61 ) /* The King of Fighters '96 - (kof96c) - Hack by Kyofun - (Chinese Ver.1.0) */
+ROM_START( kof96s61 ) // kof96c - Hack by Kyofun - (Chinese Ver.1.0)
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214s61.p1", 0x000000, 0x800000, CRC(51990a7f) SHA1(eef003e5a7e43d670fe916c983c161d213337627) )
 
@@ -1348,7 +1348,7 @@ ROM_START( kof96s61 ) /* The King of Fighters '96 - (kof96c) - Hack by Kyofun - 
 	ROM_LOAD16_BYTE( "214s61.c2", 0x0000001, 0x1800000, CRC(e4a5e70d) SHA1(4f4691d386cfd63015812475bc58b1e8ae4b23ff) )
 ROM_END
 
-ROM_START( kof96s62 ) /* The King of Fighters '96 - (kof96ckvs) - Hack by KVS - (Chinese Version) */
+ROM_START( kof96s62 ) // kof96ckvs - Hack by KVS - (Chinese Version)
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214s62.p1", 0x000000, 0x800000, CRC(802a8874) SHA1(c76857acf29366af9e3ac8bf07fad0976ec2607f) )
 
@@ -1364,7 +1364,7 @@ ROM_START( kof96s62 ) /* The King of Fighters '96 - (kof96ckvs) - Hack by KVS - 
 	ROM_LOAD16_BYTE( "214s61.c2", 0x0000001, 0x1800000, CRC(e4a5e70d) SHA1(4f4691d386cfd63015812475bc58b1e8ae4b23ff) )
 ROM_END
 
-ROM_START( kof96s63 ) /* [OLD] The King of Fighters '96 - (kof96chj) - Remix by CHL and Jason/K3 - (Character move change - ultra kill style change) */
+ROM_START( kof96s63 ) // kof96chj - [OLD] - Remix by CHL and Jason/K3 - (Character move change - ultra kill style change)
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "214s63.p1",  0x000000, 0x100000, CRC(2a2a63ad) SHA1(92fca18b6bfc77569572262fcfbee732510dc3d6) )
 	ROM_LOAD16_WORD_SWAP( "214.p2", 0x100000, 0x200000, CRC(002ccb73) SHA1(3ae8df682c75027ca82db25491021eeba00a267e) )
@@ -2262,6 +2262,35 @@ ROM_START( kof96s98 ) /* The King of Fighters '96 - Super Enhance Hack by Ydmis 
 	ROM_LOAD16_BYTE( "214.c8", 0x1800001, 0x400000, CRC(fa1461ad) SHA1(6c71a7f08e4044214223a6bf80984582ab5e0328) )
 ROM_END
 
+ROM_START( kof96s99 ) //kof96ae - same as kof96s57, with different gfx. Looks like c7-c12 not used.
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "214s57.p1",  0x000000, 0x100000, CRC(c718ea76) SHA1(8745ee88bc40d1a05488d6d84d18be82ab63810a) )
+	ROM_LOAD16_WORD_SWAP( "214s50.p2",  0x100000, 0x400000, CRC(2638be07) SHA1(3bac4851b69984dbc1bba5b5e1460ffed92af404) )
+
+	NEO_SFIX_128K( "214s44.s1", CRC(b9626494) SHA1(34d913b93d8a389cdbf9fc1da3d743f099cc5352) )
+
+	NEO_BIOS_AUDIO_128K( "214s44.m1", CRC(3a4a7c21) SHA1(f730540d97f5c24fefe42133bacf04d8c02a85dd) )
+
+	ROM_REGION( 0xC00000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "214.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
+	ROM_LOAD( "214.v2", 0x400000, 0x400000, CRC(25929059) SHA1(6a721c4cb8f8dc772774023877d4a9f50d5a9e31) )
+	ROM_LOAD( "214s44.v3", 0x800000, 0x400000, CRC(f85673b0) SHA1(6378931be248b52b15496c4583602ffa3fbd5d9b) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "214s52.c1",  0x0000000, 0x400000, CRC(b308c1f9) SHA1(0c026b49ef45065c0691255a538921b0b4ad11dd) )
+	ROM_LOAD16_BYTE( "214s52.c2",  0x0000001, 0x400000, CRC(220a92b2) SHA1(4f33fc76a199aef2880b3ba1760f92973315edfa) )
+	ROM_LOAD16_BYTE( "214.c3",     0x0800000, 0x400000, CRC(64989a65) SHA1(e6f3749d43be0afa9dad7b085cb782ba694252ca) )
+	ROM_LOAD16_BYTE( "214.c4",     0x0800001, 0x400000, CRC(afbea515) SHA1(ae875052728de33174827705646bd14cf3937b5c) )
+	ROM_LOAD16_BYTE( "214s52.c5",  0x1000000, 0x400000, CRC(41dbd677) SHA1(447d081bd8c390df63b9800ef302d2ada660796a) )
+	ROM_LOAD16_BYTE( "214s99.c6",  0x1000001, 0x400000, CRC(d6c72311) SHA1(d6d2e03f7c18bf232630dffe5e6588627cf4adae) )
+	ROM_LOAD16_BYTE( "214s52.c7",  0x1800000, 0x400000, CRC(08021fd6) SHA1(77c8fed7ac39e6a1a24a294f95c095c098a85c11) )
+	ROM_LOAD16_BYTE( "214s52.c8",  0x1800001, 0x400000, CRC(bbd21b08) SHA1(4e060195b632e99634ca9c67fb2398c5a91c3341) )
+	ROM_LOAD16_BYTE( "214s99.c9",  0x2000000, 0x400000, CRC(bacafe5b) SHA1(7c1d2c18e253757641dec0329e374de3bda21da7) )
+	ROM_LOAD16_BYTE( "214s99.c10", 0x2000001, 0x400000, CRC(055befd6) SHA1(3339b8461793ad5a9da201112575f174dc8296d1) )
+	ROM_LOAD16_BYTE( "214s99.c11", 0x2800000, 0x400000, CRC(f5a661ec) SHA1(a32aec102681aa5330b4c7794759b543cf0b0a07) )
+	ROM_LOAD16_BYTE( "214s99.c12", 0x2800001, 0x400000, CRC(78c0dfab) SHA1(a2a54299f81d39ddff2fcc28a8de4ee9c22b0ba8) )
+ROM_END
+
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT     CLASS         INIT       MONITOR COMPANY     FULLNAME FLAGS */
 // The King of Fighters '96
@@ -2313,7 +2342,7 @@ GAME( 2007, kof96s53,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2007, kof96s54,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "EGHT", "Kof'96 (10th Anniversary Edition set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, kof96s55,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "EGHT", "Kof'96 (10th Anniversary Edition set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, kof96s56,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "EGHT", "Kof'96 (10th Anniversary Edition 2016)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, kof96s57,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "EGHT", "Kof'96 (The Aniversary Edition 2.3 Final Version, 2020-05-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, kof96s57,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Emugame Hackteam", "Kof'96 (10th Aniversary Edition 2.3 Final Version, 2020-05-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s58,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Kof'96 (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s59,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Chl & Jason", "Kof'96 (Remix Changed Move List v1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s60,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof'96 (Boss Hack)", MACHINE_SUPPORTS_SAVE )
@@ -2349,10 +2378,11 @@ GAME( 1996, kof96s89,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1996, kof96s90,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Igniz", "Kof'96 (Igniz rev 2003-06-01 set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s91,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Igniz", "Kof'96 (Igniz rev 2003-06-01 set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s92,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Igniz", "Kof'96 (Igniz rev 2003-05-27 set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96s93,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Igniz","Kof'96 (Igniz rev 2003-05-27 set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96s93,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Igniz", "Kof'96 (Igniz rev 2003-05-27 set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, kof96s94,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Andy Chan", "Kof'96 (Remix Plus 2008 SP)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s95,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CHL, Jason/K3", "Kof'96 (Remix Ultra)(Diff Moves - Ultra kill style changed - Add Char, 2003-12-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s96,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CHL, Jason/K3", "Kof'96 (Remix Ultra v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s97,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Wesker", "Kof'96 (Diff Moves)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96s98,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Kof'96 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, kof96s99,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Emugame Hackteam", "Kof'96 (10th Aniversary Edition 2.3 Final Version (gfx), 2020-05-27)", MACHINE_SUPPORTS_SAVE )
 
