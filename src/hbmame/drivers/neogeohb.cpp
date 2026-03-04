@@ -224,6 +224,7 @@ NUM GAME YEAR COMPANY                 TITLE
 514 F00D 2025 iq_132                  Food Fight (Neo-Geo port)
 515 0070 2025 Pixelheart              Bang Bang Busters 2 (demo)
 516 14A6 2025 Balek Corp              Violent Vengeance: The Universal Hero
+517 0FFF 2019 Keith S                 Grime 68000
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2708,6 +2709,27 @@ ROM_START( violentv ) // beta 3.28
 ROM_END
 
 
+// 517: Grime 68000
+// Bugs: Dreadful sound
+ROM_START( grime )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "517.p1", 0x000000, 0x080000, CRC(e42ed460) SHA1(6e9e413fd67bb8b07ff2233adaa736f8f0e7510e) )
+
+	NEO_SFIX_MT(0x40000)
+	ROM_LOAD( "517.s1", 0x00000, 0x20000, CRC(9ecf7b85) SHA1(0f02b25f3ed583c1d63532a4222db1f9877b8b04) )
+	ROM_LOAD( "517.s2", 0x10000, 0x00c00, CRC(810b6254) SHA1(c4dca993a8a3e84480b5baa704aab4eea4c61d54) )
+	ROM_LOAD( "517.s3", 0x12000, 0x00200, CRC(d30e8606) SHA1(1bf36b004628bff17040826c58b164c7f813fd59) )
+	ROM_LOAD( "517.s4", 0x12200, 0x00200, CRC(b975e473) SHA1(db98378f7cfad17d290b27ad11166a4ebdb43072) )
+	ROM_LOAD( "517.s5", 0x14000, 0x00480, CRC(c9bf09bb) SHA1(87391f485914972eb7521b4242d1197dbf1a3bde) ) // not used?
+
+	NEO_BIOS_AUDIO(0xf803, "517.m1", CRC(f13f8c9b) SHA1(0abc1ffe893b32a8eb50cbc30af46d97bbd731c9) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "499.c1", 0x000000, 0x100000, CRC(479543cf) SHA1(772690c872632320133a799aa41f6e68a8d07a4c) )
+	ROM_LOAD16_BYTE( "499.c2", 0x000001, 0x100000, CRC(1f6431d5) SHA1(7c90d6ec9df9e6223a066c338b7a7886071370cf) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -4212,6 +4234,7 @@ GAME( 2024, gladmort,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2024, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, gladmortd2,   gladmortd,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Hoffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, grime,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime 68000", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
@@ -4338,4 +4361,5 @@ GAME( 2016, xmas2017,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2019, neohw,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Peter Lemon", "Hello World", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, neodemo02,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Peter Lemon", "Chaos Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, greenspace,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Peter Lemon", "Green Space", MACHINE_SUPPORTS_SAVE )
+
 

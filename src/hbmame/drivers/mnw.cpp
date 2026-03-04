@@ -25812,23 +25812,6 @@ ROM_END
 GAME( 2025, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (2026-01-10)", MACHINE_SUPPORTS_SAVE )
 
-// 517: Grime: doesn't work
-ROM_START( grime )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "517.p1", 0x000000, 0x080000, CRC(e42ed460) SHA1(6e9e413fd67bb8b07ff2233adaa736f8f0e7510e) )
-
-	NEO_SFIX_128K( "517.s1", CRC(9ecf7b85) SHA1(0f02b25f3ed583c1d63532a4222db1f9877b8b04) )
-
-	// m1 has been expanded from 0xf803 bytes to 0x10000 bytes, to fit in with our macro
-	NEO_BIOS_AUDIO_64K( "517.m1", CRC(6eb2bcc0) SHA1(2d0d036e7d744c8738ff57ab9d3c75d9398f2cac) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "499.c1", 0x200000, 0x100000, CRC(479543cf) SHA1(772690c872632320133a799aa41f6e68a8d07a4c) )
-	ROM_LOAD16_BYTE( "499.c2", 0x200001, 0x100000, CRC(1f6431d5) SHA1(7c90d6ec9df9e6223a066c338b7a7886071370cf) )
-ROM_END
-
-GAME( 2019, grime,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime", MACHINE_SUPPORTS_SAVE )
-
 
 //-------------------------------------------------------------------------------------------------------------------
 
