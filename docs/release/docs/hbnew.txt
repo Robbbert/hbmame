@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [blazstar02]          Blazing Star (remove "bonus" sound)
 - [grime]               Grime 68000
 
 

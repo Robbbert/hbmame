@@ -508,6 +508,30 @@ ROM_START( blazstar01 ) // blazstarcm
 	ROM_LOAD16_BYTE( "239.c8", 0x1800001, 0x400000, CRC(db60460e) SHA1(a5cb27c0983c8b400d96fd0828ef0639a66d4dba) )
 ROM_END
 
+ROM_START( blazstar02 ) // remove annoying yell of 'bonus!'
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "239.p1", 0x000000, 0x100000, CRC(183682f8) SHA1(dcee1c2cf4a991ca1f9f2b40c4a738f21682807b) )
+	ROM_LOAD16_WORD_SWAP( "239.p2", 0x100000, 0x200000, CRC(9a9f4154) SHA1(f8805453d0995c8fa16cd9accfb7a990071ca630) )
+
+	NEO_SFIX_128K( "239.s1", CRC(d56cb498) SHA1(420ce56431dc7f3f7de84fcbc8c0a17b5eab205e) )
+
+	NEO_BIOS_AUDIO_128K( "239.m1", CRC(d31a3aea) SHA1(e23abfeb23052f0358edcf2c83401025fe632511) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "239s02.v1", 0x000000, 0x400000, CRC(0a7ceac5) SHA1(d43ce9aff3e0b15369f56eefceb8a845a68e05a3) )
+	ROM_LOAD( "239.v2", 0x400000, 0x400000, CRC(74cf0a70) SHA1(b00451a2a30de2517ae3eca35eb1fe985b950eb8) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "239.c1", 0x0000000, 0x400000, CRC(84f6d584) SHA1(ff36db8504611b0d8d942d1e24823ff71e4aeb37) )
+	ROM_LOAD16_BYTE( "239.c2", 0x0000001, 0x400000, CRC(05a0cb22) SHA1(4abe03e7f3a86f277131d413a3151c7b9c3646c8) )
+	ROM_LOAD16_BYTE( "239.c3", 0x0800000, 0x400000, CRC(5fb69c9e) SHA1(77b96518d8ad8ad120537e0f8ba65d69d1c33566) )
+	ROM_LOAD16_BYTE( "239.c4", 0x0800001, 0x400000, CRC(0be028c4) SHA1(d3f8b37786ca7838c3525895a7f2b49afc8530d4) )
+	ROM_LOAD16_BYTE( "239.c5", 0x1000000, 0x400000, CRC(74bae5f8) SHA1(812c9a31f0721c2971a316b084ce69337dbe3747) )
+	ROM_LOAD16_BYTE( "239.c6", 0x1000001, 0x400000, CRC(4e0700d2) SHA1(cd059fb713c403208923c17e1e8ef02fcfd2fe8d) )
+	ROM_LOAD16_BYTE( "239.c7", 0x1800000, 0x400000, CRC(010ff4fd) SHA1(2571d406442f007a7458d8ccb0939a9201c9c9bf) )
+	ROM_LOAD16_BYTE( "239.c8", 0x1800001, 0x400000, CRC(db60460e) SHA1(a5cb27c0983c8b400d96fd0828ef0639a66d4dba) )
+ROM_END
+
 
  /********
  Breakers
@@ -5019,6 +5043,7 @@ GAME( 2000, bangbead02,     bangbead, neogeo_noslot, neogeo,   neogeo_state, ini
 GAME( 1990, bjourney01,     bjourney, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Blue's Journey / Raguy (Plus Max)", MACHINE_SUPPORTS_SAVE )
 // Blazing Star
 GAME( 2021, blazstar01,     blazstar, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "NeoCvera", "Blazing Star (Stage Select hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, blazstar02,     blazstar, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Kuze", "Blazing Star (remove bonus sound)", MACHINE_SUPPORTS_SAVE )
 // Breakers
 GAME( 1996, breakers01,     breakers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "kawada7278", "Breakers (Mode Easy)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, breakers02,     breakers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Yumeji", "Breakers (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
