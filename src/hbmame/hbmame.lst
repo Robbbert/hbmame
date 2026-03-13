@@ -6007,6 +6007,7 @@ spcloneo	// v0.7.2.2
 @source:neogeo.cpp
 // These are the parents of our hacks
 neogeo
+//nggno                                  // .gno support
 ngneo                                  // .neo support
 ngmvs                                  // multimvs support
 2020bb			// 030

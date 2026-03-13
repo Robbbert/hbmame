@@ -92,6 +92,7 @@ public:
 	void neogeo_mj(machine_config &config);
 	void neogeo_noctrl(machine_config &config);
 	void neogeo_noslot(machine_config &config);
+	void nggno(machine_config &config);
 	void ngmvs(machine_config &config);
 	void ngneo(machine_config &config);
 	void no_watchdog(machine_config &config);
@@ -235,6 +236,7 @@ private:
 	TIMER_CALLBACK_MEMBER(display_position_interrupt_callback);
 	TIMER_CALLBACK_MEMBER(display_position_vblank_callback);
 	TIMER_CALLBACK_MEMBER(vblank_interrupt_callback);
+	DECLARE_QUICKLOAD_LOAD_MEMBER(gno_q_cb);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(mvs_q_cb);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(neo_q_cb);
 
