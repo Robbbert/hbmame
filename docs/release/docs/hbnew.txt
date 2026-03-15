@@ -10,6 +10,7 @@ New Games
 - [adcanoe]             Adventure Canoe
 - [blazstar02]          Blazing Star (remove "bonus" sound)
 - [grime]               Grime 68000
+- [sf2prime]            Street Fighter II': Prime (v0.73)
 
 
 
