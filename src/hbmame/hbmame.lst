@@ -25,17 +25,8 @@ galagax
 
 @source:8080bw.cpp
 invaders                               //parent
+invdelux
 tst_invd
-invmulti                               //parent
-invmultim1a
-invmultim2a
-invmultim2c
-invmultim3a
-invmultip
-invmultis1a
-invmultis2a
-invmultis3a
-invmultit3d
 sinvrdzm
 sinvtest
 sinvtest0

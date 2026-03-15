@@ -10,6 +10,7 @@ New Games
 - [adcanoe]             Adventure Canoe
 - [blazstar02]          Blazing Star (remove "bonus" sound)
 - [grime]               Grime 68000
+- [invdelux]            Space Invaders Part II (alt)
 - [sf2prime]            Street Fighter II': Prime (v0.73)
 
 
@@ -755,9 +756,9 @@ New Games
 - [dinore1]             Cadillacs and Dinosaurs (Readjusted v1.1)
 - [dkrndmzr]            Donkey Kong RNDMZR v1.00 (2022-05-22)
 - [dkwizard]            Donkey Kong Wizardry v1.03
-- [kf2k19unis04]        Kof 10th Anniversary 2019 Unique (Optimized 2020-??-??)
-- [kf2k20unis01]        Kof 10th Anniversary 2020 Unique (Optimized 2020-10-25)
-- [kf2k20unis02]        Kof 10th Anniversary 2020 Unique (Optimized 2020-11-06)
+- [kf2k19unis04]        Kof 10th Anniversary 2019 Unique (Optimised 2020-??-??)
+- [kf2k20unis01]        Kof 10th Anniversary 2020 Unique (Optimised 2020-10-25)
+- [kf2k20unis02]        Kof 10th Anniversary 2020 Unique (Optimised 2020-11-06)
 - [mslug2fm]            Metal Slug 2 (Friendly Fire - Fightcade 2 Ver.2 Hack)
 - [mslug3rb]            Metal Slug 3 (Last Warhead)
 - [mslug4a]             Metal Slug 4 20th Anniversary (GOTVG Ver.2021 Hack)
@@ -1622,7 +1623,7 @@ New Games
 - [kof97s185]           Kof'97 (SP Special Edition 2015 2020-06-18)
 - [kof97s186]           Kof'97 (Windbreaker Eight Gods Second Shock 2020-06-02)
 - [kof97s187]           Kof'97 (10th Anniversary 2020-06-27)
-- [kof97s188]           Kof'97 (Optimized Modified Version 2020 2020-06-26)
+- [kof97s188]           Kof'97 (Optimised Modified Version 2020 2020-06-26)
 - [kof97s189]           Kof'97 (10th Anniversary 1.0 2009 Original 2020-06-30)
 - [kof97s190]           Kof'97 (10th Anniversary 1.0 2009 Simplify 2020-06-30)
 - [kof97s191]           Kof'97 (Angry Athena Original 2020-06-28)
@@ -1762,7 +1763,7 @@ New Games
 - [kof97s177]           Kof'97 (BC Enhanced Version Simplified Move 2020-05-25)
 - [kof97s178]           Kof'97 (Start Of Dream Simplify Edition 2020-05-25)
 - [kof97s179]           Kof'97 (Start Of Dream Edition 2020-05-25)
-- [kof97s180]           Kof'97 (Optimized Version, Practice Version 2020-05-27)
+- [kof97s180]           Kof'97 (Optimised Version, Practice Version 2020-05-27)
 - [kof97s181]           Kof'97 (World Armed Forces 83 Modified Version 2020-05-22)
 - [kof97s182]           Kof'97 (World Armed Forces 85 Modified Version 2020-05-22)
 - [kof98hh130]          Kof'98 (Combo 2020-03-28)
@@ -1801,7 +1802,7 @@ New Games
 - [mslugxz83]           Metal Slug X (Enemy Soldiers Psycho Edition 2020-06-11)
 - [mslugxz84]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(The Hungry Meteorite Edition 2020-06-11)
 - [mslugxz85]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(Enemy Soldiers Psycho Edition 2020-06-11)
-- [powerns05]           Power Instinct (Optimized Edition 2020-05-15)
+- [powerns05]           Power Instinct (Optimised Edition 2020-05-15)
 - [sailormnts04]        Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-13)
 - [sailormnts05]        Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-24)
 - [samsho5fe]           Samurai Shodown V Special (Final Edition, location test)
@@ -1948,7 +1949,7 @@ New Games
 - [dkongchm]          Donkey Kong League Championship v1.00
 - [dkongchm1]         Donkey Kong Championship Edition v1.01
 - [dkongl5]           Donkey Kong Level 5
-- [dkongran1]         Donkey Kong Randomized Edition v1.01
+- [dkongran1]         Donkey Kong Randomised Edition v1.01
 - [dstlks01]          Darkstalkers: The Night Warriors (Simplify Edition 2016-12-06)
 - [kf2k5unis15]       Kof 10th Anniversary 2005 Unique (Alpha Unique 2020-01-23)
 - [kf2k5unis16]       Kof 10th Anniversary 2005 Unique (Alpha Unique New 2020-01-24)
@@ -2550,7 +2551,7 @@ New Games
 - [dinos199]          Cadillacs and Dinosaurs (1V3 Enhanced Version 2019 2019-08-02)
 - [dinos200]          Cadillacs and Dinosaurs (Devil dance Series A 2019-07-30)
 - [dinos201]          Cadillacs and Dinosaurs (Devil dance Series B 2019-07-30)
-- [kf2k5unis14]       Kof 10th Anniversary 2005 Unique (Optimized Version 2019 2019-06-05)
+- [kf2k5unis14]       Kof 10th Anniversary 2005 Unique (Optimised Version 2019 2019-06-05)
 - [kof2k2s83]         Kof2002 (All Mix Version 2018-04-22)
 - [kof97s146]         Kof'97 (Heavenly Divine 2019-03-25)
 - [kof98hh120]        Kof'98 (Combo 2019-07-09)(Original)
@@ -2631,7 +2632,7 @@ New Games
 - [dkfreerun]         Donkey Kong Freerun Edition [by PaulGoes]
 - [dinos192]          Cadillacs and Dinosaurs (God of War Update 2019-05-30)
 - [dinos193]          Cadillacs and Dinosaurs (Group Demon Dance Version 2019-05-30)
-- [kf2k5unis13]       Kof 10th Anniversary 2005 Unique (Edition Optimized)
+- [kf2k5unis13]       Kof 10th Anniversary 2005 Unique (Edition Optimised)
 - [kovsho107]         Knights of Valour Super Heroes Plus (Survival New Version 2019-05-30)
 - [punishers07]       The Punisher (Unknown Hack 2019-05-30)
 - [punisherjs15]      The Punisher (1 Vs 2 Perfect Update 2019-05-30)
@@ -3065,8 +3066,8 @@ New Games
 - [dragoonas03]       Dragoon Might (Enable Hidden Character)
 - [dragoonas04]       Dragoon Might (Description Unknown)
 - [kof97s85]          Kof'97 (Zore Clone Zero Modified Version)(Even Strokes + Fat Lotus Huanhua + Big Snake Blue, Purple Sunshine Two, First Free, Went To The Fan Slap Small Bug To Be Repaired)
-- [kof97s86]          Kof'97 (Wulin Mythology Dark Snake Test Version 68)(83 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods Crazy Eight + Big Snake Six Hair Color Sun + Protective Light Dizziness)
-- [kof97s87]          Kof'97 (Wulin Mythology Dark Snake Test Version 69)(85 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods, Goritz + Big Snake Six Hair Whitening Sunlight + Protective Light Dizziness)
+- [kof97s86]          Kof'97 (Wulin Mythology Dark Snake Test Version 68)(83 Weakened Robert, Nagasaki Yuri, Optimised Eight Gods Crazy Eight + Big Snake Six Hair Color Sun + Protective Light Dizziness)
+- [kof97s87]          Kof'97 (Wulin Mythology Dark Snake Test Version 69)(85 Weakened Robert, Nagasaki Yuri, Optimised Eight Gods, Goritz + Big Snake Six Hair Whitening Sunlight + Protective Light Dizziness)
 - [kof97s88]          Kof'97 (Wulin Mythology Dark Snake Test Version 70)(83 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)
 - [kof97s89]          Kof'97 (Wulin Mythology Dark Snake Test Version 71)(85 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)
 - [kof97s90]          Kof'97 (Wulin Mythology Dark Snake Test Version 72)(83 Big Snakes Heart Teleport, Six Hair Whitening Sunlight + Protective Light Initial Dizziness)
@@ -3137,10 +3138,10 @@ New Games
 - [gnw_bride]         Game & Watch: Bride [by Montrose]
 - [gnw_squeeze]       Game & Watch: Squeeze [by Montrose]
 - [kof97s80]          Kof'97 (Clone Zero Modified Version)(Fixed Eight Gods Garbled, Fat Lotus Huan + Even Strokes + Big Snake Green Sunshine Two First Free, Went To The Fan Slap Small Bug To Be Repaired)
-- [kof97s81]          Kof'97 (The Martial Arts Myth Test Version 64)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense Dizziness)
-- [kof97s82]          Kof'97 (Wulin Mythology Test Version 65)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
-- [kof97s83]          Kof'97 (The Martial Arts Mythical Test Version 66)(85 Optimized Eight Gods Feet Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)
-- [kof97s84]          Kof'97 (Wulin Mythology Test Version 67)(85 Optimized Eight Gods Feet Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
+- [kof97s81]          Kof'97 (The Martial Arts Myth Test Version 64)(83 Optimised Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense Dizziness)
+- [kof97s82]          Kof'97 (Wulin Mythology Test Version 65)(83 Optimised Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
+- [kof97s83]          Kof'97 (The Martial Arts Mythical Test Version 66)(85 Optimised Eight Gods Feet Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)
+- [kof97s84]          Kof'97 (Wulin Mythology Test Version 67)(85 Optimised Eight Gods Feet Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)
 - [kof98hh110]        Kof'98 (Combo 2018-05-05)
 - [kof98hh111]        Kof'98 (Easy Combo King Edition)
 - [lernit]            Team Lernit [by Vasily Familiya]
@@ -3375,7 +3376,7 @@ New Games
 - [kof97s39]          Kof'97 (Heavenly Protoss)(Ver.?)
 - [kof97s40]          Kof'97 (Dragon Super Plus)(Ver.?)
 - [kof97s41]          Kof'97 (Wulin Myth Test Version 34)(85 Gonitz Foot Super Kill After The Avatar Teleportation, The Big Snake Colorful Sunlight Teleport)
-- [kof97s42]          Kof'97 (Wulin Mythology Test Version 35)(85 Optimized Gonitz Foot Super Kill To Avoid Card Death, Big Snake Colorful Sunshine Heart Shine)
+- [kof97s42]          Kof'97 (Wulin Mythology Test Version 35)(85 Optimised Gonitz Foot Super Kill To Avoid Card Death, Big Snake Colorful Sunshine Heart Shine)
 - [kof97s43]          Kof'97 (Wulin Mythology Dark Snake Test Version 27)(83 All Banned From Heaven, Repairing Kagura And Buns Brother Bugs In Place, Strengthening An Lina, Big Snake Colorful Sunshine Six Hair + Protective Light))
 - [kof97s44]          Kof'97 (Wulin Mythology Dark Snake Test Version 28)(85 All Banned From The Sky, Yamazaki Ryuji Exhibition Tenth Anniversary Super Killing On The Ground Stepping On The Drooling Whip, Repairing Kagura And Buns Brother Bugs)
 - [kof97s45]          Kof'97 (The Martial Arts Mythical Dark Snake Test Version 30)(85 Amendment To The Seven-Yuan Society’s Move-Style Big Move To Kill, The Big Snake Shines)
