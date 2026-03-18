@@ -5566,14 +5566,14 @@ GAME( 1998, killbld100,   killbld,   pgm_022_025_killbld,    killbld,   iq_pgm_0
 //東方之珠3/Dung1Fong1 Zi1 Zyu1 3 (Hong Kong)/dongbang jiju 3 (Korea)
 // these seem playable but the DMA mode transfering 68k code to RAM is not emulated so there could still be problems
 // when set to Japan it has the extra subtitle and so gets referred to as Dragon World 3 Special / Chuugokuryuu 3 Special.  The earliest versions seem to only contain the code for the Japanese region, presumably the support for other regions was added later.
-GAME( 1998, drgw3,        pgm,       pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 / Zhongguo Long 3 / Dungfong Zi Zyu 3 / Chuugokuryuu 3 Special (ver. 106)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
-GAME( 1998, drgw3105,     drgw3,     pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 / Zhongguo Long 3 / Dungfong Zi Zyu 3 / Chuugokuryuu 3 Special (ver. 105)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
-GAME( 1998, drgw3103,     drgw3,     pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Chuugokuryuu 3 Special (Japan, ver. 103)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // Japan only, has an extra game mode option!
-GAME( 1998, drgw3100,     drgw3,     pgm_022_025_dw3,        dw3j,      iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Chuugokuryuu 3 Special (Japan, ver. 100)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // ^
+GAME( 1998, drgw3,        pgm,       pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 / Zhongguo Long 3 / Dungfong Zi Zyu 3 / Chuugokuryuu 3 Special (ver. 106)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
+GAME( 1998, drgw3105,     drgw3,     pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 / Zhongguo Long 3 / Dungfong Zi Zyu 3 / Chuugokuryuu 3 Special (ver. 105)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
+GAME( 1998, drgw3103,     drgw3,     pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Chuugokuryuu 3 Special (Japan, ver. 103)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // Japan only, has an extra game mode option!
+GAME( 1998, drgw3100,     drgw3,     pgm_022_025_dw3,        dw3j,      iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Chuugokuryuu 3 Special (Japan, ver. 100)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // ^
 
 // Share title screen graphics and region as drgw3
-GAME( 2000, dwex,         pgm,       pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 EX / Zhongguo Long 3 EX / Dungfong Zi Zyu 3 EX / Chuugokuryuu 3 EX (ver. 100)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
-GAME( 2001, dwex101cn,    dwex,      pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 EX / Zhongguo Long 3 EX / Dungfong Zi Zyu 3 EX / Chuugokuryuu 3 EX (ver. 101CN)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
+GAME( 2000, dwex,         pgm,       pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 EX / Zhongguo Long 3 EX / Dungfong Zi Zyu 3 EX / Chuugokuryuu 3 EX (ver. 100)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
+GAME( 2001, dwex101cn,    dwex,      pgm_022_025_dw3,        dw3,       iq_pgm_022_025, init_drgw3,    ROT0,   "IGS", "Dragon World 3 EX / Zhongguo Long 3 EX / Dungfong Zi Zyu 3 EX / Chuugokuryuu 3 EX (ver. 101CN)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
 
 //超級比一比/Chāojí bǐ yī bǐ (Taiwan)
 //大家来找碴/Dàjiā lái zhǎo chá/Daai6gaa1 Loi4 Zaau2 Caa4 (China, Hong Kong)
@@ -5659,7 +5659,7 @@ GAME( 2001, dw2001,       pgm,       pgm_arm_type2_22m,      dw2001,    iq_pgm_a
 
 // japan region only? service mode calls it Dragon World Pretty Chance so I'm leaving that title in the description
 // english / chinese version also exists
-GAME( 2001, dwpc,         pgm,       pgm_arm_type2_22m,      dw2001,    iq_pgm_arm_type2, init_dwpc,       ROT0,   "IGS", "Zhongguo Long Pretty Chance [Dragon World Pretty Chance] (V110 03/19/02 11:13:16, China)", MACHINE_UNEMULATED_PROTECTION | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // 03/19/02 11:13:16, needs proper ARM internal ROM dump, currently hacked, needs reset before working
+GAME( 2001, dwpc,         pgm,       pgm_arm_type2_22m,      dw2001,    iq_pgm_arm_type2, init_dwpc,       ROT0,   "IGS", "Zhongguo Long Pretty Chance [Dragon World Pretty Chance] (V110 03/19/02 11:13:16, China)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // 03/19/02 11:13:16, needs proper ARM internal ROM dump, currently hacked, needs reset before working
 GAME( 2001, dwpc101j,     dwpc,      pgm_arm_type2_22m,      dw2001,    iq_pgm_arm_type2, init_dwpc101j,   ROT0,   "IGS", "Chuugokuryuu Pretty Chance [Dragon World Pretty Chance] (V101 09/26/01 10:23:26, Japan)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // 09/26/01 10:23:26
 
 //魔域戰線/Móyù zhànxiàn (Traditional Chinese)
@@ -5669,7 +5669,7 @@ GAME( 2001, dwpc101j,     dwpc,      pgm_arm_type2_22m,      dw2001,    iq_pgm_a
 GAME( 2002, dmnfrnt,      pgm,       pgm_arm_type3_22m,      pgm,       iq_pgm_arm_type3, init_dmnfrnt,    ROT0,   "IGS", "Demon Front / Moyu Zhanxian (68k label V105, ROM M105XX 08/05/02) (ARM label V105, ROM 08/05/02 S105XX)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // 68k time: 10:24:11 ARM time: 10:33:23
 GAME( 2002, dmnfrnt103,   dmnfrnt,   pgm_arm_type3_22m,      pgm,       iq_pgm_arm_type3, init_dmnfrnt,    ROT0,   "IGS", "Demon Front / Moyu Zhanxian (68k label V103, ROM M103XX 07/05/02) (ARM label V103, ROM 07/05/02 S103XX)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // 68k time: 14:43:13 ARM time: 11:04:24
 GAME( 2002, dmnfrnt102,   dmnfrnt,   pgm_arm_type3_22m,      pgm,       iq_pgm_arm_type3, init_dmnfrnt,    ROT0,   "IGS", "Demon Front / Moyu Zhanxian (68k label V102, ROM M102XX 06/19/02) (ARM label V102, ROM 05/24/02 S101XX)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // 68k time: 13:44:08 ARM time: 13:04:31  (from the strings it looks like V102 only upgraded the 68k ROM)
-GAME( 2002, dmnfrntpcb,   dmnfrnt,   pgm_arm_type3_24m,      pgm,       iq_pgm_arm_type3, init_dmnfrnt,    ROT0,   "IGS", "Demon Front V1.1 / Moyu Zhanxian V1.1 (68k label V107KR, ROM M107KR 11/03/03) (ARM label V106KR, ROM 10/16/03 S106KR) (JAMMA PCB)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // works but reports version mismatch (wants internal rom version and region to match external?)
+GAME( 2002, dmnfrntpcb,   dmnfrnt,   pgm_arm_type3_24m,      pgm,       iq_pgm_arm_type3, init_dmnfrnt,    ROT0,   "IGS", "Demon Front V1.1 / Moyu Zhanxian V1.1 (68k label V107KR, ROM M107KR 11/03/03) (ARM label V106KR, ROM 10/16/03 S106KR) (JAMMA PCB)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // works but reports version mismatch (wants internal rom version and region to match external?)
 
 
 // these don't use an External ARM rom, and don't have any weak internal functions which would allow the internal ROM to be read out
@@ -5768,33 +5768,33 @@ GAME( 2000, py2k2100,     py2k2,     pgm_arm_type1_sim,      py2k2,     iq_pgm_a
 //西游释厄传Super/Xīyóu shì è chuán Super (China; Simplified Chinese)
 //西遊釋厄傳Super/Xīyóu shì è chuán Super (Taiwan; Traditional Chinese)
 #endif
-GAME( 1998, olds,         pgm,       pgm_028_025_ol,         iq_olds,      iq_pgm_028_025,    init_olds,    ROT0,   "IGS", "Oriental Legend Super / Xiyou Shi E Chuan Super (ver. 101, Korean Board)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
+GAME( 1998, olds,         pgm,       pgm_028_025_ol,         iq_olds,      iq_pgm_028_025,    init_olds,    ROT0,   "IGS", "Oriental Legend Super / Xiyou Shi E Chuan Super (ver. 101, Korean Board)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
 #if 0
-GAME( 1998, olds100,      olds,      pgm_028_025_ol,         olds,      iq_pgm_028_025,    init_olds,    ROT0,   "IGS", "Oriental Legend Special / Xiyou Shi E Chuan Super (ver. 100, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
-GAME( 1998, olds100a,     olds,      pgm_028_025_ol,         olds,      iq_pgm_028_025,    init_olds,    ROT0,   "IGS", "Oriental Legend Special / Xiyou Shi E Chuan Super (ver. 100, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // region provided by protection device; OPCODE 1111 error at startup
+GAME( 1998, olds100,      olds,      pgm_028_025_ol,         olds,      iq_pgm_028_025,    init_olds,    ROT0,   "IGS", "Oriental Legend Special / Xiyou Shi E Chuan Super (ver. 100, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // region provided by protection device
+GAME( 1998, olds100a,     olds,      pgm_028_025_ol,         olds,      iq_pgm_028_025,    init_olds,    ROT0,   "IGS", "Oriental Legend Special / Xiyou Shi E Chuan Super (ver. 100, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // region provided by protection device; OPCODE 1111 error at startup
 // This version was specially made for a Chinese online gaming company. While it may not be entirely suitable for MAME, it can give some insight into how protection should work.
 GAME( 1998, olds103t,     olds,      pgm,                    pgm,       iq_pgm,            init_pgm,     ROT0,   "bootleg", "Xiyou Shi E Chuan Super (ver. 103, China, Tencent) (unprotected)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // without overseas region
 #endif
 //三国战纪/Sānguó zhàn jì (China, Hong Kong; Simplified Chinese)
 //三國戰紀/Sānguó zhàn jì (Taiwan, Japan; Traditional Chinese)
-GAME( 1999, kov,          pgm,       pgm_arm_type1_sim,      iq_sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 117, Hong Kong)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A                 // V0008 04/27/99 10:33:33
+GAME( 1999, kov,          pgm,       pgm_arm_type1_sim,      iq_sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 117, Hong Kong)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A                 // V0008 04/27/99 10:33:33
 #if 0
-GAME( 1999, kov115,       kov,       pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 115)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A                 // V0006 02/22/99 11:53:18
-GAME( 1999, kov114,       kov,       pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 114, Hong Kong)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
-GAME( 1999, kov111,       kov,       pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 111, Japanese Board)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A // V0002 01/31/99 01:54:16
+GAME( 1999, kov115,       kov,       pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 115)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A                 // V0006 02/22/99 11:53:18
+GAME( 1999, kov114,       kov,       pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 114, Hong Kong)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kov111,       kov,       pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour / Sanguo Zhan Ji / Sangoku Senki (ver. 111, Japanese Board)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A // V0002 01/31/99 01:54:16
 #endif
 //三国战纪正宗Plus/Sānguó zhàn jì Zhèngzōng Plus (China/Hong Kong; Simplified Chinese)
 //三國戰紀正宗Plus/Sānguó zhàn jì Zhèngzōng Plus (Taiwan, Japan; Traditional Chinese)
 // no PLUS on screen when set to Korea
-GAME( 1999, kovplus,      pgm,       pgm_arm_type1_sim,      iq_sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour Plus / Sanguo Zhan Ji Zhengzong Plus / Sangoku Senki Masamune Plus (ver. 119, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kovplus,      pgm,       pgm_arm_type1_sim,      iq_sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour Plus / Sanguo Zhan Ji Zhengzong Plus / Sangoku Senki Masamune Plus (ver. 119, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 #if 0
-GAME( 1999, kovplusa,     kovplus,   pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour Plus / Sanguo Zhan Ji Zhengzong Plus / Sangoku Senki Masamune Plus (ver. 119, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kovplusa,     kovplus,   pgm_arm_type1_sim,      sango,     iq_pgm_arm_type1,  init_kov,     ROT0,   "IGS", "Knights of Valour Plus / Sanguo Zhan Ji Zhengzong Plus / Sangoku Senki Masamune Plus (ver. 119, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 
 //三國群英传正宗Plus/Sānguó qúnyīng chuán Zhèngzōng Plus (Mixed Simplified and Traditional Chinese in title screen)
 // modified title screen is only visible for china region, so use that by default.  Character select portraits don't seem quite right (different protection?)
-GAME( 1999, kovsgqyz,     kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_arm_type1,  init_kovboot, ROT0,   "bootleg", "Sanguo Qunying Chuan Zhengzong Plus (bootleg of Knights of Valour Plus, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
-GAME( 1999, kovsgqyza,    kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_arm_type1,  init_kovboot, ROT0,   "bootleg", "Sanguo Qunying Chuan Zhengzong Plus (bootleg of Knights of Valour Plus, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
-GAME( 1999, kovsgqyzb,    kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_arm_type1,  init_kovboot, ROT0,   "bootleg", "Sanguo Qunying Chuan Zhengzong Plus (bootleg of Knights of Valour Plus, set 3)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kovsgqyz,     kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_arm_type1,  init_kovboot, ROT0,   "bootleg", "Sanguo Qunying Chuan Zhengzong Plus (bootleg of Knights of Valour Plus, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kovsgqyza,    kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_arm_type1,  init_kovboot, ROT0,   "bootleg", "Sanguo Qunying Chuan Zhengzong Plus (bootleg of Knights of Valour Plus, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kovsgqyzb,    kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_arm_type1,  init_kovboot, ROT0,   "bootleg", "Sanguo Qunying Chuan Zhengzong Plus (bootleg of Knights of Valour Plus, set 3)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 
 
 /* -----------------------------------------------------------------------------------------------------------------------
@@ -5802,8 +5802,8 @@ GAME( 1999, kovsgqyzb,    kovplus,   pgm_arm_type1_sim,      sango_ch,  iq_pgm_a
    -----------------------------------------------------------------------------------------------------------------------*/
 
 //魔幻星座/Móhuàn xīngzuò
-GAME( 1999, puzlstar,     pgm,       pgm_arm_type1_sim,      pstar,     iq_pgm_arm_type1,  init_pstar,    ROT0,   "IGS (Metro license)", "Puzzle Star / Mohuan Xingzuo (ver. 100MG, 09/30/99 build)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
-GAME( 1999, puzlstara,    puzlstar,  pgm_arm_type1_sim,      pstar,     iq_pgm_arm_type1,  init_pstar,    ROT0,   "IGS (Metro license)", "Puzzle Star / Mohuan Xingzuo (ver. 100MG, 09/20/99 build)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, puzlstar,     pgm,       pgm_arm_type1_sim,      pstar,     iq_pgm_arm_type1,  init_pstar,    ROT0,   "IGS (Metro license)", "Puzzle Star / Mohuan Xingzuo (ver. 100MG, 09/30/99 build)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, puzlstara,    puzlstar,  pgm_arm_type1_sim,      pstar,     iq_pgm_arm_type1,  init_pstar,    ROT0,   "IGS (Metro license)", "Puzzle Star / Mohuan Xingzuo (ver. 100MG, 09/20/99 build)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 
 //閃亮三合一/Shǎn liàng sān hé yī (Taiwan, Hong Kong, Oversea)
 //闪亮三合一/Shǎn liàng sān hé yī (China)
@@ -5818,9 +5818,9 @@ GAME( 2004, pgm3in1c100,  pgm3in1,   pgm_arm_type1_sim,      pgm3in1,   iq_pgm_a
 //Oriental Legend 2/손오공 2/Son Ogong 2 (Korea)
 // Simulation doesn't seem 100% so marked as NOT WORKING.  Probably wasn't released in all specified regions (protection device internal ROM supplies the region)  "Oriental Ex" is the identifier string used in test mode.
 #endif
-GAME( 2004, oldsplus,     pgm,           pgm_arm_type1_sim,      iq_oldsplus,  iq_pgm_arm_type1, init_oldsplus, ROT0,   "IGS", "Oriental Legend 2 (Korea) / Xiyou Shi E Chuan Qunmoluanwu (World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 2004, oldsplus,     pgm,           pgm_arm_type1_sim,      iq_oldsplus,  iq_pgm_arm_type1, init_oldsplus, ROT0,   "IGS", "Oriental Legend 2 (Korea) / Xiyou Shi E Chuan Qunmoluanwu (World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 #if 0
-GAME( 2004, oldsplus203,  oldsplus,      pgm_arm_type1_sim,      oldsplus,  iq_pgm_arm_type1, init_oldsplus, ROT0,   "IGS", "Oriental Legend 2 (Korea) / Xiyou Shi E Chuan Qunmoluanwu (World, China, Japan, Hong Kong, Taiwan) (ver. 203) [Oriental Ex]", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 2004, oldsplus203,  oldsplus,      pgm_arm_type1_sim,      oldsplus,  iq_pgm_arm_type1, init_oldsplus, ROT0,   "IGS", "Oriental Legend 2 (Korea) / Xiyou Shi E Chuan Qunmoluanwu (World, China, Japan, Hong Kong, Taiwan) (ver. 203) [Oriental Ex]", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 
 // we use the kovsh ARM rom for this, intercepting commands and changing them to match it, doesn't seem 100% correct tho so I'm leaving it as NOT WORKING; for example the ARM rom supplies addresses of Z80 music data sections, which have moved causing incorrect music, some damage rates could be different too.
 // the game logo remains stuck on the screen during gameplay, but videos of the original board suggest this happens on real hardware as well
@@ -5830,21 +5830,21 @@ GAME( 2004, oldsplus203,  oldsplus,      pgm_arm_type1_sim,      oldsplus,  iq_p
 //三国战记乱世枭雄/Sānguó zhàn jì Luànshì xiāoxióng (China; Simplified Chinese, Official?)
 //三國戰記亂世梟雄/Sānguó zhàn jì Luànshì xiāoxióng (Traditional Chinese, Official?)
 #endif
-GAME( 2004, kovshp,       pgm,       pgm_arm_type1,          iq_kovsh,     iq_pgm_arm_type1, init_kovshp,   ROT0,   "IGS", "Knights of Valour Super Heroes Plus / Sanguo Zhan Ji Luanshi Xiaoxiong (ver. 101)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 2004, kovshp,       pgm,       pgm_arm_type1,          iq_kovsh,     iq_pgm_arm_type1, init_kovshp,   ROT0,   "IGS", "Knights of Valour Super Heroes Plus / Sanguo Zhan Ji Luanshi Xiaoxiong (ver. 101)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 #if 0
-GAME( 2004, kovshp100,    kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovshp,   ROT0,   "IGS", "Knights of Valour Super Heroes Plus / Sanguo Zhan Ji Luanshi Xiaoxiong (ver. 100)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 2004, kovshp100,    kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovshp,   ROT0,   "IGS", "Knights of Valour Super Heroes Plus / Sanguo Zhan Ji Luanshi Xiaoxiong (ver. 100)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 // First(possibly) major updated version of kovsh with 3 game modes and new characters, Version is V201 and identification string is "SANGO EX+" instead "SANGO EX".
 // 一统中原/Yītǒng zhōngyuán is game mode(this mode is similar as kovsh), and ROM labels too?
-GAME( 1999, kovytzy,      pgm,       pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovshp,   ROT0,   "IGS", "Knights of Valour Super Heroes / Sanguo Zhan Ji Fengyun Zaiqi / Sangoku Senki Super Heroes (SANGO EX+) (ver. 201 'Yitong Zhongyuan', China)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 1999, kovytzy,      pgm,       pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovshp,   ROT0,   "IGS", "Knights of Valour Super Heroes / Sanguo Zhan Ji Fengyun Zaiqi / Sangoku Senki Super Heroes (SANGO EX+) (ver. 201 'Yitong Zhongyuan', China)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 //傲世三国/Àoshì sānguó
 // this bootleg is very close to kovshp
-GAME( 2008, kovshxas,     kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovshxas, ROT0,   "bootleg", "Aoshi Sanguo (bootleg of Knights of Valour Super Heroes Plus, V202CN, Oct 6 2008 09:59:26)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 2008, kovshxas,     kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovshxas, ROT0,   "bootleg", "Aoshi Sanguo (bootleg of Knights of Valour Super Heroes Plus, V202CN, Oct 6 2008 09:59:26)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 // these should be bootlegs of kovshp, but have further command changes in their ARMs and have a lot of code shuffled around, bootlegs of a different revision?
 //乱世拳皇/Luànshì quánhuáng
-GAME( 200?, kovlsqh,      kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Quanhuang (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
-GAME( 200?, kovlsqh2,     kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Quanhuang 2 (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 200?, kovlsqh,      kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Quanhuang (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 200?, kovlsqh2,     kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Quanhuang 2 (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 //乱世街霸/Luànshì jiē bà
-GAME( 200?, kovlsjb,      kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Jie Ba (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
-GAME( 200?, kovlsjba,     kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Jie Ba (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 200?, kovlsjb,      kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Jie Ba (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
+GAME( 200?, kovlsjba,     kovshp,    pgm_arm_type1,          kovsh,     iq_pgm_arm_type1, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Jie Ba (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // need internal rom of IGS027A
 #endif
 

@@ -2369,6 +2369,29 @@ ROM_START( mk08 ) // ver 5.1 beta (2026-02-06)
 	ROM_LOAD32_BYTE( "mk08.u122",  0x0800003, 0x080000, CRC(34110899) SHA1(84139426caf0c89b921ba74638ae8a6564616f9f) )
 ROM_END
 
+ROM_START( mk09 ) // ver 5.5 beta (2026-03-16)
+	ROM_REGION16_LE( 0x800000, "dcs", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "mk08.u2", 0x000000, 0x100000, CRC(8574f56a) SHA1(a3e5fc15cb6b737d54b3f5f6b341a6464462bc80) )
+	ROM_LOAD16_BYTE( "mk08.u3", 0x200000, 0x100000, CRC(459f578d) SHA1(56ebb5d6b55e49f4c080943287ac7db39c8d09e7) )
+	ROM_LOAD16_BYTE( "mk08.u4", 0x400000, 0x100000, CRC(3834cd29) SHA1(3df5a919621892ee96ba9ab638313ea4ee30f466) )
+	ROM_LOAD16_BYTE( "mk08.u5", 0x600000, 0x100000, CRC(97f4ab02) SHA1(3664ca5b886683e07a764761e709836c8391d462) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "mk09.u54",  0x00000, 0x80000, CRC(33dc55eb) SHA1(b4e431d1ad7477a7ea285ecd564588d895f21070) )
+	ROM_LOAD16_BYTE( "mk09.u63",  0x00001, 0x80000, CRC(7957744f) SHA1(1c95bd6ebceb2b6e78ff169e7f6845a8c1746a1f) )
+
+	ROM_REGION( 0x2000000, "gfxrom", ROMREGION_ERASEFF )
+	ROM_LOAD32_BYTE( "mk08.u129",  0x0400000, 0x100000, CRC(78357955) SHA1(4e68bc1083028e06dc4a879ce081891d906ae5a5) )
+	ROM_LOAD32_BYTE( "mk08.u128",  0x0400001, 0x100000, CRC(e73b47ab) SHA1(38456790aa80bcc45a2a255059e1db3b5eca1c16) )
+	ROM_LOAD32_BYTE( "mk08.u127",  0x0400002, 0x100000, CRC(fb171bb6) SHA1(7e5fb16ecd8255b9cb6e9e32ea572dbc706ae891) )
+	ROM_LOAD32_BYTE( "mk08.u126",  0x0400003, 0x100000, CRC(73b639bb) SHA1(e68cd9441c220fe02c86eaf54c0262de88398e77) )
+
+	ROM_LOAD32_BYTE( "mk08.u125",  0x0800000, 0x080000, CRC(44b5de0e) SHA1(6de874ca200102ab7e584b66c32d2b3973e55289) )
+	ROM_LOAD32_BYTE( "mk08.u124",  0x0800001, 0x080000, CRC(c69cd46c) SHA1(6bd20e9b6c17c1fa706210c79cb3da2f82b003b2) )
+	ROM_LOAD32_BYTE( "mk08.u123",  0x0800002, 0x080000, CRC(e742a405) SHA1(cf37eb68464955415ae71d7ffbc8c9dd0fc13f87) )
+	ROM_LOAD32_BYTE( "mk08.u122",  0x0800003, 0x080000, CRC(34110899) SHA1(84139426caf0c89b921ba74638ae8a6564616f9f) )
+ROM_END
+
 /***************************************************
  Mortal Kombat 2 (ported from midtunit)
 ****************************************************/
@@ -2460,6 +2483,7 @@ GAME( 2020, wwfmania01, wwfmania, wunit_picsim, wwfmania, midwunit_state, init_w
 GAME( 2025, nbajam06, nbajamte, wunit_picsim, nbahangt, midwunit_state, empty_init, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.05, 2025-12-23)(Wolf h/w, preview)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat
 GAME( 2026, mk08, mk, wunit_picsim, mk3, midwunit_state, empty_init, ROT0, "Asure", "Mortal Kombat (rev 5.1, 2026-02-06)(Wolf h/w, beta)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mk09, mk, wunit_picsim, mk3, midwunit_state, empty_init, ROT0, "Asure", "Mortal Kombat (rev 5.5, 2026-03-16)(Wolf h/w, beta)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat 2
 GAME( 2025, mk2s07, mk2, wunit_picsim, mk3, midwunit_state, empty_init, ROT0, "Asure", "Mortal Kombat 2 (rev 3.2W, 2025-09-05)(Wolf h/w)", MACHINE_SUPPORTS_SAVE )
 
