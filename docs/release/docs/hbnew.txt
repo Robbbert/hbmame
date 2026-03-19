@@ -9,8 +9,16 @@ New Games
 ---------------------------------
 - [adcanoe]             Adventure Canoe
 - [blazstar02]          Blazing Star (remove "bonus" sound)
+- [gng01]               Ghosts'n Goblins (Knight set 1)
+- [gng02]               Ghosts'n Goblins (Knight set 2)
+- [gng03]               Ghosts'n Goblins (Knight set 3)
+- [gng04]               Ghosts'n Goblins (Maiden set 1)
+- [gng05]               Ghosts'n Goblins (Maiden set 2)
+- [gng06]               Ghosts'n Goblins (Maiden set 3)
 - [grime]               Grime 68000
 - [invdelux]            Space Invaders Part II (alt)
+- [makaimur01]          Makaimura (Knight)
+- [makaimur02]          Makaimura (Maiden)
 - [mk09]                Mortal Kombat (rev 5.5, 2026-03-16)(Wolf h/w, beta)
 - [sf2prime]            Street Fighter II': Prime (v0.73)
 - [zintrick06]          ZinTricK (Music tracks)
