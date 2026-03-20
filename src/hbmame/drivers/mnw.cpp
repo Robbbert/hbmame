@@ -25180,6 +25180,24 @@ GAME( 2025, doubled1c,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, doubled1d,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One beta 2 (2025-09-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, doubled1e,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One beta 3 (2025-09-14)", MACHINE_SUPPORTS_SAVE )
 
+ROM_START( zintrick06 ) // zintrckb v2
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "211s06.p1", 0x000000, 0x100000, CRC(654342e6) SHA1(3755b0c6d263b8d4da3cb2ee7dd2a9984f418066) )
+
+	NEO_SFIX_128K( "211s02.s1", CRC(56d16afa) SHA1(6e1f960a781f5ef1f858c51507fe573bead8ea66) )
+
+	NEO_BIOS_AUDIO_128K( "211s06.m1", CRC(d06dc450) SHA1(b8d9f5e0d58791e9329f7510076da101900085d8) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "211s06.v1", 0x000000, 0x400000, CRC(6254951a) SHA1(5a0a92dec167f6ce4253a4b0b5131fe4208f2fa9) )
+	ROM_LOAD( "211s06.v2", 0x400000, 0x400000, CRC(2f5a94e0) SHA1(ee743d005f86e5a2683baecdda11b0aa314cf056) )
+	ROM_LOAD( "211s06.v3", 0x800000, 0x400000, CRC(7205c60f) SHA1(5066cf524ed502c5fa74d23367d2171d954452c5) )
+	ROM_LOAD( "211s06.v4", 0xc00000, 0x400000, CRC(8389e589) SHA1(d901a21133669e52a134a32c8b1f5d52f8d93f93) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "211.c1", 0x000000, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
+	ROM_LOAD16_BYTE( "211.c2", 0x000001, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
+ROM_END
 
 ROM_START( sf2mix96 ) // 0.96
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
