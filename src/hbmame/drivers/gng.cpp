@@ -6,7 +6,7 @@ ROM_START( gng01 ) // gng knight
 	ROM_REGION( 0x18000, "maincpu", 0 )
 	ROM_LOAD( "01.mjg_04.10n",  0x04000, 0x4000, CRC(909a6024) SHA1(2851ed9431ccaca73a612eccffe48677d5e0b41b) )
 	ROM_LOAD( "mjg_03.8n",      0x08000, 0x8000, CRC(9e01c65e) SHA1(a87880d87c64a6d61313c3bc69c8d49511e0f9c3) )
-	ROM_LOAD( "01.mjg_05.12n",  0x10000, 0x8000, CRC(cf8a073e) SHA1(61f9af88cbf1d4f597f63f194c8b249389f2c5d0) )
+	ROM_LOAD( "01.mjg_05.12n",  0x10000, 0x8000, CRC(ca671053) SHA1(516b81a310774b53ac1b404f13cddf2c5aa34d49) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "mjg_02.14h",     0x00000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -31,9 +31,9 @@ ROM_END
 
 ROM_START( gng02 ) // gnga knight
 	ROM_REGION( 0x18000, "maincpu", 0 )
-	ROM_LOAD( "01.gg4.bin",     0x04000, 0x4000, CRC(909a6024) SHA1(2851ed9431ccaca73a612eccffe48677d5e0b41b) )
-	ROM_LOAD( "gg3.bin",        0x08000, 0x8000, CRC(9e01c65e) SHA1(a87880d87c64a6d61313c3bc69c8d49511e0f9c3) )
-	ROM_LOAD( "01.gg5.bin",     0x10000, 0x8000, CRC(cf8a073e) SHA1(61f9af88cbf1d4f597f63f194c8b249389f2c5d0) )
+	ROM_LOAD( "01.mjg_04.10n",  0x04000, 0x4000, CRC(909a6024) SHA1(2851ed9431ccaca73a612eccffe48677d5e0b41b) )
+	ROM_LOAD( "mjg_03.8n",      0x08000, 0x8000, CRC(9e01c65e) SHA1(a87880d87c64a6d61313c3bc69c8d49511e0f9c3) )
+	ROM_LOAD( "01.mjg_05.12n",  0x10000, 0x8000, CRC(ca671053) SHA1(516b81a310774b53ac1b404f13cddf2c5aa34d49) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "gg2.bin",        0x0000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -64,7 +64,7 @@ ROM_START( gng03 ) // gngb knight
 	ROM_LOAD( "gng.n9",         0x08000, 0x4000, CRC(b6b91cfb) SHA1(019a38b1c4e987715be1575948a3dc06ee59123d) )
 	ROM_LOAD( "gng.n8",         0x0c000, 0x4000, CRC(a5cfa928) SHA1(29dada8c4dbe04969d0d68faac559d2b4a3db711) )
 	ROM_LOAD( "gng.n13",        0x10000, 0x4000, CRC(fd9a8dda) SHA1(222c3c759c6b60f82351b9e6bf748fb4872e82b4) )
-	ROM_LOAD( "03.gng.n12",     0x14000, 0x4000, CRC(0a7c1e2d) SHA1(909f0935735c8ad4424f2685fdcdca2b93c2a85d) )
+	ROM_LOAD( "03.gng.n12",     0x14000, 0x4000, CRC(0f910940) SHA1(5c7f2e309ac13cae7308a5cc4e41173c262cf56a) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "gg2.bin",        0x0000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -93,7 +93,7 @@ ROM_START( gng04 ) // gng maiden
 	ROM_REGION( 0x18000, "maincpu", 0 )
 	ROM_LOAD( "04.mjg_04.10n",  0x04000, 0x4000, CRC(0f6f2987) SHA1(50c8afa29701797ff42b7f712b251e86c103e616) )
 	ROM_LOAD( "mjg_03.8n",      0x08000, 0x8000, CRC(9e01c65e) SHA1(a87880d87c64a6d61313c3bc69c8d49511e0f9c3) )
-	ROM_LOAD( "04.mjg_05.12n",  0x10000, 0x8000, CRC(857ef9e5) SHA1(efce71a494c178082d99ebcdb0f588d931bf5a6a) )
+	ROM_LOAD( "04.mjg_05.12n",  0x10000, 0x8000, CRC(abb6534a) SHA1(77dad24d3fa70f749908fc0817611258350e0d7c) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "mjg_02.14h",     0x00000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -119,8 +119,8 @@ ROM_END
 ROM_START( gng05 ) // gnga maiden
 	ROM_REGION( 0x18000, "maincpu", 0 )
 	ROM_LOAD( "04.mjg_04.10n",  0x04000, 0x4000, CRC(0f6f2987) SHA1(50c8afa29701797ff42b7f712b251e86c103e616) )
-	ROM_LOAD( "gg3.bin",        0x08000, 0x8000, CRC(9e01c65e) SHA1(a87880d87c64a6d61313c3bc69c8d49511e0f9c3) )
-	ROM_LOAD( "04.mjg_05.12n",  0x10000, 0x8000, CRC(857ef9e5) SHA1(efce71a494c178082d99ebcdb0f588d931bf5a6a) )
+	ROM_LOAD( "mjg_03.8n",      0x08000, 0x8000, CRC(9e01c65e) SHA1(a87880d87c64a6d61313c3bc69c8d49511e0f9c3) )
+	ROM_LOAD( "04.mjg_05.12n",  0x10000, 0x8000, CRC(abb6534a) SHA1(77dad24d3fa70f749908fc0817611258350e0d7c) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "gg2.bin",        0x0000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -151,7 +151,7 @@ ROM_START( gng06 ) // gngb maiden
 	ROM_LOAD( "gng.n9",         0x08000, 0x4000, CRC(b6b91cfb) SHA1(019a38b1c4e987715be1575948a3dc06ee59123d) )
 	ROM_LOAD( "gng.n8",         0x0c000, 0x4000, CRC(a5cfa928) SHA1(29dada8c4dbe04969d0d68faac559d2b4a3db711) )
 	ROM_LOAD( "gng.n13",        0x10000, 0x4000, CRC(fd9a8dda) SHA1(222c3c759c6b60f82351b9e6bf748fb4872e82b4) )
-	ROM_LOAD( "06.gng.n12",     0x14000, 0x4000, CRC(4088e0f6) SHA1(c96d8edad393100d817d0b5e953139aa082d8203) )
+	ROM_LOAD( "06.gng.n12",     0x14000, 0x4000, CRC(6e404a59) SHA1(f932fac5cb2c15108ae9b54e9c508f55f511376f) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "gg2.bin",        0x0000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -180,7 +180,7 @@ ROM_START( makaimur01 ) // makaimur knight
 	ROM_REGION( 0x18000, "maincpu", 0 )
 	ROM_LOAD( "01.10n.rom",     0x04000, 0x4000, CRC(f0868081) SHA1(36136bd8089153d5fc714a119e8ad4ed6143f146) )
 	ROM_LOAD( "8n.rom",         0x08000, 0x8000, CRC(9612d66c) SHA1(64c458d6d87b9c339488c9f0c89da2c796fcb759) )
-	ROM_LOAD( "01.12n.rom",     0x10000, 0x8000, CRC(08ac5bd1) SHA1(d37ebb0a29342381b8bf60f9f72b59c362b20372) )
+	ROM_LOAD( "01.12n.rom",     0x10000, 0x8000, CRC(0d414cbc) SHA1(d062f19ac0ce50413ed2b4afab3511b7e0688925) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "gg2.bin",        0x0000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -209,7 +209,7 @@ ROM_START( makaimur02 ) // makaimur maiden
 	ROM_REGION( 0x18000, "maincpu", 0 )
 	ROM_LOAD( "02.10n.rom",     0x04000, 0x4000, CRC(6f73c922) SHA1(efe61974c75f83264eb03baab02fe9f4082494d6) )
 	ROM_LOAD( "8n.rom",         0x08000, 0x8000, CRC(9612d66c) SHA1(64c458d6d87b9c339488c9f0c89da2c796fcb759) )
-	ROM_LOAD( "02.12n.rom",     0x10000, 0x8000, CRC(4258a50a) SHA1(ed9c6f00af4db8aee6719fff6f40d655a2339598) )
+	ROM_LOAD( "02.12n.rom",     0x10000, 0x8000, CRC(6c900fa5) SHA1(faa7540c295a24c86cd9b536309bccb00e736e4a) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "gg2.bin",        0x0000, 0x8000, CRC(615f5b6f) SHA1(7ef9ec5c2072e21c787a6bbf700033f50c759c1d) )
@@ -235,12 +235,12 @@ ROM_START( makaimur02 ) // makaimur maiden
 ROM_END
 
 
-GAME( 2026, gng01,      gng, gng,     gng,      gng_state, empty_init, ROT0, "GoodLuckTrying", "Ghosts'n Goblins (Knight set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, gng02,      gng, gng,     gng,      gng_state, empty_init, ROT0, "GoodLuckTrying", "Ghosts'n Goblins (Knight set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, gng03,      gng, gng,     gng,      gng_state, empty_init, ROT0, "GoodLuckTrying", "Ghosts'n Goblins (Knight set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, gng04,      gng, gng,     gng,      gng_state, empty_init, ROT0, "GoodLuckTrying", "Ghosts'n Goblins (Maiden set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, gng05,      gng, gng,     gng,      gng_state, empty_init, ROT0, "GoodLuckTrying", "Ghosts'n Goblins (Maiden set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, gng06,      gng, gng,     gng,      gng_state, empty_init, ROT0, "GoodLuckTrying", "Ghosts'n Goblins (Maiden set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, makaimur01, gng, gng,     makaimur, gng_state, empty_init, ROT0, "GoodLuckTrying", "Makaimura (Knight)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, makaimur02, gng, gng,     makaimur, gng_state, empty_init, ROT0, "GoodLuckTrying", "Makaimura (Maiden)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gng01,      gng, gng,     gng,      gng_state, empty_init, ROT0, "Wolfric / Poody", "Ghosts'n Goblins (Knight set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gng02,      gng, gng,     gng,      gng_state, empty_init, ROT0, "Wolfric / Poody", "Ghosts'n Goblins (Knight set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gng03,      gng, gng,     gng,      gng_state, empty_init, ROT0, "Wolfric / Poody", "Ghosts'n Goblins (Knight set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gng04,      gng, gng,     gng,      gng_state, empty_init, ROT0, "Wolfric / Poody", "Ghosts'n Goblins (Maiden set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gng05,      gng, gng,     gng,      gng_state, empty_init, ROT0, "Wolfric / Poody", "Ghosts'n Goblins (Maiden set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gng06,      gng, gng,     gng,      gng_state, empty_init, ROT0, "Wolfric / Poody", "Ghosts'n Goblins (Maiden set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, makaimur01, gng, gng,     makaimur, gng_state, empty_init, ROT0, "Wolfric / Poody", "Makaimura (Knight)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, makaimur02, gng, gng,     makaimur, gng_state, empty_init, ROT0, "Wolfric / Poody", "Makaimura (Maiden)", MACHINE_SUPPORTS_SAVE )
 
