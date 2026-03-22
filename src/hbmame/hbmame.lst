@@ -1997,14 +1997,24 @@ ginganin01
 
 @source:gng.cpp
 gng                                    //parent
-gng01
-gng02
-gng03
-gng04
-gng05
-gng06
-makaimur01
-makaimur02
+gngknight
+gngknighta
+gngknightb
+gngknightc
+gngknightt
+gngmaiden
+gngmaidena
+gngmaidenb
+gngmaidenc
+gngmaident
+makknight
+makknightb
+makknightc
+makknightg
+makmaiden
+makmaidenb
+makmaidenc
+makmaideng
 
 @source:gottlieb.cpp
 qbert                                  //parent
