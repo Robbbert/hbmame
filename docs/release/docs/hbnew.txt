@@ -20,7 +20,7 @@ New Games
 - [makaimur01]          Makaimura (Knight)
 - [makaimur02]          Makaimura (Maiden)
 - [mk09]                Mortal Kombat (rev 5.5, 2026-03-16)(Wolf h/w, beta)
-- [sf2prime]            Street Fighter II': Prime (v0.73)
+- [sf2prime]            Street Fighter II': Prime (v0.74)
 - [zintrick06]          ZinTricK (Music tracks)
 
 
