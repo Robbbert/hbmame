@@ -225,6 +225,7 @@ NUM GAME YEAR COMPANY                 TITLE
 515 0070 2025 Pixelheart              Bang Bang Busters 2 (demo)
 516 14A6 2025 Balek Corp              Violent Vengeance: The Universal Hero
 517 0FFF 2019 Keith S                 Grime 68000
+518 5345 2025 Earok                   Halo Zero demo
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2749,6 +2750,24 @@ ROM_START( grime )
 ROM_END
 
 
+// Halo Zero demo by Earok (https://earok.itch.io)
+ROM_START( halozero )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "518.p1", 0x000000, 0x040000, CRC(472205ad) SHA1(9514c7975826b5f12607cc261e05904cb49007f3) )
+
+	NEO_SFIX_128K( "518.s1", CRC(9c8d137f) SHA1(78dc79de5708538cf49a4345ca6ffe5816a45f45) )
+
+	NEO_BIOS_AUDIO( 0x8000, "518.m1", CRC(61463826) SHA1(52a71d83357ba00b090ba0c956d180d78b6b1adf) )
+
+	ROM_REGION( 0x20000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "518.v1", 0x000000, 0x20000, CRC(293cf59b) SHA1(c035d433050007f3363c5037e8599c413bc8f4f5) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "518.c1", 0x000000, 0x80000, CRC(4749a9b0) SHA1(4607ac7cd857783fef1f26960f42265e869d2d00) )
+	ROM_LOAD16_BYTE( "518.c2", 0x000001, 0x80000, CRC(aced4adc) SHA1(c06643c62042faa006623c9b5322670248a1bf04) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -4256,6 +4275,7 @@ GAME( 2024, gladmortd2,   gladmortd,neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Hoffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, grime,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime 68000", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2025, halozero,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Earok", "Halo Zero demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )

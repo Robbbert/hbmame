@@ -8,7 +8,7 @@
 New Games
 ---------------------------------
 - [adcanoe]             Adventure Canoe
-- [blazstar02]          Blazing Star (remove "bonus" sound)
+- [blazstar02]          Blazing Star (remove "bonus" voice)
 - [gngknight]           Ghosts'n Goblins (Knight, set 1)
 - [gngknighta]          Ghosts'n Goblins (Knight, set 2)
 - [gngknightb]          Ghosts'n Goblins (Knight, set 3)
@@ -20,6 +20,7 @@ New Games
 - [gngmaidenc]          Ghosts'n Goblins (Maiden, set 4)
 - [gngmaident]          Ghosts'n Goblins (Maiden, US)
 - [grime]               Grime 68000
+- [halozero]            Halo Zero demo
 - [invdelux]            Space Invaders Part II (alt)
 - [makknight]           Makaimura (Knight)
 - [makknightb]          Makaimura (Knight, Rev B)
