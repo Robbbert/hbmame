@@ -582,6 +582,10 @@ files {
 	MAME_DIR .. "src/mame/video/exerion.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ginganin.cpp",
 	MAME_DIR .. "src/mame/video/ginganin.cpp",
+	MAME_DIR .. "src/hbmame/drivers/megasys1.cpp",
+	MAME_DIR .. "src/mame/video/megasys1.cpp",
+	MAME_DIR .. "src/mame/machine/jalcrpt.cpp",
+	MAME_DIR .. "src/mame/video/ms1_tmap.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "kaneko")

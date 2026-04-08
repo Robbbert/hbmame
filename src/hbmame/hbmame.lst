@@ -4414,6 +4414,10 @@ stapper1	/* Tapper Simpsons Hack ver .81 */
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
+@source:megasys1.cpp
+soldam
+soldam01
+
 @source:mgd2.cpp
 bstarsd					// 0002 (c) 1990 SNK
 tpgolfd					// 0003 (c) 1990 SNK

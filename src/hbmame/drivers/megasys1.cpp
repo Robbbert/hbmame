@@ -1,0 +1,40 @@
+// license:GPL_2.0
+// copyright-holders:Robbbert
+#include "../mame/drivers/megasys1.cpp"
+
+ROM_START( soldam01 )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "2ver1j.s01",0x000000, 0x020000, CRC(d5b3e6aa) SHA1(fd3fbf532ba47f7f42002853a5fad123829306fb) )
+	ROM_LOAD16_BYTE( "1euro.s01", 0x000001, 0x020000, CRC(fe88cef1) SHA1(2f82832795e9db737edfdf27f01f7418472dbcaa) )
+	ROM_LOAD16_BYTE( "3ver1.bin", 0x040000, 0x010000, CRC(c5382a07) SHA1(5342775f2925772e23bb460e88cd2b7e524e57fa) )
+	ROM_LOAD16_BYTE( "4ver1.bin", 0x040001, 0x010000, CRC(1df7816f) SHA1(7c069470ec0e884eae5a52581f2be17d9e692105) )
+
+	ROM_REGION( 0x20000, "audiocpu", 0 )
+	ROM_LOAD16_BYTE( "5ver1.bin", 0x000000, 0x010000, CRC(d1019a67) SHA1(32d77914a67c009bf1bb397772f195594f7cc03f) )
+	ROM_LOAD16_BYTE( "6ver1.bin", 0x000001, 0x010000, CRC(3ed219b4) SHA1(afffa5596027181ae94488d54d6266f8a7ead180) )
+
+	ROM_REGION( 0x080000, "scroll0", 0 )
+	ROM_LOAD( "14ver1.bin", 0x000000, 0x080000, CRC(73c90610) SHA1(044462fd41e8502ba57f814c61db6f0cfb1cc18b) )
+
+	ROM_REGION( 0x080000, "scroll1", 0 )
+	ROM_LOAD( "18ver1.bin", 0x000000, 0x080000, CRC(e91a1afd) SHA1(66a686d61de105ee571fbdabc774ed0b848bf426) )
+
+	ROM_REGION( 0x020000, "scroll2", 0 )
+	ROM_LOAD( "19ver1.bin", 0x000000, 0x020000, CRC(38465da1) SHA1(461fc0d81b711d0646dc366c057da66d4b8c6e23) )
+
+	ROM_REGION( 0x080000, "sprites", 0 )
+	ROM_LOAD( "23ver1.bin", 0x000000, 0x080000, CRC(0ca09432) SHA1(c9b12d564032c2a668e18ba95fd71ab540e798ce) )
+
+	ROM_REGION( 0x040000, "oki1", 0 )
+	ROM_LOAD( "10ver1.bin", 0x000000, 0x040000, CRC(8d5613bf) SHA1(eee217dd2ab64d86b7f5eda55a3c331d862c079e) )
+
+	ROM_REGION( 0x040000, "oki2", 0 )
+	ROM_LOAD( "8ver1.bin",  0x000000, 0x040000, CRC(fcd36019) SHA1(f4edb55bd62b697c5a73c461008e764c2f16956b) )
+
+	ROM_REGION( 0x0200, "proms", 0 )
+	ROM_LOAD( "pr-91023.14m",   0x0000, 0x0200, CRC(8914e72d) SHA1(80a664471f14c8ed8544a5e226fdca425ab3c657) )
+ROM_END
+
+
+GAME( 2023, soldam01, soldam, system_A_soldam, soldam, megasys1_state, init_soldam, ROT0,  "bankbank", "Soldam (Sonic Dropping/Free Play)", MACHINE_SUPPORTS_SAVE )
+
