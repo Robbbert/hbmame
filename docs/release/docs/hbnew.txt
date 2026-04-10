@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2026-0x-xx 0.245.32
+2026-04-14 0.245.32
 
 
 
@@ -33,6 +33,7 @@ New Games
 - [mk09]                Mortal Kombat (rev 5.5, 2026-03-16)(Wolf h/w, beta)
 - [sf2prime]            Street Fighter II': Prime (v0.75)
 - [soldam01]            Soldam (Sonic dropping/Free play)
+- [turfmast02]          Neo Turf Masters with Scotland course
 - [zintrick06]          ZinTricK (Music tracks)
 
 
