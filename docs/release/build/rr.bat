@@ -1,0 +1,1 @@
+hbmame -romident %1 

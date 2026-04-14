@@ -3579,7 +3579,7 @@ ROM_START( samsho5s35 ) // samsho5bs
 
 	NEO_SFIX_128K( "270s35.s1", CRC(2ad6048b) SHA1(173c8561f0633e0d6e4a9750e632f2e46766e674) )
 
-	NEO_BIOS_AUDIO_256K( "270d.m1", CRC(e94a5e2b) SHA1(53ef2ad6583060af69fdde73576e09ba88affa55) ) // not a 100% match for encrypted version
+	NEO_BIOS_AUDIO_256K( "270s35.m1", CRC(e94a5e2b) SHA1(53ef2ad6583060af69fdde73576e09ba88affa55) ) // not a 100% match for encrypted version
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "270s35.v1", 0x000000, 0x800000, CRC(809c7617) SHA1(b6b542eb4c1078016fcd78d050433dc8e3029329) )
@@ -3626,7 +3626,7 @@ ROM_START( samsho5s37 ) // samsho5d
 
 	NEO_SFIX_MT_128K
 
-	NEO_BIOS_AUDIO_256K( "270s37.m1", CRC(e94a5e2b) SHA1(53ef2ad6583060af69fdde73576e09ba88affa55) )
+	NEO_BIOS_AUDIO_256K( "270s35.m1", CRC(e94a5e2b) SHA1(53ef2ad6583060af69fdde73576e09ba88affa55) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "270.v1", 0x000000, 0x800000, CRC(62e434eb) SHA1(1985f5e88f8e866f9683b6cea901aa28c04b80bf) )

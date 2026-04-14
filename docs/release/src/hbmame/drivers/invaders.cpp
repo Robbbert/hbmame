@@ -24,8 +24,6 @@ The multigame roms:
 
 namespace {
 
-#define CABINET_PORT_TAG                  "CAB"
-
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
 #define MW8080BW_PIXEL_CLOCK              (MW8080BW_MASTER_CLOCK / 4)
@@ -76,6 +74,7 @@ public:
 	invaders_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this,"maincpu")
+		, m_prom(*this, "proms")
 		, m_mb14241(*this,"mb14241")
 		, m_watchdog(*this, "watchdog")
 		, m_main_ram(*this, "main_ram")
@@ -85,7 +84,6 @@ public:
 		, m_sn(*this, "snsnd")
 		, m_samples(*this, "samples")
 		, m_palette(*this, "palette")
-		, m_colorram(*this, "colorram")
 	{ }
 
 	void mw8080bw_root(machine_config &config);
@@ -108,8 +106,8 @@ protected:
 	virtual void machine_reset() override;
 	virtual void video_start() override { m_color_map = m_screen_red = 0; }
 
-	void invadpt2_sh_port_1_w(uint8_t data);
-	void invadpt2_sh_port_2_w(uint8_t data);
+	void port03_w(uint8_t data);
+	void port05_w(uint8_t data);
 
 	DECLARE_WRITE_LINE_MEMBER(int_enable_w);
 
@@ -118,10 +116,9 @@ protected:
 	uint32_t screen_update_invadpt2(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
 	/* misc game specific */
-	uint8_t m_color_map = 0;
-	uint8_t m_screen_red = 0;
-	uint8_t m_flip_screen = 0;
-
+	bool m_color_map = 0;
+	bool m_screen_red = 0;
+	bool m_flip_screen = 0;
 	bool is_cabinet_cocktail();
 	void set_pixel( bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, int color );
 	void set_8_pixels(bitmap_rgb32 &bitmap, uint8_t y, uint8_t x, uint8_t data, int fore_color, int back_color);
@@ -129,6 +126,7 @@ protected:
 
 	// device/memory pointers
 	required_device<cpu_device> m_maincpu;
+	optional_region_ptr<u8> m_prom;
 	optional_device<mb14241_device> m_mb14241;
 	optional_device<watchdog_timer_device> m_watchdog;
 	required_shared_ptr<uint8_t> m_main_ram;
@@ -138,7 +136,6 @@ protected:
 	optional_device<sn76477_device> m_sn;
 	optional_device<samples_device> m_samples;
 	optional_device<palette_device> m_palette;
-	optional_shared_ptr<uint8_t> m_colorram;
 
 private:
 	// misc game specific
@@ -146,9 +143,10 @@ private:
 	void invadpt2_io_map(address_map &map);
 
 	attotime m_interrupt_time;
-	emu_timer   *m_interrupt_timer = nullptr;
+	emu_timer *m_interrupt_timer = nullptr;
 
 	bool m_int_enable = 0;
+	bool m_sound_en = 0;
 
 	TIMER_CALLBACK_MEMBER(interrupt_trigger);
 	uint8_t vpos_to_vysnc_chain_counter(int vpos);
@@ -157,11 +155,8 @@ private:
 	std::unique_ptr<uint8_t[]> m_scattered_colorram;
 
 	/* sound-related */
-	uint8_t       m_port_1_last_extra = 0;
-	uint8_t       m_port_2_last_extra = 0;
-
-	DECLARE_MACHINE_START(extra_8080bw);
-
+	uint8_t m_port03 = 0;
+	uint8_t m_port05 = 0;
 };
 
 
@@ -320,8 +315,8 @@ void invaders_state::machine_start()
 	m_interrupt_timer = timer_alloc(FUNC(invaders_state::interrupt_trigger), this);
 	save_item(NAME(m_color_map));
 	save_item(NAME(m_screen_red));
-	save_item(NAME(m_port_1_last_extra));
-	save_item(NAME(m_port_2_last_extra));
+	save_item(NAME(m_port03));
+	save_item(NAME(m_port05));
 }
 
 
@@ -391,7 +386,7 @@ uint32_t invaders_state::screen_update_mw8080bw(screen_device &screen, bitmap_rg
 
 		// next pixel
 		video_data = video_data >> 1;
-		x = x + 1;
+		x++;
 
 		/* end of line? */
 		if (x == 0)
@@ -406,7 +401,7 @@ uint32_t invaders_state::screen_update_mw8080bw(screen_device &screen, bitmap_rg
 			}
 
 			// next row, video_data is now 0, so the next line will start with 4 blank pixels
-			y = y + 1;
+			y++;
 
 			// end of screen?
 			if (y == 0)
@@ -441,7 +436,7 @@ uint32_t invaders_state::screen_update_invaders(screen_device &screen, bitmap_rg
 
 		// next pixel
 		video_data = video_data >> 1;
-		x = x + 1;
+		x++;
 
 		// end of line?
 		if (x == 0)
@@ -460,7 +455,7 @@ uint32_t invaders_state::screen_update_invaders(screen_device &screen, bitmap_rg
 			}
 
 			// next row, video_data is now 0, so the next line will start with 4 blank pixels
-			y = y + 1;
+			y++;
 
 			// end of screen?
 			if (y == 0)
@@ -478,20 +473,17 @@ uint32_t invaders_state::screen_update_invaders(screen_device &screen, bitmap_rg
 
 uint32_t invaders_state::screen_update_invadpt2(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	uint8_t const *const prom = memregion("proms")->base();
-	uint8_t const *const color_map_base = m_color_map ? &prom[0x0400] : &prom[0x0000];
-
 	for (offs_t offs = 0; offs < m_main_ram.bytes(); offs++)
 	{
 		uint8_t const y = offs >> 5;
 		uint8_t const x = offs << 3;
 
-		offs_t const color_address = (offs >> 8 << 5) | (offs & 0x1f);
+		offs_t const color_address = ((offs >> 8 << 5) | (offs & 0x1f)) | (m_color_map ? 0x400 : 0);
 
 		uint8_t const data = m_main_ram[offs];
-		uint8_t const fore_color = m_screen_red ? 1 : color_map_base[color_address] & 0x07;
+		uint8_t const fore_color = m_prom ? m_prom[color_address]: 7; // no prom, use white
 
-		set_8_pixels(bitmap, y, x, data, fore_color, 0);
+		set_8_pixels(bitmap, y, x, data, fore_color & 7, m_screen_red);
 	}
 
 	clear_extra_columns(bitmap, 0);
@@ -502,7 +494,7 @@ uint32_t invaders_state::screen_update_invadpt2(screen_device &screen, bitmap_rg
 static const char *const invaders_sample_names[] =
 {
 	"*invaders",
-	"1",        /* shot/missle */
+	"1",        /* shot/missile */
 	"2",        /* base hit/explosion */
 	"3",        /* invader hit */
 	"4",        /* fleet move 1 */
@@ -617,9 +609,9 @@ void invaders_state::io_map(address_map &map)
 	map(0x03, 0x03).mirror(0x04).r(m_mb14241, FUNC(mb14241_device::shift_result_r));
 
 	map(0x02, 0x02).w(m_mb14241, FUNC(mb14241_device::shift_count_w));
-	map(0x03, 0x03).w(FUNC(invaders_state::invadpt2_sh_port_1_w));
+	map(0x03, 0x03).w(FUNC(invaders_state::port03_w));
 	map(0x04, 0x04).w(m_mb14241, FUNC(mb14241_device::shift_data_w));
-	map(0x05, 0x05).w(FUNC(invaders_state::invadpt2_sh_port_2_w));
+	map(0x05, 0x05).w(FUNC(invaders_state::port05_w));
 	map(0x06, 0x06).w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
 }
 
@@ -664,25 +656,24 @@ void invaders_state::invaders(machine_config &config)
 /*                                                     */
 /*******************************************************/
 
-void invaders_state::invadpt2_sh_port_1_w(uint8_t data)
+void invaders_state::port03_w(uint8_t data)
 {
-	uint8_t rising_bits = data & ~m_port_1_last_extra;
+	m_sound_en = BIT(data, 5);
+	uint8_t c = m_sound_en ? data & ~m_port03 : 0;
 
-	m_sn->enable_w(!BIT(data, 0));                      // SAUCER SOUND
+	m_sn->enable_w(!BIT(data, 0));            // SAUCER SOUND
 
-	if (BIT(rising_bits, 1)) m_samples->start(0, 0);    // MISSLE SOUND
-	if (BIT(rising_bits, 2)) m_samples->start(1, 1);    // EXPLOSION
-	if (BIT(rising_bits, 3)) m_samples->start(2, 2);    // INVADER HIT
-	if (BIT(rising_bits, 4)) m_samples->start(5, 8);    // BONUS MISSILE BASE
+	if (BIT(c, 1)) m_samples->start(0, 0);    // Shoot SOUND
+	if (BIT(c, 2)) m_samples->start(1, 1);    // EXPLOSION
+	if (BIT(c, 3)) m_samples->start(2, 2);    // INVADER HIT
+	if (BIT(c, 4)) m_samples->start(5, 8);    // BONUS BASE
 
-	m_screen_red = data & 0x04;
+	m_screen_red = BIT(data, 2);
 
-	machine().sound().system_mute(!BIT(data, 5));
-
-	m_port_1_last_extra = data;
+	m_port03 = data;
 }
 
-void invaders_state::invadpt2_sh_port_2_w(uint8_t data)
+void invaders_state::port05_w(uint8_t data)
 {
 	/* FLEET (movement)
 
@@ -691,18 +682,18 @@ void invaders_state::invadpt2_sh_port_2_w(uint8_t data)
 	   D2 = 82K
 	   D3 = 100K */
 
-	uint8_t rising_bits = data & ~m_port_2_last_extra;
+	uint8_t c = m_sound_en ? data & ~m_port05 : 0;
 
-	if (BIT(rising_bits, 0)) m_samples->start(4, 3);    // FLEET
-	if (BIT(rising_bits, 1)) m_samples->start(4, 4);    // FLEET
-	if (BIT(rising_bits, 2)) m_samples->start(4, 5);    // FLEET
-	if (BIT(rising_bits, 3)) m_samples->start(4, 6);    // FLEET
-	if (BIT(rising_bits, 4)) m_samples->start(3, 7);    // SAUCER HIT
+	if (BIT(c, 0)) m_samples->start(4, 3);    // FLEET
+	if (BIT(c, 1)) m_samples->start(4, 4);    // FLEET
+	if (BIT(c, 2)) m_samples->start(4, 5);    // FLEET
+	if (BIT(c, 3)) m_samples->start(4, 6);    // FLEET
+	if (BIT(c, 4)) m_samples->start(3, 7);    // SAUCER HIT
 
-	m_flip_screen = BIT(data, 5) & ioport(CABINET_PORT_TAG)->read();
+	m_flip_screen = (BIT(data, 5) & ioport("CAB")->read()) ? 1 : 0;
 	m_color_map = BIT(data, 5);
 
-	m_port_2_last_extra = data;
+	m_port05 = data;
 }
 
 
@@ -779,16 +770,16 @@ void invaders_state::invadpt2_io_map(address_map &map)
 	map(0x00, 0x00).portr("IN0");
 	map(0x01, 0x01).portr("IN1");
 	map(0x02, 0x02).portr("IN2").w(m_mb14241, FUNC(mb14241_device::shift_count_w));
-	map(0x03, 0x03).r(m_mb14241, FUNC(mb14241_device::shift_result_r)).w(FUNC(invaders_state::invadpt2_sh_port_1_w));
+	map(0x03, 0x03).r(m_mb14241, FUNC(mb14241_device::shift_result_r)).w(FUNC(invaders_state::port03_w));
 	map(0x04, 0x04).w(m_mb14241, FUNC(mb14241_device::shift_data_w));
-	map(0x05, 0x05).w(FUNC(invaders_state::invadpt2_sh_port_2_w));
+	map(0x05, 0x05).w(FUNC(invaders_state::port05_w));
 	map(0x06, 0x06).w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
 }
 
 
 static INPUT_PORTS_START( invadpt2 )
 	PORT_START("IN0")
-	PORT_DIPUNUSED_DIPLOC( 0x01, 0x00, "SW1:8" ) // manual suggests this if for an unavailable test mode
+	PORT_DIPUNUSED_DIPLOC( 0x01, 0x00, "SW1:8" ) // manual suggests this is for an unavailable test mode
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED ) // tied low on schematic
 	PORT_BIT( 0x04, IP_ACTIVE_LOW,  IPT_UNUSED ) // tied high via 1k resistor on schematic (shared with IN0 bit 4, IN0 bit 5, IN0 bit 7, IN1 bit 7, IN2 bit 2)
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED ) // tied low on schematic
@@ -878,195 +869,48 @@ static INPUT_PORTS_START( sinvrdzm )
 INPUT_PORTS_END
 
 
-/*****************************************************
-
- Space Invaders Multigame kit, Braze Technologies,
- produced from 2002(version 1A) to 2006(version 3D).
- This is an 8-in-1 hack on a daughterboard, containing:
-
- - 8080 CPU taken from main PCB
- - SST 29EE010 or AM27C010 (or other similar) 128KB EEPROM
-   (EEPROM functionality not used)
- - 93C46P E2PROM for saving highscore/settings
- - PALCE22V10H-25PC/4
-
- The kit is compatible with the original Midway boardset
-
-******************************************************/
-
-/*******************************************************/
-/* Braze Technologies Space Invaders Multigame hacks   */
-/*******************************************************/
-
-class invmulti_state : public invaders_state
-{
-public:
-	invmulti_state(machine_config const &mconfig, device_type type, char const *tag)
-		: invaders_state(mconfig, type, tag)
-		, m_banks(*this, "bank%u", 1U)
-		, m_eeprom(*this, "eeprom")
-	{ }
-
-	void invmulti(machine_config &config);
-
-	void init_invmulti();
-
-protected:
-	virtual void machine_start() override;
-
-private:
-	uint8_t eeprom_r();
-	void eeprom_w(uint8_t data);
-	void bank_w(uint8_t data);
-
-	void main_map(address_map &map);
-
-	required_memory_bank_array<2> m_banks;
-	required_device<eeprom_serial_93cxx_device> m_eeprom;
-};
-
-
-static INPUT_PORTS_START( invmulti )
-	/* same as Midway Space Invaders, except that SW is unused */
-	PORT_START("IN0")
-	PORT_DIPUNUSED_DIPLOC( 0x01, 0x00, "SW:8" )
-	PORT_BIT( 0x06, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invmulti_state, invaders_sw6_sw7_r)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNUSED )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invmulti_state, invaders_in0_control_r)
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invmulti_state, invaders_sw5_r)
-
-	PORT_START("IN1")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_COIN1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, invmulti_state, direct_coin_count, 0)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START2 )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START1 )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNUSED )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invmulti_state, invaders_in1_control_r)
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
-
-	PORT_START("IN2")
-	PORT_DIPUNUSED_DIPLOC( 0x01, 0x00, "SW:3" )
-	PORT_DIPUNUSED_DIPLOC( 0x02, 0x00, "SW:4" )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_DIPUNUSED_DIPLOC( 0x08, 0x00, "SW:2" )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invmulti_state, invaders_in2_control_r)
-	PORT_DIPUNUSED_DIPLOC( 0x80, 0x00, "SW:1" )
-
-	/* Dummy port for cocktail mode */
-	INVADERS_CAB_TYPE_PORT
-
-	/* fake ports for handling the various input ports based on cabinet type */
-	PORT_START(INVADERS_SW6_SW7_PORT_TAG)
-	PORT_DIPUNUSED_DIPLOC( 0x01, 0x00, "SW:7" )
-	PORT_DIPUNUSED_DIPLOC( 0x02, 0x00, "SW:6" )
-	PORT_BIT( 0xfc, IP_ACTIVE_HIGH, IPT_UNUSED )
-
-	PORT_START(INVADERS_SW5_PORT_TAG)
-	PORT_DIPUNUSED_DIPLOC( 0x01, 0x00, "SW:5" )
-	PORT_BIT( 0xfe, IP_ACTIVE_HIGH, IPT_UNUSED )
-
-	/* Dummy controls port, P1 */
-	INVADERS_CONTROL_PORT_P1
-
-	/* Dummy controls port, P2 */
-	INVADERS_CONTROL_PORT_P2
-
-INPUT_PORTS_END
-
-void invmulti_state::main_map(address_map &map)
-{
-	map(0x0000, 0x1fff).mirror(0x8000).bankr(m_banks[0]);
-	map(0x2000, 0x3fff).mirror(0x8000).ram().share("main_ram");
-	map(0x4000, 0x5fff).mirror(0x8000).bankr(m_banks[1]);
-	map(0x6000, 0x6000).mirror(0x1fff).rw(FUNC(invmulti_state::eeprom_r), FUNC(invmulti_state::eeprom_w));
-	map(0xe000, 0xe000).mirror(0x1fff).w(FUNC(invmulti_state::bank_w));
-}
-
-uint8_t invmulti_state::eeprom_r()
-{
-	return m_eeprom->do_read();
-}
-
-void invmulti_state::eeprom_w(uint8_t data)
-{
-	// d0: latch bit
-	m_eeprom->di_write(BIT(data, 0));
-
-	// d6: reset
-	m_eeprom->cs_write(BIT(data, 6));
-
-	// d4: write latch or select next bit to read
-	m_eeprom->clk_write(BIT(data, 4));
-}
-
-void invmulti_state::bank_w(uint8_t data)
-{
-	// d0, d4, d6: bank
-	uint8_t const bank = bitswap<3>(data, 6, 4, 0);
-	m_banks[0]->set_entry(bank);
-	m_banks[1]->set_entry(bank);
-}
-
-void invmulti_state::invmulti(machine_config &config)
-{
-	invaders(config);
-
-	// basic machine hardware
-	m_maincpu->set_addrmap(AS_PROGRAM, &invmulti_state::main_map);
-
-	EEPROM_93C46_8BIT(config, m_eeprom);
-}
-
-void invmulti_state::machine_start()
-{
-	invaders_state::machine_start();
-
-	m_banks[0]->configure_entries(0, 8, memregion("maincpu")->base(), 0x4000);
-	m_banks[0]->set_entry(0);
-	m_banks[1]->configure_entries(0, 8, memregion("maincpu")->base() + 0x2000, 0x4000);
-	m_banks[1]->set_entry(0);
-}
-
-void invmulti_state::init_invmulti()
-{
-	uint8_t const *const src = memregion("user1")->base();
-	auto const len = memregion("user1")->bytes();
-	uint8_t *const dest = memregion("maincpu")->base();
-
-	// unscramble ROM
-	for (int i = 0; i < len; i++)
-		dest[i] = bitswap<8>(src[(i & 0x100ff) | (bitswap<8>(i >> 8 & 0xff, 7,3,4,5,0,6,1,2) << 8)],0,6,5,7,4,3,1,2);
-}
-
+// Roms
 ROM_START( invaders )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "invaders.h", 0x0000, 0x0800, CRC(734f5ad8) SHA1(ff6200af4c9110d8181249cbcef1a8a40fa40b7f) )
 	ROM_LOAD( "invaders.g", 0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f", 0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
 	ROM_LOAD( "invaders.e", 0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
 ROM_END
 
+// Dumped by Andy Welburn, 2026-03-12.
+// Says "Space Invaders Part II" on screen - dump didn't come with colour proms, so I added them.
+ROM_START( invdelux )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD( "invdelux.h",   0x0000, 0x0800, CRC(e690818f) SHA1(0860fb03a64d34a9704a1459a5e96929eafd39c7) )
+	ROM_LOAD( "invdelux.g",   0x0800, 0x0800, CRC(4268c12d) SHA1(df02419f01cf0874afd1f1aa16276751acd0604a) )
+	ROM_LOAD( "sidm.f",       0x1000, 0x0800, CRC(17943e02) SHA1(16b055965fe8c758f3d477b10093cae7a61a4a2a) )
+	ROM_LOAD( "sidm.e",       0x1800, 0x0800, CRC(3560e97b) SHA1(918d0df2860df8be7749f45b6e10465e2666469b) )
+	ROM_LOAD( "invdelux.d",   0x4000, 0x0800, CRC(e8d5afcd) SHA1(91fde9a9e7c3dd53aac4770bd169721a79b41ed1) )
+
+	ROM_REGION( 0x0800, "proms", 0 )        /* color maps player 1/player 2 */
+	ROM_LOAD( "pv06.1",   0x0000, 0x0400, CRC(a732810b) SHA1(a5fabffa73ca740909e23b9530936f9274dff356) )
+	ROM_LOAD( "pv07.2",   0x0400, 0x0400, CRC(2c5b91cb) SHA1(7fa4d4aef85473b1b4f18734230c164e72be44e7) )
+ROM_END
+
 ROM_START( tst_invd )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "test.h",       0x0000, 0x0800, CRC(f86a2eea) SHA1(4a72ff01f3e6d16bbe9bf7f123cd98895bfbed9a) ) // Test ROM
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
 	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
-
-	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF ) // because using invadpt2
 ROM_END
 
 ROM_START( sinvtest )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvtest.h",   0x0000, 0x0800, CRC(0a428359) SHA1(cfb961d4888c781ea52a7579ce73ab22cab58ab6) ) // Test rom
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
 	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
-
-	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF ) // because using invadpt2
 ROM_END
 
 ROM_START( sinvtest0 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvtest0.h",  0x0000, 0x0800, CRC(f78d2682) SHA1(c3dd0e91ec40ca22e90370a77f3f5e08345ff92b) ) // Test rom
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
@@ -1074,7 +918,7 @@ ROM_START( sinvtest0 )
 ROM_END
 
 ROM_START( sinvtest1 ) // This hangs in the 2nd ram test due to an internal bug. Fixed in sinvtest3.
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvtest1.h",  0x0000, 0x0800, CRC(9c2f913e) SHA1(2cc2ed2267a121034ef02d734f025aad91c5c8d1) ) // Test rom
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
@@ -1082,7 +926,7 @@ ROM_START( sinvtest1 ) // This hangs in the 2nd ram test due to an internal bug.
 ROM_END
 
 ROM_START( sinvtest2 ) // This hangs in the 2nd ram test due to an internal bug. Fixed in sinvtest3.
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvtest2.h",  0x0000, 0x0800, CRC(7c5e93f5) SHA1(b927a073f4a1ee54df62bdc7173b038232edfea4) ) // Test rom
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
@@ -1090,7 +934,7 @@ ROM_START( sinvtest2 ) // This hangs in the 2nd ram test due to an internal bug.
 ROM_END
 
 ROM_START( sinvtest3 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvtest3.h",  0x0000, 0x0800, CRC(08d43dfe) SHA1(debe4e137e3cbc46c720ddd956960a313c43470e) ) // Test rom
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
@@ -1098,17 +942,15 @@ ROM_START( sinvtest3 )
 ROM_END
 
 ROM_START( sinvtest4 ) // for flip, turn on Cocktail mode in dips. Then button is a toggle and press 2 times per direction.
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvtest4.h",  0x0000, 0x0800, CRC(8218a7c0) SHA1(91ebc7958c952852d929b97cc98e6b6b301dd8ca) ) // Test rom
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
 	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
-
-	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF ) // because using invadpt2
 ROM_END
 
 ROM_START( sinvrdzm )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "sinvrdzm.1",  0x0000, 0x0400, CRC(f625f153) SHA1(2a19f7b4f5687e89eebf02cfdf3d1d23624879fb) )
 	ROM_LOAD( "sinvrdzm.2",  0x0400, 0x0400, CRC(9d628753) SHA1(2b4468f64246da9263a384f2a940829e5a8cebde) )
 	ROM_LOAD( "sinvrdzm.3",  0x0800, 0x0400, CRC(db342868) SHA1(f9ab63b3e89be9f22e453b59bf00732b7e265ee3) )
@@ -1119,95 +961,16 @@ ROM_START( sinvrdzm )
 	ROM_LOAD( "sinvrdzm.8",  0x1c00, 0x0400, CRC(11392151) SHA1(ddeaf6678c898416e734d924f872496095ff294d) )
 ROM_END
 
-ROM_START( invmulti )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 ) // decrypted rom goes here
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("m803d.bin", 0x00000, 0x20000, CRC(6a62cb3c) SHA1(eb7b567098ad596859f417dd5c59c2cf1ebf1154) )
-ROM_END
-
-ROM_START( invmultim3a )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("m803a.bin", 0x00000, 0x20000, CRC(6d538828) SHA1(9a80c67abd32c4c8cd04320501a2aa4e2a308fc9) )
-ROM_END
-
-ROM_START( invmultim2c )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("m802c.bin", 0x00000, 0x20000, CRC(5b537de5) SHA1(4d8a6b622b818e88383d011c25f8f34b7372db6d) )
-ROM_END
-
-ROM_START( invmultim2a )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("m802a.bin", 0x00000, 0x20000, CRC(8079b1d0) SHA1(b13d910f314550eef468ee819b92788d2a002d82) )
-ROM_END
-
-ROM_START( invmultim1a )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("m801a.bin", 0x00000, 0x20000, CRC(f28536d2) SHA1(08ef3ea3fac38c7a478f094bfa7c369ac39515c4) )
-ROM_END
-
-ROM_START( invmultit3d )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("t803d.bin", 0x00000, 0x20000, CRC(4d53173c) SHA1(a9caf7fd8e2fea86ca1cf7edc104bdacf09203f8) )
-ROM_END
-
-ROM_START( invmultis3a )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("s083a.bin", 0x00000, 0x20000, CRC(f426d43b) SHA1(a299472f1d65f356ec01ca7cc8d3039abac20019) )
-ROM_END
-
-ROM_START( invmultis2a )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("s082a.bin", 0x00000, 0x20000, CRC(25f0f17e) SHA1(a3ccf823399e23dd9fdb38fd58c0acfe80b57fe3) )
-ROM_END
-
-ROM_START( invmultis1a )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("s081a.bin", 0x00000, 0x20000, CRC(daa77345) SHA1(0fdc9c2a6d9c0aa3233c5d31433adb1ea4e5b250) )
-ROM_END
-
-ROM_START( invmultip )
-	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0x20000, "user1", 0 )
-	ROM_LOAD("s10.bin",  0x00000, 0x20000, CRC(1b43e4d3) SHA1(c50decd9caaec7f2d8b3ba74f718372d31bc1c3b) )
-ROM_END
-
 } // anonymous namespace
 
-GAMEL(1978, invaders,    0,        invaders,  invaders,  invaders_state, empty_init,    ROT270, "Taito / Midway",        "Space Invaders", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAME( 1978, tst_invd,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Taito",                 "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, sinvtest,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.0, 2022-01-14)", MACHINE_SUPPORTS_SAVE )
-GAMEL(2013, sinvtest0,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.0, 2013-10-12)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAMEL(2017, sinvtest1,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Fabrice Girardot",      "Space Invaders Test ROM (v1.1, 2017-09-17)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAMEL(2017, sinvtest2,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.2, 2017-10-14)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAMEL(2019, sinvtest3,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Marc Deslauriers",      "Space Invaders Test ROM (v1.3, 2019-03-27)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAME (2025, sinvtest4,   invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.1, 2025-07-11)", MACHINE_SUPPORTS_SAVE )
-GAMEL(1978, sinvrdzm,    invaders, invaders,  sinvrdzm,  invaders_state, empty_init,    ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAME( 2002, invmulti,    0,        invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.03D)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.03A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim2c, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.02C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim2a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.02A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim1a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.01A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultit3d, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (T8.03D)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultis3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (S0.83A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultis2a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (S0.82A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultis1a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (S0.81A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultip,   invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (prototype)", MACHINE_SUPPORTS_SAVE )
+GAMEL(1978, invaders,    0,        invaders,  invaders,  invaders_state, empty_init,   ROT270, "Taito / Midway",        "Space Invaders", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAME( 1979, invdelux,    0,        invadpt2,  invadpt2,  invaders_state, empty_init,   ROT270, "Midway",                "Space Invaders Part II (alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 1978, tst_invd,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,   ROT0,   "Taito",                 "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, sinvtest,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,   ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.0, 2022-01-14)", MACHINE_SUPPORTS_SAVE )
+GAMEL(2013, sinvtest0,   invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.0, 2013-10-12)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(2017, sinvtest1,   invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Fabrice Girardot",      "Space Invaders Test ROM (v1.1, 2017-09-17)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(2017, sinvtest2,   invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.2, 2017-10-14)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(2019, sinvtest3,   invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Marc Deslauriers",      "Space Invaders Test ROM (v1.3, 2019-03-27)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAME (2025, sinvtest4,   invaders, invadpt2,  invadpt2,  invaders_state, empty_init,   ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.1, 2025-07-11)", MACHINE_SUPPORTS_SAVE )
+GAMEL(1978, sinvrdzm,    invaders, invaders,  sinvrdzm,  invaders_state, empty_init,   ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 

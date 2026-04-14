@@ -25,17 +25,8 @@ galagax
 
 @source:8080bw.cpp
 invaders                               //parent
+invdelux
 tst_invd
-invmulti                               //parent
-invmultim1a
-invmultim2a
-invmultim2c
-invmultim3a
-invmultip
-invmultis1a
-invmultis2a
-invmultis3a
-invmultit3d
 sinvrdzm
 sinvtest
 sinvtest0
@@ -1988,21 +1979,42 @@ pandajump                              // HB
 pandajump2                             // HB
 ramokromok                             // HB
 fourplay
-videight	/* 8in1 multigame */
-wbeast		/* Bootleg of War-of-Bug */
+videight                               // 8in1 multigame
+wbeast                                 // Bootleg of War-of-Bug
 gmultib
 gmultic
-smulti                                // skeleton
+smulti                                 // skeleton
 
 @source:gauntlet.cpp
-gaunt2		//parent
-gaunt2ls	// Orange Elf - new levels
-gaunt2s		/* Speed Hack */
-gaunt2f		// graphics hack
+gaunt2                                 //parent
+gaunt2ls                               // Orange Elf - new levels
+gaunt2s                                // Speed Hack
+gaunt2f                                // graphics hack
 
 @source:ginganin.cpp
 ginganin                               //parent
 ginganin01
+
+@source:gng.cpp
+gng                                    //parent
+gngknight
+gngknighta
+gngknightb
+gngknightc
+gngknightt
+gngmaiden
+gngmaidena
+gngmaidenb
+gngmaidenc
+gngmaident
+makknight
+makknightb
+makknightc
+makknightg
+makmaiden
+makmaidenb
+makmaidenc
+makmaideng
 
 @source:gottlieb.cpp
 qbert                                  //parent
@@ -4288,10 +4300,9 @@ aliencha01
 aliencha02
 
 @source:m52.cpp
-alpha1v		// Kyle Hodgetts
-mpatrol		//parent
+mpatrol                                //parent
 mpatrolut
-spatrol		/* Sponge Patrol - Gatinho 2008 */
+spatrol
 
 @source:m92.cpp
 hook                                   //parent
@@ -4403,6 +4414,10 @@ stapper1	/* Tapper Simpsons Hack ver .81 */
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
+@source:megasys1.cpp
+soldam
+soldam01
+
 @source:mgd2.cpp
 bstarsd					// 0002 (c) 1990 SNK
 tpgolfd					// 0003 (c) 1990 SNK
@@ -4500,6 +4515,7 @@ umk2s05                                // Ultimate MKII Tournament Edition r5.0.
 
 @source:midwunit.cpp
 mk08
+mk09
 mk2s07
 mk3                                    //parent
 mk3s01
@@ -6008,6 +6024,7 @@ spcloneo	// v0.7.2.2
 @source:neogeo.cpp
 // These are the parents of our hacks
 neogeo
+//nggno                                  // .gno support
 ngneo                                  // .neo support
 ngmvs                                  // multimvs support
 2020bb			// 030
@@ -6236,7 +6253,9 @@ gladmortd
 gladmortd2
 goldaxen
 //greenspace
+grime
 gxg
+halozero
 horekidb3
 hypernoid
 hypernoid01
@@ -6364,11 +6383,12 @@ xeviousn03
 xeviousn04
 xmas2017
 yoyoshkn
-zintrckbh
-zintrkcd
-zintrkcd1
-zintrkm
-zintricks01
+zintrick01
+zintrick02
+zintrick03
+zintrick04
+zintrick05
+zintrick06
 
 @source:neogeo1.cpp
 2020bb01
@@ -6390,6 +6410,7 @@ bangbead01
 bangbead02
 bjourney01
 blazstar01
+blazstar02
 breakers01
 breakers02
 breakers03
@@ -6555,9 +6576,7 @@ shocktr2s01
 shocktr2s02
 shocktr2s03
 shocktro01
-sonicwi2s01
 sonicwi2s02
-sonicwi3s01
 sonicwi3s02
 sonicwi3s03
 spinmast01
@@ -6570,6 +6589,7 @@ tophuntr02
 tpgolf01
 trally01
 turfmast01
+turfmast02
 twinspri01
 viewpoin01
 viewpoin02
@@ -8786,6 +8806,7 @@ suikoenb                               //parent
 suikoenb01
 
 @source:taitosj.cpp
+adcanoe
 alpine                                 //parent
 alpine01
 frontlin                               //parent
