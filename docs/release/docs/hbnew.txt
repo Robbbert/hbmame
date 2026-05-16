@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [fr2s03]              Idol Mahjong Final Romance 2 (with music)
 - [sf2prime]            Street Fighter II': Prime (v0.76)
 
 
