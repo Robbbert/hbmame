@@ -10,6 +10,7 @@ New Games
 - [csw2]                Crossed Swords 2 (full CD music)
 - [fr2s03]              Idol Mahjong Final Romance 2 (with music)
 - [irrmaze01]           Irritating Maze (standard joystick)
+- [msmatsuri]           Mushihime-Sama Matsuri (Japan, 2011-05-23 CAVEMATSURI VER1.5)
 - [sf2prime]            Street Fighter II': Prime (v0.76)
 
 
