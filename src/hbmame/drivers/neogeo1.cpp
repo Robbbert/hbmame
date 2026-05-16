@@ -5288,7 +5288,7 @@ GAME( 2007, tpgolf01,       tpgolf,   neogeo_noslot, neogeo,   neogeo_state, ini
 GAME( 1991, trally01,       trally,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "CD_conv", "Rally Chase (CD conversion)", MACHINE_SUPPORTS_SAVE )
 // Neo Turf Masters
 GAME( 2025, turfmast01,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "StiNKz", "Neo Turf Masters - Course and Pin Randomiser v0.1", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, turfmast03,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, turfmast03,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course v1.08", MACHINE_SUPPORTS_SAVE )
 // Twinkle Star Sprites
 GAME( 1996, twinspri01,     twinspri, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Yumeji", "Twinkle Star Sprites (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 // Viewpoint
