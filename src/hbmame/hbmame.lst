@@ -6046,7 +6046,7 @@ bstars			// 002
 //bstars2		// 041  not needed
 burningf		// 018
 crsword			// 037
-crswd2bl		// 054
+//crswd2bl		// 054 crswd2bl
 ctomaday		// 249
 cyberlip		// 010
 diggerma                               // HB
@@ -6227,7 +6227,8 @@ cnbe2018
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
-//csw2                                 //not working & roms missing
+csw2
+//csw2s01    // not fully dumped, not working
 cyborg
 cyborg1
 ddsprdmo
