@@ -26231,6 +26231,28 @@ ROM_START( sf2prime ) // v0.74 - press 9 to insert coin
 	ROM_LOAD16_WORD_SWAP( "c88pr.q1",   0x000000, 0x800000, CRC(cd8b2d9f) SHA1(bc4965b1cb6c211cdcf29ab5988702abd82effbc) ) // 11m
 ROM_END
 
+ROM_START( sf2prime ) // v0.75 - press 9 to insert coin
+	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(09ea5a36) SHA1(c675b15e9fef8ca6f35e41427ef4e76256e9e2b4) ) // 03
+	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(1026450d) SHA1(5959ce6a68e9c96cf832edeefd2db8ef972453cc) ) // 04
+	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(8ca9aea2) SHA1(c8f97b77e80837bc98a5d111c98fc2923d1a3526) ) // 05
+	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(d98b2845) SHA1(280238f24f62c323e893f84aeb35db07c93fbfa0) ) // 06
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c88pr.c1",   0x0000000, 0x800000, CRC(3d879969) SHA1(aba1963adf3f62f9f9bc4d2c509eaf89e4ab7b71) ) // 13m
+	ROM_LOAD64_WORD( "c88pr.c2",   0x0000002, 0x800000, CRC(7a3e7cb8) SHA1(662ecc236e2d1325e4ab83d27a619be4afe2ceb7) ) // 15m
+	ROM_LOAD64_WORD( "c88pr.c3",   0x0000004, 0x800000, CRC(e70dfa71) SHA1(94bd758a7754bdd0e79d83e0be33a096229d8d03) ) // 17m
+	ROM_LOAD64_WORD( "c88pr.c4",   0x0000006, 0x800000, CRC(cd60ab90) SHA1(a15d32dfbd5950675e982f7fc9c4af3ac367ee7f) ) // 19m
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c88pr.m1",   0x00000, 0x08000, CRC(6ce233a7) SHA1(5ff00de2fa8f31e66c9518049828d532554cb316) ) // 01
+	ROM_CONTINUE(           0x10000, 0x18000 )
+	ROM_LOAD( "c88.m2",     0x28000, 0x20000, CRC(2d8794aa) SHA1(c634affdc2568020cce6af97b4fa79925d9943f3) ) // 02
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c88pr.q1",   0x000000, 0x800000, CRC(cd8b2d9f) SHA1(bc4965b1cb6c211cdcf29ab5988702abd82effbc) ) // 11m
+ROM_END
+
 GAME( 2025, sf2prime3,  hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sf2prime4,  hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sf2prime41, hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.41)", MACHINE_SUPPORTS_SAVE )
@@ -26249,6 +26271,7 @@ GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.72)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.73)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.74)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.75)", MACHINE_SUPPORTS_SAVE )
 
 
 // ------------------------------------- DONKEY KONG --------------- These work, but are old versions -----------------
