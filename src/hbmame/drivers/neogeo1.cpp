@@ -868,14 +868,14 @@ ROM_END
 /*******************
  Dragon's Heaven
 *******************/
-ROM_START( dragons1 )
+ROM_START( dragonsh01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "336.p1", 0x000000, 0x080000, CRC(f25c71ad) SHA1(803fb6cd6a7ada59678ad901ff9788b1e54ddd0c) )
 	ROM_LOAD16_BYTE( "336.p2", 0x000001, 0x080000, CRC(f353448c) SHA1(f0f966ca15d503e01b40e901765ff0888463b65d) )
 
 	//NEO_SFIX_128K( "094.s1", CRC(2f8748a2) SHA1(5cc723c4284120473d63d8b0c1a3b3be74bdc324) )
 	//NEO_SFIX_128K( "336.s1", CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) )
-	NEO_SFIX_128K( "336a.s1", CRC(b3cee12d) SHA1(3391038bac062b9bad2e2d9f6b25f7fe3e9871cb) )
+	NEO_SFIX_128K( "336s01.s1", CRC(b3cee12d) SHA1(3391038bac062b9bad2e2d9f6b25f7fe3e9871cb) )
 
 	NEO_BIOS_AUDIO_128K( "094.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
 
@@ -1336,6 +1336,34 @@ ROM_START( ironclad01 ) // ironcladb
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "220s01.c1", 0x000000, 0x800000, CRC(621f4a09) SHA1(117a8e8bea5f880d8315b48bc5884eb805c5e678) )
 	ROM_LOAD16_BYTE( "220s01.c2", 0x000001, 0x800000, CRC(7fec83e8) SHA1(769c2cb4ed4a9d7c29e3aad3f4601f1d24c96640) )
+ROM_END
+
+
+/*******************
+ Irritating Maze
+*******************/
+ROM_START( irrmaze01 ) // standard joystick
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "236s01.p1", 0x100000, 0x100000, CRC(7235a222) SHA1(2270e0d53646f957de569466cd49fab2983e5b71) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "236.s1", CRC(5d1ca640) SHA1(40a9668a1742a44597a07ce72273d17119815637) )
+
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	/* special BIOS with trackball support, we only have one Irritating Maze bios and thats asia */
+	ROM_LOAD16_WORD_SWAP("236-bios.sp1", 0x00000, 0x020000, CRC(853e6b96) SHA1(de369cb4a7df147b55168fa7aaf0b98c753b735e) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "236.m1", 0x00000, 0x20000, CRC(880a1abd) SHA1(905afa157aba700e798243b842792e50729b19a0) )
+	ROM_RELOAD( 0x10000, 0x20000 )
+
+	ROM_REGION( 0x300000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "236.v1", 0x000000, 0x200000, CRC(5f89c3b4) SHA1(dc8fd561cf8dfdd41696dcf14ea8d2d0ac4eec4b) )
+	ROM_LOAD( "236.v2", 0x200000, 0x100000, CRC(72e3add7) SHA1(dc49f05274693255416d2e41ecc088027b798eb9) )
+
+	ROM_REGION( 0x0800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "236.c1", 0x000000, 0x400000, CRC(c1d47902) SHA1(727001c34f979226fc8f581113ce2aaac4fc0d42) )
+	ROM_LOAD16_BYTE( "236.c2", 0x000001, 0x400000, CRC(e15f972e) SHA1(6a329559c57a67be73a6733513b59e9e6c8d61cc) )
 ROM_END
 
 
@@ -5045,7 +5073,7 @@ GAME( 1991, burningf01,     burningf, neogeo_noslot, neogeo,   neogeo_state, ini
 // Captain Tomaday
 GAME( 1999, ctomaday01,     ctomaday, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Captain Tomaday (Infinite lives)", MACHINE_SUPPORTS_SAVE )
 // Dragon's Heaven
-GAME( 200?, dragons1,       neogeo,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Face", "Dragon's Heaven", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, dragonsh01,     neogeo,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Face", "Dragon's Heaven", MACHINE_SUPPORTS_SAVE )
 // Eight Man
 GAME( 1991, eightman01,     eightman, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Blackheart", "Eight Man (Enhanced Version, 2009-08-22)", MACHINE_SUPPORTS_SAVE )
 // Fight Fever
@@ -5073,6 +5101,8 @@ GAME( 2014, gpilots02,      gpilots,  neogeo_noslot, neogeo,   neogeo_state, ini
 GAME( 1991, gpilots03,      gpilots,  neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Ghost Pilots (Plus Max)", MACHINE_SUPPORTS_SAVE )
 // Ironclad
 GAME( 1996, ironclad01,     ironclad, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Saurus", "Ironclad (Conversion from Wii)", MACHINE_SUPPORTS_SAVE )
+// Irritating Maze
+GAME( 2025, irrmaze01,      irrmaze,  neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "NeoGeoFreak", "Irritating Maze (standard joystick)", MACHINE_SUPPORTS_SAVE )
 // Jockey GP
 GAME( 2001, jockeygp01,     jockeygp, neogeo_noslot, jockeygp, neogeo_state, init_jckeygpd,  ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (decrypted C)", MACHINE_SUPPORTS_SAVE )
 // Joy Joy / Puzzled
