@@ -26326,3 +26326,25 @@ ROM_END
 
 GAME( 1995, sonicwi3s01,    sonicwi3, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Kawada7278", "Aero Fighters 3 (Ex Super version)", MACHINE_SUPPORTS_SAVE )
 
+ROM_START( turfmast02 ) // replace Australia with Scotland
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "200s02.p1", 0x100000, 0x100000, CRC(6361a52f) SHA1(0f7002cc8e9c2f170429e7d2d00a9dbfd20f2e16) )
+	ROM_CONTINUE( 0x000000, 0x100000)
+
+	NEO_SFIX_128K( "200.s1", CRC(9a5402b2) SHA1(ae1a0b5450869d61b2bb23671c744d3dda8769c4) )
+
+	NEO_BIOS_AUDIO_128K( "200s02.m1", CRC(c6a6c686) SHA1(b7b9dff4575e5b17d6965aa52f4d32984937ad53) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "200.v1", 0x000000, 0x200000, CRC(00fd48d2) SHA1(ddfee09328632e598fd51537b3ae8593219b2111) )
+	ROM_LOAD( "200s02.v2", 0x200000, 0x200000, CRC(caf341a8) SHA1(f0a3e83c300a6b09ac2cd61b6e639c06d1e9bf88) )
+	ROM_LOAD( "200.v3", 0x400000, 0x200000, CRC(7abca053) SHA1(e229bc0ea82a371d6ee8fd9fe442b0fd141d0a71) )
+	ROM_LOAD( "200.v4", 0x600000, 0x200000, CRC(6c7b4902) SHA1(d55e0f542d928a9a851133ff26763c8236cbbd4d) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "200s02.c1", 0x000000, 0x400000, CRC(5fccd812) SHA1(5311e7fb9f991db08451a645a9ba4ad5530efc5f) )
+	ROM_LOAD16_BYTE( "200s02.c2", 0x000001, 0x400000, CRC(5f589076) SHA1(a43de326c1059ea101b23e933a02edcf77eb66ac) )
+ROM_END
+
+GAME( 2026, turfmast02,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course", MACHINE_SUPPORTS_SAVE )
+
