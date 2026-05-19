@@ -198,19 +198,10 @@ extern const ICONDATA g_iconData[] =
 	{ IDI_WIN_ROMS,          "roms" },
 	{ IDI_WIN_UNKNOWN,       "unknown" },
 	{ IDI_WIN_CLONE,         "clone" },
-	{ IDI_WIN_REDX,          "warning" },
+	{ IDI_WIN_REDX,          "redx" },
 	{ IDI_WIN_IMPERFECT,     "imperfect" },
-#ifdef MESS
-	{ IDI_WIN_NOROMSNEEDED,  "noromsneeded" },
-	{ IDI_WIN_MISSINGOPTROM, "missingoptrom" },
-	{ IDI_WIN_FLOP,          "floppy" },
-	{ IDI_WIN_CASS,          "cassette" },
-	{ IDI_WIN_SERL,          "serial" },
-	{ IDI_WIN_SNAP,          "snapshot" },
-	{ IDI_WIN_PRIN,          "printer" },
-	{ IDI_WIN_HARD,          "hard" },
-	{ IDI_WIN_MIDI,          "midi" },
-#endif
+	{ IDI_WIN_NW,            "mnw" },
+	{ IDI_BIOS,              "bios" },
 	{ 0 }
 };
 

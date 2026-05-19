@@ -86,6 +86,7 @@
 #define IDI_HEADER_UP                   156
 #define IDI_HEADER_DOWN                 157
 #define IDI_FOLDER_ARCADE               158
+#define IDI_WIN_NW                      159
 //#define IDI_AUDIT_PASS                  160
 //#define IDI_AUDIT_FAIL                  161
 //#define IDI_SYSTRAY                     162

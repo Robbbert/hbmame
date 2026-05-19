@@ -136,8 +136,8 @@ BOOL GetOffsetClones(void);
 void SetSavedFolderID(UINT val);
 UINT GetSavedFolderID(void);
 
-void SetOverrideRedX(BOOL val);
-BOOL GetOverrideRedX(void);
+void SetOverrideRedX(uint8_t val);
+uint8_t GetOverrideRedX();
 
 BOOL GetShowFolder(int folder);
 void SetShowFolder(int folder,BOOL show);
