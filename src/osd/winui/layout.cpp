@@ -194,14 +194,18 @@ extern const PROPERTYSHEETINFO g_propSheets[] =
 
 extern const ICONDATA g_iconData[] =
 {
-	{ IDI_WIN_NOROMS,        "noroms" },
-	{ IDI_WIN_ROMS,          "roms" },
-	{ IDI_WIN_UNKNOWN,       "unknown" },
-	{ IDI_WIN_CLONE,         "clone" },
-	{ IDI_WIN_REDX,          "redx" },
-	{ IDI_WIN_IMPERFECT,     "imperfect" },
-	{ IDI_WIN_NW,            "mnw" },
-	{ IDI_BIOS,              "bios" },
+	// These bad ones must be first; the order matters, don't change it.
+	{ IDI_LV_RN,             "rn" },   // roms missing
+	{ IDI_LV_RU,             "ru" },   // not audited
+	{ IDI_LV_BW,             "bios" },
+	{ IDI_LV_CX,             "cx" },   // red x instead of cn
+	{ IDI_LV_PX,             "px" },   // red x instead of pn
+	{ IDI_LV_CI,             "ci" },   // imperfect clone
+	{ IDI_LV_PI,             "pi" },   // imperfect parent
+	{ IDI_LV_CN,             "cn" },   // not working clone
+	{ IDI_LV_PN,             "pn" },   // not working parent
+	{ IDI_LV_CW,             "cw" },   // working clone
+	{ IDI_LV_PW,             "pw" },   // working parent
 	{ 0 }
 };
 

@@ -135,7 +135,7 @@ static void CreateDumpingFolders(int parent_index);
 
 static const TREEICON treeIconNames[] =
 {
-//	{ IDI_FOLDER_OPEN,         "foldopen" },
+	{ IDI_FOLDER_OPEN,         "foldopen" },
 	{ IDI_FOLDER,              "folder" },
 	{ IDI_FOLDER_ALLGAMES,     "allgames" },
 	{ IDI_FOLDER_AVAILABLE,    "foldavail" },
@@ -159,7 +159,6 @@ static const TREEICON treeIconNames[] =
 	{ IDI_FOLDER_SAVESTATE,    "savestate" },
 	{ IDI_FOLDER_SOUND,        "foldsamp" },
 	{ IDI_FOLDER_SOURCE,       "foldsrc" },
-	{ IDI_SOURCE,              "source" },
 	{ IDI_FOLDER_TRACKBALL,    "foldball" },
 	{ IDI_FOLDER_UNAVAILABLE,  "foldunav" },
 	{ IDI_FOLDER_VECTOR,       "foldvect" },
@@ -168,8 +167,11 @@ static const TREEICON treeIconNames[] =
 	{ IDI_FOLDER_YEAR,         "foldyear" },
 	{ IDI_BIOS,                "bios" },
 	{ IDI_CHIP,                "chip" },
+	{ IDI_CPU,                 "cpu" },
 	{ IDI_MANUFACTURER,        "manufact" },
 	{ IDI_MONITOR,             "monitor" },
+	{ IDI_SOUND,               "sound" },
+	{ IDI_SOURCE,              "source" },
 	{ IDI_YEAR,                "year" },
 };
 

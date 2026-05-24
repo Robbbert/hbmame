@@ -180,7 +180,6 @@ static DWORD            GetShellLargeIconSize(void);
 static DWORD            GetShellSmallIconSize(void);
 static void             CreateIcons(void);
 static int              GetIconForDriver(int nItem);
-static void             AddDriverIcon(int nItem,int default_icon_index);
 
 // Context Menu handlers
 static void             UpdateMenu(HMENU hMenu);
@@ -4704,40 +4703,6 @@ static void InitListView()
 }
 
 
-static void AddDriverIcon(int nItem,int default_icon_index)
-{
-	HICON hIcon = 0;
-	int nParentIndex = -1;
-
-	/* if already set to rom or clone icon, we've been here before */
-	if (icon_index[nItem] == 1 || icon_index[nItem] == 3)
-		return;
-
-	hIcon = LoadIconFromFile((char *)driver_list::driver(nItem).name);
-	if (hIcon == NULL)
-	{
-		nParentIndex = GetParentIndex(&driver_list::driver(nItem));
-		if( nParentIndex >= 0)
-		{
-			hIcon = LoadIconFromFile((char *)driver_list::driver(nParentIndex).name);
-			nParentIndex = GetParentIndex(&driver_list::driver(nParentIndex));
-			if (hIcon == NULL && nParentIndex >= 0)
-				hIcon = LoadIconFromFile((char *)driver_list::driver(nParentIndex).name);
-		}
-	}
-
-	if (hIcon)
-	{
-		int nIconPos = ImageList_AddIcon(hSmall, hIcon);
-		ImageList_AddIcon(hLarge, hIcon);
-		if (nIconPos != -1)
-			icon_index[nItem] = nIconPos;
-		DestroyIcon(hIcon);
-	}
-	if (icon_index[nItem] == 0)
-		icon_index[nItem] = default_icon_index;
-}
-
 static void DestroyIcons(void)
 {
 	if (hSmall)
@@ -5619,58 +5584,74 @@ int FindIconIndexByName(const char *icon_name)
 
 static int GetIconForDriver(int nItem)
 {
-	int iconRoms = 1;
+	int iconRoms = 0;
 
 	if (DriverUsesRoms(nItem))
 	{
 		int audit_result = GetRomAuditResults(nItem);
 		if (audit_result == -1)
-			return 2;
+			iconRoms = FindIconIndex(IDI_LV_RU);  // not yet audited
 		else
-		if (IsAuditResultYes(audit_result))
-			iconRoms = 1;
-		else
-			iconRoms = 0;
+		if (IsAuditResultNo(audit_result))
+			iconRoms = FindIconIndex(IDI_LV_RN);  // roms missing
 	}
 
-	// iconRoms is now either 0 (no roms), 1 (roms), or 2 (unknown)
-
-	// these are indices into icon_names, which maps into our image list
-	// also must match IDI_WIN_NOROMS + iconRoms
-
-	if (iconRoms == 1)  // roms are present
+	if (iconRoms == 0)
 	{
+		iconRoms =  FindIconIndex(IDI_LV_PW);  // start assuming it's a working parent
+
+		// see order of icons in layout.cpp g_iconData
 		// Working bios
 		if (DriverIsBios(nItem))
-			iconRoms = FindIconIndex(IDI_BIOS);
+			iconRoms = FindIconIndex(IDI_LV_BW);
 
-		// flagged as NOT WORKING
+		// Show red if NOT WORKING
 		if (DriverIsBroken(nItem))
 		{
 			if (GetOverrideRedX()==0)
-				iconRoms = FindIconIndex(IDI_WIN_NW);  // iconRoms now = 6
+				iconRoms = FindIconIndex(IDI_LV_PN); // red chip
 			else
-				iconRoms = FindIconIndex(IDI_WIN_REDX);  // iconRoms now = 4. If driver icons chosen but not found, get RedX
+				iconRoms = FindIconIndex(IDI_LV_PX); // red X. If driver icons chosen but not found, use this.
 		}
 		else
-		// Show imperfect if flagged as imperfect
+		// Show yellow if imperfect
 		if (DriverIsImperfect(nItem))
-			iconRoms = FindIconIndex(IDI_WIN_IMPERFECT); // iconRoms now = 5
-		else
-		// show clone icon for working clones
+			iconRoms = FindIconIndex(IDI_LV_PI);
+
+		// show faded if clone
 		if (DriverIsClone(nItem))
-			iconRoms = FindIconIndex(IDI_WIN_CLONE); // iconRoms now = 3
+			iconRoms--; // use clone icon instead of parent one
+
+		// Look for a custom per-game icon to override
+		BOOL redx = (GetOverrideRedX()==1) & DriverIsBroken(nItem);
+		if (iconRoms > 4 || redx)
+		{
+			HICON hIcon = LoadIconFromFile((char *)driver_list::driver(nItem).name);
+			if (hIcon == NULL)
+			{
+				int nParentIndex = GetParentIndex(&driver_list::driver(nItem));
+				if( nParentIndex >= 0)
+				{
+					hIcon = LoadIconFromFile((char *)driver_list::driver(nParentIndex).name);
+					nParentIndex = GetParentIndex(&driver_list::driver(nParentIndex));
+					if (hIcon == NULL && nParentIndex >= 0)
+						hIcon = LoadIconFromFile((char *)driver_list::driver(nParentIndex).name);
+				}
+			}
+
+			if (hIcon)  // a driver icon was found
+			{
+				int nIconPos = ImageList_AddIcon(hSmall, hIcon);
+				ImageList_AddIcon(hLarge, hIcon);
+				if (nIconPos != -1)
+					iconRoms = nIconPos;
+				DestroyIcon(hIcon);
+			}
+		}
 	}
 
-	// if we have the roms, then look for a custom per-game icon to override
-	// not 2, because this indicates F5 must be done; not 0, because this indicates roms are missing; only use 4 if user chooses it
-	BOOL redx = (GetOverrideRedX()==1) & DriverIsBroken(nItem);
-	if (iconRoms == 1 || iconRoms == 3 || iconRoms == 5 || redx )
-	{
-		if (icon_index[nItem] == 0)
-			AddDriverIcon(nItem,iconRoms);
-		iconRoms = icon_index[nItem];
-	}
+	// finally, into the listview
+	icon_index[nItem] = iconRoms;
 
 	return iconRoms;
 }
