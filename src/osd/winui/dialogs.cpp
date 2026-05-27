@@ -417,7 +417,7 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 			win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_EDIT), g_FilterText.c_str());
 			Edit_SetSel(GetDlgItem(hDlg, IDC_FILTER_EDIT), 0, -1);
 			// Mask out non filter flags
-			dwFilters = folder->m_dwFlags & F_MASK;
+			dwFilters = folder->m_dwFlags & FI_MASK;
 			// Display current folder name in dialog titlebar
 			snprintf(tmp,std::size(tmp),"Filters for %s Folder",folder->m_lpTitle);
 			win_set_window_text_utf8(hDlg, tmp);
@@ -429,86 +429,86 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 				{
 					/* Check the Parent Filters and inherit them on child,
 					 * No need to promote all games to parent folder, works as is */
-					dwpFilters = lpParent->m_dwFlags & F_MASK;
+					dwpFilters = lpParent->m_dwFlags & FI_MASK;
 					/*Check all possible Filters if inherited solely from parent, e.g. not being set explicitly on our folder*/
-					if( (dwpFilters & F_CLONES) && !(dwFilters & F_CLONES) )
+					if( (dwpFilters & FI_CLONES) && !(dwFilters & FI_CLONES) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_CLONES)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_CLONES), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_NONWORKING) && !(dwFilters & F_NONWORKING) )
+					if( (dwpFilters & FI_NW) && !(dwFilters & FI_NW) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_NONWORKING)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_NONWORKING), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_UNAVAILABLE) && !(dwFilters & F_UNAVAILABLE) )
+					if( (dwpFilters & FI_UNAVAIL) && !(dwFilters & FI_UNAVAIL) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_UNAVAILABLE)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_UNAVAILABLE), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_VECTOR) && !(dwFilters & F_VECTOR) )
+					if( (dwpFilters & FI_VECTOR) && !(dwFilters & FI_VECTOR) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_VECTOR)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_VECTOR), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_RASTER) && !(dwFilters & F_RASTER) )
+					if( (dwpFilters & FI_RASTER) && !(dwFilters & FI_RASTER) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_RASTER)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_RASTER), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_ORIGINALS) && !(dwFilters & F_ORIGINALS) )
+					if( (dwpFilters & FI_PARENTS) && !(dwFilters & FI_PARENTS) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_ORIGINALS)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_ORIGINALS), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_WORKING) && !(dwFilters & F_WORKING) )
+					if( (dwpFilters & FI_W) && !(dwFilters & FI_W) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_WORKING)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_WORKING), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_AVAILABLE) && !(dwFilters & F_AVAILABLE) )
+					if( (dwpFilters & FI_AVAIL) && !(dwFilters & FI_AVAIL) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_AVAILABLE)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_AVAILABLE), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_HORIZONTAL) && !(dwFilters & F_HORIZONTAL) )
+					if( (dwpFilters & FI_HORI) && !(dwFilters & FI_HORI) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_HORIZONTAL)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_HORIZONTAL), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_VERTICAL) && !(dwFilters & F_VERTICAL) )
+					if( (dwpFilters & FI_VERT) && !(dwFilters & FI_VERT) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_VERTICAL)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_VERTICAL), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_ARCADE) && !(dwFilters & F_ARCADE) )
+					if( (dwpFilters & FI_ARCADE) && !(dwFilters & FI_ARCADE) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_ARCADE)).append(" (*)");
 						win_set_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_ARCADE), strText.c_str());
 						bShowExplanation = true;
 					}
-					if( (dwpFilters & F_MESS) && !(dwFilters & F_MESS) )
+					if( (dwpFilters & FI_MESS) && !(dwFilters & FI_MESS) )
 					{
 						/*Add a Specifier to the Checkbox to show it was inherited from the parent*/
 						strText = win_get_window_text_utf8(GetDlgItem(hDlg, IDC_FILTER_MESS)).append(" (*)");
@@ -569,7 +569,7 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 			dwFilters = ValidateFilters(lpFilterRecord, dwFilters);
 
 			// Keep non filter flags
-			folder->m_dwFlags &= ~F_MASK;
+			folder->m_dwFlags &= ~FI_MASK;
 
 			// put in the set filters
 			folder->m_dwFlags |= dwFilters;
@@ -642,7 +642,7 @@ INT_PTR CALLBACK AddCustomFileDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPA
 		// insert custom folders into our tree view
 		for (i=0;i<num_folders;i++)
 		{
-			if (folders[i]->m_dwFlags & F_CUSTOM)
+			if (folders[i]->m_dwFlags & FI_CUSTOM)
 			{
 				HTREEITEM hti;
 				int jj = 0;
@@ -748,7 +748,7 @@ INT_PTR CALLBACK DirectXDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lP
 
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDB_WEB_PAGE)
-			ShellExecute(GetMainWindow(), NULL, TEXT("http://www.microsoft.com/directx"), NULL, NULL, SW_SHOWNORMAL);
+			ShellExecute(GetMainWindow(), NULL, TEXT("https://www.microsoft.com/en_US/download/details.aspx?id=35"), NULL, NULL, SW_SHOWNORMAL);
 
 		if (LOWORD(wParam) == IDCANCEL || LOWORD(wParam) == IDB_WEB_PAGE)
 			EndDialog(hDlg, 0);

@@ -70,8 +70,8 @@ BEGIN
 		MENUITEM "&Refresh Roms\tF5",           ID_UPDATE_GAMELIST
 		MENUITEM "Refresh Cache",               ID_UPDATE_CACHE
 		MENUITEM SEPARATOR
-        MENUITEM "Save filter",                 ID_FILE_FILTER
-        MENUITEM SEPARATOR
+		MENUITEM "Save filter",                 ID_FILE_FILTER
+		MENUITEM SEPARATOR
 		MENUITEM "E&xit",                       ID_FILE_EXIT
 	END
 	POPUP "&View"
@@ -155,7 +155,7 @@ BEGIN
 		MENUITEM "Play and &Record Input...",   ID_FILE_PLAY_RECORD
 		MENUITEM "Play ProgettoSnaps MP4 movie",ID_VIDEO_SNAP
 		MENUITEM "Read the PDF Manual",         ID_MANUAL
-        MENUITEM "Delete game settings",        ID_RC_CLEAN
+		MENUITEM "Delete game settings",        ID_RC_CLEAN
 		MENUITEM SEPARATOR
 		MENUITEM "&Add to Custom Folder...",    ID_CONTEXT_ADD_CUSTOM
 		MENUITEM "R&emove From This Folder",    ID_CONTEXT_REMOVE_CUSTOM
@@ -169,7 +169,7 @@ BEGIN
 		MENUITEM SEPARATOR
 		MENUITEM "Pr&operties",                 ID_GAME_PROPERTIES
 		MENUITEM "Source properties",           ID_FOLDER_SOURCEPROPERTIES
-//        MENUITEM "&Vector properties",          ID_FOLDER_VECTORPROPERTIES
+//		MENUITEM "&Vector properties",          ID_FOLDER_VECTORPROPERTIES
 	END
 END
 
@@ -364,78 +364,83 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Icon
-//
-
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_MAMEUI              ICON                    "res\\hbmameui.ico"
 // Game status
-IDI_LV_BW               ICON                    "res\\ico_bw.ico"
-IDI_LV_CI               ICON                    "res\\ico_ci.ico"
-IDI_LV_CN               ICON                    "res\\ico_cn.ico"
-IDI_LV_CW               ICON                    "res\\ico_cw.ico"
-IDI_LV_CX               ICON                    "res\\ico_cx.ico"
-IDI_LV_PI               ICON                    "res\\ico_pi.ico"
-IDI_LV_PN               ICON                    "res\\ico_pn.ico"
-IDI_LV_PW               ICON                    "res\\ico_pw.ico"
-IDI_LV_PX               ICON                    "res\\ico_px.ico"
-IDI_LV_RN               ICON                    "res\\ico_rn.ico"
-IDI_LV_RU               ICON                    "res\\ico_ru.ico"
-// Tree folders
-IDI_FOLDER              ICON                    "res\\folder.ico"
-IDI_FOLDER_ALLGAMES     ICON                    "res\\allgames.ico"
-IDI_FOLDER_AVAILABLE    ICON                    "res\\foldavail.ico"
-IDI_FOLDER_BIOS         ICON                    "res\\foldbios.ico"
-IDI_FOLDER_CLONES       ICON                    "res\\foldclone.ico"
-IDI_FOLDER_CPU          ICON                    "res\\foldcsb.ico"
-IDI_FOLDER_DUMP         ICON                    "res\\foldcsb.ico"
-IDI_FOLDER_FPS          ICON                    "res\\foldfps.ico"
-IDI_FOLDER_HARDDISK     ICON                    "res\\harddisk.ico"
-IDI_FOLDER_HORIZONTAL   ICON                    "res\\horz.ico"
-IDI_FOLDER_IMPERFECT    ICON                    "res\\foldimp.ico"
-IDI_FOLDER_LIGHTGUN     ICON                    "res\\foldgun.ico"
-IDI_FOLDER_MANUFACTURER ICON                    "res\\foldmanu.ico"
-IDI_FOLDER_MECHANICAL   ICON                    "res\\mechanical.ico"
-IDI_FOLDER_MONITOR      ICON                    "res\\multimon.ico"
-IDI_FOLDER_NONWORKING   ICON                    "res\\nonwork.ico"
-IDI_FOLDER_OPEN         ICON                    "res\\foldopen.ico"
-IDI_FOLDER_ORIGINALS    ICON                    "res\\foldorig.ico"
-IDI_FOLDER_RASTER       ICON                    "res\\foldrast.ico"
-IDI_FOLDER_RESOL        ICON                    "res\\foldres.ico"
-IDI_FOLDER_SAMPLES      ICON                    "res\\foldsamp.ico"
-IDI_FOLDER_SAVESTATE    ICON                    "res\\savestate.ico"
-IDI_FOLDER_SOUND        ICON                    "res\\foldcsb.ico"
-IDI_FOLDER_SOURCE       ICON                    "res\\foldsrc.ico"
-IDI_FOLDER_TRACKBALL    ICON                    "res\\foldball.ico"
-IDI_FOLDER_UNAVAILABLE  ICON                    "res\\foldunav.ico"
-IDI_FOLDER_VERTICAL     ICON                    "res\\vert.ico"
-IDI_FOLDER_VECTOR       ICON                    "res\\foldvec.ico"
-IDI_FOLDER_YEAR         ICON                    "res\\foldyear.ico"
-IDI_FOLDER_WORKING      ICON                    "res\\working.ico"
-IDI_BIOS                ICON                    "res\\bios.ico"
-IDI_CHIP                ICON                    "res\\chip.ico"
-IDI_CPU                 ICON                    "res\\cpu.ico"
-IDI_KEYBOARD            ICON                    "res\\keyboard.ico"
-IDI_MANUFACTURER        ICON                    "res\\manufact.ico"
-IDI_MONITOR             ICON                    "res\\monitor.ico"
-IDI_SOURCE              ICON                    "res\\source.ico"
-IDI_YEAR                ICON                    "res\\year.ico"
+IDI_LV_BIOS             ICON                    "res\\lv-bios.ico"
+IDI_LV_CI               ICON                    "res\\lv-ci.ico"
+IDI_LV_CN               ICON                    "res\\lv-cn.ico"
+IDI_LV_CW               ICON                    "res\\lv-cw.ico"
+IDI_LV_CX               ICON                    "res\\lv-cx.ico"
+IDI_LV_PI               ICON                    "res\\lv-pi.ico"
+IDI_LV_PN               ICON                    "res\\lv-pn.ico"
+IDI_LV_PW               ICON                    "res\\lv-pw.ico"
+IDI_LV_PX               ICON                    "res\\lv-px.ico"
+IDI_LV_RN               ICON                    "res\\lv-rn.ico"
+IDI_LV_RU               ICON                    "res\\lv-ru.ico"
 // Property pages
-IDI_ADVANCED            ICON                    "res\\advanced.ico"
-IDI_DISPLAY             ICON                    "res\\display.ico"
-IDI_JOYSTICK            ICON                    "res\\joystick.ico"
-IDI_MISC                ICON                    "res\\misc.ico"
-IDI_OPENGL              ICON                    "res\\opengl.ico"
-IDI_SCREEN              ICON                    "res\\screen.ico"
-IDI_SHADER              ICON                    "res\\shader.ico"
-IDI_SNAPSHOT            ICON                    "res\\snapshot.ico"
-IDI_SOUND               ICON                    "res\\sound.ico"
-//IDI_SYSTRAY             ICON                    "res\\hbmameui.ico"
-IDI_VECTOR              ICON                    "res\\vector.ico"
-IDI_CHECKMARK           ICON                    "res\\checkmark.ico"
+IDI_PR_ADVANCED         ICON                    "res\\pr-advan.ico"
+IDI_PR_AUDIT            ICON                    "res\\pr-audit.ico"
+IDI_PR_CONTROLLER       ICON                    "res\\pr-cont.ico"
+IDI_PR_DISPLAY          ICON                    "res\\pr-disp.ico"
+IDI_PR_JOYSTICK         ICON                    "res\\pr-joy.ico"
+IDI_PR_LUA              ICON                    "res\\pr-lua.ico"
+IDI_PR_MISC             ICON                    "res\\pr-misc.ico"
+IDI_PR_OPENGL           ICON                    "res\\pr-opengl.ico"
+IDI_PR_SCREEN           ICON                    "res\\pr-screen.ico"
+IDI_PR_SHADER           ICON                    "res\\pr-shader.ico"
+IDI_PR_SNAPSHOT         ICON                    "res\\pr-snap.ico"
+IDI_PR_SOUND            ICON                    "res\\pr-sound.ico"
+IDI_PR_VECTOR           ICON                    "res\\pr-vector.ico"
+// Tree folder parents
+IDI_FP_ALL              ICON                    "res\\fp-all.ico"
+IDI_FP_AVAIL            ICON                    "res\\fp-avail.ico"
+IDI_FP_BIOS             ICON                    "res\\fp-bios.ico"
+IDI_FP_CLONES           ICON                    "res\\fp-clone.ico"
+IDI_FP_CPU              ICON                    "res\\fp-cpu.ico"
+IDI_FP_CUSTOM           ICON                    "res\\custom.ico"
+IDI_FP_DEF              ICON                    "res\\fp-closed.ico"
+IDI_FP_DUMP             ICON                    "res\\fp-dump.ico"
+IDI_FP_FPS              ICON                    "res\\fp-fps.ico"
+IDI_FP_HARDDISK         ICON                    "res\\fp-hard.ico"
+IDI_FP_HORI             ICON                    "res\\fp-hori.ico"
+IDI_FP_IMP              ICON                    "res\\fp-imp.ico"
+IDI_FP_LIGHTGUN         ICON                    "res\\fp-lgun.ico"
+IDI_FP_MANU             ICON                    "res\\fp-manu.ico"
+IDI_FP_MECH             ICON                    "res\\fp-mech.ico"
+IDI_FP_MODIFIED         ICON                    "res\\fp-modi.ico"
+IDI_FP_MONITOR          ICON                    "res\\fp-monit.ico"
+IDI_FP_NONMECH          ICON                    "res\\fp-nmech.ico"
+IDI_FP_NW               ICON                    "res\\fp-nw.ico"
+IDI_FP_OPEN             ICON                    "res\\fp-open.ico"
+IDI_FP_PARENTS          ICON                    "res\\fp-parent.ico"
+IDI_FP_RASTER           ICON                    "res\\fp-raster.ico"
+IDI_FP_RESOL            ICON                    "res\\fp-resol.ico"
+IDI_FP_SAMPLES          ICON                    "res\\fp-sample.ico"
+IDI_FP_SAVESTATE        ICON                    "res\\fp-savest.ico"
+IDI_FP_SOUND            ICON                    "res\\fp-sound.ico"
+IDI_FP_SOURCE           ICON                    "res\\fp-source.ico"
+IDI_FP_STEREO           ICON                    "res\\fp-stereo.ico"
+IDI_FP_TRACKBALL        ICON                    "res\\fp-track.ico"
+IDI_FP_UNAVAIL          ICON                    "res\\fp-unav.ico"
+IDI_FP_VERT             ICON                    "res\\fp-vert.ico"
+IDI_FP_VECTOR           ICON                    "res\\fp-vector.ico"
+IDI_FP_YEAR             ICON                    "res\\fp-year.ico"
+IDI_FP_W                ICON                    "res\\fp-w.ico"
+// Child Tree children
+IDI_FC_BIOS             ICON                    "res\\fc-bios.ico"
+IDI_FC_CHIP             ICON                    "res\\fc-chip.ico"
+IDI_FC_CPU              ICON                    "res\\fc-cpu.ico"
+IDI_FC_MANU             ICON                    "res\\fc-manu.ico"
+IDI_FC_MONITOR          ICON                    "res\\fc-monit.ico"
+IDI_FC_SOUND            ICON                    "res\\fc-sound.ico"
+IDI_FC_SOURCE           ICON                    "res\\fc-source.ico"
+IDI_FC_YEAR             ICON                    "res\\fc-year.ico"
+// Winui
 IDI_HEADER_UP           ICON                    "res\\header_up.ico"
 IDI_HEADER_DOWN         ICON                    "res\\header_down.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -538,7 +543,7 @@ STYLE DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Controller Mapping"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    ICON            IDI_JOYSTICK,IDC_STATIC,20,10,20,20
+    ICON            IDI_PR_CONTROLLER,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
     GROUPBOX        "Paddle device",IDC_STATIC,4,40,102,28
     COMBOBOX        IDC_PADDLE,10,50,91,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP,0,HIDC_PADDLE
@@ -577,11 +582,11 @@ STYLE WS_CHILD | WS_CAPTION
 CAPTION "Screen"
 FONT 8, "Tahoma"
 BEGIN
-	ICON            IDI_DISPLAY,IDC_STATIC,20,10,21,20
+	ICON            IDI_PR_SCREEN,IDC_STATIC,20,10,21,20
 	LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
 
 	GROUPBOX        "Number of screens",IDC_STATIC,4,40,103,24
-    CONTROL         "NOSSlider",IDC_NUMSCREENS,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,10,50,75,10,0,HIDC_NUMSCREENS
+	CONTROL         "NOSSlider",IDC_NUMSCREENS,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,10,50,75,10,0,HIDC_NUMSCREENS
 	RTEXT           "1",IDC_NUMSCREENSDISP,88,49,10,10,SS_CENTERIMAGE | NOT WS_GROUP
 
 	GROUPBOX        "Screen",IDC_STATIC,4,66,103,29
@@ -645,7 +650,7 @@ STYLE WS_CHILD | WS_CAPTION
 CAPTION "Audit"
 FONT 8, "Tahoma"
 BEGIN
-	ICON            IDI_CHECKMARK,IDC_STATIC,20,10,20,20
+	ICON            IDI_PR_AUDIT,IDC_STATIC,20,10,20,20
 	LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
 	LTEXT           "ROM check:",IDC_STATIC,10,40,50,8
 	LTEXT           "Checking...",IDC_PROP_ROMS,66,40,139,8
@@ -660,7 +665,7 @@ STYLE WS_CHILD | WS_CAPTION
 CAPTION "Display"
 FONT 8, "Tahoma"
 BEGIN
-	ICON            IDI_DISPLAY,IDC_STATIC,20,10,20,20
+	ICON            IDI_PR_DISPLAY,IDC_STATIC,20,10,20,20
 	LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,169,25,SS_NOPREFIX
 
     CONTROL         "Run in a window",IDC_WINDOWED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,40,69,10,0,HIDC_WINDOWED
@@ -722,7 +727,7 @@ STYLE WS_CHILD | WS_CAPTION
 CAPTION "Sound"
 FONT 8, "Tahoma"
 BEGIN
-    ICON            IDI_SOUND,IDC_STATIC,20,10,20,20
+    ICON            IDI_PR_SOUND,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
 
     GROUPBOX        "",IDC_STATIC,4,40,211,185
@@ -756,7 +761,7 @@ STYLE DS_FIXEDSYS | WS_CHILD | WS_CAPTION
 CAPTION "Advanced"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    ICON            IDI_ADVANCED,IDC_STATIC,20,10,20,20
+    ICON            IDI_PR_ADVANCED,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
 
     CONTROL         "Triple buffering",IDC_TRIPLE_BUFFER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,40,93,10,0,HIDC_TRIPLE_BUFFER
@@ -803,7 +808,7 @@ STYLE WS_CHILD | WS_DISABLED | WS_CAPTION | DS_SETFONT
 CAPTION "Snap/Input/Output"
 FONT 8, "Tahoma"
 BEGIN
-    ICON            IDI_SNAPSHOT,IDC_STATIC,10,12,32,32
+    ICON            IDI_PR_SNAPSHOT,IDC_STATIC,10,12,32,32
     LTEXT           WC_STATIC,IDC_PROP_TITLE,42,10,168,30,SS_NOPREFIX
     GROUPBOX        "Snapshot settings",IDC_STATIC,4,40,212,108
     GROUPBOX        "View mode",IDC_STATIC,10,50,102,28
@@ -828,7 +833,7 @@ STYLE WS_CHILD | WS_DISABLED | WS_CAPTION | DS_SETFONT
 CAPTION "OpenGL/BGFX"
 FONT 8, "Tahoma"
 BEGIN
-    ICON            IDI_OPENGL,IDC_STATIC,10,12,32,32
+    ICON            IDI_PR_OPENGL,IDC_STATIC,10,12,32,32
     LTEXT           WC_STATIC,IDC_PROP_TITLE,42,10,168,30,SS_NOPREFIX
     GROUPBOX        "OpenGL settings",IDC_STATIC,4,40,212,118
     GROUPBOX        "GLSL Filter",IDC_STATIC,10,50,90,28,WS_GROUP
@@ -855,7 +860,7 @@ STYLE WS_CHILD | WS_DISABLED | WS_CAPTION | DS_SETFONT
 CAPTION "OpenGL shaders"
 FONT 8, "Tahoma"
 BEGIN
-    ICON            IDI_SHADER,IDC_STATIC,10,12,32,32
+    ICON            IDI_PR_SHADER,IDC_STATIC,10,12,32,32
     LTEXT           WC_STATIC,IDC_PROP_TITLE,42,10,168,30,SS_NOPREFIX
     GROUPBOX        "MAME shader 0",IDC_STATIC,4,40,102,48
     EDITTEXT        IDC_MAME_SHADER0,10,50,90,14,ES_LEFT | WS_BORDER
@@ -898,7 +903,7 @@ STYLE DS_FIXEDSYS | WS_CHILD | WS_CAPTION
 CAPTION "Controllers"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    ICON            IDI_JOYSTICK,IDC_STATIC,20,10,20,20
+    ICON            IDI_PR_JOYSTICK,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
     CONTROL         "Enable mouse input",IDC_USE_MOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,40,86,10,0,HIDC_USE_MOUSE
     CONTROL         "Enable steadykey support",IDC_STEADYKEY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,52,95,10,0,HIDC_STEADYKEY
@@ -930,7 +935,7 @@ STYLE DS_FIXEDSYS | WS_CHILD | WS_CAPTION
 CAPTION "Miscellaneous"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    ICON            IDI_MISC,IDC_STATIC,20,10,20,20
+    ICON            IDI_PR_MISC,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
     CONTROL         "Sleep when possible",IDC_SLEEP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,40,86,10,0,HIDC_SLEEP
     CONTROL         "Skip system info",IDC_SKIP_GAME_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,52,96,10,0,HIDC_SKIP_GAME_INFO
@@ -967,7 +972,7 @@ STYLE WS_CHILD | WS_DISABLED | WS_CAPTION | DS_SETFONT
 CAPTION "LUA"
 FONT 8, "Tahoma"
 BEGIN
-    ICON            IDI_MISC,IDC_STATIC,10,12,32,32
+    ICON            IDI_PR_LUA,IDC_STATIC,10,12,32,32
     LTEXT           WC_STATIC,IDC_PROP_TITLE,42,10,168,30,SS_NOPREFIX
     GROUPBOX        "LUA settings",IDC_STATIC,4,40,212,164
     GROUPBOX        "Autoboot delay",IDC_STATIC,10,50,102,28
@@ -991,7 +996,7 @@ STYLE WS_CHILD | WS_CAPTION
 CAPTION "Vector"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    ICON            IDI_VECTOR,IDC_STATIC,20,10,20,20
+    ICON            IDI_PR_VECTOR,IDC_STATIC,20,10,20,20
     LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
 
     GROUPBOX        "Beam min width",IDC_STATIC,60,53,100,28
@@ -1344,6 +1349,7 @@ END
 IDB_ABOUT               BITMAP                    "res\\about.bmp"
 IDB_TOOLBAR             BITMAP                    "res\\toolbar.bmp"
 IDB_SPLASH              BITMAP                    "res\\splash.bmp"
+IDB_WEB_PAGE            BITMAP                    "res\\webpage.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

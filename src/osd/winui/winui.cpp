@@ -3005,7 +3005,7 @@ static BOOL TreeViewNotify(LPNMHDR nm)
 		TV_DISPINFO *ptvdi = (TV_DISPINFO *)nm;
 		LPTREEFOLDER folder = (LPTREEFOLDER)ptvdi->item.lParam;
 
-		if (folder->m_dwFlags & F_CUSTOM)
+		if (folder->m_dwFlags & FI_CUSTOM)
 		{
 			// user can edit custom folder names
 			g_in_treeview_edit = true;
@@ -4042,7 +4042,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		{
 			folder = GetSelectedFolder();
 			if (folder)
-				if (folder->m_dwFlags & F_INIEDIT)
+				if (folder->m_dwFlags & FI_INIEDIT)
 				{
 					LPCFOLDERDATA data = FindFilter(folder->m_nFolderId);
 					if (data)
@@ -5594,6 +5594,9 @@ static int GetIconForDriver(int nItem)
 		else
 		if (IsAuditResultNo(audit_result))
 			iconRoms = FindIconIndex(IDI_LV_RN);  // roms missing
+		else
+		if (DriverIsBios(nItem))
+			iconRoms = FindIconIndex(IDI_LV_BIOS);  // bios, any status
 	}
 
 	if (iconRoms == 0)
@@ -5601,10 +5604,6 @@ static int GetIconForDriver(int nItem)
 		iconRoms =  FindIconIndex(IDI_LV_PW);  // start assuming it's a working parent
 
 		// see order of icons in layout.cpp g_iconData
-		// Working bios
-		if (DriverIsBios(nItem))
-			iconRoms = FindIconIndex(IDI_LV_BW);
-
 		// Show red if NOT WORKING
 		if (DriverIsBroken(nItem))
 		{
@@ -5780,7 +5779,7 @@ static void UpdateMenu(HMENU hMenu)
 		EnableMenuItem(hMenu, ID_CONTEXT_SELECT_RANDOM, MF_GRAYED);
 	}
 
-	if (lpFolder->m_dwFlags & F_CUSTOM)
+	if (lpFolder->m_dwFlags & FI_CUSTOM)
 	{
 		EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_ENABLED);
 		EnableMenuItem(hMenu,ID_CONTEXT_RENAME_CUSTOM,MF_ENABLED);
@@ -5792,7 +5791,7 @@ static void UpdateMenu(HMENU hMenu)
 	}
 	//pParent = GetFolderNameByID(lpFolder->m_nParent+1);
 
-	EnableMenuItem(hMenu, ID_FOLDER_PROPERTIES, (lpFolder->m_dwFlags & F_INIEDIT) ? MF_ENABLED : MF_GRAYED);
+	EnableMenuItem(hMenu, ID_FOLDER_PROPERTIES, (lpFolder->m_dwFlags & FI_INIEDIT) ? MF_ENABLED : MF_GRAYED);
 
 	CheckMenuRadioItem(hMenu, ID_VIEW_TAB_ARTWORK, ID_VIEW_TAB_HISTORY, ID_VIEW_TAB_ARTWORK + TabView_GetCurrentTab(hTabCtrl), MF_BYCOMMAND);
 
@@ -6155,7 +6154,7 @@ static void RemoveGameCustomFolder(int driver_index)
 
 	for (i=0; i<num_folders; i++)
 	{
-		if (folders[i]->m_dwFlags & F_CUSTOM && folders[i]->m_nFolderId == GetCurrentFolderID())
+		if (folders[i]->m_dwFlags & FI_CUSTOM && folders[i]->m_nFolderId == GetCurrentFolderID())
 		{
 			int current_pick_index;
 
@@ -6292,7 +6291,7 @@ static void ButtonUpListViewDrag(POINTS p)
 			return;
 
 		folder = GetCurrentFolder();
-		if (folder->m_dwFlags & F_CUSTOM)
+		if (folder->m_dwFlags & FI_CUSTOM)
 		{
 			/* dragged out of a custom folder, so let's remove it */
 			RemoveCurrentGameCustomFolder();

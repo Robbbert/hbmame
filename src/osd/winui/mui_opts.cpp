@@ -1454,7 +1454,7 @@ DWORD GetFolderFlags(int folder_index)
 	LPTREEFOLDER lpFolder = GetFolder(folder_index);
 
 	if (lpFolder)
-		return lpFolder->m_dwFlags & F_MASK;
+		return lpFolder->m_dwFlags & FI_MASK;
 
 	return 0;
 }
@@ -1517,7 +1517,7 @@ void LoadFolderFlags(void)
 			string option_name = string(folder_name) + "_filters";
 
 			// get entry and decode it
-			lpFolder->m_dwFlags |= (settings.int_value(option_name.c_str()) & F_MASK);
+			lpFolder->m_dwFlags |= (settings.int_value(option_name.c_str()) & FI_MASK);
 		}
 	}
 }
@@ -1551,7 +1551,7 @@ static void AddFolderFlags()
 			string option_name = string(folder_name) + "_filters";
 
 			// store entry
-			settings.setter(option_name.c_str(), lpFolder->m_dwFlags & F_MASK);
+			settings.setter(option_name.c_str(), lpFolder->m_dwFlags & FI_MASK);
 
 			// increment counter
 			num_entries++;
