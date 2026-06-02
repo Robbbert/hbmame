@@ -428,7 +428,7 @@ IDI_FP_VERT             ICON                    "res\\fp-vert.ico"
 IDI_FP_VECTOR           ICON                    "res\\fp-vector.ico"
 IDI_FP_YEAR             ICON                    "res\\fp-year.ico"
 IDI_FP_W                ICON                    "res\\fp-w.ico"
-// Child Tree children
+// Tree folder children
 IDI_FC_BIOS             ICON                    "res\\fc-bios.ico"
 IDI_FC_CHIP             ICON                    "res\\fc-chip.ico"
 IDI_FC_CPU              ICON                    "res\\fc-cpu.ico"
@@ -465,14 +465,14 @@ BEGIN
 	CONTROL         "",IDC_ABOUT,"Static",SS_BITMAP | SS_SUNKEN,7,7,16,14
 END
 
-//IDD_DIRECTX DIALOG 0, 0, 236, 69
-//STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-//CAPTION "MAMEUI"
-//FONT 8, "Tahoma"
-//BEGIN
-//	DEFPUSHBUTTON   "Go to Microsoft's DirectX Web Page",IDB_WEB_PAGE,48,52,140,14
-//	EDITTEXT        IDC_DIRECTX_HELP,7,0,222,48,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY
-//END
+IDD_DIRECTX DIALOG 0, 0, 236, 69
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "DirectX"
+FONT 8, "Tahoma"
+BEGIN
+	DEFPUSHBUTTON   "Go to Microsoft's DirectX Web Page",IDB_WEB_PAGE,48,52,140,14
+	EDITTEXT        IDC_DIRECTX_HELP,7,0,222,48,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY
+END
 
 IDD_AUDIT DIALOG 0, 0, 283, 388
 STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU

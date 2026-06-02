@@ -107,7 +107,7 @@ static void FreeExtraFolders(void);
 static void SetExtraIcons(char *name, int *id);
 static bool TryAddExtraFolderAndChildren(int parent_index);
 static bool TrySaveExtraFolder(LPTREEFOLDER lpFolder);
-static void LoadExternalFolders(int parent_index, int id);
+static bool LoadExternalFolders(int parent_index, int id);
 static void SaveExternalFolders(int parent_index);
 //static bool FilterAvailable(int driver_index);
 
@@ -537,10 +537,8 @@ void CreateDeficiencyFolders(int parent_index)
 void CreateYearFolders(int parent_index)
 {
 	if (!RequiredDriverCache())
-	{
-		LoadExternalFolders(parent_index, IDI_FP_YEAR);
-		return;
-	}
+		if (LoadExternalFolders(parent_index, IDI_FP_YEAR))
+			return;
 
 	int i = 0;
 	int nGames = driver_list::total();
@@ -987,83 +985,95 @@ void CreateDumpingFoldersIni(int parent_index)
 
 void CreateCPUFolders(int parent_index)
 {
-	if (RequiredDriverCache())
+	bool res = false;
+	if (!RequiredDriverCache())
+		res = LoadExternalFolders(parent_index, IDI_FC_CPU);
+
+	if (!res)
 	{
 		CreateCPUFoldersIni(parent_index);
 		SaveExternalFolders(parent_index);
 	}
-	else
-		LoadExternalFolders(parent_index, IDI_FC_CPU);
 
 	SendMessage(GetProgressBar(), PBM_SETPOS, 20, 0);
 }
 
 void CreateSoundFolders(int parent_index)
 {
-	if (RequiredDriverCache())
+	bool res = false;
+	if (!RequiredDriverCache())
+		res = LoadExternalFolders(parent_index, IDI_FP_SOUND);
+
+	if (!res)
 	{
 		CreateSoundFoldersIni(parent_index);
 		SaveExternalFolders(parent_index);
 	}
-	else
-		LoadExternalFolders(parent_index, IDI_FP_SOUND);
 
 	SendMessage(GetProgressBar(), PBM_SETPOS, 95, 0);
 }
 
 void CreateScreenFolders(int parent_index)
 {
-	if (RequiredDriverCache())
+	bool res = false;
+	if (!RequiredDriverCache())
+		res = LoadExternalFolders(parent_index, IDI_FP_MONITOR);
+
+	if (!res)
 	{
 		CreateScreenFoldersIni(parent_index);
 		SaveExternalFolders(parent_index);
 	}
-	else
-		LoadExternalFolders(parent_index, IDI_FP_MONITOR);
 
 	SendMessage(GetProgressBar(), PBM_SETPOS, 80, 0);
 }
 
 void CreateResolutionFolders(int parent_index)
 {
-	if (RequiredDriverCache())
+	bool res = false;
+	if (!RequiredDriverCache())
+		res = LoadExternalFolders(parent_index, IDI_FP_RESOL);
+
+	if (!res)
 	{
 		CreateResolutionFoldersIni(parent_index);
 		SaveExternalFolders(parent_index);
 	}
-	else
-		LoadExternalFolders(parent_index, IDI_FP_RESOL);
 
 	SendMessage(GetProgressBar(), PBM_SETPOS, 65, 0);
 }
 
 void CreateFPSFolders(int parent_index)
 {
-	if (RequiredDriverCache())
+	bool res = false;
+	if (!RequiredDriverCache())
+		res = LoadExternalFolders(parent_index, IDI_FP_FPS);
+
+	if (!res)
 	{
 		CreateFPSFoldersIni(parent_index);
 		SaveExternalFolders(parent_index);
 	}
-	else
-		LoadExternalFolders(parent_index, IDI_FP_FPS);
 
 	SendMessage(GetProgressBar(), PBM_SETPOS, 50, 0);
 }
 
 void CreateDumpingFolders(int parent_index)
 {
-	if (RequiredDriverCache())
+	bool res = false;
+	if (!RequiredDriverCache())
+		res = LoadExternalFolders(parent_index, IDI_FP_DUMP);
+
+	if (!res)
 	{
 		CreateDumpingFoldersIni(parent_index);
 		SaveExternalFolders(parent_index);
 	}
-	else
-		LoadExternalFolders(parent_index, IDI_FP_DUMP);
 
 	SendMessage(GetProgressBar(), PBM_SETPOS, 35, 0);
 }
 
-static void LoadExternalFolders(int parent_index, int id)
+static bool LoadExternalFolders(int parent_index, int id)
 {
 	const char* fname = NULL;
 	LPTREEFOLDER lpFolder = treeFolders[parent_index];
@@ -1073,14 +1083,14 @@ static void LoadExternalFolders(int parent_index, int id)
 			fname = g_lpFolderData[j].short_name;
 
 	if (fname == NULL)
-		return;
+		return false;
 
 	char filename[MAX_PATH];
 	snprintf(filename, std::size(filename), "%s\\%s", GetFolderDir(), fname);
 	FILE *f = fopen(filename, "r");
  
 	if (f == NULL)
-		return;
+		return false;
 
 	char readbuf[256];
 	char *name = NULL;
@@ -1138,6 +1148,7 @@ static void LoadExternalFolders(int parent_index, int id)
 	}
 
 	fclose(f);
+	return true;
 }
 
 static void SaveExternalFolders(int parent_index)
@@ -1533,7 +1544,7 @@ static bool CreateTreeIcons(void)
 
 	hTreeSmall = ImageList_Create (16, 16, ILC_COLORDDB | ILC_MASK, numIcons, numIcons);
 
-	for (int i = 0; i < ICON_MAX; i++)
+	for (i = 0; i < ICON_MAX; i++)
 	{
 		hIcon = LoadIconFromFile(treeIconNames[i].lpName);
 
