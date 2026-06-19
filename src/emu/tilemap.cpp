@@ -339,6 +339,7 @@ inline void tilemap_t::scanline_draw_masked_rgb32_alpha(u32 *dest, const u16 *so
 tilemap_t::tilemap_t(device_t &owner)
 	: m_mapper(owner)
 	, m_tile_get_info(owner)
+	, m_blitter(owner)
 {
 	// until init() is called, data is floating; this is deliberate
 }
@@ -772,7 +773,7 @@ void tilemap_t::pixmap_update()
 	if (m_all_tiles_clean)
 		return;
 
-g_profiler.start(PROFILER_TILEMAP_DRAW);
+	auto profile = g_profiler.start(PROFILER_TILEMAP_DRAW);
 
 	// flush the dirty state to all tiles as appropriate
 	realize_all_dirty_tiles();
@@ -786,8 +787,6 @@ g_profiler.start(PROFILER_TILEMAP_DRAW);
 
 	// mark it all clean
 	m_all_tiles_clean = true;
-
-g_profiler.stop();
 }
 
 
@@ -797,7 +796,7 @@ g_profiler.stop();
 
 void tilemap_t::tile_update(logical_index logindex, u32 col, u32 row)
 {
-g_profiler.start(PROFILER_TILEMAP_UPDATE);
+	auto profile = g_profiler.start(PROFILER_TILEMAP_UPDATE);
 
 	// call the get info callback for the associated memory index
 	tilemap_memory_index memindex = m_logical_to_memory[logindex];
@@ -822,8 +821,6 @@ g_profiler.start(PROFILER_TILEMAP_UPDATE);
 		m_gfx_used |= 1 << m_tileinfo.gfxnum;
 		m_gfx_dirtyseq[m_tileinfo.gfxnum] = m_tileinfo.decoder->gfx(m_tileinfo.gfxnum)->dirtyseq();
 	}
-
-g_profiler.stop();
 }
 
 
@@ -997,12 +994,14 @@ void tilemap_t::draw_common(screen_device &screen, _BitmapClass &dest, const rec
 	if (!m_enable)
 		return;
 
-g_profiler.start(PROFILER_TILEMAP_DRAW);
+	auto profile = g_profiler.start(PROFILER_TILEMAP_DRAW);
+
 	// configure the blit parameters based on the input parameters
 	blit_parameters blit;
 	configure_blit_parameters(blit, screen.priority(), cliprect, flags, priority, priority_mask);
 	assert(dest.cliprect().contains(cliprect));
 	assert(screen.cliprect().contains(cliprect) || blit.tilemap_priority_code == 0xff00);
+	const rectangle original_cliprect = blit.cliprect;
 
 	// flush the dirty state to all tiles as appropriate
 	realize_all_dirty_tiles();
@@ -1012,43 +1011,86 @@ g_profiler.start(PROFILER_TILEMAP_DRAW);
 	u32 const xextent = visarea.right() + visarea.left() + 1; // x0 + x1 + 1 for calculating horizontal centre as (x0 + x1 + 1) >> 1
 	u32 const yextent = visarea.bottom() + visarea.top() + 1; // y0 + y1 + 1 for calculating vertical centre as (y0 + y1 + 1) >> 1
 
+	// cache row/colscroll
+	bool skip_rowscroll = true;
+	std::vector<s32> rowscroll;
+	rowscroll.reserve(m_scrollrows);
+
+	s32 scroll0 = effective_rowscroll(0, xextent);
+	rowscroll.push_back(scroll0);
+
+	for (int i = 1; i < m_scrollrows; i++)
+	{
+		s32 scroll = effective_rowscroll(i, xextent);
+		rowscroll.push_back(scroll);
+
+		if (scroll != scroll0)
+			skip_rowscroll = false;
+	}
+
+	bool skip_colscroll = true;
+	std::vector<s32> colscroll;
+	colscroll.reserve(m_scrollcols);
+
+	scroll0 = effective_colscroll(0, yextent);
+	colscroll.push_back(scroll0);
+
+	for (int i = 1; i < m_scrollcols; i++)
+	{
+		s32 scroll = effective_colscroll(i, yextent);
+		colscroll.push_back(scroll);
+
+		if (scroll != scroll0)
+			skip_colscroll = false;
+	}
+
+	// custom scrolling
+	if (!m_blitter.isnull())
+	{
+		auto const custom_blit_step = [this, &screen, &dest, &blit, &original_cliprect] (const rectangle &rect, s32 scrollx, s32 scrolly)
+		{
+			blit.cliprect = rect & original_cliprect;
+			this->draw_instance(screen, dest, blit, scrollx, scrolly);
+		};
+
+		if (m_blitter(*this, original_cliprect, rowscroll, colscroll, custom_blit_step))
+			return;
+	}
+
+	// skip row/colscroll if all scroll values were the same
+	u32 scrollrows = skip_rowscroll ? 1 : m_scrollrows;
+	u32 scrollcols = skip_colscroll ? 1 : m_scrollcols;
+
 	// XY scrolling playfield
-	if (m_scrollrows == 1 && m_scrollcols == 1)
+	if (scrollrows == 1 && scrollcols == 1)
 	{
 		// iterate to handle wraparound
-		int scrollx = effective_rowscroll(0, xextent);
-		int scrolly = effective_colscroll(0, yextent);
+		int scrollx = rowscroll[0];
+		int scrolly = colscroll[0];
 		for (int ypos = scrolly - m_height; ypos <= blit.cliprect.bottom(); ypos += m_height)
 			for (int xpos = scrollx - m_width; xpos <= blit.cliprect.right(); xpos += m_width)
 				draw_instance(screen, dest, blit, xpos, ypos);
 	}
 
 	// scrolling rows + vertical scroll
-	else if (m_scrollcols == 1)
+	else if (scrollcols == 1)
 	{
-		const rectangle original_cliprect = blit.cliprect;
-
 		// iterate over Y to handle wraparound
-		int rowheight = m_height / m_scrollrows;
-		int scrolly = effective_colscroll(0, yextent);
+		int rowheight = m_height / scrollrows;
+		int scrolly = colscroll[0];
 		for (int ypos = scrolly - m_height; ypos <= original_cliprect.bottom(); ypos += m_height)
 		{
 			int const firstrow = std::max((original_cliprect.top() - ypos) / rowheight, 0);
-			int const lastrow = std::min((original_cliprect.bottom() - ypos) / rowheight, s32(m_scrollrows) - 1);
+			int const lastrow = std::min((original_cliprect.bottom() - ypos) / rowheight, s32(scrollrows) - 1);
 
 			// iterate over rows in the tilemap
-			int nextrow;
-			for (int currow = firstrow; currow <= lastrow; currow = nextrow)
+			for (int currow = firstrow, nextrow = 0; currow <= lastrow; currow = nextrow)
 			{
 				// scan forward until we find a non-matching row
-				int scrollx = effective_rowscroll(currow, xextent);
+				int scrollx = rowscroll[currow];
 				for (nextrow = currow + 1; nextrow <= lastrow; nextrow++)
-					if (effective_rowscroll(nextrow, xextent) != scrollx)
+					if (rowscroll[nextrow] != scrollx)
 						break;
-
-				// skip if disabled
-				if (scrollx == TILE_LINE_DISABLED)
-					continue;
 
 				// update the cliprect just for this set of rows
 				blit.cliprect.sety(currow * rowheight + ypos, nextrow * rowheight - 1 + ypos);
@@ -1062,25 +1104,18 @@ g_profiler.start(PROFILER_TILEMAP_DRAW);
 	}
 
 	// scrolling columns + horizontal scroll
-	else if (m_scrollrows == 1)
+	else if (scrollrows == 1)
 	{
-		const rectangle original_cliprect = blit.cliprect;
-
 		// iterate over columns in the tilemap
-		int scrollx = effective_rowscroll(0, xextent);
-		int colwidth = m_width / m_scrollcols;
-		int nextcol;
-		for (int curcol = 0; curcol < m_scrollcols; curcol = nextcol)
+		int scrollx = rowscroll[0];
+		int colwidth = m_width / scrollcols;
+		for (int curcol = 0, nextcol = 0; curcol < scrollcols; curcol = nextcol)
 		{
 			// scan forward until we find a non-matching column
-			int scrolly = effective_colscroll(curcol, yextent);
-			for (nextcol = curcol + 1; nextcol < m_scrollcols; nextcol++)
-				if (effective_colscroll(nextcol, yextent) != scrolly)
+			int scrolly = colscroll[curcol];
+			for (nextcol = curcol + 1; nextcol < scrollcols; nextcol++)
+				if (colscroll[nextcol] != scrolly)
 					break;
-
-			// skip if disabled
-			if (scrolly == TILE_LINE_DISABLED)
-				continue;
 
 			// iterate over X to handle wraparound
 			for (int xpos = scrollx - m_width; xpos <= original_cliprect.right(); xpos += m_width)
@@ -1095,7 +1130,57 @@ g_profiler.start(PROFILER_TILEMAP_DRAW);
 			}
 		}
 	}
-g_profiler.stop();
+
+	// scrolling columns + scrolling rows (in that order)
+	// note: use custom scrolling through m_blitter callback if mixed scroll is not generic
+	else
+	{
+		int rowheight = m_height / scrollrows;
+		int colwidth = m_width / scrollcols;
+
+		// expand rowscroll table
+		rowscroll.resize(m_height * 2);
+
+		for (int i = scrollrows - 1; i >= 0; i--)
+		{
+			int val = rowscroll[i];
+			for (int j = 0; j < rowheight; j++)
+			{
+				int offs = i * rowheight + j;
+				rowscroll[offs + m_height] = rowscroll[offs] = val;
+			}
+		}
+
+		// iterate over columns in the tilemap
+		for (int curcol = 0; curcol < scrollcols; curcol++)
+		{
+			int scrolly = colscroll[curcol];
+
+			// iterate over scanlines in the tilemap
+			for (int curline = 0, nextline = 0; curline < m_height; curline = nextline)
+			{
+				// scan forward until we find a non-matching line
+				int scrollx = rowscroll[curline + scrolly];
+				for (nextline = curline + 1; nextline < m_height; nextline++)
+					if (rowscroll[nextline + scrolly] != scrollx)
+						break;
+
+				// iterate to handle wraparound
+				for (int xpos = scrollx - m_width; xpos <= original_cliprect.right(); xpos += m_width)
+				{
+					for (int ypos = scrolly - m_height; ypos <= original_cliprect.bottom(); ypos += m_height)
+					{
+						// update the cliprect just for this block
+						int xc = (curcol * colwidth) + xpos;
+						blit.cliprect.set(xc, xc + colwidth - 1, curline + ypos, nextline + ypos - 1);
+						blit.cliprect &= original_cliprect;
+
+						draw_instance(screen, dest, blit, xpos, ypos);
+					}
+				}
+			}
+		}
+	}
 }
 
 void tilemap_t::draw(screen_device &screen, bitmap_ind16 &dest, const rectangle &cliprect, u32 flags, u8 priority, u8 priority_mask)
@@ -1117,9 +1202,9 @@ void tilemap_t::draw_roz_common(screen_device &screen, _BitmapClass &dest, const
 		u32 startx, u32 starty, int incxx, int incxy, int incyx, int incyy,
 		bool wraparound, u32 flags, u8 priority, u8 priority_mask)
 {
-// notes:
-// - startx and starty MUST be u32 for calculations to work correctly
-// - srcbim_width and height are assumed to be a power of 2 to speed up wraparound
+	// notes:
+	// - startx and starty MUST be u32 for calculations to work correctly
+	// - srcbim_width and height are assumed to be a power of 2 to speed up wraparound
 
 	// skip if disabled
 	if (!m_enable)
@@ -1134,7 +1219,8 @@ void tilemap_t::draw_roz_common(screen_device &screen, _BitmapClass &dest, const
 		return;
 	}
 
-g_profiler.start(PROFILER_TILEMAP_DRAW_ROZ);
+	auto profile = g_profiler.start(PROFILER_TILEMAP_DRAW_ROZ);
+
 	// configure the blit parameters
 	blit_parameters blit;
 	configure_blit_parameters(blit, screen.priority(), cliprect, flags, priority, priority_mask);
@@ -1146,7 +1232,6 @@ g_profiler.start(PROFILER_TILEMAP_DRAW_ROZ);
 
 	// then do the roz copy
 	draw_roz_core(screen, dest, blit, startx, starty, incxx, incxy, incyx, incyy, wraparound);
-g_profiler.stop();
 }
 
 void tilemap_t::draw_roz(screen_device &screen, bitmap_ind16 &dest, const rectangle &cliprect,
@@ -1182,7 +1267,16 @@ void tilemap_t::draw_instance(screen_device &screen, _BitmapClass &dest, const b
 
 	// look up priority and destination base addresses for y1
 	bitmap_ind8 &priority_bitmap = *blit.priority;
-	u8 *priority_baseaddr = &priority_bitmap.pix(y1, xpos);
+	u8 *priority_baseaddr = nullptr;
+	int prio_rowpixels = 0;
+	if (priority_bitmap.valid())
+	{
+		prio_rowpixels = priority_bitmap.rowpixels();
+		priority_baseaddr = &priority_bitmap.pix(y1, xpos);
+	}
+	else
+		assert((blit.tilemap_priority_code & 0xffff) == 0xff00);
+
 	typename _BitmapClass::pixel_t *dest_baseaddr = nullptr;
 	int dest_rowpixels = 0;
 	if (dest.valid())
@@ -1260,7 +1354,7 @@ void tilemap_t::draw_instance(screen_device &screen, _BitmapClass &dest, const b
 			{
 				const u16 *source0 = source_baseaddr + x_start;
 				typename _BitmapClass::pixel_t *dest0 = dest_baseaddr + x_start;
-				u8 *pmap0 = priority_baseaddr + x_start;
+				u8 *pmap0 = priority_baseaddr ? (priority_baseaddr + x_start) : nullptr;
 
 				// if we were opaque, use the opaque renderer
 				if (prev_trans == WHOLLY_OPAQUE)
@@ -1278,7 +1372,7 @@ void tilemap_t::draw_instance(screen_device &screen, _BitmapClass &dest, const b
 
 						dest0 += dest_rowpixels;
 						source0 += m_pixmap.rowpixels();
-						pmap0 += priority_bitmap.rowpixels();
+						pmap0 += prio_rowpixels;
 					}
 				}
 
@@ -1300,7 +1394,7 @@ void tilemap_t::draw_instance(screen_device &screen, _BitmapClass &dest, const b
 						dest0 += dest_rowpixels;
 						source0 += m_pixmap.rowpixels();
 						mask0 += m_flagsmap.rowpixels();
-						pmap0 += priority_bitmap.rowpixels();
+						pmap0 += prio_rowpixels;
 					}
 				}
 			}
@@ -1315,7 +1409,7 @@ void tilemap_t::draw_instance(screen_device &screen, _BitmapClass &dest, const b
 			break;
 
 		// advance to the next row on all our bitmaps
-		priority_baseaddr += priority_bitmap.rowpixels() * (nexty - y);
+		priority_baseaddr += prio_rowpixels * (nexty - y);
 		source_baseaddr += m_pixmap.rowpixels() * (nexty - y);
 		mask_baseaddr += m_flagsmap.rowpixels() * (nexty - y);
 		dest_baseaddr += dest_rowpixels * (nexty - y);
@@ -1551,6 +1645,10 @@ void tilemap_t::draw_debug(screen_device &screen, bitmap_rgb32 &dest, u32 scroll
 void tilemap_t::get_info_debug(u32 col, u32 row, u8 &gfxnum, u32 &code, u32 &color)
 {
 	// first map to the memory index
+	if (m_attributes & TILEMAP_FLIPX)
+		col = (m_cols - 1) - col;
+	if (m_attributes & TILEMAP_FLIPY)
+		row = (m_rows - 1) - row;
 	tilemap_memory_index memindex = memory_index(col, row);
 
 	// next invoke the get info callback
@@ -1559,10 +1657,14 @@ void tilemap_t::get_info_debug(u32 col, u32 row, u8 &gfxnum, u32 &code, u32 &col
 	// get the GFX number and code
 	gfxnum = m_tileinfo.gfxnum;
 	code = m_tileinfo.code;
+	color = m_tileinfo.palette_base;
 
-	// work back from the palette base to get the color
-	const gfx_element &gfx = *m_tileinfo.decoder->gfx(gfxnum);
-	color = (m_tileinfo.palette_base - gfx.colorbase()) / gfx.granularity();
+	if (gfxnum != 0xff)
+	{
+		// work back from the palette base to get the color
+		const gfx_element &gfx = *m_tileinfo.decoder->gfx(gfxnum);
+		color = (color - gfx.colorbase()) / gfx.granularity();
+	}
 }
 
 
@@ -1604,8 +1706,7 @@ tilemap_manager::~tilemap_manager()
 
 
 //-------------------------------------------------
-//  set_flip_all - set a global flip for all the
-//  tilemaps
+//  create - allocate a tilemap
 //-------------------------------------------------
 
 tilemap_t &tilemap_manager::create(device_gfx_interface &decoder, tilemap_get_info_delegate tile_get_info, tilemap_mapper_delegate mapper, u16 tilewidth, u16 tileheight, u32 cols, u32 rows, tilemap_t *allocated)
@@ -1666,6 +1767,7 @@ tilemap_device::tilemap_device(const machine_config &mconfig, const char *tag, d
 	, m_get_info(*this)
 	, m_standard_mapper(TILEMAP_STANDARD_COUNT)
 	, m_mapper(*this)
+	, m_blitter(*this)
 	, m_bytes_per_entry(0)
 	, m_tile_width(8)
 	, m_tile_height(8)
@@ -1769,6 +1871,7 @@ void tilemap_device::device_start()
 	// bind our callbacks
 	m_get_info.resolve();
 	m_mapper.resolve();
+	m_blitter.resolve();
 
 	// allocate the tilemap
 	if (m_standard_mapper == TILEMAP_STANDARD_COUNT)
@@ -1789,7 +1892,10 @@ void tilemap_device::device_start()
 			m_extmem.set(*share, m_bytes_per_entry);
 	}
 
-	// configure the device and set the pen
+	// misc configuration
+	if (!m_blitter.isnull())
+		set_blitter(m_blitter);
+
 	if (m_transparent_pen_set)
 		set_transparent_pen(m_transparent_pen);
 }

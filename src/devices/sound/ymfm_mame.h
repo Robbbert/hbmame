@@ -35,8 +35,8 @@ public:
 		device_sound_interface(mconfig, *this),
 		m_timer{ nullptr, nullptr },
 		m_update_irq(*this),
-		m_io_read{ *this, *this },
-		m_io_write{ *this, *this }
+		m_io_read(*this, 0),
+		m_io_write(*this)
 	{
 	}
 
@@ -92,12 +92,11 @@ protected:
 	}
 
 	// the chip implementation calls this when the state of the IRQ signal has
-	// changed due to a status change; our responsibility is to respons as
+	// changed due to a status change; our responsibility is to response as
 	// needed to the change in IRQ state, signaling any consumers
 	virtual void ymfm_update_irq(bool asserted) override
 	{
-		if (!m_update_irq.isnull())
-			m_update_irq(asserted ? ASSERT_LINE : CLEAR_LINE);
+		m_update_irq(asserted ? ASSERT_LINE : CLEAR_LINE);
 	}
 
 	// the chip implementation calls this to indicate that the chip should be
@@ -122,14 +121,14 @@ protected:
 	// of the chip; our responsibility is to provide the data requested
 	virtual uint8_t ymfm_external_read(ymfm::access_class type, uint32_t address) override
 	{
-		return (type != ymfm::ACCESS_IO || m_io_read[address & 1].isnull()) ? 0 : m_io_read[address & 1]();
+		return (type != ymfm::ACCESS_IO) ? 0 : m_io_read[address & 1]();
 	}
 
 	// the chip implementation calls this whenever data is written outside
 	// of the chip; our responsibility is to pass the written data on to any consumers
 	virtual void ymfm_external_write(ymfm::access_class type, uint32_t address, uint8_t data) override
 	{
-		if (type == ymfm::ACCESS_IO && !m_io_write[address & 1].isnull())
+		if (type == ymfm::ACCESS_IO)
 			m_io_write[address & 1](data);
 	}
 
@@ -140,28 +139,21 @@ protected:
 		for (int tnum = 0; tnum < 2; tnum++)
 			m_timer[tnum] = timer_alloc(FUNC(ym_generic_device::fm_timer_handler), this);
 
-		// resolve the handlers
-		m_update_irq.resolve();
-		m_io_read[0].resolve();
-		m_io_read[1].resolve();
-		m_io_write[0].resolve();
-		m_io_write[1].resolve();
-
 		// remember the busy end time
 		save_item(NAME(m_busy_end));
 	}
 
 	// timer callbacks
-	void fm_mode_write(int param) { m_engine->engine_mode_write(param); }
-	void fm_check_interrupts(int param) { m_engine->engine_check_interrupts(); }
-	void fm_timer_handler(int param) { m_engine->engine_timer_expired(param); }
+	void fm_mode_write(s32 param) { m_engine->engine_mode_write(param); }
+	void fm_check_interrupts(s32 param) { m_engine->engine_check_interrupts(); }
+	void fm_timer_handler(s32 param) { m_engine->engine_timer_expired(param); }
 
 	// internal state
-	attotime m_busy_end;             // busy end time
-	emu_timer *m_timer[2];           // two timers
-	devcb_write_line m_update_irq;   // IRQ update callback
-	devcb_read8 m_io_read[2];        // up to 2 input port handlers
-	devcb_write8 m_io_write[2];      // up to 2 output port handlers
+	attotime m_busy_end;                 // busy end time
+	emu_timer *m_timer[2];               // two timers
+	devcb_write_line m_update_irq;       // IRQ update callback
+	devcb_read8::array<2> m_io_read;     // up to 2 input port handlers
+	devcb_write8::array<2> m_io_write;   // up to 2 output port handlers
 };
 
 
@@ -248,9 +240,9 @@ protected:
 	}
 
 	// sound overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override
+	virtual void sound_stream_update(sound_stream &stream) override
 	{
-		update_internal(outputs);
+		update_internal(stream);
 	}
 
 	// update streams
@@ -261,15 +253,15 @@ protected:
 	}
 
 	// internal update helper
-	void update_internal(std::vector<write_stream_view> &outputs, int output_shift = 0)
+	void update_internal(sound_stream &stream, int output_shift = 0)
 	{
 		// local buffer to hold samples
 		constexpr int MAX_SAMPLES = 256;
 		typename ChipClass::output_data output[MAX_SAMPLES];
 
 		// parameters
-		int const outcount = std::min(outputs.size(), std::size(output[0].data));
-		int const numsamples = outputs[0].samples();
+		int const outcount = std::min(stream.output_count(), u32(std::size(output[0].data)));
+		int const numsamples = stream.samples();
 
 		// generate the FM/ADPCM stream
 		for (int sampindex = 0; sampindex < numsamples; sampindex += MAX_SAMPLES)
@@ -280,7 +272,7 @@ protected:
 			{
 				int eff_outnum = (outnum + output_shift) % OUTPUTS;
 				for (int index = 0; index < cursamples; index++)
-					outputs[eff_outnum].put_int(sampindex + index, output[index].data[outnum], 32768);
+					stream.put_int(eff_outnum, sampindex + index, output[index].data[outnum], 32768);
 			}
 		}
 	}
@@ -310,17 +302,12 @@ public:
 
 protected:
 	// sound overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override
+	virtual void sound_stream_update(sound_stream &stream) override
 	{
 		// ymfm outputs FM first, then SSG, while MAME traditionally
 		// wants SSG streams first; to do this, we rotate the outputs
 		// by the number of SSG output channels
-		parent::update_internal(outputs, ChipClass::SSG_OUTPUTS);
-
-		// for the single-output case, also apply boost the gain to better match
-		// previous version, which summed instead of averaged the outputs
-		if (ChipClass::SSG_OUTPUTS == 1)
-			outputs[0].apply_gain(3.0);
+		parent::update_internal(stream, ChipClass::SSG_OUTPUTS);
 	}
 };
 

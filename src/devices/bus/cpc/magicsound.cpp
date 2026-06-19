@@ -41,7 +41,7 @@ void al_magicsound_device::device_add_mconfig(machine_config &config)
 	// According to the schematics, the clock is from the clock pin on the expansion port (4MHz), and
 	// passes through an inverter to each CLK pin on both timers.  This seems to be too fast.
 	// Timer outputs to SAM0/1/2/3 are sample clocks for each sound channel, D/A0 is the low bit of the channel select.
-	PIT8254(config, m_timer1, 0);
+	PIT8254(config, m_timer1);
 	m_timer1->set_clk<0>(4000000);
 	m_timer1->out_handler<0>().set(FUNC(al_magicsound_device::sam0_w));
 	m_timer1->set_clk<1>(4000000);
@@ -49,7 +49,7 @@ void al_magicsound_device::device_add_mconfig(machine_config &config)
 	m_timer1->set_clk<2>(4000000);
 	m_timer1->out_handler<2>().set(FUNC(al_magicsound_device::sam2_w));
 
-	PIT8254(config, m_timer2, 0);
+	PIT8254(config, m_timer2);
 	m_timer2->set_clk<0>(4000000);
 	m_timer2->out_handler<0>().set(FUNC(al_magicsound_device::sam3_w));
 	m_timer2->set_clk<1>(4000000);
@@ -138,22 +138,22 @@ void al_magicsound_device::mapper_w(offs_t offset, uint8_t data)
 	set_timer_gate(true);
 }
 
-WRITE_LINE_MEMBER(al_magicsound_device::da0_w)
+void al_magicsound_device::da0_w(int state)
 {
 	m_dac->write(m_output[m_current_output++]);
 	if(m_current_output > 3)
 		m_current_output = 0;
 }
 
-WRITE_LINE_MEMBER(al_magicsound_device::dack0_w) { m_dack[0] = state; }
-WRITE_LINE_MEMBER(al_magicsound_device::dack1_w) { m_dack[1] = state; }
-WRITE_LINE_MEMBER(al_magicsound_device::dack2_w) { m_dack[2] = state; }
-WRITE_LINE_MEMBER(al_magicsound_device::dack3_w) { m_dack[3] = state; }
+void al_magicsound_device::dack0_w(int state) { m_dack[0] = state; }
+void al_magicsound_device::dack1_w(int state) { m_dack[1] = state; }
+void al_magicsound_device::dack2_w(int state) { m_dack[2] = state; }
+void al_magicsound_device::dack3_w(int state) { m_dack[3] = state; }
 
-WRITE_LINE_MEMBER(al_magicsound_device::sam0_w) { m_current_channel = 0; if(m_dack[0] && state) m_dmac->dreq0_w(1); }
-WRITE_LINE_MEMBER(al_magicsound_device::sam1_w) { m_current_channel = 1; if(m_dack[1] && state) m_dmac->dreq1_w(1); }
-WRITE_LINE_MEMBER(al_magicsound_device::sam2_w) { m_current_channel = 2; if(m_dack[2] && state) m_dmac->dreq2_w(1); }
-WRITE_LINE_MEMBER(al_magicsound_device::sam3_w) { m_current_channel = 3; if(m_dack[3] && state) m_dmac->dreq3_w(1); }
+void al_magicsound_device::sam0_w(int state) { m_current_channel = 0; if(m_dack[0] && state) m_dmac->dreq0_w(1); }
+void al_magicsound_device::sam1_w(int state) { m_current_channel = 1; if(m_dack[1] && state) m_dmac->dreq1_w(1); }
+void al_magicsound_device::sam2_w(int state) { m_current_channel = 2; if(m_dack[2] && state) m_dmac->dreq2_w(1); }
+void al_magicsound_device::sam3_w(int state) { m_current_channel = 3; if(m_dack[3] && state) m_dmac->dreq3_w(1); }
 
 uint8_t al_magicsound_device::dma_read_byte(offs_t offset)
 {

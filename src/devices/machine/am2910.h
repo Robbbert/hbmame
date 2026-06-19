@@ -7,8 +7,8 @@
 
 ***************************************************************************/
 
-#ifndef MAME_MACHINE_AM2910_AM2910_H
-#define MAME_MACHINE_AM2910_AM2910_H
+#ifndef MAME_MACHINE_AM2910_H
+#define MAME_MACHINE_AM2910_H
 
 #pragma once
 
@@ -22,13 +22,13 @@ class am2910_device : public device_t
 {
 public:
 	// construction/destruction
-	am2910_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	am2910_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
-	DECLARE_WRITE_LINE_MEMBER(cc_w);    // !CC
-	DECLARE_WRITE_LINE_MEMBER(ccen_w);  // !CCEN
-	DECLARE_WRITE_LINE_MEMBER(ci_w);    // CI
-	DECLARE_WRITE_LINE_MEMBER(rld_w);   // !RLD
-	DECLARE_WRITE_LINE_MEMBER(cp_w);    // CP
+	void cc_w(int state);    // !CC
+	void ccen_w(int state);  // !CCEN
+	void ci_w(int state);    // CI
+	void rld_w(int state);   // !RLD
+	void cp_w(int state);    // CP
 	void d_w(uint16_t data);
 	void i_w(uint8_t data);
 
@@ -40,8 +40,8 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	TIMER_CALLBACK_MEMBER(clock_tick);
 
@@ -79,4 +79,4 @@ protected:
 // device type definition
 DECLARE_DEVICE_TYPE(AM2910, am2910_device)
 
-#endif // MAME_MACHINE_AM2910_AM2910_H
+#endif // MAME_MACHINE_AM2910_H

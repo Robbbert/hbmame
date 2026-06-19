@@ -6,8 +6,8 @@
 
 ***************************************************************************/
 
-#ifndef MAME_BUS_APRICOT_WINCHESTER_H
-#define MAME_BUS_APRICOT_WINCHESTER_H
+#ifndef MAME_BUS_APRICOT_EXPANSION_WINCHESTER_H
+#define MAME_BUS_APRICOT_EXPANSION_WINCHESTER_H
 
 #pragma once
 
@@ -29,24 +29,24 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
-	DECLARE_WRITE_LINE_MEMBER(hdc_intrq_w);
+	void hdc_intrq_w(int state);
 	uint8_t hdc_data_r();
 	void hdc_data_w(uint8_t data);
 	uint8_t int_r();
-	template<int N> DECLARE_WRITE_LINE_MEMBER(head_w);
-	template<int N> DECLARE_WRITE_LINE_MEMBER(drive_w);
-	DECLARE_WRITE_LINE_MEMBER(xferd_w);
-	DECLARE_WRITE_LINE_MEMBER(hbcr_w);
-	DECLARE_WRITE_LINE_MEMBER(clksel_w);
+	template<int N> void head_w(int state);
+	template<int N> void drive_w(int state);
+	void xferd_w(int state);
+	void hbcr_w(int state);
+	void clksel_w(int state);
 	uint8_t data_r();
 	void data_w(uint8_t data);
 
-	void regs(address_map &map);
+	void regs(address_map &map) ATTR_COLD;
 
 	required_device<wd1010_device> m_hdc;
 
@@ -62,4 +62,4 @@ private:
 // device type definition
 DECLARE_DEVICE_TYPE(APRICOT_WINCHESTER, apricot_winchester_device)
 
-#endif // MAME_BUS_APRICOT_WINCHESTER_H
+#endif // MAME_BUS_APRICOT_EXPANSION_WINCHESTER_H

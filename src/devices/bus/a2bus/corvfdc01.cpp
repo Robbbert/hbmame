@@ -139,6 +139,11 @@ void a2bus_corvfdc01_device::device_reset()
 	m_curfloppy = nullptr;
 }
 
+void a2bus_corvfdc01_device::reset_from_bus()
+{
+	m_wdfdc->reset();
+}
+
 /*-------------------------------------------------
     read_c0nx - called for reads from this card's c0nx space
 -------------------------------------------------*/
@@ -249,7 +254,7 @@ uint8_t a2bus_corvfdc01_device::read_cnxx(uint8_t offset)
 	return m_rom[offset & 0x1f];
 }
 
-WRITE_LINE_MEMBER(a2bus_corvfdc01_device::intrq_w)
+void a2bus_corvfdc01_device::intrq_w(int state)
 {
 	if (state)
 		m_fdc_local_status |= LS_INT_mask;
@@ -257,7 +262,7 @@ WRITE_LINE_MEMBER(a2bus_corvfdc01_device::intrq_w)
 		m_fdc_local_status &= ~LS_INT_mask;
 }
 
-WRITE_LINE_MEMBER(a2bus_corvfdc01_device::drq_w)
+void a2bus_corvfdc01_device::drq_w(int state)
 {
 	if (state)
 		m_fdc_local_status |= LS_DRQ_mask;

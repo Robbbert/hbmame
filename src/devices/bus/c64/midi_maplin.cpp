@@ -28,12 +28,12 @@
 DEFINE_DEVICE_TYPE(C64_MIDI_MAPLIN, c64_maplin_midi_cartridge_device, "c64_midimap", "C64 Maplin MIDI")
 
 
-WRITE_LINE_MEMBER( c64_maplin_midi_cartridge_device::acia_irq_w )
+void c64_maplin_midi_cartridge_device::acia_irq_w(int state)
 {
 	m_slot->irq_w(state);
 }
 
-WRITE_LINE_MEMBER( c64_maplin_midi_cartridge_device::write_acia_clock )
+void c64_maplin_midi_cartridge_device::write_acia_clock(int state)
 {
 	m_acia->write_txc(state);
 	m_acia->write_rxc(state);
@@ -46,7 +46,7 @@ WRITE_LINE_MEMBER( c64_maplin_midi_cartridge_device::write_acia_clock )
 
 void c64_maplin_midi_cartridge_device::device_add_mconfig(machine_config &config)
 {
-	ACIA6850(config, m_acia, 0);
+	ACIA6850(config, m_acia);
 	m_acia->txd_handler().set("mdout", FUNC(midi_port_device::write_txd));
 	m_acia->irq_handler().set(FUNC(c64_maplin_midi_cartridge_device::acia_irq_w));
 

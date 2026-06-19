@@ -6,14 +6,23 @@
 */
 
 #include "font_module.h"
-#include "modules/osdmodule.h"
+
 #include "modules/lib/osdlib.h"
 
 #if defined(OSD_WINDOWS)
 
-#include <windows.h>
+#include "corestr.h"
 
+#include "winutil.h"
+
+#include "osdcore.h"
+#include "strconv.h"
+
+#include <cmath>
 #include <memory>
+#include <stdexcept>
+
+#include <windows.h>
 
 // Windows Imaging Components
 #include <wincodec.h>
@@ -32,9 +41,10 @@ DEFINE_GUID(GUID_WICPixelFormat8bppAlpha, 0xe6cd0116, 0xeeba, 0x4161, 0xaa, 0x85
 #include <wrl/client.h>
 #undef interface
 
-#include "strconv.h"
-#include "corestr.h"
-#include "winutil.h"
+
+namespace osd {
+
+namespace {
 
 using namespace Microsoft::WRL;
 
@@ -101,15 +111,13 @@ HRESULT SaveBitmap(IWICBitmap* bitmap, GUID pixelFormat, const WCHAR *filename)
 	// Create a DirectWrite factory.
 	HR_RETHR(OSD_DYNAMIC_CALL(DWriteCreateFactory,
 		DWRITE_FACTORY_TYPE_SHARED,
-		__uuidof(IDWriteFactory),
-		reinterpret_cast<IUnknown **>(dwriteFactory.GetAddressOf())));
+		IID_PPV_ARGS(dwriteFactory.GetAddressOf())));
 
 	HR_RETHR(CoCreateInstance(
 		CLSID_WICImagingFactory,
 		nullptr,
 		CLSCTX_INPROC_SERVER,
-		__uuidof(IWICImagingFactory),
-		(void**)&wicFactory));
+		IID_PPV_ARGS(wicFactory.GetAddressOf()));
 
 	HR_RETHR(wicFactory->CreateStream(&stream));
 	HR_RETHR(stream->InitializeFromFilename(filename, GENERIC_WRITE));
@@ -156,8 +164,7 @@ HRESULT SaveBitmap2(bitmap_argb32 &bitmap, const WCHAR *filename)
 		CLSID_WICImagingFactory,
 		nullptr,
 		CLSCTX_INPROC_SERVER,
-		__uuidof(IWICImagingFactory),
-		(void**)&wicFactory));
+		IID_PPV_ARGS(wicFactory.GetAddressOf()));
 
 	// Save bitmap
 	ComPtr<IWICBitmap> bmp2 = nullptr;
@@ -226,7 +233,7 @@ public:
 	{
 		if (m_designUnitsPerEm != other.m_designUnitsPerEm || m_emSizeInDip != other.m_emSizeInDip)
 		{
-			throw emu_fatalerror("Attempted subtraction of FontDimension with different scale.");
+			throw std::invalid_argument("Attempted subtraction of FontDimension with different scale.");
 		}
 
 		return FontDimension(m_designUnitsPerEm, m_emSizeInDip, m_designUnits - other.m_designUnits);
@@ -236,7 +243,7 @@ public:
 	{
 		if (m_designUnitsPerEm != other.m_designUnitsPerEm || m_emSizeInDip != other.m_emSizeInDip)
 		{
-			throw emu_fatalerror("Attempted addition of FontDimension with different scale.");
+			throw std::invalid_argument("Attempted addition of FontDimension with different scale.");
 		}
 
 		return FontDimension(m_designUnitsPerEm, m_emSizeInDip, m_designUnits + other.m_designUnits);
@@ -358,7 +365,7 @@ public:
 		bool italic = (strreplace(name, "[I]", "") + strreplace(name, "[i]", "") > 0);
 
 		// convert the face name
-		std::wstring familyName = osd::text::to_wstring(name.c_str());
+		std::wstring familyName = text::to_wstring(name);
 
 		// find the font
 		HR_RET0(find_font(
@@ -366,7 +373,7 @@ public:
 			bold ? DWRITE_FONT_WEIGHT_BOLD : DWRITE_FONT_WEIGHT_NORMAL,
 			DWRITE_FONT_STRETCH_NORMAL,
 			italic ? DWRITE_FONT_STYLE_ITALIC : DWRITE_FONT_STYLE_NORMAL,
-			m_font.GetAddressOf()));
+			m_font));
 
 		DWRITE_FONT_METRICS metrics;
 		m_font->GetMetrics(&metrics);
@@ -609,18 +616,24 @@ private:
 	//  find_font - finds a font, given attributes
 	//-------------------------------------------------
 
-	HRESULT find_font(std::wstring familyName, DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, IDWriteFont ** ppfont) const
+	HRESULT find_font(
+			std::wstring const &familyName,
+			DWRITE_FONT_WEIGHT weight,
+			DWRITE_FONT_STRETCH stretch,
+			DWRITE_FONT_STYLE style,
+			ComPtr<IDWriteFont> &ppfont) const
 	{
 		HRESULT result;
 
 		ComPtr<IDWriteFontCollection> fonts;
 		HR_RETHR(m_dwriteFactory->GetSystemFontCollection(fonts.GetAddressOf()));
 
-		UINT family_index; BOOL exists;
+		UINT family_index;
+		BOOL exists;
 		HR_RETHR(fonts->FindFamilyName(familyName.c_str(), &family_index, &exists));
 		if (!exists)
 		{
-			osd_printf_error("Font with family name %s does not exist.\n", osd::text::from_wstring(familyName));
+			osd_printf_error("Font with family name %s does not exist.\n", text::from_wstring(familyName));
 			return E_FAIL;
 		}
 
@@ -630,7 +643,7 @@ private:
 		ComPtr<IDWriteFont> font;
 		HR_RETHR(family->GetFirstMatchingFont(weight, stretch, style, font.GetAddressOf()));
 
-		*ppfont = font.Detach();
+		ppfont = std::move(font);
 		return result;
 	}
 };
@@ -671,7 +684,7 @@ public:
 		return true;
 	}
 
-	virtual int init(const osd_options &options) override
+	virtual int init(osd_interface &osd, const osd_options &options) override
 	{
 		HRESULT result;
 
@@ -691,7 +704,7 @@ public:
 			D2D1_FACTORY_TYPE_SINGLE_THREADED,
 			__uuidof(ID2D1Factory),
 			nullptr,
-			reinterpret_cast<void**>(this->m_d2dfactory.GetAddressOf())));
+			&m_d2dfactory));
 
 		// Initialize COM
 		CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
@@ -700,14 +713,13 @@ public:
 		HR_RET1(OSD_DYNAMIC_CALL(DWriteCreateFactory,
 			DWRITE_FACTORY_TYPE_SHARED,
 			__uuidof(IDWriteFactory),
-			reinterpret_cast<IUnknown **>(m_dwriteFactory.GetAddressOf())));
+			&m_dwriteFactory));
 
 		HR_RET1(CoCreateInstance(
 			CLSID_WICImagingFactory,
 			nullptr,
 			CLSCTX_INPROC_SERVER,
-			__uuidof(IWICImagingFactory),
-			static_cast<void**>(&m_wicFactory)));
+			IID_PPV_ARGS(m_wicFactory.GetAddressOf())));
 
 		osd_printf_verbose("FontProvider: DirectWrite initialized successfully.\n");
 		return 0;
@@ -739,7 +751,7 @@ public:
 			std::unique_ptr<WCHAR[]> name = nullptr;
 			HR_RET0(get_localized_familyname(names, name));
 
-			std::string utf8_name = osd::text::from_wstring(name.get());
+			std::string utf8_name = text::from_wstring(name.get());
 			name.reset();
 
 			// Review: should the config name, be unlocalized?
@@ -803,8 +815,15 @@ private:
 	}
 };
 
+} // anonymous namespace
+
+} // namespace osd
+
 #else
-MODULE_NOT_SUPPORTED(font_dwrite, OSD_FONT_PROVIDER, "dwrite")
+
+namespace osd { namespace { MODULE_NOT_SUPPORTED(font_dwrite, OSD_FONT_PROVIDER, "dwrite") } }
+
 #endif
 
-MODULE_DEFINITION(FONT_DWRITE, font_dwrite)
+
+MODULE_DEFINITION(FONT_DWRITE, osd::font_dwrite)

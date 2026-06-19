@@ -10,8 +10,10 @@
 
 #include "emu.h"
 #include "points.h"
+
 #include "debugger.h"
 #include "debugcon.h"
+#include "debugcpu.h"
 
 
 //**************************************************************************
@@ -28,13 +30,13 @@ debug_breakpoint::debug_breakpoint(
 		int index,
 		offs_t address,
 		const char *condition,
-		const char *action) :
+		std::string_view action) :
 	m_debugInterface(debugInterface),
 	m_index(index),
 	m_enabled(true),
 	m_address(address),
 	m_condition(symbols, condition ? condition : "1"),
-	m_action(action ? action : "")
+	m_action(action)
 {
 }
 
@@ -88,7 +90,7 @@ debug_watchpoint::debug_watchpoint(
 		offs_t address,
 		offs_t length,
 		const char *condition,
-		const char *action) :
+		std::string_view action) :
 	m_debugInterface(debugInterface),
 	m_phr(nullptr),
 	m_phw(nullptr),
@@ -99,7 +101,7 @@ debug_watchpoint::debug_watchpoint(
 	m_address(address & space.addrmask()),
 	m_length(length),
 	m_condition(symbols, condition ? condition : "1"),
-	m_action(action ? action : ""),
+	m_action(action),
 	m_installing(false)
 {
 	std::fill(std::begin(m_start_address), std::end(m_start_address), 0);
@@ -321,13 +323,13 @@ void debug_watchpoint::triggered(read_or_write type, offs_t address, u64 data, u
 	// adjust address, size & value_to_write based on mem_mask.
 	offs_t size = 0;
 	int ashift = m_space.addr_shift();
-	offs_t unit_size = ashift <= 0 ? 8 << -ashift : 8 >> ashift;
-	u64 unit_mask = make_bitmask<u64>(unit_size);
+	offs_t const unit_size = (ashift <= 0) ? (8 << -ashift) : (8 >> ashift);
+	u64 const unit_mask = make_bitmask<u64>(unit_size);
 
 	offs_t address_offset = 0;
 
-	if(!mem_mask)
-		mem_mask = 0xff;
+	if (!mem_mask)
+		mem_mask = 0xff; // TODO: should this be unit_mask?
 
 	while (!(mem_mask & unit_mask))
 	{
@@ -339,7 +341,10 @@ void debug_watchpoint::triggered(read_or_write type, offs_t address, u64 data, u
 	while (mem_mask)
 	{
 		size++;
-		mem_mask >>= unit_size;
+		if ((sizeof(mem_mask) * 8) > unit_size)
+			mem_mask >>= unit_size;
+		else
+			mem_mask = 0;
 	}
 
 	data &= make_bitmask<u64>(size * unit_size);
@@ -431,11 +436,11 @@ void debug_watchpoint::triggered(read_or_write type, offs_t address, u64 data, u
 //  debug_registerpoint - constructor
 //-------------------------------------------------
 
-debug_registerpoint::debug_registerpoint(symbol_table &symbols, int index, const char *condition, const char *action)
+debug_registerpoint::debug_registerpoint(symbol_table &symbols, int index, const char *condition, std::string_view action)
 	: m_index(index),
 		m_enabled(true),
 		m_condition(symbols, (condition != nullptr) ? condition : "1"),
-		m_action((action != nullptr) ? action : "")
+		m_action(action)
 {
 }
 
@@ -448,6 +453,62 @@ bool debug_registerpoint::hit()
 {
 	// don't hit if disabled
 	if (!m_enabled)
+		return false;
+
+	// must satisfy the condition
+	if (!m_condition.is_empty())
+	{
+		try
+		{
+			return (m_condition.execute() != 0);
+		}
+		catch (expression_error &)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
+//**************************************************************************
+//  DEBUG EXCEPTION POINT
+//**************************************************************************
+
+//-------------------------------------------------
+//  debug_exceptionpoint - constructor
+//-------------------------------------------------
+
+debug_exceptionpoint::debug_exceptionpoint(
+		device_debug *debugInterface,
+		symbol_table &symbols,
+		int index,
+		int type,
+		const char *condition,
+		std::string_view action)
+	: m_debugInterface(debugInterface),
+		m_index(index),
+		m_enabled(true),
+		m_type(type),
+		m_condition(symbols, (condition != nullptr) ? condition : "1"),
+		m_action(action)
+{
+}
+
+
+//-------------------------------------------------
+//  hit - detect a hit
+//-------------------------------------------------
+
+bool debug_exceptionpoint::hit(int exception)
+{
+	// don't hit if disabled
+	if (!m_enabled)
+		return false;
+
+	// must match our type
+	if (m_type != exception)
 		return false;
 
 	// must satisfy the condition

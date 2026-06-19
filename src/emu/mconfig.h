@@ -199,7 +199,7 @@ public:
 	template <typename Creator, typename... Params>
 	auto device_add(const char *tag, Creator &&type, XTAL clock, Params &&... args)
 	{
-		clock.validate(std::string("Instantiating device ") + tag);
+		clock.validate(std::string("Instantiating device ") + std::string(tag));
 		return device_add(tag, std::forward<Creator>(type), clock.value(), std::forward<Params>(args)...);
 	}
 	device_t *device_replace(const char *tag, device_type type, u32 clock);
@@ -221,7 +221,7 @@ public:
 	template <typename Creator, typename... Params>
 	auto device_replace(const char *tag, Creator &&type, XTAL clock, Params &&... args)
 	{
-		clock.validate(std::string("Replacing device ") + tag);
+		clock.validate(std::string("Replacing device ") + std::string(tag));
 		return device_replace(tag, std::forward<Creator>(type), clock.value(), std::forward<Params>(args)...);
 	}
 	device_t *device_remove(const char *tag);

@@ -22,10 +22,7 @@ public:
 	adb_connector(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt, bool fixed = false)
 		: adb_connector(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(fixed);
+		set_options(std::forward<T>(opts), dflt, fixed);
 	}
 
 	adb_connector(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
@@ -34,7 +31,7 @@ public:
 	adb_device *get_device();
 
 protected:
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 };
 
 class adb_slot_card_interface : public device_interface
@@ -59,8 +56,8 @@ public:
 
 protected:
 	adb_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	devcb_write_line m_adb_cb;
 

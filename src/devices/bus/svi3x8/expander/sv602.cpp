@@ -22,11 +22,11 @@ DEFINE_DEVICE_TYPE(SV602, sv602_device, "sv602", "SV-602 Single Slot Expander")
 
 void sv602_device::device_add_mconfig(machine_config &config)
 {
-	SVI_SLOT_BUS(config, m_slotbus, 0);
+	SVI_SLOT_BUS(config, m_slotbus);
 	m_slotbus->int_handler().set(FUNC(sv602_device::int_w));
 	m_slotbus->romdis_handler().set(FUNC(sv602_device::romdis_w));
 	m_slotbus->ramdis_handler().set(FUNC(sv602_device::ramdis_w));
-	SVI_SLOT(config, "0", m_slotbus, sv602_slot_cards, nullptr);
+	SVI_SLOT(config, "0", DERIVED_CLOCK(1, 1), m_slotbus, sv602_slot_cards, nullptr);
 }
 
 
@@ -58,9 +58,9 @@ void sv602_device::device_start()
 //  IMPLEMENTATION
 //**************************************************************************
 
-WRITE_LINE_MEMBER( sv602_device::int_w ) { m_expander->int_w(state); }
-WRITE_LINE_MEMBER( sv602_device::romdis_w ) { m_expander->romdis_w(state); }
-WRITE_LINE_MEMBER( sv602_device::ramdis_w ) { m_expander->ramdis_w(state); }
+void sv602_device::int_w(int state) { m_expander->int_w(state); }
+void sv602_device::romdis_w(int state) { m_expander->romdis_w(state); }
+void sv602_device::ramdis_w(int state) { m_expander->ramdis_w(state); }
 
 uint8_t sv602_device::mreq_r(offs_t offset) { return m_slotbus->mreq_r(offset); }
 void sv602_device::mreq_w(offs_t offset, uint8_t data) { m_slotbus->mreq_w(offset, data); }

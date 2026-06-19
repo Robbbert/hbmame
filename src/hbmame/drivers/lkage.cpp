@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/lkage.cpp"
+#include "../mame/taito/lkage.cpp"
 
 /****************************************
           The Legend of Kage
@@ -17,10 +17,10 @@ ROM_START( lkage01 )
 	ROM_REGION( 0x00800, "bmcu:mcu", 0 )
 	ROM_LOAD( "a54-09.53",   0x0000, 0x0800, CRC(0e8b8846) SHA1(a4a105462b0127229bb7edfadd2e581c7e40f1cc) )
 
-	ROM_REGION( 0x4000, "user1", 0 )
+	ROM_REGION( 0x4000, "data", 0 )
 	ROM_LOAD( "a54-03_s01.51",   0x0000, 0x4000, CRC(61a81448) SHA1(41ae1fd8a46294a92d73f3440788438a4688aeec) )
 
-	ROM_REGION( 0x10000, "gfx1", 0 )
+	ROM_REGION( 0x10000, "gfx", 0 )
 	ROM_LOAD( "a54-05-1_s01.84", 0x0000, 0x4000, CRC(dda3c14b) SHA1(585e569b197b7097813ba2f86ef2e12e694bd838) )
 	ROM_LOAD( "a54-06-1_s01.85", 0x4000, 0x4000, CRC(8d7e2a3e) SHA1(8f381dfdb8d6bfeac7b5fb470d441b5b2fbe13f0) )
 	ROM_LOAD( "a54-07-1_s01.86", 0x8000, 0x4000, CRC(5e2bf6ae) SHA1(477d14a569d2ffeb97f46b9daaff46c90f0d4ac5) )
@@ -39,5 +39,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Legend of Kage
-GAME( 1984, lkage01,        lkage, lkage, lkage, lkage_state, init_lkage, ROT0, "hack", "The Legend of Kage (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, lkage01,        lkage, lkage, lkage, lkage_state, empty_init, ROT0, "hack", "The Legend of Kage (Chinese)", MACHINE_SUPPORTS_SAVE )
 

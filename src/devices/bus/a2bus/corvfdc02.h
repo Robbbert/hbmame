@@ -16,7 +16,6 @@
 #include "a2bus.h"
 #include "imagedev/floppy.h"
 #include "machine/upd765.h"
-#include "formats/imd_dsk.h"
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -33,15 +32,16 @@ public:
 protected:
 	a2bus_corvfdc02_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	virtual void device_start() override;
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual const tiny_rom_entry *device_rom_region() const override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
 
 	// overrides of standard a2bus slot functions
 	virtual uint8_t read_c0nx(uint8_t offset) override;
 	virtual void write_c0nx(uint8_t offset, uint8_t data) override;
 	virtual uint8_t read_cnxx(uint8_t offset) override;
+	virtual void reset_from_bus() override;
 
 	TIMER_CALLBACK_MEMBER(tc_tick);
 
@@ -52,8 +52,8 @@ protected:
 	required_device<floppy_connector> m_con4;
 
 private:
-	DECLARE_WRITE_LINE_MEMBER(intrq_w);
-	DECLARE_WRITE_LINE_MEMBER(drq_w);
+	void intrq_w(int state);
+	void drq_w(int state);
 
 	static void corv_floppy_formats(format_registration &fr);
 

@@ -12,20 +12,20 @@ class bl_handhelds_menucontrol_device : public device_t
 {
 public:
 	// construction/destruction
-	bl_handhelds_menucontrol_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	bl_handhelds_menucontrol_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// the chip is the same between systems, but there's some logic not fully understood that is causing off-by-1 errors on some calcs
 	void set_is_unsp_type_hack() { m_is_unsp_type_hack = true; }
 
-	DECLARE_READ_LINE_MEMBER(status_r);
-	DECLARE_READ_LINE_MEMBER(data_r);
-	DECLARE_WRITE_LINE_MEMBER(clock_w);
-	DECLARE_WRITE_LINE_MEMBER(data_w);
-	DECLARE_WRITE_LINE_MEMBER(reset_w);
+	int status_r();
+	int data_r();
+	void clock_w(int state);
+	void data_w(int state);
+	void reset_w(int state);
 
 protected:
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	// config

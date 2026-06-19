@@ -84,10 +84,7 @@ public:
 	isa8_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&isa_tag, U &&opts, const char *dflt, bool fixed)
 		: isa8_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(fixed);
+		set_options(std::forward<U>(opts), dflt, fixed);
 		m_isa_bus.set_tag(std::forward<T>(isa_tag));
 	}
 	isa8_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -95,8 +92,8 @@ public:
 protected:
 	isa8_slot_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	// configuration
 	required_device<device_t> m_isa_bus;
@@ -106,6 +103,7 @@ protected:
 DECLARE_DEVICE_TYPE(ISA8_SLOT, isa8_slot_device)
 
 class device_isa8_card_interface;
+
 // ======================> isa8_device
 class isa8_device : public device_t,
 					public device_memory_interface
@@ -120,7 +118,7 @@ public:
 	};
 
 	// construction/destruction
-	isa8_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	isa8_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// inline configuration
 	template <typename T> void set_memspace(T &&tag, int spacenum) { m_memspace.set_tag(std::forward<T>(tag), spacenum); }
@@ -158,6 +156,10 @@ public:
 	{
 		install_space(AS_ISA_MEM, start, end, rhandler, whandler);
 	}
+	template<typename T> void install_memory(offs_t addrstart, offs_t addrend, T &device, void (T:: *map)(class address_map &map), uint64_t unitmask = ~u64(0))
+	{
+		m_memspace->install_device(addrstart, addrend, device, map, unitmask);
+	}
 
 	void unmap_device(offs_t start, offs_t end) const { m_iospace->unmap_readwrite(start, end); }
 	void unmap_bank(offs_t start, offs_t end);
@@ -168,16 +170,16 @@ public:
 	// FIXME: shouldn't need to expose this
 	address_space &memspace() const { return *m_memspace; }
 
-	DECLARE_WRITE_LINE_MEMBER( irq2_w );
-	DECLARE_WRITE_LINE_MEMBER( irq3_w );
-	DECLARE_WRITE_LINE_MEMBER( irq4_w );
-	DECLARE_WRITE_LINE_MEMBER( irq5_w );
-	DECLARE_WRITE_LINE_MEMBER( irq6_w );
-	DECLARE_WRITE_LINE_MEMBER( irq7_w );
+	void irq2_w(int state);
+	void irq3_w(int state);
+	void irq4_w(int state);
+	void irq5_w(int state);
+	void irq6_w(int state);
+	void irq7_w(int state);
 
-	DECLARE_WRITE_LINE_MEMBER( drq1_w );
-	DECLARE_WRITE_LINE_MEMBER( drq2_w );
-	DECLARE_WRITE_LINE_MEMBER( drq3_w );
+	void drq1_w(int state);
+	void drq2_w(int state);
+	void drq3_w(int state);
 
 	// 8 bit accessors for ISA-defined address spaces
 	uint8_t mem_r(offs_t offset);
@@ -206,11 +208,11 @@ protected:
 
 	template<typename R, typename W> void install_space(int spacenum, offs_t start, offs_t end, R rhandler, W whandler);
 
-	// device-level overrides
+	// device_t implementation
 	virtual void device_config_complete() override;
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_resolve_objects() override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// address spaces
 	required_address_space m_memspace, m_iospace;
@@ -246,12 +248,9 @@ DECLARE_DEVICE_TYPE(ISA8, isa8_device)
 class device_isa8_card_interface : public device_interface
 {
 	friend class isa8_device;
-	template <class ElementType> friend class simple_list;
 public:
 	// construction/destruction
 	virtual ~device_isa8_card_interface();
-
-	device_isa8_card_interface *next() const { return m_next; }
 
 	void set_isa_device();
 	// configuration access
@@ -270,9 +269,6 @@ public:
 
 	isa8_device  *m_isa;
 	device_t     *m_isa_dev;
-
-private:
-	device_isa8_card_interface *m_next;
 };
 
 class isa16_device;
@@ -285,17 +281,14 @@ public:
 	isa16_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&isa_tag, U &&opts, const char *dflt, bool fixed)
 		: isa16_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(fixed);
+		set_options(std::forward<U>(opts), dflt, fixed);
 		m_isa_bus.set_tag(std::forward<T>(isa_tag));
 	}
 	isa16_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 };
 
 
@@ -307,7 +300,7 @@ class isa16_device : public isa8_device
 {
 public:
 	// construction/destruction
-	isa16_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	isa16_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	auto irq10_callback() { return m_out_irq10_cb.bind(); }
 	auto irq11_callback() { return m_out_irq11_cb.bind(); }
@@ -324,16 +317,16 @@ public:
 	// for ISA16, put the 16-bit configs in the primary slots and the 8-bit configs in the secondary
 	virtual space_config_vector memory_space_config() const override;
 
-	DECLARE_WRITE_LINE_MEMBER( irq10_w );
-	DECLARE_WRITE_LINE_MEMBER( irq11_w );
-	DECLARE_WRITE_LINE_MEMBER( irq12_w );
-	DECLARE_WRITE_LINE_MEMBER( irq14_w );
-	DECLARE_WRITE_LINE_MEMBER( irq15_w );
+	void irq10_w(int state);
+	void irq11_w(int state);
+	void irq12_w(int state);
+	void irq14_w(int state);
+	void irq15_w(int state);
 
-	DECLARE_WRITE_LINE_MEMBER( drq0_w );
-	DECLARE_WRITE_LINE_MEMBER( drq5_w );
-	DECLARE_WRITE_LINE_MEMBER( drq6_w );
-	DECLARE_WRITE_LINE_MEMBER( drq7_w );
+	void drq0_w(int state);
+	void drq5_w(int state);
+	void drq6_w(int state);
+	void drq7_w(int state);
 
 	uint16_t dack16_r(int line);
 	void dack16_w(int line, uint16_t data);
@@ -349,10 +342,6 @@ public:
 	void mem16_swap_w(offs_t offset, uint16_t data, uint16_t mem_mask = 0xffff);
 	uint16_t io16_swap_r(offs_t offset, uint16_t mem_mask = 0xffff);
 	void io16_swap_w(offs_t offset, uint16_t data, uint16_t mem_mask = 0xffff);
-
-protected:
-	// device-level overrides
-	virtual void device_start() override;
 
 private:
 	// internal state

@@ -24820,8 +24820,33 @@ ROM_START( pacman25s17 )
 	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
+ROM_START( pacman25s55 ) // corrupt/freeze when starting a game; resets when attract mode starts
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pac25.6e",     0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
+	ROM_LOAD( "pac25.6f",     0x1000, 0x1000, CRC(c5ec2352) SHA1(86178b16dabb90005b132febc1a261651a73018d) )
+	ROM_LOAD( "pac25.6h",     0x2000, 0x1000, CRC(92cd89b9) SHA1(c3a0141480341c550a889b58692c8c90b322ee67) )
+	ROM_LOAD( "pac25.6j",     0x3000, 0x1000, CRC(f7193845) SHA1(6d190cf6e76520b8b8c97e6e3a817c4a142003ba) )
+	ROM_LOAD( "maps1.s55",    0x8000, 0x1000, CRC(a8167f3e) SHA1(60bdaffa1ef7b851fea39e8f4f7b3ff5b4d1745a) )
+	ROM_LOAD( "maps2.rom",    0x9000, 0x1000, CRC(7cdbd912) SHA1(b19868bd5da3163e03320e6de0428b22b8e02d80) )
+	ROM_LOAD( "maps3.rom",    0xa000, 0x1000, CRC(c626ea9c) SHA1(3cd3f20e002845937a43f323b685425c95881d9e) )
+	ROM_LOAD( "maps4.rom",    0xb000, 0x1000, CRC(f5ba954d) SHA1(eba18f9a7f6d50f167ed37bff0adec43f52b49a0) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "s13.5e",       0x0000, 0x1000, CRC(f8cdece3) SHA1(163a244c457a6a42b5226226dca3956c929ad905) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "s55.7f",       0x0000, 0x0020, CRC(c78e5695) SHA1(dac7430ac599f250b5d19bacdb607b9823d4914b) )
+	ROM_LOAD( "s55.4a",       0x0020, 0x0100, CRC(8726b275) SHA1(a094bf980b96bc0a9dc3446d12795694eb12c5d1) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
+	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
+
 GAME( 2021, pacman25s16, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)(PAC-MAN Classic Look)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
 GAME( 2021, pacman25s17, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
+GAME( 2021, pacman25s55, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - Night", MACHINE_SUPPORTS_SAVE )
 
 
 // Crazy Kong poor quality (useless) bootlegs
@@ -26347,4 +26372,53 @@ ROM_START( turfmast02 ) // replace Australia with Scotland
 ROM_END
 
 GAME( 2026, turfmast02,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course", MACHINE_SUPPORTS_SAVE )
+
+//----------------------------- HYPER XEVIOUS ----------------------------------------------------
+
+ROM_START( hyxevious )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "hyxvi_1.3p",     0x0000, 0x1000, CRC(3083987b) SHA1(8dd09a93f960660721283d8cb69407ce1c6ae574) )
+	ROM_LOAD( "hyxvi_2.3m",     0x1000, 0x1000, CRC(b6afb51a) SHA1(ea216f34483f625e6e36ed2dab9a9f27085bded9) )
+	ROM_LOAD( "hyxvi_3.2m",     0x2000, 0x1000, CRC(06a7b52d) SHA1(18a536b3a9d15d9208f3ef40aabaf142dbcb2c86) )
+	ROM_LOAD( "hyxvi_4.2l",     0x3000, 0x1000, CRC(bed75de8) SHA1(5ff5cf7667f3d27bff90ef93bc552b4684f75027) )
+
+	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_LOAD( "hyxvi_5.3f",     0x0000, 0x1000, CRC(d921841a) SHA1(ff3431d63c15da8e035fd8386bfa96699d2e8a81) )
+	ROM_LOAD( "hyxvi_6.3j",     0x1000, 0x1000, CRC(51d1339f) SHA1(90e6b918fe74518a3f8643d50deddb12d32a5043) )
+
+	ROM_REGION( 0x10000, "sub2", 0 )
+	ROM_LOAD( "xvi_7.2c",     0x0000, 0x1000, CRC(dd35cf1c) SHA1(f8d1f8e019d8198308443c2e7e815d0d04b23d14) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "xvi_12.3b",    0x0000, 0x1000, CRC(088c8b26) SHA1(9c3b61dfca2f84673a78f7f66e363777a8f47a59) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "xvi_13.3c",    0x0000, 0x1000, CRC(de60ba25) SHA1(32bc09be5ff8b52ee3a26e0ac3ebc2d4107badb7) )
+	ROM_LOAD( "xvi_14.3d",    0x1000, 0x1000, CRC(535cdbbc) SHA1(fb9ffe5fc43e0213231267e98d605d43c15f61e8) )
+
+	ROM_REGION( 0xa000, "gfx3", 0 )
+	ROM_LOAD( "xvi_15.4m",    0x0000, 0x2000, CRC(dc2c0ecb) SHA1(19ddbd9805f77f38c9a9a1bb30dba6c720b8609f) )
+	ROM_LOAD( "xvi_17.4p",    0x2000, 0x2000, CRC(dfb587ce) SHA1(acff2bf5cde85a16cdc98a52cdea11f77fadf25a) )
+	ROM_LOAD( "xvi_16.4n",    0x4000, 0x1000, CRC(605ca889) SHA1(3bf380ef76c03822a042ecc73b5edd4543c268ce) )
+	ROM_LOAD( "xvi_18.4r",    0x5000, 0x2000, CRC(02417d19) SHA1(b5f830dd2cf25cf154308d2e640f0ecdcda5d8cd) )
+	ROM_FILL(                 0x9000, 0x1000, 0x00 )
+
+	ROM_REGION( 0x4000, "gfx4", 0 )
+	ROM_LOAD( "xvi_9.2a",     0x0000, 0x1000, CRC(57ed9879) SHA1(3106d1aacff06cf78371bd19967141072b32b7d7) )
+	ROM_LOAD( "xvi_10.2b",    0x1000, 0x2000, CRC(ae3ba9e5) SHA1(49064b25667ffcd81137cd5e800df4b78b182a46) )
+	ROM_LOAD( "xvi_11.2c",    0x3000, 0x1000, CRC(31e244dd) SHA1(3f7eac12863697a98e1122111801606759e44b2a) )
+
+	ROM_REGION( 0x0b00, "proms", 0 )
+	ROM_LOAD( "xvi-8.6a",     0x0000, 0x0100, CRC(5cc2727f) SHA1(0dc1e63a47a4cb0ba75f6f1e0c15e408bb0ee2a1) )
+	ROM_LOAD( "xvi-9.6d",     0x0100, 0x0100, CRC(5c8796cc) SHA1(63015e3c0874afc6b1ca032f1ffb8f90562c77c8) )
+	ROM_LOAD( "xvi-10.6e",    0x0200, 0x0100, CRC(3cb60975) SHA1(c94d5a5dd4d8a08d6d39c051a4a722581b903f45) )
+	ROM_LOAD( "xvi-7.4h",     0x0300, 0x0200, CRC(22d98032) SHA1(ec6626828c79350417d08b98e9631ad35edd4a41) )
+	ROM_LOAD( "xvi-6.4f",     0x0500, 0x0200, CRC(3a7599f0) SHA1(a4bdf58c190ca16fc7b976c97f41087a61fdb8b8) )
+	ROM_LOAD( "xvi-4.3l",     0x0700, 0x0200, CRC(fd8b9d91) SHA1(87ddf0b9d723aabb422d6d416aa9ec6bc246bf34) )
+	ROM_LOAD( "xvi-5.3m",     0x0900, 0x0200, CRC(bf906d82) SHA1(776168a73d3b9f0ce05610acc8a623deae0a572b) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "xvi-2.7n",     0x0000, 0x0100, CRC(550f06bc) SHA1(816a0fafa0b084ac11ae1af70a5186539376fc2a) )
+	ROM_LOAD( "xvi-1.5n",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
 

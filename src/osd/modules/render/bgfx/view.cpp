@@ -1,6 +1,9 @@
-#include "emu.h"
+// license:BSD-3-Clause
+// copyright-holders:Ryan Holtz
+
+#include "view.h"
+
 #include "window.h"
-#include "rendutil.h"
 #include "../drawbgfx.h"
 
 #include <bx/math.h>
@@ -8,14 +11,11 @@
 #include <bgfx/platform.h>
 
 #include "target.h"
-#include "view.h"
 
 void bgfx_view::update() {
-	std::shared_ptr<osd_window> win = m_renderer->assert_window();
-
-	const uint32_t window_index = win->index();
-	const uint32_t width = m_renderer->get_window_width(window_index);
-	const uint32_t height = m_renderer->get_window_height(window_index);
+	const uint32_t window_index = m_renderer->window().index();
+	const uint32_t width = m_renderer->get_window_width();
+	const uint32_t height = m_renderer->get_window_height();
 
 	if (window_index != m_window_index)
 		m_window_index = window_index;

@@ -6,8 +6,8 @@
 
 ***************************************************************************/
 
-#ifndef MAME_VIDEO_I4100_H
-#define MAME_VIDEO_I4100_H
+#ifndef MAME_VIDEO_IMAGETEK_I4100_H
+#define MAME_VIDEO_IMAGETEK_I4100_H
 
 #pragma once
 
@@ -30,7 +30,7 @@ public:
 	// construction/destruction
 	imagetek_i4100_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
-	void map(address_map &map);
+	void map(address_map &map) ATTR_COLD;
 
 	void set_tmap_flip_xoffsets(int x1, int x2, int x3) { m_tilemap_flip_scrolldx[0] = x1; m_tilemap_flip_scrolldx[1] = x2; m_tilemap_flip_scrolldx[2] = x3; }
 	void set_tmap_flip_yoffsets(int y1, int y2, int y3) { m_tilemap_flip_scrolldy[0] = y1; m_tilemap_flip_scrolldy[1] = y2; m_tilemap_flip_scrolldy[2] = y3; }
@@ -61,7 +61,7 @@ public:
 
 	u32 screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void draw_foreground(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	DECLARE_WRITE_LINE_MEMBER(screen_eof);
+	void screen_eof(int state);
 
 	// TODO: privatize eventually
 	u8 irq_enable() const { return m_irq_enable; }
@@ -75,9 +75,9 @@ protected:
 
 	// device-level overrides
 	//virtual void device_validity_check(validity_checker &valid) const override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	virtual void update_irq_state();
 
@@ -141,11 +141,6 @@ protected:
 
 	void blt_write(const int tmap, const offs_t offs, const u16 data, const u16 mask);
 
-	enum
-	{
-		TIMER_BLIT_END = 1
-	};
-
 	emu_timer *m_blit_done_timer;
 
 	// I/O operations
@@ -206,11 +201,11 @@ protected:
 	void draw_layers(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect, int pri);
 	inline u8 get_tile_pix(u16 code, u8 x, u8 y, bool const big, u32 &pix);
 	void draw_tilemap(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect, u32 flags, u32 const pcode,
-					int sx, int sy, int wx, int wy, bool const big, int const layer);
+			int sx, int sy, int wx, int wy, bool const big, int const layer);
 	void draw_spritegfx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &clip,
-					u32 const gfxstart, u16 const width, u16 const height,
-					u16 color, int const flipx, int const flipy, int sx, int sy,
-					u32 const scale, u8 const prival);
+			u32 const gfxstart, u16 const width, u16 const height,
+			u16 color, int const flipx, int const flipy, int sx, int sy,
+			u32 const scale, u8 const prival);
 	void draw_sprites(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void expand_gfx1();
 
@@ -241,7 +236,7 @@ public:
 	// (it's unknown how the chip enables external sync)
 	u32 get_background_pen() { return m_palette->pen(m_background_color); }
 
-	void v2_map(address_map &map);
+	void v2_map(address_map &map) ATTR_COLD;
 };
 
 class imagetek_i4300_device : public imagetek_i4100_device
@@ -250,11 +245,11 @@ public:
 	// construction/destruction
 	imagetek_i4300_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
-	void v3_map(address_map &map);
+	void v3_map(address_map &map) ATTR_COLD;
 	u8 irq_vector_r(offs_t offset);
 
 protected:
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	virtual void update_irq_state() override;
 
@@ -271,11 +266,4 @@ DECLARE_DEVICE_TYPE(I4100, imagetek_i4100_device)
 DECLARE_DEVICE_TYPE(I4220, imagetek_i4220_device)
 DECLARE_DEVICE_TYPE(I4300, imagetek_i4300_device)
 
-
-
-//**************************************************************************
-//  GLOBAL VARIABLES
-//**************************************************************************
-
-
-#endif // MAME_VIDEO_I4100_H
+#endif // MAME_VIDEO_IMAGETEK_I4100_H

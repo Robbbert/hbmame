@@ -22,12 +22,12 @@ DEFINE_DEVICE_TYPE(NANORESEAU_MO, nanoreseau_mo_device, "nanoreseau_mo", "Nanore
 }
 
 nanoreseau_to_device::nanoreseau_to_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, bool no_id) :
-	nanoreseau_device(mconfig, NANORESEAU_TO, tag, owner, clock)
+	nanoreseau_device(mconfig, NANORESEAU_TO, tag, owner, clock, no_id)
 {
 }
 
 nanoreseau_mo_device::nanoreseau_mo_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, bool no_id) :
-	nanoreseau_device(mconfig, NANORESEAU_MO, tag, owner, clock)
+	nanoreseau_device(mconfig, NANORESEAU_MO, tag, owner, clock, no_id)
 {
 }
 
@@ -85,9 +85,9 @@ void nanoreseau_device::rom_map(address_map &map)
 
 void nanoreseau_device::io_map(address_map &map)
 {
-	map(0, 3).rw(m_mc6854, FUNC(mc6854_device::read), FUNC(mc6854_device::write));
+	map(0x10, 0x13).rw(m_mc6854, FUNC(mc6854_device::read), FUNC(mc6854_device::write));
 	if (!m_no_id)
-		map(8, 8).r(FUNC(nanoreseau_device::id_r));
+		map(0x18, 0x18).r(FUNC(nanoreseau_device::id_r));
 }
 
 const tiny_rom_entry *nanoreseau_to_device::device_rom_region() const

@@ -339,6 +339,14 @@ void scsihle_device::scsi_change_phase(uint8_t newphase)
 	cmd_idx=0;
 	data_idx=0;
 
+	// Deassert REQ at every phase transition so the initiator sees a clean REQ
+	// low->high edge with the new phase's C/D-I/O lines settled.  Otherwise the
+	// per-byte REQ-deassert timer is cancelled by the next phase's re-assert, so
+	// REQ can stay continuously high across (e.g.) COMMAND->DATA-IN and an
+	// initiator that polls the control lines on the REQ edge samples the stale
+	// previous-phase C/D/I/O.
+	output_req(0);
+
 	switch(m_phase)
 	{
 		case SCSI_PHASE_BUS_FREE:
@@ -356,6 +364,7 @@ void scsihle_device::scsi_change_phase(uint8_t newphase)
 			break;
 
 		case SCSI_PHASE_COMMAND:
+			output_bsy(1); // a selected target holds BSY for the whole connection; assert it here so a fast SEL deassert (racing the 50ns sel_timer) cannot leave BSY low in COMMAND
 			output_cd(1);
 			output_io(0);
 			output_msg(0);
@@ -405,7 +414,7 @@ void scsihle_device::scsi_change_phase(uint8_t newphase)
 	}
 }
 
-WRITE_LINE_MEMBER( scsihle_device::input_sel )
+void scsihle_device::input_sel(int state)
 {
 //  printf( "sel %d %d %02x\n", state, m_phase, m_input_data );
 	switch (m_phase)
@@ -415,11 +424,9 @@ WRITE_LINE_MEMBER( scsihle_device::input_sel )
 		// only one line active.
 		if (scsibus_driveno(m_input_data) == scsiID)
 		{
-			void *hdfile = nullptr;
 			// Check to see if device had image file mounted, if not, do not set busy,
 			// and stay busfree.
-			GetDevice(&hdfile);
-			if (hdfile != nullptr)
+			if (exists())
 			{
 				if (!state)
 				{
@@ -435,7 +442,7 @@ WRITE_LINE_MEMBER( scsihle_device::input_sel )
 	}
 }
 
-WRITE_LINE_MEMBER( scsihle_device::input_ack )
+void scsihle_device::input_ack(int state)
 {
 	switch (m_phase)
 	{
@@ -494,7 +501,7 @@ WRITE_LINE_MEMBER( scsihle_device::input_ack )
 
 				if (IS_COMMAND(SCSI_CMD_FORMAT_UNIT))
 				{
-					// If we have the first byte, then cancel the dataout timout
+					// If we have the first byte, then cancel the dataout timeout
 					if (data_idx == 1)
 						dataout_timer->adjust(attotime::never);
 
@@ -573,7 +580,7 @@ WRITE_LINE_MEMBER( scsihle_device::input_ack )
 	}
 }
 
-WRITE_LINE_MEMBER( scsihle_device::input_rst )
+void scsihle_device::input_rst(int state)
 {
 	if (state)
 	{

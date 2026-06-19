@@ -31,8 +31,8 @@
 
 **********************************************************************/
 
-#ifndef MAME_BUS_ISBX_ISBX_SLOT_H
-#define MAME_BUS_ISBX_ISBX_SLOT_H
+#ifndef MAME_BUS_ISBX_ISBX_H
+#define MAME_BUS_ISBX_ISBX_H
 
 #pragma once
 
@@ -78,10 +78,7 @@ public:
 	isbx_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock, T &&opts, char const *dflt)
 		: isbx_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	isbx_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
@@ -97,23 +94,23 @@ public:
 	void mcs1_w(offs_t offset, uint8_t data) { if (m_card) m_card->mcs1_w(offset, data); }
 	uint8_t mdack_r(offs_t offset) { return m_card ? m_card->mdack_r(offset) : 0xff; }
 	void mdack_w(offs_t offset, uint8_t data) { if (m_card) m_card->mdack_w(offset, data); }
-	DECLARE_READ_LINE_MEMBER( mpst_r ) { return m_card == nullptr; }
-	DECLARE_READ_LINE_MEMBER( opt0_r ) { return m_card ? m_card->opt0_r() : 1; }
-	DECLARE_WRITE_LINE_MEMBER( opt0_w ) { if (m_card) m_card->opt0_w(state); }
-	DECLARE_READ_LINE_MEMBER( opt1_r ) { return m_card ? m_card->opt1_r() : 1; }
-	DECLARE_WRITE_LINE_MEMBER( opt1_w ) { if (m_card) m_card->opt1_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( tdma_w ) { if (m_card) m_card->tdma_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( mclk_w ) { if (m_card) m_card->mclk_w(state); }
+	int mpst_r() { return m_card == nullptr; }
+	int opt0_r() { return m_card ? m_card->opt0_r() : 1; }
+	void opt0_w(int state) { if (m_card) m_card->opt0_w(state); }
+	int opt1_r() { return m_card ? m_card->opt1_r() : 1; }
+	void opt1_w(int state) { if (m_card) m_card->opt1_w(state); }
+	void tdma_w(int state) { if (m_card) m_card->tdma_w(state); }
+	void mclk_w(int state) { if (m_card) m_card->mclk_w(state); }
 
 	// card interface
-	DECLARE_WRITE_LINE_MEMBER( mintr0_w ) { m_write_mintr0(state); }
-	DECLARE_WRITE_LINE_MEMBER( mintr1_w ) { m_write_mintr1(state); }
-	DECLARE_WRITE_LINE_MEMBER( mdrqt_w ) { m_write_mdrqt(state); }
-	DECLARE_WRITE_LINE_MEMBER( mwait_w ) { m_write_mwait(state); }
+	void mintr0_w(int state) { m_write_mintr0(state); }
+	void mintr1_w(int state) { m_write_mintr1(state); }
+	void mdrqt_w(int state) { m_write_mdrqt(state); }
+	void mwait_w(int state) { m_write_mwait(state); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	devcb_write_line   m_write_mintr0;
 	devcb_write_line   m_write_mintr1;
@@ -124,11 +121,11 @@ protected:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(ISBX_SLOT, isbx_slot_device)
 
 
 void isbx_cards(device_slot_interface &device);
 
 
-#endif // MAME_BUS_ISBX_ISBX_SLOT_H
+#endif // MAME_BUS_ISBX_ISBX_H

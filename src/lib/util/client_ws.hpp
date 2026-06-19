@@ -1,5 +1,21 @@
 // license:MIT
 // copyright-holders:Ole Christian Eidheim, Miodrag Milanovic
+
+/*
+   Changes to the websocket client
+
+   July 2022: (Michael Zapf, patch by Pete Eberlein [peberlein])
+      Symptom: During the initial handshake, the ws client reads the HTTP header
+      from the server and then waits for more data to come. In cases where the
+      websocket server sends data immediately after the handshake to the client,
+      these data may already be available in the streambuf without triggering
+      a new reception event, so the client may wait forever for a new reception.
+
+      Correction: When going into the async_read, the client only waits for so
+      many bytes as to satisfy the next read from the streambuf. For this end,
+      the Message::needed_for method has been added. Also, leftover bytes are
+      copied to the next message instance.
+*/
 #ifndef CLIENT_WS_HPP
 #define CLIENT_WS_HPP
 
@@ -83,7 +99,7 @@ namespace webpp {
 			std::list<SendData> send_queue;
 
 			void send_from_queue() {
-				strand.post([this]() {
+				asio::post(strand, [this]() {
 					asio::async_write(*socket, send_queue.begin()->send_stream->streambuf,
 							strand.wrap([this](const std::error_code& ec, size_t /*bytes_transferred*/) {
 						auto send_queued=send_queue.begin();
@@ -123,16 +139,28 @@ namespace webpp {
 			size_t size() const {
 				return length;
 			}
-			std::string string() const {
-				std::stringstream ss;
-				ss << rdbuf();
-				return ss.str();
+			std::string string() {
+				if (s.size() != length) {
+					asio::streambuf::const_buffers_type bufs = streambuf.data();
+					s.assign(asio::buffers_begin(bufs), asio::buffers_begin(bufs)+length);
+					streambuf.consume(length);
+				}
+				return s;
+			}
+
+			// Return the number of bytes that are missing in the streambuf
+			// before n bytes can be read from it
+			size_t needed_for(size_t n) const {
+				if (streambuf.size() >= n)
+					return 0;
+				return n - streambuf.size();
 			}
 		private:
 			Message(): std::istream(&streambuf), fin_rsv_opcode(0), length(0) { }
 
 			size_t length;
 			asio::streambuf streambuf;
+			std::string s;
 		};
 
 		std::function<void()> on_open;
@@ -147,7 +175,7 @@ namespace webpp {
 			}
 
 			if(io_context->stopped())
-				io_context->reset();
+				io_context->restart();
 
 			if(!resolver)
 				resolver= std::make_unique<asio::ip::tcp::resolver>(*io_context);
@@ -209,7 +237,7 @@ namespace webpp {
 				send_stream->put(message_stream->get()^mask[c%4]);
 			}
 
-			connection->strand.post([this, send_stream, callback]() {
+			asio::post(connection->strand, [this, send_stream, callback]() {
 				connection->send_queue.emplace_back(send_stream, callback);
 				if(connection->send_queue.size()==1)
 					connection->send_from_queue();
@@ -346,10 +374,10 @@ namespace webpp {
 		}
 
 		void read_message(const std::shared_ptr<Message> &message) {
-			asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(2),
+			asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(message->needed_for(2)),
 					[this, message](const std::error_code& ec, size_t bytes_transferred) {
 				if(!ec) {
-					if(bytes_transferred==0) { //TODO: This might happen on server at least, might also happen here
+					if(message->streambuf.size()+bytes_transferred==0) { //TODO: This might happen on server at least, might also happen here
 						read_message(message);
 						return;
 					}
@@ -373,7 +401,7 @@ namespace webpp {
 
 					if(length==126) {
 						//2 next bytes is the size of content
-						asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(2),
+						asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(message->needed_for(2)),
 								[this, message]
 								(const std::error_code& ec, size_t /*bytes_transferred*/) {
 							if(!ec) {
@@ -395,7 +423,7 @@ namespace webpp {
 					}
 					else if(length==127) {
 						//8 next bytes is the size of content
-						asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(8),
+						asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(message->needed_for(8)),
 								[this, message]
 								(const std::error_code& ec, size_t /*bytes_transferred*/) {
 							if(!ec) {
@@ -426,7 +454,7 @@ namespace webpp {
 		}
 
 		void read_message_content(const std::shared_ptr<Message> &message) {
-			asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(message->length),
+			asio::async_read(*connection->socket, message->streambuf, asio::transfer_exactly(message->needed_for(message->length)),
 					[this, message]
 					(const std::error_code& ec, size_t /*bytes_transferred*/) {
 				if(!ec) {
@@ -458,6 +486,10 @@ namespace webpp {
 
 					//Next message
 					std::shared_ptr<Message> next_message(new Message());
+					//Copy any leftover data in the streambuf into the next message
+					next_message->streambuf.commit(buffer_copy(
+						next_message->streambuf.prepare(message->streambuf.size()),
+						message->streambuf.data()));
 					read_message(next_message);
 				}
 				else if(on_error)
@@ -484,15 +516,13 @@ namespace webpp {
 
 	protected:
 		void connect() override {
-			asio::ip::tcp::resolver::query query(host, std::to_string(port));
-
-			resolver->async_resolve(query, [this]
-					(const std::error_code &ec, asio::ip::tcp::resolver::iterator it){
+			resolver->async_resolve(host, std::to_string(port), [this]
+					(const std::error_code &ec, asio::ip::tcp::resolver::results_type results){
 				if(!ec) {
 					connection=std::shared_ptr<Connection>(new Connection(*io_context, new WS(*io_context)));
 
-					asio::async_connect(*connection->socket, it, [this]
-							(const std::error_code &ec, asio::ip::tcp::resolver::iterator /*it*/){
+					asio::async_connect(*connection->socket, results, [this]
+							(const std::error_code &ec, const asio::ip::tcp::endpoint &/*endpoint*/){
 						if(!ec) {
 							asio::ip::tcp::no_delay option(true);
 							connection->socket->set_option(option);

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/segahang.cpp"
+#include "../mame/sega/segahang.cpp"
 
 
 // Credit to Victor Fernandez (City Game)

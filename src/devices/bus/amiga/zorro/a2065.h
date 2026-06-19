@@ -1,5 +1,5 @@
-// license:GPL-2.0+
-// copyright-holders:Dirk Best
+// license: GPL-2.0+
+// copyright-holders: Dirk Best
 /***************************************************************************
 
     Commodore A2065
@@ -24,12 +24,9 @@ namespace bus::amiga::zorro {
 //  TYPE DEFINITIONS
 //**************************************************************************
 
-// ======================> a2065_device
-
 class a2065_device : public device_t, public device_zorro2_card_interface, public amiga_autoconfig
 {
 public:
-	// construction/destruction
 	a2065_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	uint16_t host_ram_r(offs_t offset);
@@ -37,15 +34,14 @@ public:
 
 	uint16_t lance_ram_r(offs_t offset);
 	void lance_ram_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
-	DECLARE_WRITE_LINE_MEMBER( lance_irq_w );
+	void lance_irq_w(int state);
 
 protected:
-	// device-level overrides
 	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 	virtual void device_start() override ATTR_COLD;
 
 	// device_zorro2_card_interface overrides
-	virtual DECLARE_WRITE_LINE_MEMBER( cfgin_w ) override;
+	virtual void cfgin_w(int state) override;
 
 	// amiga_autoconfig overrides
 	virtual void autoconfig_base_address(offs_t address) override;
@@ -58,7 +54,7 @@ private:
 
 } // namespace bus::amiga::zorro
 
-// device type definition
-DECLARE_DEVICE_TYPE_NS(ZORRO_A2065, bus::amiga::zorro, a2065_device)
+// device type declaration
+DECLARE_DEVICE_TYPE_NS(AMIGA_A2065, bus::amiga::zorro, a2065_device)
 
 #endif // MAME_BUS_AMIGA_ZORRO_A2065_H

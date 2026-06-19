@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <functional>
+#include <vector>
 
 
 
@@ -35,10 +37,7 @@ public:
 	wangpcbus_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&bus, U &&opts, char const *dflt, int sid)
 		: wangpcbus_slot_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<U>(opts), dflt, false);
 		set_bus(std::forward<T>(bus));
 		set_bus_slot(sid);
 	}
@@ -49,8 +48,8 @@ public:
 	void set_bus_slot(int sid) { m_sid = sid; }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	// configuration
@@ -59,7 +58,7 @@ private:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(WANGPC_BUS_SLOT, wangpcbus_slot_device)
 
 
@@ -70,7 +69,7 @@ class wangpcbus_device : public device_t
 public:
 	// construction/destruction
 	wangpcbus_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-	~wangpcbus_device() { m_device_list.detach_all(); }
+	~wangpcbus_device();
 
 	auto irq2_wr_callback() { return m_write_irq2.bind(); }
 	auto irq3_wr_callback() { return m_write_irq3.bind(); }
@@ -104,25 +103,27 @@ public:
 	uint8_t dack3_r() { return dack_r(3); }
 	void dack3_w(uint8_t data) { dack_w(3, data); }
 
-	DECLARE_WRITE_LINE_MEMBER( tc_w );
+	void tc_w(int state);
 
 	// peripheral interface
-	DECLARE_WRITE_LINE_MEMBER( irq2_w ) { m_write_irq2(state); }
-	DECLARE_WRITE_LINE_MEMBER( irq3_w ) { m_write_irq3(state); }
-	DECLARE_WRITE_LINE_MEMBER( irq4_w ) { m_write_irq4(state); }
-	DECLARE_WRITE_LINE_MEMBER( irq5_w ) { m_write_irq5(state); }
-	DECLARE_WRITE_LINE_MEMBER( irq6_w ) { m_write_irq6(state); }
-	DECLARE_WRITE_LINE_MEMBER( irq7_w ) { m_write_irq7(state); }
-	DECLARE_WRITE_LINE_MEMBER( drq1_w ) { m_write_drq1(state); }
-	DECLARE_WRITE_LINE_MEMBER( drq2_w ) { m_write_drq2(state); }
-	DECLARE_WRITE_LINE_MEMBER( drq3_w ) { m_write_drq3(state); }
-	DECLARE_WRITE_LINE_MEMBER( ioerror_w ) { m_write_ioerror(state); }
+	void irq2_w(int state) { m_write_irq2(state); }
+	void irq3_w(int state) { m_write_irq3(state); }
+	void irq4_w(int state) { m_write_irq4(state); }
+	void irq5_w(int state) { m_write_irq5(state); }
+	void irq6_w(int state) { m_write_irq6(state); }
+	void irq7_w(int state) { m_write_irq7(state); }
+	void drq1_w(int state) { m_write_drq1(state); }
+	void drq2_w(int state) { m_write_drq2(state); }
+	void drq3_w(int state) { m_write_drq3(state); }
+	void ioerror_w(int state) { m_write_ioerror(state); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// devicedevice_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 private:
+	using card_vector = std::vector<std::reference_wrapper<device_wangpcbus_card_interface> >;
+
 	devcb_write_line   m_write_irq2;
 	devcb_write_line   m_write_irq3;
 	devcb_write_line   m_write_irq4;
@@ -134,11 +135,11 @@ private:
 	devcb_write_line   m_write_drq3;
 	devcb_write_line   m_write_ioerror;
 
-	simple_list<device_wangpcbus_card_interface> m_device_list;
+	card_vector m_device_list;
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(WANGPC_BUS, wangpcbus_device)
 
 
@@ -148,11 +149,8 @@ DECLARE_DEVICE_TYPE(WANGPC_BUS, wangpcbus_device)
 class device_wangpcbus_card_interface : public device_interface
 {
 	friend class wangpcbus_device;
-	template <class ElementType> friend class simple_list;
 
 public:
-	device_wangpcbus_card_interface *next() const { return m_next; }
-
 	// memory access
 	virtual uint16_t wangpcbus_mrdc_r(offs_t offset, uint16_t mem_mask) { return 0; }
 	virtual void wangpcbus_amwc_w(offs_t offset, uint16_t mem_mask, uint16_t data) { }
@@ -175,12 +173,9 @@ protected:
 	virtual void interface_pre_start() override;
 
 	wangpcbus_device *m_bus;
-	wangpcbus_slot_device *m_slot;
+	wangpcbus_slot_device *const m_slot;
 
 	int m_sid;
-
-private:
-	device_wangpcbus_card_interface *m_next;
 };
 
 

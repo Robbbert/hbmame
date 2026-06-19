@@ -49,15 +49,15 @@ static const char * StatusString(int iStatus);
 
 #define MAX_AUDITBOX_TEXT   0x7FFFFFFE
 
-static volatile HWND hAudit;
-static volatile int rom_index = 0;
-static volatile int roms_correct = 0;
-static volatile int roms_incorrect = 0;
-static volatile int sample_index = 0;
-static volatile int samples_correct = 0;
-static volatile int samples_incorrect = 0;
-static volatile BOOL bPaused = FALSE;
-static volatile BOOL bCancel = FALSE;
+static HWND hAudit;
+static int rom_index = 0;
+static int roms_correct = 0;
+static int roms_incorrect = 0;
+static int sample_index = 0;
+static int samples_correct = 0;
+static int samples_incorrect = 0;
+static BOOL bPaused = FALSE;
+static BOOL bCancel = FALSE;
 static int m_choice = 0;
 
 /***************************************************************************

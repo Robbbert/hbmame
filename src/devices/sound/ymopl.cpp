@@ -40,11 +40,11 @@ y8950_device::y8950_device(const machine_config &mconfig, const char *tag, devic
 
 
 //-------------------------------------------------
-//  rom_bank_updated - refresh the stream if the
+//  rom_bank_pre_change - refresh the stream if the
 //  ROM banking changes
 //-------------------------------------------------
 
-void y8950_device::rom_bank_updated()
+void y8950_device::rom_bank_pre_change()
 {
 	m_stream->update();
 }
@@ -131,11 +131,11 @@ ymf278b_device::ymf278b_device(const machine_config &mconfig, const char *tag, d
 
 
 //-------------------------------------------------
-//  rom_bank_updated - refresh the stream if the
+//  rom_bank_pre_change - refresh the stream if the
 //  ROM banking changes
 //-------------------------------------------------
 
-void ymf278b_device::rom_bank_updated()
+void ymf278b_device::rom_bank_pre_change()
 {
 	m_stream->update();
 }
@@ -174,10 +174,10 @@ void ymf278b_device::ymfm_external_write(ymfm::access_class type, uint32_t offse
 //  default address space
 //-------------------------------------------------
 
-void ymf278b_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void ymf278b_device::sound_stream_update(sound_stream &stream)
 {
 	// rotate the outputs so that the DO2 outputs are first
-	parent::update_internal(outputs, 2);
+	parent::update_internal(stream, 2);
 }
 
 

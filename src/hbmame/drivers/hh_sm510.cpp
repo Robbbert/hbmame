@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/hh_sm510.cpp"
+#include "../mame/handheld/hh_sm510.cpp"
 
 ROM_START( gnw_bride )
 	ROM_REGION( 0x1000, "maincpu", 0 )

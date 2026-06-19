@@ -13,6 +13,8 @@
 #include "debugwin.h"
 
 
+namespace osd::debugger::win {
+
 class debugbase_info
 {
 protected:
@@ -20,7 +22,6 @@ protected:
 
 	debugger_windows_interface &debugger() const { return m_debugger; }
 	running_machine &machine() const { return m_machine; }
-	ui_metrics const &metrics() const { return m_metrics; }
 
 	bool waiting_for_debugger() const { return m_waiting_for_debugger; }
 	bool seq_pressed() const { return m_debugger.seq_pressed(); }
@@ -31,8 +32,9 @@ protected:
 private:
 	debugger_windows_interface  &m_debugger;
 	running_machine             &m_machine;
-	ui_metrics const            &m_metrics;
 	bool const                  &m_waiting_for_debugger;
 };
 
-#endif
+} // namespace osd::debugger::win
+
+#endif // MAME_DEBUGGER_WIN_DEBUGBASEINFO_H

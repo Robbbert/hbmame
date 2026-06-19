@@ -83,7 +83,7 @@ private:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 
-	DECLARE_WRITE_LINE_MEMBER(int_enable_w);
+	void int_enable_w(int);
 
 	// device/memory pointers
 	required_device<cpu_device> m_maincpu;
@@ -96,7 +96,7 @@ private:
 	void io_map(address_map &map);
 
 	attotime m_interrupt_time;
-	emu_timer   *m_interrupt_timer = nullptr;
+	emu_timer *m_interrupt_timer = nullptr;
 
 	bool m_int_enable = 0;
 
@@ -180,7 +180,7 @@ TIMER_CALLBACK_MEMBER(spcenctr_state::interrupt_trigger)
 	m_interrupt_timer->adjust(m_screen->time_until_pos(next_vpos));
 }
 
-WRITE_LINE_MEMBER(spcenctr_state::int_enable_w)
+void spcenctr_state::int_enable_w(int state)
 {
 	m_int_enable = state;
 }
@@ -925,9 +925,6 @@ void spcenctr_audio_device::device_add_mconfig(machine_config &config)
 
 void spcenctr_audio_device::device_start()
 {
-	m_lamp.resolve();
-	m_strobe.resolve();
-
 	m_strobe_timer = timer_alloc(FUNC(spcenctr_audio_device::strobe_callback), this);
 
 	m_strobe_enable = 0U;

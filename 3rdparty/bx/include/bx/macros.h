@@ -1,6 +1,6 @@
 /*
- * Copyright 2010-2021 Branimir Karadzic. All rights reserved.
- * License: https://github.com/bkaradzic/bx#license-bsd-2-clause
+ * Copyright 2010-2022 Branimir Karadzic. All rights reserved.
+ * License: https://github.com/bkaradzic/bx/blob/master/LICENSE
  */
 
 #ifndef BX_H_HEADER_GUARD
@@ -11,7 +11,7 @@
 #define BX_MACROS_H_HEADER_GUARD
 
 ///
-#if BX_COMPILER_MSVC
+#if BX_COMPILER_MSVC && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
 // Workaround MSVS bug...
 #	define BX_VA_ARGS_PASS(...) BX_VA_ARGS_PASS_1_ __VA_ARGS__ BX_VA_ARGS_PASS_2_
 #	define BX_VA_ARGS_PASS_1_ (
@@ -66,7 +66,7 @@
 #	define BX_UNLIKELY(_x) __builtin_expect(!!(_x), 0)
 #	define BX_NO_INLINE   __attribute__( (noinline) )
 #	define BX_NO_RETURN   __attribute__( (noreturn) )
-#	define BX_CONST_FUNC  __attribute__( (const) )
+#	define BX_CONST_FUNC  __attribute__( (pure) )
 
 #	if BX_COMPILER_GCC >= 70000
 #		define BX_FALLTHROUGH __attribute__( (fallthrough) )
@@ -109,11 +109,7 @@
 
 /// The return value of the function is solely a function of the arguments.
 ///
-#if __cplusplus < 201402
-#	define BX_CONSTEXPR_FUNC BX_CONST_FUNC
-#else
-#	define BX_CONSTEXPR_FUNC constexpr BX_CONST_FUNC
-#endif // __cplusplus < 201402
+#define BX_CONSTEXPR_FUNC constexpr BX_CONST_FUNC
 
 ///
 #define BX_STATIC_ASSERT(_condition, ...) static_assert(_condition, "" __VA_ARGS__)
@@ -149,7 +145,7 @@
 #define BX_UNUSED_11(_a1, _a2, _a3, _a4, _a5, _a6, _a7, _a8, _a9, _a10, _a11) BX_UNUSED_10(_a1, _a2, _a3, _a4, _a5, _a6, _a7, _a8, _a9, _a10); BX_UNUSED_1(_a11)
 #define BX_UNUSED_12(_a1, _a2, _a3, _a4, _a5, _a6, _a7, _a8, _a9, _a10, _a11, _a12) BX_UNUSED_11(_a1, _a2, _a3, _a4, _a5, _a6, _a7, _a8, _a9, _a10, _a11); BX_UNUSED_1(_a12)
 
-#if BX_COMPILER_MSVC
+#if BX_COMPILER_MSVC && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
 // Workaround MSVS bug...
 #	define BX_UNUSED(...) BX_MACRO_DISPATCHER(BX_UNUSED_, __VA_ARGS__) BX_VA_ARGS_PASS(__VA_ARGS__)
 #else
@@ -201,16 +197,24 @@
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC(_x)
 #endif // BX_COMPILER_
 
-///
+/// No default constructor.
 #define BX_CLASS_NO_DEFAULT_CTOR(_class) \
-	private: _class()
+	_class() = delete
 
-#define BX_CLASS_NO_COPY(_class) \
-	private: _class(const _class& _rhs)
+/// No copy constructor.
+#define BX_CLASS_NO_COPY_CTOR(_class) \
+	_class(const _class& _rhs) = delete
 
-#define BX_CLASS_NO_ASSIGNMENT(_class) \
-	private: _class& operator=(const _class& _rhs)
+/// No copy assignment operator.
+#define BX_CLASS_NO_COPY_ASSIGNMENT(_class) \
+	_class& operator=(const _class& _rhs) = delete
 
+/// No copy construcor, and copy assignment operator.
+#define BX_CLASS_NO_COPY(_class)   \
+	BX_CLASS_NO_COPY_CTOR(_class); \
+	BX_CLASS_NO_COPY_ASSIGNMENT(_class)
+
+///
 #define BX_CLASS_ALLOCATOR(_class)              \
 	public: void* operator new(size_t _size);   \
 	public: void  operator delete(void* _ptr);  \
@@ -222,23 +226,57 @@
 #define BX_CLASS_3(_class, _a1, _a2, _a3) BX_CLASS_2(_class, _a1, _a2); BX_CLASS_1(_class, _a3)
 #define BX_CLASS_4(_class, _a1, _a2, _a3, _a4) BX_CLASS_3(_class, _a1, _a2, _a3); BX_CLASS_1(_class, _a4)
 
-#if BX_COMPILER_MSVC
+#if BX_COMPILER_MSVC && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
 #	define BX_CLASS(_class, ...) BX_MACRO_DISPATCHER(BX_CLASS_, __VA_ARGS__) BX_VA_ARGS_PASS(_class, __VA_ARGS__)
 #else
 #	define BX_CLASS(_class, ...) BX_MACRO_DISPATCHER(BX_CLASS_, __VA_ARGS__)(_class, __VA_ARGS__)
 #endif // BX_COMPILER_MSVC
 
 #ifndef BX_ASSERT
-#	define BX_ASSERT(_condition, ...) BX_NOOP()
+#	if BX_CONFIG_DEBUG
+#		define BX_ASSERT _BX_ASSERT
+#	else
+#		define BX_ASSERT(_condition, ...) BX_NOOP()
+#	endif // BX_CONFIG_DEBUG
 #endif // BX_ASSERT
 
 #ifndef BX_TRACE
-#	define BX_TRACE(...) BX_NOOP()
+#	if BX_CONFIG_DEBUG
+#		define BX_TRACE _BX_TRACE
+#	else
+#		define BX_TRACE(...) BX_NOOP()
+#	endif // BX_CONFIG_DEBUG
 #endif // BX_TRACE
 
 #ifndef BX_WARN
-#	define BX_WARN(_condition, ...) BX_NOOP()
+#	if BX_CONFIG_DEBUG
+#		define BX_WARN _BX_WARN
+#	else
+#		define BX_WARN(_condition, ...) BX_NOOP()
+#	endif // BX_CONFIG_DEBUG
 #endif // BX_ASSERT
+
+#define _BX_TRACE(_format, ...)                                                                    \
+	BX_MACRO_BLOCK_BEGIN                                                                           \
+		bx::debugPrintf(__FILE__ "(" BX_STRINGIZE(__LINE__) "): BX " _format "\n", ##__VA_ARGS__); \
+	BX_MACRO_BLOCK_END
+
+#define _BX_WARN(_condition, _format, ...)            \
+	BX_MACRO_BLOCK_BEGIN                              \
+		if (!BX_IGNORE_C4127(_condition) )            \
+		{                                             \
+			BX_TRACE("WARN " _format, ##__VA_ARGS__); \
+		}                                             \
+	BX_MACRO_BLOCK_END
+
+#define _BX_ASSERT(_condition, _format, ...)            \
+	BX_MACRO_BLOCK_BEGIN                                \
+		if (!BX_IGNORE_C4127(_condition) )              \
+		{                                               \
+			BX_TRACE("ASSERT " _format, ##__VA_ARGS__); \
+			bx::debugBreak();                           \
+		}                                               \
+	BX_MACRO_BLOCK_END
 
 // static_assert sometimes causes unused-local-typedef...
 BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG("-Wunused-local-typedef")

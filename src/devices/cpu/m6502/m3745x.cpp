@@ -40,9 +40,9 @@ DEFINE_DEVICE_TYPE(M37450, m37450_device, "m37450", "Mitsubishi M37450")
 m3745x_device::m3745x_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, address_map_constructor internal_map) :
 	m740_device(mconfig, type, tag, owner, clock),
 	m_program_config("program", ENDIANNESS_LITTLE, 8, 16, 0, internal_map),
-	m_read_p(*this),
+	m_read_p(*this, 0),
 	m_write_p(*this),
-	m_read_ad(*this),
+	m_read_ad(*this, 0),
 	m_intreq1(0),
 	m_intreq2(0),
 	m_intctrl1(0),
@@ -58,10 +58,6 @@ m3745x_device::m3745x_device(const machine_config &mconfig, device_type type, co
 
 void m3745x_device::device_start()
 {
-	m_read_p.resolve_all_safe(0);
-	m_write_p.resolve_all_safe();
-	m_read_ad.resolve_all_safe(0);
-
 	for (int i = TIMER_1; i <= TIMER_3; i++)
 	{
 		m_timers[i] = machine().scheduler().timer_alloc(timer_expired_delegate());
@@ -102,7 +98,7 @@ void m3745x_device::device_reset()
 {
 	m740_device::device_reset();
 
-	SP = 0x01ff;    // we have the "traditional" stack in page 1, not 0 like some M740 derivatives
+	m_SP = 0x01ff;    // we have the "traditional" stack in page 1, not 0 like some M740 derivatives
 
 	for (auto & elem : m_timers)
 	{
@@ -179,7 +175,7 @@ void m3745x_device::recalc_irqs()
 	all_ints = (m_intreq1 & m_intctrl1) << 8;
 	all_ints |= (m_intreq2 & m_intctrl2);
 
-//  printf("recalc_irqs: last_all_ints = %04x last_ints = %04x (req1 %02x ctrl1 %02x req2 %02x ctrl2 %02x)\n", all_ints, m_last_all_ints, m_intreq1, m_intctrl1, m_intreq2, m_intctrl2);
+	//printf("recalc_irqs: last_all_ints = %04x last_ints = %04x (req1 %02x ctrl1 %02x req2 %02x ctrl2 %02x)\n", all_ints, m_last_all_ints, m_intreq1, m_intctrl1, m_intreq2, m_intctrl2);
 
 	// check all 16 IRQ bits for changes
 	for (int i = 0; i < 16; i++)
@@ -190,19 +186,19 @@ void m3745x_device::recalc_irqs()
 			// and wasn't last time
 			if (!(m_last_all_ints & (1 << i)))
 			{
-//              printf("    asserting irq %d (%d)\n", i, irq_lines[i]);
+				//printf("    asserting irq %d (%d)\n", i, irq_lines[i]);
 				if (irq_lines[i] != -1)
 				{
 					m740_device::execute_set_input(irq_lines[i], ASSERT_LINE);
 				}
 			}
 		}
-		else    // bit is clear now
+		else // bit is clear now
 		{
 			// ...and wasn't clear last time
 			if (m_last_all_ints & (1 << i))
 			{
-//              printf("    clearing irq %d (%d)\n", i, irq_lines[i]);
+				//printf("    clearing irq %d (%d)\n", i, irq_lines[i]);
 				if (irq_lines[i] != -1)
 				{
 					m740_device::execute_set_input(irq_lines[i], CLEAR_LINE);

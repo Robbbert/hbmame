@@ -39,7 +39,7 @@ public:
 	virtual void mos_w(offs_t offset, uint8_t data) { }
 	virtual void latch_fe60_w(uint8_t data) { }
 
-	virtual DECLARE_WRITE_LINE_MEMBER(irq6502_w) { }
+	virtual void irq6502_w(int state) { }
 
 protected:
 	device_bbc_internal_interface(const machine_config &mconfig, device_t &device);
@@ -50,7 +50,7 @@ protected:
 	required_memory_region m_region_swr;
 	required_memory_region m_region_mos;
 
-	bbc_internal_slot_device *m_slot;
+	bbc_internal_slot_device *const m_slot;
 };
 
 // ======================> bbc_internal_slot_device
@@ -63,10 +63,7 @@ public:
 	bbc_internal_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock, T &&slot_options, const char *default_option)
 		: bbc_internal_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		slot_options(*this);
-		set_default_option(default_option);
-		set_fixed(false);
+		set_options(std::forward<T>(slot_options), default_option, false);
 	}
 
 	bbc_internal_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -75,8 +72,8 @@ public:
 	auto irq_handler() { return m_irq_handler.bind(); }
 	auto nmi_handler() { return m_nmi_handler.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER(irq_w) { m_irq_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER(nmi_w) { m_nmi_handler(state); }
+	void irq_w(int state) { m_irq_handler(state); }
+	void nmi_w(int state) { m_nmi_handler(state); }
 
 	virtual bool overrides_ram() { return m_card ? m_card->overrides_ram() : false; }
 	virtual bool overrides_rom() { return m_card ? m_card->overrides_rom() : false; }
@@ -91,11 +88,11 @@ public:
 	virtual void mos_w(offs_t offset, uint8_t data);
 	virtual void latch_fe60_w(uint8_t data);
 
-	virtual DECLARE_WRITE_LINE_MEMBER(irq6502_w);
+	virtual void irq6502_w(int state);
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	devcb_write_line m_irq_handler;
 	devcb_write_line m_nmi_handler;
@@ -106,7 +103,7 @@ protected:
 	device_bbc_internal_interface *m_card;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(BBC_INTERNAL_SLOT, bbc_internal_slot_device)
 
 void bbcb_internal_devices(device_slot_interface &device);

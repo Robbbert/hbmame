@@ -9,10 +9,8 @@
 *******************************************************************************/
 
 #include "emu.h"
-#include "machine/s3c2440.h"
+#include "s3c2440.h"
 
-#include "cpu/arm7/arm7.h"
-#include "cpu/arm7/arm7core.h"
 #include "screen.h"
 
 
@@ -237,19 +235,19 @@ s3c2440_device::s3c2440_device(const machine_config &mconfig, const char *tag, d
 	, m_cpu(*this, ":maincpu")
 	, m_palette(*this, finder_base::DUMMY_TAG)
 	, m_screen(*this, finder_base::DUMMY_TAG)
-	, m_pin_r_cb(*this)
+	, m_pin_r_cb(*this, 0)
 	, m_pin_w_cb(*this)
-	, m_port_r_cb(*this)
+	, m_port_r_cb(*this, 0)
 	, m_port_w_cb(*this)
 	, m_scl_w_cb(*this)
-	, m_sda_r_cb(*this)
+	, m_sda_r_cb(*this, 1)
 	, m_sda_w_cb(*this)
-	, m_data_r_cb(*this)
+	, m_data_r_cb(*this, 0)
 	, m_data_w_cb(*this)
 	, m_flags(0)
 	, m_command_w_cb(*this)
 	, m_address_w_cb(*this)
-	, m_nand_data_r_cb(*this)
+	, m_nand_data_r_cb(*this, 0)
 	, m_nand_data_w_cb(*this)
 {
 	memset(m_steppingstone, 0, sizeof(m_steppingstone));
@@ -258,7 +256,7 @@ s3c2440_device::s3c2440_device(const machine_config &mconfig, const char *tag, d
 	memset(&m_irq, 0, sizeof(m_irq));
 	memset(m_dma, 0, sizeof(m_dma));
 	memset(&m_clkpow, 0, sizeof(m_clkpow));
-	memset(&m_lcd, 0, sizeof(m_lcd));
+	m_lcd.clear();
 	memset(&m_lcdpal, 0, sizeof(m_lcdpal));
 	memset(&m_nand, 0, sizeof(m_nand));
 	memset(&m_cam, 0, sizeof(m_cam));
@@ -350,7 +348,7 @@ void s3c2440_device::s3c2440_request_eint(uint32_t number)
 	s3c24xx_request_eint( number);
 }
 
-WRITE_LINE_MEMBER( s3c2440_device::frnb_w )
+void s3c2440_device::frnb_w(int state)
 {
 	s3c24xx_pin_frnb_w(state);
 }

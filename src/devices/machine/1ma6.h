@@ -20,24 +20,24 @@ class hp_1ma6_device : public device_t
 {
 public:
 	// construction/destruction
-	hp_1ma6_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	hp_1ma6_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// Register read/write
 	void reg_w(offs_t offset, uint8_t data);
 	uint8_t reg_r(offs_t offset);
 
-	DECLARE_WRITE_LINE_MEMBER(cart_out_w);
-	DECLARE_WRITE_LINE_MEMBER(hole_w);
-	DECLARE_WRITE_LINE_MEMBER(tacho_tick_w);
-	DECLARE_WRITE_LINE_MEMBER(motion_w);
-	DECLARE_WRITE_LINE_MEMBER(rd_bit_w);
-	DECLARE_READ_LINE_MEMBER(wr_bit_r);
+	void cart_out_w(int state);
+	void hole_w(int state);
+	void tacho_tick_w(int state);
+	void motion_w(int state);
+	void rd_bit_w(int state);
+	int wr_bit_r();
 
 protected:
 	// device-level overrides
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	required_device<hp_dc100_tape_device> m_tape;

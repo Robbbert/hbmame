@@ -20,7 +20,7 @@ galagax
 1943                                   //parent
 1943h
 1943kai                                //parent
-1943kais01
+1943kai01
 1943b2
 
 @source:8080bw.cpp
@@ -35,10 +35,10 @@ sinvtest2
 sinvtest3
 sinvtest4
 
-@source:aerofgt.cpp
+@source:vsystem/pspikes.cpp
 karatblz                               //parent
-karatblzas01
-karatblzas02
+karatblz01
+karatblz02
 
 @source:arkanoid.cpp
 arkanoid                               //parent
@@ -109,7 +109,7 @@ bombjack                               //parent
 bmbjckgr
 bombjckb
 bombjred
-bombjacks01
+bombjack01
 
 @source:btime.cpp
 btime                                  //parent
@@ -137,7 +137,7 @@ bbredux2		/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3		/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
 bublbobf		/* Arkatrad */
 sboblboblh		/* level select hack */
-bublbobls01
+bublbobl01
 
 @source:bwidow.cpp
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
@@ -156,32 +156,32 @@ ddonpacha                              // trap15 hack
 ddonpachjd
 ddonpachjh
 pwrinst2                               //parent
-pwrinst2h
-pwrinst2z
+pwrinst2s02
+pwrinst2s03
 pwrinst2s01
 plegends                               //parent
-plegendsjs01
-plegendsjs02
-plegendsjs03
+plegends01
+plegends02
+plegends03
 gaia                                   //parent
-gaias01
+gaia01
 metmqstr                               //parent
-metmqstrs01
-metmqstrs02
-metmqstrs03
+metmqstr01
+metmqstr02
+metmqstr03
 sailormn                               //parent
-sailormnh01
-sailormnh02
-sailormnh03
-sailormnh04
-sailormnh05
-sailormnh06
-sailormnts01
-sailormnts02
-sailormnts03
-sailormnts04
-sailormnts05
-sailormnts06
+sailormn01
+sailormn02
+sailormn03
+sailormn04
+sailormn05
+sailormn06
+sailormn07
+sailormn08
+sailormn09
+sailormn10
+sailormn11
+sailormn12
 theroes                                //parent
 theroes01
 
@@ -1392,16 +1392,16 @@ xmvsf
 1944s01
 1944s02
 1944s03
-19xxs01
-19xxs02
+19xx01
+19xx02
 armwars01
 armwars02
-avsps01
-avsps02
-avsps03
-avsps04
-avsps05
-avsps06
+avsp01
+avsp02
+avsp03
+avsp04
+avsp05
+avsp06
 batcirs01
 csclub01
 csclub02
@@ -1618,6 +1618,7 @@ sfz3mix27
 sfz3mix28
 sfz3mix29
 sfz3mix30
+sfz3mix31
 sfz3mix
 
 @source:cps3.cpp
@@ -1716,7 +1717,7 @@ mjdchuka01
 @source:dec0.cpp
 baddudes                               //parent
 baddudef
-decodemo
+//decodemo      // working in 245, broken in 288
 robocop                                //parent
 robocopb01
 
@@ -1881,17 +1882,17 @@ sf2ces11                               // crowd missing
 
 @source:flstory.cpp
 flstory					//parent
-flstoryjs01
+flstory01
 
 @source:fuukifg3.cpp
 asurabld				//parent
-asurablds01
-asurablds02
-asurablds03
-asurablds04
+asurabld01
+asurabld02
+asurabld03
+asurabld04
 asurabus				//parent
-asurabuss01
-asurabuss02
+asurabus01
+asurabus02
 
 @source:galactic.cpp
 galactic                               // extra sounds
@@ -1931,7 +1932,8 @@ xevious3	/* Xevious 2003 */
 xevious4	/* Xevious 2004 */
 xevious5	/* Xevious 2005 */
 xeviblk		/* Xevious Black */
-sxeviouss01
+sxevious01
+hyxevious
 
 @source:galaxian.cpp
 amidar                                 //parent
@@ -2047,7 +2049,7 @@ hypetest
 lhb2                                   //parent
 lhb2s01
 xymg                                   //parent
-wlccs01
+wlcc01
 
 @source:itech8.cpp
 itecdemo                               // Charles Doty
@@ -4458,9 +4460,9 @@ wh1d					// 0053 (c) 1992 Alpha Denshi Co.
 @source:mhavoc.cpp
 mhavoc                                 //parent
 mhavocrv
+mhavocrv2
 
 @source:mhavoc_hb.cpp
-mhavocrv2
 mhavocpex1
 mhavocpex2
 mhavocpex3
@@ -4591,7 +4593,7 @@ missilet                               // Tesla variant
 @source:mitchell.cpp
 mitcdemo
 pang                                   //parent
-pangbolds01
+pang01
 
 @source:model1.cpp
 vr                                     //parent
@@ -5996,12 +5998,12 @@ mtlchamp			//parent
 mmaulers			//parent
 metamrph			//parent
 viostorm			//parent
-metamrphs01
-mtlchamps01
-mmaulerss01
-viostorms01
-viostorms02
-viostorms03
+metamrph01
+mtlchamp01
+mmaulers01
+viostorm01
+viostorm02
+viostorm03
 
 @source:namcona1.cpp
 emeralda                               //parent
@@ -6214,6 +6216,7 @@ baddudesn
 bbb2d1
 bbb2d2
 beast
+blueandr
 bonusstage                             // HB
 bpanicdx                               // HB
 cabalng                                // port
@@ -7409,6 +7412,7 @@ vecpengo                               // T-Bone hack of Pengo
 
 @source:iq_pgm.cpp
 // HOMEBREW
+pgmcabal
 pgmsnake
 // HACKS
 killbld01
@@ -8099,10 +8103,10 @@ orlegend
 martmast
 theglad
 // HOMEBREW
-pgemeni		/* HB Blastar */
-pgmdemo		/* HB Charles Doty */
-pgmfrog		/* HB Rastersoft */
-pgmcabal
+///pgm_hb
+///pgemeni		/* HB Blastar */
+///pgmdemo		/* HB Charles Doty */
+///pgmfrog		/* HB Rastersoft */
 // HACKS
 ketarr		// trap15 hack
 ketarr10	// trap15 hack
@@ -8111,7 +8115,7 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-//ket01    black screen
+//ket01       //black screen, roms missing
 
 @source:phoenix.cpp
 phoenix                                //parent
@@ -8327,7 +8331,6 @@ pacman25s51
 pacman25s52
 pacman25s53
 pacman25s54
-pacman25s55
 pacman25s56
 pacman25s57
 pacman25s58
@@ -8812,7 +8815,6 @@ suikoenb                               //parent
 suikoenb01
 
 @source:taitosj.cpp
-adcanoe
 alpine                                 //parent
 alpine01
 frontlin                               //parent
@@ -8987,10 +8989,6 @@ drtoppel01
 insectx                                //parent
 insectx01
 
-@source:toaplan1.cpp
-fireshrk                               //parent
-samesamenh
-
 @source:toaplan2.cpp
 kingdmgp                               //parent
 kgpe
@@ -9079,7 +9077,7 @@ sinistar                               //parent
 sinistar01
 splat                                  //parent
 splatsc1
-conquest
+conquesthb
 
 @source:wiz.cpp
 stinger                                //parent

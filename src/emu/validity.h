@@ -51,16 +51,17 @@ public:
 
 protected:
 	// osd_output interface
-	virtual void output_callback(osd_output_channel channel, const util::format_argument_pack<std::ostream> &args) override;
+	virtual void output_callback(osd_output_channel channel, const util::format_argument_pack<char> &args) override;
 
 private:
 	// internal map types
 	using game_driver_map = std::unordered_map<std::string, game_driver const *>;
+	using input_string_map = std::unordered_map<std::string, input_string_index>;
 	using int_map = std::unordered_map<std::string, uintptr_t>;
 	using string_set = std::unordered_set<std::string>;
 
 	// internal helpers
-	int get_defstr_index(const char *string, bool suppress_error = false);
+	input_string_index get_defstr_index(const char *string, bool suppress_error = false);
 
 	// core helpers
 	void validate_begin();
@@ -100,7 +101,7 @@ private:
 	game_driver_map         m_names_map;
 	game_driver_map         m_descriptions_map;
 	game_driver_map         m_roms_map;
-	int_map                 m_defstr_map;
+	input_string_map        m_defstr_map;
 
 	// current state
 	game_driver const *     m_current_driver;
@@ -109,6 +110,7 @@ private:
 	int_map                 m_region_map;
 	string_set              m_ioport_set;
 	string_set              m_already_checked;
+	string_set              m_slotcard_set;
 	bool                    m_checking_card;
 	bool const              m_quick;
 };

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/model1.cpp"
+#include "../mame/sega/model1.cpp"
 
 ROM_START( vr01 )
 	MODEL1_CPU_BOARD

@@ -71,9 +71,6 @@ void i8089_channel_device::device_start()
 	// get parent device
 	m_iop = downcast<i8089_device *>(owner());
 
-	// resolve callbacks
-	m_write_sintr.resolve_safe();
-
 	// register for save states
 	save_item(NAME(m_xfer_pending));
 	save_item(NAME(m_dma_value));
@@ -543,6 +540,8 @@ int i8089_channel_device::execute_run()
 			uint16_t op2 = m_iop->read_word(m_r[TP].t, m_r[TP].w);
 			set_reg(TP, m_r[TP].w + 2);
 			int mm2 = (op2 >> 8) & 0x03;
+			// fix-up the second half of the instruction
+			if (mm2 == BC) mm2 = PP;
 
 			if (w) mov_mm(mm, mm2, o, offset((op2 >> 1) & 0x03, mm2, w));
 			else   movb_mm(mm, mm2, o, offset((op2 >> 1) & 0x03, mm2, w));
@@ -845,7 +844,7 @@ void i8089_channel_device::ca()
 	m_prio = PRIO_CHAN_ATTN;
 }
 
-WRITE_LINE_MEMBER( i8089_channel_device::ext_w )
+void i8089_channel_device::ext_w(int state)
 {
 	if (VERBOSE)
 		logerror("%s('%s'): ext_w: %d\n", shortname(), tag(), state);
@@ -854,7 +853,7 @@ WRITE_LINE_MEMBER( i8089_channel_device::ext_w )
 		terminate_dma((CC_TX - 1) * 4);
 }
 
-WRITE_LINE_MEMBER( i8089_channel_device::drq_w )
+void i8089_channel_device::drq_w(int state)
 {
 	if (VERBOSE_DMA)
 		logerror("%s('%s'): drq_w: %d\n", shortname(), tag(), state);

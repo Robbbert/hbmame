@@ -53,7 +53,7 @@ DEFINE_DEVICE_TYPE(S100_WUNDERBUS, s100_wunderbus_device, "s100_wunderbus", "Mor
 
 */
 
-WRITE_LINE_MEMBER( s100_wunderbus_device::pic_int_w )
+void s100_wunderbus_device::pic_int_w(int state)
 {
 	m_bus->irq_w(state);
 }
@@ -71,7 +71,7 @@ DEVICE_INPUT_DEFAULTS_END
 //  UPD1990A_INTERFACE( rtc_intf )
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( s100_wunderbus_device::rtc_tp_w )
+void s100_wunderbus_device::rtc_tp_w(int state)
 {
 	if (state)
 	{
@@ -88,7 +88,7 @@ WRITE_LINE_MEMBER( s100_wunderbus_device::rtc_tp_w )
 
 void s100_wunderbus_device::device_add_mconfig(machine_config &config)
 {
-	PIC8259(config, m_pic, 0);
+	PIC8259(config, m_pic);
 	m_pic->out_int_callback().set(FUNC(s100_wunderbus_device::pic_int_w));
 	m_pic->in_sp_callback().set_constant(1);
 

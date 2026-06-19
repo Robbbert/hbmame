@@ -37,7 +37,7 @@ std::unique_ptr<util::disasm_interface> tms57002_device::create_disassembler()
 	return std::make_unique<tms57002_disassembler>();
 }
 
-WRITE_LINE_MEMBER(tms57002_device::pload_w)
+void tms57002_device::pload_w(int state)
 {
 	u8 olds = sti;
 	if (state)
@@ -56,7 +56,7 @@ WRITE_LINE_MEMBER(tms57002_device::pload_w)
 	}
 }
 
-WRITE_LINE_MEMBER(tms57002_device::cload_w)
+void tms57002_device::cload_w(int state)
 {
 	u8 olds = sti;
 	if (state)
@@ -185,7 +185,7 @@ u8 tms57002_device::data_r()
 	return res;
 }
 
-READ_LINE_MEMBER(tms57002_device::dready_r)
+int tms57002_device::dready_r()
 {
 	return sti & S_HOST ? 0 : 1;
 }
@@ -195,7 +195,7 @@ void tms57002_device::update_dready()
 	m_dready_callback(sti & S_HOST ? 0 : 1);
 }
 
-READ_LINE_MEMBER(tms57002_device::pc0_r)
+int tms57002_device::pc0_r()
 {
 	return pc == 0 ? 0 : 1;
 }
@@ -205,7 +205,7 @@ void tms57002_device::update_pc0()
 	m_pc0_callback(pc == 0 ? 0 : 1);
 }
 
-READ_LINE_MEMBER(tms57002_device::empty_r)
+int tms57002_device::empty_r()
 {
 	return (update_counter_head == update_counter_tail);
 }
@@ -215,7 +215,7 @@ void tms57002_device::update_empty()
 	m_empty_callback(update_counter_head == update_counter_tail);
 }
 
-WRITE_LINE_MEMBER(tms57002_device::sync_w)
+void tms57002_device::sync_w(int state)
 {
 	if (sti & (IN_PLOAD /*| IN_CLOAD*/))
 		return;
@@ -920,30 +920,22 @@ void tms57002_device::execute_run()
 		icount = 0;
 }
 
-void tms57002_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void tms57002_device::sound_stream_update(sound_stream &stream)
 {
-	assert(inputs[0].samples() == 1);
-	assert(outputs[0].samples() == 1);
+	assert(stream.samples() == 1);
 
-	stream_buffer::sample_t in_scale = 32768.0 * ((st0 & ST0_SIM) ? 256.0 : 1.0);
-	si[0] = s32(inputs[0].get(0) * in_scale) & 0xffffff;
-	si[1] = s32(inputs[1].get(0) * in_scale) & 0xffffff;
-	si[2] = s32(inputs[2].get(0) * in_scale) & 0xffffff;
-	si[3] = s32(inputs[3].get(0) * in_scale) & 0xffffff;
+	sound_stream::sample_t in_scale = 32768.0 * ((st0 & ST0_SIM) ? 256.0 : 1.0);
+	si[0] = s32(stream.get(0, 0) * in_scale) & 0xffffff;
+	si[1] = s32(stream.get(1, 0) * in_scale) & 0xffffff;
+	si[2] = s32(stream.get(2, 0) * in_scale) & 0xffffff;
+	si[3] = s32(stream.get(3, 0) * in_scale) & 0xffffff;
 
-	outputs[0].put_int(0, s32(so[0] << 8) >> 1, 32768 * 32768);
-	outputs[1].put_int(0, s32(so[1] << 8) >> 1, 32768 * 32768);
-	outputs[2].put_int(0, s32(so[2] << 8) >> 1, 32768 * 32768);
-	outputs[3].put_int(0, s32(so[3] << 8) >> 1, 32768 * 32768);
+	stream.put(0, 0, s32(so[0] << 8) /  2147483648.0);
+	stream.put(1, 0, s32(so[1] << 8) /  2147483648.0);
+	stream.put(2, 0, s32(so[2] << 8) /  2147483648.0);
+	stream.put(3, 0, s32(so[3] << 8) /  2147483648.0);
 
 	sync_w(1);
-}
-
-void tms57002_device::device_resolve_objects()
-{
-	m_dready_callback.resolve_safe();
-	m_pc0_callback.resolve_safe();
-	m_empty_callback.resolve_safe();
 }
 
 void tms57002_device::device_start()
@@ -1028,11 +1020,6 @@ u32 tms57002_device::execute_min_cycles() const noexcept
 u32 tms57002_device::execute_max_cycles() const noexcept
 {
 	return 3;
-}
-
-u32 tms57002_device::execute_input_lines() const noexcept
-{
-	return 0;
 }
 
 device_memory_interface::space_config_vector tms57002_device::memory_space_config() const

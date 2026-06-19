@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/warriorb.cpp"
+#include "../mame/taito/warriorb.cpp"
 
 // This set came from something called "Darius Cozmic Collection"
 ROM_START( sagaiav2 )

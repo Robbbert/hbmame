@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/asteroid.cpp"
+#include "../mame/atari/asteroid.cpp"
 #include "machine/eepromser.h"
 
 namespace {

@@ -34,7 +34,7 @@ on Videopac+, B is used for video mixer override
 */
 
 
-/* PCB */
+// PCB
 enum
 {
 	O2_STD = 0,
@@ -44,6 +44,7 @@ enum
 	O2_CHESS,
 	O2_HOMECOMP,
 	O2_TEST,
+	O2_TESTPL,
 	O2_VOICE
 };
 
@@ -68,7 +69,7 @@ public:
 	virtual u8 io_read(offs_t offset) { return 0xff; }
 	virtual void bus_write(u8 data) { }
 	virtual u8 bus_read() { return 0xff; }
-	virtual DECLARE_READ_LINE_MEMBER(t0_read) { return 0; }
+	virtual int t0_read() { return 0; }
 	virtual int b_read() { return -1; }
 
 	virtual void cart_init() { } // called after loading ROM
@@ -94,33 +95,30 @@ protected:
 // ======================> o2_cart_slot_device
 
 class o2_cart_slot_device : public device_t,
-								public device_cartrom_image_interface,
-								public device_single_card_slot_interface<device_o2_cart_interface>
+		public device_cartrom_image_interface,
+		public device_single_card_slot_interface<device_o2_cart_interface>
 {
 public:
 	// construction/destruction
 	template <typename T>
-	o2_cart_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
-		: o2_cart_slot_device(mconfig, tag, owner, 0)
+	o2_cart_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt) :
+		o2_cart_slot_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	o2_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 	virtual ~o2_cart_slot_device();
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override { }
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 	virtual const char *image_interface() const noexcept override { return "odyssey_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,rom"; }
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 	int get_type() { return m_type; }
@@ -133,22 +131,26 @@ public:
 	u8 io_read(offs_t offset);
 	void bus_write(u8 data);
 	u8 bus_read();
-	DECLARE_READ_LINE_MEMBER(t0_read);
+	int t0_read();
 	int b_read();
 
 	void write_p1(u8 data) { if (m_cart) m_cart->write_p1(data); }
 	void write_p2(u8 data) { if (m_cart) m_cart->write_p2(data); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual ioport_constructor device_input_ports() const override ATTR_COLD;
 
+private:
 	int m_type;
 	device_o2_cart_interface* m_cart;
+
+	required_ioport m_conf;
 	int m_b;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(O2_CART_SLOT, o2_cart_slot_device)
 
 

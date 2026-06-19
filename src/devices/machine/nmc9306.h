@@ -31,16 +31,16 @@ class nmc9306_device :  public device_t,
 {
 public:
 	// construction/destruction
-	nmc9306_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	nmc9306_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
-	DECLARE_WRITE_LINE_MEMBER( cs_w );
-	DECLARE_WRITE_LINE_MEMBER( sk_w );
-	DECLARE_WRITE_LINE_MEMBER( di_w );
-	DECLARE_READ_LINE_MEMBER( do_r );
+	void cs_w(int state);
+	void sk_w(int state);
+	void di_w(int state);
+	int do_r();
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	// device_nvram_interface overrides
 	virtual void nvram_default() override;
@@ -48,22 +48,24 @@ protected:
 	virtual bool nvram_write(util::write_stream &file) override;
 
 private:
-	inline uint16_t read(offs_t offset);
-	inline void write(offs_t offset, uint16_t data);
+	optional_memory_region m_region;
+
+	inline u16 read(offs_t offset);
+	inline void write(offs_t offset, u16 data);
 	inline void erase(offs_t offset);
 
-	uint16_t m_register[16];
+	u16 m_register[16];
 
 	int m_bits;
 	int m_state;
-	uint8_t m_command;
-	uint8_t m_address;
-	uint16_t m_data;
+	u8 m_command;
+	u8 m_address;
+	u16 m_data;
 	bool m_ewen;
-	int m_cs;
-	int m_sk;
-	int m_do;
-	int m_di;
+	bool m_cs;
+	bool m_sk;
+	bool m_do;
+	bool m_di;
 };
 
 

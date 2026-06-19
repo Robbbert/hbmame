@@ -32,7 +32,7 @@ avi_write::~avi_write()
 	}
 }
 
-void avi_write::record(const char *name)
+void avi_write::record(std::string_view name)
 {
 	if (m_recording)
 	{
@@ -48,7 +48,7 @@ void avi_write::stop()
 	end_avi_recording();
 }
 
-void avi_write::begin_avi_recording(const char *name)
+void avi_write::begin_avi_recording(std::string_view name)
 {
 	// stop any existing recording
 	end_avi_recording();
@@ -72,7 +72,7 @@ void avi_write::begin_avi_recording(const char *name)
 	info.audio_timescale = m_machine.sample_rate();
 	info.audio_sampletime = 1;
 	info.audio_numsamples = 0;
-	info.audio_channels = 2;
+	info.audio_channels = m_machine.sound().outputs_count();
 	info.audio_samplebits = 16;
 	info.audio_samplerate = m_machine.sample_rate();
 
@@ -81,7 +81,7 @@ void avi_write::begin_avi_recording(const char *name)
 
 	// create a new temporary movie file
 	emu_file tempfile(m_machine.options().snapshot_directory(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-	const std::error_condition filerr = (!name || !name[0] || !std::strcmp(name, OSDOPTVAL_AUTO))
+	const std::error_condition filerr = (name.empty() || name == OSDOPTVAL_AUTO)
 			? m_machine.video().open_next(tempfile, "avi")
 			: tempfile.open(name);
 
@@ -142,9 +142,10 @@ void avi_write::audio_frame(const int16_t *buffer, int samples_this_frame)
 	if (m_output_file != nullptr)
 	{
 		// write the next frame
-		avi_file::error avierr = m_output_file->append_sound_samples(0, buffer + 0, samples_this_frame, 1);
-		if (avierr == avi_file::error::NONE)
-			avierr = m_output_file->append_sound_samples(1, buffer + 1, samples_this_frame, 1);
+		int channels = m_machine.sound().outputs_count();
+		avi_file::error avierr = avi_file::error::NONE;
+		for (int channel = 0; channel != channels && avierr == avi_file::error::NONE; channel ++)
+			avierr = m_output_file->append_sound_samples(channel, buffer + channel, samples_this_frame, channels-1);
 		if (avierr != avi_file::error::NONE)
 		{
 			osd_printf_error("Error while logging AVI audio frame: %s\n", avi_file::error_string(avierr));

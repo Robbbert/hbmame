@@ -35,8 +35,8 @@ public:
 	virtual void sync() override;
 
 protected:
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	TIMER_CALLBACK_MEMBER(update_timer_tick);
 
@@ -60,7 +60,6 @@ private:
 
 	floppy_image_device *m_floppy;
 	emu_timer *m_timer;
-	double m_q3_fclk_ratio, m_fclk_q3_ratio;
 	u64 m_last_sync, m_next_state_change, m_sync_update, m_async_update;
 	u64 m_flux_write_start;
 	std::array<u64, 65536> m_flux_write;
@@ -72,7 +71,7 @@ private:
 	u8 m_devsel;
 	bool m_q3_clock_active;
 
-	u8 control(int offset, u8 data);
+	void control(int offset, u8 data);
 	u64 time_to_cycles(const attotime &tm) const;
 	attotime cycles_to_time(u64 cycles) const;
 

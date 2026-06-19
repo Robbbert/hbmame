@@ -1,8 +1,8 @@
 // license: BSD-3-Clause
-// copyright-holders: Dirk Best
+// copyright-holders: Dirk Best, Märt Põder
 /***************************************************************************
 
-    Juku E5101
+    Juku E5101/E5104
 
     Disk image format
 
@@ -19,9 +19,9 @@ class juku_format : public wd177x_format
 public:
 	juku_format();
 
-	virtual const char *name() const override;
-	virtual const char *description() const override;
-	virtual const char *extensions() const override;
+	virtual const char *name() const noexcept override;
+	virtual const char *description() const noexcept override;
+	virtual const char *extensions() const noexcept override;
 
 private:
 	static const format formats[];

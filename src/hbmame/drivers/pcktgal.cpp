@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/pcktgal.cpp"
+#include "../mame/dataeast/pcktgal.cpp"
 
 ROM_START( pckgalgr )
 	ROM_REGION( 0x10000, "maincpu", 0 )

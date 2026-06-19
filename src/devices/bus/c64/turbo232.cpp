@@ -39,7 +39,7 @@ DEFINE_DEVICE_TYPE(C64_TURBO232, c64_turbo232_cartridge_device, "c64_turbo232", 
 
 void c64_turbo232_cartridge_device::device_add_mconfig(machine_config &config)
 {
-	MOS6551(config, m_acia, 0);
+	MOS6551(config, m_acia);
 	m_acia->set_xtal(3.6864_MHz_XTAL);
 	m_acia->irq_handler().set(FUNC(c64_turbo232_cartridge_device::acia_irq_w));
 	m_acia->txd_handler().set(RS232_TAG, FUNC(rs232_port_device::write_txd));
@@ -200,7 +200,7 @@ void c64_turbo232_cartridge_device::c64_cd_w(offs_t offset, uint8_t data, int sp
 //  acia_irq_w -
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( c64_turbo232_cartridge_device::acia_irq_w )
+void c64_turbo232_cartridge_device::acia_irq_w(int state)
 {
 	switch (m_irq)
 	{

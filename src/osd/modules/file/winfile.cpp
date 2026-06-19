@@ -62,12 +62,12 @@ public:
 		LARGE_INTEGER largeOffset;
 		largeOffset.QuadPart = offset;
 		if (!SetFilePointerEx(m_handle, largeOffset, nullptr, FILE_BEGIN))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		// then perform the read
 		DWORD result = 0;
 		if (!ReadFile(m_handle, buffer, length, &result, nullptr))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		actual = result;
 		return std::error_condition();
@@ -79,12 +79,12 @@ public:
 		LARGE_INTEGER largeOffset;
 		largeOffset.QuadPart = offset;
 		if (!SetFilePointerEx(m_handle, largeOffset, nullptr, FILE_BEGIN))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		// then perform the write
 		DWORD result = 0;
 		if (!WriteFile(m_handle, buffer, length, &result, nullptr))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		actual = result;
 		return std::error_condition();
@@ -96,19 +96,31 @@ public:
 		LARGE_INTEGER largeOffset;
 		largeOffset.QuadPart = offset;
 		if (!SetFilePointerEx(m_handle, largeOffset, nullptr, FILE_BEGIN))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		// then perform the truncation
 		if (!SetEndOfFile(m_handle))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 		else
 			return std::error_condition();
 	}
 
 	virtual std::error_condition flush() noexcept override
 	{
-		// shouldn't be any userspace buffers on the file handle
+		// The file handle buffers data which the OS flushes to disk cache
+		// periodically.  The trouble with calling FlushFileBuffers here is that
+		// it also forces the data and metadata caches to be flushed to storage,
+		// which can cause performance issues.  The real solution would be to
+		// rewrite this class to use FILE_FLAG_NO_BUFFERING, which would require
+		// it to do its own buffering and only perform sector-aligned I/O.
+#if 0
+		if (!FlushFileBuffers(m_handle))
+			return win_error_to_error_condition(GetLastError());
+		else
+			return std::error_condition();
+#else
 		return std::error_condition();
+#endif
 	}
 
 private:
@@ -161,12 +173,8 @@ DWORD create_path_recursive(TCHAR *path)
 //  osd_open
 //============================================================
 
-std::error_condition osd_file::open(std::string const &orig_path, uint32_t openflags, ptr &file, std::uint64_t &filesize) noexcept
+std::error_condition osd_file::open(std::string const &path, uint32_t openflags, ptr &file, std::uint64_t &filesize) noexcept
 {
-	std::string path;
-	try { path = osd_subst_env(orig_path); }
-	catch (...) { return std::errc::not_enough_memory; }
-
 	if (win_check_socket_path(path))
 		return win_open_socket(path, openflags, file, filesize);
 	else if (win_check_ptty_path(path))
@@ -229,7 +237,7 @@ std::error_condition osd_file::open(std::string const &orig_path, uint32_t openf
 
 		// if we still failed, clean up and free
 		if (INVALID_HANDLE_VALUE == h)
-			return win_error_to_file_error(err);
+			return win_error_to_error_condition(err);
 	}
 
 	// get the file size
@@ -259,7 +267,7 @@ std::error_condition osd_file::open(std::string const &orig_path, uint32_t openf
 		if (NO_ERROR != err)
 		{
 			CloseHandle(h);
-			return win_error_to_file_error(err);
+			return win_error_to_error_condition(err);
 		}
 	}
 
@@ -299,7 +307,7 @@ std::error_condition osd_file::remove(std::string const &filename) noexcept
 
 	std::error_condition filerr;
 	if (!DeleteFile(tempstr.c_str()))
-		filerr = win_error_to_file_error(GetLastError());
+		filerr = win_error_to_error_condition(GetLastError());
 
 	return filerr;
 }
@@ -363,10 +371,12 @@ bool osd_get_physical_drive_geometry(const char *filename, uint32_t *cylinders, 
 //  osd_stat
 //============================================================
 
-std::unique_ptr<osd::directory::entry> osd_stat(const std::string &path)
+osd::directory::entry::ptr osd_stat(const std::string &path)
 {
 	// convert the path to TCHARs
-	osd::text::tstring t_path = osd::text::to_tstring(path);
+	osd::text::tstring t_path;
+	try { t_path = osd::text::to_tstring(path); }
+	catch (std::bad_alloc const &) { return nullptr; }
 
 	// is this path a root directory (e.g. - C:)?
 	WIN32_FIND_DATA find_data;
@@ -388,18 +398,22 @@ std::unique_ptr<osd::directory::entry> osd_stat(const std::string &path)
 
 	// create an osd::directory::entry; be sure to make sure that the caller can
 	// free all resources by just freeing the resulting osd::directory::entry
-	osd::directory::entry *result;
-	try { result = reinterpret_cast<osd::directory::entry *>(::operator new(sizeof(*result) + path.length() + 1)); }
-	catch (...) { return nullptr; }
+	auto const result = reinterpret_cast<osd::directory::entry *>(
+			::operator new(
+				sizeof(osd::directory::entry) + path.length() + 1,
+				std::align_val_t(alignof(osd::directory::entry)),
+				std::nothrow));
+	if (!result) return nullptr;
 	new (result) osd::directory::entry;
 
-	strcpy(((char *) result) + sizeof(*result), path.c_str());
-	result->name = ((char *) result) + sizeof(*result);
+	auto const resultname = reinterpret_cast<char *>(result) + sizeof(*result);
+	std::strcpy(resultname, path.c_str());
+	result->name = resultname;
 	result->type = win_attributes_to_entry_type(find_data.dwFileAttributes);
 	result->size = find_data.nFileSizeLow | ((uint64_t) find_data.nFileSizeHigh << 32);
 	result->last_modified = win_time_point_from_filetime(&find_data.ftLastWriteTime);
 
-	return std::unique_ptr<osd::directory::entry>(result);
+	return osd::directory::entry::ptr(result);
 }
 
 
@@ -415,12 +429,12 @@ std::error_condition osd_get_full_path(std::string &dst, std::string const &path
 		std::wstring const w_path(osd::text::to_wstring(path));
 		DWORD const length(GetFullPathNameW(w_path.c_str(), 0, nullptr, nullptr));
 		if (!length)
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		// allocate a buffer and get the canonical path
 		std::unique_ptr<wchar_t []> buffer(std::make_unique<wchar_t []>(length));
 		if (!GetFullPathNameW(w_path.c_str(), length, buffer.get(), nullptr))
-			return win_error_to_file_error(GetLastError());
+			return win_error_to_error_condition(GetLastError());
 
 		// convert the result back to UTF-8
 		osd::text::from_wstring(dst, buffer.get());
@@ -533,70 +547,4 @@ bool osd_is_valid_filepath_char(char32_t uchar) noexcept
 		&& uchar != '*'
 		&& !(uchar >= '\x7F' && uchar <= '\x9F')
 		&& uchar_isvalid(uchar);
-}
-
-
-
-//============================================================
-//  win_error_to_file_error
-//============================================================
-
-std::error_condition win_error_to_file_error(DWORD error) noexcept
-{
-	// TODO: work out if there's a better way to do this
-	switch (error)
-	{
-	case ERROR_SUCCESS:
-		return std::error_condition();
-
-	case ERROR_INVALID_HANDLE:
-		return std::errc::bad_file_descriptor;
-
-	case ERROR_OUTOFMEMORY:
-		return std::errc::not_enough_memory;
-
-	case ERROR_NOT_SUPPORTED:
-		return std::errc::not_supported;
-
-	case ERROR_FILE_NOT_FOUND:
-	case ERROR_PATH_NOT_FOUND:
-	case ERROR_INVALID_NAME:
-		return std::errc::no_such_file_or_directory;
-
-	case ERROR_FILENAME_EXCED_RANGE:
-		return std::errc::filename_too_long;
-
-	case ERROR_ACCESS_DENIED:
-	case ERROR_SHARING_VIOLATION:
-		return std::errc::permission_denied;
-
-	case ERROR_ALREADY_EXISTS:
-		return std::errc::file_exists;
-
-	case ERROR_TOO_MANY_OPEN_FILES:
-		return std::errc::too_many_files_open;
-
-	case ERROR_WRITE_FAULT:
-	case ERROR_READ_FAULT:
-		return std::errc::io_error;
-
-	case ERROR_HANDLE_DISK_FULL:
-	case ERROR_DISK_FULL:
-		return std::errc::no_space_on_device;
-
-	case ERROR_PATH_BUSY:
-	case ERROR_BUSY:
-		return std::errc::device_or_resource_busy;
-
-	case ERROR_FILE_TOO_LARGE:
-		return std::errc::file_too_large;
-
-	case ERROR_INVALID_ACCESS:
-	case ERROR_NEGATIVE_SEEK:
-	case ERROR_BAD_ARGUMENTS:
-		return std::errc::invalid_argument;
-
-	default:
-		return std::error_condition(error, std::system_category());
-	}
 }

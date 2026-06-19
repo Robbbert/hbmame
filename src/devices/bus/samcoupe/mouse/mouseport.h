@@ -39,10 +39,7 @@ public:
 	samcoupe_mouse_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts)
 		: samcoupe_mouse_port_device(mconfig, tag, owner, uint32_t(0))
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(nullptr);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), nullptr, false);
 	}
 
 	samcoupe_mouse_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -52,14 +49,14 @@ public:
 	auto mseint_handler() { return m_mseint_handler.bind(); }
 
 	// called from cart device
-	DECLARE_WRITE_LINE_MEMBER( mseint_w ) { m_mseint_handler(state); }
+	void mseint_w(int state) { m_mseint_handler(state); }
 
 	// called from host
 	uint8_t read();
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	devcb_write_line m_mseint_handler;

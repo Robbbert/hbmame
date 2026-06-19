@@ -9,7 +9,16 @@
 #include "emu.h"
 #include "c8280.h"
 
+#include "cpu/m6502/m6502.h"
+#include "imagedev/floppy.h"
+#include "machine/mos6530.h"
+#include "machine/wd_fdc.h"
 
+#include "formats/c8280_dsk.h"
+
+
+
+namespace {
 
 //**************************************************************************
 //  MACROS / CONSTANTS
@@ -17,8 +26,6 @@
 
 #define M6502_DOS_TAG   "5c"
 #define M6502_FDC_TAG   "9e"
-#define M6532_0_TAG     "9f"
-#define M6532_1_TAG     "9g"
 #define WD1797_TAG      "5e"
 
 
@@ -33,10 +40,64 @@ enum
 
 
 //**************************************************************************
-//  DEVICE DEFINITIONS
+//  TYPE DEFINITIONS
 //**************************************************************************
 
-DEFINE_DEVICE_TYPE(C8280, c8280_device, "c8280", "Commodore 8280")
+// ======================> c8280_device
+
+class c8280_device : public device_t, public device_ieee488_interface
+{
+public:
+	// construction/destruction
+	c8280_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+protected:
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual ioport_constructor device_input_ports() const override ATTR_COLD;
+
+	// device_ieee488_interface implementation
+	void ieee488_atn(int state) override;
+	void ieee488_ifc(int state) override;
+
+private:
+	inline void update_ieee_signals();
+
+	uint8_t dio_r();
+	void dio_w(uint8_t data);
+	uint8_t riot1_pa_r();
+	void riot1_pa_w(uint8_t data);
+	uint8_t riot1_pb_r();
+	void riot1_pb_w(uint8_t data);
+	uint8_t fk5_r();
+	void fk5_w(uint8_t data);
+
+	void c8280_fdc_mem(address_map &map) ATTR_COLD;
+	void c8280_main_mem(address_map &map) ATTR_COLD;
+
+	static void floppy_formats(format_registration &fr);
+
+	required_device<cpu_device> m_maincpu;
+	required_device<cpu_device> m_fdccpu;
+	required_device<mos6532_device> m_riot0;
+	required_device<mos6532_device> m_riot1;
+	required_device<fd1797_device> m_fdc;
+	required_device_array<floppy_connector, 2> m_floppy;
+	required_ioport m_address;
+	floppy_image_device *m_selected_floppy;
+	output_finder<4> m_leds;
+
+	// IEEE-488 bus
+	int m_rfdo;                         // not ready for data output
+	int m_daco;                         // not data accepted output
+	int m_atna;                         // attention acknowledge
+	int m_ifc;
+
+	uint8_t m_fk5;
+};
 
 
 //-------------------------------------------------
@@ -76,10 +137,10 @@ const tiny_rom_entry *c8280_device::device_rom_region() const
 
 void c8280_device::c8280_main_mem(address_map &map)
 {
-	map(0x0000, 0x007f).mirror(0x100).m(M6532_0_TAG, FUNC(mos6532_new_device::ram_map));
-	map(0x0080, 0x00ff).mirror(0x100).m(M6532_1_TAG, FUNC(mos6532_new_device::ram_map));
-	map(0x0200, 0x021f).mirror(0xd60).m(M6532_0_TAG, FUNC(mos6532_new_device::io_map));
-	map(0x0280, 0x029f).mirror(0xd60).m(M6532_1_TAG, FUNC(mos6532_new_device::io_map));
+	map(0x0000, 0x007f).mirror(0x100).m(m_riot0, FUNC(mos6532_device::ram_map));
+	map(0x0080, 0x00ff).mirror(0x100).m(m_riot1, FUNC(mos6532_device::ram_map));
+	map(0x0200, 0x021f).mirror(0xd60).m(m_riot0, FUNC(mos6532_device::io_map));
+	map(0x0280, 0x029f).mirror(0xd60).m(m_riot1, FUNC(mos6532_device::io_map));
 	map(0x1000, 0x13ff).mirror(0xc00).ram().share("share1");
 	map(0x2000, 0x23ff).mirror(0xc00).ram().share("share2");
 	map(0x3000, 0x33ff).mirror(0xc00).ram().share("share3");
@@ -96,7 +157,7 @@ void c8280_device::c8280_fdc_mem(address_map &map)
 {
 	map.global_mask(0x1fff);
 	map(0x0000, 0x007f).mirror(0x300).ram();
-	map(0x0080, 0x0083).mirror(0x37c).rw(WD1797_TAG, FUNC(fd1797_device::read), FUNC(fd1797_device::write));
+	map(0x0080, 0x0083).mirror(0x37c).rw(m_fdc, FUNC(fd1797_device::read), FUNC(fd1797_device::write));
 	map(0x0400, 0x07ff).ram().share("share1");
 	map(0x0800, 0x0bff).ram().share("share2");
 	map(0x0c00, 0x0fff).ram().share("share3");
@@ -300,11 +361,11 @@ void c8280_device::device_add_mconfig(machine_config &config)
 	M6502(config, m_maincpu, XTAL(12'000'000)/8);
 	m_maincpu->set_addrmap(AS_PROGRAM, &c8280_device::c8280_main_mem);
 
-	MOS6532_NEW(config, m_riot0, XTAL(12'000'000)/8);
+	MOS6532(config, m_riot0, XTAL(12'000'000)/8);
 	m_riot0->pa_rd_callback().set(FUNC(c8280_device::dio_r));
 	m_riot0->pb_wr_callback().set(FUNC(c8280_device::dio_w));
 
-	MOS6532_NEW(config, m_riot1, XTAL(12'000'000)/8);
+	MOS6532(config, m_riot1, XTAL(12'000'000)/8);
 	m_riot1->pa_rd_callback().set(FUNC(c8280_device::riot1_pa_r));
 	m_riot1->pa_wr_callback().set(FUNC(c8280_device::riot1_pa_w));
 	m_riot1->pb_rd_callback().set(FUNC(c8280_device::riot1_pb_r));
@@ -317,8 +378,9 @@ void c8280_device::device_add_mconfig(machine_config &config)
 	FD1797(config, m_fdc, XTAL(12'000'000)/6);
 	m_fdc->intrq_wr_callback().set_inputline(m_fdccpu, M6502_IRQ_LINE);
 	m_fdc->drq_wr_callback().set_inputline(m_fdccpu, M6502_SET_OVERFLOW);
-	FLOPPY_CONNECTOR(config, m_floppy0, c8280_floppies, "8dsdd", c8280_device::floppy_formats);
-	FLOPPY_CONNECTOR(config, m_floppy1, c8280_floppies, "8dsdd", c8280_device::floppy_formats);
+
+	for (auto &floppy : m_floppy)
+		FLOPPY_CONNECTOR(config, floppy, c8280_floppies, "8dsdd", c8280_device::floppy_formats);
 }
 
 
@@ -380,17 +442,16 @@ inline void c8280_device::update_ieee_signals()
 //-------------------------------------------------
 
 c8280_device::c8280_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
-	device_t(mconfig, C8280, tag, owner, clock),
+	device_t(mconfig, GPIB_C8280, tag, owner, clock),
 	device_ieee488_interface(mconfig, *this),
 	m_maincpu(*this, M6502_DOS_TAG),
 	m_fdccpu(*this, M6502_FDC_TAG),
-	m_riot0(*this, M6532_0_TAG),
-	m_riot1(*this, M6532_1_TAG),
+	m_riot0(*this, "9f"),
+	m_riot1(*this, "9g"),
 	m_fdc(*this, WD1797_TAG),
-	m_floppy0(*this, WD1797_TAG ":0"),
-	m_floppy1(*this, WD1797_TAG ":1"),
+	m_floppy(*this, WD1797_TAG ":%u", 0U),
 	m_address(*this, "ADDRESS"),
-	m_floppy(nullptr),
+	m_selected_floppy(nullptr),
 	m_leds(*this, "led%u", 0U),
 	m_rfdo(1),
 	m_daco(1),
@@ -405,8 +466,6 @@ c8280_device::c8280_device(const machine_config &mconfig, const char *tag, devic
 
 void c8280_device::device_start()
 {
-	m_leds.resolve();
-
 	// state saving
 	save_item(NAME(m_rfdo));
 	save_item(NAME(m_daco));
@@ -434,11 +493,11 @@ void c8280_device::device_reset()
 	m_riot1->reset();
 	m_fdc->reset();
 
-	m_riot1->pa7_w(1);
+	m_riot1->pa_bit_w<7>(1);
 
 	m_fk5 = 0;
-	m_floppy = nullptr;
-	m_fdc->set_floppy(m_floppy);
+	m_selected_floppy = nullptr;
+	m_fdc->set_floppy(m_selected_floppy);
 	m_fdc->dden_w(0);
 }
 
@@ -451,7 +510,7 @@ void c8280_device::ieee488_atn(int state)
 {
 	update_ieee_signals();
 
-	m_riot1->pa7_w(state);
+	m_riot1->pa_bit_w<7>(state);
 }
 
 
@@ -488,8 +547,8 @@ uint8_t c8280_device::fk5_r()
 
 	uint8_t data = m_fk5;
 
-	data |= (m_floppy ? m_floppy->dskchg_r() : 1) << 3;
-	data |= (m_floppy ? m_floppy->twosid_r() : 1) << 4;
+	data |= (m_selected_floppy ? m_selected_floppy->dskchg_r() : 1) << 3;
+	data |= (m_selected_floppy ? m_selected_floppy->twosid_r() : 1) << 4;
 
 	return data;
 }
@@ -514,15 +573,27 @@ void c8280_device::fk5_w(uint8_t data)
 	m_fk5 = data & 0x27;
 
 	// drive select
-	m_floppy = nullptr;
+	m_selected_floppy = nullptr;
+	for (int n = 0; n < 2; n++)
+	{
+		if (BIT(data, n))
+			m_selected_floppy = m_floppy[n]->get_device();
+	}
 
-	if (BIT(data, 0)) m_floppy = m_floppy0->get_device();
-	if (BIT(data, 1)) m_floppy = m_floppy1->get_device();
+	m_fdc->set_floppy(m_selected_floppy);
 
-	m_fdc->set_floppy(m_floppy);
-
-	if (m_floppy) m_floppy->mon_w(!BIT(data, 5));
+	if (m_selected_floppy)
+		m_selected_floppy->mon_w(!BIT(data, 5));
 
 	// density select
 	m_fdc->dden_w(BIT(data, 2));
 }
+
+} // anonymous namespace
+
+
+//**************************************************************************
+//  DEVICE DEFINITIONS
+//**************************************************************************
+
+DEFINE_DEVICE_TYPE_PRIVATE(GPIB_C8280, device_ieee488_interface, c8280_device, "c8280", "Commodore 8280 dual 8\" disk drive")

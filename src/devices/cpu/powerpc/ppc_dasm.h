@@ -30,8 +30,8 @@ public:
 		I_POWERPC = 1 << 1,
 	};
 
-	powerpc_disassembler(bool powerpc = true)
-		: m_implementation(powerpc ? I_POWERPC : I_POWER)
+	powerpc_disassembler(implementation impl = I_POWERPC)
+		: m_implementation(impl)
 	{
 	};
 	virtual ~powerpc_disassembler() = default;
@@ -102,7 +102,8 @@ private:
 		F_FRT_FRA_FRC,  // frT, frA, frC
 		F_RA_RT_SH_MB_ME,   // rA, rT, SH, MB, ME
 		F_RA_RT_RB_MB_ME,   // rA, rT, rB, MB, ME
-		F_RT_RB         // rT, rB
+		F_RT_RB,        // rT, rB
+		F_SC            // LEV, FL1, FL2 or SV  only used by SVC (POWER)
 	};
 
 	/*
@@ -147,7 +148,7 @@ private:
 	static std::string DCR(int dcr_field);
 	static std::string DecodeSigned16(uint32_t op, int do_unsigned);
 	static uint32_t Mask(unsigned const mb, unsigned const me);
-	bool Simplified(uint32_t op, uint32_t vpc, std::string &signed16, std::string &mnem, std::string &oprs);
+	bool Simplified(uint32_t op, uint32_t vpc, std::string &signed16, std::string &mnem, std::string &oprs, offs_t &flags);
 
 	implementation const m_implementation;
 };
@@ -156,7 +157,7 @@ class power_disassembler : public powerpc_disassembler
 {
 public:
 	power_disassembler()
-		: powerpc_disassembler(false)
+		: powerpc_disassembler(implementation::I_POWER)
 	{
 	};
 };

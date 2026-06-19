@@ -27,12 +27,11 @@
 **********************************************************************/
 
 #include "emu.h"
-#include "machine/am9513.h"
+#include "am9513.h"
 
-#define LOG_GENERAL (1U << 0)
-#define LOG_MODE (1U << 1)
+#define LOG_MODE  (1U << 1)
 #define LOG_INPUT (1U << 2)
-#define LOG_TC (1U << 3)
+#define LOG_TC    (1U << 3)
 //#define VERBOSE (LOG_GENERAL | LOG_MODE)
 
 #include "logmacro.h"
@@ -79,10 +78,6 @@ am9513a_device::am9513a_device(const machine_config &mconfig, const char *tag, d
 
 void am9513_device::device_start()
 {
-	// Resolve callbacks
-	m_out_cb.resolve_all_safe();
-	m_fout_cb.resolve();
-
 	// Power-on reset
 	m_dpr = 0x1f;
 	m_mmr = 0;
@@ -114,7 +109,7 @@ void am9513_device::device_start()
 	for (int f = 0; f < 5; f++)
 	{
 		m_freq_timer[f] = timer_alloc(FUNC(am9513_device::timer_tick), this);
-		m_freq_timer_selected[f] = (f == 0) ? (m_fout_cb.isnull() ? 0x3e : 0x3f) : 0;
+		m_freq_timer_selected[f] = (f == 0) ? (m_fout_cb.isunset() ? 0x3e : 0x3f) : 0;
 		m_freq_timer_cycle[f] = 0;
 	}
 
@@ -210,7 +205,7 @@ void am9513_device::init_freq_timer(int f)
 		m_freq_timer[f]->adjust(freq / 2, f, freq / 2);
 	m_freq_timer[f]->enable(m_freq_timer_selected[f] != 0);
 
-	LOGMASKED(LOG_GENERAL, "F%d = %f Hz (%s cycle emulation)\n", f + 1, double(clock()) / scale,
+	LOG("F%d = %f Hz (%s cycle emulation)\n", f + 1, double(clock()) / scale,
 			m_freq_timer_selected[f] == 0 ? "no" : m_freq_timer_cycle[f] == 0 ? "partial" : "full");
 }
 
@@ -326,7 +321,7 @@ void am9513_device::set_master_mode(u16 data)
 		if (source >= 11 && source <= 15)
 		{
 			LOGMASKED(LOG_MODE, "FOUT = F%d / %d\n", source - 10, divider);
-			select_freq_timer(source - 11, 0, !m_fout_cb.isnull(), BIT(divider, 0));
+			select_freq_timer(source - 11, 0, !m_fout_cb.isunset(), BIT(divider, 0));
 		}
 		else if (source >= 6 && source <= 10)
 			LOGMASKED(LOG_MODE, "FOUT = GATE %d / %d\n", source - 5, divider);
@@ -447,13 +442,13 @@ void am9513_device::set_counter_mode(int c, u16 data)
 		else if (source >= 6 && source <= 10)
 			LOGMASKED(LOG_MODE, "Counter %d: Count on %s edge of GATE %d\n", c + 1, BIT(data, 12) ? "falling" : "rising", source - 5);
 		else if (source == 0)
-			LOGMASKED(LOG_MODE, "Counter %d: Count on %s edge of TC%d\n", c + 1, BIT(data, 12) ? "falling" : "rising", c - 1);
+			LOGMASKED(LOG_MODE, "Counter %d: Count on %s edge of TC%d\n", c + 1, BIT(data, 12) ? "falling" : "rising", c);
 		else
 			LOGMASKED(LOG_MODE, "Counter %d: Count on %s edge of SRC %d\n", c + 1, BIT(data, 12) ? "falling" : "rising", source);
 	}
 
 	if ((data & 0x0018) != (m_counter_mode[c] & 0x0018))
-		LOGMASKED(LOG_MODE, "Counter %d: %s %s count\n", c + 1, BIT(data, 4) ? "BCD" : "Binary", BIT(data, 3) ? "up" : "down");
+		LOGMASKED(LOG_MODE, "Counter %d: %s %s count %s\n", c + 1, BIT(data, 4) ? "BCD" : "Binary", BIT(data, 3) ? "up" : "down", BIT(data, 5) ? "repetitively" : "once");
 
 	if ((data & 0x0007) != (m_counter_mode[c] & 0x0007))
 	{
@@ -518,7 +513,7 @@ void am9513_device::arm_counter(int c)
 {
 	if (!m_counter_armed[c])
 	{
-		LOGMASKED(LOG_GENERAL, "Counter %d: Arming counter\n", c + 1);
+		LOG("Counter %d: Arming counter\n", c + 1);
 		m_counter_armed[c] = true;
 
 		// Count starts upon first active gate edge after arming in Modes C, F, I, L, O, R, X
@@ -536,7 +531,7 @@ void am9513_device::disarm_counter(int c)
 {
 	if (m_counter_armed[c])
 	{
-		LOGMASKED(LOG_GENERAL, "Counter %d: Disarming counter\n", c + 1);
+		LOG("Counter %d: Disarming counter\n", c + 1);
 		m_counter_armed[c] = false;
 		m_counter_running[c] = false;
 	}
@@ -550,7 +545,7 @@ void am9513_device::disarm_counter(int c)
 void am9513_device::save_counter(int c)
 {
 	m_counter_hold[c] = m_count[c];
-	LOGMASKED(LOG_GENERAL, "Counter %d: Count %u saved\n", c + 1, m_count[c]);
+	LOG("Counter %d: Count %u saved\n", c + 1, m_count[c]);
 }
 
 
@@ -625,7 +620,12 @@ void am9513_device::set_tc(int c, bool state)
 
 	// TC cascading
 	if ((m_counter_mode[d] & 0x1f00) == (state ? 0x0000 : 0x1000))
+	{
+		LOGMASKED(LOG_TC, "Counter %d: TC cascade Next Count %u \n", c + 1, m_count[d]);
+
 		count_edge(d);
+
+	}
 
 	// TC gating
 	if ((m_counter_mode[d] & 0xe000) == 0x2000)
@@ -869,7 +869,7 @@ void am9513_device::step_counter(int c, bool force_load)
 		if (force_load)
 		{
 			m_count[c] = reload_from_hold(c) ? m_counter_hold[c] : m_counter_load[c];
-			LOGMASKED(LOG_GENERAL, "Counter %d: %u loaded\n", c + 1, m_count[c]);
+			LOG("Counter %d: %u loaded\n", c + 1, m_count[c]);
 		}
 	}
 
@@ -1112,7 +1112,7 @@ void am9513_device::internal_write(u16 data)
 	case 0x07: // Alarm 1 register
 	case 0x0f: // Alarm 2 register
 		if (m_alarm[BIT(m_dpr, 3)] != data)
-			LOGMASKED(LOG_GENERAL, "Counter %d: Alarm = %u\n", BIT(m_dpr, 3) ? 2 : 1, data);
+			LOG("Counter %d: Alarm = %u\n", BIT(m_dpr, 3) ? 2 : 1, data);
 		m_alarm[BIT(m_dpr, 3)] = data;
 		break;
 	case 0x01: // Counter 1 mode register
@@ -1121,7 +1121,7 @@ void am9513_device::internal_write(u16 data)
 	case 0x04: // Counter 4 mode register
 	case 0x05: // Counter 5 mode register
 		if (m_counter_mode[(m_dpr & 7) - 1] != data)
-			LOGMASKED(LOG_GENERAL, "Counter %d: Mode = %04X\n", m_dpr & 7, data);
+			LOG("Counter %d: Mode = %04X\n", m_dpr & 7, data);
 		set_counter_mode((m_dpr & 7) - 1, data);
 		break;
 	case 0x09: // Counter 1 load register
@@ -1130,7 +1130,7 @@ void am9513_device::internal_write(u16 data)
 	case 0x0c: // Counter 4 load register
 	case 0x0d: // Counter 5 load register
 		if (m_counter_load[(m_dpr & 7) - 1] != data)
-			LOGMASKED(LOG_GENERAL, "Counter %d: Load = %u\n", m_dpr & 7, data);
+			LOG("Counter %d: Load = %u\n", m_dpr & 7, data);
 		m_counter_load[(m_dpr & 7) - 1] = data;
 		break;
 	case 0x11: case 0x19: // Counter 1 hold register
@@ -1139,7 +1139,7 @@ void am9513_device::internal_write(u16 data)
 	case 0x14: case 0x1c: // Counter 4 hold register
 	case 0x15: case 0x1d: // Counter 5 hold register
 		if (m_counter_hold[(m_dpr & 7) - 1] != data)
-			LOGMASKED(LOG_GENERAL, "Counter %d: Hold = %u\n", m_dpr & 7, data);
+			LOG("Counter %d: Hold = %u\n", m_dpr & 7, data);
 		m_counter_hold[(m_dpr & 7) - 1] = data;
 		break;
 	default: // Invalid register
@@ -1243,7 +1243,10 @@ void am9513_device::command_write(u8 data)
 				if (BIT(data, 6))
 					step_counter(c, true);
 				if (BIT(data, 5))
+				{
+					LOGMASKED(LOG_MODE, "Arm Counter %d\n", c + 1);
 					arm_counter(c);
+				}
 			}
 		}
 		break;
@@ -1256,9 +1259,15 @@ void am9513_device::command_write(u8 data)
 			if (BIT(data, c))
 			{
 				if (!BIT(data, 5))
+				{
+					LOGMASKED(LOG_MODE, "Disarm Counter %d\n", c + 1);
 					disarm_counter(c);
+				}
 				if (!BIT(data, 6))
+				{
+					LOGMASKED(LOG_MODE, "Save Counter %d\n", c + 1);
 					save_counter(c);
+				}
 			}
 		}
 		break;
@@ -1275,6 +1284,7 @@ void am9513_device::command_write(u8 data)
 		case 0xe3: case 0xeb: // Clear/set toggle out for counter 3
 		case 0xe4: case 0xec: // Clear/set toggle out for counter 4
 		case 0xe5: case 0xed: // Clear/set toggle out for counter 5
+			LOGMASKED(LOG_MODE, "Counter %d: %s output\n", data & 7, BIT(data, 3) ? "Set" : "Clear");
 			set_toggle((data & 7) - 1, BIT(data, 3));
 			break;
 		case 0xe6: case 0xee: // Clear/set MM12 (FOUT gate on/FOUT gate off)
@@ -1282,6 +1292,7 @@ void am9513_device::command_write(u8 data)
 			m_mmr = ((m_mmr & ~(1 << 12)) | BIT(data, 3) << 12);
 			break;
 		case 0xe7: case 0xef: // Clear/set MM13 (8-bit bus/16-bit bus)
+			LOGMASKED(LOG_MODE, "Data Bus Width = %d-Bit\n", BIT(data, 3) ? 16 : 8);
 			m_mmr = ((m_mmr & ~(1 << 13)) | BIT(data, 3) << 13);
 			break;
 		case 0xf1: // Step counter 1
@@ -1289,6 +1300,7 @@ void am9513_device::command_write(u8 data)
 		case 0xf3: // Step counter 3
 		case 0xf4: // Step counter 4
 		case 0xf5: // Step counter 5
+			LOGMASKED(LOG_MODE, "Counter %d: Step\n", data & 7);
 			step_counter((data & 7) - 1, false);
 			break;
 		case 0xff: // Master reset
@@ -1461,7 +1473,7 @@ void am9513_device::fout_tick()
 	m_fout = !m_fout;
 
 	// Check whether the FOUT gate is on
-	if (!BIT(m_mmr, 12) && !m_fout_cb.isnull())
+	if (!BIT(m_mmr, 12) && !m_fout_cb.isunset())
 		m_fout_cb(m_fout);
 
 	// Reload the counter

@@ -63,10 +63,7 @@ public:
 	samcoupe_expansion_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts)
 		: samcoupe_expansion_device(mconfig, tag, owner, uint32_t(0))
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(nullptr);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), nullptr, false);
 	}
 
 	samcoupe_expansion_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -76,7 +73,7 @@ public:
 	auto int_handler() { return m_int_handler.bind(); }
 
 	// called from cart device
-	DECLARE_WRITE_LINE_MEMBER( int_w ) { m_int_handler(state); }
+	void int_w(int state) { m_int_handler(state); }
 
 	// called from host
 	uint8_t mreq_r(offs_t offset);
@@ -84,12 +81,12 @@ public:
 	uint8_t iorq_r(offs_t offset);
 	void iorq_w(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( xmem_w );
-	DECLARE_WRITE_LINE_MEMBER( print_w );
+	void xmem_w(int state);
+	void print_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	devcb_write_line m_int_handler;

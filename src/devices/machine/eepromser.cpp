@@ -2,8 +2,6 @@
 // copyright-holders:Aaron Giles
 /***************************************************************************
 
-    eepromser.c
-
     Serial EEPROM devices.
 
 ****************************************************************************
@@ -106,13 +104,13 @@
 
     Issues with:
 
-    kickgoal.c - code seems wrong, clock logic writes 0-0-0 instead of 0-1-0 as expected
-    overdriv.c - drops CS, raises CS, keeps DI=1, triggering extraneous start bit
+    kickgoal.cpp - code seems wrong, clock logic writes 0-0-0 instead of 0-1-0 as expected
+    overdriv.cpp - drops CS, raises CS, keeps DI=1, triggering extraneous start bit
 
 ***************************************************************************/
 
 #include "emu.h"
-#include "machine/eepromser.h"
+#include "eepromser.h"
 
 
 
@@ -155,24 +153,25 @@ ALLOW_SAVE_TYPE(eeprom_serial_base_device::eeprom_state);
 //  eeprom_serial_base_device - constructor
 //-------------------------------------------------
 
-eeprom_serial_base_device::eeprom_serial_base_device(const machine_config &mconfig, device_type devtype, const char *tag, device_t *owner, eeprom_serial_streaming enable_streaming)
-	: eeprom_base_device(mconfig, devtype, tag, owner),
-		m_command_address_bits(0),
-		m_streaming_enabled(bool(enable_streaming)),
-		m_output_on_falling_clock_enabled(false),
-		m_do_cb(*this),
-		m_state(STATE_IN_RESET),
-		m_cs_state(CLEAR_LINE),
-		m_last_cs_rising_edge_time(attotime::zero),
-		m_oe_state(CLEAR_LINE),
-		m_clk_state(CLEAR_LINE),
-		m_di_state(CLEAR_LINE),
-		m_locked(true),
-		m_bits_accum(0),
-		m_command_address_accum(0),
-		m_command(COMMAND_INVALID),
-		m_address(0),
-		m_shift_register(0)
+eeprom_serial_base_device::eeprom_serial_base_device(const machine_config &mconfig, device_type devtype, const char *tag, device_t *owner, eeprom_serial_streaming enable_streaming) :
+	eeprom_base_device(mconfig, devtype, tag, owner),
+	m_command_address_bits(0),
+	m_streaming_enabled(bool(enable_streaming)),
+	m_output_on_falling_clock_enabled(false),
+	m_do_tristate(ASSERT_LINE),
+	m_do_cb(*this),
+	m_state(STATE_IN_RESET),
+	m_cs_state(CLEAR_LINE),
+	m_last_cs_rising_edge_time(attotime::zero),
+	m_oe_state(CLEAR_LINE),
+	m_clk_state(CLEAR_LINE),
+	m_di_state(CLEAR_LINE),
+	m_locked(true),
+	m_bits_accum(0),
+	m_command_address_accum(0),
+	m_command(COMMAND_INVALID),
+	m_address(0),
+	m_shift_register(0)
 {
 }
 
@@ -190,12 +189,10 @@ void eeprom_serial_base_device::device_start()
 	// start the base class
 	eeprom_base_device::device_start();
 
-	// resolve callback
-	m_do_cb.resolve_safe();
-
 	// save the current state
 	save_item(NAME(m_state));
 	save_item(NAME(m_cs_state));
+	save_item(NAME(m_last_cs_rising_edge_time));
 	save_item(NAME(m_oe_state));
 	save_item(NAME(m_clk_state));
 	save_item(NAME(m_di_state));
@@ -288,7 +285,9 @@ int eeprom_serial_base_device::base_do_read()
 	// in most states, the output is tristated, and generally connected to a pull up
 	// to send back a 1 value; the only exception is if reading data and the current output
 	// bit is a 0
-	int result = (m_state == STATE_READING_DATA && ((m_shift_register & 0x80000000) == 0)) ? CLEAR_LINE : ASSERT_LINE;
+	int result = m_do_tristate;
+	if (m_state == STATE_READING_DATA)
+		result = (m_shift_register & 0x80000000) != 0 ? ASSERT_LINE : CLEAR_LINE;
 	LOG3("  do_read(%d)\n", result);
 	return result;
 }
@@ -340,8 +339,8 @@ void eeprom_serial_base_device::set_state(eeprom_state newstate)
 	// switch to the new state
 	m_state = newstate;
 
-	// set DO high (actually high impedance; pullup assumed)
-	m_do_cb(1);
+	// set DO high (actually high impedance; pullup assumed) except when entering STATE_READING_DATA
+	m_do_cb(m_state != STATE_READING_DATA);
 }
 
 
@@ -610,8 +609,8 @@ void eeprom_serial_base_device::execute_write_command()
 //  STANDARD INTERFACE IMPLEMENTATION
 //**************************************************************************
 
-eeprom_serial_s29x90_device::eeprom_serial_s29x90_device(const machine_config &mconfig, device_type devtype, const char *tag, device_t *owner, eeprom_serial_streaming ignored)
-	: eeprom_serial_93cxx_device(mconfig, devtype, tag, owner, eeprom_serial_streaming::ENABLE)
+eeprom_serial_s29x90_device::eeprom_serial_s29x90_device(const machine_config &mconfig, device_type devtype, const char *tag, device_t *owner, eeprom_serial_streaming ignored) :
+	eeprom_serial_93cxx_device(mconfig, devtype, tag, owner, eeprom_serial_streaming::ENABLE)
 {
 	enable_output_on_falling_clock(true);
 }
@@ -656,16 +655,16 @@ void eeprom_serial_93cxx_device::parse_command_and_address()
 //  do_read - read handlers
 //-------------------------------------------------
 
-READ_LINE_MEMBER(eeprom_serial_93cxx_device::do_read) { return base_do_read() & ((m_state == STATE_WAIT_FOR_START_BIT) ? base_ready_read() : 1); }
+int eeprom_serial_93cxx_device::do_read() { return (m_state == STATE_WAIT_FOR_START_BIT) ? base_ready_read() : base_do_read(); }
 
 
 //-------------------------------------------------
 //  cs_write/clk_write/di_write - write handlers
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(eeprom_serial_93cxx_device::cs_write) { base_cs_write(state); }
-WRITE_LINE_MEMBER(eeprom_serial_93cxx_device::clk_write) { base_clk_write(state); }
-WRITE_LINE_MEMBER(eeprom_serial_93cxx_device::di_write) { base_di_write(state); }
+void eeprom_serial_93cxx_device::cs_write(int state) { base_cs_write(state); }
+void eeprom_serial_93cxx_device::clk_write(int state) { base_clk_write(state); }
+void eeprom_serial_93cxx_device::di_write(int state) { base_di_write(state); }
 
 
 
@@ -713,17 +712,17 @@ void eeprom_serial_er5911_device::parse_command_and_address()
 //  do_read/ready_read - read handlers
 //-------------------------------------------------
 
-READ_LINE_MEMBER(eeprom_serial_er5911_device::do_read) { return base_do_read(); }
-READ_LINE_MEMBER(eeprom_serial_er5911_device::ready_read) { return base_ready_read(); }
+int eeprom_serial_er5911_device::do_read() { return base_do_read(); }
+int eeprom_serial_er5911_device::ready_read() { return base_ready_read(); }
 
 
 //-------------------------------------------------
 //  cs_write/clk_write/di_write - write handlers
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(eeprom_serial_er5911_device::cs_write) { base_cs_write(state); }
-WRITE_LINE_MEMBER(eeprom_serial_er5911_device::clk_write) { base_clk_write(state); }
-WRITE_LINE_MEMBER(eeprom_serial_er5911_device::di_write) { base_di_write(state); }
+void eeprom_serial_er5911_device::cs_write(int state) { base_cs_write(state); }
+void eeprom_serial_er5911_device::clk_write(int state) { base_clk_write(state); }
+void eeprom_serial_er5911_device::di_write(int state) { base_di_write(state); }
 
 
 
@@ -740,14 +739,13 @@ void eeprom_serial_x24c44_device::device_start()
 	// start the base class
 	eeprom_serial_base_device::device_start();
 
-	int16_t i=0;
-	m_ram_length=0xf;
+	m_ram_length = 0xf;
 
-	for (i=0;i<16;i++){
-		m_ram_data[i]=read(i);  //autoreload at power up
-	}
-	m_reading=0;
-	m_store_latch=0;
+	for (int i = 0; i < 16; i++)
+		m_ram_data[i] = read(i); // autoreload at power up
+
+	m_reading = 0;
+	m_store_latch = 0;
 
 	// save the current state
 	save_item(NAME(m_ram_data));
@@ -755,30 +753,27 @@ void eeprom_serial_x24c44_device::device_start()
 	save_item(NAME(m_store_latch));
 }
 
-void eeprom_serial_x24c44_device::copy_eeprom_to_ram(){
-	uint16_t i=0;
+void eeprom_serial_x24c44_device::copy_eeprom_to_ram()
+{
 	LOG1("EEPROM TO RAM COPY!!!\n");
-	for (i=0;i<16;i++){
-		m_ram_data[i]=read(i);
-	}
-	m_store_latch=1;
+	for (int i = 0; i < 16; i++)
+		m_ram_data[i] = read(i);
+	m_store_latch = 1;
 }
 
-
-
-void eeprom_serial_x24c44_device::copy_ram_to_eeprom(){
-	uint16_t i=0;
-	if (m_store_latch){
+void eeprom_serial_x24c44_device::copy_ram_to_eeprom()
+{
+	if (m_store_latch)
+	{
 		LOG1("RAM TO EEPROM COPY\n");
-		for (i=0;i<16;i++){
+		for (int i = 0; i < 16; i++)
 			write(i, m_ram_data[i]);
-		}
-		m_store_latch=0;
-	}else{
-		LOG0("Store command with store latch not set!\n");
+		m_store_latch = 0;
 	}
-
+	else
+		LOG0("Store command with store latch not set!\n");
 }
+
 
 //-------------------------------------------------
 //  execute_command - execute a command once we
@@ -829,14 +824,14 @@ void eeprom_serial_x24c44_device::execute_command()
 		// lock the chip; return to IN_RESET state
 		case COMMAND_LOCK:
 			m_locked = true;
-			m_store_latch=0;
+			m_store_latch = 0;
 			set_state(STATE_IN_RESET);
 			break;
 
 		// unlock the chip; return to IN_RESET state
 		case COMMAND_UNLOCK:
 			m_locked = false;
-			m_store_latch=1;
+			m_store_latch = 1;
 			set_state(STATE_IN_RESET);
 			break;
 
@@ -909,19 +904,17 @@ void eeprom_serial_x24c44_device::handle_event(eeprom_event event)
 				// if we have enough bits for a command + address, check it out
 				m_command_address_accum = (m_command_address_accum << 1) | m_di_state;
 
-				m_bits_accum=m_bits_accum+1;
+				m_bits_accum = m_bits_accum + 1;
 
-				if (m_bits_accum == 2 + m_command_address_bits){
+				if (m_bits_accum == 2 + m_command_address_bits)
+				{
 					//read command is only 2 bits all other are 3 bits!!!
-
-						parse_command_and_address_2_bit();
-
+					parse_command_and_address_2_bit();
 				}
 
-				if (!m_reading){
-				if (m_bits_accum == 3 + m_command_address_bits){
+				if (!m_reading && m_bits_accum == 3 + m_command_address_bits)
+				{
 					execute_command();
-				}
 				}
 			}
 			else if (event == EVENT_CS_FALLING_EDGE)
@@ -934,8 +927,9 @@ void eeprom_serial_x24c44_device::handle_event(eeprom_event event)
 			{
 				int bit_index = m_bits_accum++;
 
-				if (bit_index % m_data_bits == 0 && (bit_index == 0 || m_streaming_enabled)){
-					m_shift_register=m_ram_data[m_address];
+				if (bit_index % m_data_bits == 0 && (bit_index == 0 || m_streaming_enabled))
+				{
+					m_shift_register = m_ram_data[m_address];
 
 					//m_shift_register=bitswap<16>(m_shift_register,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 					//m_shift_register=bitswap<16>(m_shift_register,7,6,5,4,3,2,1,0,15,14,13,12,11,10,9,8);
@@ -979,7 +973,7 @@ void eeprom_serial_x24c44_device::handle_event(eeprom_event event)
 					//m_shift_register=bitswap<16>(m_shift_register, 0, 1, 2, 3, 4, 5,6,7, 8, 9,10,11,12,13,14,15);
 					//m_shift_register=bitswap<16>(m_shift_register, 7, 6, 5, 4, 3, 2,1,0,15,14,13,12,11,10, 9, 8);
 					m_shift_register=bitswap<16>(m_shift_register,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7);
-					m_ram_data[m_address]=m_shift_register;
+					m_ram_data[m_address] = m_shift_register;
 
 					LOG1("write to RAM addr=%02X data=%04X\n",m_address,m_shift_register);
 				}
@@ -1015,7 +1009,7 @@ void eeprom_serial_x24c44_device::parse_command_and_address()
 
 	m_address = (m_command_address_accum >> 3) & 0x0f;
 
-	LOG1("EEPROM: command= %04X, address %02X\n", m_command_address_accum& 0x07, m_address);
+	LOG1("EEPROM: command= %04X, address %02X\n", m_command_address_accum & 0x07, m_address);
 
 	switch (m_command_address_accum & 0x07)
 	{
@@ -1069,16 +1063,16 @@ void eeprom_serial_x24c44_device::parse_command_and_address_2_bit()
 //  do_read/ready_read - read handlers
 //-------------------------------------------------
 
-READ_LINE_MEMBER(eeprom_serial_x24c44_device::do_read) { return base_do_read(); }
+int eeprom_serial_x24c44_device::do_read() { return base_do_read(); }
 
 
 //-------------------------------------------------
 //  cs_write/clk_write/di_write - write handlers
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(eeprom_serial_x24c44_device::cs_write) { base_cs_write(state); }
-WRITE_LINE_MEMBER(eeprom_serial_x24c44_device::clk_write) { base_clk_write(state); }
-WRITE_LINE_MEMBER(eeprom_serial_x24c44_device::di_write) { base_di_write(state); }
+void eeprom_serial_x24c44_device::cs_write(int state) { base_cs_write(state); }
+void eeprom_serial_x24c44_device::clk_write(int state) { base_clk_write(state); }
+void eeprom_serial_x24c44_device::di_write(int state) { base_di_write(state); }
 
 
 //**************************************************************************
@@ -1087,14 +1081,14 @@ WRITE_LINE_MEMBER(eeprom_serial_x24c44_device::di_write) { base_di_write(state);
 
 // macro for defining a new device class
 #define DEFINE_SERIAL_EEPROM_DEVICE(_baseclass, _lowercase, _uppercase, _bits, _cells, _addrbits) \
-eeprom_serial_##_lowercase##_##_bits##bit_device::eeprom_serial_##_lowercase##_##_bits##bit_device(const machine_config &mconfig, const char *tag, device_t *owner, eeprom_serial_streaming enable_streaming) \
-	: eeprom_serial_##_baseclass##_device(mconfig, EEPROM_##_uppercase##_##_bits##BIT, tag, owner, enable_streaming) \
+eeprom_serial_##_lowercase##_##_bits##bit_device::eeprom_serial_##_lowercase##_##_bits##bit_device(const machine_config &mconfig, const char *tag, device_t *owner, eeprom_serial_streaming enable_streaming) : \
+	eeprom_serial_##_baseclass##_device(mconfig, EEPROM_##_uppercase##_##_bits##BIT, tag, owner, enable_streaming) \
 { \
 	size(_cells, _bits); \
 	set_address_bits(_addrbits); \
 } \
-eeprom_serial_##_lowercase##_##_bits##bit_device::eeprom_serial_##_lowercase##_##_bits##bit_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock) \
-	: eeprom_serial_##_baseclass##_device(mconfig, EEPROM_##_uppercase##_##_bits##BIT, tag, owner, eeprom_serial_streaming::DISABLE) \
+eeprom_serial_##_lowercase##_##_bits##bit_device::eeprom_serial_##_lowercase##_##_bits##bit_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock) : \
+	eeprom_serial_##_baseclass##_device(mconfig, EEPROM_##_uppercase##_##_bits##BIT, tag, owner, eeprom_serial_streaming::DISABLE) \
 { \
 	size(_cells, _bits); \
 	set_address_bits(_addrbits); \

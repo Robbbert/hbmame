@@ -76,7 +76,7 @@ inline emu_timer &emu_timer::init(
 		running_machine &machine,
 		timer_expired_delegate &&callback,
 		attotime start_delay,
-		int param,
+		s32 param,
 		bool temporary)
 {
 	// ensure the entire timer state is clean
@@ -230,6 +230,7 @@ void emu_timer::register_save(save_manager &manager)
 	manager.save_item(nullptr, "timer", name.c_str(), index, NAME(m_period));
 	manager.save_item(nullptr, "timer", name.c_str(), index, NAME(m_start));
 	manager.save_item(nullptr, "timer", name.c_str(), index, NAME(m_expire));
+	manager.save_item(nullptr, "timer", name.c_str(), index, NAME(m_index));
 }
 
 
@@ -445,7 +446,7 @@ void device_scheduler::timeslice()
 					// if we're not suspended, actually execute
 					if (exec->m_suspend == 0)
 					{
-						g_profiler.start(exec->m_profiler);
+						auto profile = g_profiler.start(exec->m_profiler);
 
 						// note that this global variable cycles_stolen can be modified
 						// via the call to cpu_execute
@@ -466,7 +467,6 @@ void device_scheduler::timeslice()
 						ran -= *exec->m_icountptr;
 						assert(ran >= exec->m_cycles_stolen);
 						ran -= exec->m_cycles_stolen;
-						g_profiler.stop();
 					}
 
 					// account for these cycles
@@ -474,7 +474,7 @@ void device_scheduler::timeslice()
 
 					// update the local time for this CPU
 					attotime deltatime;
-					if (ran < exec->m_cycles_per_second)
+					if (EXPECTED(ran < exec->m_cycles_per_second))
 						deltatime = attotime(0, exec->m_attoseconds_per_cycle * ran);
 					else
 					{
@@ -543,16 +543,57 @@ void device_scheduler::trigger(int trigid, const attotime &after)
 
 
 //-------------------------------------------------
-//  boost_interleave - temporarily boosts the
-//  interleave factor
+//  add_quantum - add a scheduling quantum;
+//  the smallest active one is the one that is in use
 //-------------------------------------------------
 
-void device_scheduler::boost_interleave(const attotime &timeslice_time, const attotime &boost_duration)
+void device_scheduler::add_quantum(const attotime &quantum, const attotime &duration)
 {
-	// ignore timeslices > 1 second
-	if (timeslice_time.seconds() > 0)
-		return;
-	add_scheduling_quantum(timeslice_time, boost_duration);
+	assert(quantum.seconds() == 0);
+
+	attotime curtime = time();
+	attotime expire = curtime + duration;
+	const attoseconds_t quantum_attos = quantum.attoseconds();
+
+	// figure out where to insert ourselves, expiring any quanta that are out-of-date
+	quantum_slot *insert_after = nullptr;
+	quantum_slot *next;
+	for (quantum_slot *quant = m_quantum_list.first(); quant != nullptr; quant = next)
+	{
+		// if this quantum is expired, nuke it
+		next = quant->next();
+		if (curtime >= quant->m_expire)
+			m_quantum_allocator.reclaim(m_quantum_list.detach(*quant));
+
+		// if this quantum is shorter than us, we need to be inserted afterwards
+		else if (quant->m_requested <= quantum_attos)
+			insert_after = quant;
+	}
+
+	// if we found an exact match, just take the maximum expiry time
+	if (insert_after != nullptr && insert_after->m_requested == quantum_attos)
+		insert_after->m_expire = std::max(insert_after->m_expire, expire);
+
+	// otherwise, allocate a new quantum and insert it after the one we picked
+	else
+	{
+		quantum_slot &quant = *m_quantum_allocator.alloc();
+		quant.m_requested = quantum_attos;
+		quant.m_actual = std::max(quantum_attos, m_quantum_minimum);
+		quant.m_expire = expire;
+		m_quantum_list.insert_after(quant, insert_after);
+	}
+}
+
+
+//-------------------------------------------------
+//  perfect_quantum - add a (temporary) minimum
+//  scheduling quantum to boost the interleave
+//-------------------------------------------------
+
+void device_scheduler::perfect_quantum(const attotime &duration)
+{
+	add_quantum(attotime::zero, duration);
 }
 
 
@@ -573,7 +614,7 @@ emu_timer *device_scheduler::timer_alloc(timer_expired_delegate callback)
 //  amount of time
 //-------------------------------------------------
 
-void device_scheduler::timer_set(const attotime &duration, timer_expired_delegate callback, int param)
+void device_scheduler::timer_set(const attotime &duration, timer_expired_delegate callback, s32 param)
 {
 	[[maybe_unused]] emu_timer &timer = m_timer_allocator.alloc()->init(
 			machine(),
@@ -590,7 +631,7 @@ void device_scheduler::timer_set(const attotime &duration, timer_expired_delegat
 //  timer and set it to go off as soon as possible
 //-------------------------------------------------
 
-void device_scheduler::synchronize(timer_expired_delegate callback, int param)
+void device_scheduler::synchronize(timer_expired_delegate callback, s32 param)
 {
 	m_timer_allocator.alloc()->init(
 			machine(),
@@ -632,6 +673,9 @@ void device_scheduler::presave()
 {
 	// report the timer state after a log
 	LOG("Prior to saving state:\n");
+	u32 index = 0;
+	for (emu_timer *timer = m_timer_list; timer; timer = timer->m_next)
+		timer->m_index = index++;
 #if VERBOSE
 	dump_timers();
 #endif
@@ -663,6 +707,7 @@ void device_scheduler::postload()
 			assert(!timer.expire().is_never());
 
 			// temporary timers go away entirely (except our special never-expiring one)
+			timer.m_callback.reset();
 			m_timer_allocator.reclaim(timer_list_remove(timer));
 		}
 		else
@@ -683,7 +728,7 @@ void device_scheduler::postload()
 	{
 		emu_timer &timer = *private_list;
 		private_list = timer.m_next;
-		timer_list_insert(timer);
+		timer_list_insert<true>(timer);
 	}
 
 	m_suspend_changes_pending = true;
@@ -760,7 +805,7 @@ void device_scheduler::rebuild_execute_list()
 			min_quantum = (std::min)(attotime(0, exec->minimum_quantum()), min_quantum);
 
 		// inform the timer system of our decision
-		add_scheduling_quantum(min_quantum, attotime::never);
+		add_quantum(min_quantum, attotime::never);
 	}
 
 	// start with an empty list
@@ -798,6 +843,7 @@ void device_scheduler::rebuild_execute_list()
 //  the list at the appropriate location
 //-------------------------------------------------
 
+template <bool CheckIndex>
 inline emu_timer &device_scheduler::timer_list_insert(emu_timer &timer)
 {
 	// disabled timers never expire
@@ -808,7 +854,10 @@ inline emu_timer &device_scheduler::timer_list_insert(emu_timer &timer)
 		for (emu_timer *curtimer = m_timer_list; curtimer; prevtimer = curtimer, curtimer = curtimer->m_next)
 		{
 			// if the current list entry expires after us, we should be inserted before it
-			if (curtimer->m_expire > timer.m_expire)
+			bool const here =
+					(curtimer->m_expire > timer.m_expire) ||
+					(CheckIndex && !(curtimer->m_expire < timer.m_expire) && (curtimer->m_index > timer.m_index));
+			if (here)
 			{
 				// link the new guy in before the current list entry
 				timer.m_prev = prevtimer;
@@ -902,15 +951,13 @@ inline void device_scheduler::execute_timers()
 		// call the callback
 		if (was_enabled)
 		{
-			g_profiler.start(PROFILER_TIMER_CALLBACK);
+			auto profile = g_profiler.start(PROFILER_TIMER_CALLBACK);
 
 			if (!timer.m_callback.isnull())
 			{
 				LOG("execute_timers: timer callback %s\n", timer.m_callback.name());
 				timer.m_callback(timer.m_param);
 			}
-
-			g_profiler.stop();
 		}
 
 		// reset or remove the timer, but only if it wasn't modified during the callback
@@ -924,6 +971,7 @@ inline void device_scheduler::execute_timers()
 			else
 			{
 				// otherwise, remove it now
+				timer.m_callback.reset();
 				m_timer_allocator.reclaim(timer_list_remove(timer));
 			}
 		}
@@ -931,51 +979,6 @@ inline void device_scheduler::execute_timers()
 
 	// clear the callback timer global
 	m_callback_timer = nullptr;
-}
-
-
-//-------------------------------------------------
-//  add_scheduling_quantum - add a scheduling
-//  quantum; the smallest active one is the one
-//  that is in use
-//-------------------------------------------------
-
-void device_scheduler::add_scheduling_quantum(const attotime &quantum, const attotime &duration)
-{
-	assert(quantum.seconds() == 0);
-
-	attotime curtime = time();
-	attotime expire = curtime + duration;
-	const attoseconds_t quantum_attos = quantum.attoseconds();
-
-	// figure out where to insert ourselves, expiring any quanta that are out-of-date
-	quantum_slot *insert_after = nullptr;
-	quantum_slot *next;
-	for (quantum_slot *quant = m_quantum_list.first(); quant != nullptr; quant = next)
-	{
-		// if this quantum is expired, nuke it
-		next = quant->next();
-		if (curtime >= quant->m_expire)
-			m_quantum_allocator.reclaim(m_quantum_list.detach(*quant));
-
-		// if this quantum is shorter than us, we need to be inserted afterwards
-		else if (quant->m_requested <= quantum_attos)
-			insert_after = quant;
-	}
-
-	// if we found an exact match, just take the maximum expiry time
-	if (insert_after != nullptr && insert_after->m_requested == quantum_attos)
-		insert_after->m_expire = std::max(insert_after->m_expire, expire);
-
-	// otherwise, allocate a new quantum and insert it after the one we picked
-	else
-	{
-		quantum_slot &quant = *m_quantum_allocator.alloc();
-		quant.m_requested = quantum_attos;
-		quant.m_actual = std::max(quantum_attos, m_quantum_minimum);
-		quant.m_expire = expire;
-		m_quantum_list.insert_after(quant, insert_after);
-	}
 }
 
 

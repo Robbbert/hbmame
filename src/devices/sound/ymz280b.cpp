@@ -67,16 +67,18 @@ void ymz280b_device::update_irq_state()
 	if (irq_bits && !m_irq_state)
 	{
 		m_irq_state = 1;
-		if (!m_irq_handler.isnull())
+		if (!m_irq_handler.isunset())
 			m_irq_handler(1);
-		else logerror("YMZ280B: IRQ generated, but no callback specified!\n");
+		else
+			logerror("YMZ280B: IRQ generated, but no callback specified!\n");
 	}
 	else if (!irq_bits && m_irq_state)
 	{
 		m_irq_state = 0;
-		if (!m_irq_handler.isnull())
+		if (!m_irq_handler.isunset())
 			m_irq_handler(0);
-		else logerror("YMZ280B: IRQ generated, but no callback specified!\n");
+		else
+			logerror("YMZ280B: IRQ generated, but no callback specified!\n");
 	}
 }
 
@@ -415,15 +417,9 @@ int ymz280b_device::generate_pcm16(YMZ280BVoice *voice, s16 *buffer, int samples
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void ymz280b_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void ymz280b_device::sound_stream_update(sound_stream &stream)
 {
-	auto &lacc = outputs[0];
-	auto &racc = outputs[1];
 	int v;
-
-	/* clear out the accumulator */
-	lacc.fill(0);
-	racc.fill(0);
 
 	/* loop over voices */
 	for (v = 0; v < 8; v++)
@@ -435,7 +431,7 @@ void ymz280b_device::sound_stream_update(sound_stream &stream, std::vector<read_
 		s32 sampindex = 0;
 		u32 new_samples, samples_left;
 		u32 final_pos;
-		int remaining = lacc.samples();
+		int remaining = stream.samples();
 		int lvol = voice->output_left;
 		int rvol = voice->output_right;
 
@@ -452,8 +448,8 @@ void ymz280b_device::sound_stream_update(sound_stream &stream, std::vector<read_
 		while (remaining > 0 && voice->output_pos < FRAC_ONE)
 		{
 			int interp_sample = ((s32(prev) * (FRAC_ONE - voice->output_pos)) + (s32(curr) * voice->output_pos)) >> FRAC_BITS;
-			lacc.add_int(sampindex, interp_sample * lvol / 2, 32768 * 256);
-			racc.add_int(sampindex, interp_sample * rvol / 2, 32768 * 256);
+			stream.add_int(0, sampindex, interp_sample * lvol / 2, 32768 * 256);
+			stream.add_int(1, sampindex, interp_sample * rvol / 2, 32768 * 256);
 			sampindex++;
 			voice->output_pos += voice->output_step;
 			remaining--;
@@ -517,8 +513,8 @@ void ymz280b_device::sound_stream_update(sound_stream &stream, std::vector<read_
 			while (remaining > 0 && voice->output_pos < FRAC_ONE)
 			{
 				int interp_sample = ((s32(prev) * (FRAC_ONE - voice->output_pos)) + (s32(curr) * voice->output_pos)) >> FRAC_BITS;
-				lacc.add_int(sampindex, interp_sample * lvol / 2, 32768 * 256);
-				racc.add_int(sampindex, interp_sample * rvol / 2, 32768 * 256);
+				stream.add_int(0, sampindex, interp_sample * lvol / 2, 32768 * 256);
+				stream.add_int(1, sampindex, interp_sample * rvol / 2, 32768 * 256);
 				sampindex++;
 				voice->output_pos += voice->output_step;
 				remaining--;
@@ -552,7 +548,6 @@ void ymz280b_device::device_start()
 
 	/* initialize the rest of the structure */
 	m_master_clock = (double)clock() / 384.0;
-	m_irq_handler.resolve();
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -646,7 +641,7 @@ void ymz280b_device::device_clock_changed()
 }
 
 
-void ymz280b_device::rom_bank_updated()
+void ymz280b_device::rom_bank_pre_change()
 {
 	m_stream->update();
 }

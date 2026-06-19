@@ -13,15 +13,19 @@
 #include "debugwin.h"
 
 #include "debugbaseinfo.h"
+#include "uimetrics.h"
 
+
+namespace osd::debugger::win {
 
 class debugwin_info : protected debugbase_info
 {
 public:
-	debugwin_info(debugger_windows_interface &debugger, bool is_main_console, LPCSTR title, WNDPROC handler);
 	virtual ~debugwin_info();
 
 	bool is_valid() const { return m_wnd != nullptr; }
+
+	ui_metrics const &metrics() const { return m_metrics; }
 
 	void set_ignore_char_lparam(LPARAM value) { m_ignore_char_lparam = value >> 16; }
 	bool check_ignore_char_lparam(LPARAM value)
@@ -40,7 +44,9 @@ public:
 	void show() const { smart_show_window(m_wnd, true); }
 	void hide() const { smart_show_window(m_wnd, false); }
 	void set_foreground() const { SetForegroundWindow(m_wnd); }
+	void redraw();
 	void destroy();
+	bool owns_window(HWND win) const;
 
 	virtual bool set_default_focus();
 	void prev_view(debugview_info *curview);
@@ -49,12 +55,15 @@ public:
 
 	virtual bool handle_key(WPARAM wparam, LPARAM lparam);
 
+	void save_configuration(util::xml::data_node &parentnode);
+	virtual void restore_configuration_from_node(util::xml::data_node const &node);
+
 protected:
 	static DWORD const  DEBUG_WINDOW_STYLE = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN) & (~WS_MINIMIZEBOX & ~WS_MAXIMIZEBOX);
 	static DWORD const  DEBUG_WINDOW_STYLE_EX = 0;
 
-	static int const    MAX_VIEWS = 4;
 	static int const    EDGE_WIDTH = 3;
+	static int const    MAX_VIEWS = 4;
 
 	enum
 	{
@@ -105,25 +114,38 @@ protected:
 		ID_SHOW_BREAKPOINTS,
 		ID_SHOW_WATCHPOINTS,
 		ID_SHOW_REGISTERPOINTS,
+		ID_SHOW_EXCEPTIONPOINTS,
 
 		ID_CLEAR_LOG,
 
+		ID_SAVE_WINDOWS,
+		ID_GROUP_WINDOWS,
+		ID_LIGHT_BACKGROUND,
+		ID_DARK_BACKGROUND,
+
 		ID_DEVICE_OPTIONS   // always keep this at the end
 	};
+
+	debugwin_info(debugger_windows_interface &debugger, bool is_main_console, LPCSTR title, WNDPROC handler);
 
 	bool is_main_console() const { return m_is_main_console; }
 	HWND window() const { return m_wnd; }
 	uint32_t minwidth() const { return m_minwidth; }
 	uint32_t maxwidth() const { return m_maxwidth; }
+	uint32_t minheight() const { return m_minheight; }
 	void set_minwidth(uint32_t value) { m_minwidth = value; }
 	void set_maxwidth(uint32_t value) { m_maxwidth = value; }
+	void set_minheight(uint32_t value) { m_minheight = value; }
 
+	virtual void update_dpi();
 	virtual void recompute_children();
 	virtual void update_menu() { }
 	virtual bool handle_command(WPARAM wparam, LPARAM lparam);
 	virtual void draw_contents(HDC dc);
 	void draw_border(HDC dc, RECT &bounds);
 	void draw_border(HDC dc, HWND child);
+
+	virtual void save_configuration_to_node(util::xml::data_node &node);
 
 	std::unique_ptr<debugview_info>    m_views[MAX_VIEWS];
 
@@ -136,17 +158,20 @@ private:
 
 	static void register_window_class();
 
+	ui_metrics      m_metrics;
 	bool const      m_is_main_console;
 
 	HWND            m_wnd;
 	WNDPROC const   m_handler;
 
-	uint32_t          m_minwidth, m_maxwidth;
-	uint32_t          m_minheight, m_maxheight;
+	uint32_t        m_minwidth, m_maxwidth;
+	uint32_t        m_minheight, m_maxheight;
 
-	uint16_t          m_ignore_char_lparam;
+	uint16_t        m_ignore_char_lparam;
 
 	static bool     s_window_class_registered;
 };
 
-#endif
+} // namespace osd::debugger::win
+
+#endif // MAME_DEBUGGER_WIN_DEBUGWININFO_H

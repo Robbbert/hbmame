@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/timelimt.cpp"
+#include "../mame/misc/timelimt.cpp"
 
 /* Changes to MAME's timelimt:
 - Added a handcrafted clr.57 from Dink
@@ -68,7 +68,7 @@ void timelimt_hbmame::timelimit(machine_config &config)
 	screen.set_palette(m_palette);
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_timelimt);
-	PALETTE(config, m_palette, FUNC(timelimt_hbmame::timelimt_palette), 64+32);
+	PALETTE(config, m_palette, FUNC(timelimt_hbmame::palette), 64+32);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

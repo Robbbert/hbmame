@@ -63,8 +63,6 @@ void mhavoc_hbmame::mhavoc_gamma_irq_ack_w(uint8_t data)
 
 void mhavoc_hbmame::machine_start()
 {
-	m_lamps.resolve();
-
 	save_item(NAME(m_alpha_data));
 	save_item(NAME(m_alpha_rcvd));
 	save_item(NAME(m_alpha_xmtd));
@@ -204,40 +202,40 @@ void mhavoc_hbmame::mhavoc_rom_banksel_w(uint8_t data)
  *
  *************************************/
 
-CUSTOM_INPUT_MEMBER(mhavoc_hbmame::coin_service_r)
+ioport_value mhavoc_hbmame::coin_service_r()
 {
 	return (m_player_1 ? m_service : m_coin)->read() & 0x01;
 }
 
-CUSTOM_INPUT_MEMBER(mhavoc_hbmame::coin_cabinet_l)
+ioport_value mhavoc_hbmame::coin_cabinet_l()
 {
-    return (m_player_1 ? (m_cabinet->read()) : (m_coin->read() >> 1));
+	return (m_player_1 ? (m_cabinet->read()) : (m_coin->read() >> 1));
 }
 
-READ_LINE_MEMBER(mhavoc_hbmame::gamma_rcvd_r)
+int mhavoc_hbmame::gamma_rcvd_r()
 {
 	/* Gamma rcvd flag */
 	return m_gamma_rcvd;
 }
 
-READ_LINE_MEMBER(mhavoc_hbmame::gamma_xmtd_r)
+int mhavoc_hbmame::gamma_xmtd_r()
 {
 	/* Gamma xmtd flag */
 	return m_gamma_xmtd;
 }
 
-READ_LINE_MEMBER(mhavoc_hbmame::gamma_tirdy_r)
+int mhavoc_hbmame::gamma_tirdy_r()
 {
 	return m_tms->readyq_r();
 }
 
-READ_LINE_MEMBER(mhavoc_hbmame::alpha_rcvd_r)
+ioport_value mhavoc_hbmame::alpha_rcvd_r()
 {
 	/* Alpha rcvd flag */
 	return (m_has_gamma_cpu && m_alpha_rcvd);
 }
 
-READ_LINE_MEMBER(mhavoc_hbmame::alpha_xmtd_r)
+ioport_value mhavoc_hbmame::alpha_xmtd_r()
 {
 	/* Alpha xmtd flag */
 	return (m_has_gamma_cpu && m_alpha_xmtd);

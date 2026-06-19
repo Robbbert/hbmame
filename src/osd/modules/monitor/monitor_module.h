@@ -8,10 +8,15 @@
 #ifndef MAME_OSD_MODULES_MONITOR_MONITORMODULE_H
 #define MAME_OSD_MODULES_MONITOR_MONITORMODULE_H
 
-#include <vector>
-
 #include "modules/osdmodule.h"
 #include "modules/osdhelper.h"
+
+#include <cstdint>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
+
 
 //============================================================
 //  CONSTANTS
@@ -29,8 +34,12 @@ class osd_window;
 class osd_monitor_info
 {
 public:
-	osd_monitor_info(monitor_module &module, std::uint64_t handle, const char *monitor_device, float aspect)
-		: m_is_primary(false), m_name(monitor_device), m_module(module), m_handle(handle), m_aspect(aspect)
+	osd_monitor_info(monitor_module &module, std::uint64_t handle, std::string &&monitor_device, float aspect) :
+		m_is_primary(false),
+		m_name(std::move(monitor_device)),
+		m_module(module),
+		m_handle(handle),
+		m_aspect(aspect)
 	{
 	}
 
@@ -44,16 +53,18 @@ public:
 	const osd_rect &position_size() const { return m_pos_size; }
 	const osd_rect &usuable_position_size() const { return m_usuable_pos_size; }
 
-	const std::string &devicename() const
+	std::string_view devicename() const
 	{
-		static std::string s_unknown = std::string("UNKNOWN");
-		return m_name.length() ? m_name : s_unknown;
+		if (!m_name.empty())
+			return m_name;
+		else
+			return "UNKNOWN";
 	}
 
 	float aspect() const { return m_aspect; }
 	float pixel_aspect() const { return m_aspect / (float(m_pos_size.width()) / float(m_pos_size.height())); }
 
-	void update_resolution(const int new_width, const int new_height) const { m_pos_size.resize(new_width, new_height); }
+	void update_resolution(const int new_width, const int new_height) { m_pos_size = m_pos_size.resize(new_width, new_height); }
 	void set_aspect(const float a) { m_aspect = a; }
 	bool is_primary() const { return m_is_primary; }
 
@@ -62,6 +73,7 @@ protected:
 	osd_rect            m_usuable_pos_size;
 	bool                m_is_primary;
 	std::string         m_name;
+
 private:
 	monitor_module&     m_module;
 	std::uint64_t       m_handle;                 // handle to the monitor

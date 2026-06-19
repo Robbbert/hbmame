@@ -17,6 +17,9 @@
 #include "emu.h"
 #include "c1581.h"
 
+#include "cpu/m6502/m6502.h"
+#include "formats/d81_dsk.h"
+
 
 
 //**************************************************************************
@@ -102,14 +105,14 @@ void c1581_device::c1581_mem(address_map &map)
 //  MOS8520_INTERFACE( cia_intf )
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( c1581_device::cnt_w )
+void c1581_device::cnt_w(int state)
 {
 	m_cnt_out = state;
 
 	update_iec();
 }
 
-WRITE_LINE_MEMBER( c1581_device::sp_w )
+void c1581_device::sp_w(int state)
 {
 	m_sp_out = state;
 
@@ -357,8 +360,6 @@ c1563_device::c1563_device(const machine_config &mconfig, const char *tag, devic
 
 void c1581_device::device_start()
 {
-	m_leds.resolve();
-
 	// state saving
 	save_item(NAME(m_data_out));
 	save_item(NAME(m_atn_ack));

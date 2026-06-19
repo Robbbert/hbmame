@@ -4,17 +4,17 @@
 
   Seiko Epson E0C6200 CPU core and E0C62 MCU family
 
-  References:
-  - 1998 MF297-06a E0C6200/E0C6200A Core CPU Manual
-  - 1998 MF1049-01a E0C6S46 Technical Manual
+References:
+- 1998 MF297-06a E0C6200/E0C6200A Core CPU Manual
+- 1998 MF1049-01a E0C6S46 Technical Manual
 
-  E0C6200 is a CPU core used as the basis of many chips, it is not standalone.
-  Seiko Epson often changed prefixes of their device names. Depending on when,
-  the E0C6200 is known as SMC6200, E0C6200, S1C6200.
+E0C6200 is a CPU core used as the basis of many chips, it is not standalone.
+Seiko Epson often changed prefixes of their device names. Depending on when,
+the E0C6200 is known as SMC6200, E0C6200, S1C6200.
 
-  TODO:
-  - RLC is part of the r,q opcodes and requires that r == q, what happens otherwise?
-  - documentation is conflicting on whether or not the zero flag is set on RLC/RRC
+TODO:
+- RLC is part of the r,q opcodes and requires that r == q, what happens otherwise?
+- documentation is conflicting on whether or not the zero flag is set on RLC/RRC
 
 */
 
@@ -24,11 +24,10 @@
 
 
 // construction/destruction
-e0c6200_cpu_device::e0c6200_cpu_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock, address_map_constructor program, address_map_constructor data)
-	: cpu_device(mconfig, type, tag, owner, clock)
-	, m_program_config("program", ENDIANNESS_BIG, 16, 13, -1, program)
-	, m_data_config("data", ENDIANNESS_BIG, 8, 12, 0, data), m_program(nullptr), m_data(nullptr), m_op(0), m_prev_op(0), m_irq_vector(0), m_irq_id(0), m_possible_irq(false), m_halt(false),
-	m_sleep(false), m_icount(0), m_pc(0), m_prev_pc(0), m_npc(0), m_jpc(0), m_a(0), m_b(0), m_xp(0), m_xh(0), m_xl(0), m_yp(0), m_yh(0), m_yl(0), m_sp(0), m_f(0)
+e0c6200_cpu_device::e0c6200_cpu_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock, address_map_constructor program, address_map_constructor data) :
+	cpu_device(mconfig, type, tag, owner, clock),
+	m_program_config("program", ENDIANNESS_BIG, 16, 13, -1, program),
+	m_data_config("data", ENDIANNESS_BIG, 8, 12, 0, data)
 { }
 
 // disasm
@@ -79,7 +78,8 @@ void e0c6200_cpu_device::device_start()
 	m_irq_vector = 0;
 	m_irq_id = 0;
 	m_possible_irq = false;
-	m_halt = m_sleep = false;
+	m_halt = false;
+	m_sleep = false;
 	m_pc = 0;
 	m_prev_pc = 0;
 	m_npc = 0;
@@ -156,6 +156,8 @@ void e0c6200_cpu_device::device_reset()
 
 void e0c6200_cpu_device::do_interrupt()
 {
+	standard_irq_callback(m_irq_id, m_pc);
+
 	// interrupt handling takes 13* cycles, plus 1 extra if cpu was halted
 	// *: 12.5 on E0C6200A, does the cpu osc source change polarity or something?
 	m_icount -= 13;
@@ -168,8 +170,6 @@ void e0c6200_cpu_device::do_interrupt()
 
 	// page 1 of the current bank
 	m_pc = (m_pc & 0x1000) | 0x100 | m_irq_vector;
-
-	standard_irq_callback(m_irq_id);
 }
 
 device_memory_interface::space_config_vector e0c6200_cpu_device::memory_space_config() const
@@ -199,6 +199,7 @@ void e0c6200_cpu_device::execute_run()
 		// core cpu not running (peripherals still work)
 		if (m_halt || m_sleep)
 		{
+			debugger_wait_hook();
 			m_icount = 0;
 			break;
 		}
@@ -838,7 +839,7 @@ void e0c6200_cpu_device::execute_one()
 
 		// illegal opcode
 		default:
-			logerror("unknown opcode $%03X at $%04X\n", m_op, m_prev_pc);
+			op_illegal();
 			break;
 
 			} // 0xff0

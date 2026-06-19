@@ -25,19 +25,16 @@ protected:
 		ROMP_GPR = 16,
 	};
 
-	enum scr : unsigned
-	{
-		COUS =  6, // counter source
-		COU  =  7, // counter
-		TS   =  8, // timer status
-		ECR  =  9, // exception control (advanced/enhanced only)
-		MQ   = 10, // multiplier quotient
-		MPCS = 11, // machine/program check status
-		IRB  = 12, // interrupt request buffer
-		IAR  = 13, // instruction address register
-		ICS  = 14, // interrupt control status
-		CS   = 15, // condition status
-	};
+	static constexpr unsigned COUS =  6; // counter source
+	static constexpr unsigned COU  =  7; // counter
+	static constexpr unsigned TS   =  8; // timer status
+	static constexpr unsigned ECR  =  9; // exception control (advanced/enhanced only)
+	static constexpr unsigned MQ   = 10; // multiplier quotient
+	static constexpr unsigned MPCS = 11; // machine/program check status
+	static constexpr unsigned IRB  = 12; // interrupt request buffer
+	static constexpr unsigned IAR  = 13; // instruction address register
+	static constexpr unsigned ICS  = 14; // interrupt control status
+	static constexpr unsigned CS   = 15; // condition status
 
 	enum ts_mask : u32
 	{
@@ -65,8 +62,8 @@ protected:
 							   // reserved
 		MCS_PCC = 0x0000'8000, // processor channel check
 
-		MCS_ALL = 0x0000'ff00,
-		PCS_ALL = 0x0000'00ff,
+		MCS_ALL = 0x0000'be00,
+		PCS_ALL = 0x0000'00fe,
 	};
 
 	enum irb_mask : u16
@@ -107,19 +104,18 @@ protected:
 	};
 
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_execute_interface overrides
 	virtual u32 execute_min_cycles() const noexcept override { return 1; }
 	virtual u32 execute_max_cycles() const noexcept override { return 40; }
-	virtual u32 execute_input_lines() const noexcept override { return 6; }
 	virtual void execute_run() override;
 	virtual void execute_set_input(int inputnum, int state) override;
 
 	// device_memory_interface overrides
 	virtual space_config_vector memory_space_config() const override;
-	virtual bool memory_translate(int spacenum, int intention, offs_t &address) override;
+	virtual bool memory_translate(int spacenum, int intention, offs_t &address, address_space *&target_space) override;
 
 	// device_state_interface overrides
 	virtual void state_string_export(const device_state_entry &entry, std::string &str) const override;
@@ -142,8 +138,7 @@ private:
 
 	void interrupt_check();
 	void machine_check(u32 mcs);
-	void program_check(u32 pcs, u32 iar);
-	void program_check(u32 pcs) { program_check(pcs, m_scr[IAR]); }
+	void program_check(u32 pcs);
 	void interrupt_enter(unsigned vector, u32 iar, u16 svc = 0);
 
 	using rsc_mode = rsc_bus_interface::rsc_mode;
@@ -164,34 +159,47 @@ private:
 
 		T data = 0;
 
-		switch (address >> 28)
+		switch (address >> 24)
 		{
 		default:
-			if (m_mmu->load(address, data, mode))
+			if (m_mmu->mem_load(address, data, mode))
 				f(data);
 			else
 				program_check(PCS_PCK | PCS_DAE);
 			break;
 
-		case 15:
-			switch (address >> 24)
-			{
-			case 0xf0:
-			case 0xf4:
-				if (m_iou->load(address, data, mode))
-					f(data);
-				else
-					program_check(PCS_PCK | PCS_DAE);
-				break;
-
-			case 0xfc: // mc68881 assist mode
-			case 0xfd: // mc68881 non-assist mode
-			case 0xfe: // afpa dma
-			case 0xff: // fpa
-			default: // reserved
+		case 0xf0:
+			if (m_iou->pio_load(address, data, mode))
+				f(data);
+			else
 				program_check(PCS_PCK | PCS_DAE);
-				break;
-			}
+			break;
+		case 0xf4:
+			if (m_iou->mem_load(address, data, mode))
+				f(data);
+			else
+				program_check(PCS_PCK | PCS_DAE);
+			break;
+
+		case 0xfc: // mc68881 assist mode
+		case 0xfd: // mc68881 non-assist mode
+		case 0xfe: // afpa dma
+		case 0xff: // fpa
+			program_check(PCS_PCK | PCS_DAE);
+			break;
+
+		case 0xf1:
+		case 0xf2:
+		case 0xf3:
+		case 0xf5:
+		case 0xf6:
+		case 0xf7:
+		case 0xf8:
+		case 0xf9:
+		case 0xfa:
+		case 0xfb:
+			//reserved
+			program_check(PCS_PCK | PCS_DAE);
 			break;
 		}
 	}
@@ -200,30 +208,41 @@ private:
 	{
 		rsc_mode const mode = mask ? rsc_mode((m_scr[ICS] >> 9) & 7) : rsc_mode::RSC_N;
 
-		switch (address >> 28)
+		switch (address >> 24)
 		{
 		default:
-			if (!m_mmu->store(address, data, mode))
+			if (!m_mmu->mem_store(address, data, mode))
 				program_check(PCS_PCK | PCS_DAE);
 			break;
 
-		case 15:
-			switch (address >> 24)
-			{
-			case 0xf0:
-			case 0xf4:
-				if (!m_iou->store(address, data, mode))
-					program_check(PCS_PCK | PCS_DAE);
-				break;
-
-			case 0xfc: // mc68881 assist mode
-			case 0xfd: // mc68881 non-assist mode
-			case 0xfe: // afpa dma
-			case 0xff: // fpa
-			default: // reserved
+		case 0xf0:
+			if (!m_iou->pio_store(address, data, mode))
 				program_check(PCS_PCK | PCS_DAE);
-				break;
-			}
+			break;
+		case 0xf4:
+			if (!m_iou->mem_store(address, data, mode))
+				program_check(PCS_PCK | PCS_DAE);
+			break;
+
+		case 0xfc: // mc68881 assist mode
+		case 0xfd: // mc68881 non-assist mode
+		case 0xfe: // afpa dma
+		case 0xff: // fpa
+			program_check(PCS_PCK | PCS_DAE);
+			break;
+
+		case 0xf1:
+		case 0xf2:
+		case 0xf3:
+		case 0xf5:
+		case 0xf6:
+		case 0xf7:
+		case 0xf8:
+		case 0xf9:
+		case 0xfa:
+		case 0xfb:
+			//reserved
+			program_check(PCS_PCK | PCS_DAE);
 			break;
 		}
 	}
@@ -232,30 +251,41 @@ private:
 	{
 		rsc_mode const mode = mask ? rsc_mode((m_scr[ICS] >> 9) & 7) : rsc_mode::RSC_N;
 
-		switch (address >> 28)
+		switch (address >> 24)
 		{
 		default:
-			if (!m_mmu->modify(address, f, mode))
+			if (!m_mmu->mem_modify(address, f, mode))
 				program_check(PCS_PCK | PCS_DAE);
 			break;
 
-		case 15:
-			switch (address >> 24)
-			{
-			case 0xf0:
-			case 0xf4:
-				if (!m_iou->modify(address, f, mode))
-					program_check(PCS_PCK | PCS_DAE);
-				break;
-
-			case 0xfc: // mc68881 assist mode
-			case 0xfd: // mc68881 non-assist mode
-			case 0xfe: // afpa dma
-			case 0xff: // fpa
-			default: // reserved
+		case 0xf0:
+			if (!m_iou->pio_modify(address, f, mode))
 				program_check(PCS_PCK | PCS_DAE);
-				break;
-			}
+			break;
+		case 0xf4:
+			if (!m_iou->mem_modify(address, f, mode))
+				program_check(PCS_PCK | PCS_DAE);
+			break;
+
+		case 0xfc: // mc68881 assist mode
+		case 0xfd: // mc68881 non-assist mode
+		case 0xfe: // afpa dma
+		case 0xff: // fpa
+			program_check(PCS_PCK | PCS_DAE);
+			break;
+
+		case 0xf1:
+		case 0xf2:
+		case 0xf3:
+		case 0xf5:
+		case 0xf6:
+		case 0xf7:
+		case 0xf8:
+		case 0xf9:
+		case 0xfa:
+		case 0xfb:
+			//reserved
+			program_check(PCS_PCK | PCS_DAE);
 			break;
 		}
 	}
@@ -289,6 +319,7 @@ private:
 	m_branch_state;
 	u32 m_branch_source;
 	u32 m_branch_target;
+	bool m_defer_int;
 };
 
 DECLARE_DEVICE_TYPE(ROMP, romp_device)

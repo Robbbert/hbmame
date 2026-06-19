@@ -14,8 +14,11 @@
 #pragma once
 
 #include <intrin.h>
+#include <stdlib.h>
+
 #pragma intrinsic(_BitScanReverse)
-#ifdef PTR64
+
+#if defined(_M_X64) || defined(_M_ARM64)
 #pragma intrinsic(_BitScanReverse64)
 #endif
 
@@ -25,70 +28,42 @@
 ***************************************************************************/
 
 /*-------------------------------------------------
-    count_leading_zeros_32 - return the number of
-    leading zero bits in a 32-bit value
+    rotl_32 - circularly shift a 32-bit value left
+    by the specified number of bits (modulo 32)
 -------------------------------------------------*/
 
-#ifndef count_leading_zeros_32
-#define count_leading_zeros_32 _count_leading_zeros_32
-__forceinline uint8_t _count_leading_zeros_32(uint32_t value)
-{
-	unsigned long index;
-	return _BitScanReverse(&index, value) ? (31U - index) : 32U;
-}
+#ifndef rotl_32
+#define rotl_32 _rotl
 #endif
 
 
 /*-------------------------------------------------
-    count_leading_ones_32 - return the number of
-    leading one bits in a 32-bit value
+    rotr_32 - circularly shift a 32-bit value right
+    by the specified number of bits (modulo 32)
 -------------------------------------------------*/
 
-#ifndef count_leading_ones_32
-#define count_leading_ones_32 _count_leading_ones_32
-__forceinline uint8_t _count_leading_ones_32(uint32_t value)
-{
-	unsigned long index;
-	return _BitScanReverse(&index, ~value) ? (31U - index) : 32U;
-}
+#ifndef rotr_32
+#define rotr_32 _rotr
 #endif
 
 
 /*-------------------------------------------------
-    count_leading_zeros_64 - return the number of
-    leading zero bits in a 64-bit value
+    rotl_64 - circularly shift a 64-bit value left
+    by the specified number of bits (modulo 64)
 -------------------------------------------------*/
 
-#ifndef count_leading_zeros_64
-#define count_leading_zeros_64 _count_leading_zeros_64
-__forceinline uint8_t _count_leading_zeros_64(uint64_t value)
-{
-	unsigned long index;
-#ifdef PTR64
-	return _BitScanReverse64(&index, value) ? (63U - index) : 64U;
-#else
-	return _BitScanReverse(&index, uint32_t(value >> 32)) ? (31U - index) : _BitScanReverse(&index, uint32_t(value)) ? (63U - index) : 64U;
-#endif
-}
+#ifndef rotl_64
+#define rotl_64 _rotl64
 #endif
 
 
 /*-------------------------------------------------
-    count_leading_ones_64 - return the number of
-    leading one bits in a 64-bit value
+    rotr_64 - circularly shift a 64-bit value right
+    by the specified number of bits (modulo 64)
 -------------------------------------------------*/
 
-#ifndef count_leading_ones_64
-#define count_leading_ones_64 _count_leading_ones_64
-__forceinline uint8_t _count_leading_ones_64(uint64_t value)
-{
-	unsigned long index;
-#ifdef PTR64
-	return _BitScanReverse64(&index, ~value) ? (63U - index) : 64U;
-#else
-	return _BitScanReverse(&index, ~uint32_t(value >> 32)) ? (31U - index) : _BitScanReverse(&index, ~uint32_t(value)) ? (63U - index) : 64U;
-#endif
-}
+#ifndef rotr_64
+#define rotr_64 _rotr64
 #endif
 
 #endif // MAME_OSD_EIVC_H

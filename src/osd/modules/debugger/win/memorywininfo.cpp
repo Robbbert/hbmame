@@ -2,7 +2,7 @@
 // copyright-holders:Aaron Giles, Vas Crabb
 //============================================================
 //
-//  memorywininfo.c - Win32 debug window handling
+//  memorywininfo.cpp - Win32 debug window handling
 //
 //============================================================
 
@@ -13,11 +13,15 @@
 #include "memoryviewinfo.h"
 #include "uimetrics.h"
 
+#include "util/xmlfile.h"
+
 #include "winutf8.h"
 
 
+namespace osd::debugger::win {
+
 memorywin_info::memorywin_info(debugger_windows_interface &debugger) :
-	editwin_info(debugger, false, "Memory", nullptr),
+	editwin_info(debugger, false, 0, "Memory", nullptr),
 	m_combownd(nullptr)
 {
 	if (!window())
@@ -71,11 +75,11 @@ memorywin_info::memorywin_info(debugger_windows_interface &debugger) :
 	update_caption();
 
 	// recompute the children once to get the maxwidth
-	memorywin_info::recompute_children();
+	recompute_children();
 
 	// position the window and recompute children again
-	SetWindowPos(window(), HWND_TOP, 100, 100, maxwidth(), 200, SWP_SHOWWINDOW);
-	memorywin_info::recompute_children();
+	debugger.stagger_window(window(), maxwidth(), (metrics().debug_font_ascent() * 16) + metrics().hscroll_height());
+	recompute_children();
 
 	// mark the edit box as the default focus and set it
 	editwin_info::set_default_focus();
@@ -178,14 +182,21 @@ bool memorywin_info::handle_key(WPARAM wparam, LPARAM lparam)
 }
 
 
+void memorywin_info::update_dpi()
+{
+	editwin_info::update_dpi();
+	m_views[0]->recompute_source_combobox(m_combownd);
+}
+
+
 void memorywin_info::recompute_children()
 {
 	// compute a client rect
 	RECT bounds;
 	bounds.top = bounds.left = 0;
 	bounds.right = m_views[0]->prefwidth() + (2 * EDGE_WIDTH);
-	bounds.bottom = 200;
-	AdjustWindowRectEx(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX);
+	bounds.bottom = (metrics().debug_font_ascent() * 16) + metrics().hscroll_height();
+	AdjustWindowRectExForDpi(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX, metrics().dpi());
 
 	// clamp the min/max size
 	set_maxwidth(bounds.right - bounds.left);
@@ -388,3 +399,37 @@ void memorywin_info::update_caption()
 {
 	win_set_window_text_utf8(window(), std::string("Memory: ").append(m_views[0]->source_name()).c_str());
 }
+
+
+void memorywin_info::restore_configuration_from_node(util::xml::data_node const &node)
+{
+	m_views[0]->set_source_index(node.get_attribute_int(ATTR_WINDOW_MEMORY_REGION, m_views[0]->source_index()));
+	int const cursource = m_views[0]->source_index();
+	if (0 <= cursource)
+		SendMessage(m_combownd, CB_SETCURSEL, cursource, 0);
+	update_caption();
+
+	util::xml::data_node const *const expr = node.get_child(NODE_WINDOW_EXPRESSION);
+	if (expr && expr->get_value())
+	{
+		set_editwnd_text(expr->get_value());
+		process_string(expr->get_value());
+	}
+
+	editwin_info::restore_configuration_from_node(node);
+
+	m_views[0]->restore_configuration_from_node(node);
+}
+
+
+void memorywin_info::save_configuration_to_node(util::xml::data_node &node)
+{
+	editwin_info::save_configuration_to_node(node);
+
+	node.set_attribute_int(ATTR_WINDOW_TYPE, WINDOW_TYPE_MEMORY_VIEWER);
+	node.set_attribute_int(ATTR_WINDOW_MEMORY_REGION, m_views[0]->source_index());
+	node.add_child(NODE_WINDOW_EXPRESSION, downcast<memoryview_info *>(m_views[0].get())->expression());
+	m_views[0]->save_configuration_to_node(node);
+}
+
+} // namespace osd::debugger::win

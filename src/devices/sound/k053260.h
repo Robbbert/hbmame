@@ -31,20 +31,21 @@ public:
 	u8 read(offs_t offset);
 	void write(offs_t offset, u8 data);
 
-	auto sh1_cb() { return m_sh1_cb.bind(); }
-	auto sh2_cb() { return m_sh2_cb.bind(); }
+	auto sh1_cb()  { return m_sh1_cb.bind();  }
+	auto sh2_cb()  { return m_sh2_cb.bind();  }
+	auto tim2_cb() { return m_tim2_cb.bind(); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 	virtual void device_clock_changed() override;
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 
 	// sound stream update overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 	// device_rom_interface overrides
-	virtual void rom_bank_updated() override;
+	virtual void rom_bank_pre_change() override;
 
 	TIMER_CALLBACK_MEMBER(update_state_outputs);
 
@@ -55,16 +56,19 @@ private:
 	// Sample hold lines callbacks (often used for interrupts)
 	devcb_write_line m_sh1_cb;
 	devcb_write_line m_sh2_cb;
+	devcb_write_line m_tim2_cb; // tim2 output (2ms period)
+	void tim2_count();
 
 	// configuration
-	sound_stream *  m_stream;
-	emu_timer   *m_timer;
+	sound_stream *m_stream;
+	emu_timer    *m_timer;
 
 	// live state
 	u8           m_portdata[4];
 	u8           m_keyon;
 	u8           m_mode;
-	int          m_timer_state;
+	u32          m_timer_state;
+	u32          m_tim2_count;
 
 	// per voice state
 	class KDSC_Voice
@@ -75,7 +79,9 @@ private:
 		inline void voice_start(int index);
 		inline void voice_reset();
 		inline void set_register(offs_t offset, u8 data);
-		inline void set_loop_kadpcm(u8 data);
+		inline void set_loop(int state);
+		inline void set_kadpcm(int state);
+		inline void set_reverse(int state);
 		inline void set_pan(u8 data);
 		inline void update_pan_volume();
 		inline void key_on();
@@ -89,22 +95,23 @@ private:
 		k053260_device &m_device;
 
 		// live state
-		u32  m_position = 0;
+		u32  m_position;
 		int  m_pan_volume[2];
-		u16  m_counter = 0;
-		s8   m_output = 0;
-		bool m_playing = false;
+		u16  m_counter;
+		s8   m_output;
+		bool m_playing;
 
 		// per voice registers
-		u32 m_start = 0;
-		u16 m_length = 0;
-		u16 m_pitch = 0;
-		u8  m_volume = 0;
+		u32 m_start;
+		u16 m_length;
+		u16 m_pitch;
+		u8  m_volume;
 
 		// bit packed registers
-		u8   m_pan = 0;
-		bool m_loop = false;
-		bool m_kadpcm = false;
+		u8   m_pan;
+		bool m_loop;
+		bool m_kadpcm;
+		bool m_reverse;
 	} m_voice[4];
 };
 

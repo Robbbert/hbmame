@@ -45,11 +45,9 @@
 	[expressionField sizeToFit];
 
 	// create the subview popup
-	subviewButton = [[NSPopUpButton alloc] initWithFrame:NSOffsetRect(expressionFrame,
-																	  expressionFrame.size.width,
-																	  0)];
+	subviewButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 19)];
 	[subviewButton setAutoresizingMask:(NSViewWidthSizable | NSViewMinXMargin | NSViewMinYMargin)];
-	[subviewButton setBezelStyle:NSShadowlessSquareBezelStyle];
+	[subviewButton setBezelStyle:NSBezelStyleShadowlessSquare];
 	[subviewButton setFocusRingType:NSFocusRingTypeNone];
 	[subviewButton setFont:defaultFont];
 	[subviewButton setTarget:self];
@@ -120,9 +118,11 @@
 
 	// calculate the optimal size for everything
 	NSSize const desired = [NSScrollView frameSizeForContentSize:[dasmView maximumFrameSize]
-										   hasHorizontalScroller:YES
-											 hasVerticalScroller:YES
-													  borderType:[dasmScroll borderType]];
+										 horizontalScrollerClass:[NSScroller class]
+										   verticalScrollerClass:[NSScroller class]
+													  borderType:[dasmScroll borderType]
+													 controlSize:NSControlSizeRegular
+												   scrollerStyle:NSScrollerStyleOverlay];
 	[self cascadeWindowWithDesiredSize:desired forView:dasmScroll];
 
 	// don't forget the result
@@ -142,7 +142,11 @@
 
 - (IBAction)debugNewMemoryWindow:(id)sender {
 	debug_view_disasm_source const *source = [dasmView source];
-	[console debugNewMemoryWindowForSpace:&source->space()
+	auto const [mintf, spacenum] = source->space();
+	assert(mintf);
+	assert(0 <= spacenum);
+	assert(mintf->has_space(spacenum));
+	[console debugNewMemoryWindowForSpace:&mintf->space(spacenum)
 								   device:source->device()
 							   expression:nil];
 }
@@ -150,7 +154,11 @@
 
 - (IBAction)debugNewDisassemblyWindow:(id)sender {
 	debug_view_disasm_source const *source = [dasmView source];
-	[console debugNewDisassemblyWindowForSpace:&source->space()
+	auto const [mintf, spacenum] = source->space();
+	assert(mintf);
+	assert(0 <= spacenum);
+	assert(mintf->has_space(spacenum));
+	[console debugNewDisassemblyWindowForSpace:&mintf->space(spacenum)
 										device:source->device()
 									expression:[dasmView expression]];
 }
@@ -182,7 +190,7 @@
 		// if it doesn't exist, add a new one
 		if (bp == nullptr)
 		{
-			uint32_t const bpnum = device.debug()->breakpoint_set(address, nullptr, nullptr);
+			uint32_t const bpnum = device.debug()->breakpoint_set(address);
 			machine->debugger().console().printf("Breakpoint %X set\n", bpnum);
 		}
 		else
@@ -232,15 +240,15 @@
 
 - (void)saveConfigurationToNode:(util::xml::data_node *)node {
 	[super saveConfigurationToNode:node];
-	node->set_attribute_int("type", MAME_DEBUGGER_WINDOW_TYPE_DISASSEMBLY_VIEWER);
-	node->set_attribute_int("cpu", [dasmView selectedSubviewIndex]);
+	node->set_attribute_int(osd::debugger::ATTR_WINDOW_TYPE, osd::debugger::WINDOW_TYPE_DISASSEMBLY_VIEWER);
+	node->set_attribute_int(osd::debugger::ATTR_WINDOW_DISASSEMBLY_CPU, [dasmView selectedSubviewIndex]);
 	[dasmView saveConfigurationToNode:node];
 }
 
 
 - (void)restoreConfigurationFromNode:(util::xml::data_node const *)node {
 	[super restoreConfigurationFromNode:node];
-	int const region = node->get_attribute_int("cpu", [dasmView selectedSubviewIndex]);
+	int const region = node->get_attribute_int(osd::debugger::ATTR_WINDOW_DISASSEMBLY_CPU, [dasmView selectedSubviewIndex]);
 	[dasmView selectSubviewAtIndex:region];
 	[window setTitle:[NSString stringWithFormat:@"Disassembly: %@", [dasmView selectedSubviewName]]];
 	[subviewButton selectItemAtIndex:[subviewButton indexOfItemWithTag:[dasmView selectedSubviewIndex]]];

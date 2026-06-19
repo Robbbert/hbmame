@@ -2,51 +2,71 @@
 // copyright-holders:Aaron Giles, Vas Crabb
 //============================================================
 //
-//  debugwin.c - Win32 debug window handling
+//  debugwin.cpp - Win32 debug window handling
 //
 //============================================================
 
 #include "emu.h"
 #include "debug_module.h"
-#include "modules/osdmodule.h"
 
 #if defined(OSD_WINDOWS) /*|| defined(SDLMAME_WIN32)*/
 
 #include "win/debugwin.h"
 
 #include "win/consolewininfo.h"
+#include "win/debuggerprefs.h"
 #include "win/debugwininfo.h"
 #include "win/disasmwininfo.h"
 #include "win/logwininfo.h"
 #include "win/memorywininfo.h"
 #include "win/pointswininfo.h"
-#include "win/uimetrics.h"
 
+// emu
+#include "config.h"
 #include "debugger.h"
 #include "debug/debugcpu.h"
 
+#include "util/xmlfile.h"
+
+// osd/windows
 #include "window.h"
-#include "../input/input_common.h"
-#include "../input/input_windows.h"
+#include "winmain.h"
+
+#include "../input/input_windows.h" // for the keyboard translation table
+
+#include <shellscalingapi.h>
 
 
-class debugger_windows : public osd_module, public debug_module, protected debugger_windows_interface
+namespace osd {
+
+namespace {
+
+class debugger_windows :
+		public osd_module,
+		public debug_module,
+		protected debugger::win::debugger_windows_interface
 {
 public:
 	debugger_windows() :
 		osd_module(OSD_DEBUG_PROVIDER, "windows"),
 		debug_module(),
+		m_osd(nullptr),
 		m_machine(nullptr),
-		m_metrics(),
+		m_prefs(),
 		m_waiting_for_debugger(false),
 		m_window_list(),
-		m_main_console(nullptr)
+		m_main_console(nullptr),
+		m_next_window_pos{ 0, 0 },
+		m_config(),
+		m_save_windows(true),
+		m_group_windows(true),
+		m_group_windows_setting(true)
 	{
 	}
 
 	virtual ~debugger_windows() { }
 
-	virtual int init(const osd_options &options) override { return 0; }
+	virtual int init(osd_interface &osd, osd_options const &options) override;
 	virtual void exit() override;
 
 	virtual void init_debugger(running_machine &machine) override;
@@ -56,29 +76,61 @@ public:
 protected:
 	virtual running_machine &machine() const override { return *m_machine; }
 
-	virtual ui_metrics &metrics() const override { return *m_metrics; }
+	virtual debugger::win::debugger_preferences const &preferences() const override { return *m_prefs; }
+	virtual void set_color_theme(int index) override;
+	virtual bool get_save_window_arrangement() const override { return m_save_windows; }
+	virtual void set_save_window_arrangement(bool save) override { m_save_windows = save; }
+	virtual bool get_group_windows() const override { return m_group_windows; }
+	virtual bool get_group_windows_setting() const override { return m_group_windows_setting; }
+	virtual void set_group_windows_setting(bool group) override { m_group_windows_setting = group; }
 
 	virtual bool const &waiting_for_debugger() const override { return m_waiting_for_debugger; }
 	virtual bool seq_pressed() const override;
 
-	virtual void create_memory_window() override { create_window<memorywin_info>(); }
-	virtual void create_disasm_window() override { create_window<disasmwin_info>(); }
-	virtual void create_log_window() override { create_window<logwin_info>(); }
-	virtual void create_points_window() override { create_window<pointswin_info>(); }
-	virtual void remove_window(debugwin_info &info) override;
+	virtual void create_memory_window() override { create_window<debugger::win::memorywin_info>(); }
+	virtual void create_disasm_window() override { create_window<debugger::win::disasmwin_info>(); }
+	virtual void create_log_window() override { create_window<debugger::win::logwin_info>(); }
+	virtual void create_points_window() override { create_window<debugger::win::pointswin_info>(); }
+	virtual void remove_window(debugger::win::debugwin_info &info) override;
 
 	virtual void show_all() override;
 	virtual void hide_all() override;
 
+	virtual void stagger_window(HWND window, int width, int height) override;
+
 private:
 	template <typename T> T *create_window();
 
-	running_machine             *m_machine;
-	std::unique_ptr<ui_metrics>    m_metrics;
-	bool                        m_waiting_for_debugger;
-	std::vector<std::unique_ptr<debugwin_info>>  m_window_list;
-	consolewin_info             *m_main_console;
+	void config_load(config_type cfgtype, config_level cfglevel, util::xml::data_node const *parentnode);
+	void config_save(config_type cfgtype, util::xml::data_node *parentnode);
+
+	void load_configuration(util::xml::data_node const &parentnode);
+
+	windows_osd_interface *m_osd;
+	running_machine *m_machine;
+	std::unique_ptr<debugger::win::debugger_preferences> m_prefs;
+	bool m_waiting_for_debugger;
+	std::vector<std::unique_ptr<debugger::win::debugwin_info> > m_window_list;
+	debugger::win::consolewin_info *m_main_console;
+
+	POINT m_next_window_pos;
+	LONG m_window_start_x;
+
+	util::xml::file::ptr m_config;
+	bool m_save_windows;
+	bool m_group_windows;
+	bool m_group_windows_setting;
 };
+
+
+int debugger_windows::init(osd_interface &osd, osd_options const &options)
+{
+	m_osd = dynamic_cast<windows_osd_interface *>(&osd);
+	if (!m_osd)
+		return -1;
+
+	return 0;
+}
 
 
 void debugger_windows::exit()
@@ -88,7 +140,7 @@ void debugger_windows::exit()
 		m_window_list.front()->destroy();
 
 	m_main_console = nullptr;
-	m_metrics.reset();
+	m_prefs.reset();
 	m_machine = nullptr;
 }
 
@@ -96,23 +148,54 @@ void debugger_windows::exit()
 void debugger_windows::init_debugger(running_machine &machine)
 {
 	m_machine = &machine;
-	m_metrics = std::make_unique<ui_metrics>(downcast<osd_options &>(m_machine->options()));
+	m_prefs = std::make_unique<debugger::win::debugger_preferences>(downcast<osd_options &>(m_machine->options()));
+	machine.configuration().config_register(
+			"debugger",
+			configuration_manager::load_delegate(&debugger_windows::config_load, this),
+			configuration_manager::save_delegate(&debugger_windows::config_save, this));
 }
 
 
 void debugger_windows::wait_for_debugger(device_t &device, bool firststop)
 {
 	// create a console window
-	if (m_main_console == nullptr)
-		m_main_console = create_window<consolewin_info>();
+	if (!m_main_console)
+	{
+		m_main_console = create_window<debugger::win::consolewin_info>();
+
+		// set the starting position for new auxiliary windows
+		HMONITOR const nearest_monitor = MonitorFromWindow(
+				dynamic_cast<win_window_info &>(*osd_common_t::window_list().front()).platform_window(),
+				MONITOR_DEFAULTTONEAREST);
+		if (nearest_monitor)
+		{
+			MONITORINFO info;
+			std::memset(&info, 0, sizeof(info));
+			info.cbSize = sizeof(info);
+			if (GetMonitorInfo(nearest_monitor, &info))
+			{
+				UINT xdpi = 96, ydpi = 96;
+				GetDpiForMonitor(nearest_monitor, MDT_EFFECTIVE_DPI, &xdpi, &ydpi);
+				m_next_window_pos.x = info.rcWork.left + MulDiv(100, xdpi, 96);
+				m_next_window_pos.y = info.rcWork.top + MulDiv(100, xdpi, 96);
+				m_window_start_x = m_next_window_pos.x;
+			}
+		}
+	}
 
 	// update the views in the console to reflect the current CPU
-	if (m_main_console != nullptr)
+	if (m_main_console)
 		m_main_console->set_cpu(device);
 
 	// when we are first stopped, adjust focus to us
-	if (firststop && (m_main_console != nullptr))
+	if (firststop && m_main_console)
 	{
+		if (m_config)
+		{
+			for (util::xml::data_node const *node = m_config->get_first_child(); node; node = node->get_next_sibling())
+				load_configuration(*node);
+			m_config.reset();
+		}
 		m_main_console->set_foreground();
 		if (winwindow_has_focus())
 			m_main_console->set_default_focus();
@@ -123,7 +206,7 @@ void debugger_windows::wait_for_debugger(device_t &device, bool firststop)
 	show_all();
 
 	// run input polling to ensure that our status is in sync
-	downcast<windows_osd_interface&>(machine().osd()).poll_input(*m_machine);
+	downcast<windows_osd_interface&>(machine().osd()).poll_input_modules(false);
 
 	// get and process messages
 	MSG message;
@@ -142,7 +225,7 @@ void debugger_windows::wait_for_debugger(device_t &device, bool firststop)
 
 	// process everything else
 	default:
-		winwindow_dispatch_message(*m_machine, &message);
+		winwindow_dispatch_message(*m_machine, message);
 		break;
 	}
 
@@ -156,18 +239,29 @@ void debugger_windows::debugger_update()
 	// if we're running live, do some checks
 	if (!winwindow_has_focus() && m_machine && !m_machine->debugger().cpu().is_stopped() && (m_machine->phase() == machine_phase::RUNNING))
 	{
-		// see if the interrupt key is pressed and break if it is
-		if (seq_pressed())
+		// check to see if a debugger window has focus
+		HWND const focuswnd = GetFocus();
+		if (std::any_of(m_window_list.begin(), m_window_list.end(), [focuswnd] (auto const &window) { return window->owns_window(focuswnd); }))
 		{
-			HWND const focuswnd = GetFocus();
+			// see if the interrupt key is pressed and break if it is
+			if (seq_pressed())
+			{
+				m_machine->debugger().debug_break();
 
-			m_machine->debugger().debug_break();
-
-			// if we were focused on some window's edit box, reset it to default
-			for (auto &info : m_window_list)
-				info->restore_field(focuswnd);
+				// if we were focused on some window's edit box, reset it to default
+				for (auto &info : m_window_list)
+					info->restore_field(focuswnd);
+			}
 		}
 	}
+}
+
+
+void debugger_windows::set_color_theme(int index)
+{
+	m_prefs->set_color_theme(index);
+	for (auto const &window : m_window_list)
+		window->redraw();
 }
 
 
@@ -222,7 +316,7 @@ bool debugger_windows::seq_pressed() const
 }
 
 
-void debugger_windows::remove_window(debugwin_info &info)
+void debugger_windows::remove_window(debugger::win::debugwin_info &info)
 {
 	for (auto it = m_window_list.begin(); it != m_window_list.end(); ++it)
 		if (it->get() == &info) {
@@ -241,28 +335,167 @@ void debugger_windows::show_all()
 
 void debugger_windows::hide_all()
 {
-	SetForegroundWindow(std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window());
+	SetForegroundWindow(dynamic_cast<win_window_info &>(*osd_common_t::window_list().front()).platform_window());
 	for (auto &info : m_window_list)
 		info->hide();
 }
 
 
-template <typename T> T *debugger_windows::create_window()
+void debugger_windows::stagger_window(HWND window, int width, int height)
+{
+	// get width/height for client size
+	RECT target;
+	target.left = 0;
+	target.top = 0;
+	target.right = width;
+	target.bottom = height;
+	if (!AdjustWindowRectExForDpi(&target, GetWindowLong(window, GWL_STYLE), GetMenu(window) ? TRUE : FALSE, GetWindowLong(window, GWL_EXSTYLE), GetDpiForWindow(window)))
+	{
+		// really shouldn't end up here, but have to do something
+		SetWindowPos(window, HWND_TOP, m_next_window_pos.x, m_next_window_pos.y, width, height, SWP_SHOWWINDOW);
+		return;
+	}
+	target.right -= target.left;
+	target.bottom -= target.top;
+	target.left = target.top = 0;
+
+	// get the work area for the nearest monitor to the target position
+	HMONITOR const mon = MonitorFromPoint(m_next_window_pos, MONITOR_DEFAULTTONEAREST);
+	UINT xdpi = 96, ydpi = 96;
+	if (mon)
+		GetDpiForMonitor(mon, MDT_EFFECTIVE_DPI, &xdpi, &ydpi);
+	if (mon)
+	{
+		MONITORINFO info;
+		std::memset(&info, 0, sizeof(info));
+		info.cbSize = sizeof(info);
+		if (GetMonitorInfo(mon, &info))
+		{
+			// restart cascade if necessary
+			if (((m_next_window_pos.x + target.right) > info.rcWork.right) || ((m_next_window_pos.y + target.bottom) > info.rcWork.bottom))
+			{
+				m_next_window_pos.x = m_window_start_x += MulDiv(16, xdpi, 96);
+				m_next_window_pos.y = info.rcWork.top + MulDiv(100, ydpi, 96);
+				if ((m_next_window_pos.x + target.right) > info.rcWork.right)
+					m_next_window_pos.x = m_window_start_x = info.rcWork.left + MulDiv(100, xdpi, 96);
+			}
+		}
+	}
+
+	// move the window and adjust the next position
+	MoveWindow(window, m_next_window_pos.x, m_next_window_pos.y, target.right, target.bottom, FALSE);
+	SetWindowPos(window, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_SHOWWINDOW);
+	m_next_window_pos.x += MulDiv(16, xdpi, 96);
+	m_next_window_pos.y += MulDiv(16, ydpi, 96);
+}
+
+
+template <typename T>
+T *debugger_windows::create_window()
 {
 	// allocate memory
 	std::unique_ptr<T> info = std::make_unique<T>(static_cast<debugger_windows_interface &>(*this));
 	if (info->is_valid())
 	{
+		T &result(*info);
 		m_window_list.push_back(std::move(info));
-		T *ptr = dynamic_cast<T*>(m_window_list.back().get());
-		return ptr;
+		return &result;
 	}
 	return nullptr;
 }
 
 
-#else /* not windows */
-MODULE_NOT_SUPPORTED(debugger_windows, OSD_DEBUG_PROVIDER, "windows")
+void debugger_windows::config_load(config_type cfgtype, config_level cfglevel, util::xml::data_node const *parentnode)
+{
+	if (parentnode)
+	{
+		if (config_type::DEFAULT == cfgtype)
+		{
+			m_save_windows = 0 != parentnode->get_attribute_int(debugger::ATTR_DEBUGGER_SAVE_WINDOWS, m_save_windows ? 1 : 0);
+			m_group_windows = m_group_windows_setting = 0 != parentnode->get_attribute_int(debugger::ATTR_DEBUGGER_GROUP_WINDOWS, m_group_windows ? 1 : 0);
+			util::xml::data_node const *const colors = parentnode->get_child(debugger::NODE_COLORS);
+			if (colors)
+				m_prefs->set_color_theme(colors->get_attribute_int(debugger::ATTR_COLORS_THEME, m_prefs->get_color_theme()));
+		}
+		else if (config_type::SYSTEM == cfgtype)
+		{
+			if (m_main_console)
+			{
+				load_configuration(*parentnode);
+			}
+			else
+			{
+				if (!m_config)
+					m_config = util::xml::file::create();
+				parentnode->copy_into(*m_config);
+			}
+		}
+	}
+}
+
+
+void debugger_windows::config_save(config_type cfgtype, util::xml::data_node *parentnode)
+{
+	if (config_type::DEFAULT == cfgtype)
+	{
+		parentnode->set_attribute_int(debugger::ATTR_DEBUGGER_SAVE_WINDOWS, m_save_windows ? 1 : 0);
+		parentnode->set_attribute_int(debugger::ATTR_DEBUGGER_GROUP_WINDOWS, m_group_windows_setting ? 1 : 0);
+		util::xml::data_node *const colors = parentnode->add_child(debugger::NODE_COLORS, nullptr);
+		if (colors)
+			colors->set_attribute_int(debugger::ATTR_COLORS_THEME, m_prefs->get_color_theme());
+	}
+	else if (m_save_windows && (config_type::SYSTEM == cfgtype))
+	{
+		for (auto &info : m_window_list)
+			info->save_configuration(*parentnode);
+	}
+}
+
+
+void debugger_windows::load_configuration(util::xml::data_node const &parentnode)
+{
+	for (util::xml::data_node const *node = parentnode.get_child(debugger::NODE_WINDOW); node; node = node->get_next_sibling(debugger::NODE_WINDOW))
+	{
+		debugger::win::debugwin_info *win = nullptr;
+		switch (node->get_attribute_int(debugger::ATTR_WINDOW_TYPE, -1))
+		{
+		case debugger::WINDOW_TYPE_CONSOLE:
+			m_main_console->restore_configuration_from_node(*node);
+			break;
+		case debugger::WINDOW_TYPE_MEMORY_VIEWER:
+			win = create_window<debugger::win::memorywin_info>();
+			break;
+		case debugger::WINDOW_TYPE_DISASSEMBLY_VIEWER:
+			win = create_window<debugger::win::disasmwin_info>();
+			break;
+		case debugger::WINDOW_TYPE_ERROR_LOG_VIEWER:
+			win = create_window<debugger::win::logwin_info>();
+			break;
+		case debugger::WINDOW_TYPE_POINTS_VIEWER:
+			win = create_window<debugger::win::pointswin_info>();
+			break;
+		case debugger::WINDOW_TYPE_DEVICES_VIEWER:
+			// not supported
+			break;
+		case debugger::WINDOW_TYPE_DEVICE_INFO_VIEWER:
+			// not supported
+			break;
+		default:
+			break;
+		}
+		if (win)
+			win->restore_configuration_from_node(*node);
+	}
+}
+
+} // anonymous namespace
+
+} // namespace osd
+
+#else // not Windows
+
+namespace osd { namespace { MODULE_NOT_SUPPORTED(debugger_windows, OSD_DEBUG_PROVIDER, "windows") } }
+
 #endif
 
-MODULE_DEFINITION(DEBUG_WINDOWS, debugger_windows)
+MODULE_DEFINITION(DEBUG_WINDOWS, osd::debugger_windows)

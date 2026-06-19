@@ -143,26 +143,23 @@ bool opn_registers_base<IsOpnA>::write(uint16_t index, uint8_t data, uint32_t &c
 	assert(index < REGISTERS);
 
 	// writes in the 0xa0-af/0x1a0-af region are handled as latched pairs
-	// borrow unused registers 0xb8-bf/0x1b8-bf as temporary holding locations
+	// borrow unused registers 0xb8-bf as temporary holding locations
 	if ((index & 0xf0) == 0xa0)
 	{
 		if (bitfield(index, 0, 2) == 3)
 			return false;
 
 		uint32_t latchindex = 0xb8 | bitfield(index, 3);
-		if (IsOpnA)
-			latchindex |= index & 0x100;
 
 		// writes to the upper half just latch (only low 6 bits matter)
 		if (bitfield(index, 2))
-			m_regdata[latchindex] = data | 0x80;
+			m_regdata[latchindex] = data & 0x3f;
 
-		// writes to the lower half only commit if the latch is there
-		else if (bitfield(m_regdata[latchindex], 7))
+		// writes to the lower half also apply said latch
+		else
 		{
 			m_regdata[index] = data;
-			m_regdata[index | 4] = m_regdata[latchindex] & 0x3f;
-			m_regdata[latchindex] = 0;
+			m_regdata[index | 4] = m_regdata[latchindex];
 		}
 		return false;
 	}
@@ -205,7 +202,12 @@ int32_t opn_registers_base<IsOpnA>::clock_noise_and_lfo()
 	if (!IsOpnA || !lfo_enable())
 	{
 		m_lfo_counter = 0;
-		m_lfo_am = 0;
+
+		// special case: if LFO is disabled on OPNA, it basically just keeps the counter
+		// at 0; since position 0 gives an AM value of 0x3f, it is important to reflect
+		// that here; for example, MegaDrive Venom plays some notes with LFO globally
+		// disabled but enabling LFO on the operators, and it expects this added attenutation
+		m_lfo_am = IsOpnA ? 0x3f : 0x00;
 		return 0;
 	}
 
@@ -404,9 +406,9 @@ std::string opn_registers_base<IsOpnA>::log_keyon(uint32_t choffs, uint32_t opof
 	}
 
 	char buffer[256];
-	char *end = &buffer[0];
+	int end = 0;
 
-	end += sprintf(end, "%u.%02u freq=%04X dt=%u fb=%u alg=%X mul=%X tl=%02X ksr=%u adsr=%02X/%02X/%02X/%X sl=%X",
+	end += snprintf(&buffer[end], sizeof(buffer) - end, "%u.%02u freq=%04X dt=%u fb=%u alg=%X mul=%X tl=%02X ksr=%u adsr=%02X/%02X/%02X/%X sl=%X",
 		chnum, opnum,
 		block_freq,
 		op_detune(opoffs),
@@ -422,21 +424,21 @@ std::string opn_registers_base<IsOpnA>::log_keyon(uint32_t choffs, uint32_t opof
 		op_sustain_level(opoffs));
 
 	if (OUTPUTS > 1)
-		end += sprintf(end, " out=%c%c",
+		end += snprintf(&buffer[end], sizeof(buffer) - end, " out=%c%c",
 			ch_output_0(choffs) ? 'L' : '-',
 			ch_output_1(choffs) ? 'R' : '-');
 	if (op_ssg_eg_enable(opoffs))
-		end += sprintf(end, " ssg=%X", op_ssg_eg_mode(opoffs));
-	bool am = (lfo_enable() && op_lfo_am_enable(opoffs) && ch_lfo_am_sens(choffs) != 0);
+		end += snprintf(&buffer[end], sizeof(buffer) - end, " ssg=%X", op_ssg_eg_mode(opoffs));
+	bool am = (op_lfo_am_enable(opoffs) && ch_lfo_am_sens(choffs) != 0);
 	if (am)
-		end += sprintf(end, " am=%u", ch_lfo_am_sens(choffs));
-	bool pm = (lfo_enable() && ch_lfo_pm_sens(choffs) != 0);
+		end += snprintf(&buffer[end], sizeof(buffer) - end, " am=%u", ch_lfo_am_sens(choffs));
+	bool pm = (ch_lfo_pm_sens(choffs) != 0);
 	if (pm)
-		end += sprintf(end, " pm=%u", ch_lfo_pm_sens(choffs));
+		end += snprintf(&buffer[end], sizeof(buffer) - end, " pm=%u", ch_lfo_pm_sens(choffs));
 	if (am || pm)
-		end += sprintf(end, " lfo=%02X", lfo_rate());
+		end += snprintf(&buffer[end], sizeof(buffer) - end, " lfo=%02X", lfo_rate());
 	if (multi_freq() && choffs == 2)
-		end += sprintf(end, " multi=1");
+		end += snprintf(&buffer[end], sizeof(buffer) - end, " multi=1");
 
 	return buffer;
 }
@@ -1235,7 +1237,10 @@ void ym2608::write_data_hi(uint8_t data)
 	{
 		// 110: IRQ flag control
 		if (bitfield(data, 7))
+		{
 			m_fm.set_reset_status(0, 0xff);
+			m_adpcm_b.clear_status(adpcm_b_channel::STATUS_EOS | adpcm_b_channel::STATUS_PLAYING);
+		}
 		else
 		{
 			m_flag_control = data;
@@ -2022,6 +2027,8 @@ void ym2610::write_data(uint8_t data)
 		// 1C: EOS flag reset
 		m_flag_mask = ~data & EOS_FLAGS_MASK;
 		m_eos_status &= ~(data & EOS_FLAGS_MASK);
+		if (bitfield(data, 7))
+			m_adpcm_b.clear_status(adpcm_b_channel::STATUS_EOS);
 	}
 	else
 	{
@@ -2079,7 +2086,7 @@ void ym2610::write_data_hi(uint8_t data)
 //-------------------------------------------------
 
 void ym2610::write(uint32_t offset, uint8_t data)
-{//printf("%X=%X ",offset+4,data);
+{
 	switch (offset & 3)
 	{
 		case 0: // address port

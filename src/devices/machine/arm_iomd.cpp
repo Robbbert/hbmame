@@ -2,17 +2,20 @@
 // copyright-holders:Angelo Salese
 /**************************************************************************************************
 
-    ARM IOMD device emulation
+ARM IOMD device emulation
 
-    ARM7 SoC or stand-alone device, upgraded version(s) of the IOC found in Acorn Archimedes.
+ARM7 SoC or stand-alone device, upgraded version(s) of the IOC found in Acorn Archimedes.
 
-    TODO:
-    - IOCR / IOLINES hookups can be further improved, also DDR bits needs verifying;
-    - word-boundary accesses for 8-bit ports;
-    - split into different types, add quick notes about where they diverges do in this header;
-    - keyboard/mouse interface hookup is wrong for PS/2 and unimplemented for quadrature.
-      I guess we can use connectors over a custom handling, with a terminal mock for testing it
-      without the overhead of everything else.
+TODO:
+- IOCR / IOLINES hookups can be further improved, also DDR bits needs verifying;
+- word-boundary accesses for 8-bit ports;
+- split into different types, add quick notes about where they diverges do in this header;
+- keyboard/mouse interface hookup is wrong for PS/2 and unimplemented for quadrature.
+  I guess we can use connectors over a custom handling, with a terminal mock for testing it
+  without the overhead of everything else.
+- Make interrupts falling or rising edge (depending on type);
+- tetfight: sets the two timers only as irq sources (no flyback), T0 controls gameplay, T1 to QS1000
+  sound engine. IRQs are unevenly accepted, if latter is disabled makes framerate stable ...
 
 **************************************************************************************************/
 
@@ -141,9 +144,9 @@ arm_iomd_device::arm_iomd_device(const machine_config &mconfig, device_type type
 	, m_host_cpu(*this, finder_base::DUMMY_TAG)
 	, m_vidc(*this, finder_base::DUMMY_TAG)
 	, m_kbdc(*this, finder_base::DUMMY_TAG)
-	, m_iocr_read_od_cb(*this)
+	, m_iocr_read_od_cb(*this, 1)
 	, m_iocr_write_od_cb(*this)
-	, m_iocr_read_id_cb(*this)
+	, m_iocr_read_id_cb(*this, 1)
 	, m_iocr_write_id_cb(*this)
 	, m_sndcur(0)
 	, m_sndend(0)
@@ -206,7 +209,7 @@ void arm7500fe_iomd_device::map(address_map &map)
 
 arm7500fe_iomd_device::arm7500fe_iomd_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: arm_iomd_device(mconfig, ARM7500FE_IOMD, tag, owner, clock)
-	, m_iolines_read_cb(*this)
+	, m_iolines_read_cb(*this, 0xff)
 	, m_iolines_write_cb(*this)
 {
 	m_id = 0xaa7c;
@@ -239,11 +242,6 @@ void arm7500fe_iomd_device::device_add_mconfig(machine_config &config)
 
 void arm_iomd_device::device_start()
 {
-	m_iocr_read_od_cb.resolve_all_safe(1);
-	m_iocr_write_od_cb.resolve_all_safe();
-	m_iocr_read_id_cb.resolve_safe(1);
-	m_iocr_write_id_cb.resolve_safe();
-
 	save_item(NAME(m_iocr_ddr));
 	save_item(NAME(m_video_enable));
 	save_item(NAME(m_vidinita));
@@ -282,8 +280,6 @@ void arm7500fe_iomd_device::device_start()
 {
 	arm_iomd_device::device_start();
 
-	m_iolines_read_cb.resolve_safe(0xff);
-	m_iolines_write_cb.resolve_safe();
 	save_item(NAME(m_iolines_ddr));
 
 	save_item(NAME(m_cpuclk_divider));
@@ -433,8 +429,9 @@ inline u8 arm_iomd_device::update_irqa_type(u8 data)
 
 inline void arm_iomd_device::flush_irq(unsigned Which)
 {
+	// TODO: use external setters, don't use pulse_input_line
 	if (m_irq_status[Which] & m_irq_mask[Which])
-		m_host_cpu->pulse_input_line(ARM7_IRQ_LINE, m_host_cpu->minimum_quantum_time());
+		m_host_cpu->pulse_input_line(arm7_cpu_device::ARM7_IRQ_LINE, m_host_cpu->minimum_quantum_time());
 }
 
 template <unsigned Which> inline void arm_iomd_device::trigger_irq(u8 irq_type)
@@ -476,7 +473,7 @@ template <unsigned Which> void arm_iomd_device::irqmsk_w(u32 data)
 // master clock control
 inline void arm7500fe_iomd_device::refresh_host_cpu_clocks()
 {
-	m_host_cpu->set_unscaled_clock(this->clock() >> (m_cpuclk_divider == false));
+	m_host_cpu->set_unscaled_clock(this->clock() >> (m_cpuclk_divider ? 0 : 1));
 }
 
 u32 arm7500fe_iomd_device::clkctl_r()
@@ -671,7 +668,7 @@ void arm_iomd_device::vidinita_w(offs_t offset, u32 data, u32 mem_mask)
 //  IRQ/DRQ/Reset signals
 //**************************************************************************
 
-WRITE_LINE_MEMBER( arm_iomd_device::vblank_irq )
+void arm_iomd_device::vblank_irq(int state)
 {
 	if (!state)
 		return;
@@ -715,7 +712,7 @@ inline void arm_iomd_device::sounddma_swap_buffer()
 //  m_sndbuffer_ok[m_sndcur_buffer] = true;
 }
 
-WRITE_LINE_MEMBER( arm_iomd_device::sound_drq )
+void arm_iomd_device::sound_drq(int state)
 {
 	if (!state)
 		return;
@@ -751,7 +748,7 @@ WRITE_LINE_MEMBER( arm_iomd_device::sound_drq )
 	}
 }
 
-WRITE_LINE_MEMBER( arm_iomd_device::keyboard_irq )
+void arm_iomd_device::keyboard_irq(int state)
 {
 	printf("IRQ %d\n",state);
 	if (!state)
@@ -760,7 +757,7 @@ WRITE_LINE_MEMBER( arm_iomd_device::keyboard_irq )
 	trigger_irq<IRQB>(0x80);
 }
 
-WRITE_LINE_MEMBER( arm_iomd_device::keyboard_reset )
+void arm_iomd_device::keyboard_reset(int state)
 {
 	printf("RST %d\n",state);
 }

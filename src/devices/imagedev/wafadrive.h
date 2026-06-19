@@ -9,12 +9,12 @@
 
 *********************************************************************/
 
-#ifndef MAME_DEVICES_IMAGEDEV_WAFADRIVE_H
-#define MAME_DEVICES_IMAGEDEV_WAFADRIVE_H
-
-#include "magtape.h"
+#ifndef MAME_IMAGEDEV_WAFADRIVE_H
+#define MAME_IMAGEDEV_WAFADRIVE_H
 
 #pragma once
+
+#include "magtape.h"
 
 /***************************************************************************
     TYPE DEFINITIONS
@@ -29,8 +29,8 @@ public:
 	wafadrive_image_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 	virtual ~wafadrive_image_device();
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override;
 
 	virtual bool is_creatable() const noexcept override { return false; } // should be (although would need a way to specify size)
@@ -38,12 +38,12 @@ public:
 	virtual const char *file_extensions() const noexcept override { return "wdr"; }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 };
 
 
 // device type definition
 DECLARE_DEVICE_TYPE(WAFADRIVE_IMAGE, wafadrive_image_device)
 
-#endif // MAME_DEVICES_IMAGEDEV_WAFADRIVE_H
+#endif // MAME_IMAGEDEV_WAFADRIVE_H

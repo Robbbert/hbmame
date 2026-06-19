@@ -39,16 +39,18 @@
 
 #pragma once
 
-
-//**************************************************************************
-//  TYPE DEFINITIONS
-//**************************************************************************
-
+// forward declaration
 class device_svi_expander_interface;
 
-// ======================> svi_expander_device
 
-class svi_expander_device : public device_t, public device_single_card_slot_interface<device_svi_expander_interface>
+//**************************************************************************
+//  BUS DEVICE
+//**************************************************************************
+
+class svi_expander_device :
+	public device_t,
+	public device_single_card_slot_interface<device_svi_expander_interface>,
+	public device_mixer_interface
 {
 public:
 	// construction/destruction
@@ -56,10 +58,7 @@ public:
 	svi_expander_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts)
 		: svi_expander_device(mconfig, tag, owner, uint32_t(0))
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(nullptr);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), nullptr, false);
 	}
 
 	svi_expander_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -75,11 +74,11 @@ public:
 	auto excsw_handler() { return m_excsw_handler.bind(); }
 
 	// called from cart device
-	DECLARE_WRITE_LINE_MEMBER( int_w ) { m_int_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( romdis_w ) { m_romdis_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( ramdis_w ) { m_ramdis_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( ctrl1_w ) { m_ctrl1_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( ctrl2_w ) { m_ctrl2_handler(state); }
+	void int_w(int state) { m_int_handler(state); }
+	void romdis_w(int state) { m_romdis_handler(state); }
+	void ramdis_w(int state) { m_ramdis_handler(state); }
+	void ctrl1_w(int state) { m_ctrl1_handler(state); }
+	void ctrl2_w(int state) { m_ctrl2_handler(state); }
 
 	uint8_t excs_r(offs_t offset) { return m_excsr_handler(offset); }
 	void excs_w(offs_t offset, uint8_t data) { m_excsw_handler(offset, data); }
@@ -90,14 +89,14 @@ public:
 	uint8_t iorq_r(offs_t offset);
 	void iorq_w(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( bk21_w );
-	DECLARE_WRITE_LINE_MEMBER( bk22_w );
-	DECLARE_WRITE_LINE_MEMBER( bk31_w );
-	DECLARE_WRITE_LINE_MEMBER( bk32_w );
+	void bk21_w(int state);
+	void bk22_w(int state);
+	void bk31_w(int state);
+	void bk32_w(int state);
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	device_svi_expander_interface *m_module;
@@ -112,7 +111,10 @@ private:
 	devcb_write8 m_excsw_handler;
 };
 
-// ======================> device_svi_expander_interface
+
+//**************************************************************************
+//  CARD INTERFACE
+//**************************************************************************
 
 class device_svi_expander_interface : public device_interface
 {
@@ -136,7 +138,7 @@ protected:
 	svi_expander_device *m_expander;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(SVI_EXPANDER, svi_expander_device)
 
 // include here so drivers don't need to

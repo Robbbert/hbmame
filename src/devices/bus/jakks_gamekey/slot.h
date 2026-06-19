@@ -54,29 +54,26 @@ class jakks_gamekey_slot_device : public device_t,
 {
 public:
 	// construction/destruction
-	jakks_gamekey_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	jakks_gamekey_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	template <typename T>
-	jakks_gamekey_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&opts, const char *dflt)
-		: jakks_gamekey_slot_device(mconfig, tag, owner, clock)
+	jakks_gamekey_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt)
+		: jakks_gamekey_slot_device(mconfig, tag, owner)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	virtual ~jakks_gamekey_slot_device();
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override { }
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 	virtual const char *image_interface() const noexcept override { return "jakks_gamekey"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,u1"; }
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 	int get_type() { return m_type; }
@@ -92,11 +89,11 @@ public:
 	bool has_cart() { return m_cart ? true : false; }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	int m_type;
-	device_jakks_gamekey_interface*       m_cart;
+	device_jakks_gamekey_interface *m_cart;
 };
 
 // device type definition

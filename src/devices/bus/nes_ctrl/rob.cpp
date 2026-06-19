@@ -2,14 +2,14 @@
 // copyright-holders:hap
 /**********************************************************************
 
-    Nintendo HVC-012 Family Computer Robot / Nintendo NES-012 R.O.B.
+Nintendo HVC-012 Family Computer Robot / Nintendo NES-012 R.O.B.
 
-    TODO:
-    - does nes_rob have motor sensors? (eg. limit switches, or optical
-      sensor to determine position)
-    - can't really play anything with nes_rob, because of interaction
-      with physical objects (gyromite especially, since it has a gadget
-      to make the robot press joypad buttons)
+TODO:
+- does nes_rob have motor sensors? (eg. limit switches, or optical
+  sensor to determine position)
+- can't really play anything with nes_rob, because of interaction
+  with physical objects (gyromite especially, since it has a gadget
+  to make the robot press joypad buttons)
 
 **********************************************************************/
 
@@ -25,17 +25,16 @@
 DEFINE_DEVICE_TYPE(NES_ROB, nes_rob_device, "nes_rob", "Nintendo R.O.B. / Family Computer Robot")
 
 
+//-------------------------------------------------
+//  input_ports - device-specific input ports
+//-------------------------------------------------
+
 static INPUT_PORTS_START( nes_rob )
 	PORT_START("EYE_X")
 	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_X ) PORT_CROSSHAIR(X, 1.0, 0.0, 0) PORT_SENSITIVITY(70) PORT_KEYDELTA(30) PORT_MINMAX(0, 255)
 	PORT_START("EYE_Y")
 	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_Y ) PORT_CROSSHAIR(Y, 1.0, 0.0, 0) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_MINMAX(0, 239)
 INPUT_PORTS_END
-
-
-//-------------------------------------------------
-//  input_ports - device-specific input ports
-//-------------------------------------------------
 
 ioport_constructor nes_rob_device::device_input_ports() const
 {
@@ -65,25 +64,13 @@ nes_rob_device::nes_rob_device(const machine_config &mconfig, const char *tag, d
 
 
 //-------------------------------------------------
-//  device_start
-//-------------------------------------------------
-
-void nes_rob_device::device_start()
-{
-	// resolve handlers
-	m_motor_out.resolve();
-	m_led_out.resolve();
-}
-
-
-//-------------------------------------------------
 //  R.O.B. specific handlers
 //-------------------------------------------------
 
 u8 nes_rob_device::input_r()
 {
 	// R00: lightsensor
-	return !m_sensor->detect_light(m_eye_x->read(), m_eye_y->read());
+	return m_sensor->detect_light(m_eye_x->read(), m_eye_y->read()) ? 0 : 1;
 }
 
 void nes_rob_device::output_w(offs_t offset, u8 data)
@@ -112,6 +99,10 @@ void nes_rob_device::output_w(offs_t offset, u8 data)
 	}
 }
 
+void nes_rob_device::device_start()
+{
+}
+
 void nes_rob_device::device_add_mconfig(machine_config &config)
 {
 	SM590(config, m_maincpu, 455_kHz_XTAL);
@@ -121,7 +112,7 @@ void nes_rob_device::device_add_mconfig(machine_config &config)
 	m_maincpu->write_r<2>().set(FUNC(nes_rob_device::output_w));
 	m_maincpu->write_r<3>().set(FUNC(nes_rob_device::output_w));
 
-	NES_ZAPPER_SENSOR(config, m_sensor, 0);
+	NES_ZAPPER_SENSOR(config, m_sensor);
 	if (m_port != nullptr)
 		m_sensor->set_screen_tag(m_port->m_screen);
 

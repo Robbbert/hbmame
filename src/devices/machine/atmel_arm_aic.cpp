@@ -17,6 +17,9 @@
 #include "emu.h"
 #include "atmel_arm_aic.h"
 
+#include <bit>
+
+
 DEFINE_DEVICE_TYPE(ARM_AIC, arm_aic_device, "arm_aic", "ARM Advanced Interrupt Controller")
 
 
@@ -53,7 +56,7 @@ uint32_t arm_aic_device::irq_vector_r()
 		int midx = -1;
 		do
 		{
-			uint8_t idx = 31 - count_leading_zeros_32(mask);
+			uint8_t idx = std::bit_width(mask) - 1;
 			if ((int)(m_aic_smr[idx] & 7) >= pri)
 			{
 				midx = idx;
@@ -86,8 +89,6 @@ uint32_t arm_aic_device::firq_vector_r()
 
 void arm_aic_device::device_start()
 {
-	m_irq_out.resolve_safe();
-
 	save_item(NAME(m_irqs_enabled));
 	save_item(NAME(m_irqs_pending));
 	save_item(NAME(m_current_irq_vector));
@@ -146,7 +147,7 @@ void arm_aic_device::check_irqs()
 		int pri = get_level();
 		do
 		{
-			uint8_t idx = 31 - count_leading_zeros_32(mask);
+			uint8_t idx = std::bit_width(mask) - 1;
 			if ((int)(m_aic_smr[idx] & 7) > pri)
 			{
 				m_core_status |= 2;

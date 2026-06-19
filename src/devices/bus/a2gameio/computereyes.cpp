@@ -26,17 +26,19 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_a2gameio_interface overrides
-	virtual DECLARE_READ_LINE_MEMBER(sw0_r) override;
-	virtual DECLARE_READ_LINE_MEMBER(sw1_r) override;
-	virtual DECLARE_WRITE_LINE_MEMBER(an0_w) override;
-	virtual DECLARE_WRITE_LINE_MEMBER(an1_w) override;
-	virtual DECLARE_WRITE_LINE_MEMBER(an2_w) override;
-	virtual DECLARE_WRITE_LINE_MEMBER(an3_w) override;
+	virtual int sw0_r() override;
+	virtual int sw1_r() override;
+	virtual void an0_w(int state) override;
+	virtual void an1_w(int state) override;
+	virtual void an2_w(int state) override;
+	virtual void an3_w(int state) override;
+	virtual bool has_sw0() const override { return true; }
+	virtual bool has_sw1() const override { return true; }
 
 private:
 	required_device<picture_image_device> m_picture;
@@ -75,12 +77,12 @@ void apple2_compeyes_device::device_reset()
 	m_x = m_y = m_an1 = m_an2 = m_an3 = m_level = 0;
 }
 
-READ_LINE_MEMBER(apple2_compeyes_device::sw0_r)
+int apple2_compeyes_device::sw0_r()
 {
 	return 0;
 }
 
-READ_LINE_MEMBER(apple2_compeyes_device::sw1_r)
+int apple2_compeyes_device::sw1_r()
 {
 	// to avoid triggering the self-test on //e, return only 0
 	// for the first 2 seconds of emulation.
@@ -92,19 +94,23 @@ READ_LINE_MEMBER(apple2_compeyes_device::sw1_r)
 	int res = m_a2_bitmap[(m_y*280)+m_x] > m_level ? 1 : 0;
 //  if (m_a2_bitmap[(m_y*280)+m_x] != 0)
 //      printf("Read pixel at (%d, %d) = %d (pix %d, level %d)\n", m_x, m_y, res, m_a2_bitmap[(m_y*280)+m_x], m_level);
-	m_y++;
-	if (m_y >= 192)
+
+	if (!machine().side_effects_disabled())
 	{
-		if (m_x < 279)
+		m_y++;
+		if (m_y >= 192)
 		{
-			m_x++;
+			if (m_x < 279)
+			{
+				m_x++;
+			}
+			m_y = 0;
 		}
-		m_y = 0;
 	}
 	return res;
 }
 
-WRITE_LINE_MEMBER(apple2_compeyes_device::an0_w)
+void apple2_compeyes_device::an0_w(int state)
 {
 	m_x =  m_y = 0;
 
@@ -131,19 +137,19 @@ WRITE_LINE_MEMBER(apple2_compeyes_device::an0_w)
 	}
 }
 
-WRITE_LINE_MEMBER(apple2_compeyes_device::an1_w)
+void apple2_compeyes_device::an1_w(int state)
 {
 	m_an1 = state;
 	m_level = (128 * m_an2) + (64 * m_an1) + (32 * m_an3);
 }
 
-WRITE_LINE_MEMBER(apple2_compeyes_device::an2_w)
+void apple2_compeyes_device::an2_w(int state)
 {
 	m_an2 = state;
 	m_level = (128 * m_an2) + (64 * m_an1) + (32 * m_an3);
 }
 
-WRITE_LINE_MEMBER(apple2_compeyes_device::an3_w)
+void apple2_compeyes_device::an3_w(int state)
 {
 	m_an3 = state;
 	m_level = (128 * m_an2) + (64 * m_an1) + (32 * m_an3);

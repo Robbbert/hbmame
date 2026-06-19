@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/segaorun.cpp"
+#include "../mame/sega/segaorun.cpp"
 
 ROM_START( outrunen )
 	ROM_REGION( 0x60000, "maincpu", 0 )

@@ -9,8 +9,8 @@
 #include "machine/nscsi_bus.h"
 
 class ncr5380_device
-	: public nscsi_device
-	, public nscsi_slot_card_interface
+	: public device_t
+	, public nscsi_device_interface
 {
 public:
 	ncr5380_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock = 0);
@@ -20,7 +20,7 @@ public:
 	auto drq_handler() { return m_drq_handler.bind(); }
 
 	// register access
-	void map(address_map &map);
+	void map(address_map &map) ATTR_COLD;
 	u8 read(offs_t offset);
 	void write(offs_t offset, u8 data);
 
@@ -33,8 +33,8 @@ protected:
 	ncr5380_device(machine_config const &mconfig, device_type type, char const *tag, device_t *owner, u32 clock, bool has_lbs = false);
 
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// ncsci_device overrides
 	virtual void scsi_ctrl_changed() override;
@@ -179,8 +179,15 @@ public:
 	cxd1180_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock = 0);
 };
 
+class dp8490_device : public ncr5380_device
+{
+public:
+	dp8490_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock = 0);
+};
+
 DECLARE_DEVICE_TYPE(NCR5380, ncr5380_device)
 DECLARE_DEVICE_TYPE(NCR53C80, ncr53c80_device)
 DECLARE_DEVICE_TYPE(CXD1180, cxd1180_device)
+DECLARE_DEVICE_TYPE(DP8490, dp8490_device)
 
 #endif // MAME_MACHINE_NCR5380_H

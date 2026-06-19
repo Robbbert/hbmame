@@ -6,12 +6,23 @@
 //
 //====================================================================
 
-#include "emu.h"
 #include "diagnostics_module.h"
 
-#include "corestr.h"
-
 #if defined(OSD_WINDOWS) || defined(SDLMAME_WIN32)
+
+#include "modules/lib/osdlib.h"
+
+#include "windows/winutil.h"
+
+#include "corestr.h"
+#include "strformat.h"
+
+#include <cassert>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
 // standard windows headers
 #include <windows.h>
@@ -21,13 +32,6 @@
 #include <psapi.h>
 #include <dbghelp.h>
 
-#include <memory>
-#include <vector>
-#include <utility>
-
-#include "modules/lib/osdlib.h"
-
-#include <windows/winutil.h>
 
 // Typedefs for dynamically loaded functions
 typedef BOOL (WINAPI *StackWalk64_fn)(DWORD, HANDLE, HANDLE, LPSTACKFRAME64, PVOID, PREAD_PROCESS_MEMORY_ROUTINE64, PFUNCTION_TABLE_ACCESS_ROUTINE64, PGET_MODULE_BASE_ROUTINE64, PTRANSLATE_ADDRESS_ROUTINE64);
@@ -169,8 +173,8 @@ bool stack_walker::s_initialized = false;
 //  stack_walker - constructor
 //-------------------------------------------------
 
-stack_walker::stack_walker()
-	: m_process(GetCurrentProcess()),
+stack_walker::stack_walker() :
+	m_process(GetCurrentProcess()),
 	m_thread(GetCurrentThread()),
 	m_first(true)
 {
@@ -216,14 +220,18 @@ bool stack_walker::reset()
 	m_stackframe.AddrStack.Mode = AddrModeFlat;
 
 	// pull architecture-specific fields from the context
-#ifdef PTR64
+#if defined(__x86_64__) || defined(_M_X64)
 	m_stackframe.AddrPC.Offset = m_context.Rip;
 	m_stackframe.AddrFrame.Offset = m_context.Rsp;
 	m_stackframe.AddrStack.Offset = m_context.Rsp;
-#else
+#elif defined(__i386__) || defined(_M_IX86)
 	m_stackframe.AddrPC.Offset = m_context.Eip;
 	m_stackframe.AddrFrame.Offset = m_context.Ebp;
 	m_stackframe.AddrStack.Offset = m_context.Esp;
+#elif defined(__aarch64__) || defined(_M_ARM64)
+	m_stackframe.AddrPC.Offset = m_context.Pc;
+	m_stackframe.AddrFrame.Offset = m_context.Fp;
+	m_stackframe.AddrStack.Offset = m_context.Sp;
 #endif
 	return true;
 }
@@ -242,14 +250,18 @@ void stack_walker::reset(CONTEXT &initial, HANDLE thread)
 	m_stackframe.AddrStack.Mode = AddrModeFlat;
 
 	// pull architecture-specific fields from the context
-#ifdef PTR64
+#if defined(__x86_64__) || defined(_M_X64)
 	m_stackframe.AddrPC.Offset = m_context.Rip;
 	m_stackframe.AddrFrame.Offset = m_context.Rsp;
 	m_stackframe.AddrStack.Offset = m_context.Rsp;
-#else
+#elif defined(__i386__) || defined(_M_IX86)
 	m_stackframe.AddrPC.Offset = m_context.Eip;
 	m_stackframe.AddrFrame.Offset = m_context.Ebp;
 	m_stackframe.AddrStack.Offset = m_context.Esp;
+#elif defined(__aarch64__) || defined(_M_ARM64)
+	m_stackframe.AddrPC.Offset = m_context.Pc;
+	m_stackframe.AddrFrame.Offset = m_context.Fp;
+	m_stackframe.AddrStack.Offset = m_context.Sp;
 #endif
 }
 
@@ -263,10 +275,14 @@ bool stack_walker::unwind()
 	// if we were able to initialize, then we have everything we need
 	if (s_initialized)
 	{
-#ifdef PTR64
+#if defined(__x86_64__) || defined(_M_X64)
 		return (*m_stack_walk_64)(IMAGE_FILE_MACHINE_AMD64, m_process, m_thread, &m_stackframe, &m_context, nullptr, *m_sym_function_table_access_64, *m_sym_get_module_base_64, nullptr);
-#else
+#elif defined(__i386__) || defined(_M_IX86)
 		return (*m_stack_walk_64)(IMAGE_FILE_MACHINE_I386, m_process, m_thread, &m_stackframe, &m_context, nullptr, *m_sym_function_table_access_64, *m_sym_get_module_base_64, nullptr);
+#elif defined(__aarch64__) || defined(_M_ARM64)
+		return (*m_stack_walk_64)(IMAGE_FILE_MACHINE_ARM64, m_process, m_thread, &m_stackframe, &m_context, nullptr, *m_sym_function_table_access_64, *m_sym_get_module_base_64, nullptr);
+#else
+		return false;
 #endif
 	}
 
@@ -289,8 +305,8 @@ bool stack_walker::unwind()
 //  symbol_manager - constructor
 //-------------------------------------------------
 
-symbol_manager::symbol_manager(const char *argv0)
-	: m_mapfile(argv0),
+symbol_manager::symbol_manager(const char *argv0) :
+	m_mapfile(argv0),
 	m_symfile(argv0),
 	m_process(GetCurrentProcess()),
 	m_last_base(0),
@@ -300,7 +316,7 @@ symbol_manager::symbol_manager(const char *argv0)
 	// compute the name of the mapfile
 	int extoffs = m_mapfile.find_last_of('.');
 	if (extoffs != -1)
-		m_mapfile.substr(0, extoffs);
+		m_mapfile = m_mapfile.substr(0, extoffs);
 	m_mapfile.append(".map");
 
 	// and the name of the symfile
@@ -314,7 +330,7 @@ symbol_manager::symbol_manager(const char *argv0)
 #endif
 
 	// expand the buffer to be decently large up front
-	m_buffer = string_format("%500s", "");
+	m_buffer = util::string_format("%500s", "");
 
 	m_dbghelp_dll = osd::dynamic_module::open({ "dbghelp.dll" });
 
@@ -509,6 +525,9 @@ bool symbol_manager::parse_sym_line(const char *line, uintptr_t &address, std::s
 	// first look for a (ty) entry
 	const char *type = strstr(line, "(ty  20)");
 	if (type == nullptr)
+		type = strstr(line, "(ty   20)");
+
+	if (type == nullptr)
 		return false;
 
 	// scan forward in the line to find the address
@@ -590,13 +609,13 @@ bool symbol_manager::parse_map_line(const char *line, uintptr_t &address, std::s
 void symbol_manager::format_symbol(const char *name, uint32_t displacement, const char *filename, int linenumber)
 {
 	// start with the address and offset
-	m_buffer = string_format(" (%s", name);
+	m_buffer = util::string_format(" (%s", name);
 	if (displacement != 0)
-		m_buffer.append(string_format("+0x%04x", (uint32_t)displacement));
+		m_buffer.append(util::string_format("+0x%04x", (uint32_t)displacement));
 
 	// append file/line if present
 	if (filename != nullptr)
-		m_buffer.append(string_format(", %s:%d", filename, linenumber));
+		m_buffer.append(util::string_format(", %s:%d", filename, linenumber));
 
 	// close up the string
 	m_buffer.append(")");
@@ -650,8 +669,8 @@ uintptr_t symbol_manager::get_text_section_base(ULONG &size)
 //  sampling_profiler - constructor
 //-------------------------------------------------
 
-sampling_profiler::sampling_profiler(uint32_t max_seconds, uint8_t stack_depth = 0)
-	: m_target_thread(nullptr),
+sampling_profiler::sampling_profiler(uint32_t max_seconds, uint8_t stack_depth = 0) :
+	m_target_thread(nullptr),
 	m_thread(nullptr),
 	m_thread_id(0),
 	m_thread_exit(false),
@@ -685,7 +704,7 @@ void sampling_profiler::start()
 			GetCurrentProcess(), &m_target_thread,
 			THREAD_GET_CONTEXT | THREAD_SUSPEND_RESUME | THREAD_QUERY_INFORMATION, FALSE, 0);
 	if (!result)
-		throw emu_fatalerror("sampling_profiler::start: Failed to get thread handle for main thread");
+		throw std::runtime_error("sampling_profiler::start: Failed to get thread handle for main thread");
 
 	// reset the exit flag
 	m_thread_exit = false;
@@ -693,7 +712,7 @@ void sampling_profiler::start()
 	// start the thread
 	m_thread = CreateThread(nullptr, 0, thread_entry, (LPVOID)this, 0, &m_thread_id);
 	if (!m_thread)
-		throw emu_fatalerror("sampling_profiler::start: Failed to create profiler thread");
+		throw std::runtime_error("sampling_profiler::start: Failed to create profiler thread");
 
 	// max out the priority
 	SetThreadPriority(m_thread, THREAD_PRIORITY_TIME_CRITICAL);
@@ -963,7 +982,8 @@ private:
 			{ 0,                                "UNKNOWN EXCEPTION" }
 		};
 		static int already_hit = 0;
-		int i;
+		int i = 0;
+		printf("START OF CRASH DUMP\n");fflush(stdout);
 
 		// if we're hitting this recursively, just exit
 		if (already_hit)
@@ -979,62 +999,104 @@ private:
 				break;
 
 		// print the exception type and address
-		fprintf(stderr, "\n-----------------------------------------------------\n");
+		printf( "\n-----------------------------------------------------\n");fflush(stdout);
 
-		auto diagnostics = downcast<diagnostics_win32 *>(get_instance());
+		auto diagnostics = dynamic_cast<diagnostics_win32 *>(get_instance());
+		assert(diagnostics);
 
-		fprintf(stderr, "Exception at EIP=%p%s: %s\n", info->ExceptionRecord->ExceptionAddress,
-			diagnostics->m_symbols->symbol_for_address((uintptr_t)info->ExceptionRecord->ExceptionAddress), exception_table[i].string);
+		printf( "Exception at EIP=%p%s: %s\n", info->ExceptionRecord->ExceptionAddress,
+			diagnostics->m_symbols->symbol_for_address((uintptr_t)info->ExceptionRecord->ExceptionAddress), exception_table[i].string);fflush(stdout);
 
 		// for access violations, print more info
 		if (info->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION)
-			fprintf(stderr, "While attempting to %s memory at %p\n",
+			printf( "While attempting to %s memory at %p\n",
 				info->ExceptionRecord->ExceptionInformation[0] ? "write" : "read",
-				(void *)info->ExceptionRecord->ExceptionInformation[1]);
+				(void *)info->ExceptionRecord->ExceptionInformation[1]);fflush(stdout);
 
 		// print the state of the CPU
-		fprintf(stderr, "-----------------------------------------------------\n");
-#ifdef PTR64
-		fprintf(stderr, "RAX=%p RBX=%p RCX=%p RDX=%p\n",
+		printf( "-----------------------------------------------------\n");fflush(stdout);
+#if defined(__x86_64__) || defined(_M_X64)
+		printf( "RAX=%p RBX=%p RCX=%p RDX=%p\n",
 			(void *)info->ContextRecord->Rax,
 			(void *)info->ContextRecord->Rbx,
 			(void *)info->ContextRecord->Rcx,
-			(void *)info->ContextRecord->Rdx);
-		fprintf(stderr, "RSI=%p RDI=%p RBP=%p RSP=%p\n",
+			(void *)info->ContextRecord->Rdx);fflush(stdout);
+		printf( "RSI=%p RDI=%p RBP=%p RSP=%p\n",
 			(void *)info->ContextRecord->Rsi,
 			(void *)info->ContextRecord->Rdi,
 			(void *)info->ContextRecord->Rbp,
-			(void *)info->ContextRecord->Rsp);
-		fprintf(stderr, " R8=%p  R9=%p R10=%p R11=%p\n",
+			(void *)info->ContextRecord->Rsp);fflush(stdout);
+		printf( " R8=%p  R9=%p R10=%p R11=%p\n",
 			(void *)info->ContextRecord->R8,
 			(void *)info->ContextRecord->R9,
 			(void *)info->ContextRecord->R10,
-			(void *)info->ContextRecord->R11);
-		fprintf(stderr, "R12=%p R13=%p R14=%p R15=%p\n",
+			(void *)info->ContextRecord->R11);fflush(stdout);
+		printf( "R12=%p R13=%p R14=%p R15=%p\n",
 			(void *)info->ContextRecord->R12,
 			(void *)info->ContextRecord->R13,
 			(void *)info->ContextRecord->R14,
-			(void *)info->ContextRecord->R15);
-#else
-		fprintf(stderr, "EAX=%p EBX=%p ECX=%p EDX=%p\n",
+			(void *)info->ContextRecord->R15);fflush(stdout);
+#elif defined(__i386__) || defined(_M_IX86)
+		printf( "EAX=%p EBX=%p ECX=%p EDX=%p\n",
 			(void *)info->ContextRecord->Eax,
 			(void *)info->ContextRecord->Ebx,
 			(void *)info->ContextRecord->Ecx,
-			(void *)info->ContextRecord->Edx);
-		fprintf(stderr, "ESI=%p EDI=%p EBP=%p ESP=%p\n",
+			(void *)info->ContextRecord->Edx);fflush(stdout);
+		printf( "ESI=%p EDI=%p EBP=%p ESP=%p\n",
 			(void *)info->ContextRecord->Esi,
 			(void *)info->ContextRecord->Edi,
 			(void *)info->ContextRecord->Ebp,
-			(void *)info->ContextRecord->Esp);
+			(void *)info->ContextRecord->Esp);fflush(stdout);
+#elif defined(__aarch64__) || defined(_M_ARM64)
+		printf( " X0=%p  X1=%p  X2=%p  X3=%p\n",
+			(void *)info->ContextRecord->X0,
+			(void *)info->ContextRecord->X1,
+			(void *)info->ContextRecord->X2,
+			(void *)info->ContextRecord->X3);fflush(stdout);
+		printf( " X4=%p  X5=%p  X6=%p  X7=%p\n",
+			(void *)info->ContextRecord->X4,
+			(void *)info->ContextRecord->X5,
+			(void *)info->ContextRecord->X6,
+			(void *)info->ContextRecord->X7);fflush(stdout);
+		printf( " X8=%p  X9=%p X10=%p X11=%p\n",
+			(void *)info->ContextRecord->X8,
+			(void *)info->ContextRecord->X9,
+			(void *)info->ContextRecord->X10,
+			(void *)info->ContextRecord->X11);fflush(stdout);
+		printf( "X12=%p X13=%p X14=%p X15=%p\n",
+			(void *)info->ContextRecord->X12,
+			(void *)info->ContextRecord->X13,
+			(void *)info->ContextRecord->X14,
+			(void *)info->ContextRecord->X15);fflush(stdout);
+		printf( "X16=%p X17=%p X18=%p X19=%p\n",
+			(void *)info->ContextRecord->X16,
+			(void *)info->ContextRecord->X17,
+			(void *)info->ContextRecord->X18,
+			(void *)info->ContextRecord->X19);fflush(stdout);
+		printf( "X20=%p X21=%p X22=%p X23=%p\n",
+			(void *)info->ContextRecord->X20,
+			(void *)info->ContextRecord->X21,
+			(void *)info->ContextRecord->X22,
+			(void *)info->ContextRecord->X23);fflush(stdout);
+		printf( "X24=%p X25=%p X26=%p X27=%p\n",
+			(void *)info->ContextRecord->X24,
+			(void *)info->ContextRecord->X25,
+			(void *)info->ContextRecord->X26,
+			(void *)info->ContextRecord->X27);fflush(stdout);
+		printf( "X28=%p  FP=%p  LR=%p  SP=%p\n",
+			(void *)info->ContextRecord->X28,
+			(void *)info->ContextRecord->Fp,
+			(void *)info->ContextRecord->Lr,
+			(void *)info->ContextRecord->Sp);fflush(stdout);
 #endif
 
 		// reprint the actual exception address
-		fprintf(stderr, "-----------------------------------------------------\n");
-		fprintf(stderr, "Stack crawl:\n");
+		printf( "-----------------------------------------------------\n");fflush(stdout);
+		printf( "Stack crawl:\n");fflush(stdout);
 		diagnostics->print_stacktrace(info->ContextRecord, GetCurrentThread());
 
 		// flush stderr, so the data is actually written when output is being redirected
-		fflush(stderr);
+		fflush(stdout);
 
 		// exit
 		return EXCEPTION_CONTINUE_SEARCH;
@@ -1060,11 +1122,11 @@ private:
 		// walk the stack
 		while (walker.unwind())
 			fprintf(
-				stderr,
+				stdout,
 				"  %p: %p%s\n",
 				reinterpret_cast<void *>(walker.frame()),
 				reinterpret_cast<void *>(walker.ip()),
-				m_symbols == nullptr ? "" : m_symbols->symbol_for_address(walker.ip()));
+				m_symbols == nullptr ? "" : m_symbols->symbol_for_address(walker.ip()));fflush(stdout);
 	}
 
 	void ensure_symbols()
@@ -1075,8 +1137,8 @@ private:
 			size_t len = GetModuleFileNameA(nullptr, exe_path, sizeof(exe_path));
 			if (len == 0)
 			{
-				osd_printf_error("Failed to get the executable path.\n");
-				fatalerror("Failed to get the executable path.");
+				fprintf(stderr, "Failed to get the executable path.\n");
+				throw std::runtime_error("Failed to get the executable path.");
 			}
 
 			exe_path[len] = '\0';
@@ -1085,7 +1147,7 @@ private:
 
 		if (m_symbols == nullptr)
 		{
-			fatalerror("Could not initialize symbols.");
+			throw std::runtime_error("Could not initialize symbols.");
 		}
 	}
 };
@@ -1097,4 +1159,4 @@ diagnostics_module * diagnostics_module::get_instance()
 	return &s_instance;
 }
 
-#endif
+#endif // defined(OSD_WINDOWS) || defined(SDLMAME_WIN32)

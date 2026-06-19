@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/dkong.cpp"
+#include "../mame/nintendo/dkong.cpp"
 
 /* Websites:
 DKafe / Jon Wilson / 10yard: https://github.com/10yard/dkafe

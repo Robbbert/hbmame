@@ -52,17 +52,17 @@ class sda5708_device :  public device_t
 {
 public:
 	// construction/destruction
-	sda5708_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	sda5708_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
-	DECLARE_WRITE_LINE_MEMBER( load_w );
-	DECLARE_WRITE_LINE_MEMBER( data_w );
-	DECLARE_WRITE_LINE_MEMBER( sdclk_w );
-	DECLARE_WRITE_LINE_MEMBER( reset_w );
+	void load_w(int state);
+	void data_w(int state);
+	void sdclk_w(int state);
+	void reset_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	void update_display();
 

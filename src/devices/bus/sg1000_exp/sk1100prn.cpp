@@ -9,7 +9,7 @@
 #include "emu.h"
 #include "sk1100prn.h"
 // slot devices
-//#include "sp400.h"
+#include "sp400.h"
 #include "kblink.h"
 
 
@@ -80,25 +80,25 @@ void sk1100_printer_port_device::device_start()
 	m_device = get_card_device();
 }
 
-WRITE_LINE_MEMBER(sk1100_printer_port_device::data_w)
+void sk1100_printer_port_device::data_w(int state)
 {
 	if (m_device)
 		m_device->input_data(state);
 }
 
-WRITE_LINE_MEMBER(sk1100_printer_port_device::reset_w)
+void sk1100_printer_port_device::reset_w(int state)
 {
 	if (m_device)
 		m_device->input_reset(state);
 }
 
-WRITE_LINE_MEMBER(sk1100_printer_port_device::feed_w)
+void sk1100_printer_port_device::feed_w(int state)
 {
 	if (m_device)
 		m_device->input_feed(state);
 }
 
-READ_LINE_MEMBER(sk1100_printer_port_device::fault_r)
+int sk1100_printer_port_device::fault_r()
 {
 	if (m_device)
 		return m_device->output_fault();
@@ -106,7 +106,7 @@ READ_LINE_MEMBER(sk1100_printer_port_device::fault_r)
 		return 1;
 }
 
-READ_LINE_MEMBER(sk1100_printer_port_device::busy_r)
+int sk1100_printer_port_device::busy_r()
 {
 	if (m_device)
 		return m_device->output_busy();
@@ -120,6 +120,6 @@ READ_LINE_MEMBER(sk1100_printer_port_device::busy_r)
 
 void sk1100_printer_port_devices(device_slot_interface &device)
 {
-	//device.option_add("sp400", SP400_PRINTER); /* serial printer */
+	device.option_add("sp400", SP400_PRINTER); /* serial printer */
 	device.option_add("kblink", SK1100_LINK_CABLE);
 }

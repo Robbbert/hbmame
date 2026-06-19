@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/astrocde.cpp"
+#include "../mame/bally/astrocde.cpp"
 
 ROM_START( tst_gorf )
 	ROM_REGION( 0x10000, "maincpu", 0 )

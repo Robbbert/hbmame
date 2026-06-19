@@ -4,8 +4,8 @@
     Casio GT913 sound (HLE)
 ***************************************************************************/
 
-#ifndef MAME_AUDIO_GT913_H
-#define MAME_AUDIO_GT913_H
+#ifndef MAME_MACHINE_GT913_SND_H
+#define MAME_MACHINE_GT913_SND_H
 
 #pragma once
 
@@ -34,14 +34,14 @@ public:
 
 protected:
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_sound_interface overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 	// device_rom_interface overrides
-	virtual void rom_bank_updated() override;
+	virtual void rom_bank_pre_change() override;
 
 private:
 	sound_stream *m_stream;
@@ -51,6 +51,7 @@ private:
 
 	static const u8 exp_2_to_3[4];
 	static const s8 sample_7_to_8[128];
+	static const u16 volume_ramp[17];
 
 	struct voice_t
 	{
@@ -66,15 +67,16 @@ private:
 		s16 m_sample, m_sample_next;
 		u8 m_exp;
 
+		u16 m_volume_data;
 		u32 m_volume_current, m_volume_target;
 		u32 m_volume_rate;
-		bool m_volume_end;
 
 		u8 m_balance[2];
 		u8 m_gain;
 	};
 
 	void mix_sample(voice_t& voice, s64& left, s64& right);
+	void update_envelope(voice_t& voice);
 	void update_sample(voice_t& voice);
 
 	voice_t m_voices[24];
@@ -83,4 +85,4 @@ private:
 // device type definition
 DECLARE_DEVICE_TYPE(GT913_SOUND, gt913_sound_device)
 
-#endif // MAME_AUDIO_GT913_H
+#endif // MAME_MACHINE_GT913_SND_H

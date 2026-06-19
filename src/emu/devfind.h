@@ -216,21 +216,24 @@ public:
 /// Abstract non-template base class for object auto-discovery helpers.
 /// Provides the interface that the device_t uses to manage discovery at
 /// resolution time.
-class finder_base
+class device_resolver_base
 {
 public:
+	device_resolver_base(device_resolver_base const &) = delete;
+	device_resolver_base &operator=(device_resolver_base const &) = delete;
+
 	/// \brief Destructor
 	///
 	/// Destruction via base class pointer and dynamic type behaviour
 	/// are allowed.
-	virtual ~finder_base();
+	virtual ~device_resolver_base();
 
 	/// \brief Get next registered object discovery helper
 	///
 	/// Implementation of basic single-linked list behaviour.
 	/// \return Pointer to the next registered object discovery helper,
 	///   or nullptr if this is the last.
-	finder_base *next() const { return m_next; }
+	device_resolver_base *next() const noexcept { return m_next; }
 
 	/// \brief Attempt discovery
 	///
@@ -254,6 +257,32 @@ public:
 	/// subsequently removes or replaces devices.
 	virtual void end_configuration() = 0;
 
+protected:
+	/// \brief Designated constructor
+	///
+	/// Construct base object discovery helper and register with device
+	/// to be invoked at resolution time.
+	/// \param [in] base Device to register with for resolution.
+	device_resolver_base(device_t &base);
+
+
+	/// \brief Pointer to next registered discovery helper
+	///
+	/// This is a polymorphic class, so it can't be held in a standard
+	/// list container that requires elements of the same type.  Hence
+	/// it implements basic intrusive single-linked list behaviour.
+	device_resolver_base *const m_next;
+};
+
+
+/// \brief Base class for object discovery helpers
+///
+/// Abstract non-template base class for object auto-discovery helpers.
+/// Provides functionality for specifying a target as a base device and
+/// relative tag.  Also supplies helpers for looking up resources.
+class finder_base : protected device_resolver_base
+{
+public:
 	/// \brief Get search tag
 	///
 	/// Returns the search tag.
@@ -280,6 +309,7 @@ public:
 	void set_tag(device_t &base, char const *tag)
 	{
 		assert(!m_resolved);
+		assert(tag);
 		m_base = base;
 		m_tag = tag;
 	}
@@ -315,7 +345,9 @@ protected:
 	///
 	/// Construct base object discovery helper and register with device
 	/// to be invoked at resolution time.
-	/// \param [in] base Base device to search from.
+	/// \param [in] base Device to register with for resolution.  Also
+	///   sets initial base device to search from.  The tag must be
+	///   specified relative to this device.
 	/// \param [in] tag Object tag to search for.  This is not copied,
 	///   it is the caller's responsibility to ensure this pointer
 	///   remains valid until resolution time.
@@ -419,13 +451,6 @@ protected:
 	bool report_missing(bool found, char const *objname, bool required) const;
 
 
-	/// \brief Pointer to next registered discovery helper
-	///
-	/// This is a polymorphic class, so it can't be held in a standard
-	/// list container that requires elements of the same type.  Hence
-	/// it implements basic intrusive single-linked list behaviour.
-	finder_base *const m_next;
-
 	/// \brief Base device to search from
 	std::reference_wrapper<device_t> m_base;
 
@@ -455,7 +480,7 @@ public:
 	/// target during configuration.  This needs to be cleared to ensure
 	/// the correct target is found if a device further up the hierarchy
 	/// subsequently removes or replaces devices.
-	virtual void end_configuration() override { assert(!m_resolved); m_target = nullptr; }
+	virtual void end_configuration() override ATTR_COLD { assert(!m_resolved); m_target = nullptr; }
 
 	/// \brief Get pointer to target object
 	///
@@ -592,7 +617,7 @@ public:
 	/// \param [in] device Reference to anticipated target device.
 	/// \return The same reference supplied by the caller.
 	template <typename T>
-	std::enable_if_t<std::is_convertible<T *, DeviceClass *>::value, T &> operator=(T &device)
+	T &operator=(T &device) requires std::is_convertible_v<T *, DeviceClass *>
 	{
 		assert(!this->m_resolved);
 		assert(is_expected_tag(device));
@@ -600,13 +625,19 @@ public:
 		return device;
 	}
 
+	/// \brief Look up target during configuration
+	/// Look up the current target device during configuration, before
+	/// resolution.
+	/// \return Pointer to target device if found, or nullptr otherwise.
+	DeviceClass *lookup() const { return this->m_base.get().template subdevice<DeviceClass>(this->m_tag); }
+
 private:
 	/// \brief Check that device implementation has expected tag
 	/// \param [in] device Reference to device.
 	/// \return True if supplied device matches the configured target
 	///   tag, or false otherwise.
-	template <typename T>
-	std::enable_if_t<emu::detail::is_device_implementation<T>::value, bool> is_expected_tag(T const &device) const
+	template <emu::detail::device_implementation_class T>
+	bool is_expected_tag(T const &device) const
 	{
 		return this->m_base.get().subtag(this->m_tag) == device.tag();
 	}
@@ -615,8 +646,8 @@ private:
 	/// \param [in] device Reference to interface/mixin.
 	/// \return True if supplied mixin matches the configured target
 	///   tag, or false otherwise.
-	template <typename T>
-	std::enable_if_t<emu::detail::is_device_interface<T>::value, bool> is_expected_tag(T const &interface) const
+	template <emu::detail::device_interface_class T>
+	bool is_expected_tag(T const &interface) const
 	{
 		return this->m_base.get().subtag(this->m_tag) == interface.device().tag();
 	}
@@ -632,7 +663,7 @@ private:
 	///   or nullptr otherwise.
 	/// \return True if the device is optional or if a matching device
 	///   is found, false otherwise.
-	virtual bool findit(validity_checker *valid) override
+	virtual bool findit(validity_checker *valid) override ATTR_COLD
 	{
 		if (!valid)
 		{
@@ -704,7 +735,7 @@ private:
 	///   or nullptr otherwise.
 	/// \return True if the memory region is optional or if a matching
 	///   memory region is found, false otherwise.
-	virtual bool findit(validity_checker *valid) override;
+	virtual bool findit(validity_checker *valid) override ATTR_COLD;
 };
 
 /// \brief Optional memory region finder
@@ -760,7 +791,7 @@ public:
 	///   or nullptr otherwise.
 	/// \return True if the memory bank is optional, a matching memory
 	///   bank is found or this is a dry run, false otherwise.
-	virtual bool findit(validity_checker *valid) override;
+	virtual bool findit(validity_checker *valid) override ATTR_COLD;
 };
 
 /// \brief Optional memory bank finder
@@ -821,8 +852,8 @@ public:
 	memory_bank *operator->() const { assert(m_target); return m_target; }
 
 protected:
-	virtual bool findit(validity_checker *valid) override;
-	virtual void end_configuration() override;
+	virtual bool findit(validity_checker *valid) override ATTR_COLD;
+	virtual void end_configuration() override ATTR_COLD;
 
 	/// \brief Pointer to target object
 	///
@@ -901,7 +932,7 @@ private:
 	///   or nullptr otherwise.
 	/// \return True if the I/O port is optional, a matching I/O port is
 	///   is found or this is a dry run, false otherwise.
-	virtual bool findit(validity_checker *valid) override;
+	virtual bool findit(validity_checker *valid) override ATTR_COLD;
 };
 
 /// \brief Optional I/O port finder
@@ -1016,7 +1047,7 @@ private:
 	///   or nullptr otherwise.
 	/// \return True if the address space is optional, a matching
 	///   address space is found or this is a dry run, false otherwise.
-	virtual bool findit(validity_checker *valid) override;
+	virtual bool findit(validity_checker *valid) override ATTR_COLD;
 
 	int m_spacenum;
 	u8 m_data_width;
@@ -1098,7 +1129,7 @@ private:
 	///   or nullptr otherwise.
 	/// \return True if the memory region is optional or a matching
 	///   memory region is found, or false otherwise.
-	virtual bool findit(validity_checker *valid) override
+	virtual bool findit(validity_checker *valid) override ATTR_COLD
 	{
 		if (valid)
 			return this->validate_memregion(Required);
@@ -1186,6 +1217,33 @@ public:
 	///   been found.
 	size_t bytes() const { return m_bytes; }
 
+	/// \brief Get iterator to first element
+	///
+	/// Returns an iterator to the first element of the memory share.
+	/// \return Iterator to first element.
+	PointerType *begin() const { return this->m_target; }
+
+	/// \brief Get iterator beyond last element
+	///
+	/// Returns an iterator one past the last element of the memory
+	/// share.
+	/// \return Iterator one past last element.
+	PointerType *end() const { return this->m_target + length(); }
+
+	/// \brief Get constant iterator to first element
+	///
+	/// Returns a constant iterator to the first element of the memory
+	/// share.
+	/// \return Constant iterator to first element.
+	PointerType const *cbegin() const { return this->m_target; }
+
+	/// \brief Get constant iterator beyond last element
+	///
+	/// Returns a constant iterator one past the last element of the
+	/// memory share.
+	/// \return Constant iterator one past last element.
+	PointerType const *cend() const { return this->m_target + length(); }
+
 private:
 	/// \brief Find memory share base pointer
 	///
@@ -1197,7 +1255,7 @@ private:
 	///   or nullptr otherwise.
 	/// \return True if the memory share is optional or a matching
 	///   memory share is found, or false otherwise.
-	virtual bool findit(validity_checker *valid) override
+	virtual bool findit(validity_checker *valid) override ATTR_COLD
 	{
 		if (valid)
 			return true;
@@ -1312,9 +1370,37 @@ public:
 	/// \return Memory share width in bytes.
 	u8 bytewidth() const { return m_target->bytewidth(); }
 
+	/// \brief Get iterator to first element
+	///
+	/// Returns an iterator to the first element of the memory share.
+	/// Must not be called before creation is attempted.
+	/// \return Iterator to first element.
+	PointerType *begin() const { return target(); }
+
+	/// \brief Get iterator beyond last element
+	///
+	/// Returns an iterator one past the last element of the memory
+	/// share.  Must not be called before creation is attempted.
+	/// \return Iterator one past last element.
+	PointerType *end() const { return target() + length(); }
+
+	/// \brief Get constant iterator to first element
+	///
+	/// Returns a constant iterator to the first element of the memory
+	/// share.  Must not be called before creation is attempted.
+	/// \return Constant iterator to first element.
+	PointerType const *cbegin() const { return target(); }
+
+	/// \brief Get constant iterator beyond last element
+	///
+	/// Returns a constant iterator one past the last element of the
+	/// memory share.  Must not be called before creation is attempted.
+	/// \return Constant iterator one past last element.
+	PointerType const *cend() const { return target() + length(); }
+
 protected:
-	virtual bool findit(validity_checker *valid) override;
-	virtual void end_configuration() override;
+	virtual bool findit(validity_checker *valid) override ATTR_COLD;
+	virtual void end_configuration() override ATTR_COLD;
 
 	/// \brief Pointer to target object
 	///

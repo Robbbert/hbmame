@@ -13,6 +13,10 @@
 
 #pragma once
 
+#include <functional>
+#include <utility>
+#include <vector>
+
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -24,14 +28,12 @@ class macpds_slot_device : public device_t, public device_slot_interface
 {
 public:
 	// construction/destruction
-	template <typename T>
-	macpds_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, const char *nbtag, T &&opts, const char *dflt)
+	template <typename T, typename U>
+	macpds_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&nbtag, U &&opts, const char *dflt)
 		: macpds_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_macpds_slot(nbtag);
+		set_options(std::forward<U>(opts), dflt, false);
+		set_macpds_slot(std::forward<T>(nbtag));
 	}
 
 	macpds_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -43,14 +45,14 @@ public:
 protected:
 	macpds_slot_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	// configuration
 	required_device<macpds_device> m_macpds;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(MACPDS_SLOT, macpds_slot_device)
 
 
@@ -68,14 +70,14 @@ public:
 	}
 
 	macpds_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	~macpds_device();
 
-	~macpds_device() { m_device_list.detach_all(); }
 	// inline configuration
 	template <typename T>
 	void set_cputag(T &&tag) { m_maincpu.set_tag(std::forward<T>(tag)); }
 
 
-	void add_macpds_card(device_macpds_card_interface *card);
+	void add_macpds_card(device_macpds_card_interface &card);
 	template<typename R, typename W> void install_device(offs_t start, offs_t end, R rhandler, W whandler, uint32_t mask=0xffffffff);
 	void install_bank(offs_t start, offs_t end, uint8_t *data);
 	void set_irq_line(int line, int state);
@@ -83,18 +85,18 @@ public:
 protected:
 	macpds_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// internal state
 	required_device<cpu_device> m_maincpu;
 
-	simple_list<device_macpds_card_interface> m_device_list;
+	std::vector<std::reference_wrapper<device_macpds_card_interface> > m_device_list;
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(MACPDS, macpds_device)
 
 // ======================> device_macpds_card_interface
@@ -103,12 +105,9 @@ DECLARE_DEVICE_TYPE(MACPDS, macpds_device)
 class device_macpds_card_interface : public device_interface
 {
 	friend class macpds_device;
-	template <class ElememtType> friend class simple_list;
 public:
 	// construction/destruction
 	virtual ~device_macpds_card_interface();
-
-	device_macpds_card_interface *next() const { return m_next; }
 
 	void set_macpds_device();
 
@@ -124,9 +123,6 @@ protected:
 
 	macpds_device *m_macpds;
 	macpds_slot_device *m_macpds_slot;
-
-private:
-	device_macpds_card_interface *m_next;
 };
 
 #endif // MAME_BUS_MACPDS_MACPDS_H

@@ -2,32 +2,49 @@
 // copyright-holders:Miodrag Milanovic
 /***************************************************************************
 
-    none.c
+    none.cpp
 
     Dummy sound interface.
 
-*******************************************************************c********/
+***************************************************************************/
 
 #include "sound_module.h"
+
 #include "modules/osdmodule.h"
+
+
+namespace osd {
+
+namespace {
 
 class sound_none : public osd_module, public sound_module
 {
 public:
-	sound_none()
-	: osd_module(OSD_SOUND_PROVIDER, "none"), sound_module()
+	sound_none() : osd_module(OSD_SOUND_PROVIDER, "none")
 	{
 	}
 	virtual ~sound_none() { }
 
-	virtual int init(const osd_options &options) override { return 0; }
+	virtual int init(osd_interface &osd, const osd_options &options) override { return 0; }
 	virtual void exit() override { }
 
-	// sound_module
+	virtual uint32_t get_generation() override { return 1; }
+	virtual audio_info get_information() override
+	{
+		audio_info result;
+		result.m_generation = 1;
+		result.m_default_sink = 0;
+		result.m_default_source = 0;
+		return result;
+	}
 
-	virtual void update_audio_stream(bool is_throttled, const int16_t *buffer, int samples_this_frame) override { }
-	virtual void set_mastervolume(int attenuation) override { }
-
+	virtual uint32_t stream_sink_open(uint32_t node, std::string name, uint32_t rate) override { return 0; }
+	virtual void stream_close(uint32_t id) override { }
+	virtual void stream_sink_update(uint32_t id, const int16_t *buffer, int samples_this_frame) override { }
 };
 
-MODULE_DEFINITION(SOUND_NONE, sound_none)
+} // anonymous namespace
+
+} // namespace osd
+
+MODULE_DEFINITION(SOUND_NONE, osd::sound_none)

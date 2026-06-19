@@ -136,7 +136,7 @@ void puckman_state::pacman_colorram_w(offs_t offset, uint8_t data)
 	m_bg_tilemap->mark_tile_dirty(offset );
 }
 
-WRITE_LINE_MEMBER(puckman_state::flipscreen_w)
+void puckman_state::flipscreen_w(int state)
 {
 	m_flipscreen = state;
 	m_bg_tilemap->set_flip(m_flipscreen * ( TILEMAP_FLIPX + TILEMAP_FLIPY ) );
@@ -266,19 +266,19 @@ VIDEO_START_MEMBER(puckman_state,pengo)
 	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(puckman_state::pacman_get_tile_info)), tilemap_mapper_delegate(*this, FUNC(puckman_state::pacman_scan_rows)), 8, 8, 36, 28);
 }
 
-WRITE_LINE_MEMBER(puckman_state::pengo_palettebank_w)
+void puckman_state::pengo_palettebank_w(int state)
 {
 	m_palettebank = state;
 	m_bg_tilemap->mark_all_dirty();
 }
 
-WRITE_LINE_MEMBER(puckman_state::pengo_colortablebank_w)
+void puckman_state::pengo_colortablebank_w(int state)
 {
 	m_colortablebank = state;
 	m_bg_tilemap->mark_all_dirty();
 }
 
-WRITE_LINE_MEMBER(puckman_state::pengo_gfxbank_w)
+void puckman_state::pengo_gfxbank_w(int state)
 {
 	m_spritebank = state;
 	m_charbank = state;
@@ -497,13 +497,13 @@ void puckman_state::jrpacman_videoram_w(offs_t offset, uint8_t data)
 	jrpacman_mark_tile_dirty(offset);
 }
 
-WRITE_LINE_MEMBER(puckman_state::jrpacman_charbank_w)
+void puckman_state::jrpacman_charbank_w(int state)
 {
 	m_charbank = state;
 	m_bg_tilemap->mark_all_dirty();
 }
 
-WRITE_LINE_MEMBER(puckman_state::jrpacman_spritebank_w)
+void puckman_state::jrpacman_spritebank_w(int state)
 {
 	m_spritebank = state;
 }
@@ -517,7 +517,7 @@ void puckman_state::jrpacman_scroll_w(uint8_t data)
 	}
 }
 
-WRITE_LINE_MEMBER(puckman_state::jrpacman_bgpriority_w)
+void puckman_state::jrpacman_bgpriority_w(int state)
 {
 	m_bgpriority = state;
 }

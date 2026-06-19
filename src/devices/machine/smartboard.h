@@ -13,6 +13,9 @@
 
 #include "machine/sensorboard.h"
 
+#include <optional>
+
+
 class tasc_sb30_device : public device_t
 {
 public:
@@ -28,14 +31,15 @@ public:
 	int data_r() { return m_output; }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual ioport_constructor device_input_ports() const override;
+	// device_t implementation
+	virtual void device_config_complete() override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual ioport_constructor device_input_ports() const override ATTR_COLD;
 
 private:
 	required_device<sensorboard_device> m_board;
-	output_finder<8, 8> m_out_leds;
+	std::optional<output_finder<8, 8> > m_out_leds;
 	required_ioport m_conf;
 
 	devcb_write_line m_data_out;
@@ -43,17 +47,17 @@ private:
 
 	void update_output();
 	bool piece_available(u8 id);
-	void init_cb(int state);
+	void init_cb(u8 data);
 	u8 spawn_cb(offs_t offset);
 
 	// i/o lines
-	int m_data0 = 0;
-	int m_data1 = 0;
-	int m_output = 0;
+	int m_data0;
+	int m_data1;
+	int m_output;
 
 	// internal use
-	bool m_scan_pending = false;
-	u32 m_pos = 0;
+	bool m_scan_pending;
+	u32 m_pos;
 	u32 m_squares[64]; // board state
 };
 

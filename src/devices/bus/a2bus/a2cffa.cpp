@@ -47,10 +47,10 @@ protected:
 	// construction/destruction
 	a2bus_cffa2000_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	virtual void device_start() override;
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual const tiny_rom_entry *device_rom_region() const override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
 
 	// overrides of standard a2bus slot functions
 	virtual uint8_t read_c0nx(uint8_t offset) override;
@@ -58,6 +58,8 @@ protected:
 	virtual uint8_t read_cnxx(uint8_t offset) override;
 	virtual uint8_t read_c800(uint16_t offset) override;
 	virtual void write_c800(uint16_t offset, uint8_t data) override;
+	virtual bool take_c800() const override { return true; }
+	virtual void reset_from_bus() override;
 
 	required_device<ata_interface_device> m_ata;
 	required_region_ptr<uint8_t> m_rom;
@@ -86,7 +88,7 @@ class a2bus_cffa2_6502_device : public a2bus_cffa2000_device, public device_nvra
 {
 public:
 	a2bus_cffa2_6502_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-	virtual const tiny_rom_entry *device_rom_region() const override;
+	virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
 
 protected:
 	// device_config_nvram_interface overrides
@@ -169,6 +171,11 @@ void a2bus_cffa2000_device::device_start()
 }
 
 void a2bus_cffa2000_device::device_reset()
+{
+	reset_from_bus();
+}
+
+void a2bus_cffa2000_device::reset_from_bus()
 {
 	m_writeprotect = true;
 	m_inwritecycle = false;
@@ -297,14 +304,14 @@ void a2bus_cffa2_device::nvram_default()
 
 bool a2bus_cffa2_device::nvram_read(util::read_stream &file)
 {
-	size_t actual;
-	return !file.read(m_eeprom, 0x1000, actual) && actual == 0x1000;
+	auto const [err, actual] = read(file, m_eeprom, 0x1000);
+	return !err && (actual == 0x1000);
 }
 
 bool a2bus_cffa2_device::nvram_write(util::write_stream &file)
 {
-	size_t actual;
-	return !file.write(m_eeprom, 0x1000, actual) && actual == 0x1000;
+	auto const [err, actual] = write(file, m_eeprom, 0x1000);
+	return !err;
 }
 
 void a2bus_cffa2_6502_device::nvram_default()
@@ -314,14 +321,14 @@ void a2bus_cffa2_6502_device::nvram_default()
 
 bool a2bus_cffa2_6502_device::nvram_read(util::read_stream &file)
 {
-	size_t actual;
-	return !file.read(m_eeprom, 0x1000, actual) && actual == 0x1000;
+	auto const [err, actual] = read(file, m_eeprom, 0x1000);
+	return !err && (actual == 0x1000);
 }
 
 bool a2bus_cffa2_6502_device::nvram_write(util::write_stream &file)
 {
-	size_t actual;
-	return !file.write(m_eeprom, 0x1000, actual) && actual == 0x1000;
+	auto const [err, actual] = write(file, m_eeprom, 0x1000);
+	return !err;
 }
 
 } // anonymous namespace

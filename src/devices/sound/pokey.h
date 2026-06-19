@@ -2,12 +2,13 @@
 // copyright-holders:Brad Oliver, Eric Smith, Juergen Buchmueller
 /*****************************************************************************
  *
- *  POKEY chip emulator 4.6
+ *  POKEY chip emulator 4.9
  *
  *  Based on original info found in Ron Fries' Pokey emulator,
  *  with additions by Brad Oliver, Eric Smith and Juergen Buchmueller.
  *  paddle (a/d conversion) details from the Atari 400/800 Hardware Manual.
  *  Polynomial algorithms according to info supplied by Perry McFarlane.
+ *  Additional improvements from Mike Saarna's A7800 MAME fork.
  *
  *****************************************************************************/
 
@@ -49,7 +50,6 @@
 //**************************************************************************
 
 #define POKEY_KEYBOARD_CB_MEMBER(_name) uint8_t _name(uint8_t k543210)
-#define POKEY_INTERRUPT_CB_MEMBER(_name) void _name(int mask)
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -128,22 +128,20 @@ public:
 
 	template <unsigned N> auto pot_r() { return m_pot_r_cb[N].bind(); }
 	auto allpot_r() { return m_allpot_r_cb.bind(); }
-	auto serin_r() { return m_serin_r_cb.bind(); }
-	auto serout_w() { return m_serout_w_cb.bind(); }
+	auto irq_w() { return m_irq_w_cb.bind(); }
+	auto sod_w() { return m_sod_w_cb.bind(); }
+	auto oclk_w() { return m_oclk_w_cb.bind(); }
 
 	/* k543210 = k5 ... k0 returns bit0: kr1, bit1: kr2 */
 	/* all are, in contrast to actual hardware, ACTIVE_HIGH */
 	typedef device_delegate<uint8_t (uint8_t k543210)> kb_cb_delegate;
 	template <typename... T> void set_keyboard_callback(T &&... args) { m_keyboard_r.set(std::forward<T>(args)...); }
 
-	typedef device_delegate<void (int mask)> int_cb_delegate;
-	template <typename... T> void set_interrupt_callback(T &&... args) { m_irq_f.set(std::forward<T>(args)...); }
-
 	uint8_t read(offs_t offset);
 	void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( sid_w ); // pin 24
-	void serin_ready(int after);
+	void sid_w(int state); // pin 24
+	void bclk_w(int state); // pin 26
 
 	// analog output configuration
 	void set_output_rc(double r, double c, double v)
@@ -178,13 +176,13 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 	virtual void device_post_load() override;
 	virtual void device_clock_changed() override;
 
 	// device_sound_interface overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 	virtual void execute_run() override;
 
@@ -194,6 +192,7 @@ protected:
 
 	TIMER_CALLBACK_MEMBER(serout_ready_irq);
 	TIMER_CALLBACK_MEMBER(serout_complete_irq);
+	TIMER_CALLBACK_MEMBER(serout_transmit_bit);
 	TIMER_CALLBACK_MEMBER(serin_ready_irq);
 	TIMER_CALLBACK_MEMBER(sync_write);
 	TIMER_CALLBACK_MEMBER(sync_pot);
@@ -205,33 +204,33 @@ private:
 	{
 	public:
 		pokey_channel();
-		pokey_device *m_parent;
+
 		uint8_t m_INTMask;
-		uint8_t m_AUDF;           /* AUDFx (D200, D202, D204, D206) */
-		uint8_t m_AUDC;           /* AUDCx (D201, D203, D205, D207) */
-		int32_t m_borrow_cnt;     /* borrow counter */
-		int32_t m_counter;        /* channel counter */
-		uint8_t m_output;         /* channel output signal (1 active, 0 inactive) */
-		uint8_t m_filter_sample;  /* high-pass filter sample */
+		uint8_t m_AUDF;           // AUDFx (D200, D202, D204, D206)
+		uint8_t m_AUDC;           // AUDCx (D201, D203, D205, D207)
+		int32_t m_borrow_cnt;     // borrow counter
+		int32_t m_counter;        // channel counter
+		uint8_t m_output;         // channel output signal (1 active, 0 inactive)
+		uint8_t m_filter_sample;  // high-pass filter sample
 
-		inline void sample(void)            { m_filter_sample = m_output; }
-		inline void reset_channel(void)     { m_counter = m_AUDF ^ 0xff; }
+		void sample()            { m_filter_sample = m_output; }
+		void reset_channel()     { m_counter = m_AUDF ^ 0xff; m_borrow_cnt = 0; }
 
-		inline void inc_chan()
+		void inc_chan(pokey_device &host, int cycles)
 		{
 			m_counter = (m_counter + 1) & 0xff;
 			if (m_counter == 0 && m_borrow_cnt == 0)
 			{
-				m_borrow_cnt = 3;
-				if (m_parent->m_IRQEN & m_INTMask)
+				m_borrow_cnt = cycles;
+				if (host.m_IRQEN & m_INTMask)
 				{
 					/* Exposed state has changed: This should only be updated after a resync ... */
-					m_parent->machine().scheduler().synchronize(timer_expired_delegate(FUNC(pokey_device::sync_set_irqst), m_parent), m_INTMask);
+					host.machine().scheduler().synchronize(timer_expired_delegate(FUNC(pokey_device::sync_set_irqst), &host), m_INTMask);
 				}
 			}
 		}
 
-		inline int check_borrow()
+		int check_borrow()
 		{
 			if (m_borrow_cnt > 0)
 			{
@@ -248,12 +247,14 @@ private:
 	void step_keyboard();
 	void step_pot();
 
-	void poly_init_4_5(uint32_t *poly, int size, int xorbit, int invert);
+	void poly_init_4_5(uint32_t *poly, int size);
 	void poly_init_9_17(uint32_t *poly, int size);
 	void vol_init();
 
 	inline void process_channel(int ch);
-	void pokey_potgo(void);
+	void process_serin();
+	void process_serout();
+	void pokey_potgo();
 	char *audc2str(int val);
 	char *audctl2str(int val);
 
@@ -276,11 +277,11 @@ private:
 
 	devcb_read8::array<8> m_pot_r_cb;
 	devcb_read8 m_allpot_r_cb;
-	devcb_read8 m_serin_r_cb;
-	devcb_write8 m_serout_w_cb;
+	devcb_write_line m_irq_w_cb;
+	devcb_write_line m_sod_w_cb;
+	devcb_write_line m_oclk_w_cb;
 
 	kb_cb_delegate m_keyboard_r;
-	int_cb_delegate m_irq_f;
 
 	uint8_t m_POTx[8];        /* POTx   (R/D200-D207) */
 	uint8_t m_AUDCTL;         /* AUDCTL (W/D208) */
@@ -298,13 +299,20 @@ private:
 	uint8_t m_kbd_latch;
 	uint8_t m_kbd_state;
 
+	uint16_t m_serin_shift;
+	uint16_t m_serout_shift;
+	bool m_ser_iclk;
+	bool m_ser_oclk;
+	bool m_serout_full;
+	bool m_sod_twotone;
+
 	attotime m_clock_period;
 
 	uint32_t m_poly4[0x0f];
 	uint32_t m_poly5[0x1f];
 	uint32_t m_poly9[0x1ff];
 	uint32_t m_poly17[0x1ffff];
-	stream_buffer::sample_t m_voltab[0x10000];
+	sound_stream::sample_t m_voltab[0x10000];
 
 	output_type m_output_type;
 	double m_r_pullup;
@@ -313,6 +321,7 @@ private:
 
 	emu_timer *m_serout_ready_timer;
 	emu_timer *m_serout_complete_timer;
+	emu_timer *m_serout_bit_timer;
 	emu_timer *m_serin_ready_timer;
 };
 

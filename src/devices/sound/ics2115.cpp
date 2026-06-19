@@ -20,12 +20,22 @@
 #include "ics2115.h"
 
 #include <algorithm>
+#include <bit>
 #include <cmath>
 
-
-//#define ICS2115_DEBUG
 //#define ICS2115_ISOLATE 6
 
+#define LOG_UNK   (1 << 1)
+#define LOG_VOICE (1 << 2)
+#define LOG_TIMER (1 << 3)
+
+#define VERBOSE (0)
+
+#include "logmacro.h"
+
+#define LOGUNK(...)   LOGMASKED(LOG_UNK,   __VA_ARGS__)
+#define LOGVOICE(...) LOGMASKED(LOG_VOICE, __VA_ARGS__)
+#define LOGTIMER(...) LOGMASKED(LOG_TIMER, __VA_ARGS__)
 
 // device type definition
 DEFINE_DEVICE_TYPE(ICS2115, ics2115_device, "ics2115", "ICS2115 WaveFront Synthesizer")
@@ -59,11 +69,9 @@ void ics2115_device::device_start()
 
 	space(0).cache(m_cache);
 
-	m_timer[0].timer = timer_alloc(FUNC(ics2115_device::timer_cb_0), this);
-	m_timer[1].timer = timer_alloc(FUNC(ics2115_device::timer_cb_1), this);
+	m_timer[0].timer = timer_alloc(FUNC(ics2115_device::timer_cb), this);
+	m_timer[1].timer = timer_alloc(FUNC(ics2115_device::timer_cb), this);
 	m_stream = stream_alloc(0, 2, clock() / (32 * 32));
-
-	m_irq_cb.resolve_safe();
 
 	//Exact formula as per patent 5809466
 	//This seems to give the ok fit but it is not good enough.
@@ -88,22 +96,19 @@ void ics2115_device::device_start()
 	//log2(256*128) = 15 for -3db + 1 must be confirmed by real hardware owners
 	constexpr int PAN_LEVEL = 16;
 
-	for (int i = 0; i < 256; i++)
+	for (unsigned i = 0; i < 256U; i++)
 	{
-		u8 exponent = (~i >> 4) & 0x07;
-		u8 mantissa = ~i & 0x0f;
-		s16 value = lut[exponent] + (mantissa << (exponent + 3));
+		const u8 exponent = (~i >> 4) & 0x07;
+		const u8 mantissa = ~i & 0x0f;
+		const s16 value = lut[exponent] + (mantissa << (exponent + 3));
 		m_ulaw[i] = (i & 0x80) ? -value : value;
-		m_panlaw[i] = PAN_LEVEL - (31 - count_leading_zeros_32(i)); //m_panlaw[i] = PAN_LEVEL - log2(i)
+		m_panlaw[i] = PAN_LEVEL - (std::bit_width(i) - 1); //m_panlaw[i] = PAN_LEVEL - log2(i)
 	}
 	m_panlaw[0] = 0xfff; //all bits to one when no pan
 
-	save_item(NAME(m_timer[0].period));
-	save_item(NAME(m_timer[0].scale));
-	save_item(NAME(m_timer[0].preset));
-	save_item(NAME(m_timer[1].period));
-	save_item(NAME(m_timer[1].scale));
-	save_item(NAME(m_timer[1].preset));
+	save_item(STRUCT_MEMBER(m_timer, period));
+	save_item(STRUCT_MEMBER(m_timer, scale));
+	save_item(STRUCT_MEMBER(m_timer, preset));
 	save_item(NAME(m_reg_select));
 	save_item(NAME(m_osc_select));
 	save_item(NAME(m_irq_enabled));
@@ -155,12 +160,13 @@ void ics2115_device::device_reset()
 	m_vmode = 0;
 	m_irq_on = false;
 	memset(m_voice, 0, sizeof(m_voice));
-	for (auto & elem : m_timer)
+	for (int i = 0; i < 2; i++)
 	{
-		elem.timer->adjust(attotime::never);
-		elem.period = 0;
-		elem.scale = 0;
-		elem.preset = 0;
+		ics2115_timer &timer = m_timer[i];
+		timer.timer->adjust(attotime::never, i);
+		timer.period = 0;
+		timer.scale = 0;
+		timer.preset = 0;
 	}
 	for (auto & elem : m_voice)
 	{
@@ -211,7 +217,7 @@ device_memory_interface::space_config_vector ics2115_device::memory_space_config
     VOL(L) = vol.acc
     VINC = vol.inc
     DIR = invert
-    BC = boundary cross (start or end )
+    BC = boundary cross (start or end)
     BLEN = bi directional loop enable
     LEN loop enable
     UVOL   LEN   BLEN    DIR     BC      Next VOL(L)
@@ -220,14 +226,13 @@ device_memory_interface::space_config_vector ics2115_device::memory_space_config
     1      x     x       1       0       VOL(L) - VINC // invert no bc
     1      0     x       x       1       VOL(L) // no env len no vol envelope
    ----------------------------------------------------------------------------
-    1      1     0       0       1       start - ( end - (VOL(L)  + VINC) )
-    1      1     0       1       1       end + ( (VOL(L) - VINC) - start)
-    1      1     1       0       1       end + (end - (VOL(L) + VINC) ) // here
-    1      1     1       1       1       start - ( (VOL(L) - VINC)- start)
+    1      1     0       0       1       start - (end - (VOL(L) + VINC))
+    1      1     0       1       1       end + ((VOL(L) - VINC) - start)
+    1      1     1       0       1       end + (end - (VOL(L) + VINC)) // here
+    1      1     1       1       1       start - ((VOL(L) - VINC)- start)
 */
 int ics2115_device::ics2115_voice::update_volume_envelope()
 {
-
 	// test for boundary cross
 	bool bc = false;
 	if (vol.acc >= vol.end || vol.acc <= vol.end)
@@ -267,16 +272,16 @@ int ics2115_device::ics2115_voice::update_volume_envelope()
 			if (!vol_ctrl.bitflags.loop_bidir)
 			{
 				if (!vol_ctrl.bitflags.invert)
-					vol.acc = vol.start - (vol.end - (vol.acc + vol.incr));   //  uvol = 1*     len = 1*   blen =  0     dir =  0     bc =  1*      start - ( end - (VOL(L)  + VINC) )
+					vol.acc = vol.start - (vol.end - (vol.acc + vol.incr));   //  uvol = 1*     len = 1*   blen =  0     dir =  0     bc =  1*      start - (end - (VOL(L)  + VINC))
 				else
-					vol.acc = vol.end + ((vol.acc - vol.incr) - vol.start);   //         1            1    blen =  0     dir =  1           1       end + ( (VOL(L) - VINC) - start)
+					vol.acc = vol.end + ((vol.acc - vol.incr) - vol.start);   //         1            1    blen =  0     dir =  1           1       end + ((VOL(L) - VINC) - start)
 			}
 			else
 			{
 				if (!vol_ctrl.bitflags.invert)
-					vol.acc = vol.end + (vol.end - (vol.acc + vol.incr));     //         1            1     blen = 1      dir = 0           1       end + (end - (VOL(L) + VINC) )
+					vol.acc = vol.end + (vol.end - (vol.acc + vol.incr));     //         1            1     blen = 1      dir = 0           1       end + (end - (VOL(L) + VINC))
 				else
-					vol.acc = vol.start - ((vol.acc - vol.incr) - vol.start); //         1            1     beln = 1      dir = 1           1       start - ( (VOL(L) - VINC)- start)
+					vol.acc = vol.start - ((vol.acc - vol.incr) - vol.start); //         1            1     beln = 1      dir = 1           1       start - ((VOL(L) - VINC)- start)
 			}
 		}
 	}
@@ -329,7 +334,7 @@ int ics2115_device::ics2115_voice::update_oscillator()
 		if (osc_conf.bitflags.loop_bidir)
 			osc_conf.bitflags.invert = !osc_conf.bitflags.invert;
 		//else
-		//    logerror("click!\n");
+		//    LOGVOICE("click!\n");
 
 		if (osc_conf.bitflags.invert)
 		{
@@ -363,7 +368,7 @@ s32 ics2115_device::get_sample(ics2115_voice& voice)
 	if (voice.state.on && voice.osc_conf.bitflags.loop && !voice.osc_conf.bitflags.loop_bidir &&
 			(voice.osc.left < (voice.osc.fc << 2)))
 	{
-		//logerror("C?[%x:%x]", voice.osc.left, voice.osc.acc);
+		//LOGVOICE("C?[%x:%x]", voice.osc.left, voice.osc.acc);
 		nextaddr = voice.osc.start >> 12;
 	}
 	else
@@ -377,26 +382,26 @@ s32 ics2115_device::get_sample(ics2115_voice& voice)
 	}
 	else if (voice.osc_conf.bitflags.eightbit)
 	{
-		sample1 = ((s8)read_sample(voice, curaddr)) << 8;
-		sample2 = ((s8)read_sample(voice, curaddr + 1)) << 8;
+		sample1 = (s8(read_sample(voice, curaddr))) << 8;
+		sample2 = (s8(read_sample(voice, curaddr + 1))) << 8;
 	}
 	else
 	{
-		sample1 = read_sample(voice, curaddr + 0) | (((s8)read_sample(voice, curaddr + 1)) << 8);
-		sample2 = read_sample(voice, nextaddr+ 0) | (((s8)read_sample(voice, nextaddr+ 1)) << 8);
-		//sample2 = read_sample(voice, curaddr + 2) | (((s8)read_sample(voice, curaddr + 3)) << 8);
+		sample1 = read_sample(voice, curaddr + 0) | ((s8(read_sample(voice, curaddr + 1))) << 8);
+		sample2 = read_sample(voice, nextaddr+ 0) | ((s8(read_sample(voice, nextaddr+ 1))) << 8);
+		//sample2 = read_sample(voice, curaddr + 2) | ((s8(read_sample(voice, curaddr + 3))) << 8);
 	}
 
 	//linear interpolation as in US patent 6,246,774 B1, column 2 row 59
 	//LEN=1, BLEN=0, DIR=0, start+end interpolation
 	const s32 diff = sample2 - sample1;
-	const u16 fract = (voice.osc.acc >> 3) & 0x1ff;
+	const s32 fract = (voice.osc.acc & 0xff8) >> 3;
 
 	//no need for interpolation since it's around 1 note a cycle?
 	//if (!fract)
 	//    return sample1;
 
-	const s32 sample = (((s32)sample1 << 9) + diff * fract) >> 9;
+	const s32 sample = ((s32(sample1) << 9) + (diff * fract)) >> 9;
 	//sample = sample1;
 	return sample;
 }
@@ -424,18 +429,18 @@ void ics2115_device::ics2115_voice::update_ramp()
 	}
 }
 
-int ics2115_device::fill_output(ics2115_voice& voice, std::vector<write_stream_view> &outputs)
+int ics2115_device::fill_output(ics2115_voice& voice, sound_stream &stream)
 {
 	bool irq_invalid = false;
-	const u16 fine = 1 << (3*(voice.vol.incr >> 6));
-	voice.vol.add = (voice.vol.incr & 0x3f)<< (10 - fine);
+	const u16 fine = 1 << (3 * (voice.vol.incr >> 6));
+	voice.vol.add = (voice.vol.incr & 0x3f) << (10 - fine);
 
-	for (int i = 0; i < outputs[0].samples(); i++)
+	for (int i = 0; i < stream.samples(); i++)
 	{
 		constexpr int RAMP_SHIFT = 6;
 		const u32 volacc = (voice.vol.acc >> 14) & 0xfff;
-		const u16 vlefti = volacc - m_panlaw[255 - voice.vol.pan]; // left index from acc - pan law
-		const u16 vrighti = volacc - m_panlaw[voice.vol.pan]; // right index from acc - pan law
+		const s16 vlefti = volacc - m_panlaw[255 - voice.vol.pan]; // left index from acc - pan law
+		const s16 vrighti = volacc - m_panlaw[voice.vol.pan]; // right index from acc - pan law
 		//check negative values so no cracks, is it a hardware feature ?
 		const u16 vleft = vlefti > 0 ? (m_volume[vlefti] * voice.state.ramp >> RAMP_SHIFT) : 0;
 		const u16 vright = vrighti > 0 ? (m_volume[vrighti] * voice.state.ramp >> RAMP_SHIFT) : 0;
@@ -445,15 +450,14 @@ int ics2115_device::fill_output(ics2115_voice& voice, std::vector<write_stream_v
 		//final output, even if they are not running.  This means that whatever data value
 		//that the voice is pointing at is contributing to the summation.
 		//(austere note: this will of course fix some of the glitches due to multiple transition)
-		s32 sample = get_sample(voice);
+		const s32 sample = get_sample(voice);
 
 		//15-bit volume + (5-bit worth of 32 channel sum) + 16-bit samples = 4-bit extra
+		//if (voice.playing())
 		if (!m_vmode || voice.playing())
 		{
-		/*if (voice.playing())
-		{*/
-			outputs[0].add_int(i, (sample * vleft) >> (5 + volume_bits), 32768);
-			outputs[1].add_int(i, (sample * vright) >> (5 + volume_bits), 32768);
+			stream.add_int(0, i, (sample * vleft) >> (5 + volume_bits), 32768);
+			stream.add_int(1, i, (sample * vright) >> (5 + volume_bits), 32768);
 		}
 
 		voice.update_ramp();
@@ -468,11 +472,8 @@ int ics2115_device::fill_output(ics2115_voice& voice, std::vector<write_stream_v
 	return irq_invalid;
 }
 
-void ics2115_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void ics2115_device::sound_stream_update(sound_stream &stream)
 {
-	outputs[0].fill(0);
-	outputs[1].fill(0);
-
 	bool irq_invalid = false;
 	for (int osc = 0; osc <= m_active_osc; osc++)
 	{
@@ -483,24 +484,21 @@ void ics2115_device::sound_stream_update(sound_stream &stream, std::vector<read_
 			continue;
 #endif
 /*
-#ifdef ICS2115_DEBUG
         u32 curaddr = ((voice.osc.saddr << 20) & 0xffffff) | (voice.osc.acc >> 12);
         s32 sample = get_sample(voice);
-        logerror("[%06x=%04x]", curaddr, (s16)sample);
-#endif
+        LOGVOICE("[%06x=%04x]", curaddr, (s16)sample);
 */
-		if (fill_output(voice, outputs))
+		if (fill_output(voice, stream))
 			irq_invalid = true;
 
-#ifdef ICS2115_DEBUG
 		if (voice.playing())
 		{
-			logerror("%d", osc);
+			LOGVOICE("%d", osc);
 			if (voice.osc_conf.bitflags.invert)
-				logerror("+");
+				LOGVOICE("+");
 			else if ((voice.osc.fc >> 1) > 0x1ff)
-				logerror("*");
-			logerror(" ");
+				LOGVOICE("*");
+			LOGVOICE(" ");
 
 			/*int min = 0x7fffffff, max = 0x80000000;
 			double average = 0;
@@ -512,23 +510,21 @@ void ics2115_device::sound_stream_update(sound_stream &stream, std::vector<read_
 			}
 			average /= samples;
 			average /= 1 << 16;
-			logerror("<Mi:%d Mx:%d Av:%g>", min >> 16, max >> 16, average);*/
+			LOGVOICE("<Mi:%d Mx:%d Av:%g>", min >> 16, max >> 16, average);*/
 		}
-#endif
 	}
 
-#ifdef ICS2115_DEBUG
-	logerror("|");
-#endif
+	LOGVOICE("|");
 
 	if (irq_invalid)
 		recalc_irq();
-
 }
 
 //Helper Function (Reads off current register)
 u16 ics2115_device::reg_read()
 {
+	m_stream->update();
+
 	u16 ret = 0;
 	ics2115_voice& voice = m_voice[m_osc_select];
 
@@ -536,6 +532,14 @@ u16 ics2115_device::reg_read()
 	{
 		case 0x00: // [osc] Oscillator Configuration
 			ret = voice.osc_conf.value;
+			if (voice.state.on)
+			{
+				ret |= 8;
+			}
+			else
+			{
+				ret &= ~8;
+			}
 			ret <<= 8;
 			break;
 
@@ -576,7 +580,7 @@ u16 ics2115_device::reg_read()
 
 		case 0x09: // [osc] Volume accumulator
 			//ret = v->Vol.Acc;
-			ret = voice.vol.acc  >> (10);
+			ret = voice.vol.acc >> 10;
 			break;
 
 		case 0x0a: // [osc] Wavesample address
@@ -586,7 +590,6 @@ u16 ics2115_device::reg_read()
 		case 0x0b: // [osc] Wavesample address
 			ret = (voice.osc.acc >> 0) & 0xfff8;
 			break;
-
 
 		case 0x0c: // [osc] Pan
 			ret = voice.vol.pan << 8;
@@ -618,7 +621,8 @@ u16 ics2115_device::reg_read()
 			ret = m_active_osc;
 			break;
 
-		case 0x0f:{// [osc] Interrupt source/oscillator
+		case 0x0f: // [osc] Interrupt source/oscillator
+		{
 			ret = 0xff;
 			for (int i = 0; i <= m_active_osc; i++)
 			{
@@ -626,24 +630,26 @@ u16 ics2115_device::reg_read()
 				if (v.osc_conf.bitflags.irq_pending || v.vol_ctrl.bitflags.irq_pending)
 				{
 					ret = i | 0xe0;
-					ret &= v.vol_ctrl.bitflags.irq_pending ? (~0x40) : 0xff;
-					ret &= v.osc_conf.bitflags.irq_pending ? (~0x80) : 0xff;
-					recalc_irq();
 					if (v.osc_conf.bitflags.irq_pending)
 					{
-						v.osc_conf.bitflags.irq_pending = 0;
+						if (!machine().side_effects_disabled())
+							v.osc_conf.bitflags.irq_pending = 0;
 						ret &= ~0x80;
 					}
 					if (v.vol_ctrl.bitflags.irq_pending)
 					{
-						v.vol_ctrl.bitflags.irq_pending = 0;
+						if (!machine().side_effects_disabled())
+							v.vol_ctrl.bitflags.irq_pending = 0;
 						ret &= ~0x40;
 					}
+					if (!machine().side_effects_disabled())
+						recalc_irq();
 					break;
 				}
 			}
 			ret <<= 8;
-			break;}
+			break;
+		}
 
 		case 0x10: // [osc] Oscillator Control
 			ret = voice.osc.ctl << 8;
@@ -657,8 +663,11 @@ u16 ics2115_device::reg_read()
 		case 0x41: // Timer 1 clear irq
 			//TODO: examine this suspect code
 			ret = m_timer[m_reg_select & 0x1].preset;
-			m_irq_pending &= ~(1 << (m_reg_select & 0x1));
-			recalc_irq();
+			if (!machine().side_effects_disabled())
+			{
+				m_irq_pending &= ~(1 << (m_reg_select & 0x1));
+				recalc_irq();
+			}
 			break;
 
 		case 0x43: // Timer status
@@ -692,9 +701,8 @@ u16 ics2115_device::reg_read()
 		// case 0x57: // Emulation Mode
 
 		default:
-#ifdef ICS2115_DEBUG
-			logerror("ICS2115: Unhandled read %x\n", m_reg_select);
-#endif
+			if (!machine().side_effects_disabled())
+				LOGUNK("%s: ICS2115: Unhandled read %x\n", machine().describe_context(), m_reg_select);
 			ret = 0;
 			break;
 	}
@@ -703,6 +711,8 @@ u16 ics2115_device::reg_read()
 
 void ics2115_device::reg_write(u16 data, u16 mem_mask)
 {
+	m_stream->update();
+
 	ics2115_voice& voice = m_voice[m_osc_select];
 	if (m_reg_select < 0x20)
 		COMBINE_DATA(&voice.regs[m_reg_select]);
@@ -716,6 +726,7 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 			{
 				voice.osc_conf.value &= 0x80;
 				voice.osc_conf.value |= (data >> 8) & 0x7f;
+				recalc_irq();
 			}
 			break;
 
@@ -780,12 +791,10 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 			break;
 
 		case 0x0a: // [osc] Wavesample address high
-#ifdef ICS2115_DEBUG
 #ifdef ICS2115_ISOLATE
 			if (m_osc_select == ICS2115_ISOLATE)
 #endif
-				logerror("<%d:oa:H=%x>", m_osc_select, data);
-#endif
+				LOGVOICE("%s: <%d:oa:H=%x>", machine().describe_context(), m_osc_select, data);
 			if (ACCESSING_BITS_8_15)
 				voice.osc.acc = (voice.osc.acc & 0x00ffffff) | ((data & 0xff00) << 16);
 			if (ACCESSING_BITS_0_7)
@@ -793,12 +802,10 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 			break;
 
 		case 0x0b: // [osc] Wavesample address low
-#ifdef ICS2115_DEBUG
 #ifdef ICS2115_ISOLATE
 			if (m_osc_select == ICS2115_ISOLATE)
 #endif
-				logerror("<%d:oa:L=%x>", m_osc_select, data);
-#endif
+				LOGVOICE("%s: <%d:oa:L=%x>", machine().describe_context(), m_osc_select, data);
 			if (ACCESSING_BITS_8_15)
 				voice.osc.acc = (voice.osc.acc & 0xffff00ff) | (data & 0xff00);
 			if (ACCESSING_BITS_0_7)
@@ -815,6 +822,7 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 			{
 				voice.vol_ctrl.value &= 0x80;
 				voice.vol_ctrl.value |= (data >> 8) & 0x7f;
+				recalc_irq();
 			}
 			break;
 
@@ -841,13 +849,11 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 				//guessing here
 				else if (data == 0xf)
 				{
-#ifdef ICS2115_DEBUG
 #ifdef ICS2115_ISOLATE
 					if (m_osc_select == ICS2115_ISOLATE)
 #endif
 					if (!voice.osc_conf.bitflags.stop || !voice.vol_ctrl.bitflags.stop)
-						logerror("[%02d STOP]\n", m_osc_select);
-#endif
+						LOGVOICE("%s: [%02d STOP]\n", machine().describe_context(), m_osc_select);
 					if (!m_vmode)
 					{
 						//try to key it off as well!
@@ -855,10 +861,8 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 						voice.vol_ctrl.bitflags.stop = true;
 					}
 				}
-#ifdef ICS2115_DEBUG
 				else
-					logerror("ICS2115: Unhandled* data write %d onto 0x10.\n", data);
-#endif
+					LOGUNK("%s: ICS2115: Unhandled* data write %d onto 0x10.\n", machine().describe_context(), data);
 			}
 			break;
 
@@ -920,9 +924,7 @@ void ics2115_device::reg_write(u16 data, u16 mem_mask)
 		// case 0x57: // Emulation Mode
 
 		default:
-#ifdef ICS2115_DEBUG
-			logerror("ICS2115: Unhandled write %x onto %x [voice = %d]\n", data, m_reg_select, m_osc_select);
-#endif
+			LOGUNK("%s: ICS2115: Unhandled write %x onto %x [voice = %d]\n", machine().describe_context(), data, m_reg_select, m_osc_select);
 			break;
 	}
 }
@@ -935,6 +937,7 @@ u8 ics2115_device::read(offs_t offset)
 	{
 		case 0:
 			//TODO: check this suspect code
+			m_stream->update();
 			if (m_irq_on)
 			{
 				ret |= 0x80;
@@ -956,15 +959,13 @@ u8 ics2115_device::read(offs_t offset)
 			ret = m_reg_select;
 			break;
 		case 2:
-			ret = (u8)(reg_read());
+			ret = u8(reg_read());
 			break;
 		case 3:
 			ret = reg_read() >> 8;
 			break;
 		default:
-#ifdef ICS2115_DEBUG
-			logerror("ICS2115: Unhandled memory read at %x\n", offset);
-#endif
+			LOGUNK("%s: ICS2115: Unhandled memory read at %x\n", machine().describe_context(), offset);
 			break;
 	}
 	return ret;
@@ -984,9 +985,7 @@ void ics2115_device::write(offs_t offset, u8 data)
 			reg_write(data << 8, 0xff00);
 			break;
 		default:
-#ifdef ICS2115_DEBUG
-			logerror("ICS2115: Unhandled memory write %02x to %x\n", data, offset);
-#endif
+			LOGUNK("%s: ICS2115: Unhandled memory write %02x to %x\n", machine().describe_context(), data, offset);
 			break;
 	}
 }
@@ -1011,9 +1010,7 @@ u16 ics2115_device::word_r(offs_t offset, u16 mem_mask)
 		    break;
 		*/
 		default:
-#ifdef ICS2115_DEBUG
-			logerror("ICS2115: Unhandled memory read at %x\n", offset);
-#endif
+			LOGUNK("%s: ICS2115: Unhandled memory read at %x\n", machine().describe_context(), offset);
 			break;
 	}
 	return ret;
@@ -1037,9 +1034,7 @@ void ics2115_device::word_w(offs_t offset, u16 data, u16 mem_mask)
 		    break;
 		*/
 		default:
-#ifdef ICS2115_DEBUG
-			logerror("ICS2115: Unhandled memory write %02x to %x\n", data, offset);
-#endif
+			LOGUNK("%s: ICS2115: Unhandled memory write %02x to %x\n", machine().describe_context(), data, offset);
 			break;
 	}
 }
@@ -1054,8 +1049,8 @@ void ics2115_device::keyon()
 	//no ramp up...
 	m_voice[m_osc_select].state.ramp = 0x40;
 
-#ifdef ICS2115_DEBUG
-	logerror("[%02d vs:%04x ve:%04x va:%04x vi:%02x vc:%02x os:%06x oe:%06x oa:%06x of:%04x SA:%02x oc:%02x][%04x]\n", m_osc_select,
+	LOGVOICE("%s: [%02d vs:%04x ve:%04x va:%04x vi:%02x vc:%02x os:%06x oe:%06x oa:%06x of:%04x SA:%02x oc:%02x][%04x]\n", machine().describe_context(),
+			m_osc_select,
 			m_voice[m_osc_select].vol.start >> 10,
 			m_voice[m_osc_select].vol.end >> 10,
 			m_voice[m_osc_select].vol.acc >> 10,
@@ -1069,9 +1064,8 @@ void ics2115_device::keyon()
 			m_voice[m_osc_select].osc_conf.value,
 			m_volume[(m_voice[m_osc_select].vol.acc >> 14)]
 			);
-#endif
 	//testing memory corruption issue with mame stream
-	//logerror("m_volume[0x%x]=0x%x\n", mastervolume, m_volume[mastervolume]);
+	//LOGVOICE("m_volume[0x%x]=0x%x\n", mastervolume, m_volume[mastervolume]);
 }
 
 void ics2115_device::recalc_irq()
@@ -1079,40 +1073,34 @@ void ics2115_device::recalc_irq()
 	//Suspect
 	bool irq = (m_irq_pending & m_irq_enabled);
 	for (int i = 0; (!irq) && (i < 32); i++)
-		irq |=  m_voice[i].vol_ctrl.bitflags.irq_pending && m_voice[i].osc_conf.bitflags.irq_pending;
-	m_irq_on = irq;
-	if (!m_irq_cb.isnull())
-		m_irq_cb(irq ? ASSERT_LINE : CLEAR_LINE);
-}
-
-TIMER_CALLBACK_MEMBER( ics2115_device::timer_cb_0 )
-{
-	if (!(m_irq_pending & (1 << 0)))
 	{
-		m_irq_pending |= 1 << 0;
-		recalc_irq();
+		irq |= m_voice[i].osc_conf.bitflags.irq && m_voice[i].osc_conf.bitflags.irq_pending;
+		irq |= m_voice[i].vol_ctrl.bitflags.irq && m_voice[i].vol_ctrl.bitflags.irq_pending;
 	}
+	m_irq_on = irq;
+	m_irq_cb(irq ? ASSERT_LINE : CLEAR_LINE);
 }
 
-TIMER_CALLBACK_MEMBER( ics2115_device::timer_cb_1 )
+TIMER_CALLBACK_MEMBER(ics2115_device::timer_cb)
 {
-	if (!(m_irq_pending & (1 << 1)))
+	const int timer_bit = param & 1;
+	if (!BIT(m_irq_pending, timer_bit))
 	{
-		m_irq_pending |= 1 << 1;
+		m_irq_pending |= 1 << timer_bit;
 		recalc_irq();
 	}
 }
 
 void ics2115_device::recalc_timer(int timer)
 {
-	u64 period  = ((m_timer[timer].scale & 0x1f) + 1) * (m_timer[timer].preset + 1);
+	u64 period = ((m_timer[timer].scale & 0x1f) + 1) * (m_timer[timer].preset + 1);
 	period = period << (4 + (m_timer[timer].scale >> 5));
 
 	if (m_timer[timer].period != period)
 	{
 		attotime tp = attotime::from_ticks(period, clock());
-		logerror("Timer %d period %dns (%dHz)\n", timer, int(tp.as_double()*1e9), int(1/tp.as_double()));
+		LOGTIMER("Timer %d period %dns (%dHz)\n", timer, int(tp.as_double() * 1e9), int(1 / tp.as_double()));
 		m_timer[timer].period = period;
-		m_timer[timer].timer->adjust(tp, 0, tp);
+		m_timer[timer].timer->adjust(tp, timer, tp);
 	}
 }

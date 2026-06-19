@@ -14,6 +14,7 @@
 #include "s3c24xx.h"
 #include "emupal.h"
 
+#include <algorithm>
 
 #define S3C2440_TAG "s3c2440"
 
@@ -145,7 +146,7 @@ enum
 
 #define S3C24XX_BASE_SDI 0x5A000000
 
-/* AC97 Interface */
+/* AC'97 Interface */
 
 #define S3C24XX_BASE_AC97 0x5B000000
 
@@ -175,7 +176,7 @@ public:
 	auto nand_data_w_callback() { return m_nand_data_w_cb.bind(); }
 	void set_lcd_flags(int flags) { m_flags = flags; }
 
-	DECLARE_WRITE_LINE_MEMBER( frnb_w );
+	void frnb_w(int state);
 
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
@@ -186,8 +187,8 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	void s3c24xx_reset();
 	inline int iface_core_pin_r(int pin);
@@ -356,7 +357,7 @@ protected:
 	uint32_t s3c24xx_nand_r(offs_t offset, uint32_t mem_mask = ~0);
 	void s3c24xx_nand_init_ecc();
 	void s3c24xx_nand_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
-	[[maybe_unused]] WRITE_LINE_MEMBER( s3c24xx_pin_frnb_w );
+	[[maybe_unused]] void s3c24xx_pin_frnb_w(int state);
 	uint32_t s3c24xx_cam_r(offs_t offset, uint32_t mem_mask = ~0);
 	void s3c24xx_cam_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
 	uint32_t s3c24xx_ac97_r(offs_t offset, uint32_t mem_mask = ~0);
@@ -414,6 +415,18 @@ private:
 
 	struct lcd_regs_t
 	{
+		void clear()
+		{
+			lcdcon1 = lcdcon2 = lcdcon3 = lcdcon4 = lcdcon5 = 0;
+			lcdsaddr1 = lcdsaddr2 = lcdsaddr3 = 0;
+			redlut = greenlut = bluelut = 0;
+			std::fill(std::begin(reserved), std::end(reserved), 0);
+			dithmode = 0;
+			tpal = 0;
+			lcdintpnd = lcdsrcpnd = lcdintmsk = 0;
+			tconsel = 0;
+		}
+
 		uint32_t lcdcon1;
 		uint32_t lcdcon2;
 		uint32_t lcdcon3;
@@ -556,9 +569,25 @@ private:
 
 	struct lcd_t
 	{
+		void clear()
+		{
+			regs.clear();
+			timer = nullptr;
+			vramaddr_cur = vramaddr_max = 0;
+			offsize = 0;
+			pagewidth_cur = pagewidth_max = 0;
+			bppmode = 0;
+			bswp = hwswp = 0;
+			vpos = hpos = 0;
+			framerate = 0;
+			tpal = 0;
+			hpos_min = hpos_max = vpos_min = vpos_max = 0;
+			dma_data = dma_bits = 0;
+		}
+
 		lcd_regs_t regs;
 		emu_timer *timer;
-		std::unique_ptr<bitmap_rgb32> bitmap[2];
+		bitmap_rgb32 bitmap[2];
 		uint32_t vramaddr_cur;
 		uint32_t vramaddr_max;
 		uint32_t offsize;

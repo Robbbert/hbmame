@@ -75,10 +75,7 @@ public:
 	cbm2_user_port_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt)
 		: cbm2_user_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	cbm2_user_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
@@ -92,23 +89,23 @@ public:
 	void d1_w(uint8_t data) { if (m_card != nullptr) m_card->cbm2_d1_w(data); }
 	uint8_t d2_r() { uint8_t data = 0xff; if (m_card != nullptr) data = m_card->cbm2_d2_r(); return data; }
 	void d2_w(uint8_t data) { if (m_card != nullptr) m_card->cbm2_d2_w(data); }
-	DECLARE_READ_LINE_MEMBER( pb2_r ) { return m_card ? m_card->cbm2_pb2_r() : 1; }
-	DECLARE_WRITE_LINE_MEMBER( pb2_w ) { if (m_card != nullptr) m_card->cbm2_pb2_w(state); }
-	DECLARE_READ_LINE_MEMBER( pb3_r ) { return m_card ? m_card->cbm2_pb3_r() : 1; }
-	DECLARE_WRITE_LINE_MEMBER( pb3_w ) { if (m_card != nullptr) m_card->cbm2_pb3_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( pc_w ) { if (m_card != nullptr) m_card->cbm2_pc_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( cnt_w ) { if (m_card != nullptr) m_card->cbm2_cnt_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( sp_w ) { if (m_card != nullptr) m_card->cbm2_sp_w(state); }
+	int pb2_r() { return m_card ? m_card->cbm2_pb2_r() : 1; }
+	void pb2_w(int state) { if (m_card != nullptr) m_card->cbm2_pb2_w(state); }
+	int pb3_r() { return m_card ? m_card->cbm2_pb3_r() : 1; }
+	void pb3_w(int state) { if (m_card != nullptr) m_card->cbm2_pb3_w(state); }
+	void pc_w(int state) { if (m_card != nullptr) m_card->cbm2_pc_w(state); }
+	void cnt_w(int state) { if (m_card != nullptr) m_card->cbm2_cnt_w(state); }
+	void sp_w(int state) { if (m_card != nullptr) m_card->cbm2_sp_w(state); }
 
 	// cartridge interface
-	DECLARE_WRITE_LINE_MEMBER( irq_w ) { m_write_irq(state); }
-	DECLARE_WRITE_LINE_MEMBER( cia_sp_w ) { m_write_sp(state); }
-	DECLARE_WRITE_LINE_MEMBER( cia_cnt_w ) { m_write_cnt(state); }
-	DECLARE_WRITE_LINE_MEMBER( flag_w ) { m_write_flag(state); }
+	void irq_w(int state) { m_write_irq(state); }
+	void cia_sp_w(int state) { m_write_sp(state); }
+	void cia_cnt_w(int state) { m_write_cnt(state); }
+	void flag_w(int state) { m_write_flag(state); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	devcb_write_line   m_write_irq;
 	devcb_write_line   m_write_sp;
@@ -119,7 +116,7 @@ protected:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(CBM2_USER_PORT, cbm2_user_port_device)
 
 

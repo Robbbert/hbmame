@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/lordgun.cpp"
+#include "../mame/igs/lordgun.cpp"
 
  /***************
  Alien Challenge
@@ -73,6 +73,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Alien Challenge
-GAME( 2015, aliencha01,  aliencha,   aliencha, aliencha, lordgun_state, empty_init,   ROT0, "hack", "Alien Challenge (Huang Feihong Ultimate Simplified Infinite Killing BOSS Edition, 2015-07-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, aliencha02,  aliencha,   aliencha, aliencha, lordgun_state, empty_init,   ROT0, "hack", "Alien Challenge (Simplified Edition, 2018-07-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, aliencha01,  aliencha,   aliencha, aliencha, aliencha_state, empty_init,   ROT0, "hack", "Alien Challenge (Huang Feihong Ultimate Simplified Infinite Killing BOSS Edition, 2015-07-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, aliencha02,  aliencha,   aliencha, aliencha, aliencha_state, empty_init,   ROT0, "hack", "Alien Challenge (Simplified Edition, 2018-07-05)", MACHINE_SUPPORTS_SAVE )
 

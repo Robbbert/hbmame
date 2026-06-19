@@ -32,9 +32,9 @@ awacs_device::awacs_device(const machine_config &mconfig, const char *tag, devic
 	, device_sound_interface(mconfig, *this)
 	, m_irq_out_cb(*this)
 	, m_irq_in_cb(*this)
-	, m_output_cb(*this)
+	, m_output_cb(*this, 0)
 	, m_input_cb(*this)
-	, m_input_port_cb(*this)
+	, m_input_port_cb(*this, 0)
 	, m_output_port_cb(*this)
 	, m_stream(nullptr)
 {
@@ -50,15 +50,6 @@ void awacs_device::device_start()
 	m_stream = stream_alloc(0, 2, clock()/64/divider[0], STREAM_SYNCHRONOUS);
 
 	m_last_sample = attotime::zero;
-
-	m_irq_out_cb.resolve_safe();
-	m_irq_in_cb.resolve_safe();
-
-	m_output_cb.resolve_safe(0);
-	m_input_cb.resolve_safe();
-
-	m_input_port_cb.resolve_safe(0);
-	m_output_port_cb.resolve_safe();
 
 	save_item(NAME(m_extend));
 	save_item(NAME(m_ext_command));
@@ -112,7 +103,7 @@ void awacs_device::device_reset()
 //  our sound stream
 //-------------------------------------------------
 
-void awacs_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void awacs_device::sound_stream_update(sound_stream &stream)
 {
 	m_last_sample = machine().time();
 
@@ -128,14 +119,14 @@ void awacs_device::sound_stream_update(sound_stream &stream, std::vector<read_st
 		u32 data = m_output_cb(m_phase | (m_output_buffer ? 0x10000 : 0));
 		s16 left = data >> 16;
 		s16 right = data;
-		outputs[0].put_int(0, left, 32768);
-		outputs[1].put_int(0, right, 32768);
+		stream.put_int(0, 0, left, 32768);
+		stream.put_int(1, 0, right, 32768);
 
 	} else {
 		m_output_buffer = false;
 
-		outputs[0].put_int(0, 0, 32768);
-		outputs[1].put_int(0, 0, 32768);
+		stream.put_int(0, 0, 0, 32768);
+		stream.put_int(1, 0, 0, 32768);
 	}
 
 	if(m_active & ACTIVE_IN)

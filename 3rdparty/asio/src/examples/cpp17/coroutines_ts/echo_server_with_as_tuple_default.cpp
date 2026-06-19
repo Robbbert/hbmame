@@ -2,13 +2,13 @@
 // echo_server_with_as_tuple_default.cpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2024 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include <asio/experimental/as_tuple.hpp>
+#include <asio/as_tuple.hpp>
 #include <asio/co_spawn.hpp>
 #include <asio/detached.hpp>
 #include <asio/io_context.hpp>
@@ -17,7 +17,7 @@
 #include <asio/write.hpp>
 #include <cstdio>
 
-using asio::experimental::as_tuple_t;
+using asio::as_tuple_t;
 using asio::ip::tcp;
 using asio::awaitable;
 using asio::co_spawn;

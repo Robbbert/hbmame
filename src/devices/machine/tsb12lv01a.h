@@ -17,7 +17,7 @@
 class tsb12lv01a_device : public device_t
 {
 public:
-	tsb12lv01a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	tsb12lv01a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	uint32_t read(offs_t offset);
 	void write(offs_t offset, uint32_t data, uint32_t mem_mask);
@@ -26,12 +26,12 @@ public:
 	auto phy_read() { return m_phy_read_cb.bind(); }
 	auto phy_write() { return m_phy_write_cb.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER(phy_reset_w);
+	void phy_reset_w(int state);
 
 private:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	void set_interrupt(uint32_t bit);
 	void check_interrupts();

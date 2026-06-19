@@ -67,7 +67,7 @@ public:
 protected:
 	required_device<cpu_device> m_maincpu;
 	optional_device<ls259_device> m_mainlatch;
-	optional_device<namco_device> m_namco_sound;
+	optional_device<namco_wsg_device> m_namco_sound;
 	required_device<watchdog_timer_device> m_watchdog;
 	required_device<screen_device> m_screen;
 	optional_shared_ptr<u8> m_spriteram;
@@ -98,8 +98,8 @@ protected:
 
 	void pacman_interrupt_vector_w(u8 data);
 	void piranha_interrupt_vector_w(u8 data);
-	DECLARE_WRITE_LINE_MEMBER(coin_counter_w);
-	DECLARE_WRITE_LINE_MEMBER(coin_lockout_global_w);
+	void coin_counter_w(int state);
+	void coin_lockout_global_w(int state);
 	void maketrax_protection_w(u8 data);
 	u8 maketrax_special_port2_r(offs_t offset);
 	u8 maketrax_special_port3_r(offs_t offset);
@@ -115,22 +115,22 @@ protected:
 	void mspacman_disable_decode_w(u8 data);
 	u8 mspacman_enable_decode_r_0x3ff8(offs_t offset);
 	void mspacman_enable_decode_w(u8 data);
-	DECLARE_WRITE_LINE_MEMBER(irq_mask_w);
+	void irq_mask_w(int);
 	void pacman_videoram_w(offs_t, u8);
 	void pacman_colorram_w(offs_t, u8);
-	DECLARE_WRITE_LINE_MEMBER(flipscreen_w);
-	DECLARE_WRITE_LINE_MEMBER(pengo_palettebank_w);
-	DECLARE_WRITE_LINE_MEMBER(pengo_colortablebank_w);
-	DECLARE_WRITE_LINE_MEMBER(pengo_gfxbank_w);
+	void flipscreen_w(int state);
+	void pengo_palettebank_w(int state);
+	void pengo_colortablebank_w(int state);
+	void pengo_gfxbank_w(int state);
 	void s2650games_videoram_w(offs_t, u8);
 	void s2650games_colorram_w(offs_t, u8);
 	void s2650games_scroll_w(offs_t, u8);
 	void s2650games_tilesbank_w(offs_t, u8);
 	void jrpacman_videoram_w(offs_t, u8);
-	DECLARE_WRITE_LINE_MEMBER(jrpacman_charbank_w);
-	DECLARE_WRITE_LINE_MEMBER(jrpacman_spritebank_w);
+	void jrpacman_charbank_w(int state);
+	void jrpacman_spritebank_w(int state);
 	void jrpacman_scroll_w(u8);
-	DECLARE_WRITE_LINE_MEMBER(jrpacman_bgpriority_w);
+	void jrpacman_bgpriority_w(int state);
 	TILEMAP_MAPPER_MEMBER(pacman_scan_rows);
 	TILE_GET_INFO_MEMBER(pacman_get_tile_info);
 	TILE_GET_INFO_MEMBER(s2650_get_tile_info);
@@ -225,8 +225,8 @@ protected:
 	void pengo_palette(palette_device &palette) const;
 	void m96in1b_gfxbank_w(u8 gfxbank);
 	void madpac_gfxbank_w(u8 gfxbank);
-	DECLARE_WRITE_LINE_MEMBER(led1_w);
-	DECLARE_WRITE_LINE_MEMBER(led2_w);
+	void led1_w(int state);
+	void led2_w(int state);
 	void multipac_gfxbank_w(u8 data);
 	void multipac_palbank_w(offs_t offset, u8 data);
 	TILE_GET_INFO_MEMBER(multipac_get_tile_info);

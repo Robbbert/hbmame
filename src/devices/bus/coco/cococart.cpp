@@ -58,6 +58,7 @@
 #include "coco_sym12.h"
 #include "coco_wpk.h"
 #include "coco_wpk2p.h"
+#include "coco_xsid.h"
 
 #include "dragon_amtor.h"
 #include "dragon_claw.h"
@@ -73,7 +74,6 @@
     PARAMETERS
 ***************************************************************************/
 
-//#define LOG_GENERAL   (1U << 0) //defined in logmacro.h already
 #define LOG_CART (1U << 1) // shows cart line changes
 #define LOG_NMI  (1U << 2) // shows switch changes
 #define LOG_HALT (1U << 3) // shows switch changes
@@ -153,7 +153,6 @@ void cococart_slot_device::device_start()
 	m_cart_line.value           = line_value::CLEAR;
 	m_cart_line.line            = 0;
 	m_cart_line.q_count         = 0;
-	m_cart_callback.resolve();
 	m_cart_line.callback = &m_cart_callback;
 
 	m_nmi_line.timer_index      = 0;
@@ -161,7 +160,6 @@ void cococart_slot_device::device_start()
 	m_nmi_line.value            = line_value::CLEAR;
 	m_nmi_line.line             = 0;
 	m_nmi_line.q_count          = 0;
-	m_nmi_callback.resolve();
 	m_nmi_line.callback = &m_nmi_callback;
 
 	m_halt_line.timer_index     = 0;
@@ -169,7 +167,6 @@ void cococart_slot_device::device_start()
 	m_halt_line.value           = line_value::CLEAR;
 	m_halt_line.line            = 0;
 	m_halt_line.q_count         = 0;
-	m_halt_callback.resolve();
 	m_halt_line.callback = &m_halt_callback;
 
 	m_cart = get_card_device();
@@ -346,9 +343,8 @@ void cococart_slot_device::set_line(line ln, coco_cartridge_line &line, cococart
 				break;
 		}
 
-		/* invoke the callback, if present */
-		if (!(*line.callback).isnull())
-			(*line.callback)(line.line);
+		/* invoke the callback */
+		(*line.callback)(line.line);
 	}
 }
 
@@ -560,7 +556,7 @@ static std::error_condition read_coco_rpk(std::unique_ptr<util::random_read> &&s
 			return err;
 
 		// copy the bytes
-		offs_t size = (offs_t) std::min(contents.size(), (size_t)cart_length - pos);
+		size_t const size = std::min<size_t>(contents.size(), cart_length - pos);
 		memcpy(&mem[pos], &contents[0], size);
 		pos += size;
 	}
@@ -575,13 +571,14 @@ static std::error_condition read_coco_rpk(std::unique_ptr<util::random_read> &&s
 //  call_load
 //-------------------------------------------------
 
-image_init_result cococart_slot_device::call_load()
+std::pair<std::error_condition, std::string> cococart_slot_device::call_load()
 {
 	if (m_cart)
 	{
 		memory_region *cart_mem = m_cart->get_cart_memregion();
 		u8 *base = cart_mem->base();
-		offs_t read_length, cart_length = cart_mem->bytes();
+		offs_t read_length = cart_mem->bytes();
+		offs_t cart_length = cart_mem->bytes();
 
 		if (loaded_through_softlist())
 		{
@@ -597,7 +594,7 @@ image_init_result cococart_slot_device::call_load()
 			if (!err)
 				err = read_coco_rpk(std::move(proxy), base, cart_length, read_length);
 			if (err)
-				return image_init_result::FAIL;
+				return std::make_pair(err, std::string());
 		}
 		else
 		{
@@ -612,7 +609,7 @@ image_init_result cococart_slot_device::call_load()
 			read_length += len;
 		}
 	}
-	return image_init_result::PASS;
+	return std::make_pair(std::error_condition(), std::string());
 }
 
 
@@ -657,7 +654,7 @@ template class device_finder<device_cococart_interface, true>;
 
 device_cococart_interface::device_cococart_interface(const machine_config &mconfig, device_t &device)
 	: device_interface(device, "cococart")
-	, m_owning_slot(nullptr)
+	, m_owning_slot(dynamic_cast<cococart_slot_device *>(device.owner()))
 	, m_host(nullptr)
 {
 }
@@ -678,7 +675,6 @@ device_cococart_interface::~device_cococart_interface()
 
 void device_cococart_interface::interface_config_complete()
 {
-	m_owning_slot = dynamic_cast<cococart_slot_device *>(device().owner());
 	m_host = m_owning_slot
 			? dynamic_cast<device_cococart_host_interface *>(m_owning_slot->owner())
 			: nullptr;
@@ -850,6 +846,7 @@ void coco_cart_add_basic_devices(device_slot_interface &device)
 	device.option_add("wpk2", COCO_WPK2);
 	device.option_add("wpkrs", COCO_WPKRS);
 	device.option_add("wpk2p", COCO_WPK2P);
+	device.option_add("xsid", COCO_XSID);
 }
 
 
@@ -861,12 +858,10 @@ void coco_cart_add_fdcs(device_slot_interface &device)
 {
 	// FDCs are optional because if they are on a Multi-Pak interface, they must
 	// be on Slot 4
-	device.option_add("cc2hdb1", COCO2_HDB1);
-	device.option_add("cc3hdb1", COCO3_HDB1);
 	device.option_add("cd6809_fdc", CD6809_FDC);
 	device.option_add("cp450_fdc", CP450_FDC);
 	device.option_add("fdc", COCO_FDC);
-	device.option_add("fdcv11", COCO_FDC_V11);
+	device.option_add("scii", COCO_SCII);
 }
 
 
@@ -905,6 +900,7 @@ void dragon_cart_add_basic_devices(device_slot_interface &device)
 	device.option_add("stecomp", COCO_STEREO_COMPOSER);
 	device.option_add("sym12", COCO_SYM12);
 	device.option_add("wpk2p", COCO_WPK2P);
+	device.option_add("xsid", COCO_XSID);
 }
 
 

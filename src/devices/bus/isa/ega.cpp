@@ -446,8 +446,6 @@ located at I/O port 0x3CE, and a data register located at I/O port 0x3CF.
 #include "emu.h"
 #include "ega.h"
 
-#include "screen.h"
-
 #define LOG_READ    (1U << 1)
 #define LOG_SETUP   (1U << 2)
 #define LOG_MODE    (1U << 3)
@@ -539,10 +537,10 @@ DEFINE_DEVICE_TYPE(ISA8_EGA, isa8_ega_device, "ega", "IBM Enhanced Graphics Adap
 
 void isa8_ega_device::device_add_mconfig(machine_config &config)
 {
-	screen_device &screen(SCREEN(config, EGA_SCREEN_NAME, SCREEN_TYPE_RASTER));
-	screen.set_raw(16.257_MHz_XTAL, 912, 0, 640, 262, 0, 200);
-	screen.set_screen_update(EGA_CRTC_NAME, FUNC(crtc_ega_device::screen_update));
-	screen.set_palette(m_palette);
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(16.257_MHz_XTAL, 912, 0, 640, 262, 0, 200);
+	m_screen->set_screen_update(EGA_CRTC_NAME, FUNC(crtc_ega_device::screen_update));
+	m_screen->set_palette(m_palette);
 
 	PALETTE(config, m_palette).set_entries(64);
 
@@ -589,7 +587,7 @@ isa8_ega_device::isa8_ega_device(const machine_config &mconfig, device_type type
 	device_isa8_card_interface(mconfig, *this),
 	m_crtc_ega(*this, EGA_CRTC_NAME), m_videoram(nullptr), m_charA(nullptr), m_charB(nullptr),
 	m_misc_output(0), m_feature_control(0), m_frame_cnt(0), m_hsync(0), m_vsync(0), m_vblank(0), m_display_enable(0), m_irq(0), m_video_mode(0),
-	m_palette(*this, "palette")
+	m_palette(*this, "palette"), m_screen(*this, EGA_SCREEN_NAME)
 {
 }
 
@@ -764,19 +762,19 @@ CRTC_EGA_PIXEL_UPDATE( isa8_ega_device::ega_update_row )
 }
 
 
-WRITE_LINE_MEMBER( isa8_ega_device::de_changed )
+void isa8_ega_device::de_changed(int state)
 {
 	m_display_enable = state ? 1 : 0;
 }
 
 
-WRITE_LINE_MEMBER( isa8_ega_device::hsync_changed )
+void isa8_ega_device::hsync_changed(int state)
 {
 	m_hsync = state ? 1 : 0;
 }
 
 
-WRITE_LINE_MEMBER( isa8_ega_device::vsync_changed )
+void isa8_ega_device::vsync_changed(int state)
 {
 	m_vsync = state ? 1 : 0;
 	if ( state )
@@ -786,7 +784,7 @@ WRITE_LINE_MEMBER( isa8_ega_device::vsync_changed )
 }
 
 
-WRITE_LINE_MEMBER( isa8_ega_device::vblank_changed )
+void isa8_ega_device::vblank_changed(int state)
 {
 	m_vblank = state ? 8 : 0;
 }
@@ -863,21 +861,27 @@ CRTC_EGA_PIXEL_UPDATE( isa8_ega_device::pc_ega_text )
 	uint8_t   chr = m_plane[0][ offset ];
 	uint8_t   attr = m_plane[1][ offset ];
 	uint8_t   data;
-	uint16_t  fg = m_attribute.data[ attr & 0x07 ];
-	uint16_t  bg = m_attribute.data[ ( attr >> 4 ) & 0x07 ];
+	uint8_t blink = m_attribute.data[0x10] & 0x08;
+	uint16_t  fg = m_attribute.data[ attr & 0x0f ];
+	uint16_t  bg = m_attribute.data[ ( attr >> 4 ) & (blink ? 0x07 : 0x0f) ];
 
-	/* If character set A and B are equal attribute bit 3 is used as intensity */
 	if ( m_charA == m_charB )
-	{
-		/* intensity selector */
 		data = m_charB[ chr * 32 + ra ];
-		if ( !( m_attribute.data[0x10] & 0x08 ) )
-			fg = m_attribute.data[ attr & 0x0f ];
-	}
 	else
 	{
 		/* character set selector */
 		data = ( attr & 0x08 ) ? m_charA[ chr * 32 + ra ] : m_charB[ chr * 32 + ra ];
+		fg &= 0x07;
+	}
+
+	if(m_screen->visible_area().height() == 200) // the ibm 5154 forces cga compatibility in 200 line modes
+	{
+		fg = fg | (BIT(fg, 4) ? 0x38 : 0);
+		if ( fg == 6 )
+			fg = 0x14;
+		bg = bg | (BIT(bg, 4) ? 0x38 : 0);
+		if ( bg == 6 )
+			bg = 0x14;
 	}
 
 	if ( x == cursor_x )
@@ -965,7 +969,7 @@ uint8_t isa8_ega_device::read(offs_t offset)
 {
 	uint8_t data = 0xFF;
 
-	if ( !machine().side_effects_disabled() && !( m_graphics_controller.data[5] & 0x10 ) )
+	if ( !machine().side_effects_disabled() )
 	{
 		/* Fill read latches */
 		m_read_latch[0] = m_plane[0][offset & 0xffff];
@@ -977,8 +981,23 @@ uint8_t isa8_ega_device::read(offs_t offset)
 	if ( m_graphics_controller.data[5] & 0x08 )
 	{
 		// Read mode #1
-		popmessage("ega: Read mode 1 not supported yet!");
-		printf("EGA: Read mode 1 not supported yet!\n");
+		data = 0;
+		for ( int i = 0; i < 8; i++ )
+		{
+			int bit = 1;
+			for ( int p = 0; p < 4; p++ )
+			{
+				if ( BIT(m_graphics_controller.data[7], p) )
+				{
+					if ( BIT(m_graphics_controller.data[2], p) != BIT(m_plane[p][offset & 0xffff], i) )
+					{
+						bit = 0;
+						break;
+					}
+				}
+			}
+			data |= bit << i;
+		}
 	}
 	else
 	{
@@ -1032,7 +1051,6 @@ void isa8_ega_device::write(offs_t offset, uint8_t data)
 {
 	uint8_t d[4];
 	uint8_t alu[4];
-	uint8_t target_mask = m_graphics_controller.data[8];
 
 	alu[0] =alu[1] = alu[2] = alu[3] = 0;
 
@@ -1075,7 +1093,6 @@ void isa8_ega_device::write(offs_t offset, uint8_t data)
 		alu[1] = m_read_latch[1];
 		alu[2] = m_read_latch[2];
 		alu[3] = m_read_latch[3];
-		target_mask = 0xff;
 		break;
 
 	case 2:     // Write mode 2
@@ -1108,25 +1125,25 @@ void isa8_ega_device::write(offs_t offset, uint8_t data)
 		{
 			// Plane 0
 			// Bit selection
-			m_plane[0][offset] = ( m_plane[0][offset] & ~ target_mask ) | ( alu[0] & target_mask );
+			m_plane[0][offset] = alu[0];
 		}
 		if ( m_sequencer.data[2] & 0x02 )
 		{
 			// Plane 1
 			// Bit selection
-			m_plane[1][offset] = ( m_plane[1][offset] & ~ target_mask ) | ( alu[1] & target_mask );
+			m_plane[1][offset] = alu[1];
 		}
 		if ( m_sequencer.data[2] & 0x04 )
 		{
 			// Plane 2
 			// Bit selection
-			m_plane[2][offset] = ( m_plane[2][offset] & ~ target_mask ) | ( alu[2] & target_mask );
+			m_plane[2][offset] = alu[2];
 		}
 		if ( m_sequencer.data[2] & 0x08 )
 		{
 			// Plane 3
 			// Bit selection
-			m_plane[3][offset] = ( m_plane[3][offset] & ~ target_mask ) | ( alu[3] & target_mask );
+			m_plane[3][offset] = alu[3];
 		}
 	}
 	else
@@ -1141,13 +1158,13 @@ void isa8_ega_device::write(offs_t offset, uint8_t data)
 			{
 				// Plane 1
 				// Bit selection
-				m_plane[1][offset] = ( m_plane[1][offset] & ~ target_mask ) | ( alu[1] & target_mask );
+				m_plane[1][offset] = alu[1];
 			}
 			if ( ( m_sequencer.data[2] & 0x08 ) && ! ( m_sequencer.data[4] & 0x01 ) )
 			{
 				// Plane 3
 				// Bit selection
-				m_plane[3][offset] = ( m_plane[3][offset] & ~ target_mask ) | ( alu[3] & target_mask );
+				m_plane[3][offset] = alu[3];
 			}
 		}
 		else
@@ -1158,13 +1175,13 @@ void isa8_ega_device::write(offs_t offset, uint8_t data)
 			{
 				// Plane 0
 				// Bit selection
-				m_plane[0][offset] = ( m_plane[0][offset] & ~ target_mask ) | ( alu[0] & target_mask );
+				m_plane[0][offset] = alu[0];
 			}
 			if ( ( m_sequencer.data[2] & 0x04 ) && ! ( m_sequencer.data[4] & 0x01 ) )
 			{
 				// Plane 2
 				// Bit selection
-				m_plane[2][offset] = ( m_plane[2][offset] & ~ target_mask ) | ( alu[2] & target_mask );
+				m_plane[2][offset] = alu[2];
 			}
 		}
 	}

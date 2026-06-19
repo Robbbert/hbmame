@@ -18,9 +18,12 @@
 #define MAME_EMU_EMUMEM_H
 
 #include "notifier.h"
+#include "coretmpl.h"
 
+#include <cstdlib>
 #include <optional>
 #include <set>
+#include <string_view>
 #include <type_traits>
 
 using s8 = std::int8_t;
@@ -70,26 +73,6 @@ using offs_t = u32;
 
 // address map constructors are delegates that build up an address_map
 using address_map_constructor = named_delegate<void (address_map &)>;
-
-// struct with function pointers for accessors; use is generally discouraged unless necessary
-struct data_accessors
-{
-	u8      (*read_byte)(address_space &space, offs_t address);
-	u16     (*read_word)(address_space &space, offs_t address);
-	u16     (*read_word_masked)(address_space &space, offs_t address, u16 mask);
-	u32     (*read_dword)(address_space &space, offs_t address);
-	u32     (*read_dword_masked)(address_space &space, offs_t address, u32 mask);
-	u64     (*read_qword)(address_space &space, offs_t address);
-	u64     (*read_qword_masked)(address_space &space, offs_t address, u64 mask);
-
-	void    (*write_byte)(address_space &space, offs_t address, u8 data);
-	void    (*write_word)(address_space &space, offs_t address, u16 data);
-	void    (*write_word_masked)(address_space &space, offs_t address, u16 data, u16 mask);
-	void    (*write_dword)(address_space &space, offs_t address, u32 data);
-	void    (*write_dword_masked)(address_space &space, offs_t address, u32 data, u32 mask);
-	void    (*write_qword)(address_space &space, offs_t address, u64 data);
-	void    (*write_qword_masked)(address_space &space, offs_t address, u64 data, u64 mask);
-};
 
 // a line in the memory structure dump
 struct memory_entry_context {
@@ -173,287 +156,340 @@ using write32smo_delegate = device_delegate<void (u32)>;
 using write64smo_delegate = device_delegate<void (u64)>;
 
 
+// =====================-> Wait states delegates
+
+using ws_time_delegate  = device_delegate<u64 (offs_t, u64)>;
+using ws_delay_delegate = device_delegate<u32 (offs_t)>;
+
+
 namespace emu::detail {
 
-// TODO: replace with std::void_t when we move to C++17
-template <typename... T> struct void_wrapper { using type = void; };
-template <typename... T> using void_t = typename void_wrapper<T...>::type;
+// name is slightly misleading - it also supports a free function taking an object reference as the first parameter
+template <typename D, typename T> struct mfp_device_class { };
 
-template <typename D, typename T, typename Enable = void> struct rw_device_class { };
+template <typename D, typename T, typename Ret, typename... Params> requires std::is_constructible_v<D, device_t &, const char *, Ret (T::*)(Params...), const char *>
+struct mfp_device_class<D, Ret (T::*)(Params...)> { using type = T; };
+template <typename D, typename T, typename Ret, typename... Params> requires std::is_constructible_v<D, device_t &, const char *, Ret (T::*)(Params...) const, const char *>
+struct mfp_device_class<D, Ret (T::*)(Params...) const> { using type = T; };
+template <typename D, typename T, typename Ret, typename... Params> requires std::is_constructible_v<D, device_t &, const char *, Ret (*)(T &, Params...), const char *>
+struct mfp_device_class<D, Ret (*)(T &, Params...)> { using type = T; };
 
-template <typename D, typename T, typename Ret, typename... Params>
-struct rw_device_class<D, Ret (T::*)(Params...), std::enable_if_t<std::is_constructible<D, device_t &, const char *, Ret (T::*)(Params...), const char *>::value> > { using type = T; };
-template <typename D, typename T, typename Ret, typename... Params>
-struct rw_device_class<D, Ret (T::*)(Params...) const, std::enable_if_t<std::is_constructible<D, device_t &, const char *, Ret (T::*)(Params...) const, const char *>::value> > { using type = T; };
-template <typename D, typename T, typename Ret, typename... Params>
-struct rw_device_class<D, Ret (*)(T &, Params...), std::enable_if_t<std::is_constructible<D, device_t &, const char *, Ret (*)(T &, Params...), const char *>::value> > { using type = T; };
+template <typename D, typename T> using mfp_device_class_t  = typename mfp_device_class<D, std::remove_reference_t<T> >::type;
 
-template <typename D, typename T> using rw_device_class_t  = typename rw_device_class<D, T>::type;
+// function pointer suitable for constructing a given delegate
+template <typename T, typename D> concept suitable_member_func = requires { typename mfp_device_class_t<D, T>; };
 
-template <typename T, typename Enable = void> struct rw_delegate_type;
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read8_delegate, std::remove_reference_t<T> > > > { using type = read8_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read16_delegate, std::remove_reference_t<T> > > > { using type = read16_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read32_delegate, std::remove_reference_t<T> > > > { using type = read32_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read64_delegate, std::remove_reference_t<T> > > > { using type = read64_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read8m_delegate, std::remove_reference_t<T> > > > { using type = read8m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read16m_delegate, std::remove_reference_t<T> > > > { using type = read16m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read32m_delegate, std::remove_reference_t<T> > > > { using type = read32m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read64m_delegate, std::remove_reference_t<T> > > > { using type = read64m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read8s_delegate, std::remove_reference_t<T> > > > { using type = read8s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read16s_delegate, std::remove_reference_t<T> > > > { using type = read16s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read32s_delegate, std::remove_reference_t<T> > > > { using type = read32s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read64s_delegate, std::remove_reference_t<T> > > > { using type = read64s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read8sm_delegate, std::remove_reference_t<T> > > > { using type = read8sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read16sm_delegate, std::remove_reference_t<T> > > > { using type = read16sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read32sm_delegate, std::remove_reference_t<T> > > > { using type = read32sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read64sm_delegate, std::remove_reference_t<T> > > > { using type = read64sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read8mo_delegate, std::remove_reference_t<T> > > > { using type = read8mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read16mo_delegate, std::remove_reference_t<T> > > > { using type = read16mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read32mo_delegate, std::remove_reference_t<T> > > > { using type = read32mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read64mo_delegate, std::remove_reference_t<T> > > > { using type = read64mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read8smo_delegate, std::remove_reference_t<T> > > > { using type = read8smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read16smo_delegate, std::remove_reference_t<T> > > > { using type = read16smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read32smo_delegate, std::remove_reference_t<T> > > > { using type = read32smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<read64smo_delegate, std::remove_reference_t<T> > > > { using type = read64smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write8_delegate, std::remove_reference_t<T> > > > { using type = write8_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write16_delegate, std::remove_reference_t<T> > > > { using type = write16_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write32_delegate, std::remove_reference_t<T> > > > { using type = write32_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write64_delegate, std::remove_reference_t<T> > > > { using type = write64_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write8m_delegate, std::remove_reference_t<T> > > > { using type = write8m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write16m_delegate, std::remove_reference_t<T> > > > { using type = write16m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write32m_delegate, std::remove_reference_t<T> > > > { using type = write32m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write64m_delegate, std::remove_reference_t<T> > > > { using type = write64m_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write8s_delegate, std::remove_reference_t<T> > > > { using type = write8s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write16s_delegate, std::remove_reference_t<T> > > > { using type = write16s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write32s_delegate, std::remove_reference_t<T> > > > { using type = write32s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write64s_delegate, std::remove_reference_t<T> > > > { using type = write64s_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write8sm_delegate, std::remove_reference_t<T> > > > { using type = write8sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write16sm_delegate, std::remove_reference_t<T> > > > { using type = write16sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write32sm_delegate, std::remove_reference_t<T> > > > { using type = write32sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write64sm_delegate, std::remove_reference_t<T> > > > { using type = write64sm_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write8mo_delegate, std::remove_reference_t<T> > > > { using type = write8mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write16mo_delegate, std::remove_reference_t<T> > > > { using type = write16mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write32mo_delegate, std::remove_reference_t<T> > > > { using type = write32mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write64mo_delegate, std::remove_reference_t<T> > > > { using type = write64mo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write8smo_delegate, std::remove_reference_t<T> > > > { using type = write8smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write16smo_delegate, std::remove_reference_t<T> > > > { using type = write16smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write32smo_delegate, std::remove_reference_t<T> > > > { using type = write32smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
-template <typename T> struct rw_delegate_type<T, void_t<rw_device_class_t<write64smo_delegate, std::remove_reference_t<T> > > > { using type = write64smo_delegate; using device_class = rw_device_class_t<type, std::remove_reference_t<T> >; };
+template <typename T> struct rw_delegate_type;
+template <suitable_member_func<read8_delegate> T> struct rw_delegate_type<T> { using type = read8_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read16_delegate> T> struct rw_delegate_type<T> { using type = read16_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read32_delegate> T> struct rw_delegate_type<T> { using type = read32_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read64_delegate> T> struct rw_delegate_type<T> { using type = read64_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read8m_delegate> T> struct rw_delegate_type<T> { using type = read8m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read16m_delegate> T> struct rw_delegate_type<T> { using type = read16m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read32m_delegate> T> struct rw_delegate_type<T> { using type = read32m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read64m_delegate> T> struct rw_delegate_type<T> { using type = read64m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read8s_delegate> T> struct rw_delegate_type<T> { using type = read8s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read16s_delegate> T> struct rw_delegate_type<T> { using type = read16s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read32s_delegate> T> struct rw_delegate_type<T> { using type = read32s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read64s_delegate> T> struct rw_delegate_type<T> { using type = read64s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read8sm_delegate> T> struct rw_delegate_type<T> { using type = read8sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read16sm_delegate> T> struct rw_delegate_type<T> { using type = read16sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read32sm_delegate> T> struct rw_delegate_type<T> { using type = read32sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read64sm_delegate> T> struct rw_delegate_type<T> { using type = read64sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read8mo_delegate> T> struct rw_delegate_type<T> { using type = read8mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read16mo_delegate> T> struct rw_delegate_type<T> { using type = read16mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read32mo_delegate> T> struct rw_delegate_type<T> { using type = read32mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read64mo_delegate> T> struct rw_delegate_type<T> { using type = read64mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read8smo_delegate> T> struct rw_delegate_type<T> { using type = read8smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read16smo_delegate> T> struct rw_delegate_type<T> { using type = read16smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read32smo_delegate> T> struct rw_delegate_type<T> { using type = read32smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<read64smo_delegate> T> struct rw_delegate_type<T> { using type = read64smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write8_delegate> T> struct rw_delegate_type<T> { using type = write8_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write16_delegate> T> struct rw_delegate_type<T> { using type = write16_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write32_delegate> T> struct rw_delegate_type<T> { using type = write32_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write64_delegate> T> struct rw_delegate_type<T> { using type = write64_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write8m_delegate> T> struct rw_delegate_type<T> { using type = write8m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write16m_delegate> T> struct rw_delegate_type<T> { using type = write16m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write32m_delegate> T> struct rw_delegate_type<T> { using type = write32m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write64m_delegate> T> struct rw_delegate_type<T> { using type = write64m_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write8s_delegate> T> struct rw_delegate_type<T> { using type = write8s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write16s_delegate> T> struct rw_delegate_type<T> { using type = write16s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write32s_delegate> T> struct rw_delegate_type<T> { using type = write32s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write64s_delegate> T> struct rw_delegate_type<T> { using type = write64s_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write8sm_delegate> T> struct rw_delegate_type<T> { using type = write8sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write16sm_delegate> T> struct rw_delegate_type<T> { using type = write16sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write32sm_delegate> T> struct rw_delegate_type<T> { using type = write32sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write64sm_delegate> T> struct rw_delegate_type<T> { using type = write64sm_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write8mo_delegate> T> struct rw_delegate_type<T> { using type = write8mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write16mo_delegate> T> struct rw_delegate_type<T> { using type = write16mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write32mo_delegate> T> struct rw_delegate_type<T> { using type = write32mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write64mo_delegate> T> struct rw_delegate_type<T> { using type = write64mo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write8smo_delegate> T> struct rw_delegate_type<T> { using type = write8smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write16smo_delegate> T> struct rw_delegate_type<T> { using type = write16smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write32smo_delegate> T> struct rw_delegate_type<T> { using type = write32smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+template <suitable_member_func<write64smo_delegate> T> struct rw_delegate_type<T> { using type = write64smo_delegate; using device_class = mfp_device_class_t<type, T>; };
+
 template <typename T> using rw_delegate_type_t = typename rw_delegate_type<T>::type;
 template <typename T> using rw_delegate_device_class_t = typename rw_delegate_type<T>::device_class;
 
 
-template <typename T>
-inline rw_delegate_type_t<T> make_delegate(device_t &base, char const *tag, T &&func, char const *name)
-{ return rw_delegate_type_t<T>(base, tag, std::forward<T>(func), name); }
-
-template <typename T>
-inline rw_delegate_type_t<T> make_delegate(rw_delegate_device_class_t<T> &object, T &&func, char const *name)
-{ return rw_delegate_type_t<T>(object, std::forward<T>(func), name); }
-
-
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read8_delegate, device_t &, L, const char *>::value, read8_delegate> make_lr8_delegate(device_t &owner, L &&l, const char *name)
+inline read8_delegate make_lr8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read8_delegate, device_t &, L, const char *>
 { return read8_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read8m_delegate, device_t &, L, const char *>::value, read8m_delegate> make_lr8_delegate(device_t &owner, L &&l, const char *name)
+inline read8m_delegate make_lr8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read8m_delegate, device_t &, L, const char *>
 { return read8m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read8s_delegate, device_t &, L, const char *>::value, read8s_delegate> make_lr8_delegate(device_t &owner, L &&l, const char *name)
+inline read8s_delegate make_lr8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read8s_delegate, device_t &, L, const char *>
 { return read8s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read8sm_delegate, device_t &, L, const char *>::value, read8sm_delegate> make_lr8_delegate(device_t &owner, L &&l, const char *name)
+inline read8sm_delegate make_lr8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read8sm_delegate, device_t &, L, const char *>
 { return read8sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read8mo_delegate, device_t &, L, const char *>::value, read8mo_delegate> make_lr8_delegate(device_t &owner, L &&l, const char *name)
+inline read8mo_delegate make_lr8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read8mo_delegate, device_t &, L, const char *>
 { return read8mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read8smo_delegate, device_t &, L, const char *>::value, read8smo_delegate> make_lr8_delegate(device_t &owner, L &&l, const char *name)
+inline read8smo_delegate make_lr8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read8smo_delegate, device_t &, L, const char *>
 { return read8smo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read16_delegate, device_t &, L, const char *>::value, read16_delegate> make_lr16_delegate(device_t &owner, L &&l, const char *name)
+inline read16_delegate make_lr16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read16_delegate, device_t &, L, const char *>
 { return read16_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read16m_delegate, device_t &, L, const char *>::value, read16m_delegate> make_lr16_delegate(device_t &owner, L &&l, const char *name)
+inline read16m_delegate make_lr16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read16m_delegate, device_t &, L, const char *>
 { return read16m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read16s_delegate, device_t &, L, const char *>::value, read16s_delegate> make_lr16_delegate(device_t &owner, L &&l, const char *name)
+inline read16s_delegate make_lr16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read16s_delegate, device_t &, L, const char *>
 { return read16s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read16sm_delegate, device_t &, L, const char *>::value, read16sm_delegate> make_lr16_delegate(device_t &owner, L &&l, const char *name)
+inline read16sm_delegate make_lr16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read16sm_delegate, device_t &, L, const char *>
 { return read16sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read16mo_delegate, device_t &, L, const char *>::value, read16mo_delegate> make_lr16_delegate(device_t &owner, L &&l, const char *name)
+inline read16mo_delegate make_lr16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read16mo_delegate, device_t &, L, const char *>
 { return read16mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read16smo_delegate, device_t &, L, const char *>::value, read16smo_delegate> make_lr16_delegate(device_t &owner, L &&l, const char *name)
+inline read16smo_delegate make_lr16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read16smo_delegate, device_t &, L, const char *>
 { return read16smo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read32_delegate, device_t &, L, const char *>::value, read32_delegate> make_lr32_delegate(device_t &owner, L &&l, const char *name)
+inline read32_delegate make_lr32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read32_delegate, device_t &, L, const char *>
 { return read32_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read32m_delegate, device_t &, L, const char *>::value, read32m_delegate> make_lr32_delegate(device_t &owner, L &&l, const char *name)
+inline read32m_delegate make_lr32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read32m_delegate, device_t &, L, const char *>
 { return read32m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read32s_delegate, device_t &, L, const char *>::value, read32s_delegate> make_lr32_delegate(device_t &owner, L &&l, const char *name)
+inline read32s_delegate make_lr32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read32s_delegate, device_t &, L, const char *>
 { return read32s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read32sm_delegate, device_t &, L, const char *>::value, read32sm_delegate> make_lr32_delegate(device_t &owner, L &&l, const char *name)
+inline read32sm_delegate make_lr32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read32sm_delegate, device_t &, L, const char *>
 { return read32sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read32mo_delegate, device_t &, L, const char *>::value, read32mo_delegate> make_lr32_delegate(device_t &owner, L &&l, const char *name)
+inline read32mo_delegate make_lr32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read32mo_delegate, device_t &, L, const char *>
 { return read32mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read32smo_delegate, device_t &, L, const char *>::value, read32smo_delegate> make_lr32_delegate(device_t &owner, L &&l, const char *name)
+inline read32smo_delegate make_lr32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read32smo_delegate, device_t &, L, const char *>
 { return read32smo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read64_delegate, device_t &, L, const char *>::value, read64_delegate> make_lr64_delegate(device_t &owner, L &&l, const char *name)
+inline read64_delegate make_lr64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read64_delegate, device_t &, L, const char *>
 { return read64_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read64m_delegate, device_t &, L, const char *>::value, read64m_delegate> make_lr64_delegate(device_t &owner, L &&l, const char *name)
+inline read64m_delegate make_lr64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read64m_delegate, device_t &, L, const char *>
 { return read64m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read64s_delegate, device_t &, L, const char *>::value, read64s_delegate> make_lr64_delegate(device_t &owner, L &&l, const char *name)
+inline read64s_delegate make_lr64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read64s_delegate, device_t &, L, const char *>
 { return read64s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read64sm_delegate, device_t &, L, const char *>::value, read64sm_delegate> make_lr64_delegate(device_t &owner, L &&l, const char *name)
+inline read64sm_delegate make_lr64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read64sm_delegate, device_t &, L, const char *>
 { return read64sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read64mo_delegate, device_t &, L, const char *>::value, read64mo_delegate> make_lr64_delegate(device_t &owner, L &&l, const char *name)
+inline read64mo_delegate make_lr64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read64mo_delegate, device_t &, L, const char *>
 { return read64mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<read64smo_delegate, device_t &, L, const char *>::value, read64smo_delegate> make_lr64_delegate(device_t &owner, L &&l, const char *name)
+inline read64smo_delegate make_lr64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<read64smo_delegate, device_t &, L, const char *>
 { return read64smo_delegate(owner, std::forward<L>(l), name); }
 
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write8_delegate, device_t &, L, const char *>::value, write8_delegate> make_lw8_delegate(device_t &owner, L &&l, const char *name)
+inline write8_delegate make_lw8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write8_delegate, device_t &, L, const char *>
 { return write8_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write8m_delegate, device_t &, L, const char *>::value, write8m_delegate> make_lw8_delegate(device_t &owner, L &&l, const char *name)
+inline write8m_delegate make_lw8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write8m_delegate, device_t &, L, const char *>
 { return write8m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write8s_delegate, device_t &, L, const char *>::value, write8s_delegate> make_lw8_delegate(device_t &owner, L &&l, const char *name)
+inline write8s_delegate make_lw8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write8s_delegate, device_t &, L, const char *>
 { return write8s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write8sm_delegate, device_t &, L, const char *>::value, write8sm_delegate> make_lw8_delegate(device_t &owner, L &&l, const char *name)
+inline write8sm_delegate make_lw8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write8sm_delegate, device_t &, L, const char *>
 { return write8sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write8mo_delegate, device_t &, L, const char *>::value, write8mo_delegate> make_lw8_delegate(device_t &owner, L &&l, const char *name)
+inline write8mo_delegate make_lw8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write8mo_delegate, device_t &, L, const char *>
 { return write8mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write8smo_delegate, device_t &, L, const char *>::value, write8smo_delegate> make_lw8_delegate(device_t &owner, L &&l, const char *name)
+inline write8smo_delegate make_lw8_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write8smo_delegate, device_t &, L, const char *>
 { return write8smo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write16_delegate, device_t &, L, const char *>::value, write16_delegate> make_lw16_delegate(device_t &owner, L &&l, const char *name)
+inline write16_delegate make_lw16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write16_delegate, device_t &, L, const char *>
 { return write16_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write16m_delegate, device_t &, L, const char *>::value, write16m_delegate> make_lw16_delegate(device_t &owner, L &&l, const char *name)
+inline write16m_delegate make_lw16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write16m_delegate, device_t &, L, const char *>
 { return write16m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write16s_delegate, device_t &, L, const char *>::value, write16s_delegate> make_lw16_delegate(device_t &owner, L &&l, const char *name)
+inline write16s_delegate make_lw16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write16s_delegate, device_t &, L, const char *>
 { return write16s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write16sm_delegate, device_t &, L, const char *>::value, write16sm_delegate> make_lw16_delegate(device_t &owner, L &&l, const char *name)
+inline write16sm_delegate make_lw16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write16sm_delegate, device_t &, L, const char *>
 { return write16sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write16mo_delegate, device_t &, L, const char *>::value, write16mo_delegate> make_lw16_delegate(device_t &owner, L &&l, const char *name)
+inline write16mo_delegate make_lw16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write16mo_delegate, device_t &, L, const char *>
 { return write16mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write16smo_delegate, device_t &, L, const char *>::value, write16smo_delegate> make_lw16_delegate(device_t &owner, L &&l, const char *name)
+inline write16smo_delegate make_lw16_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write16smo_delegate, device_t &, L, const char *>
 { return write16smo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write32_delegate, device_t &, L, const char *>::value, write32_delegate> make_lw32_delegate(device_t &owner, L &&l, const char *name)
+inline write32_delegate make_lw32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write32_delegate, device_t &, L, const char *>
 { return write32_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write32m_delegate, device_t &, L, const char *>::value, write32m_delegate> make_lw32_delegate(device_t &owner, L &&l, const char *name)
+inline write32m_delegate make_lw32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write32m_delegate, device_t &, L, const char *>
 { return write32m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write32s_delegate, device_t &, L, const char *>::value, write32s_delegate> make_lw32_delegate(device_t &owner, L &&l, const char *name)
+inline write32s_delegate make_lw32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write32s_delegate, device_t &, L, const char *>
 { return write32s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write32sm_delegate, device_t &, L, const char *>::value, write32sm_delegate> make_lw32_delegate(device_t &owner, L &&l, const char *name)
+inline write32sm_delegate make_lw32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write32sm_delegate, device_t &, L, const char *>
 { return write32sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write32mo_delegate, device_t &, L, const char *>::value, write32mo_delegate> make_lw32_delegate(device_t &owner, L &&l, const char *name)
+inline write32mo_delegate make_lw32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write32mo_delegate, device_t &, L, const char *>
 { return write32mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write32smo_delegate, device_t &, L, const char *>::value, write32smo_delegate> make_lw32_delegate(device_t &owner, L &&l, const char *name)
+inline write32smo_delegate make_lw32_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write32smo_delegate, device_t &, L, const char *>
 { return write32smo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write64_delegate, device_t &, L, const char *>::value, write64_delegate> make_lw64_delegate(device_t &owner, L &&l, const char *name)
+inline write64_delegate make_lw64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write64_delegate, device_t &, L, const char *>
 { return write64_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write64m_delegate, device_t &, L, const char *>::value, write64m_delegate> make_lw64_delegate(device_t &owner, L &&l, const char *name)
+inline write64m_delegate make_lw64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write64m_delegate, device_t &, L, const char *>
 { return write64m_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write64s_delegate, device_t &, L, const char *>::value, write64s_delegate> make_lw64_delegate(device_t &owner, L &&l, const char *name)
+inline write64s_delegate make_lw64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write64s_delegate, device_t &, L, const char *>
 { return write64s_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write64sm_delegate, device_t &, L, const char *>::value, write64sm_delegate> make_lw64_delegate(device_t &owner, L &&l, const char *name)
+inline write64sm_delegate make_lw64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write64sm_delegate, device_t &, L, const char *>
 { return write64sm_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write64mo_delegate, device_t &, L, const char *>::value, write64mo_delegate> make_lw64_delegate(device_t &owner, L &&l, const char *name)
+inline write64mo_delegate make_lw64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write64mo_delegate, device_t &, L, const char *>
 { return write64mo_delegate(owner, std::forward<L>(l), name); }
 
 template <typename L>
-inline std::enable_if_t<std::is_constructible<write64smo_delegate, device_t &, L, const char *>::value, write64smo_delegate> make_lw64_delegate(device_t &owner, L &&l, const char *name)
+inline write64smo_delegate make_lw64_delegate(device_t &owner, L &&l, const char *name) requires std::is_constructible_v<write64smo_delegate, device_t &, L, const char *>
 { return write64smo_delegate(owner, std::forward<L>(l), name); }
+
+
+// =====================-> delegate -> Width
+
+template <typename Delegate> struct handler_width;
+template <typename Delegate> inline constexpr int handler_width_v = handler_width<Delegate>::value;
+template <> struct handler_width<read8_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<read8m_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<read8s_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<read8sm_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<read8mo_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<read8smo_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<write8_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<write8m_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<write8s_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<write8sm_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<write8mo_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<write8smo_delegate> { static inline constexpr int value = 0; };
+template <> struct handler_width<read16_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<read16m_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<read16s_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<read16sm_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<read16mo_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<read16smo_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<write16_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<write16m_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<write16s_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<write16sm_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<write16mo_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<write16smo_delegate> { static inline constexpr int value = 1; };
+template <> struct handler_width<read32_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<read32m_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<read32s_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<read32sm_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<read32mo_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<read32smo_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<write32_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<write32m_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<write32s_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<write32sm_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<write32mo_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<write32smo_delegate> { static inline constexpr int value = 2; };
+template <> struct handler_width<read64_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<read64m_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<read64s_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<read64sm_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<read64mo_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<read64smo_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<write64_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<write64m_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<write64s_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<write64sm_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<write64mo_delegate> { static inline constexpr int value = 3; };
+template <> struct handler_width<write64smo_delegate> { static inline constexpr int value = 3; };
 
 
 
 // =====================-> Width -> types
 
-template<int Width> struct handler_entry_size {};
-template<> struct handler_entry_size<0> { using uX = u8;  };
-template<> struct handler_entry_size<1> { using uX = u16; };
-template<> struct handler_entry_size<2> { using uX = u32; };
-template<> struct handler_entry_size<3> { using uX = u64; };
+template <int Width> struct handler_entry_size;
+template <int Width> using handler_entry_size_t = typename handler_entry_size<Width>::type;
+template<> struct handler_entry_size<0> { using type = u8;  };
+template<> struct handler_entry_size<1> { using type = u16; };
+template<> struct handler_entry_size<2> { using type = u32; };
+template<> struct handler_entry_size<3> { using type = u64; };
 
 // =====================-> Address segmentation for the search tree
 
@@ -501,6 +537,23 @@ private:
 } // namespace emu::detail
 
 
+namespace emu {
+
+template <typename T>
+inline detail::rw_delegate_type_t<T> rw_delegate(device_t &base, char const *tag, T &&func, char const *name)
+{ return detail::rw_delegate_type_t<T>(base, tag, std::forward<T>(func), name); }
+
+template <typename T>
+inline detail::rw_delegate_type_t<T> rw_delegate(detail::rw_delegate_device_class_t<T> &object, T &&func, char const *name)
+{ return detail::rw_delegate_type_t<T>(object, std::forward<T>(func), name); }
+
+template <typename D, bool Reqd, typename T>
+inline detail::rw_delegate_type_t<T> rw_delegate(device_finder<D, Reqd> const &finder, T &&func, char const *name)
+{ return detail::rw_delegate_type_t<T>(finder, std::forward<T>(func), name); }
+
+} // namespace emu
+
+
 // ======================> memory_units_descritor forwards declaration
 
 template<int Width, int AddrShift> class memory_units_descriptor;
@@ -518,11 +571,14 @@ class handler_entry
 
 public:
 	// Typing flags (low 16 bits are for the user)
-	static constexpr u32 F_UNMAP       = 0x00010000; // the unmapped memory accessed handler
-	static constexpr u32 F_DISPATCH    = 0x00020000; // handler that forwards the access to other handlers
-	static constexpr u32 F_UNITS       = 0x00040000; // handler that merges/splits an access among multiple handlers (unitmask support)
-	static constexpr u32 F_PASSTHROUGH = 0x00080000; // handler that passes through the request to another handler
-	static constexpr u32 F_VIEW        = 0x00100000; // handler for a view (kinda like dispatch except not entirely)
+	static constexpr u32 F_UNMAP       = 0x00010000;     // the unmapped memory accessed handler
+	static constexpr u32 F_DISPATCH    = 0x00020000;     // handler that forwards the access to other handlers
+	static constexpr u32 F_UNITS       = 0x00040000;     // handler that merges/splits an access among multiple handlers (unitmask support)
+	static constexpr u32 F_VIEW        = 0x00080000;     // handler for a view (kinda like dispatch except not entirely)
+	static constexpr u32 F_PT_BITS     = 24;             // position of the 4-bit priority for a passthrough handler.  The highest the priority the earlier it is called in the chain. 0 = not passthrough
+	static constexpr u32 F_PT_REPLACE  = 1 << F_PT_BITS; // a passthrough with a odd priority can only happen once in a path
+
+	static constexpr u32 f_pt(u32 priority) { return (priority << F_PT_BITS); }
 
 	// Start/end of range flags
 	static constexpr u8 START = 1;
@@ -552,9 +608,11 @@ public:
 	inline bool is_dispatch() const { return m_flags & F_DISPATCH; }
 	inline bool is_view() const { return m_flags & F_VIEW; }
 	inline bool is_units() const { return m_flags & F_UNITS; }
-	inline bool is_passthrough() const { return m_flags & F_PASSTHROUGH; }
+	inline bool is_passthrough() const { return f_get_pt() != 0; }
+	inline u32 f_get_pt() const { return (m_flags >> F_PT_BITS) & 15; }
 
 	virtual void dump_map(std::vector<memory_entry> &map) const;
+	bool is_handler_in_map(std::vector<memory_entry> &map, offs_t begin, offs_t end, handler_entry *handler) const;
 
 	virtual std::string name() const = 0;
 	virtual void enumerate_references(handler_entry::reflist &refs) const;
@@ -597,7 +655,7 @@ protected:
 template<int Width, int AddrShift> class handler_entry_read : public handler_entry
 {
 public:
-	using uX = typename emu::detail::handler_entry_size<Width>::uX;
+	using uX = emu::detail::handler_entry_size_t<Width>;
 
 	static constexpr u32 NATIVE_MASK = Width + AddrShift >= 0 ? make_bitmask<u32>(Width + AddrShift) : 0;
 
@@ -611,7 +669,9 @@ public:
 	~handler_entry_read() {}
 
 	virtual uX read(offs_t offset, uX mem_mask) const = 0;
+	virtual uX read_interruptible(offs_t offset, uX mem_mask) const = 0;
 	virtual std::pair<uX, u16> read_flags(offs_t offset, uX mem_mask) const = 0;
+	virtual u16 lookup_flags(offs_t offset, uX mem_mask) const = 0;
 	virtual void *get_ptr(offs_t offset) const;
 	virtual void lookup(offs_t address, offs_t &start, offs_t &end, handler_entry_read<Width, AddrShift> *&handler) const;
 
@@ -670,7 +730,7 @@ public:
 template<int Width, int AddrShift> class handler_entry_write : public handler_entry
 {
 public:
-	using uX = typename emu::detail::handler_entry_size<Width>::uX;
+	using uX = emu::detail::handler_entry_size_t<Width>;
 
 	static constexpr u32 NATIVE_MASK = Width + AddrShift >= 0 ? make_bitmask<u32>(Width + AddrShift) : 0;
 
@@ -684,7 +744,9 @@ public:
 	virtual ~handler_entry_write() {}
 
 	virtual void write(offs_t offset, uX data, uX mem_mask) const = 0;
+	virtual void write_interruptible(offs_t offset, uX data, uX mem_mask) const = 0;
 	virtual u16 write_flags(offs_t offset, uX data, uX mem_mask) const = 0;
+	virtual u16 lookup_flags(offs_t offset, uX mem_mask) const = 0;
 	virtual void *get_ptr(offs_t offset) const;
 	virtual void lookup(offs_t address, offs_t &start, offs_t &end, handler_entry_write<Width, AddrShift> *&handler) const;
 
@@ -769,10 +831,10 @@ constexpr offs_t memory_offset_to_byte(offs_t offset, int AddrShift) { return Ad
 // ======================> generic read/write decomposition routines
 
 // generic direct read
-template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename T> typename emu::detail::handler_entry_size<TargetWidth>::uX  memory_read_generic(T rop, offs_t address, typename emu::detail::handler_entry_size<TargetWidth>::uX mask)
+template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename T> emu::detail::handler_entry_size_t<TargetWidth>  memory_read_generic(T rop, offs_t address, emu::detail::handler_entry_size_t<TargetWidth> mask)
 {
-	using TargetType = typename emu::detail::handler_entry_size<TargetWidth>::uX;
-	using NativeType = typename emu::detail::handler_entry_size<Width>::uX;
+	using TargetType = emu::detail::handler_entry_size_t<TargetWidth>;
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
 
 	constexpr u32 TARGET_BYTES = 1 << TargetWidth;
 	constexpr u32 TARGET_BITS = 8 * TARGET_BYTES;
@@ -903,9 +965,9 @@ template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Al
 }
 
 // generic direct write
-template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename T> void memory_write_generic(T wop, offs_t address, typename emu::detail::handler_entry_size<TargetWidth>::uX data, typename emu::detail::handler_entry_size<TargetWidth>::uX mask)
+template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename T> void memory_write_generic(T wop, offs_t address, emu::detail::handler_entry_size_t<TargetWidth> data, emu::detail::handler_entry_size_t<TargetWidth> mask)
 {
-	using NativeType = typename emu::detail::handler_entry_size<Width>::uX;
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
 
 	constexpr u32 TARGET_BYTES = 1 << TargetWidth;
 	constexpr u32 TARGET_BITS = 8 * TARGET_BYTES;
@@ -1025,11 +1087,12 @@ template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Al
 		}
 	}
 }
+
 // generic direct read with flags
-template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename TF> std::pair<typename emu::detail::handler_entry_size<TargetWidth>::uX, u16>  memory_read_generic_flags(TF ropf, offs_t address, typename emu::detail::handler_entry_size<TargetWidth>::uX mask)
+template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename TF> std::pair<emu::detail::handler_entry_size_t<TargetWidth>, u16>  memory_read_generic_flags(TF ropf, offs_t address, emu::detail::handler_entry_size_t<TargetWidth> mask)
 {
-	using TargetType = typename emu::detail::handler_entry_size<TargetWidth>::uX;
-	using NativeType = typename emu::detail::handler_entry_size<Width>::uX;
+	using TargetType = emu::detail::handler_entry_size_t<TargetWidth>;
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
 
 	constexpr u32 TARGET_BYTES = 1 << TargetWidth;
 	constexpr u32 TARGET_BITS = 8 * TARGET_BYTES;
@@ -1165,9 +1228,9 @@ template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Al
 }
 
 // generic direct write with flags
-template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename TF> u16 memory_write_generic_flags(TF wopf, offs_t address, typename emu::detail::handler_entry_size<TargetWidth>::uX data, typename emu::detail::handler_entry_size<TargetWidth>::uX mask)
+template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename TF> u16 memory_write_generic_flags(TF wopf, offs_t address, emu::detail::handler_entry_size_t<TargetWidth> data, emu::detail::handler_entry_size_t<TargetWidth> mask)
 {
-	using NativeType = typename emu::detail::handler_entry_size<Width>::uX;
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
 
 	constexpr u32 TARGET_BYTES = 1 << TargetWidth;
 	constexpr u32 TARGET_BITS = 8 * TARGET_BYTES;
@@ -1294,70 +1357,366 @@ template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Al
 	}
 }
 
+//##############################################
+// generic direct read flags lookup
+template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename TF> u16 lookup_memory_read_generic_flags(TF lropf, offs_t address, emu::detail::handler_entry_size_t<TargetWidth> mask)
+{
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
+
+	constexpr u32 TARGET_BYTES = 1 << TargetWidth;
+	constexpr u32 TARGET_BITS = 8 * TARGET_BYTES;
+	constexpr u32 NATIVE_BYTES = 1 << Width;
+	constexpr u32 NATIVE_BITS = 8 * NATIVE_BYTES;
+	constexpr u32 NATIVE_STEP = AddrShift >= 0 ? NATIVE_BYTES << iabs(AddrShift) : NATIVE_BYTES >> iabs(AddrShift);
+	constexpr u32 NATIVE_MASK = Width + AddrShift >= 0 ? make_bitmask<u32>(Width + AddrShift) : 0;
+
+	// equal to native size and aligned; simple pass-through to the native flags lookup
+	if (NATIVE_BYTES == TARGET_BYTES && (Aligned || (address & NATIVE_MASK) == 0))
+		return lropf(address & ~NATIVE_MASK, mask);
+
+	// if native size is larger, see if we can do a single masked flags lookup (guaranteed if we're aligned)
+	if (NATIVE_BYTES > TARGET_BYTES)
+	{
+		u32 offsbits = 8 * (memory_offset_to_byte(address, AddrShift) & (NATIVE_BYTES - (Aligned ? TARGET_BYTES : 1)));
+		if (Aligned || (offsbits + TARGET_BITS <= NATIVE_BITS))
+		{
+			if (Endian != ENDIANNESS_LITTLE) offsbits = NATIVE_BITS - TARGET_BITS - offsbits;
+			return lropf(address & ~NATIVE_MASK, (NativeType)mask << offsbits);
+		}
+	}
+
+	// determine our alignment against the native boundaries, and mask the address
+	u32 offsbits = 8 * (memory_offset_to_byte(address, AddrShift) & (NATIVE_BYTES - 1));
+	address &= ~NATIVE_MASK;
+
+	// if we're here, and native size is larger or equal to the target, we need exactly 2 reads
+	if (NATIVE_BYTES >= TARGET_BYTES)
+	{
+		// little-endian case
+		if (Endian == ENDIANNESS_LITTLE)
+		{
+			// read flags from lower address
+			u16 flags = 0;
+			NativeType curmask = (NativeType)mask << offsbits;
+			if (curmask != 0) flags |= lropf(address, curmask);
+
+			// read flags from upper address
+			offsbits = NATIVE_BITS - offsbits;
+			curmask = mask >> offsbits;
+			if (curmask != 0) flags |= lropf(address + NATIVE_STEP, curmask);
+			return flags;
+		}
+
+		// big-endian case
+		else
+		{
+			// left-justify the mask to the target type
+			constexpr u32 LEFT_JUSTIFY_TARGET_TO_NATIVE_SHIFT = ((NATIVE_BITS >= TARGET_BITS) ? (NATIVE_BITS - TARGET_BITS) : 0);
+			u16 flags = 0;
+			NativeType ljmask = (NativeType)mask << LEFT_JUSTIFY_TARGET_TO_NATIVE_SHIFT;
+			NativeType curmask = ljmask >> offsbits;
+
+			// read flags from lower address
+			if (curmask != 0) flags |= lropf(address, curmask);
+			offsbits = NATIVE_BITS - offsbits;
+
+			// read flags from upper address
+			curmask = ljmask << offsbits;
+			if (curmask != 0) flags |= lropf(address + NATIVE_STEP, curmask);
+
+			// return the result
+			return flags;
+		}
+	}
+
+	// if we're here, then we have 2 or more reads needed to get our final result
+	else
+	{
+		// compute the maximum number of loops; we do it this way so that there are
+		// a fixed number of loops for the compiler to unroll if it desires
+		constexpr u32 MAX_SPLITS_MINUS_ONE = TARGET_BYTES / NATIVE_BYTES - 1;
+		u16 flags = 0;
+
+		// little-endian case
+		if (Endian == ENDIANNESS_LITTLE)
+		{
+			// read flags from first address
+			NativeType curmask = mask << offsbits;
+			if (curmask != 0) flags |= lropf(address, curmask);
+
+			// read flags from subsequent addresses
+			offsbits = NATIVE_BITS - offsbits;
+			for (u32 index = 0; index < MAX_SPLITS_MINUS_ONE; index++)
+			{
+				address += NATIVE_STEP;
+				curmask = mask >> offsbits;
+				if (curmask != 0) flags |= lropf(address, curmask);
+				offsbits += NATIVE_BITS;
+			}
+
+			// if we're not aligned and we still have bits left, read flags from last address
+			if (!Aligned && offsbits < TARGET_BITS)
+			{
+				curmask = mask >> offsbits;
+				if (curmask != 0) flags |= lropf(address + NATIVE_STEP, curmask);
+			}
+		}
+
+		// big-endian case
+		else
+		{
+			// read flags from first address
+			offsbits = TARGET_BITS - (NATIVE_BITS - offsbits);
+			NativeType curmask = mask >> offsbits;
+			if (curmask != 0) flags |= lropf(address, curmask);
+
+			// read flags from subsequent addresses
+			for (u32 index = 0; index < MAX_SPLITS_MINUS_ONE; index++)
+			{
+				offsbits -= NATIVE_BITS;
+				address += NATIVE_STEP;
+				curmask = mask >> offsbits;
+				if (curmask != 0) flags |= lropf(address, curmask);
+			}
+
+			// if we're not aligned and we still have bits left, read flags from the last address
+			if (!Aligned && offsbits != 0)
+			{
+				offsbits = NATIVE_BITS - offsbits;
+				curmask = mask << offsbits;
+				if (curmask != 0) flags |= lropf(address + NATIVE_STEP, curmask);
+			}
+		}
+		return flags;
+	}
+}
+
+// generic direct write flags lookup
+template<int Width, int AddrShift, endianness_t Endian, int TargetWidth, bool Aligned, typename TF> u16 lookup_memory_write_generic_flags(TF lwopf, offs_t address, emu::detail::handler_entry_size_t<TargetWidth> mask)
+{
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
+
+	constexpr u32 TARGET_BYTES = 1 << TargetWidth;
+	constexpr u32 TARGET_BITS = 8 * TARGET_BYTES;
+	constexpr u32 NATIVE_BYTES = 1 << Width;
+	constexpr u32 NATIVE_BITS = 8 * NATIVE_BYTES;
+	constexpr u32 NATIVE_STEP = AddrShift >= 0 ? NATIVE_BYTES << iabs(AddrShift) : NATIVE_BYTES >> iabs(AddrShift);
+	constexpr u32 NATIVE_MASK = Width + AddrShift >= 0 ? (1 << (Width + AddrShift)) - 1 : 0;
+
+	// equal to native size and aligned; simple pass-through to the native flags lookup
+	if (NATIVE_BYTES == TARGET_BYTES && (Aligned || (address & NATIVE_MASK) == 0))
+		return lwopf(address & ~NATIVE_MASK, mask);
+
+	// if native size is larger, see if we can do a single masked flags lookup (guaranteed if we're aligned)
+	if (NATIVE_BYTES > TARGET_BYTES)
+	{
+		u32 offsbits = 8 * (memory_offset_to_byte(address, AddrShift) & (NATIVE_BYTES - (Aligned ? TARGET_BYTES : 1)));
+		if (Aligned || (offsbits + TARGET_BITS <= NATIVE_BITS))
+		{
+			if (Endian != ENDIANNESS_LITTLE) offsbits = NATIVE_BITS - TARGET_BITS - offsbits;
+			return lwopf(address & ~NATIVE_MASK, (NativeType)mask << offsbits);
+		}
+	}
+
+	// determine our alignment against the native boundaries, and mask the address
+	u32 offsbits = 8 * (memory_offset_to_byte(address, AddrShift) & (NATIVE_BYTES - 1));
+	address &= ~NATIVE_MASK;
+
+	// if we're here, and native size is larger or equal to the target, we need exactly 2 lookups
+	if (NATIVE_BYTES >= TARGET_BYTES)
+	{
+		// little-endian case
+		if (Endian == ENDIANNESS_LITTLE)
+		{
+			// lookup flags from lower address
+			u16 flags = 0;
+			NativeType curmask = (NativeType)mask << offsbits;
+			if (curmask != 0) flags |= lwopf(address, curmask);
+
+			// lookup flags from upper address
+			offsbits = NATIVE_BITS - offsbits;
+			curmask = mask >> offsbits;
+			if (curmask != 0) flags |= lwopf(address + NATIVE_STEP, curmask);
+			return flags;
+		}
+
+		// big-endian case
+		else
+		{
+			// left-justify the mask to the target type
+			u16 flags = 0;
+			constexpr u32 LEFT_JUSTIFY_TARGET_TO_NATIVE_SHIFT = ((NATIVE_BITS >= TARGET_BITS) ? (NATIVE_BITS - TARGET_BITS) : 0);
+			NativeType ljmask = (NativeType)mask << LEFT_JUSTIFY_TARGET_TO_NATIVE_SHIFT;
+
+			// lookup flags from lower address
+			NativeType curmask = ljmask >> offsbits;
+			if (curmask != 0) flags |= lwopf(address, curmask);
+
+			// lookup falgs from upper address
+			offsbits = NATIVE_BITS - offsbits;
+			curmask = ljmask << offsbits;
+			if (curmask != 0) flags |= lwopf(address + NATIVE_STEP, curmask);
+			return flags;
+		}
+	}
+
+	// if we're here, then we have 2 or more lookups needed to get our final result
+	else
+	{
+		// compute the maximum number of loops; we do it this way so that there are
+		// a fixed number of loops for the compiler to unroll if it desires
+		constexpr u32 MAX_SPLITS_MINUS_ONE = TARGET_BYTES / NATIVE_BYTES - 1;
+		u16 flags = 0;
+
+		// little-endian case
+		if (Endian == ENDIANNESS_LITTLE)
+		{
+			// lookup flags from first address
+			NativeType curmask = mask << offsbits;
+			if (curmask != 0) flags |= lwopf(address, curmask);
+
+			// lookup flags from subsequent addresses
+			offsbits = NATIVE_BITS - offsbits;
+			for (u32 index = 0; index < MAX_SPLITS_MINUS_ONE; index++)
+			{
+				address += NATIVE_STEP;
+				curmask = mask >> offsbits;
+				if (curmask != 0) flags |= lwopf(address, curmask);
+				offsbits += NATIVE_BITS;
+			}
+
+			// if we're not aligned and we still have bits left, lookup flags last address
+			if (!Aligned && offsbits < TARGET_BITS)
+			{
+				curmask = mask >> offsbits;
+				if (curmask != 0) flags |= lwopf(address + NATIVE_STEP, curmask);
+			}
+		}
+
+		// big-endian case
+		else
+		{
+			// lookup flags from first address
+			offsbits = TARGET_BITS - (NATIVE_BITS - offsbits);
+			NativeType curmask = mask >> offsbits;
+			if (curmask != 0) flags |= lwopf(address, curmask);
+
+			// lookup flags from subsequent addresses
+			for (u32 index = 0; index < MAX_SPLITS_MINUS_ONE; index++)
+			{
+				offsbits -= NATIVE_BITS;
+				address += NATIVE_STEP;
+				curmask = mask >> offsbits;
+				if (curmask != 0) flags |= lwopf(address, curmask);
+			}
+
+			// if we're not aligned and we still have bits left, lookup falgs from the last address
+			if (!Aligned && offsbits != 0)
+			{
+				offsbits = NATIVE_BITS - offsbits;
+				curmask = mask << offsbits;
+				if (curmask != 0) flags |= lwopf(address + NATIVE_STEP, curmask);
+			}
+		}
+		return flags;
+	}
+}
+
 // ======================> Direct dispatching
 
-template<int Level, int Width, int AddrShift> typename emu::detail::handler_entry_size<Width>::uX dispatch_read(offs_t mask, offs_t offset, typename emu::detail::handler_entry_size<Width>::uX mem_mask, const handler_entry_read<Width, AddrShift> *const *dispatch)
+template<int Level, int Width, int AddrShift> emu::detail::handler_entry_size_t<Width> dispatch_read(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_read<Width, AddrShift> *const *dispatch)
 {
-	static constexpr u32 LowBits  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
-	return dispatch[(offset & mask) >> LowBits]->read(offset, mem_mask);
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->read(offset, mem_mask);
 }
 
 
-template<int Level, int Width, int AddrShift> void dispatch_write(offs_t mask, offs_t offset, typename emu::detail::handler_entry_size<Width>::uX data, typename emu::detail::handler_entry_size<Width>::uX mem_mask, const handler_entry_write<Width, AddrShift> *const *dispatch)
+template<int Level, int Width, int AddrShift> void dispatch_write(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> data, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_write<Width, AddrShift> *const *dispatch)
 {
-	static constexpr u32 LowBits  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
-	return dispatch[(offset & mask) >> LowBits]->write(offset, data, mem_mask);
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->write(offset, data, mem_mask);
 }
 
 
-template<int Level, int Width, int AddrShift> std::pair<typename emu::detail::handler_entry_size<Width>::uX, u16> dispatch_read_flags(offs_t mask, offs_t offset, typename emu::detail::handler_entry_size<Width>::uX mem_mask, const handler_entry_read<Width, AddrShift> *const *dispatch)
+template<int Level, int Width, int AddrShift> std::pair<emu::detail::handler_entry_size_t<Width>, u16> dispatch_read_flags(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_read<Width, AddrShift> *const *dispatch)
 {
-	static constexpr u32 LowBits  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
-	return dispatch[(offset & mask) >> LowBits]->read_flags(offset, mem_mask);
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->read_flags(offset, mem_mask);
 }
 
 
-template<int Level, int Width, int AddrShift> u16 dispatch_write_flags(offs_t mask, offs_t offset, typename emu::detail::handler_entry_size<Width>::uX data, typename emu::detail::handler_entry_size<Width>::uX mem_mask, const handler_entry_write<Width, AddrShift> *const *dispatch)
+template<int Level, int Width, int AddrShift> u16 dispatch_write_flags(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> data, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_write<Width, AddrShift> *const *dispatch)
 {
-	static constexpr u32 LowBits  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
-	return dispatch[(offset & mask) >> LowBits]->write_flags(offset, data, mem_mask);
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->write_flags(offset, data, mem_mask);
 }
 
+template<int Level, int Width, int AddrShift> u16 dispatch_lookup_read_flags(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_read<Width, AddrShift> *const *dispatch)
+{
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->lookup_flags(offset, mem_mask);
+}
+
+
+template<int Level, int Width, int AddrShift> u16 dispatch_lookup_write_flags(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_write<Width, AddrShift> *const *dispatch)
+{
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->lookup_flags(offset, mem_mask);
+}
+
+
+
+template<int Level, int Width, int AddrShift> emu::detail::handler_entry_size_t<Width> dispatch_read_interruptible(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_read<Width, AddrShift> *const *dispatch)
+{
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->read_interruptible(offset, mem_mask);
+}
+
+
+template<int Level, int Width, int AddrShift> void dispatch_write_interruptible(offs_t mask, offs_t offset, emu::detail::handler_entry_size_t<Width> data, emu::detail::handler_entry_size_t<Width> mem_mask, const handler_entry_write<Width, AddrShift> *const *dispatch)
+{
+	constexpr u32 LOW_BITS  = emu::detail::handler_entry_dispatch_level_to_lowbits(Level, Width, AddrShift);
+	return dispatch[(offset & mask) >> LOW_BITS]->write_interruptible(offset, data, mem_mask);
+}
+
+
+namespace emu::detail {
 
 // ======================> memory_access_specific
 
 // memory_access_specific does uncached but faster accesses by shortcutting the address_space virtual call
 
-namespace emu::detail {
-
 template<int Level, int Width, int AddrShift, endianness_t Endian> class memory_access_specific
 {
 	friend class ::address_space;
 
-	using NativeType = typename emu::detail::handler_entry_size<Width>::uX;
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
 	static constexpr u32 NATIVE_BYTES = 1 << Width;
-	static constexpr u32 NATIVE_MASK = Width + AddrShift >= 0 ? (1 << (Width + AddrShift)) - 1 : 0;
+	static constexpr u32 NATIVE_MASK = (Width + AddrShift >= 0) ? ((1 << (Width + AddrShift)) - 1) : 0;
 
 public:
 	// construction/destruction
-	memory_access_specific()
-		: m_space(nullptr),
-		  m_addrmask(0),
-		  m_dispatch_read(nullptr),
-		  m_dispatch_write(nullptr)
+	memory_access_specific() :
+		m_space(nullptr),
+		m_addrmask(0),
+		m_dispatch_read(nullptr),
+		m_dispatch_write(nullptr)
 	{
 	}
 
-	inline address_space &space() const {
+	address_space &space() const {
 		return *m_space;
 	}
 
-	auto rop()  { return [this](offs_t offset, NativeType mask) -> NativeType { return read_native(offset, mask); }; }
-	auto ropf() { return [this](offs_t offset, NativeType mask) -> std::pair<NativeType, u16> { return read_native_flags(offset, mask); }; }
-	auto wop()  { return [this](offs_t offset, NativeType data, NativeType mask) -> void { write_native(offset, data, mask); }; }
-	auto wopf() { return [this](offs_t offset, NativeType data, NativeType mask) -> u16 { return write_native_flags(offset, data, mask); }; }
+	auto rop()   { return [this](offs_t offset, NativeType mask) -> NativeType { return read_native(offset, mask); }; }
+	auto ropf()  { return [this](offs_t offset, NativeType mask) -> std::pair<NativeType, u16> { return read_native_flags(offset, mask); }; }
+	auto lropf() { return [this](offs_t offset, NativeType mask) -> u16 { return lookup_read_native_flags(offset, mask); }; }
+	auto wop()   { return [this](offs_t offset, NativeType data, NativeType mask) -> void { write_native(offset, data, mask); }; }
+	auto wopf()  { return [this](offs_t offset, NativeType data, NativeType mask) -> u16 { return write_native_flags(offset, data, mask); }; }
+	auto lwopf() { return [this](offs_t offset, NativeType mask) -> u16 { return lookup_write_native_flags(offset, mask); }; }
 
 	u8  read_byte(offs_t address) { if constexpr(Width == 0) return read_native(address & ~NATIVE_MASK); else return memory_read_generic<Width, AddrShift, Endian, 0, true>(rop(), address, 0xff); }
+	u8  read_byte(offs_t address, u8 mask) { return memory_read_generic<Width, AddrShift, Endian, 0, true>(rop(), address, mask); }
 	u16 read_word(offs_t address) { if constexpr(Width == 1) return read_native(address & ~NATIVE_MASK); else return memory_read_generic<Width, AddrShift, Endian, 1, true>(rop(), address, 0xffff); }
 	u16 read_word(offs_t address, u16 mask) { return memory_read_generic<Width, AddrShift, Endian, 1, true>(rop(), address, mask); }
 	u16 read_word_unaligned(offs_t address) { return memory_read_generic<Width, AddrShift, Endian, 1, false>(rop(), address, 0xffff); }
@@ -1372,6 +1731,7 @@ public:
 	u64 read_qword_unaligned(offs_t address, u64 mask) { return memory_read_generic<Width, AddrShift, Endian, 3, false>(rop(), address, mask); }
 
 	void write_byte(offs_t address, u8 data) { if constexpr(Width == 0) write_native(address & ~NATIVE_MASK, data); else memory_write_generic<Width, AddrShift, Endian, 0, true>(wop(), address, data, 0xff); }
+	void write_byte(offs_t address, u8 data, u8 mask) { memory_write_generic<Width, AddrShift, Endian, 0, true>(wop(), address, data, mask); }
 	void write_word(offs_t address, u16 data) { if constexpr(Width == 1) write_native(address & ~NATIVE_MASK, data); else memory_write_generic<Width, AddrShift, Endian, 1, true>(wop(), address, data, 0xffff); }
 	void write_word(offs_t address, u16 data, u16 mask) { memory_write_generic<Width, AddrShift, Endian, 1, true>(wop(), address, data, mask); }
 	void write_word_unaligned(offs_t address, u16 data) { memory_write_generic<Width, AddrShift, Endian, 1, false>(wop(), address, data, 0xffff); }
@@ -1387,6 +1747,7 @@ public:
 
 
 	std::pair<u8,  u16> read_byte_flags(offs_t address) { if constexpr(Width == 0) return read_native_flags(address & ~NATIVE_MASK); else return memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(ropf(), address, 0xff); }
+	std::pair<u8,  u16> read_byte_flags(offs_t address, u8 mask) { return memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(ropf(), address, mask); }
 	std::pair<u16, u16> read_word_flags(offs_t address) { if constexpr(Width == 1) return read_native_flags(address & ~NATIVE_MASK); else return memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(ropf(), address, 0xffff); }
 	std::pair<u16, u16> read_word_flags(offs_t address, u16 mask) { return memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(ropf(), address, mask); }
 	std::pair<u16, u16> read_word_unaligned_flags(offs_t address) { return memory_read_generic_flags<Width, AddrShift, Endian, 1, false>(ropf(), address, 0xffff); }
@@ -1401,6 +1762,7 @@ public:
 	std::pair<u64, u16> read_qword_unaligned_flags(offs_t address, u64 mask) { return memory_read_generic_flags<Width, AddrShift, Endian, 3, false>(ropf(), address, mask); }
 
 	u16 write_byte_flags(offs_t address, u8 data) { if constexpr(Width == 0) return write_native_flags(address & ~NATIVE_MASK, data); else return memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(wopf(), address, data, 0xff); }
+	u16 write_byte_flags(offs_t address, u8 data, u8 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(wopf(), address, data, mask); }
 	u16 write_word_flags(offs_t address, u16 data) { if constexpr(Width == 1) return write_native_flags(address & ~NATIVE_MASK, data); else return memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(wopf(), address, data, 0xffff); }
 	u16 write_word_flags(offs_t address, u16 data, u16 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(wopf(), address, data, mask); }
 	u16 write_word_unaligned_flags(offs_t address, u16 data) { return memory_write_generic_flags<Width, AddrShift, Endian, 1, false>(wopf(), address, data, 0xffff); }
@@ -1414,6 +1776,44 @@ public:
 	u16 write_qword_unaligned_flags(offs_t address, u64 data) { return memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(wopf(), address, data, 0xffffffffffffffffU); }
 	u16 write_qword_unaligned_flags(offs_t address, u64 data, u64 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(wopf(), address, data, mask); }
 
+	u16 lookup_read_byte_flags(offs_t address) { if constexpr(Width == 0) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(lropf(), address, 0xff); }
+	u16 lookup_read_byte_flags(offs_t address, u8 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(lropf(), address, mask); }
+	u16 lookup_read_word_flags(offs_t address) { if constexpr(Width == 1) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(lropf(), address, 0xffff); }
+	u16 lookup_read_word_flags(offs_t address, u16 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(lropf(), address, mask); }
+	u16 lookup_read_word_unaligned_flags(offs_t address) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, false>(lropf(), address, 0xffff); }
+	u16 lookup_read_word_unaligned_flags(offs_t address, u16 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, false>(lropf(), address, mask); }
+	u16 lookup_read_dword_flags(offs_t address) { if constexpr(Width == 2) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, true>(lropf(), address, 0xffffffff); }
+	u16 lookup_read_dword_flags(offs_t address, u32 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, true>(lropf(), address, mask); }
+	u16 lookup_read_dword_unaligned_flags(offs_t address) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, false>(lropf(), address, 0xffffffff); }
+	u16 lookup_read_dword_unaligned_flags(offs_t address, u32 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, false>(lropf(), address, mask); }
+	u16 lookup_read_qword_flags(offs_t address) { if constexpr(Width == 3) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, true>(lropf(), address, 0xffffffffffffffffU); }
+	u16 lookup_read_qword_flags(offs_t address, u64 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, true>(lropf(), address, mask); }
+	u16 lookup_read_qword_unaligned_flags(offs_t address) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, false>(lropf(), address, 0xffffffffffffffffU); }
+	u16 lookup_read_qword_unaligned_flags(offs_t address, u64 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, false>(lropf(), address, mask); }
+
+	u16 lookup_write_byte_flags(offs_t address) { if constexpr(Width == 0) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(lwopf(), address, 0xff); }
+	u16 lookup_write_byte_flags(offs_t address, u8 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(lwopf(), address, mask); }
+	u16 lookup_write_word_flags(offs_t address) { if constexpr(Width == 1) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(lwopf(), address, 0xffff); }
+	u16 lookup_write_word_flags(offs_t address, u16 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(lwopf(), address, mask); }
+	u16 lookup_write_word_unaligned_flags(offs_t address) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, false>(lwopf(), address, 0xffff); }
+	u16 lookup_write_word_unaligned_flags(offs_t address, u16 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, false>(lwopf(), address, mask); }
+	u16 lookup_write_dword_flags(offs_t address) { if constexpr(Width == 2) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, true>(lwopf(), address, 0xffffffff); }
+	u16 lookup_write_dword_flags(offs_t address, u32 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, true>(lwopf(), address, mask); }
+	u16 lookup_write_dword_unaligned_flags(offs_t address) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, false>(lwopf(), address, 0xffffffff); }
+	u16 lookup_write_dword_unaligned_flags(offs_t address, u32 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, false>(lwopf(), address, mask); }
+	u16 lookup_write_qword_flags(offs_t address) { if constexpr(Width == 3) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, true>(lwopf(), address, 0xffffffffffffffffU); }
+	u16 lookup_write_qword_flags(offs_t address, u64 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, true>(wop(), address, mask); }
+	u16 lookup_write_qword_unaligned_flags(offs_t address) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(lwopf(), address, 0xffffffffffffffffU); }
+	u16 lookup_write_qword_unaligned_flags(offs_t address, u64 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(lwopf(), address, mask); }
+
+	NativeType read_interruptible(offs_t address, NativeType mask = ~NativeType(0)) {
+		return dispatch_read_interruptible<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, mask, m_dispatch_read);
+	}
+
+	void write_interruptible(offs_t address, NativeType data, NativeType mask = ~NativeType(0)) {
+		dispatch_write_interruptible<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, data, mask, m_dispatch_write);
+	}
+
 private:
 	address_space *             m_space;
 
@@ -1423,19 +1823,27 @@ private:
 	const handler_entry_write<Width, AddrShift> *const *m_dispatch_write;
 
 	NativeType read_native(offs_t address, NativeType mask = ~NativeType(0)) {
-		return dispatch_read<Level, Width, AddrShift>(offs_t(-1), address & m_addrmask, mask, m_dispatch_read);
+		return dispatch_read<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, mask, m_dispatch_read);
 	}
 
 	void write_native(offs_t address, NativeType data, NativeType mask = ~NativeType(0)) {
-		dispatch_write<Level, Width, AddrShift>(offs_t(-1), address & m_addrmask, data, mask, m_dispatch_write);
+		dispatch_write<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, data, mask, m_dispatch_write);
 	}
 
 	std::pair<NativeType, u16> read_native_flags(offs_t address, NativeType mask = ~NativeType(0)) {
-		return dispatch_read_flags<Level, Width, AddrShift>(offs_t(-1), address & m_addrmask, mask, m_dispatch_read);
+		return dispatch_read_flags<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, mask, m_dispatch_read);
 	}
 
 	u16 write_native_flags(offs_t address, NativeType data, NativeType mask = ~NativeType(0)) {
-		return dispatch_write_flags<Level, Width, AddrShift>(offs_t(-1), address & m_addrmask, data, mask, m_dispatch_write);
+		return dispatch_write_flags<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, data, mask, m_dispatch_write);
+	}
+
+	u16 lookup_read_native_flags(offs_t address, NativeType mask = ~NativeType(0)) {
+		return dispatch_lookup_read_flags<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, mask, m_dispatch_read);
+	}
+
+	u16 lookup_write_native_flags(offs_t address, NativeType mask = ~NativeType(0)) {
+		return dispatch_lookup_write_flags<Level, Width, AddrShift>(~offs_t(0), address & m_addrmask, mask, m_dispatch_write);
 	}
 
 	void set(address_space *space, std::pair<const void *, const void *> rw);
@@ -1450,7 +1858,7 @@ template<int Width, int AddrShift, endianness_t Endian> class memory_access_cach
 {
 	friend class ::address_space;
 
-	using NativeType = typename emu::detail::handler_entry_size<Width>::uX;
+	using NativeType = emu::detail::handler_entry_size_t<Width>;
 	static constexpr u32 NATIVE_BYTES = 1 << Width;
 	static constexpr u32 NATIVE_MASK = Width + AddrShift >= 0 ? (1 << (Width + AddrShift)) - 1 : 0;
 
@@ -1474,13 +1882,13 @@ public:
 
 	// see if an address is within bounds, update it if not
 	void check_address_r(offs_t address) {
-		if(address >= m_addrstart_r && address <= m_addrend_r)
+		if(EXPECTED(address >= m_addrstart_r && address <= m_addrend_r))
 			return;
 		m_root_read->lookup(address, m_addrstart_r, m_addrend_r, m_cache_r);
 	}
 
 	void check_address_w(offs_t address) {
-		if(address >= m_addrstart_w && address <= m_addrend_w)
+		if(EXPECTED(address >= m_addrstart_w && address <= m_addrend_w))
 			return;
 		m_root_write->lookup(address, m_addrstart_w, m_addrend_w, m_cache_w);
 	}
@@ -1497,12 +1905,15 @@ public:
 		return m_cache_r->get_ptr(address);
 	}
 
-	auto rop()  { return [this](offs_t offset, NativeType mask) -> NativeType { return read_native(offset, mask); }; }
-	auto ropf() { return [this](offs_t offset, NativeType mask) -> std::pair<NativeType, u16> { return read_native_flags(offset, mask); }; }
-	auto wop()  { return [this](offs_t offset, NativeType data, NativeType mask) -> void { write_native(offset, data, mask); }; }
-	auto wopf() { return [this](offs_t offset, NativeType data, NativeType mask) -> u16 { return write_native_flags(offset, data, mask); }; }
+	auto rop()   { return [this](offs_t offset, NativeType mask) -> NativeType { return read_native(offset, mask); }; }
+	auto ropf()  { return [this](offs_t offset, NativeType mask) -> std::pair<NativeType, u16> { return read_native_flags(offset, mask); }; }
+	auto lropf() { return [this](offs_t offset, NativeType mask) -> u16 { return lookup_read_native_flags(offset, mask); }; }
+	auto wop()   { return [this](offs_t offset, NativeType data, NativeType mask) -> void { write_native(offset, data, mask); }; }
+	auto wopf()  { return [this](offs_t offset, NativeType data, NativeType mask) -> u16 { return write_native_flags(offset, data, mask); }; }
+	auto lwopf() { return [this](offs_t offset, NativeType mask) -> u16 { return lookup_write_native_flags(offset, mask); }; }
 
 	u8  read_byte(offs_t address) { if constexpr(Width == 0) return read_native(address & ~NATIVE_MASK); else return memory_read_generic<Width, AddrShift, Endian, 0, true>(rop(), address, 0xff); }
+	u8  read_byte(offs_t address, u8 mask) { return memory_read_generic<Width, AddrShift, Endian, 0, true>(rop(), address, mask); }
 	u16 read_word(offs_t address) { if constexpr(Width == 1) return read_native(address & ~NATIVE_MASK); else return memory_read_generic<Width, AddrShift, Endian, 1, true>(rop(), address, 0xffff); }
 	u16 read_word(offs_t address, u16 mask) { return memory_read_generic<Width, AddrShift, Endian, 1, true>(rop(), address, mask); }
 	u16 read_word_unaligned(offs_t address) { return memory_read_generic<Width, AddrShift, Endian, 1, false>(rop(), address, 0xffff); }
@@ -1517,6 +1928,7 @@ public:
 	u64 read_qword_unaligned(offs_t address, u64 mask) { return memory_read_generic<Width, AddrShift, Endian, 3, false>(rop(), address, mask); }
 
 	void write_byte(offs_t address, u8 data) { if constexpr(Width == 0) write_native(address & ~NATIVE_MASK, data); else memory_write_generic<Width, AddrShift, Endian, 0, true>(wop(), address, data, 0xff); }
+	void write_byte(offs_t address, u8 data, u8 mask) { memory_write_generic<Width, AddrShift, Endian, 0, true>(wop(), address, data, mask); }
 	void write_word(offs_t address, u16 data) { if constexpr(Width == 1) write_native(address & ~NATIVE_MASK, data); else memory_write_generic<Width, AddrShift, Endian, 1, true>(wop(), address, data, 0xffff); }
 	void write_word(offs_t address, u16 data, u16 mask) { memory_write_generic<Width, AddrShift, Endian, 1, true>(wop(), address, data, mask); }
 	void write_word_unaligned(offs_t address, u16 data) { memory_write_generic<Width, AddrShift, Endian, 1, false>(wop(), address, data, 0xffff); }
@@ -1532,6 +1944,7 @@ public:
 
 
 	std::pair<u8,  u16> read_byte_flags(offs_t address) { if constexpr(Width == 0) return read_native_flags(address & ~NATIVE_MASK); else return memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(ropf(), address, 0xff); }
+	std::pair<u8,  u16> read_byte_flags(offs_t address, u8 mask) { return memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(ropf(), address, mask); }
 	std::pair<u16, u16> read_word_flags(offs_t address) { if constexpr(Width == 1) return read_native_flags(address & ~NATIVE_MASK); else return memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(ropf(), address, 0xffff); }
 	std::pair<u16, u16> read_word_flags(offs_t address, u16 mask) { return memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(ropf(), address, mask); }
 	std::pair<u16, u16> read_word_unaligned_flags(offs_t address) { return memory_read_generic_flags<Width, AddrShift, Endian, 1, false>(ropf(), address, 0xffff); }
@@ -1546,6 +1959,7 @@ public:
 	std::pair<u64, u16> read_qword_unaligned_flags(offs_t address, u64 mask) { return memory_read_generic_flags<Width, AddrShift, Endian, 3, false>(ropf(), address, mask); }
 
 	u16 write_byte_flags(offs_t address, u8 data) { if constexpr(Width == 0) return write_native_flags(address & ~NATIVE_MASK, data); else return memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(wopf(), address, data, 0xff); }
+	u16 write_byte_flags(offs_t address, u8 data, u8 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(wopf(), address, data, mask); }
 	u16 write_word_flags(offs_t address, u16 data) { if constexpr(Width == 1) return write_native_flags(address & ~NATIVE_MASK, data); else return memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(wopf(), address, data, 0xffff); }
 	u16 write_word_flags(offs_t address, u16 data, u16 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(wopf(), address, data, mask); }
 	u16 write_word_unaligned_flags(offs_t address, u16 data) { return memory_write_generic_flags<Width, AddrShift, Endian, 1, false>(wopf(), address, data, 0xffff); }
@@ -1558,6 +1972,37 @@ public:
 	u16 write_qword_flags(offs_t address, u64 data, u64 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 3, true>(wop(), address, data, mask); }
 	u16 write_qword_unaligned_flags(offs_t address, u64 data) { return memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(wopf(), address, data, 0xffffffffffffffffU); }
 	u16 write_qword_unaligned_flags(offs_t address, u64 data, u64 mask) { return memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(wopf(), address, data, mask); }
+
+
+	u16 lookup_read_byte_flags(offs_t address) { if constexpr(Width == 0) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(lropf(), address, 0xff); }
+	u16 lookup_read_byte_flags(offs_t address, u8 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 0, true>(lropf(), address, mask); }
+	u16 lookup_read_word_flags(offs_t address) { if constexpr(Width == 1) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(lropf(), address, 0xffff); }
+	u16 lookup_read_word_flags(offs_t address, u16 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, true>(lropf(), address, mask); }
+	u16 lookup_read_word_unaligned_flags(offs_t address) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, false>(lropf(), address, 0xffff); }
+	u16 lookup_read_word_unaligned_flags(offs_t address, u16 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 1, false>(lropf(), address, mask); }
+	u16 lookup_read_dword_flags(offs_t address) { if constexpr(Width == 2) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, true>(lropf(), address, 0xffffffff); }
+	u16 lookup_read_dword_flags(offs_t address, u32 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, true>(lropf(), address, mask); }
+	u16 lookup_read_dword_unaligned_flags(offs_t address) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, false>(lropf(), address, 0xffffffff); }
+	u16 lookup_read_dword_unaligned_flags(offs_t address, u32 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 2, false>(lropf(), address, mask); }
+	u16 lookup_read_qword_flags(offs_t address) { if constexpr(Width == 3) return lookup_read_native_flags(address & ~NATIVE_MASK); else return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, true>(lropf(), address, 0xffffffffffffffffU); }
+	u16 lookup_read_qword_flags(offs_t address, u64 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, true>(lropf(), address, mask); }
+	u16 lookup_read_qword_unaligned_flags(offs_t address) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, false>(lropf(), address, 0xffffffffffffffffU); }
+	u16 lookup_read_qword_unaligned_flags(offs_t address, u64 mask) { return lookup_memory_read_generic_flags<Width, AddrShift, Endian, 3, false>(lropf(), address, mask); }
+
+	u16 lookup_write_byte_flags(offs_t address) { if constexpr(Width == 0) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(lwopf(), address, 0xff); }
+	u16 lookup_write_byte_flags(offs_t address, u8 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 0, true>(lwopf(), address, mask); }
+	u16 lookup_write_word_flags(offs_t address) { if constexpr(Width == 1) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(lwopf(), address, 0xffff); }
+	u16 lookup_write_word_flags(offs_t address, u16 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, true>(lwopf(), address, mask); }
+	u16 lookup_write_word_unaligned_flags(offs_t address) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, false>(lwopf(), address, 0xffff); }
+	u16 lookup_write_word_unaligned_flags(offs_t address, u16 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 1, false>(lwopf(), address, mask); }
+	u16 lookup_write_dword_flags(offs_t address) { if constexpr(Width == 2) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, true>(lwopf(), address, 0xffffffff); }
+	u16 lookup_write_dword_flags(offs_t address, u32 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, true>(lwopf(), address, mask); }
+	u16 lookup_write_dword_unaligned_flags(offs_t address) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, false>(lwopf(), address, 0xffffffff); }
+	u16 lookup_write_dword_unaligned_flags(offs_t address, u32 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 2, false>(lwopf(), address, mask); }
+	u16 lookup_write_qword_flags(offs_t address) { if constexpr(Width == 3) return lookup_write_native_flags(address & ~NATIVE_MASK); else return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, true>(lwopf(), address, 0xffffffffffffffffU); }
+	u16 lookup_write_qword_flags(offs_t address, u64 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, true>(wop(), address, mask); }
+	u16 lookup_write_qword_unaligned_flags(offs_t address) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(lwopf(), address, 0xffffffffffffffffU); }
+	u16 lookup_write_qword_unaligned_flags(offs_t address, u64 mask) { return lookup_memory_write_generic_flags<Width, AddrShift, Endian, 3, false>(lwopf(), address, mask); }
 
 private:
 	address_space *             m_space;
@@ -1579,6 +2024,8 @@ private:
 	void write_native(offs_t address, NativeType data, NativeType mask = ~NativeType(0));
 	std::pair<NativeType, u16> read_native_flags(offs_t address, NativeType mask = ~NativeType(0));
 	u16 write_native_flags(offs_t address, NativeType data, NativeType mask = ~NativeType(0));
+	u16 lookup_read_native_flags(offs_t address, NativeType mask = ~NativeType(0));
+	u16 lookup_write_native_flags(offs_t address, NativeType mask = ~NativeType(0));
 
 	void set(address_space *space, std::pair<void *, void *> rw);
 };
@@ -1619,6 +2066,10 @@ public:
 	int logaddr_width() const { return m_logaddr_width; }
 	int page_shift() const { return m_page_shift; }
 	bool is_octal() const { return m_is_octal; }
+	offs_t addrmask() const { return make_bitmask<offs_t>(m_addr_width); }
+	u8 addrchars() const { return m_is_octal ? (m_addr_width + 2) / 3 : (m_addr_width + 3) / 4; }
+	offs_t logaddrmask() const { return make_bitmask<offs_t>(m_logaddr_width); }
+	u8 logaddrchars() const { return m_is_octal ? (m_logaddr_width + 2) / 3 : (m_logaddr_width + 3) / 4; }
 
 	// Actual alignment of the bus addresses
 	int alignment() const { int bytes = m_data_width / 8; return m_addr_shift < 0 ? bytes >> -m_addr_shift : bytes << m_addr_shift; }
@@ -1630,6 +2081,10 @@ public:
 	// address-to-byte conversion helpers
 	inline offs_t addr2byte_end(offs_t address) const { return (m_addr_shift < 0) ? ((address << -m_addr_shift) | ((1 << -m_addr_shift) - 1)) : (address >> m_addr_shift); }
 	inline offs_t byte2addr_end(offs_t address) const { return (m_addr_shift > 0) ? ((address << m_addr_shift) | ((1 << m_addr_shift) - 1)) : (address >> -m_addr_shift); }
+
+	// error checking helpers
+	void check_parameters(const char *objname, int width, int addr_shift, endianness_t endian) const;
+	void check_parameters(const char *objname, int level, int width, int addr_shift, endianness_t endian) const;
 
 	// state (TODO: privatize)
 	const char *        m_name;
@@ -1657,17 +2112,16 @@ public:
 	endianness_t endianness() const { return m_config.endianness(); }
 	int addr_shift() const { return m_config.addr_shift(); }
 	bool is_octal() const { return m_config.is_octal(); }
+	offs_t addrmask() const { return m_addrmask; }
+	u8 addrchars() const { return m_addrchars; }
+	offs_t logaddrmask() const { return m_logaddrmask; }
+	u8 logaddrchars() const { return m_logaddrchars; }
 
 	// address-to-byte conversion helpers
 	offs_t address_to_byte(offs_t address) const { return m_config.addr2byte(address); }
 	offs_t address_to_byte_end(offs_t address) const { return m_config.addr2byte_end(address); }
 	offs_t byte_to_address(offs_t address) const { return m_config.byte2addr(address); }
 	offs_t byte_to_address_end(offs_t address) const { return m_config.byte2addr_end(address); }
-
-	offs_t addrmask() const { return m_addrmask; }
-	u8 addrchars() const { return m_addrchars; }
-	offs_t logaddrmask() const { return m_logaddrmask; }
-	u8 logaddrchars() const { return m_logaddrchars; }
 
 	// unmap ranges (short form)
 	void unmap_read(offs_t addrstart, offs_t addrend, offs_t addrmirror = 0, u16 flags = 0) { unmap_generic(addrstart, addrend, addrmirror, flags, read_or_write::READ, false); }
@@ -1750,163 +2204,101 @@ public:
 	void install_view(offs_t addrstart, offs_t addrend, memory_view &view) { install_view(addrstart, addrend, 0, view); }
 	virtual void install_view(offs_t addrstart, offs_t addrend, offs_t addrmirror, memory_view &view) = 0;
 
+	// install wait state handlers
+	void install_read_before_time(offs_t addrstart, offs_t addrend, ws_time_delegate ws) { install_read_before_time(addrstart, addrend, 0, ws); }
+	virtual void install_read_before_time(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_time_delegate ws) = 0;
+	void install_read_before_delay(offs_t addrstart, offs_t addrend, ws_delay_delegate ws) { install_read_before_delay(addrstart, addrend, 0, ws); }
+	virtual void install_read_before_delay(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_delay_delegate ws) = 0;
+	void install_read_after_delay(offs_t addrstart, offs_t addrend, ws_delay_delegate ws) { install_read_after_delay(addrstart, addrend, 0, ws); }
+	virtual void install_read_after_delay(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_delay_delegate ws) = 0;
+
+	void install_write_before_time(offs_t addrstart, offs_t addrend, ws_time_delegate ws) { install_write_before_time(addrstart, addrend, 0, ws); }
+	virtual void install_write_before_time(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_time_delegate ws) = 0;
+	void install_write_before_delay(offs_t addrstart, offs_t addrend, ws_delay_delegate ws) { install_write_before_delay(addrstart, addrend, 0, ws); }
+	virtual void install_write_before_delay(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_delay_delegate ws) = 0;
+	void install_write_after_delay(offs_t addrstart, offs_t addrend, ws_delay_delegate ws) { install_write_after_delay(addrstart, addrend, 0, ws); }
+	virtual void install_write_after_delay(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_delay_delegate ws) = 0;
+
+	void install_readwrite_before_time(offs_t addrstart, offs_t addrend, ws_time_delegate ws) { install_readwrite_before_time(addrstart, addrend, 0, ws); }
+	virtual void install_readwrite_before_time(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_time_delegate ws) = 0;
+	void install_readwrite_before_delay(offs_t addrstart, offs_t addrend, ws_delay_delegate ws) { install_readwrite_before_delay(addrstart, addrend, 0, ws); }
+	virtual void install_readwrite_before_delay(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_delay_delegate ws) = 0;
+	void install_readwrite_after_delay(offs_t addrstart, offs_t addrend, ws_delay_delegate ws) { install_readwrite_after_delay(addrstart, addrend, 0, ws); }
+	virtual void install_readwrite_after_delay(offs_t addrstart, offs_t addrend, offs_t addrmirror, ws_delay_delegate ws) = 0;
+
 	// install new-style delegate handlers (short form)
-	void install_read_handler(offs_t addrstart, offs_t addrend, read8_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write8_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read8_delegate rhandler, write8_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read16_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write16_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read16_delegate rhandler, write16_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read32_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write32_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read32_delegate rhandler, write32_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read64_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write64_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read64_delegate rhandler, write64_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-
-	void install_read_handler(offs_t addrstart, offs_t addrend, read8m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write8m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read8m_delegate rhandler, write8m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read16m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write16m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read16m_delegate rhandler, write16m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read32m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write32m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read32m_delegate rhandler, write32m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read64m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write64m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read64m_delegate rhandler, write64m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-
-	void install_read_handler(offs_t addrstart, offs_t addrend, read8s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write8s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read8s_delegate rhandler, write8s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read16s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write16s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read16s_delegate rhandler, write16s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read32s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write32s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read32s_delegate rhandler, write32s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read64s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write64s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read64s_delegate rhandler, write64s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-
-	void install_read_handler(offs_t addrstart, offs_t addrend, read8sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write8sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read8sm_delegate rhandler, write8sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read16sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write16sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read16sm_delegate rhandler, write16sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read32sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write32sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read32sm_delegate rhandler, write32sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read64sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write64sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read64sm_delegate rhandler, write64sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-
-	void install_read_handler(offs_t addrstart, offs_t addrend, read8mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write8mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read8mo_delegate rhandler, write8mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read16mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write16mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read16mo_delegate rhandler, write16mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read32mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write32mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read32mo_delegate rhandler, write32mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read64mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write64mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read64mo_delegate rhandler, write64mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-
-	void install_read_handler(offs_t addrstart, offs_t addrend, read8smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write8smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read8smo_delegate rhandler, write8smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read16smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write16smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read16smo_delegate rhandler, write16smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read32smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write32smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read32smo_delegate rhandler, write32smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { return install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
-	void install_read_handler(offs_t addrstart, offs_t addrend, read64smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_read_handler(addrstart, addrend, 0, 0, 0, rhandler, unitmask, cswidth, flags); }
-	void install_write_handler(offs_t addrstart, offs_t addrend, write64smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_write_handler(addrstart, addrend, 0, 0, 0, whandler, unitmask, cswidth, flags); }
-	void install_readwrite_handler(offs_t addrstart, offs_t addrend, read64smo_delegate rhandler, write64smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) { install_readwrite_handler(addrstart, addrend, 0, 0, 0, rhandler, whandler, unitmask, cswidth, flags); }
+	template <typename R>
+	void install_read_handler(offs_t addrstart, offs_t addrend, R &&rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0)
+	{ install_read_handler(addrstart, addrend, 0, 0, 0, std::forward<R>(rhandler), unitmask, cswidth, flags); }
+	template <typename W>
+	void install_write_handler(offs_t addrstart, offs_t addrend, W &&whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0)
+	{ install_write_handler(addrstart, addrend, 0, 0, 0, std::forward<W>(whandler), unitmask, cswidth, flags); }
+	template <typename R, typename W>
+	void install_readwrite_handler(offs_t addrstart, offs_t addrend, R &&rhandler, W &&whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0)
+	{ install_readwrite_handler(addrstart, addrend, 0, 0, 0, std::forward<R>(rhandler), std::forward<W>(whandler), unitmask, cswidth, flags); }
 
 	// install new-style delegate handlers (with mirror/mask)
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write8_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8_delegate rhandler, write8_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write16_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16_delegate rhandler, write16_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write32_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32_delegate rhandler, write32_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write64_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64_delegate rhandler, write64_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write8m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8m_delegate rhandler, write8m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write16m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16m_delegate rhandler, write16m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write32m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32m_delegate rhandler, write32m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64m_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write64m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64m_delegate rhandler, write64m_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write8s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8s_delegate rhandler, write8s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write16s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16s_delegate rhandler, write16s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write32s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32s_delegate rhandler, write32s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64s_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write64s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64s_delegate rhandler, write64s_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write8sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8sm_delegate rhandler, write8sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write16sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16sm_delegate rhandler, write16sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write32sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32sm_delegate rhandler, write32sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64sm_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write64sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64sm_delegate rhandler, write64sm_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write8mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8mo_delegate rhandler, write8mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write16mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16mo_delegate rhandler, write16mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write32mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32mo_delegate rhandler, write32mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64mo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write64mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64mo_delegate rhandler, write64mo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write8smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read8smo_delegate rhandler, write8smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write16smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read16smo_delegate rhandler, write16smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write32smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read32smo_delegate rhandler, write32smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_read_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64smo_delegate rhandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
 	virtual void install_write_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, write64smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
-	virtual void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, read64smo_delegate rhandler, write64smo_delegate whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0) = 0;
+
+	template <typename R, typename W>
+	void install_readwrite_handler(offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, R &&rhandler, W &&whandler, u64 unitmask = 0, int cswidth = 0, u16 flags = 0)
+	{
+		static_assert(emu::detail::handler_width_v<std::remove_reference_t<R> > == emu::detail::handler_width_v<std::remove_reference_t<W> >, "handler widths do not match");
+		install_read_handler(addrstart, addrend, addrmask, addrmirror, addrselect, std::forward<R>(rhandler), unitmask, cswidth, flags);
+		install_write_handler(addrstart, addrend, addrmask, addrmirror, addrselect, std::forward<W>(whandler), unitmask, cswidth, flags);
+	}
 
 protected:
 	virtual void unmap_generic(offs_t addrstart, offs_t addrend, offs_t addrmirror, u16 flags, read_or_write readorwrite, bool quiet) = 0;
@@ -1930,8 +2322,8 @@ protected:
 		  m_manager(manager),
 		  m_addrmask(make_bitmask<offs_t>(m_config.addr_width())),
 		  m_logaddrmask(make_bitmask<offs_t>(m_config.logaddr_width())),
-		  m_addrchars((m_config.addr_width() + 3) / 4),
-		  m_logaddrchars((m_config.logaddr_width() + 3) / 4)
+		  m_addrchars(m_config.m_is_octal ? (m_config.addr_width() + 2) / 3 : (m_config.addr_width() + 3) / 4),
+		  m_logaddrchars(m_config.m_is_octal ? (m_config.logaddr_width() + 2) / 3 : (m_config.logaddr_width() + 3) / 4)
 	{}
 
 	const address_space_config &m_config;       // configuration of this space
@@ -1955,6 +2347,24 @@ protected:
 	address_space(memory_manager &manager, device_memory_interface &memory, int spacenum);
 
 public:
+	struct specific_access_info
+	{
+		struct side
+		{
+			void const *const *dispatch;
+			uintptr_t function;
+			ptrdiff_t displacement;
+			bool is_virtual;
+		};
+
+		unsigned native_bytes;
+		unsigned native_mask_bits;
+		unsigned address_width;
+		unsigned low_bits;
+		side read;
+		side write;
+	};
+
 	virtual ~address_space();
 
 	// getters
@@ -1964,28 +2374,12 @@ public:
 	address_map *map() const { return m_map.get(); }
 
 	template<int Width, int AddrShift, endianness_t Endian> void cache(emu::detail::memory_access_cache<Width, AddrShift, Endian> &v) {
-		if(AddrShift != m_config.addr_shift())
-			fatalerror("Requesting cache() with address shift %d while the config says %d\n", AddrShift, m_config.addr_shift());
-		if(8 << Width != m_config.data_width())
-			fatalerror("Requesting cache() with data width %d while the config says %d\n", 8 << Width, m_config.data_width());
-		if(Endian != m_config.endianness())
-			fatalerror("Requesting cache() with endianness %s while the config says %s\n",
-					   util::endian_to_string_view(Endian), util::endian_to_string_view(m_config.endianness()));
-
+		m_config.check_parameters("cache()", Width, AddrShift, Endian);
 		v.set(this, get_cache_info());
 	}
 
 	template<int Level, int Width, int AddrShift, endianness_t Endian> void specific(emu::detail::memory_access_specific<Level, Width, AddrShift, Endian> &v) {
-		if(Level != emu::detail::handler_entry_dispatch_level(m_config.addr_width()))
-			fatalerror("Requesting specific() with wrong level, bad address width (the config says %d)\n", m_config.addr_width());
-		if(AddrShift != m_config.addr_shift())
-			fatalerror("Requesting specific() with address shift %d while the config says %d\n", AddrShift, m_config.addr_shift());
-		if(8 << Width != m_config.data_width())
-			fatalerror("Requesting specific() with data width %d while the config says %d\n", 8 << Width, m_config.data_width());
-		if(Endian != m_config.endianness())
-			fatalerror("Requesting spefific() with endianness %s while the config says %s\n",
-					   util::endian_to_string_view(Endian), util::endian_to_string_view(m_config.endianness()));
-
+		m_config.check_parameters("specific()", Level, Width, AddrShift, Endian);
 		v.set(this, get_specific_info());
 	}
 
@@ -2006,8 +2400,10 @@ public:
 	virtual void remove_passthrough(std::unordered_set<handler_entry *> &handlers) = 0;
 
 	u64 unmap() const { return m_unmap; }
+	void unmap_value_high() { m_unmap = ~0; }
 
 	std::shared_ptr<emu::detail::memory_passthrough_handler_impl> make_mph(memory_passthrough_handler *mph);
+	std::shared_ptr<emu::detail::memory_passthrough_handler_impl> get_default_mpl() { return m_default_mpl; }
 
 	// debug helpers
 	virtual std::string get_handler_string(read_or_write readorwrite, offs_t byteaddress) const = 0;
@@ -2016,12 +2412,13 @@ public:
 	void set_log_unmap(bool log) { m_log_unmap = log; }
 
 	// general accessors
-	virtual void accessors(data_accessors &accessors) const = 0;
+	virtual specific_access_info specific_accessors() const = 0;
 	virtual void *get_read_ptr(offs_t address) const = 0;
 	virtual void *get_write_ptr(offs_t address) const = 0;
 
 	// read accessors
 	virtual u8 read_byte(offs_t address) = 0;
+	virtual u8 read_byte(offs_t address, u8 mask) = 0;
 	virtual u16 read_word(offs_t address) = 0;
 	virtual u16 read_word(offs_t address, u16 mask) = 0;
 	virtual u16 read_word_unaligned(offs_t address) = 0;
@@ -2037,6 +2434,7 @@ public:
 
 	// write accessors
 	virtual void write_byte(offs_t address, u8 data) = 0;
+	virtual void write_byte(offs_t address, u8 data, u8 mask) = 0;
 	virtual void write_word(offs_t address, u16 data) = 0;
 	virtual void write_word(offs_t address, u16 data, u16 mask) = 0;
 	virtual void write_word_unaligned(offs_t address, u16 data) = 0;
@@ -2050,39 +2448,9 @@ public:
 	virtual void write_qword_unaligned(offs_t address, u64 data) = 0;
 	virtual void write_qword_unaligned(offs_t address, u64 data, u64 mask) = 0;
 
-	// read accessors with flags
-	virtual std::pair<u8,  u16> read_byte_flags(offs_t address) = 0;
-	virtual std::pair<u16, u16> read_word_flags(offs_t address) = 0;
-	virtual std::pair<u16, u16> read_word_flags(offs_t address, u16 mask) = 0;
-	virtual std::pair<u16, u16> read_word_unaligned_flags(offs_t address) = 0;
-	virtual std::pair<u16, u16> read_word_unaligned_flags(offs_t address, u16 mask) = 0;
-	virtual std::pair<u32, u16> read_dword_flags(offs_t address) = 0;
-	virtual std::pair<u32, u16> read_dword_flags(offs_t address, u32 mask) = 0;
-	virtual std::pair<u32, u16> read_dword_unaligned_flags(offs_t address) = 0;
-	virtual std::pair<u32, u16> read_dword_unaligned_flags(offs_t address, u32 mask) = 0;
-	virtual std::pair<u64, u16> read_qword_flags(offs_t address) = 0;
-	virtual std::pair<u64, u16> read_qword_flags(offs_t address, u64 mask) = 0;
-	virtual std::pair<u64, u16> read_qword_unaligned_flags(offs_t address) = 0;
-	virtual std::pair<u64, u16> read_qword_unaligned_flags(offs_t address, u64 mask) = 0;
-
-	// write accessors with flags
-	virtual u16 write_byte_flags(offs_t address, u8 data) = 0;
-	virtual u16 write_word_flags(offs_t address, u16 data) = 0;
-	virtual u16 write_word_flags(offs_t address, u16 data, u16 mask) = 0;
-	virtual u16 write_word_unaligned_flags(offs_t address, u16 data) = 0;
-	virtual u16 write_word_unaligned_flags(offs_t address, u16 data, u16 mask) = 0;
-	virtual u16 write_dword_flags(offs_t address, u32 data) = 0;
-	virtual u16 write_dword_flags(offs_t address, u32 data, u32 mask) = 0;
-	virtual u16 write_dword_unaligned_flags(offs_t address, u32 data) = 0;
-	virtual u16 write_dword_unaligned_flags(offs_t address, u32 data, u32 mask) = 0;
-	virtual u16 write_qword_flags(offs_t address, u64 data) = 0;
-	virtual u16 write_qword_flags(offs_t address, u64 data, u64 mask) = 0;
-	virtual u16 write_qword_unaligned_flags(offs_t address, u64 data) = 0;
-	virtual u16 write_qword_unaligned_flags(offs_t address, u64 data, u64 mask) = 0;
-
 	// setup
 	void prepare_map();
-	void prepare_device_map(address_map &map);
+	void prepare_device_map(address_map &map) ATTR_COLD;
 	void populate_from_map(address_map *map = nullptr);
 
 	template<int Width, int AddrShift> handler_entry_read_unmapped <Width, AddrShift> *get_unmap_r() const { return static_cast<handler_entry_read_unmapped <Width, AddrShift> *>(m_unmap_r); }
@@ -2098,7 +2466,7 @@ protected:
 	virtual std::pair<void *, void *> get_cache_info() = 0;
 	virtual std::pair<const void *, const void *> get_specific_info() = 0;
 
-	void prepare_map_generic(address_map &map, bool allow_alloc);
+	void prepare_map_generic(address_map &map, bool allow_alloc) ATTR_COLD;
 
 	// private state
 	device_t &              m_device;           // reference to the owning device
@@ -2118,6 +2486,9 @@ protected:
 
 	util::notifier<read_or_write> m_notifiers;  // notifier list for address map change
 	u32                     m_in_notification;  // notification(s) currently being done
+
+	// passthrough handler used for wait states
+	std::shared_ptr<emu::detail::memory_passthrough_handler_impl> m_default_mpl;
 };
 
 
@@ -2202,13 +2573,13 @@ class memory_region
 	DISABLE_COPYING(memory_region);
 public:
 	// construction/destruction
-	memory_region(running_machine &machine, std::string name, u32 length, u8 width, endianness_t endian);
+	memory_region(std::string name, u32 length, u8 width, endianness_t endian);
 
 	// getters
-	running_machine &machine() const { return m_machine; }
-	u8 *base() { return (m_buffer.size() > 0) ? &m_buffer[0] : nullptr; }
-	u8 *end() { return base() + m_buffer.size(); }
-	u32 bytes() const { return m_buffer.size(); }
+	u8 *base() { return reinterpret_cast<u8 *>(m_buffer.get()); }
+	u8 *end() { return base() + m_length; }
+	u32 bytes() const { return m_length; }
+	u32 length() const { return m_length / m_bytewidth; }
 	const std::string &name() const { return m_name; }
 
 	// flag expansion
@@ -2217,19 +2588,21 @@ public:
 	u8 bytewidth() const { return m_bytewidth; }
 
 	// data access
-	u8 &as_u8(offs_t offset = 0) { return m_buffer[offset]; }
-	u16 &as_u16(offs_t offset = 0) { return reinterpret_cast<u16 *>(base())[offset]; }
-	u32 &as_u32(offs_t offset = 0) { return reinterpret_cast<u32 *>(base())[offset]; }
-	u64 &as_u64(offs_t offset = 0) { return reinterpret_cast<u64 *>(base())[offset]; }
+	u8 &as_u8(offs_t offset = 0) { return reinterpret_cast<u8 *>(m_buffer.get())[offset]; }
+	u16 &as_u16(offs_t offset = 0) { return reinterpret_cast<u16 *>(m_buffer.get())[offset]; }
+	u32 &as_u32(offs_t offset = 0) { return reinterpret_cast<u32 *>(m_buffer.get())[offset]; }
+	u64 &as_u64(offs_t offset = 0) { return reinterpret_cast<u64 *>(m_buffer.get())[offset]; }
 
 private:
+	struct stdlib_deleter { void operator()(void *p) const { std::free(p); } };
+
 	// internal data
-	running_machine &       m_machine;
-	std::string             m_name;
-	std::vector<u8>         m_buffer;
-	endianness_t            m_endianness;
-	u8                      m_bitwidth;
-	u8                      m_bytewidth;
+	std::string                             m_name;
+	std::unique_ptr<void, stdlib_deleter>   m_buffer;
+	u32                                     m_length;
+	endianness_t                            m_endianness;
+	u8                                      m_bitwidth;
+	u8                                      m_bytewidth;
 };
 
 
@@ -2267,8 +2640,8 @@ public:
 		int m_id;
 
 		memory_view_entry(const address_space_config &config, memory_manager &manager, memory_view &view, int id);
-		void prepare_map_generic(address_map &map, bool allow_alloc);
-		void prepare_device_map(address_map &map);
+		void prepare_map_generic(address_map &map, bool allow_alloc) ATTR_COLD;
+		void prepare_device_map(address_map &map) ATTR_COLD;
 
 		void check_range_optimize_all(const char *function, int width, offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, u64 unitmask, int cswidth, offs_t &nstart, offs_t &nend, offs_t &nmask, offs_t &nmirror, u64 &nunitmask, int &ncswidth);
 		void check_range_optimize_mirror(const char *function, offs_t addrstart, offs_t addrend, offs_t addrmirror, offs_t &nstart, offs_t &nend, offs_t &nmask, offs_t &nmirror);
@@ -2282,13 +2655,13 @@ public:
 
 	void select(int entry);
 	void disable();
+	bool exists() const { return m_config != nullptr; }
 
 	std::optional<int> entry() const { return m_cur_id == -1 ? std::optional<int>() : m_cur_slot; }
 
 	const std::string &name() const { return m_name; }
 
 private:
-
 	device_t &                                      m_device;
 	std::string                                     m_name;
 	std::map<int, int>                              m_entry_mapping;
@@ -2308,6 +2681,7 @@ private:
 	void make_subdispatch(std::string context);
 	int id_to_slot(int id) const;
 	void register_state();
+	void refresh_id();
 };
 
 
@@ -2331,36 +2705,36 @@ public:
 	running_machine &machine() const { return m_machine; }
 
 	// used for the debugger interface memory views
-	const std::unordered_map<std::string, std::unique_ptr<memory_bank>> &banks() const { return m_banklist; }
-	const std::unordered_map<std::string, std::unique_ptr<memory_region>> &regions() const { return m_regionlist; }
-	const std::unordered_map<std::string, std::unique_ptr<memory_share>> &shares() const { return m_sharelist; }
+	const util::transparent_string_unordered_map<std::string, std::unique_ptr<memory_bank>> &banks() const { return m_banklist; }
+	const util::transparent_string_unordered_map<std::string, std::unique_ptr<memory_region>> &regions() const { return m_regionlist; }
+	const util::transparent_string_unordered_map<std::string, std::unique_ptr<memory_share>> &shares() const { return m_sharelist; }
 
 	// anonymous memory zones
 	void *anonymous_alloc(address_space &space, size_t bytes, u8 width, offs_t start, offs_t end, const std::string &key = "");
 
 	// shares
 	memory_share *share_alloc(device_t &dev, std::string name, u8 width, size_t bytes, endianness_t endianness);
-	memory_share *share_find(std::string name);
+	memory_share *share_find(std::string_view name);
 
 	// banks
 	memory_bank *bank_alloc(device_t &device, std::string tag);
-	memory_bank *bank_find(std::string tag);
+	memory_bank *bank_find(std::string_view tag);
 
 	// regions
 	memory_region *region_alloc(std::string name, u32 length, u8 width, endianness_t endian);
-	memory_region *region_find(std::string name);
+	memory_region *region_find(std::string_view name);
 	void region_free(std::string name);
 
 private:
-	struct stdlib_deleter { void operator()(void *p) const { free(p); } };
+	struct stdlib_deleter { void operator()(void *p) const { std::free(p); } };
 
 	// internal state
 	running_machine &           m_machine;              // reference to the machine
 
-	std::vector<std::unique_ptr<void, stdlib_deleter>>               m_datablocks;           // list of memory blocks to free on exit
-	std::unordered_map<std::string, std::unique_ptr<memory_bank>>    m_banklist;             // map of banks
-	std::unordered_map<std::string, std::unique_ptr<memory_share>>   m_sharelist;            // map of shares
-	std::unordered_map<std::string, std::unique_ptr<memory_region>>  m_regionlist;           // map of memory regions
+	std::vector<std::unique_ptr<void, stdlib_deleter>>                                   m_datablocks;           // list of memory blocks to free on exit
+	util::transparent_string_unordered_map<std::string, std::unique_ptr<memory_bank>>    m_banklist;             // map of banks
+	util::transparent_string_unordered_map<std::string, std::unique_ptr<memory_share>>   m_sharelist;            // map of shares
+	util::transparent_string_unordered_map<std::string, std::unique_ptr<memory_region>>  m_regionlist;           // map of memory regions
 
 	// Allocate the address spaces
 	void allocate(device_memory_interface &memory);
@@ -2404,9 +2778,9 @@ private:
 
 
 template<int Width, int AddrShift, endianness_t Endian>
-typename emu::detail::handler_entry_size<Width>::uX
+emu::detail::handler_entry_size_t<Width>
 emu::detail::memory_access_cache<Width, AddrShift, Endian>::
-read_native(offs_t address, typename emu::detail::handler_entry_size<Width>::uX mask)
+read_native(offs_t address, emu::detail::handler_entry_size_t<Width> mask)
 {
 	address &= m_addrmask;
 	check_address_r(address);
@@ -2415,7 +2789,7 @@ read_native(offs_t address, typename emu::detail::handler_entry_size<Width>::uX 
 
 template<int Width, int AddrShift, endianness_t Endian>
 void emu::detail::memory_access_cache<Width, AddrShift, Endian>::
-write_native(offs_t address, typename emu::detail::handler_entry_size<Width>::uX data, typename emu::detail::handler_entry_size<Width>::uX mask)
+write_native(offs_t address, emu::detail::handler_entry_size_t<Width> data, emu::detail::handler_entry_size_t<Width> mask)
 {
 	address &= m_addrmask;
 	check_address_w(address);

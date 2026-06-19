@@ -9,7 +9,7 @@
  Here we emulate the RAM expansion + Disk Drive which form the
  Famicom Disk System.
 
- Based on info from NESDev wiki ( http://wiki.nesdev.com/w/index.php/Family_Computer_Disk_System )
+ Based on info from NESDev wiki ( https://www.nesdev.org/wiki/Family_Computer_Disk_System )
 
  TODO:
    - convert floppy drive + fds format to modern code!
@@ -24,12 +24,11 @@
 #include "speaker.h"
 
 #ifdef NES_PCB_DEBUG
-	#define VERBOSE 1
+#define VERBOSE (LOG_GENERAL)
 #else
-	#define VERBOSE 0
+#define VERBOSE (0)
 #endif
-
-#define LOG_MMC(x) do { if (VERBOSE) logerror x; } while (0)
+#include "logmacro.h"
 
 
 //-----------------------------------------------
@@ -52,7 +51,7 @@ static const floppy_interface nes_floppy_interface =
 
 void nes_disksys_device::device_add_mconfig(machine_config &config)
 {
-	LEGACY_FLOPPY(config, m_disk, 0, &nes_floppy_interface);
+	LEGACY_FLOPPY(config, m_disk, &nes_floppy_interface);
 
 	SPEAKER(config, "addon").front_center(); // connected to motherboard
 
@@ -63,9 +62,9 @@ void nes_disksys_device::device_add_mconfig(machine_config &config)
 
 ROM_START( disksys )
 	ROM_REGION(0x2000, "drive", 0)
-	ROM_SYSTEM_BIOS( 0, "2c33a-01a", "Famicom Disk System Bios")
+	ROM_SYSTEM_BIOS( 0, "2c33a-01a", "Famicom Disk System BIOS")
 	ROMX_LOAD( "rp2c33a-01a.bin", 0x0000, 0x2000, CRC(5e607dcf) SHA1(57fe1bdee955bb48d357e463ccbf129496930b62), ROM_BIOS(0)) // newer, Nintendo logo has no shadow
-	ROM_SYSTEM_BIOS( 1, "2c33-01", "Famicom Disk System Bios, older")
+	ROM_SYSTEM_BIOS( 1, "2c33-01", "Famicom Disk System BIOS, older")
 	ROMX_LOAD( "rp2c33-01.bin", 0x0000, 0x2000, CRC(1c7ae5d5) SHA1(af5af53f66982e749643fdf8b2acbb7d4d3ed229), ROM_BIOS(1)) // older, Nintendo logo has shadow
 ROM_END
 
@@ -108,7 +107,8 @@ nes_disksys_device::nes_disksys_device(const machine_config &mconfig, const char
 	, m_disk(*this, "floppy0")
 	, m_sound(*this, "rp2c33snd")
 	, irq_timer(nullptr)
-	, m_irq_count(0), m_irq_count_latch(0), m_irq_enable(0), m_irq_repeat(0), m_irq_transfer(0), m_disk_reg_enable(0), m_fds_motor_on(0), m_fds_door_closed(0), m_fds_current_side(0), m_fds_head_position(0), m_fds_status0(0), m_read_mode(0), m_drive_ready(0)
+	, m_irq_count(0), m_irq_count_latch(0), m_irq_enable(false), m_irq_repeat(false), m_irq_transfer(false), m_disk_reg_enable(false), m_sound_en(false)
+	, m_fds_motor_on(0), m_fds_door_closed(0), m_fds_current_side(0), m_fds_head_position(0), m_fds_status0(0), m_read_mode(0), m_drive_ready(0)
 	, m_fds_sides(0), m_fds_last_side(0), m_fds_count(0)
 {
 }
@@ -137,6 +137,7 @@ void nes_disksys_device::device_start()
 	save_item(NAME(m_irq_count));
 	save_item(NAME(m_irq_count_latch));
 	save_item(NAME(m_disk_reg_enable));
+	save_item(NAME(m_sound_en));
 
 	save_item(NAME(m_fds_last_side));
 	save_item(NAME(m_fds_count));
@@ -158,10 +159,11 @@ void nes_disksys_device::pcb_reset()
 	m_drive_ready = 0;
 	m_irq_count = 0;
 	m_irq_count_latch = 0;
-	m_irq_enable = 0;
-	m_irq_repeat = 0;
-	m_irq_transfer = 0;
-	m_disk_reg_enable = 0;
+	m_irq_enable = false;
+	m_irq_repeat = false;
+	m_irq_transfer = false;
+	m_disk_reg_enable = false;
+	m_sound_en = false;
 
 	m_fds_count = 0;
 	m_fds_last_side = 0;
@@ -184,7 +186,7 @@ void nes_disksys_device::pcb_reset()
 
 void nes_disksys_device::write_h(offs_t offset, uint8_t data)
 {
-	LOG_MMC(("Famicom Disk System write_h, offset %04x, data: %02x\n", offset, data));
+	LOG("Famicom Disk System write_h, offset %04x, data: %02x\n", offset, data);
 
 	if (offset < 0x6000)
 		m_prgram[offset + 0x2000] = data;
@@ -192,7 +194,7 @@ void nes_disksys_device::write_h(offs_t offset, uint8_t data)
 
 uint8_t nes_disksys_device::read_h(offs_t offset)
 {
-	LOG_MMC(("Famicom Disk System read_h, offset: %04x\n", offset));
+	LOG("Famicom Disk System read_h, offset: %04x\n", offset);
 
 	if (offset < 0x6000)
 		return m_prgram[offset + 0x2000];
@@ -202,13 +204,13 @@ uint8_t nes_disksys_device::read_h(offs_t offset)
 
 void nes_disksys_device::write_m(offs_t offset, uint8_t data)
 {
-	LOG_MMC(("Famicom Disk System write_m, offset: %04x, data: %02x\n", offset, data));
+	LOG("Famicom Disk System write_m, offset: %04x, data: %02x\n", offset, data);
 	m_prgram[offset] = data;
 }
 
 uint8_t nes_disksys_device::read_m(offs_t offset)
 {
-	LOG_MMC(("Famicom Disk System read_m, offset: %04x\n", offset));
+	LOG("Famicom Disk System read_m, offset: %04x\n", offset);
 	return m_prgram[offset];
 }
 
@@ -224,7 +226,7 @@ void nes_disksys_device::hblank_irq(int scanline, bool vblank, bool blanked)
 
 void nes_disksys_device::write_ex(offs_t offset, uint8_t data)
 {
-	LOG_MMC(("Famicom Disk System write_ex, offset: %04x, data: %02x\n", offset, data));
+	LOG("Famicom Disk System write_ex, offset: %04x, data: %02x\n", offset, data);
 
 	if (offset >= 0x20 && offset < 0x60)
 	{
@@ -292,7 +294,11 @@ void nes_disksys_device::write_ex(offs_t offset, uint8_t data)
 				m_fds_head_position -= 2; // ??? is this some sort of compensation??
 
 			m_read_mode = BIT(data, 2);
-			set_nt_mirroring(BIT(data, 3) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
+			if (BIT(data, 3))
+				m_fds_status0 |= 0x08;
+			else
+				m_fds_status0 &= ~0x08;
+			set_nt_mirroring(BIT(m_fds_status0, 3) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
 			m_drive_ready = data & 0x40;
 			m_irq_transfer = BIT(data, 7);
 			break;
@@ -317,7 +323,7 @@ void nes_disksys_device::write_ex(offs_t offset, uint8_t data)
 
 uint8_t nes_disksys_device::read_ex(offs_t offset)
 {
-	LOG_MMC(("Famicom Disk System read_ex, offset: %04x\n", offset));
+	LOG("Famicom Disk System read_ex, offset: %04x\n", offset);
 	uint8_t ret = 0x00;
 
 	if (offset >= 0x20 && offset < 0x60)
@@ -335,13 +341,17 @@ uint8_t nes_disksys_device::read_ex(offs_t offset)
 			// bit1 - Byte transfer flag (Set to 1 every time 8 bits have been transferred between
 			//        the RAM adaptor & disk drive through $4024/$4031; Reset to 0 when $4024,
 			//        $4031, or $4030 has been serviced)
+			// bit3 = Nametable mirroring flag (0: Vertical, 1: Horizontal)
 			// bit4 - CRC control (0: CRC passed; 1: CRC error)
 			// bit6 - End of Head (1 when disk head is on the most inner track)
 			// bit7 - Disk Data Read/Write Enable (1 when disk is readable/writable)
 			ret = m_fds_status0 | 0x80;
-			// clear the disk IRQ detect and byte transfer flags
-			m_fds_status0 &= ~0x03;
-			set_irq_line(CLEAR_LINE);
+			if (!machine().side_effects_disabled())
+			{
+				// clear the disk IRQ detect and byte transfer flags
+				m_fds_status0 &= ~0x03;
+				set_irq_line(CLEAR_LINE);
+			}
 			break;
 		case 0x11:
 			// $4031 - data latch
@@ -350,19 +360,26 @@ uint8_t nes_disksys_device::read_ex(offs_t offset)
 				ret = 0;
 			else if (m_fds_current_side && m_read_mode)
 			{
-				ret = m_fds_data[(m_fds_current_side - 1) * 65500 + m_fds_head_position++];
-				if (m_fds_head_position == 65500)
+				ret = m_fds_data[(m_fds_current_side - 1) * 65500 + m_fds_head_position];
+				if (!machine().side_effects_disabled())
 				{
-					printf("end of disk reached!\n");
-					m_fds_status0 |= 0x40;
-					m_fds_head_position -= 2;
+					m_fds_head_position++;
+					if (m_fds_head_position == 65500)
+					{
+						logerror("%s: end of disk reached!\n", machine().describe_context());
+						m_fds_status0 |= 0x40;
+						m_fds_head_position -= 2;
+					}
 				}
 			}
 			else
 				ret = 0;
 			// clear the byte transfer flag
-			m_fds_status0 &= ~0x02;
-			set_irq_line(CLEAR_LINE);
+			if (!machine().side_effects_disabled())
+			{
+				m_fds_status0 &= ~0x02;
+				set_irq_line(CLEAR_LINE);
+			}
 			break;
 		case 0x12:
 			// $4032 - disk status 1:
@@ -375,11 +392,14 @@ uint8_t nes_disksys_device::read_ex(offs_t offset)
 			{
 				// If we've switched disks, report "no disk" for a few reads
 				ret = 1;
-				m_fds_count++;
-				if (m_fds_count == 50)
+				if (!machine().side_effects_disabled())
 				{
-					m_fds_last_side = m_fds_current_side;
-					m_fds_count = 0;
+					m_fds_count++;
+					if (m_fds_count == 50)
+					{
+						m_fds_last_side = m_fds_current_side;
+						m_fds_count = 0;
+					}
 				}
 			}
 			else

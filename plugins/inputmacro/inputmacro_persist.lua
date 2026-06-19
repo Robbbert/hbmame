@@ -5,7 +5,7 @@
 -- Helpers
 
 local function settings_path()
-	return emu.subst_env(manager.machine.options.entries.homepath:value():match('([^;]+)')) .. '/inputmacro'
+	return manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/inputmacro'
 end
 
 local function settings_filename()
@@ -37,7 +37,8 @@ local function make_macro(setting)
 					local ipt = {
 						port = input.port,
 						mask = input.mask,
-						type = ioport:token_to_input_type(input.type) }
+						type = ioport:token_to_input_type(input.type),
+						value = input.value }
 					local port = ioport.ports[input.port]
 					if port then
 						local field = port:field(input.mask)
@@ -87,7 +88,8 @@ local function make_settings(macros)
 				local b = {
 					port = input.port,
 					mask = input.mask,
-					type = ioport:input_type_to_token(input.type) }
+					type = ioport:input_type_to_token(input.type),
+					value = input.value }
 				table.insert(s.inputs, b)
 			end
 		end
@@ -101,7 +103,7 @@ end
 local lib = { }
 
 function lib:load_settings()
-	filename = settings_path() .. '/' .. settings_filename()
+	local filename = settings_path() .. '/' .. settings_filename()
 	local file = io.open(filename, 'r')
 	if not file then
 		return { }
@@ -127,17 +129,17 @@ end
 function lib:save_settings(macros)
 	local path = settings_path()
 	local stat = lfs.attributes(path)
-	if not stat then
-		lfs.mkdir(path)
-	elseif stat.mode ~= 'directory' then
+	if stat and (stat.mode ~= 'directory') then
 		emu.print_error(string.format('Error saving input macros: "%s" is not a directory', path))
 		return
 	end
-	filename = path .. '/' .. settings_filename()
+	local filename = path .. '/' .. settings_filename()
 
 	if #macros == 0 then
 		os.remove(filename)
 		return
+	elseif not stat then
+		lfs.mkdir(path)
 	end
 
 	local json = require('json')

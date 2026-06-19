@@ -108,18 +108,18 @@ static const z80_daisy_config z80_daisy_chain[] =
 //  Z80CTC
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( imi5000h_device::ctc_z0_w )
+void imi5000h_device::ctc_z0_w(int state)
 {
 	m_ctc->trg1(state);
 }
 
-WRITE_LINE_MEMBER( imi5000h_device::ctc_z1_w )
+void imi5000h_device::ctc_z1_w(int state)
 {
 	m_ctc->trg2(state);
 	m_ctc->trg3(state);
 }
 
-WRITE_LINE_MEMBER( imi5000h_device::ctc_z2_w )
+void imi5000h_device::ctc_z2_w(int state)
 {
 	//m_memory_enable = state;
 	m_maincpu->set_input_line(INPUT_LINE_NMI, state);
@@ -380,7 +380,7 @@ void imi5000h_device::device_add_mconfig(machine_config & config)
 	pio3.out_pb_callback().set(FUNC(imi5000h_device::pio3_pb_w));
 	pio3.out_brdy_callback().set(Z80PIO_3_TAG, FUNC(z80pio_device::strobe_b));
 
-	//HARDDISK(config, "harddisk1", 0);
+	//HARDDISK(config, "harddisk1");
 }
 
 

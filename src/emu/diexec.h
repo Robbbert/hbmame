@@ -109,7 +109,6 @@ public:
 	u32 max_cycles() const { return execute_max_cycles(); }
 	attotime cycles_to_attotime(u64 cycles) const { return device().clocks_to_attotime(cycles_to_clocks(cycles)); }
 	u64 attotime_to_cycles(const attotime &duration) const { return clocks_to_cycles(device().attotime_to_clocks(duration)); }
-	u32 input_lines() const { return execute_input_lines(); }
 	u32 default_irq_vector(int linenum) const { return execute_default_irq_vector(linenum); }
 	bool input_edge_triggered(int linenum) const { return execute_input_edge_triggered(linenum); }
 
@@ -161,10 +160,10 @@ public:
 	void abort_timeslice() noexcept;
 
 	// input and interrupt management
-	void set_input_line(int linenum, int state) { m_input[linenum].set_state_synced(state); }
-	void set_input_line_vector(int linenum, int vector) { m_input[linenum].set_vector(vector); }
-	void set_input_line_and_vector(int linenum, int state, int vector) { m_input[linenum].set_state_synced(state, vector); }
-	int input_state(int linenum) const { return m_input[linenum].m_curstate; }
+	void set_input_line(int linenum, int state) { assert(device().started()); m_input[linenum].set_state_synced(state); }
+	void set_input_line_vector(int linenum, int vector) { assert(device().started()); m_input[linenum].set_vector(vector); }
+	void set_input_line_and_vector(int linenum, int state, int vector) { assert(device().started()); m_input[linenum].set_state_synced(state, vector); }
+	int input_line_state(int linenum) const { assert(device().started()); return m_input[linenum].m_curstate; }
 	void pulse_input_line(int irqline, const attotime &duration);
 
 	// suspend/resume
@@ -189,8 +188,7 @@ public:
 	// required operation overrides
 	void run() { execute_run(); }
 
-	// deliberately ambiguous functions; if you have the execute interface
-	// just use it
+	// deliberately ambiguous functions; if you have the execute interface just use it
 	device_execute_interface &execute() { return *this; }
 
 protected:
@@ -201,13 +199,11 @@ protected:
 	virtual u32 execute_max_cycles() const noexcept;
 
 	// input line information getters
-	virtual u32 execute_input_lines() const noexcept;
 	virtual u32 execute_default_irq_vector(int linenum) const noexcept;
 	virtual bool execute_input_edge_triggered(int linenum) const noexcept;
 
 	// optional operation overrides
 	virtual void execute_run() = 0;
-	virtual void execute_burn(s32 cycles);
 	virtual void execute_set_input(int linenum, int state);
 
 	// interface-level overrides
@@ -219,10 +215,8 @@ protected:
 	virtual void interface_clock_changed(bool sync_on_new_clock_domain) override;
 
 	// for use by devcpu for now...
-	int current_input_state(unsigned i) const { return m_input[i].m_curstate; }
 	void set_icountptr(int &icount) { assert(!m_icountptr); m_icountptr = &icount; }
-	IRQ_CALLBACK_MEMBER(standard_irq_callback_member);
-	int standard_irq_callback(int irqline);
+	int standard_irq_callback(int irqline, offs_t pc);
 
 	// debugger hooks
 	bool debugger_enabled() const { return bool(device().machine().debug_flags & DEBUG_FLAG_ENABLED); }
@@ -241,6 +235,12 @@ protected:
 	{
 		if (device().machine().debug_flags & DEBUG_FLAG_ENABLED)
 			device().debug()->privilege_hook();
+	}
+
+	void debugger_wait_hook()
+	{
+		if (device().machine().debug_flags & DEBUG_FLAG_CALL_HOOK)
+			device().debug()->wait_hook();
 	}
 
 private:
@@ -304,7 +304,9 @@ private:
 
 	// cycle counting and executing
 	profile_type            m_profiler;                 // profiler tag
+protected:  // TODO: decide whether to bring up the wait-state methods
 	int *                   m_icountptr;                // pointer to the icount
+private:
 	int                     m_cycles_running;           // number of cycles we are executing
 	int                     m_cycles_stolen;            // number of cycles we artificially stole
 

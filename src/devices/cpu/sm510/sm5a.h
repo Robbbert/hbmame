@@ -18,7 +18,7 @@
 
 /*
 
-         OS2 OS3 OS4 K4  K3  K2  K1  GND al  bt  ACL _R1 _Tp NC  NC   note: on SM5L, pin 31=V1, 32=V2, 33=NC
+         OS2 OS3 OS4 K4  K3  K2  K1  GND α   β   ACL _R1 _Tp NC  NC   note: on SM5L, pin 31=V1, 32=V2, 33=NC
          45  44  43  42  41  40  39  38  37  36  35  34  33  32  31
         ____________________________________________________________
        |                                                            |
@@ -65,8 +65,8 @@ public:
 protected:
 	sm5a_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock, int stack_levels, int o_pins, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data);
 
-	void program_1_8k(address_map &map);
-	void data_5x13x4(address_map &map);
+	void program_1_8k(address_map &map) ATTR_COLD;
+	void data_5x13x4(address_map &map) ATTR_COLD;
 
 	virtual std::unique_ptr<util::disasm_interface> create_disassembler() override;
 	virtual void execute_one() override;
@@ -83,15 +83,8 @@ public:
 	sm5l_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 32768);
 };
 
-class kb1013vk12_device : public sm5a_device
-{
-public:
-	kb1013vk12_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 32768);
-};
-
 
 DECLARE_DEVICE_TYPE(SM5A, sm5a_device)
 DECLARE_DEVICE_TYPE(SM5L, sm5l_device)
-DECLARE_DEVICE_TYPE(KB1013VK12, kb1013vk12_device)
 
 #endif // MAME_CPU_SM510_SM5A_H

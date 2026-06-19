@@ -98,11 +98,11 @@ const tiny_rom_entry *ym2608_device::device_rom_region() const
 
 
 //-------------------------------------------------
-//  rom_bank_updated - refresh the stream if the
+//  rom_bank_pre_change - refresh the stream if the
 //  ROM banking changes
 //-------------------------------------------------
 
-void ym2608_device::rom_bank_updated()
+void ym2608_device::rom_bank_pre_change()
 {
 	m_stream->update();
 }
@@ -218,10 +218,7 @@ uint8_t ym2610_device_base<ChipClass>::ymfm_external_read(ymfm::access_class typ
 		return space(0).read_byte(offset & 0xffffff);
 	}
 	else if (type == ymfm::ACCESS_ADPCM_B)
-	{
-//		printf("adpcmb ");
 		return space(1).read_byte(offset);
-	}
 	return 0;
 }
 

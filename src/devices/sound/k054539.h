@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Aaron Giles
+// copyright-holders:Olivier Galibert
 /*********************************************************
 
     Konami 054539 PCM Sound Chip
@@ -13,15 +13,14 @@
 
 #include "dirom.h"
 
-#define K054539_CB_MEMBER(_name)   void _name(double left, double right)
+#define K054539_CB_MEMBER(_name) void _name(double left, double right)
 
 class k054539_device : public device_t,
 					   public device_sound_interface,
 					   public device_rom_interface<24>
 {
 public:
-	// HBMAME: removed annoying message
-	//static constexpr feature_type imperfect_features() { return feature::SOUND; } // effector and/or some registers aren't verified/emulated
+	static constexpr feature_type imperfect_features() { return feature::SOUND; } // effector and/or some registers aren't verified/emulated
 
 	// control flags, may be set at DRIVER_INIT().
 	enum {
@@ -61,58 +60,53 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 	virtual void device_clock_changed() override;
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 	virtual void device_post_load() override;
 
 	// device_sound_interface overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 	// device_rom_interface overrides
-	virtual void rom_bank_updated() override;
+	virtual void rom_bank_pre_change() override;
 
 	TIMER_CALLBACK_MEMBER(call_timer_handler);
 
 private:
 	struct channel {
-		uint32_t pos;
-		uint32_t pfrac;
-		int32_t val;
-		int32_t pval;
+		uint32_t pos = 0;
+		uint32_t pfrac = 0;
+		int32_t val = 0;
+		int32_t pval = 0;
 	};
 
-	double voltab[256];
-	double pantab[0xf];
+	double m_voltab[256];
+	double m_pantab[0xf];
 
-	double gain[8];
-	uint8_t posreg_latch[8][3];
-	int flags;
+	double m_gain[8];
+	uint8_t m_posreg_latch[8][3];
+	int m_flags;
 
-	float filter_hist[8][4];
+	unsigned char m_regs[0x230];
+	std::unique_ptr<uint8_t []> m_ram;
+	int m_reverb_pos;
 
-	unsigned char regs[0x230];
-	std::unique_ptr<uint8_t []> ram;
-	int reverb_pos;
+	int32_t m_cur_ptr;
+	uint32_t m_rom_addr;
 
-	int32_t cur_ptr;
-	int cur_limit;
-	uint32_t rom_addr;
+	channel m_channels[8];
+	sound_stream *m_stream;
 
-	channel channels[8];
-	sound_stream *stream;
-
-	emu_timer          *m_timer;
-	uint32_t             m_timer_state;
-	devcb_write_line   m_timer_handler;
+	emu_timer *m_timer;
+	uint32_t m_timer_state;
+	devcb_write_line m_timer_handler;
 	apan_delegate m_apan_cb;
 
 	bool regupdate();
 	void keyon(int channel);
 	void keyoff(int channel);
 	void init_chip();
-	void advance_filter(int channel, int val);
-	float calculate_filter(int channel, float t);
 };
 
 DECLARE_DEVICE_TYPE(K054539, k054539_device)

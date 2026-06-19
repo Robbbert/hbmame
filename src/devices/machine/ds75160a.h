@@ -35,7 +35,7 @@ class ds75160a_device : public device_t
 {
 public:
 	// construction/destruction
-	ds75160a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ds75160a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	auto read_callback() { return m_read.bind(); }
 	auto write_callback() { return m_write.bind(); }
@@ -43,12 +43,12 @@ public:
 	uint8_t read();
 	void write(uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( te_w );
-	DECLARE_WRITE_LINE_MEMBER( pe_w );
+	void te_w(int state);
+	void pe_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	devcb_read8  m_read;

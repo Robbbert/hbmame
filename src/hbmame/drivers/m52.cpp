@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/m52.cpp"
+#include "../mame/irem/m52.cpp"
 
 ROM_START(mpatrolut)
 	ROM_REGION(0x10000, "maincpu", 0)
@@ -13,8 +13,8 @@ ROM_START(mpatrolut)
 	ROM_LOAD("mp-s1.1a", 0x7000, 0x1000, CRC(561d3108) SHA1(4998c68a9e9a8002251fa8f07aa1082444a9dc80) )
 
 	ROM_REGION(0x2000, "tx", 0)
-	ROM_LOAD("mpeut-5w.3e", 0x0000, 0x1000, CRC(0c61ffa6) SHA1(0acfa34254d9b6f86534e2705eb211da45f6767c) )
-	ROM_LOAD("mpeut-4w.3f", 0x1000, 0x1000, CRC(8fbcaa31) SHA1(79712fb3c5407468bb437504b570d55ffe6f6ca7) )
+	ROM_LOAD("mpeut-4w.3f", 0x0000, 0x1000, CRC(8fbcaa31) SHA1(79712fb3c5407468bb437504b570d55ffe6f6ca7) )
+	ROM_LOAD("mpeut-5w.3e", 0x1000, 0x1000, CRC(0c61ffa6) SHA1(0acfa34254d9b6f86534e2705eb211da45f6767c) )
 
 	ROM_REGION(0x3000, "sp", ROMREGION_ERASE00)
 	ROM_LOAD("mpbut-2.3m", 0x0000, 0x1000, CRC(bd17d3ac) SHA1(7358e01e63428763bb76824ea9af8f9f0da88675) )
@@ -54,8 +54,8 @@ ROM_START( spatrol )
 	ROM_LOAD( "mp-s1.1a",     0x7000, 0x1000, CRC(561d3108) SHA1(4998c68a9e9a8002251fa8f07aa1082444a9dc80) )
 
 	ROM_REGION(0x2000, "tx", 0)
-	ROM_LOAD( "spatrol.3e",   0x0000, 0x1000, CRC(130709e8) SHA1(fa3d0aca3179073c92a39c50f535d945f9b58725) )
-	ROM_LOAD( "spatrol.3f",   0x1000, 0x1000, CRC(1ac58abc) SHA1(1a945c4efa6ef4a7d68cb6cb7b91a76be956837e) )
+	ROM_LOAD( "spatrol.3f",   0x0000, 0x1000, CRC(1ac58abc) SHA1(1a945c4efa6ef4a7d68cb6cb7b91a76be956837e) )
+	ROM_LOAD( "spatrol.3e",   0x1000, 0x1000, CRC(130709e8) SHA1(fa3d0aca3179073c92a39c50f535d945f9b58725) )
 
 	ROM_REGION(0x3000, "sp", ROMREGION_ERASE00)
 	ROM_LOAD( "spatrol.3m",   0x0000, 0x1000, CRC(09e18f9a) SHA1(9f41aacbc5352b8783422fdffef949426bada588) )

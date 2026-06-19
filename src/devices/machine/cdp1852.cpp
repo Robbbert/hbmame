@@ -41,9 +41,9 @@ enum
 
 cdp1852_device::cdp1852_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock) :
 	device_t(mconfig, CDP1852, tag, owner, clock),
-	m_read_mode(*this),
+	m_read_mode(*this, 0),
 	m_write_sr(*this),
-	m_read_data(*this),
+	m_read_data(*this, 0),
 	m_write_data(*this),
 	m_new_data(false), m_data(0),
 	m_clock_active(true), m_sr(false), m_next_sr(false),
@@ -59,12 +59,6 @@ cdp1852_device::cdp1852_device(const machine_config &mconfig, const char *tag, d
 
 void cdp1852_device::device_start()
 {
-	// resolve callbacks
-	m_read_mode.resolve_safe(0);
-	m_write_sr.resolve_safe();
-	m_read_data.resolve_safe(0);
-	m_write_data.resolve_safe();
-
 	// allocate timers
 	m_update_do_timer = timer_alloc(FUNC(cdp1852_device::update_do), this);
 	m_update_sr_timer = timer_alloc(FUNC(cdp1852_device::update_sr), this);
@@ -107,9 +101,9 @@ void cdp1852_device::device_reset()
 //  clock_w - clock write
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(cdp1852_device::clock_w)
+void cdp1852_device::clock_w(int state)
 {
-	if (m_clock_active != bool(state))
+	if (m_clock_active == bool(state))
 		return;
 
 	m_clock_active = bool(state);
@@ -122,7 +116,7 @@ WRITE_LINE_MEMBER(cdp1852_device::clock_w)
 			m_data = m_read_data(0);
 
 			// signal processor
-			set_sr_line(0);
+			set_sr_line(false);
 		}
 		else
 		{
@@ -165,7 +159,18 @@ void cdp1852_device::set_sr_line(bool state)
 
 TIMER_CALLBACK_MEMBER(cdp1852_device::update_do)
 {
-	m_write_data(param);
+	if (!m_read_mode())
+	{
+		// input data into register
+		m_data = param;
+
+		// signal processor
+		set_sr_line(false);
+	}
+	else
+	{
+		m_write_data(param);
+	}
 }
 
 
@@ -198,7 +203,7 @@ uint8_t cdp1852_device::read()
 
 
 //-------------------------------------------------
-//  write - data write
+//  write - data write (synchronous)
 //-------------------------------------------------
 
 void cdp1852_device::write(uint8_t data)
@@ -209,5 +214,22 @@ void cdp1852_device::write(uint8_t data)
 		m_update_do_timer->adjust(attotime::zero, data);
 
 		m_new_data = true;
+	}
+}
+
+
+//-------------------------------------------------
+//  write_strobe - data write with asynchronous
+//  clock strobe
+//-------------------------------------------------
+
+void cdp1852_device::write_strobe(uint8_t data)
+{
+	if (!m_read_mode())
+	{
+		// output data
+		m_update_do_timer->adjust(attotime::zero, data);
+
+		m_clock_active = false;
 	}
 }

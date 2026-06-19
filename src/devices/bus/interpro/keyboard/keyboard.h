@@ -16,10 +16,7 @@ public:
 	interpro_keyboard_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&slot_options, const char *default_option)
 		: interpro_keyboard_port_device(mconfig, tag, owner)
 	{
-		option_reset();
-		slot_options(*this);
-		set_default_option(default_option);
-		set_fixed(false);
+		set_options(std::forward<T>(slot_options), default_option, false);
 	}
 
 	interpro_keyboard_port_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock = 0);
@@ -28,10 +25,10 @@ public:
 	auto rxd_handler_cb() { return m_rxd_handler.bind(); }
 
 	// input lines
-	DECLARE_WRITE_LINE_MEMBER(write_txd);
+	void write_txd(int state);
 
 protected:
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 	virtual void device_config_complete() override;
 
 private:
@@ -46,8 +43,8 @@ class device_interpro_keyboard_port_interface : public device_interface
 
 public:
 	// input lines
-	virtual DECLARE_WRITE_LINE_MEMBER(input_txd) = 0;
-	DECLARE_WRITE_LINE_MEMBER(output_rxd) { m_port->m_rxd_handler(state); }
+	virtual void input_txd(int state) = 0;
+	void output_rxd(int state) { m_port->m_rxd_handler(state); }
 
 protected:
 	device_interpro_keyboard_port_interface(machine_config const &mconfig, device_t &device);

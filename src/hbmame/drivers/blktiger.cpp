@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/blktiger.cpp"
+#include "../mame/capcom/blktiger.cpp"
 
 ROM_START( blkdrgonk )
 	ROM_REGION( 0x50000, "maincpu", 0 )

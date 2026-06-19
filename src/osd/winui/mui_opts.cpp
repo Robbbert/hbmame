@@ -19,6 +19,7 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "main.h"
 #include "ui/info.h"
 #include "drivenum.h"
 #include "mui_opts.h"
@@ -1528,7 +1529,7 @@ void LoadFolderFlags(void)
 static void AddFolderFlags()
 {
 	LPTREEFOLDER lpFolder;
-	int num_entries = 0, numFolders = GetNumFolders();
+	int numFolders = GetNumFolders();
 
 	for (int i = 0; i < numFolders; i++)
 	{
@@ -1552,9 +1553,6 @@ static void AddFolderFlags()
 
 			// store entry
 			settings.setter(option_name.c_str(), lpFolder->m_dwFlags & FI_MASK);
-
-			// increment counter
-			num_entries++;
 		}
 	}
 }

@@ -31,10 +31,7 @@ public:
 	pc_kbdc_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: pc_kbdc_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	pc_kbdc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
@@ -46,15 +43,15 @@ public:
 	int clock_signal() { return m_clock_state; }
 	int data_signal() { return m_data_state; }
 
-	DECLARE_WRITE_LINE_MEMBER( clock_write_from_mb );
-	DECLARE_WRITE_LINE_MEMBER( data_write_from_mb );
-	DECLARE_WRITE_LINE_MEMBER( clock_write_from_kb );
-	DECLARE_WRITE_LINE_MEMBER( data_write_from_kb );
+	void clock_write_from_mb(int state);
+	void data_write_from_mb(int state);
+	void clock_write_from_kb(int state);
+	void data_write_from_kb(int state);
 
 protected:
-	// device-level overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_resolve_objects() override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
 
 	void update_clock_state(bool fromkb);
 	void update_data_state(bool fromkb);
@@ -74,7 +71,7 @@ protected:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(PC_KBDC, pc_kbdc_device)
 
 
@@ -88,14 +85,12 @@ public:
 
 	void set_pc_kbdc_device();
 
-	//
-	// Override the clock_write and data_write methods in a keyboard implementation
-	//
-	virtual DECLARE_WRITE_LINE_MEMBER( clock_write );
-	virtual DECLARE_WRITE_LINE_MEMBER( data_write );
-
 	// inline configuration
 	void set_pc_kbdc(device_t *kbdc_device) { m_pc_kbdc = dynamic_cast<pc_kbdc_device *>(kbdc_device); }
+
+	// Override the clock_write and data_write methods in a keyboard implementation
+	virtual void clock_write(int state);
+	virtual void data_write(int state);
 
 protected:
 	device_pc_kbd_interface(const machine_config &mconfig, device_t &device);

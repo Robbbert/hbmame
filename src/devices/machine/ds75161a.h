@@ -28,7 +28,7 @@ class ds75161a_device : public device_t
 {
 public:
 	// construction/destruction
-	ds75161a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ds75161a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	auto in_ren() { return m_in_ren_cb.bind(); }
 	auto in_ifc() { return m_in_ifc_cb.bind(); }
@@ -47,30 +47,30 @@ public:
 	auto out_atn() { return m_out_atn_cb.bind(); }
 	auto out_srq() { return m_out_srq_cb.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER( te_w );
-	DECLARE_WRITE_LINE_MEMBER( dc_w );
+	void te_w(int state);
+	void dc_w(int state);
 
-	DECLARE_READ_LINE_MEMBER( ren_r );
-	DECLARE_READ_LINE_MEMBER( ifc_r );
-	DECLARE_READ_LINE_MEMBER( ndac_r );
-	DECLARE_READ_LINE_MEMBER( nrfd_r );
-	DECLARE_READ_LINE_MEMBER( dav_r );
-	DECLARE_READ_LINE_MEMBER( eoi_r );
-	DECLARE_READ_LINE_MEMBER( atn_r );
-	DECLARE_READ_LINE_MEMBER( srq_r );
+	int ren_r();
+	int ifc_r();
+	int ndac_r();
+	int nrfd_r();
+	int dav_r();
+	int eoi_r();
+	int atn_r();
+	int srq_r();
 
-	DECLARE_WRITE_LINE_MEMBER( ren_w );
-	DECLARE_WRITE_LINE_MEMBER( ifc_w );
-	DECLARE_WRITE_LINE_MEMBER( ndac_w );
-	DECLARE_WRITE_LINE_MEMBER( nrfd_w );
-	DECLARE_WRITE_LINE_MEMBER( dav_w );
-	DECLARE_WRITE_LINE_MEMBER( eoi_w );
-	DECLARE_WRITE_LINE_MEMBER( atn_w );
-	DECLARE_WRITE_LINE_MEMBER( srq_w );
+	void ren_w(int state);
+	void ifc_w(int state);
+	void ndac_w(int state);
+	void nrfd_w(int state);
+	void dav_w(int state);
+	void eoi_w(int state);
+	void atn_w(int state);
+	void srq_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	void update_signals();

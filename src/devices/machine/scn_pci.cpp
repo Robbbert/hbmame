@@ -49,10 +49,12 @@
 #include "emu.h"
 #include "scn_pci.h"
 
-#define LOG_INIT    (1 << 1U)
-#define LOG_COMMAND (1 << 2U)
-#define LOG_RCVR    (1 << 3U)
-#define LOG_XMTR    (1 << 4U)
+#include <bit>
+
+#define LOG_INIT    (1U << 1)
+#define LOG_COMMAND (1U << 2)
+#define LOG_RCVR    (1U << 3)
+#define LOG_XMTR    (1U << 4)
 //#define VERBOSE (LOG_INIT | LOG_COMMAND | LOG_RCVR | LOG_XMTR)
 #include "logmacro.h"
 
@@ -260,39 +262,14 @@ scn2641_device::scn2641_device(const machine_config &mconfig, const char *tag, d
 
 void scn2641_device::device_validity_check(validity_checker &valid) const
 {
-	if (!m_dtr_callback.isnull())
+	if (!m_dtr_callback.isunset())
 		osd_printf_error("Nonexistent DTR output configured on SCN2641\n");
-	if (!m_txemt_dschg_callback.isnull())
+	if (!m_txemt_dschg_callback.isunset())
 		osd_printf_error("Nonexistent TxEMT/DSCHG output configured on SCN2641 (use INTR instead)\n");
-	if (!m_txrdy_callback.isnull())
+	if (!m_txrdy_callback.isunset())
 		osd_printf_error("Nonexistent TxRDY output configured on SCN2641 (use INTR instead)\n");
-	if (!m_rxrdy_callback.isnull())
+	if (!m_rxrdy_callback.isunset())
 		osd_printf_error("Nonexistent RxRDY output configured on SCN2641 (use INTR instead)\n");
-}
-
-
-//-------------------------------------------------
-//  device_resolve_objects - resolve objects that
-//  may be needed for other devices to set
-//  initial conditions at start time
-//-------------------------------------------------
-
-void scn_pci_device::device_resolve_objects()
-{
-	m_dtr_callback.resolve_safe();
-	m_rts_callback.resolve_safe();
-	m_txemt_dschg_callback.resolve_safe();
-	m_txc_callback.resolve_safe();
-	m_rxc_callback.resolve_safe();
-	m_txd_callback.resolve_safe();
-	m_txrdy_callback.resolve_safe();
-	m_rxrdy_callback.resolve_safe();
-}
-
-void scn2641_device::device_resolve_objects()
-{
-	scn_pci_device::device_resolve_objects();
-	m_intr_callback.resolve_safe();
 }
 
 
@@ -551,7 +528,7 @@ void scn_pci_device::rx_load_sync(u8 data, bool pe)
 //  rxd_w - set serial data input for receiver
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(scn_pci_device::rxd_w)
+void scn_pci_device::rxd_w(int state)
 {
 	m_rxd = state;
 }
@@ -1096,7 +1073,7 @@ void scn_pci_device::set_rts(bool state)
 //  or ring indicator input (active low)
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(scn_pci_device::dsr_w)
+void scn_pci_device::dsr_w(int state)
 {
 	assert(!m_is_aci);
 
@@ -1118,7 +1095,7 @@ WRITE_LINE_MEMBER(scn_pci_device::dsr_w)
 //  enable receiver (active low)
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(scn_pci_device::dcd_w)
+void scn_pci_device::dcd_w(int state)
 {
 	if (BIT(m_status, 6) == !state)
 		return;
@@ -1145,7 +1122,7 @@ WRITE_LINE_MEMBER(scn_pci_device::dcd_w)
 //  transmitter (active low)
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(scn_pci_device::cts_w)
+void scn_pci_device::cts_w(int state)
 {
 	m_cts = !state;
 }
@@ -1181,7 +1158,7 @@ void scn_pci_device::write_syn(u8 data)
 	else
 		LOGMASKED(LOG_INIT, "SYN%d character = %02X\n", m_syn_pointer + 1, data);
 	if (m_syn_pointer == 0)
-		m_syn1_parity = BIT(population_count_32(data), 0);
+		m_syn1_parity = BIT(std::popcount(data), 0);
 
 	// Write SYN1/SYN2/DLE in sequence
 	if (m_syn_pointer++ == 2)
@@ -1232,23 +1209,22 @@ void scn_pci_device::write_mode(u8 data)
 				logerror("%s: Invalid synchronous mode configured\n", machine().describe_context());
 		}
 
-		m_mode[0] = data;
-
-		// Write MR2 after MR1
-		m_mode_pointer = 1;
+		// Old value of MR1 is transferred to MR2 (undocumented but verified on HW)
+		std::swap(m_mode[0], data);
 	}
-	else
+
+	if (!m_is_enhanced)
 	{
-		assert(m_mode_pointer == 1);
+		if (data >= 0x50 && m_mode_pointer == 1)
+			logerror("Warning: incompatible EPCI TxC/RxC mode selected (MR2 = %02X)\n", data);
 
-		if (!m_is_enhanced)
-		{
-			if (data >= 0x50)
-				logerror("Warning: incompatible EPCI TxC/RxC mode selected (MR2 = %02X)\n", data);
-			data &= 0x3f;
-		}
+		// TBD: Are MR27 and MR26 really always zero on SCN2651?
+		data &= 0x3f;
+	}
 
-		if (m_mode[1] != data)
+	if (m_mode[1] != data)
+	{
+		if (m_mode_pointer == 1 && !machine().side_effects_disabled())
 		{
 			bool sync_mode = (m_mode[0] & 0x03) == 0;
 			double baud_rate = clocks_to_attotime(m_br_div[data & 0x0f] * (sync_mode ? 1 : 16)).as_hz();
@@ -1265,10 +1241,6 @@ void scn_pci_device::write_mode(u8 data)
 									BIT(data, 5) ? "Internal TxC/" : "External TxC, internal ",
 									baud_rate,
 									BIT(data, 7) ? "BKDET" : BIT(data, 6) ? "16X" : "1X");
-
-				// BKDET output
-				if (BIT(data, 7))
-					m_rxc_callback(m_rcvr_state == rcvr_state::BREAK_DETECT ? 1 : 0);
 			}
 			else if (BIT(data, 5))
 			{
@@ -1278,21 +1250,25 @@ void scn_pci_device::write_mode(u8 data)
 			}
 			else
 				LOGMASKED(LOG_INIT, "External TxC, external RxC (may be indepedent)\n");
-
-			if ((data & 0x30) == 0)
-				m_brg_timer->enable(false);
-			else
-			{
-				attotime brg_period = clocks_to_attotime(m_br_div[data & 0x0f]);
-				m_brg_timer->adjust(brg_period / 2, 0, brg_period / 2);
-			}
 		}
 
-		m_mode[1] = data;
+		// BKDET output
+		if ((data & 0x90) == 0x90)
+			m_rxc_callback(m_rcvr_state == rcvr_state::BREAK_DETECT ? 1 : 0);
 
-		// Write MR1 after MR2
-		m_mode_pointer = 0;
+		if ((data & 0x30) == 0)
+			m_brg_timer->enable(false);
+		else
+		{
+			attotime brg_period = clocks_to_attotime(m_br_div[data & 0x0f]);
+			m_brg_timer->adjust(brg_period / 2, 0, brg_period / 2);
+		}
 	}
+
+	m_mode[1] = data;
+
+	if (!machine().side_effects_disabled())
+		m_mode_pointer = (m_mode_pointer == 0) ? 1 : 0;
 }
 
 //**************************************************************************
@@ -1477,7 +1453,7 @@ void scn_pci_device::write(offs_t offset, u8 data)
 //  (or jam sync for EPCI receiver)
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(scn_pci_device::txc_w)
+void scn_pci_device::txc_w(int state)
 {
 	if (state == m_txc_input)
 		return;
@@ -1512,7 +1488,7 @@ WRITE_LINE_MEMBER(scn_pci_device::txc_w)
 //  rxc_w - external clock input for receiver
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER(scn_pci_device::rxc_w)
+void scn_pci_device::rxc_w(int state)
 {
 	if (state == m_rxc_input)
 		return;

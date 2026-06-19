@@ -8,8 +8,8 @@
 
 *********************************************************************/
 
-#ifndef MAME_DEVICES_IMAGEDEV_MEMCARD_H
-#define MAME_DEVICES_IMAGEDEV_MEMCARD_H
+#ifndef MAME_IMAGEDEV_MEMCARD_H
+#define MAME_IMAGEDEV_MEMCARD_H
 
 #pragma once
 
@@ -27,6 +27,7 @@ public:
 	virtual bool is_readable()  const noexcept override { return true; }
 	virtual bool is_writeable() const noexcept override { return true; }
 	virtual bool is_creatable() const noexcept override { return true; }
+	virtual bool support_command_line_image_creation() const noexcept override { return true; }
 	virtual const char *image_type_name() const noexcept override { return "memcard"; }
 	virtual const char *image_brief_type_name() const noexcept override { return "memc"; }
 
@@ -35,4 +36,4 @@ protected:
 	device_memcard_image_interface(const machine_config &mconfig, device_t &device);
 };
 
-#endif // MAME_DEVICES_IMAGEDEV_MEMCARD_H
+#endif // MAME_IMAGEDEV_MEMCARD_H

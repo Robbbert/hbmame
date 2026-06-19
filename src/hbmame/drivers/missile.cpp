@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/missile.cpp"
+#include "../mame/atari/missile.cpp"
 
 
 ROM_START( missilet ) // only change to 'missile' is the initials in the high score screen

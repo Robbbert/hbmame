@@ -29,7 +29,7 @@ function maintargetosdoptions(_target,_subtarget)
 		targetsuffix "ui"
 
 	configuration { "x64", "Debug" }
-		targetsuffix "uid"
+		targetsuffix "ui64d"
 
 	configuration { "x32", "Release" }
 		targetsuffix "ui32"
@@ -38,10 +38,10 @@ function maintargetosdoptions(_target,_subtarget)
 		targetsuffix "ui32d"
 
 	configuration { "Native", "Release" }
-		targetsuffix "ui"
+		targetsuffix "uin"
 
 	configuration { "Native", "Debug" }
-		targetsuffix "uid"
+		targetsuffix "uind"
 
 	configuration { }
 
@@ -59,8 +59,8 @@ function maintargetosdoptions(_target,_subtarget)
 		"comctl32",
 		"comdlg32",
 		"psapi",
+		"shcore",
 		"ole32",
---		"shell32",
 		"uxtheme",
 		"uuid",
 		"shlwapi",
@@ -110,7 +110,7 @@ project ("qtdbg_" .. _OPTIONS["osd"])
 	uuid (os.uuid("qtdbg_" .. _OPTIONS["osd"]))
 	kind (LIBTYPE)
 
-	dofile("winui_cfg.lua")
+	dofile("windows_cfg.lua")
 	includedirs {
 		MAME_DIR .. "src/emu",
 		MAME_DIR .. "src/devices", -- accessing imagedev from debugger
@@ -126,7 +126,7 @@ project ("osd_" .. _OPTIONS["osd"])
 	uuid (os.uuid("osd_" .. _OPTIONS["osd"]))
 	kind "StaticLib"
 
-	dofile("winui_cfg.lua")
+	dofile("windows_cfg.lua")
 	osdmodulesbuild()
 
 	defines {
@@ -157,16 +157,11 @@ project ("osd_" .. _OPTIONS["osd"])
 	}
 
 	files {
-		MAME_DIR .. "src/osd/modules/render/d3d/d3dintf.h",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.cpp",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dcomm.h",
 		MAME_DIR .. "src/osd/modules/render/d3d/d3dhlsl.h",
 		MAME_DIR .. "src/osd/modules/render/drawd3d.cpp",
 		MAME_DIR .. "src/osd/modules/render/drawd3d.h",
-		MAME_DIR .. "src/osd/modules/render/drawgdi.cpp",
-		MAME_DIR .. "src/osd/modules/render/drawgdi.h",
-		MAME_DIR .. "src/osd/modules/render/drawnone.cpp",
-		MAME_DIR .. "src/osd/modules/render/drawnone.h",
 		MAME_DIR .. "src/osd/windows/video.cpp",
 		MAME_DIR .. "src/osd/windows/video.h",
 		MAME_DIR .. "src/osd/windows/window.cpp",
@@ -175,14 +170,15 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/osdwindow.h",
 		MAME_DIR .. "src/osd/windows/winmain.cpp",
 		MAME_DIR .. "src/osd/windows/winmain.h",
+		MAME_DIR .. "src/osd/windows/winopts.cpp",
+		MAME_DIR .. "src/osd/windows/winopts.h",
 		MAME_DIR .. "src/osd/osdepend.h",
-		MAME_DIR .. "src/osd/windows/winmenu.cpp",
---		MAME_DIR .. "src/osd/winui/newui.cpp",
-		MAME_DIR .. "src/osd/windows/winmain.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugbaseinfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugbaseinfo.h",
+		MAME_DIR .. "src/osd/modules/debugger/win/debuggerprefs.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/debuggerprefs.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugviewinfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugwininfo.cpp",
@@ -195,10 +191,10 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/debugger/win/disasmwininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/editwininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/editwininfo.h",
-		MAME_DIR .. "src/osd/modules/debugger/win/logviewinfo.cpp",
-		MAME_DIR .. "src/osd/modules/debugger/win/logviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/logwininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/logwininfo.h",
+		MAME_DIR .. "src/osd/modules/debugger/win/logviewinfo.cpp",
+		MAME_DIR .. "src/osd/modules/debugger/win/logviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/memoryviewinfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/memoryviewinfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/memorywininfo.cpp",
@@ -208,6 +204,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/modules/debugger/win/uimetrics.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/uimetrics.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugwin.h",
+--		MAME_DIR .. "src/osd/winui/newui.cpp",
 		MAME_DIR .. "src/osd/winui/bitmask.cpp",
 		MAME_DIR .. "src/osd/winui/columnedit.cpp",
 		MAME_DIR .. "src/osd/winui/datamap.cpp",
@@ -223,7 +220,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/winui/helpids.cpp",
 		MAME_DIR .. "src/osd/winui/history.cpp",
 		MAME_DIR .. "src/osd/winui/layout.cpp",
-		MAME_DIR .. "src/osd/winui/main.cpp",
 		MAME_DIR .. "src/osd/winui/mui_audit.cpp",
 		MAME_DIR .. "src/osd/winui/mui_main.cpp",
 		MAME_DIR .. "src/osd/winui/mui_opts.cpp",
@@ -242,11 +238,8 @@ project ("ocore_" .. _OPTIONS["osd"])
 	uuid (os.uuid("ocore_" .. _OPTIONS["osd"]))
 	kind "StaticLib"
 
-	options {
-		"ForceCPP",
-	}
 	removeflags {
-		"SingleOutputDir",	
+		"SingleOutputDir",
 	}
 
 	dofile("windows_cfg.lua")

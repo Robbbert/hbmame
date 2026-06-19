@@ -67,7 +67,7 @@ class f3853_device : public device_t
 {
 public:
 	// construction/destruction
-	f3853_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	f3853_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	auto int_req_callback() { return m_int_req_callback.bind(); }
 	auto pri_out_callback() { return m_pri_out_callback.bind(); }
@@ -76,8 +76,8 @@ public:
 	virtual uint8_t read(offs_t offset);
 	virtual void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER(ext_int_w);
-	DECLARE_WRITE_LINE_MEMBER(pri_in_w);
+	void ext_int_w(int state);
+	void pri_in_w(int state);
 
 	virtual TIMER_CALLBACK_MEMBER(timer_callback);
 
@@ -86,10 +86,10 @@ public:
 protected:
 	f3853_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_resolve_objects() override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	uint16_t timer_interrupt_vector() const { return m_int_vector & ~uint16_t(0x0080); }
 	uint16_t external_interrupt_vector() const { return m_int_vector | uint16_t(0x0080); }
@@ -119,7 +119,7 @@ protected:
 class f3851_device : public f3853_device
 {
 public:
-	f3851_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	f3851_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// interrupt vector is a mask option on 3851 and 3856
 	void set_int_vector(u16 vector) { m_int_vector = vector; }
@@ -136,8 +136,6 @@ public:
 protected:
 	f3851_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	virtual void device_resolve_objects() override;
-
 	devcb_read8::array<2> m_read_port;
 	devcb_write8::array<2> m_write_port;
 };
@@ -145,7 +143,7 @@ protected:
 class f3856_device : public f3851_device
 {
 public:
-	f3856_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	f3856_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	virtual uint8_t read(offs_t offset) override;
 	virtual void write(offs_t offset, uint8_t data) override;
@@ -155,7 +153,7 @@ public:
 protected:
 	f3856_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	virtual void timer_start(uint8_t value) override;
 
@@ -167,13 +165,13 @@ protected:
 class f38t56_device : public f3856_device
 {
 public:
-	f38t56_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	f38t56_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	virtual uint8_t read(offs_t offset) override;
 	virtual void write(offs_t offset, uint8_t data) override;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(F3853, f3853_device)
 DECLARE_DEVICE_TYPE(F3851, f3851_device)
 DECLARE_DEVICE_TYPE(F3856, f3856_device)

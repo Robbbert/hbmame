@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/exerion.cpp"
+#include "../mame/jaleco/exerion.cpp"
 
 ROM_START( exeriongr )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -8,7 +8,7 @@ ROM_START( exeriongr )
 	ROM_LOAD( "exriongr.08",  0x2000, 0x2000, CRC(a469f93e) SHA1(7e800e4c0dce2b9c9525dc1667ca13f1b2844d9b) )
 	ROM_LOAD( "exriongr.09",  0x4000, 0x2000, CRC(f0a8d5db) SHA1(df0f18ebef27a70ef420903a02ec5ce3c43d1d8b) )
 
-	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "exerion.05",   0x0000, 0x2000, CRC(32f6bff5) SHA1(a4d0289f9d1d9eea7ca9a32a0616af48da74b401) )
 
 	ROM_REGION( 0x02000, "fgchars", 0 )
@@ -40,7 +40,7 @@ ROM_START( exerionj )
 	ROM_LOAD( "exerion.08",   0x2000, 0x2000, CRC(dcadc1df) SHA1(91388f617cfaa4289ca1c84c697fcfdd8834ae15) )
 	ROM_LOAD( "exerion.09",   0x4000, 0x2000, CRC(34cc4d14) SHA1(511c9de038f7bcaf6f7c96f2cbbe50a80673fa72) )
 
-	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "exerion.05",   0x0000, 0x2000, CRC(32f6bff5) SHA1(a4d0289f9d1d9eea7ca9a32a0616af48da74b401) )
 
 	ROM_REGION( 0x02000, "fgchars", 0 )

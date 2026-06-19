@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "cpu/drcfe.h"
 #include "cpu/drcuml.h"
+
 
 /***************************************************************************
     DEBUGGING
@@ -51,8 +51,8 @@
 #define CPU_TYPE_SH3    (2)
 #define CPU_TYPE_SH4    (3)
 
-#define Rn  ((opcode>>8)&15)
-#define Rm  ((opcode>>4)&15)
+#define REG_N  ((opcode >> 8) & 15)
+#define REG_M  ((opcode >> 4) & 15)
 
 /* Bits in SR */
 #define SH_T   0x00000001
@@ -70,23 +70,13 @@
 #define Q_SHIFT 8
 #define M_SHIFT 9
 
-#define REGFLAG_R(n)                    (1 << (n))
-
-/* register flags 1 */
-#define REGFLAG_PR                      (1 << 0)
-#define REGFLAG_MACL                    (1 << 1)
-#define REGFLAG_MACH                    (1 << 2)
-#define REGFLAG_GBR                     (1 << 3)
-#define REGFLAG_VBR                     (1 << 4)
-#define REGFLAG_SR                      (1 << 5)
-
 /***************************************************************************
     MACROS
 ***************************************************************************/
 
-#define SH2_CODE_XOR(a)     ((a) ^ NATIVE_ENDIAN_VALUE_LE_BE(2,0)) // sh2
-#define SH34LE_CODE_XOR(a)  ((a) ^ NATIVE_ENDIAN_VALUE_LE_BE(0,6)) // naomi
-#define SH34BE_CODE_XOR(a)  ((a) ^ NATIVE_ENDIAN_VALUE_LE_BE(6,0)) // cave
+#define SH2_CODE_XOR(a)     ((a) ^ NATIVE_ENDIAN_VALUE_LE_BE(2, 0)) // sh2
+#define SH34LE_CODE_XOR(a)  ((a) ^ NATIVE_ENDIAN_VALUE_LE_BE(0, 6)) // naomi
+#define SH34BE_CODE_XOR(a)  ((a) ^ NATIVE_ENDIAN_VALUE_LE_BE(6, 0)) // cave
 
 #define R32(reg)        m_regmap[reg]
 
@@ -101,24 +91,6 @@ class sh_common_execution : public cpu_device
 {
 
 public:
-	sh_common_execution(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, endianness_t endianness, address_map_constructor internal)
-		: cpu_device(mconfig, type, tag, owner, clock)
-		, m_sh2_state(nullptr)
-		, m_cache(CACHE_SIZE + sizeof(internal_sh2_state))
-		, m_drcuml(nullptr)
-		, m_drcoptions(0)
-		, m_entry(nullptr)
-		, m_read8(nullptr)
-		, m_write8(nullptr)
-		, m_read16(nullptr)
-		, m_write16(nullptr)
-		, m_read32(nullptr)
-		, m_write32(nullptr)
-		, m_interrupt(nullptr)
-		, m_nocode(nullptr)
-		, m_out_of_cycles(nullptr)
-	{ }
-
 	// Data that needs to be stored close to the generated DRC code
 	struct internal_sh2_state
 	{
@@ -168,12 +140,13 @@ public:
 
 	internal_sh2_state *m_sh2_state;
 
-	virtual uint8_t RB(offs_t A) = 0;
-	virtual uint16_t RW(offs_t A) = 0;
-	virtual uint32_t RL(offs_t A) = 0;
-	virtual void WB(offs_t A, uint8_t V) = 0;
-	virtual void WW(offs_t A, uint16_t V) = 0;
-	virtual void WL(offs_t A, uint32_t V) = 0;
+	virtual uint8_t read_byte(offs_t offset) = 0;
+	virtual uint16_t read_word(offs_t offset) = 0;
+	virtual uint32_t read_long(offs_t offset) = 0;
+	virtual uint16_t decrypted_read_word(offs_t offset) = 0;
+	virtual void write_byte(offs_t offset, uint8_t data) = 0;
+	virtual void write_word(offs_t offset, uint16_t data) = 0;
+	virtual void write_long(offs_t offset, uint32_t data) = 0;
 
 	virtual void set_frt_input(int state) = 0;
 	void pulse_frt_input() { set_frt_input(ASSERT_LINE); set_frt_input(CLEAR_LINE); }
@@ -202,6 +175,11 @@ protected:
 		EXECUTE_UNMAPPED_CODE       = 2,
 		EXECUTE_RESET_CACHE         = 3
 	};
+
+	class frontend;
+	class opcode_desc;
+
+	sh_common_execution(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, endianness_t endianness, address_map_constructor internal);
 
 	void ADD(uint32_t m, uint32_t n);
 	void ADDI(uint32_t i, uint32_t n);
@@ -463,8 +441,6 @@ public:
 	void alloc_handle(uml::code_handle *&handleptr, const char *name);
 	void load_fast_iregs(drcuml_block &block);
 	void save_fast_iregs(drcuml_block &block);
-	const char *log_desc_flags_to_string(uint32_t flags);
-	void log_register_list(const char *string, const uint32_t *reglist, const uint32_t *regnostarlist);
 	void log_opcode_desc(const opcode_desc *desclist, int indent);
 	void log_add_disasm_comment(drcuml_block &block, uint32_t pc, uint32_t op);
 	void generate_delay_slot(drcuml_block &block, compiler_state &compiler, const opcode_desc *desc, uint32_t ovrpc);
@@ -478,32 +454,8 @@ public:
 
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 };
 
-class sh_frontend : public drc_frontend
-{
-public:
-	sh_frontend(sh_common_execution *device, uint32_t window_start, uint32_t window_end, uint32_t max_sequence);
-
-protected:
-	virtual uint16_t read_word(opcode_desc &desc);
-	virtual bool describe(opcode_desc &desc, const opcode_desc *prev) override;
-
-private:
-	bool describe_group_2(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-	bool describe_group_3(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-	bool describe_group_6(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-	bool describe_group_8(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-	bool describe_group_12(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-
-protected:
-	virtual bool describe_group_0(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-	virtual bool describe_group_4(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode);
-	virtual bool describe_group_15(opcode_desc &desc, const opcode_desc *prev, uint16_t opcode) = 0;
-
-	sh_common_execution *m_sh;
-};
-
-#endif // MAME_CPU_SH2_SH2_H
+#endif // MAME_CPU_SH_SH_H

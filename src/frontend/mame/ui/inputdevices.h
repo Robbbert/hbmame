@@ -21,12 +21,12 @@ namespace ui {
 class menu_input_devices : public menu
 {
 public:
-	menu_input_devices(mame_ui_manager &mui, render_container &container);
+	menu_input_devices(mame_ui_manager &mui, render_target &target);
 	virtual ~menu_input_devices();
 
 private:
-	virtual void populate(float &customtop, float &custombottom) override;
-	virtual void handle(event const *ev) override;
+	virtual void populate() override;
+	virtual bool handle(event const *ev) override;
 };
 
 } // namespace ui

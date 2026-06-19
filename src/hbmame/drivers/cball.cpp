@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/cball.cpp"
+#include "../mame/atari/cball.cpp"
 /***************************************************************************
 
     Atari Cannonball (prototype) driver

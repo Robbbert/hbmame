@@ -294,7 +294,7 @@ public:
 	DECLARE_MACHINE_START(ganbare);
 	DECLARE_MACHINE_RESET(cps);
 	u32 screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
+	void screen_vblank_cps1(int state);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
 	IRQ_CALLBACK_MEMBER(cps1_int_ack);
@@ -332,8 +332,8 @@ public:
 	u16 kludge_r();
 	u16 joy_or_paddle_r();
 	u16 joy_or_paddle_ecofghtr_r();
-	DECLARE_WRITE_LINE_MEMBER(m5205_int1);
-	DECLARE_WRITE_LINE_MEMBER(m5205_int2);
+	void m5205_int1(int state);
+	void m5205_int2(int state);
 	void cps2(machine_config &config);
 	void gigaman2(machine_config &config);
 	void dead_cps2(machine_config &config);

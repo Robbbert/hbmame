@@ -49,36 +49,37 @@ end
 		"Symbols", -- always include minimum symbols for executables
 	}
 
-	if _OPTIONS["SYMBOLS"] then
+	if _OPTIONS["SYMBOLS"]~=nil and _OPTIONS["SYMBOLS"]~=0 and (_OPTIONS["PDB_SYMBOLS"]==nil or _OPTIONS["PDB_SYMBOLS"]==0) then
+		local llvm_obdjump = false
+		local objdump_ver = backtick('objdump --version')
+		if string.match(objdump_ver, 'LLVM version ') then
+			llvm_obdjump = true
+		end
+
 		configuration { "mingw*" }
-			postbuildcommands {
-				"$(SILENT) echo Dumping symbols.",
-				"$(SILENT) objdump --section=.text --line-numbers --syms --demangle $(TARGET) >$(subst .exe,.sym,$(TARGET))"
-			}
+			if llvm_obdjump then
+				postbuildcommands {
+					"$(SILENT) echo Dumping symbols.",
+					"$(SILENT) " .. PYTHON .. " " .. MAME_DIR .. "scripts/build/llvm-objdump-filter.py $(TARGET) | c++filt >$(subst .exe,.sym,$(TARGET))"
+				}
+			else
+				postbuildcommands {
+					"$(SILENT) echo Dumping symbols.",
+					"$(SILENT) objdump --section=.text --syms --demangle $(TARGET) >$(subst .exe,.sym,$(TARGET))"
+				}
+			end
 	end
 
-	configuration { "x64", "Release" }
+	configuration { "Release" }
 		targetsuffix ""
 		if _OPTIONS["PROFILE"] then
 			targetsuffix "p"
 		end
 
-	configuration { "x64", "Debug" }
+	configuration { "Debug" }
 		targetsuffix "d"
 		if _OPTIONS["PROFILE"] then
 			targetsuffix "dp"
-		end
-
-	configuration { "x32", "Release" }
-		targetsuffix "32"
-		if _OPTIONS["PROFILE"] then
-			targetsuffix "32p"
-		end
-
-	configuration { "x32", "Debug" }
-		targetsuffix "32d"
-		if _OPTIONS["PROFILE"] then
-			targetsuffix "32dp"
 		end
 
 	configuration { "mingw*" or "vs20*" }
@@ -90,26 +91,30 @@ end
 	configuration { }
 
 	if _OPTIONS["targetos"]=="android" then
-		includedirs {
-			MAME_DIR .. "3rdparty/SDL2/include",
-		}
-
 		files {
-			MAME_DIR .. "3rdparty/SDL2/src/main/android/SDL_android_main.c",
+			MAME_DIR .. "src/osd/sdl/android_main.cpp",
 		}
 		targetsuffix ""
 		if _OPTIONS["SEPARATE_BIN"]~="1" then
 			if _OPTIONS["PLATFORM"]=="arm" then
 				targetdir(MAME_DIR .. "android-project/app/src/main/libs/armeabi-v7a")
+				os.copyfile(_OPTIONS["SDL_INSTALL_ROOT"] .. "/lib/libSDL2.so", MAME_DIR .. "android-project/app/src/main/libs/armeabi-v7a/libSDL2.so")
+				os.copyfile(androidToolchainRoot() .. "/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so", MAME_DIR .. "android-project/app/src/main/libs/armeabi-v7a/libc++_shared.so")
 			end
 			if _OPTIONS["PLATFORM"]=="arm64" then
 				targetdir(MAME_DIR .. "android-project/app/src/main/libs/arm64-v8a")
+				os.copyfile(_OPTIONS["SDL_INSTALL_ROOT"] .. "/lib/libSDL2.so", MAME_DIR .. "android-project/app/src/main/libs/arm64-v8a/libSDL2.so")
+				os.copyfile(androidToolchainRoot() .. "/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so", MAME_DIR .. "android-project/app/src/main/libs/arm64-v8a/libc++_shared.so")
 			end
 			if _OPTIONS["PLATFORM"]=="x86" then
 				targetdir(MAME_DIR .. "android-project/app/src/main/libs/x86")
+				os.copyfile(_OPTIONS["SDL_INSTALL_ROOT"] .. "/lib/libSDL2.so", MAME_DIR .. "android-project/app/src/main/libs/x86/libSDL2.so")
+				os.copyfile(androidToolchainRoot() .. "/sysroot/usr/lib/i686-linux-android/libc++_shared.so", MAME_DIR .. "android-project/app/src/main/libs/x86/libc++_shared.so")
 			end
 			if _OPTIONS["PLATFORM"]=="x64" then
 				targetdir(MAME_DIR .. "android-project/app/src/main/libs/x86_64")
+				os.copyfile(_OPTIONS["SDL_INSTALL_ROOT"] .. "/lib/libSDL2.so", MAME_DIR .. "android-project/app/src/main/libs/x86_64/libSDL2.so")
+				os.copyfile(androidToolchainRoot() .. "/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so", MAME_DIR .. "android-project/app/src/main/libs/x86_64/libc++_shared.so")
 			end
 		end
 	else
@@ -154,14 +159,13 @@ end
 	links {
 		"utils",
 		ext_lib("expat"),
-		"softfloat",
 		"softfloat3",
 		"wdlfft",
 		"ymfm",
 		ext_lib("jpeg"),
 		"7z",
 	}
-if not _OPTIONS["FORCE_DRC_C_BACKEND"] then
+if CPU_INCLUDE_DRC_NATIVE then
 	links {
 		"asmjit",
 	}
@@ -175,6 +179,7 @@ if (STANDALONE~=true) then
 end
 	links {
 		ext_lib("zlib"),
+		ext_lib("zstd"),
 		ext_lib("flac"),
 		ext_lib("utf8proc"),
 	}
@@ -207,6 +212,7 @@ end
 	}
 
 	override_resources = false;
+	rctarget = _subtarget;
 
 	maintargetosdoptions(_target,_subtarget)
 
@@ -242,7 +248,6 @@ if (STANDALONE~=true) then
 		}
 
 	end
-	local rctarget = _subtarget
 
 	if _OPTIONS["targetos"]=="windows" and (not override_resources) then
 		rcfile = MAME_DIR .. "scripts/resources/windows/" .. _subtarget .. "/" .. rctarget ..".rc"
@@ -283,12 +288,12 @@ if (STANDALONE~=true) then
 				GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",  MAME_DIR .. "src/".._target .."/" .. _target ..".lst", true },
 			}
 			custombuildtask {
-				{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".flt" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py", MAME_DIR .. "src/".._target .."/" .. _target ..".lst"  }, {"@echo Building driver list...",    PYTHON .. " $(1) driverlist $(2) -f $(<) > $(@)" }},
+				{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".flt" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py", MAME_DIR .. "src/".._target .."/" .. _target ..".lst"  }, {"@echo Building driver list...",    PYTHON .. " $(1) -r " .. MAME_DIR .. " driverlist $(2) -f $(<) > $(@)" }},
 			}
 		else
 			if os.isfile(MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst") then
 				custombuildtask {
-					{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) driverlist $(<) > $(@)" }},
+					{ MAME_DIR .. "src/".._target .."/" .. _subtarget ..".lst" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) -r " .. MAME_DIR .. " driverlist $(<) > $(@)" }},
 				}
 			else
 				dependency {
@@ -296,7 +301,7 @@ if (STANDALONE~=true) then
 					GEN_DIR  .. _target .. "/" .. _target .."/drivlist.cpp",  MAME_DIR .. "src/".._target .."/" .. _target ..".lst", true },
 				}
 				custombuildtask {
-					{ MAME_DIR .. "src/".._target .."/" .. _target ..".lst" ,  GEN_DIR  .. _target .. "/" .. _target .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) driverlist $(<) > $(@)" }},
+					{ MAME_DIR .. "src/".._target .."/" .. _target ..".lst" ,  GEN_DIR  .. _target .. "/" .. _target .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py" }, {"@echo Building driver list...",    PYTHON .. " $(1) -r " .. MAME_DIR .. " driverlist $(<) > $(@)" }},
 				}
 			end
 		end
@@ -308,14 +313,22 @@ if (STANDALONE~=true) then
 				GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",  MAME_DIR .. "src/".._target .."/" .. _target ..".lst", true },
 			}
 			custombuildtask {
-				{ GEN_DIR .. _target .."/" .. _subtarget ..".flt" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py", MAME_DIR .. "src/".._target .."/" .. _target ..".lst"  }, {"@echo Building driver list...",    PYTHON .. " $(1) driverlist $(2) -f $(<) > $(@)" }},
+				{ GEN_DIR .. _target .."/" .. _subtarget ..".flt" ,  GEN_DIR  .. _target .. "/" .. _subtarget .."/drivlist.cpp",    {  MAME_DIR .. "scripts/build/makedep.py", MAME_DIR .. "src/".._target .."/" .. _target ..".lst"  }, {"@echo Building driver list...",    PYTHON .. " $(1) -r " .. MAME_DIR .. " driverlist $(2) -f $(<) > $(@)" }},
 			}
 	end
 
 	configuration { "mingw*" }
 		custombuildtask {
-			{ GEN_DIR .. "version.cpp" ,  GEN_DIR  .. "resource/" .. rctarget .. "vers.rc",    {  MAME_DIR .. "scripts/build/verinfo.py" }, {"@echo Emitting " .. rctarget .. "vers.rc" .. "...",    PYTHON .. " $(1)  -r -b " .. rctarget .. " $(<) > $(@)" }},
---			{ MAME_DIR .. "src/version.cpp" ,  GEN_DIR  .. "resource/" .. rctarget .. "vers.rc",    {  MAME_DIR .. "scripts/build/verinfo.py" }, {"@echo Emitting " .. rctarget .. "vers.rc" .. "...",    PYTHON .. " $(1)  -r -b " .. rctarget .. " $(<) > $(@)" }},
+			{
+--				MAME_DIR .. "src/version.cpp" ,
+				GEN_DIR .. "version.cpp" ,
+				GEN_DIR  .. "resource/" .. rctarget .. "vers.rc",
+				{ MAME_DIR .. "scripts/build/verinfo.py" },
+				{
+					"@echo Emitting " .. rctarget .. "vers.rc" .. "...",
+					PYTHON .. " $(1)  -r -b " .. rctarget .. " $(<) > $(@)"
+				}
+			},
 		}
 
 	configuration { "vs20*" }

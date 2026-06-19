@@ -27,7 +27,7 @@ enum
 	// Cart + NVRAM
 	SEGA_SRAM, SEGA_FRAM,
 	HARDBALL95,                  /* Hardball 95 uses different sram start address */
-	XINQIG,                   /* Xin Qigai Wangzi uses different sram start address and has no valid header */
+	XINQIG,                      /* Xin Qigai Wangzi uses different sram start address and has no valid header */
 	BEGGARP,                     /* Beggar Prince uses different sram start address + bankswitch tricks */
 	WUKONG,                      /* Legend of Wukong uses different sram start address + bankswitch trick for last 128K of ROM */
 	STARODYS,                    /* Star Odyssey */
@@ -35,7 +35,7 @@ enum
 	// EEPROM
 	SEGA_EEPROM,                 /* Wonder Boy V / Evander Holyfield's Boxing / Greatest Heavyweights of the Ring / Sports Talk Baseball / Megaman */
 	NBA_JAM,                     /* NBA Jam */
-	NBA_JAM_ALT,                     /* NBA Jam */
+	NBA_JAM_ALT,                 /* NBA Jam */
 	NBA_JAM_TE,                  /* NBA Jam TE / NFL Quarterback Club */
 	NFL_QB_96,                   /* NFL Quarterback Club '96 */
 	C_SLAM,                      /* College Slam / Frank Thomas Big Hurt Baseball */
@@ -52,11 +52,11 @@ enum
 	SSF2,                        /* Super Street Fighter 2 */
 	CM_2IN1,                     /* CodeMasters 2in1 : Psycho Pinball + Micro Machines */
 	GAME_KANDUME,                /* Game no Kandume Otokuyou */
-	RADICA,                      /* Radica TV games.. these probably should be a separate driver since they are a separate 'console' */
+//  RADICA,                      /* Radica TV games, handled in sega/megadriv_rad.cpp */
 
 	TILESMJ2,                    /* 16 Mahjong Tiles II */
 	BUGSLIFE,                    /* A Bug's Life */
-	CHINFIGHT3,                  /* Chinese Fighters 3 */
+//  CHINFIGHT3,                  /* Chinese Fighters 3 */
 	ELFWOR,                      /* Linghuan Daoshi Super Magician */
 	KAIJU,                       /* Pokemon Stadium */
 	KOF98,                       /* King of Fighters '98 */
@@ -82,6 +82,8 @@ enum
 	TC2000,                      /* TC 2000 (Argentina, protected) */
 	TEKKENSP,                    /* Tekken Special */
 	TOPFIGHTER,                  /* Top Fighter 2000 MK VIII */
+
+	TITAN,
 
 	// when loading from fullpath, we need to treat SRAM in custom way
 	SEGA_SRAM_FULLPATH,
@@ -111,7 +113,7 @@ public:
 	// this probably should do more, like make Genesis V2 'die' if the SEGA string is not written promptly
 	virtual void write_tmss_bank(offs_t offset, uint16_t data) { device().logerror("Write to TMSS bank: offset %x data %x\n", 0xa14000 + (offset << 1), data); }
 
-	virtual void rom_alloc(size_t size, const char *tag);
+	virtual void rom_alloc(size_t size);
 	virtual void nvram_alloc(size_t size);
 	virtual uint16_t* get_rom_base() { return m_rom; }
 	virtual uint16_t* get_nvram_base() { return &m_nvram[0]; }
@@ -156,19 +158,19 @@ public:
 	// construction/destruction
 	virtual ~base_md_cart_slot_device();
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override;
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 	int get_type() { return m_type; }
 
-	image_init_result load_list();
-	image_init_result load_nonlist();
+	std::error_condition load_list();
+	std::error_condition load_nonlist();
 	static int get_cart_type(const uint8_t *ROM, uint32_t len);
 
 	void setup_custom_mappers();
@@ -188,7 +190,7 @@ public:
 
 	virtual int read_test() { if (m_cart) return m_cart->read_test(); else return 0; }  // used by Virtua Racing test
 
-// TODO: this only needs to be public because megasvp copies rom into memory region, so we need to rework that code...
+// TODO: this only needs to be public because megasvp copies ROM into memory region, so we need to rework that code...
 //private:
 
 	int m_type;
@@ -197,8 +199,8 @@ public:
 protected:
 	base_md_cart_slot_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 };
 
 // ======================> md_cart_slot_device
@@ -211,13 +213,12 @@ public:
 	md_cart_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: md_cart_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	md_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+	// device_image_interface implementation
 	virtual const char *image_interface() const noexcept override { return "megadriv_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "smd,bin,md,gen"; }
 };
@@ -232,12 +233,11 @@ public:
 	pico_cart_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: pico_cart_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	pico_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+	// device_image_interface implementation
 	virtual const char *image_interface() const noexcept override { return "pico_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,md"; }
 };
@@ -252,27 +252,19 @@ public:
 	copera_cart_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: copera_cart_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	copera_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+	// device_image_interface implementation
 	virtual const char *image_interface() const noexcept override { return "copera_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,md"; }
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(MD_CART_SLOT,     md_cart_slot_device)
 DECLARE_DEVICE_TYPE(PICO_CART_SLOT,   pico_cart_slot_device)
 DECLARE_DEVICE_TYPE(COPERA_CART_SLOT, copera_cart_slot_device)
-
-
-/***************************************************************************
- DEVICE CONFIGURATION MACROS
- ***************************************************************************/
-
-#define MDSLOT_ROM_REGION_TAG ":cart:rom"
 
 #endif // MAME_BUS_MEGADRIVE_MD_SLOT_H

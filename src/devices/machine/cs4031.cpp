@@ -16,7 +16,7 @@
         - 2x 8257 DMA controller
         - 2x 8259 interrupt controller
         - 8254 timer
-        - MC14818 RTC
+        - MC146818 RTC
 
     TODO:
         - No emulation of memory parity checks
@@ -26,9 +26,8 @@
 ***************************************************************************/
 
 #include "emu.h"
-#include "machine/cs4031.h"
+#include "cs4031.h"
 
-#define LOG_GENERAL     (1U << 0)
 #define LOG_REGISTER    (1U << 1)
 #define LOG_MEMORY      (1U << 2)
 #define LOG_IO          (1U << 3)
@@ -96,7 +95,7 @@ const float cs4031_device::m_dma_clock_divider[] =
 
 void cs4031_device::device_add_mconfig(machine_config &config)
 {
-	AM9517A(config, m_dma1, 0);
+	AM9517A(config, m_dma1);
 	m_dma1->out_hreq_callback().set(m_dma2, FUNC(am9517a_device::dreq0_w));
 	m_dma1->out_eop_callback().set(FUNC(cs4031_device::dma1_eop_w));
 	m_dma1->in_memr_callback().set(FUNC(cs4031_device::dma_read_byte));
@@ -114,7 +113,7 @@ void cs4031_device::device_add_mconfig(machine_config &config)
 	m_dma1->out_dack_callback<2>().set(FUNC(cs4031_device::dma1_dack2_w));
 	m_dma1->out_dack_callback<3>().set(FUNC(cs4031_device::dma1_dack3_w));
 
-	AM9517A(config, m_dma2, 0);
+	AM9517A(config, m_dma2);
 	m_dma2->out_hreq_callback().set(FUNC(cs4031_device::dma2_hreq_w));
 	m_dma2->in_memr_callback().set(FUNC(cs4031_device::dma_read_word));
 	m_dma2->out_memw_callback().set(FUNC(cs4031_device::dma_write_word));
@@ -129,16 +128,16 @@ void cs4031_device::device_add_mconfig(machine_config &config)
 	m_dma2->out_dack_callback<2>().set(FUNC(cs4031_device::dma2_dack2_w));
 	m_dma2->out_dack_callback<3>().set(FUNC(cs4031_device::dma2_dack3_w));
 
-	PIC8259(config, m_intc1, 0);
+	PIC8259(config, m_intc1);
 	m_intc1->out_int_callback().set(FUNC(cs4031_device::intc1_int_w));
 	m_intc1->in_sp_callback().set_constant(1);
 	m_intc1->read_slave_ack_callback().set(FUNC(cs4031_device::intc1_slave_ack_r));
 
-	PIC8259(config, m_intc2, 0);
+	PIC8259(config, m_intc2);
 	m_intc2->out_int_callback().set(m_intc1, FUNC(pic8259_device::ir2_w));
 	m_intc2->in_sp_callback().set_constant(0);
 
-	PIT8254(config, m_ctc, 0);
+	PIT8254(config, m_ctc);
 	m_ctc->set_clk<0>(XTAL(14'318'181) / 12.0);
 	m_ctc->out_handler<0>().set(m_intc1, FUNC(pic8259_device::ir0_w));
 	m_ctc->set_clk<1>(XTAL(14'318'181) / 12.0);
@@ -160,9 +159,9 @@ void cs4031_device::device_add_mconfig(machine_config &config)
 //  cs4031_device - constructor
 //-------------------------------------------------
 
-cs4031_device::cs4031_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+cs4031_device::cs4031_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock) :
 	device_t(mconfig, CS4031, tag, owner, clock),
-	m_read_ior(*this),
+	m_read_ior(*this, 0),
 	m_write_iow(*this),
 	m_write_tc(*this),
 	m_write_hold(*this),
@@ -214,17 +213,6 @@ void cs4031_device::device_start()
 	if (!m_ram_dev->started())
 		throw device_missing_dependencies();
 
-	// resolve callbacks
-	m_read_ior.resolve_safe(0);
-	m_write_iow.resolve_safe();
-	m_write_tc.resolve_safe();
-	m_write_hold.resolve_safe();
-	m_write_nmi.resolve_safe();
-	m_write_intr.resolve_safe();
-	m_write_cpureset.resolve_safe();
-	m_write_a20m.resolve_safe();
-	m_write_spkr.resolve_safe();
-
 	// register for state saving
 	save_item(NAME(m_dma_eop));
 	save_item(NAME(m_dma_page));
@@ -247,7 +235,7 @@ void cs4031_device::device_start()
 	m_space_io = &m_cpu->memory().space(AS_IO);
 
 	m_ram = m_ram_dev->pointer();
-	uint32_t ram_size = m_ram_dev->size();
+	u32 ram_size = m_ram_dev->size();
 
 	// install base memory
 	m_space->install_ram(0x000000, 0x09ffff, m_ram);
@@ -268,7 +256,8 @@ void cs4031_device::device_start()
 	m_space_io->install_readwrite_handler(0x0060, 0x0063, read8smo_delegate(*this, FUNC(cs4031_device::keyb_data_r)), write8smo_delegate(*this, FUNC(cs4031_device::keyb_data_w)), 0x000000ff);
 	m_space_io->install_readwrite_handler(0x0060, 0x0063, read8smo_delegate(*this, FUNC(cs4031_device::portb_r)), write8smo_delegate(*this, FUNC(cs4031_device::portb_w)), 0x0000ff00);
 	m_space_io->install_readwrite_handler(0x0064, 0x0067, read8smo_delegate(*this, FUNC(cs4031_device::keyb_status_r)), write8smo_delegate(*this, FUNC(cs4031_device::keyb_command_w)), 0x000000ff);
-	m_space_io->install_readwrite_handler(0x0070, 0x0073, read8sm_delegate(*m_rtc, FUNC(mc146818_device::read)), write8sm_delegate(*this, FUNC(cs4031_device::rtc_w)), 0x0000ffff);
+	m_space_io->install_write_handler(0x0070, 0x0073, write8smo_delegate(*this, FUNC(cs4031_device::rtc_nmi_w)), 0x000000ff); // RTC address (84035) and NMI mask (84031) are both write-only
+	m_space_io->install_readwrite_handler(0x0070, 0x0073, read8smo_delegate(*m_rtc, FUNC(mc146818_device::data_r)), write8smo_delegate(*m_rtc, FUNC(mc146818_device::data_w)), 0x0000ff00);
 	m_space_io->install_readwrite_handler(0x0080, 0x008f, read8sm_delegate(*this, FUNC(cs4031_device::dma_page_r)), write8sm_delegate(*this, FUNC(cs4031_device::dma_page_w)), 0xffffffff);
 	m_space_io->install_readwrite_handler(0x0090, 0x0093, read8smo_delegate(*this, FUNC(cs4031_device::sysctrl_r)), write8smo_delegate(*this, FUNC(cs4031_device::sysctrl_w)), 0x00ff0000);
 	m_space_io->install_readwrite_handler(0x00a0, 0x00a3, read8sm_delegate(*m_intc2, FUNC(pic8259_device::read)), write8sm_delegate(*m_intc2, FUNC(pic8259_device::write)), 0x0000ffff);
@@ -325,7 +314,7 @@ offs_t cs4031_device::page_offset()
 	return 0xff0000;
 }
 
-uint8_t cs4031_device::dma_read_byte(offs_t offset)
+u8 cs4031_device::dma_read_byte(offs_t offset)
 {
 	if (m_dma_channel == -1)
 		return 0xff;
@@ -333,7 +322,7 @@ uint8_t cs4031_device::dma_read_byte(offs_t offset)
 	return m_space->read_byte(page_offset() + offset);
 }
 
-void cs4031_device::dma_write_byte(offs_t offset, uint8_t data)
+void cs4031_device::dma_write_byte(offs_t offset, u8 data)
 {
 	if (m_dma_channel == -1)
 		return;
@@ -341,18 +330,18 @@ void cs4031_device::dma_write_byte(offs_t offset, uint8_t data)
 	m_space->write_byte(page_offset() + offset, data);
 }
 
-uint8_t cs4031_device::dma_read_word(offs_t offset)
+u8 cs4031_device::dma_read_word(offs_t offset)
 {
 	if (m_dma_channel == -1)
 		return 0xff;
 
-	uint16_t result = m_space->read_word((page_offset() & 0xfe0000) | (offset << 1));
+	u16 result = m_space->read_word((page_offset() & 0xfe0000) | (offset << 1));
 	m_dma_high_byte = result >> 8;
 
 	return result;
 }
 
-void cs4031_device::dma_write_word(offs_t offset, uint8_t data)
+void cs4031_device::dma_write_word(offs_t offset, u8 data)
 {
 	if (m_dma_channel == -1)
 		return;
@@ -360,12 +349,12 @@ void cs4031_device::dma_write_word(offs_t offset, uint8_t data)
 	m_space->write_word((page_offset() & 0xfe0000) | (offset << 1), (m_dma_high_byte << 8) | data);
 }
 
-WRITE_LINE_MEMBER( cs4031_device::dma2_dack0_w )
+void cs4031_device::dma2_dack0_w(int state)
 {
 	m_dma1->hack_w(state ? 0 : 1); // inverted?
 }
 
-WRITE_LINE_MEMBER( cs4031_device::dma1_eop_w )
+void cs4031_device::dma1_eop_w(int state)
 {
 	m_dma_eop = state;
 	if (m_dma_channel != -1)
@@ -397,7 +386,7 @@ void cs4031_device::update_dma_clock()
 {
 	if (m_dma_clock_divider[m_registers[DMA_CLOCK] & 0x0f] != 0)
 	{
-		uint32_t dma_clock = clock() / m_dma_clock_divider[m_registers[DMA_CLOCK] & 0x0f];
+		u32 dma_clock = clock() / m_dma_clock_divider[m_registers[DMA_CLOCK] & 0x0f];
 
 		if (!BIT(m_registers[DMA_WAIT_STATE], 0))
 			dma_clock /= 2;
@@ -428,7 +417,7 @@ void cs4031_device::trigger_nmi()
 	}
 }
 
-uint8_t cs4031_device::intc1_slave_ack_r(offs_t offset)
+u8 cs4031_device::intc1_slave_ack_r(offs_t offset)
 {
 	if (offset == 2) // IRQ 2
 		return m_intc2->acknowledge();
@@ -436,7 +425,7 @@ uint8_t cs4031_device::intc1_slave_ack_r(offs_t offset)
 	return 0x00;
 }
 
-WRITE_LINE_MEMBER( cs4031_device::iochck_w )
+void cs4031_device::iochck_w(int state)
 {
 	LOGIO("cs4031_device::iochck_w: %u\n", state);
 
@@ -458,13 +447,13 @@ WRITE_LINE_MEMBER( cs4031_device::iochck_w )
 //  TIMER
 //**************************************************************************
 
-WRITE_LINE_MEMBER( cs4031_device::ctc_out1_w )
+void cs4031_device::ctc_out1_w(int state)
 {
 	m_refresh_toggle ^= state;
 	m_portb = (m_portb & 0xef) | (m_refresh_toggle << 4);
 }
 
-WRITE_LINE_MEMBER( cs4031_device::ctc_out2_w )
+void cs4031_device::ctc_out2_w(int state)
 {
 	m_write_spkr(!(state & BIT(m_portb, 1)));
 	m_portb = (m_portb & 0xdf) | (state << 5);
@@ -475,15 +464,15 @@ WRITE_LINE_MEMBER( cs4031_device::ctc_out2_w )
 //  CHIPSET CONFIGURATION
 //**************************************************************************
 
-void cs4031_device::config_address_w(uint8_t data)
+void cs4031_device::config_address_w(u8 data)
 {
 	m_address = data;
 	m_address_valid = (m_address < 0x20) ? true : false;
 }
 
-uint8_t cs4031_device::config_data_r()
+u8 cs4031_device::config_data_r()
 {
-	uint8_t result = 0xff;
+	u8 result = 0xff;
 
 	if (m_address_valid)
 	{
@@ -498,7 +487,7 @@ uint8_t cs4031_device::config_data_r()
 	return result;
 }
 
-void cs4031_device::config_data_w(uint8_t data)
+void cs4031_device::config_data_w(u8 data)
 {
 	if (m_address_valid)
 	{
@@ -685,21 +674,21 @@ void cs4031_device::keyboard_gatea20(int state)
 	update_a20m();
 }
 
-uint8_t cs4031_device::keyb_status_r()
+u8 cs4031_device::keyb_status_r()
 {
 	LOGKEYBOARD("cs4031_device::keyb_status_r\n");
 
 	return m_keybc->status_r();
 }
 
-void cs4031_device::keyb_command_blocked_w(uint8_t data)
+void cs4031_device::keyb_command_blocked_w(u8 data)
 {
 	// command is optionally blocked
 	if (!BIT(m_registers[SOFT_RESET_AND_GATEA20], 7))
 		m_keybc->command_w(data);
 }
 
-void cs4031_device::keyb_command_w(uint8_t data)
+void cs4031_device::keyb_command_w(u8 data)
 {
 	LOGKEYBOARD("cs4031_device::keyb_command_w: %02x\n", data);
 
@@ -770,14 +759,14 @@ void cs4031_device::keyb_command_w(uint8_t data)
 	}
 }
 
-uint8_t cs4031_device::keyb_data_r()
+u8 cs4031_device::keyb_data_r()
 {
 	LOGKEYBOARD("cs4031_device::keyb_data_r\n");
 
 	return m_keybc->data_r();
 }
 
-void cs4031_device::keyb_data_w(uint8_t data)
+void cs4031_device::keyb_data_w(u8 data)
 {
 	LOGKEYBOARD("cs4031_device::keyb_data_w: %02x\n", data);
 
@@ -795,18 +784,18 @@ void cs4031_device::keyb_data_w(uint8_t data)
 	}
 }
 
-WRITE_LINE_MEMBER( cs4031_device::gatea20_w )
+void cs4031_device::gatea20_w(int state)
 {
 	LOGKEYBOARD("cs4031_device::gatea20_w: %u\n", state);
 
 	keyboard_gatea20(state);
 }
 
-WRITE_LINE_MEMBER( cs4031_device::kbrst_w )
+void cs4031_device::kbrst_w(int state)
 {
 	LOGKEYBOARD("cs4031_device::kbrst_w: %u\n", state);
 
-	// convert to active low signal (gets inverted in at_keybc.c)
+	// convert to active low signal (gets inverted in at_keybc.cpp)
 	state = (state == ASSERT_LINE ? 0 : 1);
 
 	// external kbreset is ignored when emulation enabled
@@ -830,7 +819,7 @@ WRITE_LINE_MEMBER( cs4031_device::kbrst_w )
     1 - Fast Gate A20
 
  */
-void cs4031_device::sysctrl_w(uint8_t data)
+void cs4031_device::sysctrl_w(u8 data)
 {
 	LOGIO("cs4031_device::sysctrl_w: %u\n", data);
 
@@ -846,9 +835,9 @@ void cs4031_device::sysctrl_w(uint8_t data)
 	m_cpureset = BIT(data, 0);
 }
 
-uint8_t cs4031_device::sysctrl_r()
+u8 cs4031_device::sysctrl_r()
 {
-	uint8_t result = 0; // reserved bits read as 0?
+	u8 result = 0; // reserved bits read as 0?
 
 	result |= m_cpureset << 0;
 	result |= m_fast_gatea20 << 1;
@@ -876,7 +865,7 @@ uint8_t cs4031_device::sysctrl_r()
     7 - Parity check latch (r) [not emulated]
 */
 
-uint8_t cs4031_device::portb_r()
+u8 cs4031_device::portb_r()
 {
 	if (0)
 		logerror("cs4031_device::portb_r: %02x\n", m_portb);
@@ -884,7 +873,7 @@ uint8_t cs4031_device::portb_r()
 	return m_portb;
 }
 
-void cs4031_device::portb_w(uint8_t data)
+void cs4031_device::portb_w(u8 data)
 {
 	if (0)
 		logerror("cs4031_device::portb_w: %02x\n", data);
@@ -910,16 +899,13 @@ void cs4031_device::portb_w(uint8_t data)
     7   - NMI mask
     6:0 - RTC address
  */
-void cs4031_device::rtc_w(offs_t offset, uint8_t data)
+void cs4031_device::rtc_nmi_w(u8 data)
 {
 	if (0)
-		logerror("cs4031_device::rtc_w: %02x\n", data);
+		logerror("cs4031_device::rtc_nmi_w: %02x\n", data);
 
-	if (offset == 0)
-	{
-		m_nmi_mask = !BIT(data, 7);
-		data &= 0x7f;
-	}
+	m_nmi_mask = !BIT(data, 7);
+	data &= 0x7f;
 
-	m_rtc->write(offset, data);
+	m_rtc->address_w(data);
 }

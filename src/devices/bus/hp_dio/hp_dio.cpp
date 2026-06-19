@@ -8,6 +8,7 @@
 
 #include "emu.h"
 #include "hp_dio.h"
+#include "hp98259.h"
 #include "hp98265a.h"
 #include "hp98543.h"
 #include "hp98544.h"
@@ -15,6 +16,8 @@
 #include "hp98603a.h"
 #include "hp98603b.h"
 #include "hp98620.h"
+#include "hp98624.h"
+#include "hp98628_9.h"
 #include "hp98643.h"
 #include "hp98644.h"
 #include "human_interface.h"
@@ -127,16 +130,6 @@ dio16_device::dio16_device(const machine_config &mconfig, device_type type, cons
 
 void dio16_device::device_start()
 {
-	m_irq1_out_cb.resolve_safe();
-	m_irq2_out_cb.resolve_safe();
-	m_irq3_out_cb.resolve_safe();
-	m_irq4_out_cb.resolve_safe();
-	m_irq5_out_cb.resolve_safe();
-	m_irq6_out_cb.resolve_safe();
-	m_irq7_out_cb.resolve_safe();
-	m_dmar0_out_cb.resolve_safe();
-	m_dmar1_out_cb.resolve_safe();
-
 	m_prgwidth = m_prgspace->data_width();
 
 	save_item(NAME(m_irq));
@@ -245,7 +238,7 @@ uint8_t dio16_device::dmack_r_out(int index, int channel)
 	return ret;
 }
 
-WRITE_LINE_MEMBER(dio16_device::reset_in)
+void dio16_device::reset_in(int state)
 {
 	for (auto &card : m_cards) {
 		if (card->get_index() != m_bus_index)
@@ -303,7 +296,7 @@ void device_dio16_card_interface::set_bus(dio16_device &bus)
 
 device_dio16_card_interface::device_dio16_card_interface(const machine_config &mconfig, device_t &device) :
 	device_interface(device, "hpdio"),
-	m_dio_dev(nullptr), m_next(nullptr)
+	m_dio_dev(nullptr)
 {
 }
 
@@ -356,13 +349,22 @@ void device_dio32_card_interface::interface_pre_start()
 
 void dio16_cards(device_slot_interface & device)
 {
+	device.option_add("98259", HPDIO_98259);
 	device.option_add("98543", HPDIO_98543);
 	device.option_add("98544", HPDIO_98544);
 	device.option_add("98603a", HPDIO_98603A);
 	device.option_add("98603b", HPDIO_98603B);
+	device.option_add("98624", HPDIO_98624);
 	device.option_add("98643", HPDIO_98643);
 	device.option_add("98644", HPDIO_98644);
 	device.option_add("human_interface", HPDIO_HUMAN_INTERFACE);
+}
+
+void dio16_hp98x6_cards(device_slot_interface &device)
+{
+	device.option_add("98259", HPDIO_98259);
+	device.option_add("98628", HPDIO_98628);
+	device.option_add("98629", HPDIO_98629);
 }
 
 void dio32_cards(device_slot_interface & device)

@@ -24,6 +24,8 @@
 #include "emu.h"
 #include "kp69.h"
 
+#include <bit>
+
 #define VERBOSE 0
 #include "logmacro.h"
 
@@ -60,19 +62,6 @@ kp69_device::kp69_device(const machine_config &mconfig, const char *tag, device_
 	: kp69_base_device(mconfig, KP69, tag, owner, clock)
 	, m_ivr_written(false)
 {
-}
-
-
-//-------------------------------------------------
-//  device_resolve_objects - resolve objects that
-//  may be needed for other devices to set
-//  initial conditions at start time
-//-------------------------------------------------
-
-void kp69_base_device::device_resolve_objects()
-{
-	// Resolve output callback
-	m_int_callback.resolve_safe();
 }
 
 
@@ -409,14 +398,14 @@ int kp69_base_device::z80daisy_irq_ack()
 	// Restrict to high-priority interrupts if any of those are pending
 	if ((m_irr & m_pgr) != 0)
 	{
-		level = 31 - count_leading_zeros_32(u32(m_irr & m_pgr));
+		level = std::bit_width(u16(m_irr & m_pgr)) - 1;
 		assert(level >= 0 && level < 16);
 		if ((1 << level) < (m_isr & m_pgr))
 			level = -1;
 	}
 	else if (m_irr != 0 && (m_isr & m_pgr) == 0)
 	{
-		level = 31 - count_leading_zeros_32(u32(m_irr));
+		level = std::bit_width(m_irr) - 1;
 		assert(level >= 0 && level < 16);
 		if ((1 << level) < m_isr)
 			level = -1;
@@ -461,7 +450,7 @@ void kp69_base_device::z80daisy_irq_reti()
 	}
 	else if (m_isr != 0)
 	{
-		int level = 31 - count_leading_zeros_32(u32((m_isr & m_pgr) != 0 ? (m_isr & m_pgr) : m_isr));
+		int level = std::bit_width(u16(((m_isr & m_pgr) != 0) ? (m_isr & m_pgr) : m_isr)) - 1;
 		assert(level >= 0 && level < 16);
 
 		m_isr &= ~(1 << level);

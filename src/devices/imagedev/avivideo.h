@@ -8,13 +8,19 @@
 
 *********************************************************************/
 
-#ifndef MAME_DEVICES_IMAGEDEV_AVIVIDEO_H
-#define MAME_DEVICES_IMAGEDEV_AVIVIDEO_H
+#ifndef MAME_IMAGEDEV_AVIVIDEO_H
+#define MAME_IMAGEDEV_AVIVIDEO_H
 
 #pragma once
 
-#include "bitmap.h"
 #include "aviio.h"
+#include "bitmap.h"
+
+#include <memory>
+#include <string>
+#include <system_error>
+#include <utility>
+
 
 /***************************************************************************
     TYPE DEFINITIONS
@@ -29,8 +35,8 @@ public:
 	avivideo_image_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 	virtual ~avivideo_image_device();
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override;
 
 	virtual bool is_readable()  const noexcept override { return true; }
@@ -44,14 +50,14 @@ public:
 	bitmap_argb32 &get_frame() { return *m_frame; }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	TIMER_CALLBACK_MEMBER(frame_timer);
 
 private:
-	bitmap_argb32 *m_frame;
+	std::unique_ptr<bitmap_argb32> m_frame;
 	avi_file::ptr m_avi;
 
 	emu_timer *m_frame_timer;
@@ -63,4 +69,4 @@ private:
 // device type definition
 DECLARE_DEVICE_TYPE(IMAGE_AVIVIDEO, avivideo_image_device)
 
-#endif // MAME_DEVICES_IMAGEDEV_AVIVIDEO_H
+#endif // MAME_IMAGEDEV_AVIVIDEO_H

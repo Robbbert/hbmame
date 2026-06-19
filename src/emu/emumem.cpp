@@ -9,8 +9,6 @@
 ***************************************************************************/
 
 #include "emu.h"
-#include <list>
-#include <map>
 #include "emuopts.h"
 #include "debug/debugcpu.h"
 
@@ -24,6 +22,12 @@
 #include "emumem_hedw.h"
 #include "emumem_hep.h"
 #include "emumem_het.h"
+
+#include "endianness.h"
+
+#include <cstdio>
+#include <list>
+#include <map>
 
 
 //**************************************************************************
@@ -51,6 +55,19 @@ offs_t handler_entry::dispatch_entry(offs_t address) const
 void handler_entry::dump_map(std::vector<memory_entry> &map) const
 {
 	fatalerror("dump_map called on non-dispatching class\n");
+}
+
+bool handler_entry::is_handler_in_map(std::vector<memory_entry> &map, offs_t begin, offs_t end, handler_entry *handler) const
+{
+	auto it = std::find_if(map.begin(), map.end(), [handler,begin,end](const memory_entry& e) {
+		return (e.entry == handler) && (e.start == begin) && (e.end == end);
+	} );
+
+	if(it == map.end()) {
+		return false;
+	}
+
+	return true;
 }
 
 void handler_entry::select_a(int slot)
@@ -328,7 +345,7 @@ memory_region *memory_manager::region_alloc(std::string name, u32 length, u8 wid
 		fatalerror("region_alloc called with duplicate region name \"%s\"\n", name);
 
 	// allocate the region
-	return m_regionlist.emplace(name, std::make_unique<memory_region>(machine(), name, length, width, endian)).first->second.get();
+	return m_regionlist.emplace(name, std::make_unique<memory_region>(name, length, width, endian)).first->second.get();
 }
 
 
@@ -336,10 +353,10 @@ memory_region *memory_manager::region_alloc(std::string name, u32 length, u8 wid
 //  region_find - find a region by name
 //-------------------------------------------------
 
-memory_region *memory_manager::region_find(std::string name)
+memory_region *memory_manager::region_find(std::string_view name)
 {
-	auto i = m_regionlist.find(name);
-	return i != m_regionlist.end() ? i->second.get() : nullptr;
+	auto const i = m_regionlist.find(name);
+	return (i != m_regionlist.end()) ? i->second.get() : nullptr;
 }
 
 
@@ -386,10 +403,10 @@ memory_share *memory_manager::share_alloc(device_t &dev, std::string name, u8 wi
 //  share_find - find a share by name
 //-------------------------------------------------
 
-memory_share *memory_manager::share_find(std::string name)
+memory_share *memory_manager::share_find(std::string_view name)
 {
-	auto i = m_sharelist.find(name);
-	return i != m_sharelist.end() ? i->second.get() : nullptr;
+	auto const i = m_sharelist.find(name);
+	return (i != m_sharelist.end()) ? i->second.get() : nullptr;
 }
 
 
@@ -415,10 +432,10 @@ memory_bank *memory_manager::bank_alloc(device_t &device, std::string name)
 //  bank_find - find a bank by name
 //-------------------------------------------------
 
-memory_bank *memory_manager::bank_find(std::string name)
+memory_bank *memory_manager::bank_find(std::string_view name)
 {
-	auto i = m_banklist.find(name);
-	return i != m_banklist.end() ? i->second.get() : nullptr;
+	auto const i = m_banklist.find(name);
+	return (i != m_banklist.end()) ? i->second.get() : nullptr;
 }
 
 
@@ -476,6 +493,26 @@ address_space_config::address_space_config(const char *name, endianness_t endian
 		m_internal_map(internal)
 {
 }
+
+
+void address_space_config::check_parameters(const char *objname, int width, int addr_shift, endianness_t endian) const
+{
+	if(addr_shift != m_addr_shift)
+		fatalerror("Requesting %s with address shift %d while the config says %d\n", objname, addr_shift, m_addr_shift);
+	if(8 << width != m_data_width)
+		fatalerror("Requesting %s with data width %d while the config says %d\n", objname, 8 << width, m_data_width);
+	if(endian != m_endianness)
+		fatalerror("Requesting %s with endianness %s while the config says %s\n",
+				   objname, util::endian_to_string_view(endian), util::endian_to_string_view(m_endianness));
+}
+
+void address_space_config::check_parameters(const char *objname, int level, int width, int addr_shift, endianness_t endian) const
+{
+	if(level != emu::detail::handler_entry_dispatch_level(m_addr_width))
+		fatalerror("Requesting %s with wrong level, bad address width (the config says %d)\n", objname, m_addr_width);
+	check_parameters(objname, width, addr_shift, endian);
+}
+
 
 
 void address_space_installer::check_optimize_all(const char *function, int width, offs_t addrstart, offs_t addrend, offs_t addrmask, offs_t addrmirror, offs_t addrselect, u64 unitmask, int cswidth, offs_t &nstart, offs_t &nend, offs_t &nmask, offs_t &nmirror, u64 &nunitmask, int &ncswidth)
@@ -600,11 +637,29 @@ void address_space_installer::check_optimize_all(const char *function, int width
 				}
 		}
 
-		// 4. Ajusting the mirror
+		// 4. Adjusting the mirror
 		nmirror &= ~default_lowbits_mask;
 
 		// 5. Recompute changing_bits, it matters for the next optimization.  No need to round up through
 		changing_bits = nstart ^ nend;
+	}
+
+	if(nmask <= default_lowbits_mask && (nend - nstart) != default_lowbits_mask) {
+		// If the access size is lower than the bus width and the
+		// internal range limited, adjust to one full bus width and
+		// adjust the unitmask.  This can have a very positive
+		// interaction with the following block
+		assert(width < m_config.data_width());
+
+		u64 extra_mask;
+		if(m_config.endianness() == ENDIANNESS_BIG)
+			extra_mask = make_bitmask<u64>(m_config.data_width() - 8*(nstart & default_lowbits_mask)) ^ make_bitmask<u64>(m_config.data_width() - 8*(1+(nend & default_lowbits_mask)));
+		else
+			extra_mask = make_bitmask<u64>(8*(nstart & default_lowbits_mask)) ^ make_bitmask<u64>(8*(1+(nend & default_lowbits_mask)));
+		nstart &= ~default_lowbits_mask;
+		nend   |=  default_lowbits_mask;
+		nunitmask &= extra_mask;
+		changing_bits = default_lowbits_mask;
 	}
 
 	if(nmirror && !(nstart & changing_bits) && !((~nend) & changing_bits)) {
@@ -861,6 +916,38 @@ void address_space_installer::populate_map_entry(const address_map_entry &entry,
 				install_view(entry.m_addrstart, entry.m_addrend, entry.m_addrmirror, *entry.m_view);
 			break;
 	}
+
+	if (data.m_type == AMH_VIEW)
+		return;
+
+	offs_t lowbits_mask = (m_config.data_width() >> (3 - m_config.addr_shift())) - 1;
+
+	if (!entry.m_before_time.isnull()) {
+		auto d = entry.m_before_time;
+		d.resolve();
+		if (readorwrite == read_or_write::READ)
+			install_read_before_time(entry.m_addrstart & ~lowbits_mask, entry.m_addrend | lowbits_mask, entry.m_addrmirror, d);
+		else
+			install_write_before_time(entry.m_addrstart & ~lowbits_mask, entry.m_addrend | lowbits_mask, entry.m_addrmirror, d);
+	}
+
+	if (!entry.m_before_delay.isnull()) {
+		auto d = entry.m_before_delay;
+		d.resolve();
+		if (readorwrite == read_or_write::READ)
+			install_read_before_delay(entry.m_addrstart & ~lowbits_mask, entry.m_addrend | lowbits_mask, entry.m_addrmirror, d);
+		else
+			install_write_before_delay(entry.m_addrstart & ~lowbits_mask, entry.m_addrend | lowbits_mask, entry.m_addrmirror, d);
+	}
+
+	if (!entry.m_after_delay.isnull()) {
+		auto d = entry.m_after_delay;
+		d.resolve();
+		if (readorwrite == read_or_write::READ)
+			install_read_after_delay(entry.m_addrstart & ~lowbits_mask, entry.m_addrend | lowbits_mask, entry.m_addrmirror, d);
+		else
+			install_write_after_delay(entry.m_addrstart & ~lowbits_mask, entry.m_addrend | lowbits_mask, entry.m_addrmirror, d);
+	}
 }
 
 
@@ -984,7 +1071,7 @@ void memory_bank::set_entry(int entrynum)
 
 	// validate
 	if (entrynum < 0 || entrynum >= int(m_entries.size()))
-		throw emu_fatalerror("memory_bank::set_entry called with out-of-range entry %d", entrynum);
+		throw emu_fatalerror("memory_bank::set_entry called for bank '%s' with out-of-range entry %d", m_tag, entrynum);
 	if (m_entries[entrynum] == nullptr)
 		throw emu_fatalerror("memory_bank::set_entry called for bank '%s' with invalid bank entry %d", m_tag, entrynum);
 
@@ -1034,15 +1121,18 @@ void memory_bank::configure_entries(int startentry, int numentries, void *base, 
 //  memory_region - constructor
 //-------------------------------------------------
 
-memory_region::memory_region(running_machine &machine, std::string name, u32 length, u8 width, endianness_t endian)
-	: m_machine(machine),
-		m_name(std::move(name)),
-		m_buffer(length),
-		m_endianness(endian),
-		m_bitwidth(width * 8),
-		m_bytewidth(width)
+memory_region::memory_region(std::string name, u32 length, u8 width, endianness_t endian) :
+	m_name(std::move(name)),
+	m_buffer(length ? std::malloc(length) : nullptr),
+	m_length(length),
+	m_endianness(endian),
+	m_bitwidth(width * 8),
+	m_bytewidth(width)
 {
-	assert(width == 1 || width == 2 || width == 4 || width == 8);
+	assert((width == 1) || (width == 2) || (width == 4) || (width == 8));
+	assert(!(length % width));
+	if (length && !m_buffer)
+		throw std::bad_alloc();
 }
 
 std::string memory_share::compare(u8 width, size_t bytes, endianness_t endianness) const

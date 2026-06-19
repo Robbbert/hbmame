@@ -9,8 +9,8 @@
 
 **********************************************************************/
 
-#ifndef MAME_BUS_SG1000_EXP_SK1100_PRN_H
-#define MAME_BUS_SG1000_EXP_SK1100_PRN_H
+#ifndef MAME_BUS_SG1000_EXP_SK1100PRN_H
+#define MAME_BUS_SG1000_EXP_SK1100PRN_H
 
 #pragma once
 
@@ -31,25 +31,22 @@ public:
 	sk1100_printer_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: sk1100_printer_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	sk1100_printer_port_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 	virtual ~sk1100_printer_port_device();
 
-	DECLARE_READ_LINE_MEMBER(fault_r);
-	DECLARE_READ_LINE_MEMBER(busy_r);
+	int fault_r();
+	int busy_r();
 
-	DECLARE_WRITE_LINE_MEMBER(data_w);
-	DECLARE_WRITE_LINE_MEMBER(reset_w);
-	DECLARE_WRITE_LINE_MEMBER(feed_w);
+	void data_w(int state);
+	void reset_w(int state);
+	void feed_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	device_sk1100_printer_port_interface *m_device;
@@ -69,12 +66,12 @@ public:
 protected:
 	device_sk1100_printer_port_interface(const machine_config &mconfig, device_t &device);
 
-	virtual DECLARE_WRITE_LINE_MEMBER( input_data )  { }
-	virtual DECLARE_WRITE_LINE_MEMBER( input_reset ) { }
-	virtual DECLARE_WRITE_LINE_MEMBER( input_feed ) { }
+	virtual void input_data(int state)  { }
+	virtual void input_reset(int state) { }
+	virtual void input_feed(int state) { }
 
-	virtual DECLARE_READ_LINE_MEMBER( output_fault ) { return 1; }
-	virtual DECLARE_READ_LINE_MEMBER( output_busy ) { return 1; }
+	virtual int output_fault() { return 1; }
+	virtual int output_busy() { return 1; }
 };
 
 
@@ -84,5 +81,4 @@ DECLARE_DEVICE_TYPE(SK1100_PRINTER_PORT, sk1100_printer_port_device)
 
 void sk1100_printer_port_devices(device_slot_interface &device);
 
-
-#endif // MAME_BUS_SG1000_EXP_SK1100_PRN_H
+#endif // MAME_BUS_SG1000_EXP_SK1100PRN_H

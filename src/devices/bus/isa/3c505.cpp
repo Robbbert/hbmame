@@ -16,8 +16,8 @@
  *   http://www.bitsavers.org/pdf/3Com/1569-03_EtherLink_Plus_Technical_Reference_Jan89.pdf
  *
  * TODO
- *   - resolve intermittent diagnostics bug on 8-bit dma channels
- *   - 8-bit isa slot support
+ *   - resolve intermittent diagnostics bug on 8-bit DMA channels
+ *   - 8-bit ISA slot support
  *   - revision 1.0 and 2.0 hardware/firmware variants
  *   - 8023 loopback mode
  */
@@ -25,7 +25,6 @@
 #include "emu.h"
 #include "3c505.h"
 
-#define LOG_GENERAL (1U << 0)
 #define LOG_REG     (1U << 1)
 #define LOG_DATA    (1U << 2)
 
@@ -246,8 +245,6 @@ void isa16_3c505_device::device_start()
 	m_cpu->space(0).install_ram(0x00000, m_ram->mask() & 0xfffff, m_ram->pointer());
 	m_net->space(0).install_ram(0x00000, m_ram->mask() & 0xfffff, m_ram->pointer());
 
-	m_led.resolve();
-
 	save_item(NAME(m_acmdr));
 	save_item(NAME(m_acr));
 	save_item(NAME(m_asr));
@@ -405,7 +402,8 @@ void isa16_3c505_device::acr_w(u8 data)
 	if ((data ^ m_acr) & ACR_LED2)
 		m_led[1] = bool(data & ACR_LED2);
 
-	m_net->reset_w((data & ACR_R586) ? 1 : 0);
+	if ((data ^ m_acr) & ACR_R586)
+		m_net->reset_w((data & ACR_R586) ? 1 : 0);
 
 	if ((data ^ m_acr) & ACR_FLSH)
 	{

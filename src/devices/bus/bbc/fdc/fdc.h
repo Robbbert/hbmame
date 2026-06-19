@@ -29,10 +29,7 @@ public:
 	bbc_fdc_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock, T &&slot_options, const char *default_option)
 		: bbc_fdc_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		slot_options(*this);
-		set_default_option(default_option);
-		set_fixed(false);
+		set_options(std::forward<T>(slot_options), default_option, false);
 		set_insert_rom(true);
 	}
 
@@ -48,12 +45,12 @@ public:
 	uint8_t read(offs_t offset);
 	void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( intrq_w ) { m_intrq_cb(state); }
-	DECLARE_WRITE_LINE_MEMBER( drq_w) { m_drq_cb(state); }
+	void intrq_w(int state) { m_intrq_cb(state); }
+	void drq_w(int state) { m_drq_cb(state); }
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	device_bbc_fdc_interface *m_card;
 

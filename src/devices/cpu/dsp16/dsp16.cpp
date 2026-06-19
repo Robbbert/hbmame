@@ -77,13 +77,15 @@
 
 #include "emu.h"
 #include "dsp16.h"
+
 #include "dsp16core.ipp"
 #include "dsp16rc.h"
+
+#include "emuopts.h"
 
 #include <functional>
 #include <limits>
 
-#define LOG_GENERAL     (1U << 0)
 #define LOG_INT         (1U << 1)
 #define LOG_SIO         (1U << 2)
 #define LOG_PIO         (1U << 3)
@@ -114,7 +116,7 @@ ALLOW_SAVE_TYPE(dsp16_device_base::phase);
 ALLOW_SAVE_TYPE(dsp16_device_base::flags);
 ALLOW_SAVE_TYPE(dsp16_device_base::sio_flags);
 
-WRITE_LINE_MEMBER(dsp16_device_base::exm_w)
+void dsp16_device_base::exm_w(int state)
 {
 	if (bool(state) != bool(m_exm_in))
 	{
@@ -178,14 +180,14 @@ dsp16_device_base::dsp16_device_base(
 	, m_iack_cb(*this)
 	, m_ick_cb(*this), m_ild_cb(*this)
 	, m_do_cb(*this), m_ock_cb(*this), m_old_cb(*this), m_ose_cb(*this)
-	, m_pio_r_cb(*this), m_pio_w_cb(*this), m_pdb_w_cb(*this), m_psel_cb(*this), m_pids_cb(*this), m_pods_cb(*this)
+	, m_pio_r_cb(*this, 0U), m_pio_w_cb(*this), m_pdb_w_cb(*this), m_psel_cb(*this), m_pids_cb(*this), m_pods_cb(*this)
 	, m_space_config{
 			{ "rom", ENDIANNESS_BIG, 16, 16, -1, address_map_constructor(FUNC(dsp16_device_base::program_map), this) },
 			{ "ram", ENDIANNESS_BIG, 16, yaau_bits, -1, std::move(data_map) },
 			{ "exm", ENDIANNESS_BIG, 16, 16, -1 } }
 	, m_yaau_bits(yaau_bits)
 	, m_workram(*this, "workram"), m_spaces{ nullptr, nullptr, nullptr }, m_workram_mask(0U)
-	, m_drc_cache(CACHE_SIZE), m_core(nullptr, [] (core_state *core) { core->~core_state(); }), m_recompiler()
+	, m_drc_cache(CACHE_SIZE), m_core(), m_recompiler()
 	, m_cache_mode(cache::NONE), m_phase(phase::PURGE), m_int_enable{ 0U, 0U }, m_flags(FLAGS_NONE), m_cache_ptr(0U), m_cache_limit(0U), m_cache_iterations(0U)
 	, m_exm_in(1U), m_int_in(CLEAR_LINE), m_iack_out(1U)
 	, m_ick_in(1U), m_ild_in(CLEAR_LINE), m_do_out(1U), m_ock_in(1U), m_old_in(CLEAR_LINE), m_ose_out(1U)
@@ -201,29 +203,10 @@ dsp16_device_base::dsp16_device_base(
     device_t implementation
 ***********************************************************************/
 
-void dsp16_device_base::device_resolve_objects()
-{
-	m_iack_cb.resolve_safe();
-
-	m_ick_cb.resolve_safe();
-	m_ild_cb.resolve_safe();
-	m_do_cb.resolve_safe();
-	m_ock_cb.resolve_safe();
-	m_old_cb.resolve_safe();
-	m_ose_cb.resolve_safe();
-
-	m_pio_r_cb.resolve();
-	m_pio_w_cb.resolve_safe();
-	m_pdb_w_cb.resolve_safe();
-	m_psel_cb.resolve_safe();
-	m_pids_cb.resolve_safe();
-	m_pods_cb.resolve_safe();
-}
-
 void dsp16_device_base::device_start()
 {
-	m_core.reset(reinterpret_cast<core_state *>(m_drc_cache.alloc_near(sizeof(core_state))));
-	new (m_core.get()) core_state(m_yaau_bits);
+	m_drc_cache.allocate_cache(mconfig().options().drc_rwx());
+	m_core.reset(m_drc_cache.alloc_near<core_state>(m_yaau_bits));
 	set_icountptr(m_core->icount);
 
 	m_spaces[AS_PROGRAM] = &space(AS_PROGRAM);
@@ -440,7 +423,7 @@ void dsp16_device_base::execute_set_input(int inputnum, int state)
 			m_ick_in = (ASSERT_LINE == state) ? 1U : 0U;
 		}
 		if (CLEAR_LINE != state)
-			standard_irq_callback(DSP16_ICK_LINE);
+			standard_irq_callback(DSP16_ICK_LINE, m_st_pcbase);
 		break;
 	case DSP16_ILD_LINE:
 		if (sio_ild_active())
@@ -462,7 +445,7 @@ void dsp16_device_base::execute_set_input(int inputnum, int state)
 			m_ock_in = (ASSERT_LINE == state) ? 1U : 0U;
 		}
 		if (CLEAR_LINE != state)
-			standard_irq_callback(DSP16_OCK_LINE);
+			standard_irq_callback(DSP16_OCK_LINE, m_st_pcbase);
 		break;
 	case DSP16_OLD_LINE:
 		if (sio_old_active())
@@ -658,7 +641,7 @@ void dsp16_device_base::program_map(address_map &map)
 
 template <bool Debugger, bool Caching> inline void dsp16_device_base::execute_some_rom()
 {
-	assert(bool(machine().debug_flags & DEBUG_FLAG_ENABLED) == Debugger);
+	assert(debugger_enabled() == Debugger);
 	for (bool mode_change = false; !mode_change && m_core->icount_remaining(); m_core->decrement_icount())
 	{
 		assert((cache::LOAD == m_cache_mode) == Caching);
@@ -718,7 +701,7 @@ template <bool Debugger, bool Caching> inline void dsp16_device_base::execute_so
 				{
 					LOGINT("DSP16: asserting IACK (PC = %04X)\n", m_st_pcbase);
 					m_iack_cb(m_iack_out = 0U);
-					standard_irq_callback(DSP16_INT_LINE);
+					standard_irq_callback(DSP16_INT_LINE, m_st_pcbase);
 				}
 				break;
 			case FLAGS_IACK_CLEAR:
@@ -998,7 +981,6 @@ template <bool Debugger, bool Caching> inline void dsp16_device_base::execute_so
 
 			case 0x1e: // Reserved
 				throw emu_fatalerror("DSP16: reserved op %u (PC = %04X)\n", op >> 11, m_st_pcbase);
-				break;
 
 			case 0x1f: // F1 ; y = Y ; x = *pt++[i]
 				m_core->op_dau_ad(op) = m_core->dau_f1(op);
@@ -1148,7 +1130,7 @@ template <bool Debugger, bool Caching> inline void dsp16_device_base::execute_so
 
 template <bool Debugger> inline void dsp16_device_base::execute_some_cache()
 {
-	assert(bool(machine().debug_flags & DEBUG_FLAG_ENABLED) == Debugger);
+	assert(debugger_enabled() == Debugger);
 	for (bool mode_change = false; !mode_change && m_core->icount_remaining(); m_core->decrement_icount())
 	{
 		u16 const op(m_cache[m_cache_ptr]);
@@ -1534,7 +1516,7 @@ inline void dsp16_device_base::pio_step()
 		assert(!m_pids_out);
 		if (!--m_pio_pids_cnt)
 		{
-			if (!m_pio_r_cb.isnull())
+			if (!m_pio_r_cb.isunset())
 				m_pio_pdx_in = m_pio_r_cb(m_psel_out, 0xffffU);
 			m_pids_cb(m_pids_out = 1U);
 			LOGPIO("DSP16: PIO read active edge PSEL = %u, PDX = %04X (PC = %04X)\n", m_psel_out, m_pio_pdx_in, m_st_pcbase);

@@ -28,19 +28,16 @@ public:
 	gio64_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&gio64_tag, slot_type_t slot_type, U &&opts, const char *dflt)
 		: gio64_slot_device(mconfig, tag, owner, (uint32_t)0, slot_type)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<U>(opts), dflt, false);
 		m_gio64.set_tag(std::forward<T>(gio64_tag));
 	}
 	gio64_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, slot_type_t slot_type = GIO64_SLOT_EXP0);
 
 protected:
-	// device-level overrides
+	// device_t implementation
 	virtual void device_validity_check(validity_checker &valid) const override;
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
+	virtual void device_resolve_objects() override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
 
 	// configuration
 	required_device<gio64_device> m_gio64;
@@ -107,7 +104,7 @@ public:
 		}
 	}
 
-	template <int N> DECLARE_WRITE_LINE_MEMBER(interrupt) { m_interrupt_cb[N](state); }
+	template <int N> void interrupt(int state) { m_interrupt_cb[N](state); }
 
 	u64 read(offs_t offset, u64 mem_mask);
 	void write(offs_t offset, u64 data, u64 mem_mask);
@@ -115,9 +112,8 @@ public:
 protected:
 	gio64_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	// internal state
 	device_gio64_card_interface *m_device_list[3];

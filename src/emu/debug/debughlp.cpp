@@ -46,6 +46,7 @@ const help_item f_static_help_list[] =
 		"  Breakpoints\n"
 		"  Watchpoints\n"
 		"  Registerpoints\n"
+		"  Exceptionpoints\n"
 		"  Expressions\n"
 		"  Comments\n"
 		"  Cheats\n"
@@ -93,26 +94,32 @@ const help_item f_static_help_list[] =
 		"\n"
 		"  dasm <filename>,<address>,<length>[,<opcodes>[,<CPU>]] -- disassemble to the given file\n"
 		"  f[ind] <address>,<length>[,<data>[,...]] -- search memory for data\n"
+		"  f[ind] <address>:<memory>.{m|s},<length>[,<data>[,...]] -- search memory region or share for data\n"
 		"  f[ind]d <address>,<length>[,<data>[,...]] -- search data memory for data\n"
 		"  f[ind]i <address>,<length>[,<data>[,...]] -- search I/O memory for data\n"
 		"  fill <address>,<length>[,<data>[,...]] -- fill memory with data\n"
+		"  fill <address>:<memory>.{m|s},<length>[,<data>[,...]] -- fill memory region or share with data\n"
 		"  filld <address>[:<space>],<length>[,<data>[,...]] -- fill data memory with data\n"
 		"  filli <address>[:<space>],<length>[,<data>[,...][ -- fill I/O memory with data\n"
 		"  fillo <address>[:<space>],<length>[,<data>[,...][ -- fill opcode memory with data\n"
 		"  dump <filename>,<address>[:<space>],<length>[,<group>[,<ascii>[,<rowsize>]]] -- dump memory as text\n"
+		"  dump <filename>,<address>:<memory>.{m|s},<length>[,<group>[,<ascii>[,<rowsize>]]] -- dump memory region or share as text\n"
 		"  dumpd <filename>,<address>[:<space>],<length>[,<group>[,<ascii>[,<rowsize>]]] -- dump data memory as text\n"
 		"  dumpi <filename>,<address>[:<space>],<length>[,<group>[,<ascii>[,<rowsize>]]] -- dump I/O memory as text\n"
 		"  dumpo <filename>,<address>[:<space>],<length>[,<group>[,<ascii>[,<rowsize>]]] -- dump opcodes memory as text\n"
 		"  strdump <filename>,<address>[:<space>],<length>[,<term>] -- dump ASCII strings from memory\n"
+		"  strdump <filename>,<address>:<memory>.{m|s},<length>[,<term>] -- dump ASCII strings from memory region or share\n"
 		"  strdumpd <filename>,<address>[:<space>],<length>[,<term>] -- dump ASCII strings from data memory\n"
 		"  strdumpi <filename>,<address>[:<space>],<length>[,<term>] -- dump ASCII strings from I/O memory\n"
 		"  strdumpo <filename>,<address>[:<space>],<length>[,<term>] -- dump ASCII strings from opcodes memory\n"
 		"  save <filename>,<address>[:<space>],<length> -- save binary memory to the given file\n"
+		"  save <filename>,<address>:<memory>.{m|s},<length> -- load binary memory region or share to the given file\n"
 		"  saved <filename>,<address>[:<space>],<length> -- save binary data memory to the given file\n"
 		"  savei <filename>,<address>[:<space>],<length> -- save binary I/O memory to the given file\n"
 		"  saveo <filename>,<address>[:<space>],<length> -- save binary opcode memory to the given file\n"
 		"  saver <filename>,<address>[:<space>],<length>,<region> -- save binary memory region to the given file\n"
 		"  load <filename>,<address>[:<space>][,<length>] -- load binary memory from the given file\n"
+		"  load <filename>,<address>:<memory>.{m|s}[,<length>] -- load binary memory region or share from the given file\n"
 		"  loadd <filename>,<address>[:<space>][,<length>] -- load binary data memory from the given file\n"
 		"  loadi <filename>,<address>[:<space>][,<length>] -- load binary I/O memory from the given file\n"
 		"  loado <filename>,<address>[:<space>][,<length>] -- load binary opcode memory from the given file\n"
@@ -138,6 +145,7 @@ const help_item f_static_help_list[] =
 		"  gn[i] [<count>] -- resumes execution, sets temp breakpoint <count> instructions ahead\n"
 		"  ge[x] [<exception>[,<condition>]] -- resumes execution, setting temp breakpoint if <exception> is raised\n"
 		"  gi[nt] [<irqline>] -- resumes execution, setting temp breakpoint if <irqline> is taken (F7)\n"
+		"  gp [<condition>] -- resumes execution, setting temp breakpoint if privilege level changes\n"
 		"  gt[ime] <milliseconds> -- resumes execution until the given delay has elapsed\n"
 		"  gv[blank] -- resumes execution, setting temp breakpoint on the next VBLANK (F8)\n"
 		"  n[ext] -- executes until the next CPU switch (F6)\n"
@@ -189,6 +197,18 @@ const help_item f_static_help_list[] =
 		"  rpdisable [<rpnum>[,...]] -- disabled given registerpoints or all if no <rpnum> specified\n"
 		"  rpenable [<rpnum>[,...]]  -- enables given registerpoints or all if no <rpnum> specified\n"
 		"  rplist [<CPU>] -- lists all the registerpoints\n"
+	},
+	{
+		"exceptionpoints",
+		"\n"
+		"Exceptionpoint Commands\n"
+		"Type help <command> for further details on each command\n"
+		"\n"
+		"  ep[set] <type>[,<condition>[,<action>]] -- sets exceptionpoint on <type>\n"
+		"  epclear [<epnum>] -- clears a given exceptionpoint or all if no <epnum> specified\n"
+		"  epdisable [<epnum>] -- disabled a given exceptionpoint or all if no <epnum> specified\n"
+		"  epenable [<epnum>]  -- enables a given exceptionpoint or all if no <epnum> specified\n"
+		"  eplist -- lists all the exceptionpoints\n"
 	},
 	{
 		"expressions",
@@ -345,16 +365,20 @@ const help_item f_static_help_list[] =
 		"The printf command performs a C-style printf to the debugger console. Only a very limited set of "
 		"formatting options are available:\n"
 		"\n"
-		"  %[0][<n>]d -- prints <item> as a decimal value with optional digit count and zero-fill\n"
-		"  %[0][<n>]x -- prints <item> as a hexadecimal value with optional digit count and zero-fill\n"
+		"  %c            -- 8-bit character\n"
+		"  %[-][0][<n>]d -- decimal number with optional left justification, zero fill and minimum width\n"
+		"  %[-][0][<n>]o -- octal number with optional left justification, zero fill and minimum width\n"
+		"  %[-][0][<n>]x -- lowercase hexadecimal number with optional left justification, zero fill and minimum width\n"
+		"  %[-][0][<n>]X -- uppercase hexadecimal number with optional left justification, zero fill and minimum width\n"
+		"  %[-][<n>][.[<n>]]s -- null-terminated string of 8-bit characters with optional left justification, minimum and maximum width\n"
 		"\n"
-		"All remaining formatting options are ignored. Use %% together to output a % character. Multiple "
-		"lines can be printed by embedding a \\n in the text.\n"
+		"All remaining formatting options are ignored. Use %% to output a % character. Multiple lines can be "
+		"printed by embedding a \\n in the text.\n"
 		"\n"
 		"Examples:\n"
 		"\n"
 		"printf \"PC=%04X\",pc\n"
-		"  Prints PC=<pcval> where <pcval> is displayed in hexadecimal with 4 digits with zero-fill.\n"
+		"  Prints PC=<pcval> where <pcval> is displayed in uppercase hexadecimal with 4 digits and zero fill.\n"
 		"\n"
 		"printf \"A=%d, B=%d\\nC=%d\",a,b,a+b\n"
 		"  Prints A=<aval>, B=<bval> on one line, and C=<a+bval> on a second line.\n"
@@ -365,18 +389,12 @@ const help_item f_static_help_list[] =
 		"  logerror <format>[,<item>[,...]]\n"
 		"\n"
 		"The logerror command performs a C-style printf to the error log. Only a very limited set of "
-		"formatting options are available:\n"
-		"\n"
-		"  %[0][<n>]d -- logs <item> as a decimal value with optional digit count and zero-fill\n"
-		"  %[0][<n>]x -- logs <item> as a hexadecimal value with optional digit count and zero-fill\n"
-		"\n"
-		"All remaining formatting options are ignored. Use %% together to output a % character. Multiple "
-		"lines can be printed by embedding a \\n in the text.\n"
+		"formatting options are available. See the 'printf' help for details.\n"
 		"\n"
 		"Examples:\n"
 		"\n"
-		"logerror \"PC=%04X\",pc\n"
-		"  Logs PC=<pcval> where <pcval> is displayed in hexadecimal with 4 digits with zero-fill.\n"
+		"logerror \"PC=%04x\",pc\n"
+		"  Logs PC=<pcval> where <pcval> is displayed in lowercase hexadecimal with 4 digits and zero fill.\n"
 		"\n"
 		"logerror \"A=%d, B=%d\\nC=%d\",a,b,a+b\n"
 		"  Logs A=<aval>, B=<bval> on one line, and C=<a+bval> on a second line.\n"
@@ -621,6 +639,7 @@ const help_item f_static_help_list[] =
 		"find",
 		"\n"
 		"  f[ind][{d|i|o}] <address>[:<space>],<length>[,<data>[,...]]\n"
+		"  f[ind] <address>:<memory>.{m|s},<length>[,<data>[,...]]\n"
 		"\n"
 		"The find commands search through memory for the specified sequence of data.  The <address> "
 		"is the address to begin searching from, optionally followed by a device and/or address "
@@ -662,6 +681,7 @@ const help_item f_static_help_list[] =
 		"fill",
 		"\n"
 		"  fill[{d|i|o}] <address>[:<space>],<length>[,<data>[,...]]\n"
+		"  fill <address>:<memory>.{m|s},<length>[,<data>[,...]]\n"
 		"\n"
 		"The fill commands overwrite a block of memory with copies of the supplied data sequence.  "
 		"The <address> specifies the address to begin writing at, optionally followed by a device "
@@ -688,6 +708,7 @@ const help_item f_static_help_list[] =
 		"dump",
 		"\n"
 		"  dump[{d|i|o}] <filename>,<address>[:<space>],<length>[,<group>[,<ascii>[,<rowsize>]]]\n"
+		"  dump <filename>,<address>:<memory>.{m|s},<length>[,<group>[,<ascii>[,<rowsize>]]]\n"
 		"\n"
 		"The dump commands dump memory to the text file specified in the <filename> parameter.  The "
 		"<address> specifies the address to start dumping from, optionally followed by a device "
@@ -727,6 +748,7 @@ const help_item f_static_help_list[] =
 		"strdump",
 		"\n"
 		"  strdump[{d|i|o}] <filename>,<address>[:<space>],<length>[,<term>]\n"
+		"  strdump <filename>,<address>:<memory>.{m|s},<length>[,<term>]\n"
 		"\n"
 		"The strdump commands dump memory to the text file specified in the <filename> parameter.  "
 		"The <address> specifies the address to start dumping from, optionally followed by a device "
@@ -749,6 +771,7 @@ const help_item f_static_help_list[] =
 		"save",
 		"\n"
 		"  save[{d|i|o}] <filename>,<address>[:<space>],<length>\n"
+		"  save <filename>,<address>:<memory>.{m|s},<length>\n"
 		"\n"
 		"The save commands save raw memory to the binary file specified in the <filename> "
 		"parameter.  The <address> specifies the address to start saving from, optionally followed "
@@ -786,6 +809,9 @@ const help_item f_static_help_list[] =
 		"saving from, and the <length> specifies how much memory to save.  The range <address> "
 		"through <address>+<length>-1, inclusive, will be output to the file.\n"
 		"\n"
+		"Alternetevely use 'save' syntax:\n"
+		"  save <filename>,<address>:<region>.m,<length>\n"
+		"\n"
 		"Examples:\n"
 		"\n"
 		"saver data.bin,200,100,:monitor\n"
@@ -799,6 +825,7 @@ const help_item f_static_help_list[] =
 		"load",
 		"\n"
 		"  load[{d|i|o}] <filename>,<address>[:<space>][,<length>]\n"
+		"  load <filename>,<address>:<memory>.{m|s}[,<length>]\n"
 		"\n"
 		"The load commands load raw memory from the binary file specified in the <filename> "
 		"parameter.  The <address> specifies the address to start loading to, optionally followed "
@@ -844,6 +871,9 @@ const help_item f_static_help_list[] =
 		"through <address>+<length>-1, inclusive, will be read in from the file.  If the <length> "
 		"is zero, or is greater than the total length of the file, the entire contents of the file "
 		"will be loaded but no more.\n"
+		"\n"
+		"Alternetevely use 'load' syntax:\n"
+		"  load <filename>,<address>:<region>.m[,<length>]\n"
 		"\n"
 		"Examples:\n"
 		"\n"
@@ -1034,6 +1064,27 @@ const help_item f_static_help_list[] =
 		"gint 4\n"
 		"  Resume execution until the next break/watchpoint or until IRQ line 4 is asserted and "
 		"acknowledged on the current CPU.\n"
+	},
+	{
+		"gp",
+		"\n"
+		"  gp [<condition>]\n"
+		"\n"
+		"The gp command resumes execution of the current code.  Control will not be returned to "
+		"the debugger until a breakpoint or watchpoint is hit, or the privilege level of the current "
+		"CPU changes.  The optional <condition> parameter lets you specify an expression that will "
+		"be evaluated each time the privilege level changes.  If the expression evaluates to true "
+		"(non-zero), execution will halt; otherwise, execution will continue with no notification.\n"
+		"\n"
+		"Examples:\n"
+		"\n"
+		"gp\n"
+		"  Resume execution until the next break/watchpoint or the privilege level of the current "
+		"CPU changes.\n"
+		"\n"
+		"gp {pc != 1234}\n"
+		"  Resume execution until the next break/watchpoint or the privilege level of the current "
+		"CPU changes, disregarding the instruction at address 1234.\n"
 	},
 	{
 		"gtime",
@@ -1555,6 +1606,92 @@ const help_item f_static_help_list[] =
 		"actions attached to them.\n"
 	},
 	{
+		"epset",
+		"\n"
+		"  ep[set] <type>[,<condition>[,<action>]]\n"
+		"\n"
+		"Sets a new exceptionpoint for exceptions of type <type> on the currently visible CPU. "
+		"The optional <condition> parameter lets you specify an expression that will be evaluated "
+		"each time the exceptionpoint is hit. If the result of the expression is true (non-zero), "
+		"the exceptionpoint will actually halt execution at the start of the exception handler; "
+		"otherwise, execution will continue with no notification. The optional <action> parameter "
+		"provides a command that is executed whenever the exceptionpoint is hit and the "
+		"<condition> is true. Note that you may need to embed the action within braces { } in order "
+		"to prevent commas and semicolons from being interpreted as applying to the epset command "
+		"itself.\n"
+		"\n"
+		"The numbering of exceptions depends upon the CPU type. Causes of exceptions may include "
+		"internally or externally vectored interrupts, errors occurring within instructions and "
+		"system calls.\n"
+		"\n"
+		"Each exceptionpoint that is set is assigned an index which can be used in other "
+		"exceptionpoint commands to reference this exceptionpoint.\n"
+		"\n"
+		"Examples:\n"
+		"\n"
+		"ep 2\n"
+		"  Set an exception that will halt execution whenever the visible CPU raises exception "
+		"number 2.\n"
+	},
+	{
+		"epclear",
+		"\n"
+		"  epclear [<epnum>[,...]]\n"
+		"\n"
+		"The epclear command clears exceptionpoints. If <epnum> is specified, only the requested "
+		"exceptionpoints are cleared, otherwise all exceptionpoints are cleared.\n"
+		"\n"
+		"Examples:\n"
+		"\n"
+		"epclear 3\n"
+		"  Clear exceptionpoint index 3.\n"
+		"\n"
+		"epclear\n"
+		"  Clear all exceptionpoints.\n"
+	},
+	{
+		"epdisable",
+		"\n"
+		"  epdisable [<epnum>[,...]]\n"
+		"\n"
+		"The epdisable command disables exceptionpoints. If <epnum> is specified, only the requested "
+		"exceptionpoints are disabled, otherwise all exceptionpoints are disabled. Note that "
+		"disabling an exceptionpoint does not delete it, it just temporarily marks the "
+		"exceptionpoint as inactive.\n"
+		"\n"
+		"Examples:\n"
+		"\n"
+		"epdisable 3\n"
+		"  Disable exceptionpoint index 3.\n"
+		"\n"
+		"epdisable\n"
+		"  Disable all exceptionpoints.\n"
+	},
+	{
+		"epenable",
+		"\n"
+		"  epenable [<epnum>[,...]]\n"
+		"\n"
+		"The epenable command enables exceptionpoints. If <epnum> is specified, only the "
+		"requested exceptionpoints are enabled, otherwise all exceptionpoints are enabled.\n"
+		"\n"
+		"Examples:\n"
+		"\n"
+		"epenable 3\n"
+		"  Enable exceptionpoint index 3.\n"
+		"\n"
+		"epenable\n"
+		"  Enable all exceptionpoints.\n"
+	},
+	{
+		"eplist",
+		"\n"
+		"  eplist\n"
+		"\n"
+		"The eplist command lists all the current exceptionpoints, along with their index and "
+		"any conditions or actions attached to them.\n"
+	},
+	{
 		"map",
 		"\n"
 		"  map[{d|i|o}] <address>[:<space>]\n"
@@ -1924,10 +2061,12 @@ private:
 	help_map m_help_list;
 	help_item const *m_uncached_help = std::begin(f_static_help_list);
 
+	util::ovectorstream m_message_buffer;
+
 	help_manager() = default;
 
 public:
-	char const *find(std::string_view tag)
+	std::string_view find(std::string_view tag)
 	{
 		// find a cached exact match if possible
 		std::string const lower = strmakelower(tag);
@@ -1963,16 +2102,17 @@ public:
 			if ((m_help_list.end() == next) || (next->first.substr(0, lower.length()) != lower))
 				return candidate->second;
 
-			// TODO: pointers to static strings are bad, mmmkay?
-			static char ambig_message[1024];
-			int msglen = std::sprintf(ambig_message, "Ambiguous help request, did you mean:\n");
+			m_message_buffer.clear();
+			m_message_buffer.reserve(1024);
+			m_message_buffer.seekp(0, util::ovectorstream::beg);
+			m_message_buffer << "Ambiguous help request, did you mean:\n";
 			do
 			{
-				msglen += std::sprintf(&ambig_message[msglen], "  help %.*s?\n", int(candidate->first.length()), &candidate->first[0]);
+				util::stream_format(m_message_buffer, "  help %.*s?\n", int(candidate->first.length()), &candidate->first[0]);
 				++candidate;
 			}
 			while ((m_help_list.end() != candidate) && (candidate->first.substr(0, lower.length()) == lower));
-			return ambig_message;
+			return util::buf_to_string_view(m_message_buffer);
 		}
 
 		// take the first help entry if no matches at all
@@ -1994,7 +2134,7 @@ public:
     PUBLIC INTERFACE
 ***************************************************************************/
 
-const char *debug_get_help(std::string_view tag)
+std::string_view debug_get_help(std::string_view tag)
 {
 	return help_manager::instance().find(tag);
 }

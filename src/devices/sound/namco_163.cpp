@@ -4,7 +4,11 @@
 
     Namco 163 internal sound emulation by cam900
     4 bit wavetable (variable length), 1 ~ 8 channel
-    Reference : https://wiki.nesdev.com/w/index.php/Namco_163_audio
+    Reference : https://www.nesdev.org/wiki/Namco_163_audio
+
+    TODO:
+    - Internal RAM can be battery-backed
+      See https://www.nesdev.org/wiki/INES_Mapper_019 for details
 
 ***************************************************************************/
 
@@ -63,7 +67,7 @@ inline s8 namco_163_sound_device::get_sample(u16 addr)
 }
 
 
-WRITE_LINE_MEMBER(namco_163_sound_device::disable_w)
+void namco_163_sound_device::disable_w(int state)
 {
 	m_disable = state;
 }
@@ -145,16 +149,13 @@ u8 namco_163_sound_device::data_r()
 }
 
 
-void namco_163_sound_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void namco_163_sound_device::sound_stream_update(sound_stream &stream)
 {
 	if (m_disable)
-	{
-		outputs[0].fill(0);
 		return;
-	}
 
 	// Slightly noisy but closer to real hardware behavior
-	for (int s = 0; s < outputs[0].samples(); s++)
+	for (int s = 0; s < stream.samples(); s++)
 	{
 		u32 phase = (m_ram[m_reg_addr + 5] << 16) | (m_ram[m_reg_addr + 3] << 8) | m_ram[m_reg_addr + 1];
 		const u32 freq = ((m_ram[m_reg_addr + 4] & 0x3) << 16) | (m_ram[m_reg_addr + 2] << 8) | m_ram[m_reg_addr + 0];
@@ -174,6 +175,6 @@ void namco_163_sound_device::sound_stream_update(sound_stream &stream, std::vect
 		{
 			m_reg_addr = 0x78 - ((m_ram[0x7f] & 0x70) >> 1);
 		}
-		outputs[0].put_int(s, output, 128);
+		stream.put_int(0, s, output, 128);
 	}
 }

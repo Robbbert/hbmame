@@ -8,8 +8,8 @@
 
 *********************************************************************/
 
-#ifndef MAME_BUS_MC10_MC10CART_H
-#define MAME_BUS_MC10_MC10CART_H
+#ifndef MAME_BUS_MC10_MC10_CART_H
+#define MAME_BUS_MC10_MC10_CART_H
 
 #pragma once
 
@@ -28,16 +28,12 @@ class mc10cart_slot_device final : public device_t,
 								public device_cartrom_image_interface
 {
 public:
-
 	// construction/destruction
 	template <typename T>
 	mc10cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock, T &&opts, const char *dflt)
 		: mc10cart_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	mc10cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
@@ -49,11 +45,8 @@ public:
 	// address map manipulations
 	address_space &memspace() const { return *m_memspace; }
 
-	// device-level overrides
-	virtual void device_start() override;
-
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 	virtual const char *image_interface() const noexcept override { return "mc10_cart"; }
@@ -63,19 +56,21 @@ public:
 	void set_nmi_line(int state);
 	devcb_write_line m_nmi_callback;
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
-private:
+protected:
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
+	required_address_space m_memspace;
+
+private:
 	// cartridge
 	device_mc10cart_interface *m_cart;
-
-protected:
-	required_address_space m_memspace;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(MC10CART_SLOT, mc10cart_slot_device)
 
 class device_mc10cart_interface : public device_interface
@@ -85,7 +80,8 @@ public:
 	virtual ~device_mc10cart_interface();
 
 	virtual int max_rom_length() const;
-	virtual image_init_result load();
+
+	virtual std::pair<std::error_condition, std::string> load();
 
 protected:
 	void raise_cart_nmi() { m_owning_slot->set_nmi_line(ASSERT_LINE); }
@@ -108,4 +104,4 @@ void mc10_cart_add_basic_devices(device_slot_interface &device);
 void alice_cart_add_basic_devices(device_slot_interface &device);
 void alice32_cart_add_basic_devices(device_slot_interface &device);
 
-#endif // MAME_BUS_MC10_MC10CART_H
+#endif // MAME_BUS_MC10_MC10_CART_H

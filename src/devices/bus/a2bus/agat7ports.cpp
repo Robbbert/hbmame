@@ -63,7 +63,7 @@ void a2bus_agat7_ports_device::device_add_mconfig(machine_config &config)
 	output_latch_device &cent_data_out(OUTPUT_LATCH(config, "cent_data_out"));
 	m_centronics->set_output_latch(cent_data_out);
 
-	I8251(config, m_d10, 0);
+	I8251(config, m_d10);
 }
 
 //-------------------------------------------------
@@ -107,6 +107,12 @@ void a2bus_agat7_ports_device::device_start()
 void a2bus_agat7_ports_device::device_reset()
 {
 	m_centronics_busy = false;
+}
+
+void a2bus_agat7_ports_device::reset_from_bus()
+{
+	m_d9->reset();
+	m_d10->reset();
 }
 
 /*-------------------------------------------------
@@ -178,7 +184,7 @@ uint8_t a2bus_agat7_ports_device::read_portc()
 	return (m_centronics_busy << 7) | m_printer_cfg->read();
 }
 
-WRITE_LINE_MEMBER(a2bus_agat7_ports_device::write_centronics_busy)
+void a2bus_agat7_ports_device::write_centronics_busy(int state)
 {
 	m_centronics_busy = state;
 }

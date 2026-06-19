@@ -15,6 +15,8 @@
 #include "disasmbasewininfo.h"
 
 
+namespace osd::debugger::win {
+
 class consolewin_info : public disasmbasewin_info
 {
 public:
@@ -24,9 +26,13 @@ public:
 	void set_cpu(device_t &device);
 
 protected:
+	virtual void update_dpi() override;
 	virtual void recompute_children() override;
 	virtual void update_menu() override;
 	virtual bool handle_command(WPARAM wparam, LPARAM lparam) override;
+	virtual void save_configuration_to_node(util::xml::data_node &node) override;
+
+	void adjust_minmax();
 
 private:
 	enum
@@ -45,6 +51,14 @@ private:
 		DEVOPTION_MAX
 	};
 
+	enum
+	{
+		VIEW_IDX_DISASM,
+		VIEW_IDX_STATE,
+		VIEW_IDX_CONSOLE,
+		MAX_VIEWS
+	};
+
 	virtual void process_string(std::string const &string) override;
 
 	void open_image_file(device_image_interface &device);
@@ -52,8 +66,10 @@ private:
 	bool get_softlist_info(device_image_interface &img);
 
 	device_t *m_current_cpu;
-	HMENU   m_devices_menu;
+	HMENU m_devices_menu;
 	std::map<std::string,std::string> slmap;
 };
+
+} // namespace osd::debugger::win
 
 #endif // MAME_DEBUGGER_WIN_CONSOLEWININFO_H

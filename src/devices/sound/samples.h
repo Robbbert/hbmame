@@ -2,8 +2,6 @@
 // copyright-holders:Aaron Giles
 /***************************************************************************
 
-    samples.h
-
     Sound device for sample playback.
 
 ***************************************************************************/
@@ -14,18 +12,12 @@
 #pragma once
 
 
-//**************************************************************************
-//  GLOBAL VARIABLES
-//**************************************************************************
-
 // device type definition
 DECLARE_DEVICE_TYPE(SAMPLES, samples_device)
 
 //**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
-
-#define SAMPLES_START_CB_MEMBER(_name) void _name()
 
 // ======================> samples_device
 
@@ -42,12 +34,12 @@ public:
 	void set_channels(uint8_t channels) { m_channels = channels; }
 	void set_samples_names(const char *const *names) { m_names = names; }
 
-	// start callback helpers
-	template <typename... T> void set_samples_start_callback(T &&...args) { m_samples_start_cb.set(std::forward<T>(args)...); }
-
 	// getters
 	bool playing(uint8_t channel) const;
 	uint32_t base_frequency(uint8_t channel) const;
+	uint8_t channels() { return m_channels; }
+	size_t samples() { return m_sample.size(); }
+	const char *const *names() { return m_names; }
 
 	// start/stop helpers
 	void start(uint8_t channel, uint32_t samplenum, bool loop = false);
@@ -66,32 +58,28 @@ public:
 		// shouldn't need a copy, but in case it happens, catch it here
 		sample_t &operator=(const sample_t &rhs) { assert(false); return *this; }
 
-		uint32_t          frequency;      // frequency of the sample
-		std::vector<int16_t> data;      // 16-bit signed data
+		uint32_t frequency;         // frequency of the sample
+		std::vector<int16_t> data;  // 16-bit signed data
 	};
 	static bool read_sample(emu_file &file, sample_t &sample);
-
-	// interface
-	uint8_t       m_channels;         // number of discrete audio channels needed
-	const char *const *m_names;     // array of sample names
 
 protected:
 	// subclasses can do it this way
 	samples_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 	virtual void device_post_load() override;
 
 	// device_sound_interface overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 	// internal classes
 	struct channel_t
 	{
-		sound_stream *  stream;
-		const int16_t * source;
+		sound_stream    *stream;
+		const int16_t   *source;
 		int32_t         source_num;
 		uint32_t        source_len;
 		double          pos;
@@ -106,11 +94,13 @@ protected:
 	static bool read_flac_sample(emu_file &file, sample_t &sample);
 	bool load_samples();
 
-	start_cb_delegate m_samples_start_cb; // optional callback
+	// interface
+	uint8_t m_channels;         // number of discrete audio channels needed
+	const char *const *m_names; // array of sample names
 
 	// internal state
-	std::vector<channel_t>    m_channel;
-	std::vector<sample_t>     m_sample;
+	std::vector<channel_t> m_channel;
+	std::vector<sample_t> m_sample;
 
 	// internal constants
 	static constexpr uint8_t FRAC_BITS = 24;
@@ -135,24 +125,24 @@ public:
 	}
 
 	// getters
-	const char *altbasename() const { return (m_samples.m_names && m_samples.m_names[0] && m_samples.m_names[0][0] == '*') ? &m_samples.m_names[0][1] : nullptr; }
+	const char *altbasename() const { return (m_samples.names() && m_samples.names()[0] && m_samples.names()[0][0] == '*') ? &m_samples.names()[0][1] : nullptr; }
 
 	// iteration
 	const char *first()
 	{
-		if (!m_samples.m_names || !m_samples.m_names[0])
+		if (!m_samples.names() || !m_samples.names()[0])
 			return nullptr;
 		m_current = 0;
-		if (m_samples.m_names[0][0] == '*')
+		if (m_samples.names()[0][0] == '*')
 			m_current++;
-		return m_samples.m_names[m_current++];
+		return m_samples.names()[m_current++];
 	}
 
 	const char *next()
 	{
-		if (m_current == -1 || !m_samples.m_names[m_current])
+		if (m_current == -1 || !m_samples.names()[m_current])
 			return nullptr;
-		return m_samples.m_names[m_current++];
+		return m_samples.names()[m_current++];
 	}
 
 	// counting
@@ -169,7 +159,7 @@ public:
 private:
 	// internal state
 	samples_device &m_samples;
-	int                     m_current;
+	int m_current;
 };
 
 #endif // MAME_SOUND_SAMPLES_H

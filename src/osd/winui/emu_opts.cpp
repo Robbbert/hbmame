@@ -23,6 +23,8 @@
 #include "ui/moptions.h"
 #include "drivenum.h"
 #include "emu_opts.h"
+#include "path.h"
+#include "main.h"
 
 
 static emu_options mameopts; // core options
@@ -467,7 +469,6 @@ void SetDirectories(windows_options &o)
 	emu_set_value(o, OPTION_DIFF_DIRECTORY, dir_get_value(19));
 	emu_set_value(o, OPTION_SNAPNAME, emu_get_value(emu_global, OPTION_SNAPNAME));
 	emu_set_value(o, OPTION_DEBUG, "0");
-	emu_set_value(o, OPTION_SPEAKER_REPORT, "0");
 	emu_set_value(o, OPTION_VERBOSE, "0");
 	emu_set_value(o, OPTION_LOG, "0");
 	emu_set_value(o, OPTION_OSLOG, "0");

@@ -20,12 +20,12 @@ namespace ui {
 class menu_pty_info : public menu
 {
 public:
-	menu_pty_info(mame_ui_manager &mui, render_container &container);
+	menu_pty_info(mame_ui_manager &mui, render_target &target);
 	virtual ~menu_pty_info() override;
 
 private:
-	virtual void populate(float &customtop, float &custombottom) override;
-	virtual void handle(event const *ev) override;
+	virtual void populate() override;
+	virtual bool handle(event const *ev) override;
 };
 
 } // namespace ui

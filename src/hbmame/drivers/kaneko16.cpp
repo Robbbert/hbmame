@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/kaneko16.cpp"
+#include "../mame/kaneko/kaneko16.cpp"
 
 /**********************************
 

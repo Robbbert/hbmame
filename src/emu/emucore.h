@@ -26,7 +26,6 @@
 #include "corealloc.h"
 #include "coretmpl.h"
 #include "bitmap.h"
-#include "endianness.h"
 #include "strformat.h"
 #include "vecstream.h"
 
@@ -34,6 +33,7 @@
 #include "osdcomm.h"
 
 // standard C++ includes
+#include <bit>
 #include <exception>
 #include <string>
 #include <type_traits>
@@ -80,23 +80,14 @@ using util::make_bitmask;
 using util::BIT;
 using util::bitswap;
 using util::iabs;
+using util::make_unique_clear;
 using util::string_format;
 
-using endianness_t = util::endianness;
+using endianness_t = std::endian;
 
-using util::BYTE_XOR_BE;
-using util::BYTE_XOR_LE;
-using util::BYTE4_XOR_BE;
-using util::BYTE4_XOR_LE;
-using util::WORD_XOR_BE;
-using util::WORD_XOR_LE;
-using util::BYTE8_XOR_BE;
-using util::BYTE8_XOR_LE;
-using util::WORD2_XOR_BE;
-using util::WORD2_XOR_LE;
-using util::DWORD_XOR_BE;
-using util::DWORD_XOR_LE;
 
+// input ports support up to 32 bits each
+typedef u32 ioport_value;
 
 // pen_t is used to represent pixel values in bitmaps
 typedef u32 pen_t;
@@ -169,16 +160,9 @@ union PAIR64
 //  COMMON CONSTANTS
 //**************************************************************************
 
-constexpr endianness_t ENDIANNESS_LITTLE = util::endianness::little;
-constexpr endianness_t ENDIANNESS_BIG    = util::endianness::big;
-constexpr endianness_t ENDIANNESS_NATIVE = util::endianness::native;
-
-
-// M_PI is not part of the C/C++ standards and is not present on
-// strict ANSI compilers or when compiling under GCC with -ansi
-#ifndef M_PI
-#define M_PI                            3.14159265358979323846
-#endif
+constexpr endianness_t ENDIANNESS_LITTLE = std::endian::little;
+constexpr endianness_t ENDIANNESS_BIG    = std::endian::big;
+constexpr endianness_t ENDIANNESS_NATIVE = std::endian::native;
 
 
 /// \name Image orientation flags
@@ -196,47 +180,6 @@ constexpr int ROT270               = ORIENTATION_SWAP_XY | ORIENTATION_FLIP_Y;  
 /// \}
 
 
-// these are UTF-8 encoded strings for common characters
-#define UTF8_NBSP               "\xc2\xa0"          /* non-breaking space */
-
-#define UTF8_MULTIPLY           "\xc3\x97"          /* multiplication sign */
-#define UTF8_DIVIDE             "\xc3\xb7"          /* division sign */
-#define UTF8_SQUAREROOT         "\xe2\x88\x9a"      /* square root symbol */
-#define UTF8_PLUSMINUS          "\xc2\xb1"          /* plusminus symbol */
-
-#define UTF8_POW_2              "\xc2\xb2"          /* superscript 2 */
-#define UTF8_POW_X              "\xcb\xa3"          /* superscript x */
-#define UTF8_POW_Y              "\xca\xb8"          /* superscript y */
-#define UTF8_PRIME              "\xca\xb9"          /* prime symbol */
-#define UTF8_DEGREES            "\xc2\xb0"          /* degrees symbol */
-
-#define UTF8_SMALL_PI           "\xcf\x80"          /* Greek small letter pi */
-#define UTF8_CAPITAL_SIGMA      "\xce\xa3"          /* Greek capital letter sigma */
-#define UTF8_CAPITAL_DELTA      "\xce\x94"          /* Greek capital letter delta */
-
-#define UTF8_MACRON             "\xc2\xaf"          /* macron symbol */
-#define UTF8_NONSPACE_MACRON    "\xcc\x84"          /* nonspace macron, use after another char */
-
-#define a_RING                  "\xc3\xa5"          /* small a with a ring */
-#define a_UMLAUT                "\xc3\xa4"          /* small a with an umlaut */
-#define o_UMLAUT                "\xc3\xb6"          /* small o with an umlaut */
-#define u_UMLAUT                "\xc3\xbc"          /* small u with an umlaut */
-#define e_ACUTE                 "\xc3\xa9"          /* small e with an acute */
-#define n_TILDE                 "\xc3\xb1"          /* small n with a tilde */
-
-#define A_RING                  "\xc3\x85"          /* capital A with a ring */
-#define A_UMLAUT                "\xc3\x84"          /* capital A with an umlaut */
-#define O_UMLAUT                "\xc3\x96"          /* capital O with an umlaut */
-#define U_UMLAUT                "\xc3\x9c"          /* capital U with an umlaut */
-#define E_ACUTE                 "\xc3\x89"          /* capital E with an acute */
-#define N_TILDE                 "\xc3\x91"          /* capital N with a tilde */
-
-#define UTF8_LEFT               "\xe2\x86\x90"      /* cursor left */
-#define UTF8_RIGHT              "\xe2\x86\x92"      /* cursor right */
-#define UTF8_UP                 "\xe2\x86\x91"      /* cursor up */
-#define UTF8_DOWN               "\xe2\x86\x93"      /* cursor down */
-
-
 
 //**************************************************************************
 //  COMMON MACROS
@@ -247,11 +190,6 @@ constexpr int ROT270               = ORIENTATION_SWAP_XY | ORIENTATION_FLIP_Y;  
 
 // this macro wraps a function 'x' and can be used to pass a function followed by its name
 #define FUNC(x) &x, #x
-
-
-// macros to convert radians to degrees and degrees to radians
-template <typename T> constexpr auto RADIAN_TO_DEGREE(T const &x) { return (180.0 / M_PI) * x; }
-template <typename T> constexpr auto DEGREE_TO_RADIAN(T const &x) { return (M_PI / 180.0) * x; }
 
 
 //**************************************************************************
@@ -266,17 +204,19 @@ class emu_exception : public std::exception { };
 class emu_fatalerror : public emu_exception
 {
 public:
-	emu_fatalerror(util::format_argument_pack<std::ostream> const &args);
-	emu_fatalerror(int _exitcode, util::format_argument_pack<std::ostream> const &args);
+	emu_fatalerror(emu_fatalerror const &) = default;
+	emu_fatalerror(emu_fatalerror &&) = default;
+	emu_fatalerror(util::format_argument_pack<char> const &args);
+	emu_fatalerror(int _exitcode, util::format_argument_pack<char> const &args);
 
 	template <typename Format, typename... Params>
-	emu_fatalerror(Format const &fmt, Params &&... args)
-		: emu_fatalerror(static_cast<util::format_argument_pack<std::ostream> const &>(util::make_format_argument_pack(fmt, std::forward<Params>(args)...)))
+	emu_fatalerror(Format &&fmt, Params &&... args) requires (!std::is_base_of_v<emu_fatalerror, std::remove_reference_t<Format> >)
+		: emu_fatalerror(static_cast<util::format_argument_pack<char> const &>(util::make_format_argument_pack(std::forward<Format>(fmt), std::forward<Params>(args)...)))
 	{
 	}
 	template <typename Format, typename... Params>
-	emu_fatalerror(int _exitcode, Format const &fmt, Params &&... args)
-		: emu_fatalerror(_exitcode, static_cast<util::format_argument_pack<std::ostream> const &>(util::make_format_argument_pack(fmt, std::forward<Params>(args)...)))
+	emu_fatalerror(int _exitcode, Format &&fmt, Params &&... args)
+		: emu_fatalerror(_exitcode, static_cast<util::format_argument_pack<char> const &>(util::make_format_argument_pack(std::forward<Format>(fmt), std::forward<Params>(args)...)))
 	{
 	}
 
@@ -354,60 +294,5 @@ template <typename... T>
 {
 	throw emu_fatalerror(std::forward<T>(args)...);
 }
-
-
-// convert a series of 32 bits into a float
-inline float u2f(u32 v)
-{
-	union {
-		float ff;
-		u32 vv;
-	} u;
-	u.vv = v;
-	return u.ff;
-}
-
-
-// convert a float into a series of 32 bits
-inline u32 f2u(float f)
-{
-	union {
-		float ff;
-		u32 vv;
-	} u;
-	u.ff = f;
-	return u.vv;
-}
-
-
-// convert a series of 64 bits into a double
-inline double u2d(u64 v)
-{
-	union {
-		double dd;
-		u64 vv;
-	} u;
-	u.vv = v;
-	return u.dd;
-}
-
-
-// convert a double into a series of 64 bits
-inline u64 d2u(double d)
-{
-	union {
-		double dd;
-		u64 vv;
-	} u;
-	u.dd = d;
-	return u.vv;
-}
-
-
-//**************************************************************************
-//  USEFUL UTILITIES
-//**************************************************************************
-
-using util::make_unique_clear;
 
 #endif // MAME_EMU_EMUCORE_H

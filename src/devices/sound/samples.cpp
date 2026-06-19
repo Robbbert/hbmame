@@ -2,23 +2,22 @@
 // copyright-holders:Aaron Giles
 /***************************************************************************
 
-    samples.c
-
     Sound device for sample playback.
 
 ****************************************************************************
 
-    Playback of pre-recorded samples. Used for high-level simulation of
-    discrete sound circuits where proper low-level simulation isn't
-    available.  Also used for tape loops and similar.
+Playback of pre-recorded samples. Used for high-level simulation of discrete
+sound circuits where proper low-level simulation isn't available. Also used
+for tape loops and similar.
 
-    Current limitations
-      - Only supports single channel samples!
-
-    Considerations
-      - Maybe this should be part of the presentation layer
-        (artwork etc.) with samples specified in .lay files instead of
-        in drivers?
+TODO:
+- Only supports single channel samples!
+- Maybe this should be part of the presentation layer (artwork etc.)
+  with samples specified in .lay files instead of in drivers?
+- Unless it's an infinitely looping sample, start_raw() is not compatible
+  with savestates. Save state right after start_raw(), load state later,
+  and the sample won't be playing.
+- No need for set_volume, can just use set_output_gain, but it's harmless.
 
 ***************************************************************************/
 
@@ -58,7 +57,6 @@ samples_device::samples_device(const machine_config &mconfig, device_type type, 
 	, device_sound_interface(mconfig, *this)
 	, m_channels(0)
 	, m_names(nullptr)
-	, m_samples_start_cb(*this)
 {
 }
 
@@ -88,12 +86,12 @@ void samples_device::start(uint8_t channel, uint32_t samplenum, bool loop)
 	sample_t &sample = m_sample[samplenum];
 	chan.source = (sample.data.size() > 0) ? &sample.data[0] : nullptr;
 	chan.source_num = (chan.source_len > 0) ? samplenum : -1;
-	//chan.source_len = sample.data.size();
-	chan.source_len = sample.data.size() ? sample.data.size() : -1; //Zero800 Fix loadstate errors
-	chan.pos = 0;
+	chan.source_len = sample.data.size();
+	chan.pos = 0.0;
 	chan.basefreq = sample.frequency;
 	chan.curfreq = sample.frequency;
 	chan.loop = loop;
+	chan.stream->set_sample_rate(sample.frequency);
 }
 
 
@@ -114,10 +112,11 @@ void samples_device::start_raw(uint8_t channel, const int16_t *sampledata, uint3
 	chan.source = sampledata;
 	chan.source_num = -1;
 	chan.source_len = samples;
-	chan.pos = 0;
+	chan.pos = 0.0;
 	chan.basefreq = frequency;
 	chan.curfreq = frequency;
 	chan.loop = loop;
+	chan.stream->set_sample_rate(frequency);
 }
 
 
@@ -126,14 +125,14 @@ void samples_device::start_raw(uint8_t channel, const int16_t *sampledata, uint3
 //  a sample
 //-------------------------------------------------
 
-void samples_device::set_frequency(uint8_t channel, uint32_t freq)
+void samples_device::set_frequency(uint8_t channel, uint32_t frequency)
 {
 	assert(channel < m_channels);
 
 	// force an update before we start
 	channel_t &chan = m_channel[channel];
 	chan.stream->update();
-	chan.curfreq = freq;
+	chan.curfreq = frequency;
 }
 
 
@@ -145,8 +144,6 @@ void samples_device::set_frequency(uint8_t channel, uint32_t freq)
 void samples_device::set_volume(uint8_t channel, float volume)
 {
 	assert(channel < m_channels);
-
-	// force an update before we start
 	set_output_gain(channel, volume);
 }
 
@@ -161,6 +158,7 @@ void samples_device::pause(uint8_t channel, bool pause)
 
 	// force an update before we start
 	channel_t &chan = m_channel[channel];
+	chan.stream->update();
 	chan.paused = pause;
 }
 
@@ -175,6 +173,7 @@ void samples_device::stop(uint8_t channel)
 
 	// force an update before we start
 	channel_t &chan = m_channel[channel];
+	chan.stream->update();
 	chan.source = nullptr;
 	chan.source_num = -1;
 }
@@ -238,28 +237,29 @@ void samples_device::device_start()
 	m_channel.resize(m_channels);
 	for (int channel = 0; channel < m_channels; channel++)
 	{
+		// placeholder, changed to sample SR at start()
+		const uint32_t rate = machine().sample_rate();
+
 		// initialize channel
 		channel_t &chan = m_channel[channel];
-		chan.stream = stream_alloc(0, 1, SAMPLE_RATE_OUTPUT_ADAPTIVE);
+		chan.stream = stream_alloc(0, 1, rate);
 		chan.source = nullptr;
 		chan.source_num = -1;
-		chan.pos = 0;
-		chan.loop = 0;
-		chan.paused = 0;
+		chan.pos = 0.0;
+		chan.basefreq = rate;
+		chan.curfreq = rate;
+		chan.loop = false;
+		chan.paused = false;
 
 		// register with the save state system
 		save_item(NAME(chan.source_num), channel);
 		save_item(NAME(chan.source_len), channel);
 		save_item(NAME(chan.pos), channel);
+		save_item(NAME(chan.basefreq), channel);
+		save_item(NAME(chan.curfreq), channel);
 		save_item(NAME(chan.loop), channel);
 		save_item(NAME(chan.paused), channel);
 	}
-
-	// initialize any custom handlers
-	m_samples_start_cb.resolve();
-
-	if (!m_samples_start_cb.isnull())
-		m_samples_start_cb();
 }
 
 
@@ -289,16 +289,10 @@ void samples_device::device_post_load()
 		{
 			sample_t &sample = m_sample[chan.source_num];
 			chan.source = &sample.data[0];
-//			chan.source_len = sample.data.size();
-//			if (sample.data.empty())
-//				chan.source_num = -1;
-			if (sample.data.empty()) //Zero800 Fix loadstate errors
-			{
-				chan.source_len = -1;
+			chan.source_len = sample.data.size();
+			chan.basefreq = sample.frequency;
+			if (sample.data.empty())
 				chan.source_num = -1;
-			}
-			else
-				chan.source_len = sample.data.size();
 		}
 
 		// validate the position against the length in case the sample is smaller
@@ -317,6 +311,10 @@ void samples_device::device_post_load()
 				chan.source_num = -1;
 			}
 		}
+
+		// adjust sample rate if necessary
+		if (chan.source != nullptr)
+			chan.stream->set_sample_rate(chan.basefreq);
 	}
 }
 
@@ -325,34 +323,33 @@ void samples_device::device_post_load()
 //  sound_stream_update - update a sound stream
 //-------------------------------------------------
 
-void samples_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void samples_device::sound_stream_update(sound_stream &stream)
 {
 	// find the channel with this stream
-	constexpr stream_buffer::sample_t sample_scale = 1.0 / 32768.0;
+	constexpr sound_stream::sample_t sample_scale = 1.0 / 32768.0;
 	for (int channel = 0; channel < m_channels; channel++)
 		if (&stream == m_channel[channel].stream)
 		{
 			channel_t &chan = m_channel[channel];
-			auto &buffer = outputs[0];
 
 			// process if we still have a source and we're not paused
 			if (chan.source != nullptr && !chan.paused)
 			{
 				// load some info locally
-				double step = double(chan.curfreq) / double(buffer.sample_rate());
+				double step = double(chan.curfreq) / double(stream.sample_rate());
 				double endpos = chan.source_len;
 				const int16_t *sample = chan.source;
 
-				for (int sampindex = 0; sampindex < buffer.samples(); sampindex++)
+				for (int sampindex = 0; sampindex < stream.samples(); sampindex++)
 				{
-					// do a linear interp on the sample
+					// do a linear interpolation on the sample
 					double pos_floor = floor(chan.pos);
 					double frac = chan.pos - pos_floor;
 					int32_t ipos = int32_t(pos_floor);
 
-					stream_buffer::sample_t sample1 = stream_buffer::sample_t(sample[ipos++]);
-					stream_buffer::sample_t sample2 = stream_buffer::sample_t(sample[(ipos + 1) % chan.source_len]);
-					buffer.put(sampindex, sample_scale * ((1.0 - frac) * sample1 + frac * sample2));
+					sound_stream::sample_t sample1 = sound_stream::sample_t(sample[ipos++]);
+					sound_stream::sample_t sample2 = sound_stream::sample_t(sample[ipos % chan.source_len]);
+					stream.put(0, sampindex, sample_scale * ((1.0 - frac) * sample1 + frac * sample2));
 
 					// advance
 					chan.pos += step;
@@ -366,14 +363,11 @@ void samples_device::sound_stream_update(sound_stream &stream, std::vector<read_
 						{
 							chan.source = nullptr;
 							chan.source_num = -1;
-							buffer.fill(0, sampindex);
 							break;
 						}
 					}
 				}
 			}
-			else
-				buffer.fill(0);
 			break;
 		}
 }

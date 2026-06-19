@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/segas24.cpp"
+#include "../mame/sega/segas24.cpp"
 
  /***********
  Gain Ground

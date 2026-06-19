@@ -32,8 +32,8 @@
  output.  This makes implementing things like the tee connector easier.
  */
 
-#ifndef MAME_DEVICES_BUS_TI8X_TI8X_H
-#define MAME_DEVICES_BUS_TI8X_TI8X_H
+#ifndef MAME_BUS_TI8X_TI8X_H
+#define MAME_BUS_TI8X_TI8X_H
 
 #pragma once
 
@@ -52,10 +52,7 @@ public:
 	ti8x_link_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: ti8x_link_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	ti8x_link_port_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock = 0);
 
@@ -63,11 +60,11 @@ public:
 	auto tip_handler() { return m_tip_handler.bind(); }
 	auto ring_handler() { return m_ring_handler.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER(tip_w);
-	DECLARE_WRITE_LINE_MEMBER(ring_w);
+	void tip_w(int state);
+	void ring_w(int state);
 
-	DECLARE_READ_LINE_MEMBER(tip_r) { return m_tip_in ? 1 : 0; }
-	DECLARE_READ_LINE_MEMBER(ring_r) { return m_ring_in ? 1 : 0; }
+	int tip_r() { return m_tip_in ? 1 : 0; }
+	int ring_r() { return m_ring_in ? 1 : 0; }
 
 protected:
 	ti8x_link_port_device(
@@ -77,7 +74,7 @@ protected:
 			device_t *owner,
 			u32 clock);
 
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 	virtual void device_config_complete() override;
 
 	devcb_write_line m_tip_handler;
@@ -95,9 +92,9 @@ private:
 class device_ti8x_link_port_interface : public device_interface
 {
 public:
-	DECLARE_WRITE_LINE_MEMBER(output_tip)
+	void output_tip(int state)
 	{ if (bool(state) != m_port->m_tip_in) m_port->m_tip_handler((m_port->m_tip_in = bool(state)) ? 1 : 0); }
-	DECLARE_WRITE_LINE_MEMBER(output_ring)
+	void output_ring(int state)
 	{ if (bool(state) != m_port->m_ring_in) m_port->m_ring_handler((m_port->m_ring_in = bool(state)) ? 1 : 0); }
 
 protected:
@@ -106,8 +103,8 @@ protected:
 	ti8x_link_port_device &port() { return *m_port; }
 
 private:
-	virtual DECLARE_WRITE_LINE_MEMBER(input_tip) = 0;
-	virtual DECLARE_WRITE_LINE_MEMBER(input_ring) = 0;
+	virtual void input_tip(int state) = 0;
+	virtual void input_ring(int state) = 0;
 
 	friend class ti8x_link_port_device;
 
@@ -149,8 +146,8 @@ private:
 		PENDING_1
 	};
 
-	virtual DECLARE_WRITE_LINE_MEMBER(input_tip) override;
-	virtual DECLARE_WRITE_LINE_MEMBER(input_ring) override;
+	virtual void input_tip(int state) override;
+	virtual void input_ring(int state) override;
 
 	virtual void bit_collision() = 0;
 	virtual void bit_send_timeout() = 0;
@@ -200,4 +197,4 @@ private:
 
 void default_ti8x_link_devices(device_slot_interface &device);
 
-#endif // MAME_DEVICES_BUS_TI8X_TI8X_H
+#endif // MAME_BUS_TI8X_TI8X_H

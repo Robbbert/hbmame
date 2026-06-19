@@ -53,6 +53,7 @@ x68k_expansion_slot_device::x68k_expansion_slot_device(const machine_config &mco
 	m_out_irq4_cb(*this),
 	m_out_nmi_cb(*this),
 	m_out_reset_cb(*this),
+	m_out_dtack_cb(*this),
 	m_card(nullptr)
 {
 }
@@ -67,17 +68,14 @@ x68k_expansion_slot_device::~x68k_expansion_slot_device()
 
 void x68k_expansion_slot_device::device_start()
 {
-	m_card = get_card_device();
+	save_item(NAME(m_exown));
 
-	// resolve callbacks
-	m_out_irq2_cb.resolve_safe();
-	m_out_irq4_cb.resolve_safe();
-	m_out_nmi_cb.resolve_safe();
-	m_out_reset_cb.resolve_safe();
+	m_card = get_card_device();
 }
 
 
-WRITE_LINE_MEMBER( x68k_expansion_slot_device::irq2_w ) { m_out_irq2_cb(state); }
-WRITE_LINE_MEMBER( x68k_expansion_slot_device::irq4_w ) { m_out_irq4_cb(state); }
-WRITE_LINE_MEMBER( x68k_expansion_slot_device::nmi_w ) { m_out_nmi_cb(state); }
-WRITE_LINE_MEMBER( x68k_expansion_slot_device::reset_w ) { m_out_reset_cb(state); }
+void x68k_expansion_slot_device::irq2_w(int state) { m_out_irq2_cb(state); }
+void x68k_expansion_slot_device::irq4_w(int state) { m_out_irq4_cb(state); }
+void x68k_expansion_slot_device::nmi_w(int state) { m_out_nmi_cb(state); }
+void x68k_expansion_slot_device::reset_w(int state) { m_out_reset_cb(state); }
+void x68k_expansion_slot_device::dtack_w(int state) { m_out_dtack_cb(state); }

@@ -10,8 +10,8 @@
 
 #include "pconfig.h"
 
+#include <cstdint>
 #include <limits>
-#include <cstdint>   // HBMAME for CI
 #include <string>
 #include <type_traits>
 

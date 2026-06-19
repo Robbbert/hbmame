@@ -224,7 +224,8 @@ private:
 };
 
 static NETLIST_START(dummy)
-NETLIST_END()
+{
+}
 
 // **************************************************************************
 //    CORE IMPLEMENTATION
@@ -284,6 +285,8 @@ public:
 
 		for (const auto & r : roms)
 			parser().register_source<netlist_data_folder_t>(r);
+
+		parser().add_include<netlist_data_folder_t>(plib::util::path(filename));
 
 		for (const auto & i : includes)
 			parser().add_include<netlist_data_folder_t>(i);
@@ -930,7 +933,7 @@ void tool_app_t::header_entry(const netlist::factory::element_t *e)
 		mac_out("// auto connect: " + avs.substr(2), false);
 
 	mac_out("#define " + e->name() + "(...)");
-	mac_out("\tNET_REGISTER_DEVEXT(" + e->name() +", __VA_ARGS__)", false);
+	mac_out("\tNET_REGISTER_DEV(" + e->name() +", __VA_ARGS__)", false);
 	mac_out("", false);
 }
 

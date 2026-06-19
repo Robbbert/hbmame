@@ -58,24 +58,24 @@ DEFINE_DEVICE_TYPE(CDP1864, cdp1864_device, "cdp1864", "RCA CDP1864")
 //  cdp1864_device - constructor
 //-------------------------------------------------
 
-cdp1864_device::cdp1864_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, CDP1864, tag, owner, clock),
-		device_sound_interface(mconfig, *this),
-		device_video_interface(mconfig, *this),
-		m_read_inlace(*this),
-		m_read_rdata(*this),
-		m_read_bdata(*this),
-		m_read_gdata(*this),
-		m_write_int(*this),
-		m_write_dma_out(*this),
-		m_write_efx(*this),
-		m_write_hsync(*this),
-		m_disp(0),
-		m_dmaout(0),
-		m_bgcolor(0),
-		m_con(0),
-		m_aoe(0),
-		m_latch(CDP1864_DEFAULT_LATCH)
+cdp1864_device::cdp1864_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	device_t(mconfig, CDP1864, tag, owner, clock),
+	device_sound_interface(mconfig, *this),
+	device_video_interface(mconfig, *this),
+	m_read_inlace(*this, 1),
+	m_read_rdata(*this, 0),
+	m_read_bdata(*this, 0),
+	m_read_gdata(*this, 0),
+	m_write_int(*this),
+	m_write_dma_out(*this),
+	m_write_efx(*this),
+	m_write_hsync(*this),
+	m_disp(0),
+	m_dmaout(0),
+	m_bgcolor(0),
+	m_con(0),
+	m_aoe(0),
+	m_latch(CDP1864_DEFAULT_LATCH)
 {
 }
 
@@ -105,16 +105,6 @@ void cdp1864_device::device_config_complete()
 
 void cdp1864_device::device_start()
 {
-	// resolve callbacks
-	m_read_inlace.resolve_safe(1);
-	m_read_rdata.resolve_safe(0);
-	m_read_bdata.resolve_safe(0);
-	m_read_gdata.resolve_safe(0);
-	m_write_int.resolve_safe();
-	m_write_dma_out.resolve_safe();
-	m_write_efx.resolve_safe();
-	m_write_hsync.resolve_safe();
-
 	// initialize palette
 	initialize_palette();
 
@@ -253,15 +243,14 @@ TIMER_CALLBACK_MEMBER(cdp1864_device::dma_tick)
 //  our sound stream
 //-------------------------------------------------
 
-void cdp1864_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void cdp1864_device::sound_stream_update(sound_stream &stream)
 {
-	stream_buffer::sample_t signal = m_signal;
-	auto &buffer = outputs[0];
+	sound_stream::sample_t signal = m_signal;
 
 	if (m_aoe)
 	{
 		double frequency = unscaled_clock() / 8 / 4 / (m_latch + 1) / 2;
-		int rate = buffer.sample_rate() / 2;
+		int rate = stream.sample_rate() / 2;
 
 		/* get progress through wave */
 		int incr = m_incr;
@@ -275,9 +264,9 @@ void cdp1864_device::sound_stream_update(sound_stream &stream, std::vector<read_
 			signal = 1.0;
 		}
 
-		for (int sampindex = 0; sampindex < buffer.samples(); sampindex++)
+		for (int sampindex = 0; sampindex < stream.samples(); sampindex++)
 		{
-			buffer.put(sampindex, signal);
+			stream.put(0, sampindex, signal);
 			incr -= frequency;
 			while( incr < 0 )
 			{
@@ -290,8 +279,6 @@ void cdp1864_device::sound_stream_update(sound_stream &stream, std::vector<read_
 		m_incr = incr;
 		m_signal = signal;
 	}
-	else
-		buffer.fill(0);
 }
 
 

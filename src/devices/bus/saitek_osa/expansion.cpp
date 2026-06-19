@@ -1,31 +1,32 @@
 // license:BSD-3-Clause
 // copyright-holders:Dirk Best, hap
-/***************************************************************************
+/*******************************************************************************
 
 Saitek OSA Expansion Slot
 
 Used by Saitek(SciSys) chess computers Leonardo, Galileo, Renaissance.
 
-***************************************************************************/
+*******************************************************************************/
 
 #include "emu.h"
 #include "expansion.h"
 
+#include "bruteforce.h"
 #include "maestro.h"
 #include "maestroa.h"
 #include "sparc.h"
 
 
-//**************************************************************************
+//******************************************************************************
 //  DEVICE DEFINITIONS
-//**************************************************************************
+//******************************************************************************
 
 DEFINE_DEVICE_TYPE(SAITEKOSA_EXPANSION, saitekosa_expansion_device, "saitekosa_expansion", "Saitek OSA Expansion Bus")
 
 
-//**************************************************************************
+//******************************************************************************
 //  SLOT DEVICE
-//**************************************************************************
+//******************************************************************************
 
 //-------------------------------------------------
 //  saitekosa_expansion_device - constructor
@@ -55,10 +56,6 @@ void saitekosa_expansion_device::device_start()
 {
 	// get inserted module
 	m_module = get_card_device();
-
-	// resolve callbacks
-	m_stb_handler.resolve_safe();
-	m_rts_handler.resolve_safe();
 
 	// register for savestates
 	save_item(NAME(m_data));
@@ -136,9 +133,9 @@ u32 saitekosa_expansion_device::screen_update(screen_device &screen, bitmap_rgb3
 }
 
 
-//**************************************************************************
+//******************************************************************************
 //  MODULE INTERFACE
-//**************************************************************************
+//******************************************************************************
 
 //-------------------------------------------------
 //  device_saitekosa_expansion_interface - constructor
@@ -165,6 +162,7 @@ device_saitekosa_expansion_interface::~device_saitekosa_expansion_interface()
 void saitekosa_expansion_modules(device_slot_interface &device)
 {
 	device.option_add("analyst", OSA_ANALYST);
+	device.option_add("bforce", OSA_BFORCE);
 	device.option_add("maestro", OSA_MAESTRO);
 	device.option_add("maestroa", OSA_MAESTROA);
 	device.option_add("sparc", OSA_SPARC);

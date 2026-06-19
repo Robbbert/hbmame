@@ -11,6 +11,8 @@
 #include "emu.h"
 #include "mcs96.h"
 
+#include "endianness.h"
+
 mcs96_device::mcs96_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, int data_width, address_map_constructor regs_map) :
 	cpu_device(mconfig, type, tag, owner, clock),
 	program_config("program", ENDIANNESS_LITTLE, data_width, 16),
@@ -239,6 +241,15 @@ u16 mcs96_device::any_r16(u16 adr)
 		return regs->read_word(adr);
 	else
 		return program->read_word(adr);
+}
+
+bool mcs96_device::memory_translate(int spacenum, int intention, offs_t &address, address_space *&target_space)
+{
+	if (spacenum == AS_PROGRAM && intention != TR_FETCH && address < 0x100)
+		target_space = regs;
+	else
+		target_space = &space(spacenum);
+	return true;
 }
 
 uint8_t mcs96_device::do_addb(uint8_t v1, uint8_t v2)

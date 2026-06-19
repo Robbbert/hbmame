@@ -190,8 +190,8 @@ namespace plib
 				FT v2;
 				do
 				{
-					v1 = normalize_uniform(p, constants<FT>::two(), constants<FT>::one()); // [-1..1[
-					v2 = normalize_uniform(p, constants<FT>::two(), constants<FT>::one()); // [-1..1[
+					v1 = normalize_uniform(p, constants<FT>::two(), constants<FT>::one()); // [-1..1]
+					v2 = normalize_uniform(p, constants<FT>::two(), constants<FT>::one()); // [-1..1]
 					s = v1 * v1 + v2 * v2;
 				} while (s >= constants<FT>::one());
 				if (s == constants<FT>::zero())
@@ -213,7 +213,7 @@ namespace plib
 			m_p = 0;
 		}
 
-		std::array<FT, 256> m_buf = { };
+		std::array<FT, 256> m_buf;
 		std::size_t m_p;
 		FT m_stddev;
 	};

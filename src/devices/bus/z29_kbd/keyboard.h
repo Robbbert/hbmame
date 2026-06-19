@@ -32,10 +32,7 @@ public:
 	z29_keyboard_port_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt)
 		: z29_keyboard_port_device(mconfig, tag, owner, 0U)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	// callback configuration
@@ -43,13 +40,12 @@ public:
 	auto reset_callback() { return m_reset_callback.bind(); }
 
 	// line handler
-	inline DECLARE_WRITE_LINE_MEMBER(keyout_w);
+	void keyout_w(int state);
 
 protected:
-	// device-level overrides
+	// device_t implementation
 	virtual void device_config_complete() override;
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	// called from keyboard
 	void transmit_data(bool state) { m_keyin_callback(state); }
@@ -85,7 +81,7 @@ private:
 	required_device<z29_keyboard_port_device> m_port;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(Z29_KEYBOARD, z29_keyboard_port_device)
 
 // standard options
@@ -95,7 +91,7 @@ extern void z29_keyboards(device_slot_interface &slot);
 //  INLINE FUNCTIONS
 //**************************************************************************
 
-WRITE_LINE_MEMBER(z29_keyboard_port_device::keyout_w)
+inline void z29_keyboard_port_device::keyout_w(int state)
 {
 	 if (m_kbd != nullptr)
 		m_kbd->receive_data(state);

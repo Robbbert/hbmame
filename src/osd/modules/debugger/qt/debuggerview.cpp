@@ -3,7 +3,11 @@
 #include "emu.h"
 #include "debuggerview.h"
 
+#include "../xmlconfig.h"
+
 #include "modules/lib/osdobj_common.h"
+
+#include "xmlfile.h"
 
 #include <QtCore/QMimeData>
 #include <QtGui/QClipboard>
@@ -12,9 +16,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QScrollBar>
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-#define horizontalAdvance width
-#endif
+
+namespace osd::debugger::qt {
 
 DebuggerView::DebuggerView(
 		debug_view_type type,
@@ -51,6 +54,19 @@ DebuggerView::~DebuggerView()
 		m_machine.debug_view().free_view(*m_view);
 }
 
+
+int DebuggerView::sourceIndex() const
+{
+	if (m_view)
+	{
+		debug_view_source const *const source = m_view->source();
+		if (source)
+			return m_view->source_index(*source);
+	}
+	return -1;
+}
+
+
 void DebuggerView::paintEvent(QPaintEvent *event)
 {
 	// Tell the MAME debug view how much real estate is available
@@ -76,19 +92,22 @@ void DebuggerView::paintEvent(QPaintEvent *event)
 	if (m_preferBottom && atEnd)
 		verticalScrollBar()->setValue(verticalScrollSize);
 
+	const auto palette = QApplication::palette();
+
 	// Draw the viewport widget
 	QPainter painter(viewport());
-	painter.fillRect(0, 0, width(), height(), QBrush(Qt::white));
+	painter.fillRect(0, 0, width(), height(), QBrush(palette.color(QPalette::Window)));
 	painter.setBackgroundMode(Qt::OpaqueMode);
-	painter.setBackground(QColor(255,255,255));
+	painter.setBackground(palette.color(QPalette::Window));
 
 	// Background control
 	QBrush bgBrush;
 	bgBrush.setStyle(Qt::SolidPattern);
-	painter.setPen(QPen(QColor(0,0,0)));
+	painter.setPen(QPen(QPalette::WindowText));
 
 	const debug_view_xy visibleCharDims = m_view->visible_size();
 	const debug_view_char *viewdata = m_view->viewdata();
+
 	for (int y = 0; y < visibleCharDims.y; y++, viewdata += visibleCharDims.x)
 	{
 		int width = 1;
@@ -97,23 +116,29 @@ void DebuggerView::paintEvent(QPaintEvent *event)
 			const unsigned char textAttr = viewdata[x].attrib;
 
 			// Text color handling
-			QColor fgColor(0,0,0);
-			QColor bgColor(255,255,255);
+			QColor fgColor(palette.color(QPalette::WindowText));
+			QColor bgColor(palette.color(QPalette::Window));
 
 			if (textAttr & DCA_VISITED)
 				bgColor.setRgb(0xc6, 0xe2, 0xff);
 
 			if (textAttr & DCA_ANCILLARY)
-				bgColor.setRgb(0xe0, 0xe0, 0xe0);
+				bgColor.setRgb(palette.color(QPalette::Base).rgb());
 
 			if (textAttr & DCA_SELECTED)
-				bgColor.setRgb(0xff, 0x80, 0x80);
+				bgColor.setRgb(0xcb, 0x4b, 0x16);
 
 			if (textAttr & DCA_CURRENT)
-				bgColor.setRgb(0xff, 0xff, 0x00);
+				bgColor.setRgb(palette.color(QPalette::Highlight).rgb());
 
 			if ((textAttr & DCA_SELECTED) && (textAttr & DCA_CURRENT))
+			{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+				bgColor.setRgb(palette.color(QPalette::Accent).rgb());
+#else
 				bgColor.setRgb(0xff,0xc0,0x80);
+#endif
+			}
 
 			if (textAttr & DCA_CHANGED)
 				fgColor.setRgb(0xff, 0x00, 0x00);
@@ -155,9 +180,9 @@ void DebuggerView::paintEvent(QPaintEvent *event)
 			if (((y + 1) == visibleCharDims.y) && (contentHeight > (visibleCharDims.y * fontHeight)))
 			{
 				if (textAttr & DCA_ANCILLARY)
-					bgColor.setRgb(0xe0, 0xe0, 0xe0);
+					bgColor.setRgb(palette.color(QPalette::Base).rgb());
 				else
-					bgColor.setRgb(0xff, 0xff, 0xff);
+					bgColor.setRgb(palette.color(QPalette::Window).rgb());
 				bgBrush.setColor(bgColor);
 				painter.fillRect(
 						x * fontWidth,
@@ -174,9 +199,43 @@ void DebuggerView::paintEvent(QPaintEvent *event)
 	}
 }
 
+
+void DebuggerView::restoreConfigurationFromNode(util::xml::data_node const &node)
+{
+	if (m_view->cursor_supported())
+	{
+		util::xml::data_node const *const selection = node.get_child(NODE_WINDOW_SELECTION);
+		if (selection)
+		{
+			debug_view_xy pos = m_view->cursor_position();
+			m_view->set_cursor_visible(0 != selection->get_attribute_int(ATTR_SELECTION_CURSOR_VISIBLE, m_view->cursor_visible() ? 1 : 0));
+			selection->get_attribute_int(ATTR_SELECTION_CURSOR_X, pos.x);
+			selection->get_attribute_int(ATTR_SELECTION_CURSOR_Y, pos.y);
+			m_view->set_cursor_position(pos);
+		}
+	}
+}
+
+
+void DebuggerView::saveConfigurationToNode(util::xml::data_node &node)
+{
+	if (m_view->cursor_supported())
+	{
+		util::xml::data_node *const selection = node.add_child(NODE_WINDOW_SELECTION, nullptr);
+		if (selection)
+		{
+			debug_view_xy const pos = m_view->cursor_position();
+			selection->set_attribute_int(ATTR_SELECTION_CURSOR_VISIBLE, m_view->cursor_visible() ? 1 : 0);
+			selection->set_attribute_int(ATTR_SELECTION_CURSOR_X, pos.x);
+			selection->set_attribute_int(ATTR_SELECTION_CURSOR_Y, pos.y);
+		}
+	}
+}
+
+
 void DebuggerView::keyPressEvent(QKeyEvent* event)
 {
-	if (m_view == nullptr)
+	if (!m_view)
 		return QWidget::keyPressEvent(event);
 
 	Qt::KeyboardModifiers keyMods = QApplication::keyboardModifiers();
@@ -258,8 +317,9 @@ void DebuggerView::mousePressEvent(QMouseEvent *event)
 	debug_view_xy const topLeft = m_view->visible_position();
 	debug_view_xy const visibleCharDims = m_view->visible_size();
 	debug_view_xy clickViewPosition;
-	clickViewPosition.x = (std::min)(int(topLeft.x + (event->x() / fontWidth)), topLeft.x + visibleCharDims.x - 1);
-	clickViewPosition.y = (std::min)(int(topLeft.y + (event->y() / fontHeight)), topLeft.y + visibleCharDims.y - 1);
+	const QPointF mousePosition = event->position();
+	clickViewPosition.x = (std::min)(int(topLeft.x + (mousePosition.x() / fontWidth)), topLeft.x + visibleCharDims.x - 1);
+	clickViewPosition.y = (std::min)(int(topLeft.y + (mousePosition.y() / fontHeight)), topLeft.y + visibleCharDims.y - 1);
 
 	if (event->button() == Qt::LeftButton)
 	{
@@ -361,3 +421,5 @@ void DebuggerView::debuggerViewUpdate(debug_view &debugView, void *osdPrivate)
 	dView->update();
 	emit dView->updated();
 }
+
+} // namespace osd::debugger::qt

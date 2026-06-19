@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/megasys1.cpp"
+#include "../mame/jaleco/megasys1.cpp"
 
 ROM_START( soldam01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -13,13 +13,13 @@ ROM_START( soldam01 )
 	ROM_LOAD16_BYTE( "5ver1.bin", 0x000000, 0x010000, CRC(d1019a67) SHA1(32d77914a67c009bf1bb397772f195594f7cc03f) )
 	ROM_LOAD16_BYTE( "6ver1.bin", 0x000001, 0x010000, CRC(3ed219b4) SHA1(afffa5596027181ae94488d54d6266f8a7ead180) )
 
-	ROM_REGION( 0x080000, "scroll0", 0 )
+	ROM_REGION( 0x080000, "scroll1", 0 )
 	ROM_LOAD( "14ver1.bin", 0x000000, 0x080000, CRC(73c90610) SHA1(044462fd41e8502ba57f814c61db6f0cfb1cc18b) )
 
-	ROM_REGION( 0x080000, "scroll1", 0 )
+	ROM_REGION( 0x080000, "scroll2", 0 )
 	ROM_LOAD( "18ver1.bin", 0x000000, 0x080000, CRC(e91a1afd) SHA1(66a686d61de105ee571fbdabc774ed0b848bf426) )
 
-	ROM_REGION( 0x020000, "scroll2", 0 )
+	ROM_REGION( 0x020000, "scroll3", 0 )
 	ROM_LOAD( "19ver1.bin", 0x000000, 0x020000, CRC(38465da1) SHA1(461fc0d81b711d0646dc366c057da66d4b8c6e23) )
 
 	ROM_REGION( 0x080000, "sprites", 0 )
@@ -36,5 +36,5 @@ ROM_START( soldam01 )
 ROM_END
 
 
-GAME( 2023, soldam01, soldam, system_A_soldam, soldam, megasys1_state, init_soldam, ROT0,  "bankbank", "Soldam (Sonic Dropping/Free Play)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, soldam01, soldam, system_A_d65006_soldam, soldam, megasys1_typea_state, empty_init, ROT0, "bankbank", "Soldam (Sonic Dropping/Free Play)", MACHINE_SUPPORTS_SAVE )
 

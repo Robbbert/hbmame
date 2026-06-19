@@ -12,12 +12,14 @@
 
 #include "imagedev/cartrom.h"
 #include "machine/tmc0430.h"
-#include "formats/rpk.h"
 
 #include "emuopts.h"
 
 #include "utilfwd.h"
 
+
+// declared in formats/rpk.h
+class rpk_socket;
 
 namespace bus::ti99::gromport {
 
@@ -25,33 +27,39 @@ class ti99_cartridge_pcb;
 
 class ti99_cartridge_device : public device_t, public device_cartrom_image_interface
 {
+	friend class ti99_single_cart_conn_device;
+	friend class ti99_multi_cart_conn_device;
+	friend class ti99_gkracker_device;
+	friend class ti99_cartridge_pcb;
+	friend class ti99_gromemu_cartridge;
+
 public:
-	ti99_cartridge_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ti99_cartridge_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void readz(offs_t offset, uint8_t *value);
 	void write(offs_t offset, uint8_t data);
 	void crureadz(offs_t offset, uint8_t *value);
 	void cruwrite(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER(ready_line);
-	DECLARE_WRITE_LINE_MEMBER(romgq_line);
+	void ready_line(int state);
+	void romgq_line(int state);
 
 	void set_gromlines(line_state mline, line_state moline, line_state gsq);
 
-	DECLARE_WRITE_LINE_MEMBER(gclock_in);
+	void gclock_in(int state);
 
 	bool    is_available() { return m_pcb != nullptr; }
-	void    set_slot(int i);
 	bool    is_grom_idle();
+	bool    has_ram();
+	bool    has_rom();
 
 protected:
-	virtual void device_start() override { }
-	virtual void device_config_complete() override;
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_start() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 	virtual const tiny_rom_entry* device_rom_region() const override;
 
 	// Image handling: implementation of methods which are abstract in the parent
-	image_init_result call_load() override;
+	std::pair<std::error_condition, std::string> call_load() override;
 	void call_unload() override;
 
 	void prepare_cartridge();
@@ -60,6 +68,8 @@ protected:
 	bool is_reset_on_load() const noexcept override       { return false; }
 	const char *image_interface() const noexcept override { return "ti99_cart"; }
 	const char *file_extensions() const noexcept override { return "rpk"; }
+
+	void set_connector(cartridge_connector_device* conn) { m_connector = conn; }
 
 private:
 
@@ -112,21 +122,43 @@ private:
 		const std::string m_pathname;
 	};
 
-	bool    m_readrom;
 	int     m_pcbtype;
-	int     m_slot;
 	int     get_index_from_tagname();
+
+	// Common static cartridge states (no need to save in state)
+	uint32_t    m_rom_size;
+	uint32_t    m_ram_size;
+	bool        m_has_buffered_ram;
+
+	// Common dynamic cartridge states (must be saved)
+	bool    m_grom_idle;    // all GROMs are idle
+	int     m_grom_address; // for gromemu
+	int     m_rom_page;     // for some cartridge types
+	int     m_ram_page;     // for super
+	bool    m_romspace_selected;
+
+	// Used in gromemu
+	bool    m_waddr_LSB;
+	bool    m_grom_selected;
+	bool    m_grom_read_mode;
+	bool    m_grom_address_mode;
 
 	std::unique_ptr<ti99_cartridge_pcb> m_pcb;          // inbound
 	cartridge_connector_device*    m_connector;    // outbound
 
 	// We use dynamically allocated space instead of memory regions
 	// because the required spaces are widely varying (8K to 32M)
-	std::unique_ptr<u8[]> m_romspace;
+	std::unique_ptr<uint8_t[]>  m_romspace;
+
+	// Use this buffer for RAM and NVRAM. There are no known
+	// examples of cartridges that use both at the same time
+	std::unique_ptr<uint8_t[]>  m_ram;
 
 	// RPK which is associated to this cartridge
 	// When we close it, the contents are saved to NVRAM if available
 	std::unique_ptr<rpk> m_rpk;
+
+	tmc0430_device*     m_grom[5];
 };
 
 /****************************************************************************/
@@ -134,6 +166,7 @@ private:
 class ti99_cartridge_pcb
 {
 	friend class ti99_cartridge_device;
+
 public:
 	ti99_cartridge_pcb();
 	virtual ~ti99_cartridge_pcb() { }
@@ -144,38 +177,40 @@ protected:
 	virtual void crureadz(offs_t offset, uint8_t *value);
 	virtual void cruwrite(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER(romgq_line);
-	virtual void set_gromlines(line_state mline, line_state moline, line_state gsq);
-	DECLARE_WRITE_LINE_MEMBER(gclock_in);
+	void set_gromlines(line_state mline, line_state moline, line_state gsq);
+	void gclock_in(int state);
 
 	void gromreadz(uint8_t* value);
 	void gromwrite(uint8_t data);
 
-	inline void         set_grom_pointer(int number, device_t *dev);
+	virtual const int get_maximum_bank_count() { return 1; }
+	virtual const int get_bank_size() { return 8192; }
+
+	bool    romspace_selected() { return m_cart->m_romspace_selected; }
+
+	void    gromemu_readz(uint8_t* value);
+
+	int     rom_page() { return m_cart->m_rom_page; }
+	void    set_rom_page(int page);
+	int     ram_page() { return m_cart->m_ram_page; }
+	void    set_ram_page(int page) { m_cart->m_ram_page = page; }
+
 	void                set_cartridge(ti99_cartridge_device *cart);
 	const char*         tag() { return m_tag; }
 	void                set_tag(const char* tag) { m_tag = tag; }
-	bool                is_grom_idle() { return m_grom_idle; }
+	bool                is_grom_idle() { return m_cart->m_grom_idle; }
 	template <typename Format, typename... Params> void logerror(Format &&fmt, Params &&... args) const { m_cart->logerror(fmt, args...); }
 
 	ti99_cartridge_device*  m_cart;
-	tmc0430_device*     m_grom[5];
-	bool                m_grom_idle;
-	int                 m_grom_size;
-	int                 m_rom_size;
-	int                 m_ram_size;
-	int                 m_bank_mask;
 
-	uint8_t*              m_rom_ptr;
-	uint8_t*              m_ram_ptr;
-	bool                m_romspace_selected;
-	int                 m_rom_page;     // for some cartridge types
-	uint8_t*              m_grom_ptr;     // for gromemu
-	int                 m_grom_address; // for gromemu
-	int                 m_ram_page;     // for super
+	// Common immutable states
+	uint8_t*    m_rom_ptr;
+	uint8_t*    m_ram_ptr;
+	uint8_t*    m_grom_ptr;     // for gromemu
+
+	int m_rom_mask;
+
 	const char*         m_tag;
-	std::vector<uint8_t>      m_nvram;    // for MiniMemory
-	std::vector<uint8_t>      m_ram;  // for MBX
 };
 
 /******************** Standard cartridge ******************************/
@@ -192,6 +227,7 @@ class ti99_paged12k_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
+	virtual const int get_maximum_bank_count() override { return 2; }
 };
 
 /*********** Paged cartridge (others) ********************/
@@ -201,6 +237,7 @@ class ti99_paged16k_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
+	virtual const int get_maximum_bank_count() override { return 2; }
 };
 
 /*********** Paged7 cartridge (late carts) ********************/
@@ -210,6 +247,8 @@ class ti99_paged7_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
+	virtual const int get_maximum_bank_count() override { return 4; }
+	virtual const int get_bank_size() override { return 4096; }
 };
 
 /********************** Mini Memory ***********************************/
@@ -239,6 +278,8 @@ class ti99_mbx_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
+	virtual const int get_maximum_bank_count() override { return 4; }
+	virtual const int get_bank_size() override { return 4096; }
 };
 
 /********************** Paged 379i ************************************/
@@ -248,8 +289,7 @@ class ti99_paged379i_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
-private:
-	int     get_paged379i_bank(int rompage);
+	virtual const int get_maximum_bank_count() override { return 16; }
 };
 
 /********************** Paged 378 ************************************/
@@ -259,6 +299,7 @@ class ti99_paged378_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
+	virtual const int get_maximum_bank_count() override { return 64; }
 };
 
 /********************** Paged 377 ************************************/
@@ -268,6 +309,7 @@ class ti99_paged377_cartridge : public ti99_cartridge_pcb
 public:
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
+	virtual const int get_maximum_bank_count() override { return 256; }
 };
 
 /********************** Paged CRU  ************************************/
@@ -279,6 +321,8 @@ public:
 	void write(offs_t offset, uint8_t data) override;
 	void crureadz(offs_t offset, uint8_t *value) override;
 	void cruwrite(offs_t offset, uint8_t data) override;
+
+	virtual const int get_maximum_bank_count() override { return 8; }
 };
 
 /********************** GROM emulation cartridge  ************************************/
@@ -286,19 +330,12 @@ public:
 class ti99_gromemu_cartridge : public ti99_cartridge_pcb
 {
 public:
-	ti99_gromemu_cartridge(): m_waddr_LSB(false), m_grom_selected(false), m_grom_read_mode(false), m_grom_address_mode(false)
-	{  m_grom_address = 0; }
 	void readz(offs_t offset, uint8_t *value) override;
 	void write(offs_t offset, uint8_t data) override;
 	void gromemureadz(offs_t offset, uint8_t *value);
 	void gromemuwrite(offs_t offset, uint8_t data);
-	void set_gromlines(line_state mline, line_state moline, line_state gsq) override;
 
-private:
-	bool    m_waddr_LSB;
-	bool    m_grom_selected;
-	bool    m_grom_read_mode;
-	bool    m_grom_address_mode;
+	virtual const int get_maximum_bank_count() override { return 4096; }
 };
 
 } // end namespace bus::ti99::gromport

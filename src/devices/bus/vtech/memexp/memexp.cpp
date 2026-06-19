@@ -36,6 +36,7 @@ vtech_memexp_slot_device::vtech_memexp_slot_device(const machine_config &mconfig
 	m_nmi_handler(*this),
 	m_reset_handler(*this)
 {
+	set_options(vtech_memexp_carts, nullptr, false);
 }
 
 //-------------------------------------------------
@@ -86,11 +87,6 @@ void vtech_memexp_slot_device::device_start()
 				m_module->iorq_w(offset, data);
 		}
 	);
-
-	// resolve callbacks
-	m_int_handler.resolve_safe();
-	m_nmi_handler.resolve_safe();
-	m_reset_handler.resolve_safe();
 }
 
 

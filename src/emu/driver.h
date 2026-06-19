@@ -26,6 +26,9 @@
 #define MCFG_MACHINE_START_OVERRIDE(_class, _func) \
 	driver_device::static_set_callback(config.root_device(), driver_device::CB_MACHINE_START, driver_callback_delegate(&_class::MACHINE_START_NAME(_func), this));
 
+#define MCFG_MACHINE_START_REMOVE() \
+	driver_device::static_set_callback(config.root_device(), driver_device::CB_MACHINE_START, driver_callback_delegate());
+
 #define MCFG_MACHINE_RESET_OVERRIDE(_class, _func) \
 	driver_device::static_set_callback(config.root_device(), driver_device::CB_MACHINE_RESET, driver_callback_delegate(&_class::MACHINE_RESET_NAME(_func), this));
 
@@ -37,8 +40,8 @@
 #define MCFG_VIDEO_START_OVERRIDE(_class, _func) \
 	driver_device::static_set_callback(config.root_device(), driver_device::CB_VIDEO_START, driver_callback_delegate(&_class::VIDEO_START_NAME(_func), this));
 
-#define MCFG_VIDEO_RESET_OVERRIDE(_class, _func) \
-	driver_device::static_set_callback(config.root_device(), driver_device::CB_VIDEO_RESET, driver_callback_delegate(&_class::VIDEO_RESET_NAME(_func), this));
+#define MCFG_VIDEO_START_REMOVE() \
+	driver_device::static_set_callback(config.root_device(), driver_device::CB_VIDEO_START, driver_callback_delegate());
 
 
 
@@ -60,11 +63,6 @@
 #define VIDEO_START_CALL_MEMBER(name)       VIDEO_START_NAME(name)()
 #define DECLARE_VIDEO_START(name)   void VIDEO_START_NAME(name)() ATTR_COLD
 #define VIDEO_START_MEMBER(cls,name) void cls::VIDEO_START_NAME(name)()
-
-#define VIDEO_RESET_NAME(name)      video_reset_##name
-#define VIDEO_RESET_CALL_MEMBER(name)       VIDEO_RESET_NAME(name)()
-#define DECLARE_VIDEO_RESET(name)   void VIDEO_RESET_NAME(name)()
-#define VIDEO_RESET_MEMBER(cls,name) void cls::VIDEO_RESET_NAME(name)()
 
 
 
@@ -100,7 +98,6 @@ public:
 		CB_MACHINE_START,
 		CB_MACHINE_RESET,
 		CB_VIDEO_START,
-		CB_VIDEO_RESET,
 		CB_COUNT
 	};
 
@@ -111,9 +108,9 @@ public:
 	///
 	/// Provided as a convenience for systems that have no additional
 	/// initialisation tasks.
-	void empty_init();
+	void empty_init() ATTR_COLD;
 
-	// output heler
+	// output helper
 	output_manager &output() const { return machine().output(); }
 
 	void nmi_line_pulse(device_t &device);
@@ -145,8 +142,6 @@ public:
 
 	virtual std::vector<std::string> searchpath() const override;
 
-	virtual void driver_init();
-
 protected:
 	// helpers called at startup
 	virtual void driver_start();
@@ -160,20 +155,20 @@ protected:
 	virtual void sound_reset();
 	virtual void video_reset();
 
-	// device-level overrides
-	virtual const tiny_rom_entry *device_rom_region() const override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual ioport_constructor device_input_ports() const override;
-	virtual void device_start() override;
-	virtual void device_reset_after_children() override;
+	// device_t implementation
+	virtual const tiny_rom_entry *device_rom_region() const override final ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override final ATTR_COLD;
+	virtual ioport_constructor device_input_ports() const override final ATTR_COLD;
+	virtual void device_start() override final ATTR_COLD;
+	virtual void device_reset_after_children() override final;
 
 	// generic video
-	void flip_screen_set(u32 on);
-	void flip_screen_x_set(u32 on);
-	void flip_screen_y_set(u32 on);
-	u32 flip_screen() const { return m_flip_screen_x; }
-	u32 flip_screen_x() const { return m_flip_screen_x; }
-	u32 flip_screen_y() const { return m_flip_screen_y; }
+	void flip_screen_set(int state);
+	void flip_screen_x_set(int state);
+	void flip_screen_y_set(int state);
+	u8 flip_screen() const { return m_flip_screen_x; } // & m_flip_screen_y?
+	u8 flip_screen_x() const { return m_flip_screen_x; }
+	u8 flip_screen_y() const { return m_flip_screen_y; }
 
 private:
 	// helpers
@@ -185,8 +180,8 @@ private:
 	driver_callback_delegate  m_callbacks[CB_COUNT];  // start/reset callbacks
 
 	// generic video
-	u8                          m_flip_screen_x;
-	u8                          m_flip_screen_y;
+	u8                        m_flip_screen_x;
+	u8                        m_flip_screen_y;
 };
 
 

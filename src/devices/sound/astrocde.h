@@ -52,13 +52,12 @@ public:
 	template <std::size_t Pot> auto pot_cb() { return m_pots[Pot].bind(); }
 
 protected:
-	// device-level overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
-	// sound stream update overrides
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	// device_sound_interface implementation
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 public:
 	void write(offs_t offset, uint8_t data);

@@ -2,7 +2,7 @@
 // copyright-holders:Nigel Barnes
 /*********************************************************************
 
-    formats/jfd_dsk.c
+    formats/jfd_dsk.cpp
 
     JASPP Floppy Disk image format
 
@@ -161,10 +161,13 @@
 #include "formats/jfd_dsk.h"
 
 #include "ioprocs.h"
+#include "multibyte.h"
 
 #include "osdcore.h" // osd_printf_*
 
 #include <zlib.h>
+
+#include <cstring>
 
 
 static const uint8_t JFD_HEADER[4] = { 'J', 'F', 'D', 'I' };
@@ -174,17 +177,17 @@ jfd_format::jfd_format()
 {
 }
 
-const char *jfd_format::name() const
+const char *jfd_format::name() const noexcept
 {
 	return "jfd";
 }
 
-const char *jfd_format::description() const
+const char *jfd_format::description() const noexcept
 {
 	return "JASPP Floppy Disk image";
 }
 
-const char *jfd_format::extensions() const
+const char *jfd_format::extensions() const noexcept
 {
 	return "jfd";
 }
@@ -196,8 +199,9 @@ int jfd_format::identify(util::random_read &io, uint32_t form_factor, const std:
 		return 0;
 
 	std::vector<uint8_t> img(size);
-	size_t actual;
-	io.read_at(0, &img[0], size, actual);
+	auto const [ioerr, actual] = read_at(io, 0, &img[0], size);
+	if (ioerr || (actual != size))
+		return 0;
 
 	int err;
 	std::vector<uint8_t> gz_ptr(4);
@@ -221,7 +225,7 @@ int jfd_format::identify(util::random_read &io, uint32_t form_factor, const std:
 		err = inflateEnd(&d_stream);
 		if (err != Z_OK) return 0;
 
-		img = gz_ptr;
+		img = std::move(gz_ptr);
 	}
 
 	if (!memcmp(&img[0], JFD_HEADER, sizeof(JFD_HEADER))) {
@@ -231,20 +235,21 @@ int jfd_format::identify(util::random_read &io, uint32_t form_factor, const std:
 	return 0;
 }
 
-bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
+bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image &image) const
 {
 	uint64_t size;
 	if (io.length(size))
 		return false;
 
 	std::vector<uint8_t> img(size);
-	size_t actual;
-	io.read_at(0, &img[0], size, actual);
+	auto const [ioerr, actual] = read_at(io, 0, &img[0], size);
+	if (ioerr || (actual != size))
+		return false;
 
 	int err;
 	std::vector<uint8_t> gz_ptr;
 	z_stream d_stream;
-	int inflate_size = (img[size - 1] << 24) | (img[size - 2] << 16) | (img[size - 3] << 8) | img[size - 4];
+	int inflate_size = get_u32le(&img[size - 4]);
 
 	if (!memcmp(&img[0], GZ_HEADER, sizeof(GZ_HEADER))) {
 		gz_ptr.resize(inflate_size);
@@ -273,14 +278,14 @@ bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 			return false;
 		}
 		size = inflate_size;
-		img = gz_ptr;
+		img = std::move(gz_ptr);
 	}
 
 	osd_printf_verbose("jfd_dsk: loading %s\n", &img[48]);
 
-	uint32_t offset_track  = little_endianize_int32(*(uint32_t *)(&img[24])); /* Track Table  */
-	uint32_t offset_sector = little_endianize_int32(*(uint32_t *)(&img[28])); /* Sector Table */
-	uint32_t offset_data   = little_endianize_int32(*(uint32_t *)(&img[32])); /* Data Table   */
+	uint32_t offset_track  = get_u32le(&img[24]); /* Track Table  */
+	uint32_t offset_sector = get_u32le(&img[28]); /* Sector Table */
+	uint32_t offset_data   = get_u32le(&img[32]); /* Data Table   */
 
 	desc_pc_sector sects[256];
 	uint8_t den[256];
@@ -291,7 +296,7 @@ bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 	int track_count = (offset_sector - offset_track) / 4;
 
 	for (int track = 0; track < track_count; track++) {
-		uint32_t track_offset = little_endianize_int32(*(uint32_t *)(&img[offset_track + (track * 4)]));
+		uint32_t track_offset = get_u32le(&img[offset_track + (track * 4)]);
 		spt = 0;
 		discop3 = 0;
 		den[0] = 2;
@@ -306,11 +311,11 @@ bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 		else
 		{
 			for (int i = 0; i < 256; i++) {
-				header = little_endianize_int32(*(uint32_t *)(&img[offset_sector + track_offset + (i * 8)])); /* Sector Header */
+				header = get_u32le(&img[offset_sector + track_offset + (i * 8)]); /* Sector Header */
 				if (header == 0xffffffff)
 					break;
 
-				uint32_t data_offset = little_endianize_int32(*(uint32_t *)(&img[offset_sector + track_offset + (i * 8) + 4]));
+				uint32_t data_offset = get_u32le(&img[offset_sector + track_offset + (i * 8) + 4]);
 
 				den[i] = (header >> 16) & 0x0f; /* sector density */
 				if (den[i] != 2)
@@ -319,7 +324,7 @@ bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 				}
 				if (((header >> 20) & 0x0f) == 0x01) /* DiscOp3 data */
 				{
-					discop3 = little_endianize_int32(*(uint32_t *)(&img[offset_data + data_offset]));
+					discop3 = get_u32le(&img[offset_data + data_offset]);
 					for (int i = 0; i < discop3; i++)
 					{
 						mfm_w(track_data, 8, img[offset_data + data_offset + 4 + i]);
@@ -333,7 +338,8 @@ bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 					sects[i].track   = track / 2;
 					sects[i].head    = track % 2;
 					sects[i].sector  = (header >> 8) & 0xff;
-					sects[i].bad_crc = (header >> 4) & 0x02;
+					sects[i].bad_data_crc = (header >> 4) & 0x02;
+					sects[i].bad_addr_crc = false;
 					sects[i].deleted = false;
 					ssize = header & 0x03;
 					sects[i].size = ssize;
@@ -366,14 +372,9 @@ bool jfd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 				build_wd_track_mfm(track / 2, track % 2, image, den[0] * 50000, spt, sects, 90, 32, 22);
 		}
 	}
-	image->set_variant(floppy_image::DSDD);
+	image.set_variant(floppy_image::DSDD);
 
 	return true;
-}
-
-bool jfd_format::supports_save() const
-{
-	return false;
 }
 
 const jfd_format FLOPPY_JFD_FORMAT;

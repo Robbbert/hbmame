@@ -12,8 +12,7 @@
 #include "pc11.h"
 
 
-//#define LOG_GENERAL (1U <<  0)
-#define LOG_DBG     (1U <<  2)
+#define LOG_DBG     (1U << 1)
 
 //#define VERBOSE (LOG_GENERAL | LOG_DBG)
 //#define LOG_OUTPUT_FUNC osd_printf_info
@@ -57,6 +56,7 @@ const char* pc11_regnames[] = {
 pc11_device::pc11_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: paper_tape_reader_device(mconfig, DEC_PC11, tag, owner, clock)
 	, device_qbus_card_interface(mconfig, *this)
+	, m_installed(false)
 	, m_rxvec(070)
 	, m_txvec(074)
 {
@@ -70,12 +70,8 @@ pc11_device::pc11_device(const machine_config &mconfig, const char *tag, device_
 
 void pc11_device::device_start()
 {
-	m_bus->install_device(0177550, 0177557, read16sm_delegate(*this, FUNC(pc11_device::read)),
-		write16sm_delegate(*this, FUNC(pc11_device::write)));
-
-	// resolve callbacks
-
 	// save state
+	save_item(NAME(m_installed));
 	save_item(NAME(m_rcsr));
 	save_item(NAME(m_rbuf));
 	save_item(NAME(m_tcsr));
@@ -84,6 +80,11 @@ void pc11_device::device_start()
 	// about 300 cps
 	m_read_timer = timer_alloc(FUNC(pc11_device::read_tick), this);
 	m_read_timer->adjust(attotime::from_usec(333), 0, attotime::from_usec(333));
+
+	m_fd = nullptr;
+	m_rcsr = CSR_ERR;
+
+	m_installed = false;
 }
 
 
@@ -95,7 +96,14 @@ void pc11_device::device_reset()
 {
 	LOG("Reset, rxvec %03o txvec %03o\n", m_rxvec, m_txvec);
 
-	m_rcsr = m_rbuf = m_tbuf = 0;
+	if (!m_installed)
+	{
+		m_bus->install_device(0177550, 0177557, read16sm_delegate(*this, FUNC(pc11_device::read)),
+			write16sm_delegate(*this, FUNC(pc11_device::write)));
+		m_installed = true;
+	}
+
+	m_rbuf = m_tbuf = 0;
 	m_tcsr = CSR_DONE;
 	m_rxrdy = m_txrdy = CLEAR_LINE;
 
@@ -136,7 +144,7 @@ void pc11_device::z80daisy_irq_reti()
 }
 
 
-image_init_result pc11_device::call_load()
+std::pair<std::error_condition, std::string> pc11_device::call_load()
 {
 	/* reader unit */
 	m_fd = this;
@@ -144,7 +152,7 @@ image_init_result pc11_device::call_load()
 
 	LOG("call_load filename %s is_open %d\n", m_fd->filename(), m_fd->is_open());
 
-	return image_init_result::PASS;
+	return std::make_pair(std::error_condition(), std::string());
 }
 
 void pc11_device::call_unload()

@@ -207,7 +207,6 @@
 #include "emu.h"
 #include "edge.h"
 
-#define LOG_GENERAL   (1U << 0)
 #define LOG_INTERRUPT (1U << 1)
 
 #define VERBOSE (LOG_GENERAL)
@@ -472,14 +471,14 @@ void mpcb828_device::device_add_mconfig(machine_config &config)
 	RAM(config, "sram").set_default_size("128KiB").set_default_value(0);
 	RAM(config, "vram").set_default_size("2560KiB").set_default_value(0);
 
-	TMS32030(config, m_dsp, 30_MHz_XTAL);
+	TMS320C30(config, m_dsp, 30_MHz_XTAL);
 	m_dsp->holda().set(FUNC(mpcb828_device::holda));
 	m_dsp->set_disable();
 	//m_dsp->set_addrmap(0, map_dynamic<2>);
 
 	BT458(config, "ramdac", 83'020'800);
 
-	SCC8530N(config, m_scc, 4.9152_MHz_XTAL);
+	SCC8530(config, m_scc, 4.9152_MHz_XTAL);
 	m_scc->out_int_callback().set(FUNC(mpcb828_device::scc_irq));
 	m_scc->out_txda_callback().set("kbd", FUNC(interpro_keyboard_port_device::write_txd));
 
@@ -504,13 +503,13 @@ void mpcb849_device::device_add_mconfig(machine_config &config)
 	RAM(config, "sram").set_default_size("128KiB").set_default_value(0);
 	RAM(config, "vram").set_default_size("5120KiB").set_default_value(0); // size is a guess
 
-	TMS32030(config, m_dsp, 30_MHz_XTAL);
+	TMS320C30(config, m_dsp, 30_MHz_XTAL);
 	m_dsp->holda().set(FUNC(mpcb828_device::holda));
 	m_dsp->set_disable();
 
-	BT458(config, "ramdac", 0); // unconfirmed clock
+	BT458(config, "ramdac"); // unconfirmed clock
 
-	SCC8530N(config, m_scc, 4.9152_MHz_XTAL);
+	SCC8530(config, m_scc, 4.9152_MHz_XTAL);
 	m_scc->out_int_callback().set(FUNC(mpcb849_device::scc_irq));
 	m_scc->out_txda_callback().set("kbd", FUNC(interpro_keyboard_port_device::write_txd));
 
@@ -536,9 +535,9 @@ void mpcba63_device::device_add_mconfig(machine_config &config)
 	//m_screen->set_raw(83'020'800, 1504, 296 + 20, 1184 + 296 + 20, 920, 34, 884 + 34);
 	//m_screen->set_screen_update().set(FUNC(mpcba63_device::screen_update));
 	//m_screen->screen_vblank().set(FUNC(?, vblank));
-	//BT457(config, "ramdac0", 0); // PS045701-165
-	//BT457(config, "ramdac1", 0);
-	//BT457(config, "ramdac2", 0);
+	//BT457(config, "ramdac0"); // PS045701-165
+	//BT457(config, "ramdac1");
+	//BT457(config, "ramdac2");
 }
 
 /*
@@ -551,18 +550,18 @@ void mpcba63_device::device_add_mconfig(machine_config &config)
  */
 void msmt094_device::device_add_mconfig(machine_config &config)
 {
-	TMS32030(config, m_dsp1, 33.333_MHz_XTAL);
+	TMS320C30(config, m_dsp1, 33.333_MHz_XTAL);
 	m_dsp1->holda().set(FUNC(msmt094_device::holda));
 	m_dsp1->set_addrmap(0, &msmt094_device::dsp1_map);
 	m_dsp1->set_disable();
 
 	RAM(config, "ram").set_default_size("6MiB").set_default_value(0);
 
-	//TMS32030(config, m_dsp2, 40_MHz_XTAL);
-	//TMS32030(config, m_dsp3, 40_MHz_XTAL);
+	//TMS320C30(config, m_dsp2, 40_MHz_XTAL);
+	//TMS320C30(config, m_dsp3, 40_MHz_XTAL);
 
 	// FIXME: actually Z0853006VSC
-	scc8530_device& scc(SCC8530N(config, "scc", 4.9152_MHz_XTAL));
+	scc8530_device& scc(SCC8530(config, "scc", 4.9152_MHz_XTAL));
 	scc.out_int_callback().set(FUNC(msmt094_device::scc_irq));
 	scc.out_txda_callback().set("kbd", FUNC(interpro_keyboard_port_device::write_txd));
 
@@ -720,7 +719,7 @@ u32 mpcba63_device::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, c
 	return 0;
 }
 
-WRITE_LINE_MEMBER(edge1_device_base::vblank)
+void edge1_device_base::vblank(int state)
 {
 	if (state)
 	{
@@ -773,14 +772,14 @@ void edge1_device_base::control_w(offs_t offset, u32 data, u32 mem_mask)
 
 	// release dsp 1 hold
 	if (data & NO_HOLD)
-		m_dsp->set_input_line(TMS3203X_HOLD, CLEAR_LINE);
+		m_dsp->set_input_line(TMS320C3X_HOLD, CLEAR_LINE);
 
 	// hold dsp 1
 	if (!(data & DSP_1_HOLD_L))
-		m_dsp->set_input_line(TMS3203X_HOLD, ASSERT_LINE);
+		m_dsp->set_input_line(TMS320C3X_HOLD, ASSERT_LINE);
 }
 
-WRITE_LINE_MEMBER(edge1_device_base::holda)
+void edge1_device_base::holda(int state)
 {
 	LOGMASKED(LOG_INTERRUPT, "hold acknowledge %d\n", state);
 
@@ -805,14 +804,14 @@ void edge2plus_processor_device_base::control_w(offs_t offset, u32 data, u32 mem
 
 	// release dsp 1 hold
 	if (data & NO_HOLD)
-		m_dsp1->set_input_line(TMS3203X_HOLD, CLEAR_LINE);
+		m_dsp1->set_input_line(TMS320C3X_HOLD, CLEAR_LINE);
 
 	// hold dsp 1
 	if (!(data & DSP_1_HOLD_L))
-		m_dsp1->set_input_line(TMS3203X_HOLD, ASSERT_LINE);
+		m_dsp1->set_input_line(TMS320C3X_HOLD, ASSERT_LINE);
 }
 
-WRITE_LINE_MEMBER(edge2plus_processor_device_base::holda)
+void edge2plus_processor_device_base::holda(int state)
 {
 	LOGMASKED(LOG_INTERRUPT, "hold acknowledge %d\n", state);
 
@@ -855,7 +854,7 @@ void edge2plus_framebuffer_device_base::lut_select_w(u32 data)
 	// lookup table 3 enables address range 92030000-92030fff, written with zeroes
 }
 
-WRITE_LINE_MEMBER(edge1_device_base::scc_irq)
+void edge1_device_base::scc_irq(int state)
 {
 	if (state)
 		m_reg0 |= SCC_INT;
@@ -877,7 +876,7 @@ void edge1_device_base::kernel_w(offs_t offset, u32 data, u32 mem_mask)
 	m_status |= KREG_IN_FULL; // FIXME: what clears this?
 }
 
-WRITE_LINE_MEMBER(edge2plus_processor_device_base::scc_irq)
+void edge2plus_processor_device_base::scc_irq(int state)
 {
 	if (state)
 		m_reg0 |= SCC_INT;

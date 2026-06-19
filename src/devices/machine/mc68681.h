@@ -16,11 +16,11 @@ class duart_base_device;
 class duart_channel : public device_t, public device_serial_interface
 {
 public:
-	duart_channel(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	duart_channel(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_serial overrides
 	virtual void rcv_complete() override;    // Rx completed receiving byte
@@ -71,10 +71,11 @@ private:
 	int m_ch;
 
 	/* Transmitter */
-	uint8_t tx_enabled;
-	uint8_t tx_data;
-	uint8_t tx_ready;
+	uint8_t m_tx_data;
+	bool m_tx_data_in_buffer;
 	bool m_tx_break;
+	uint8_t m_bits_transmitted;
+	bool m_tx_enabled;
 
 	/* Rx/Tx clocking */
 	uint8_t m_rx_prescaler , m_tx_prescaler;
@@ -107,8 +108,8 @@ public:
 	virtual uint8_t read(offs_t offset);
 	virtual void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER(rx_a_w) { m_chanA->device_serial_interface::rx_w((uint8_t)state); }
-	DECLARE_WRITE_LINE_MEMBER(rx_b_w) { m_chanB->device_serial_interface::rx_w((uint8_t)state); }
+	void rx_a_w(int state) { m_chanA->device_serial_interface::rx_w((uint8_t)state); }
+	void rx_b_w(int state) { m_chanB->device_serial_interface::rx_w((uint8_t)state); }
 
 	auto irq_cb() { return write_irq.bind(); }
 	auto a_tx_cb() { return write_a_tx.bind(); }
@@ -117,13 +118,13 @@ public:
 	auto outport_cb() { return write_outport.bind(); }
 
 	// new-style push handlers for input port bits
-	DECLARE_WRITE_LINE_MEMBER(ip0_w);
-	DECLARE_WRITE_LINE_MEMBER(ip1_w);
-	DECLARE_WRITE_LINE_MEMBER(ip2_w);
-	DECLARE_WRITE_LINE_MEMBER(ip3_w);
-	DECLARE_WRITE_LINE_MEMBER(ip4_w);
-	DECLARE_WRITE_LINE_MEMBER(ip5_w);
-	DECLARE_WRITE_LINE_MEMBER(ip6_w);
+	virtual void ip0_w(int state);
+	virtual void ip1_w(int state);
+	virtual void ip2_w(int state);
+	virtual void ip3_w(int state);
+	virtual void ip4_w(int state);
+	virtual void ip5_w(int state);
+	virtual void ip6_w(int state);
 
 	bool irq_pending() const { return (ISR & IMR) != 0; }
 
@@ -131,9 +132,9 @@ protected:
 	duart_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 
 	devcb_write_line write_irq, write_a_tx, write_b_tx, write_c_tx, write_d_tx;
 	devcb_read8 read_inport;
@@ -211,8 +212,8 @@ public:
 	uint8_t get_irq_vector();
 
 protected:
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 	virtual void update_interrupts() override;
 	mc68681_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
@@ -220,6 +221,46 @@ private:
 	bool m_read_vector; // if this is read and IRQ is active, it counts as pulling IACK
 
 	uint8_t IVR;  /* Interrupt Vector Register */
+};
+
+/**************************
+ * ColdFire MCF5206e UART
+ **************************/
+class mcf5206e_uart_device : public duart_base_device
+{
+public:
+	mcf5206e_uart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
+
+	virtual uint8_t read(offs_t offset) override;
+	virtual void write(offs_t offset, uint8_t data) override;
+	uint8_t get_irq_vector();
+
+	// There is no GPIO on the coldfire UART module
+	void cts_w(int state) { duart_base_device::ip0_w(state); }
+
+	virtual void ip1_w(int state) override {}
+	virtual void ip2_w(int state) override {}
+	virtual void ip3_w(int state) override {}
+	virtual void ip4_w(int state) override {}
+	virtual void ip5_w(int state) override {}
+	virtual void ip6_w(int state) override {}
+
+protected:
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void update_interrupts() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	mcf5206e_uart_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
+
+private:
+	virtual int calc_baud(int ch, bool rx, uint8_t data) override;
+
+	bool m_read_vector; // if this is read and IRQ is active, it counts as pulling IACK
+
+	// ColdFire UART module is essentially two 68681 a-channels with a slighty different register map and no counter
+	uint8_t IVR;  /* Interrupt Vector Register */
+	uint16_t UBG;  /* Baud Rate Generator Prescale Register - Manual erronuosly calls this the timer preload register */
+
 };
 
 class sc28c94_device : public duart_base_device
@@ -230,14 +271,14 @@ public:
 	auto c_tx_cb() { return write_c_tx.bind(); }
 	auto d_tx_cb() { return write_d_tx.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER(rx_c_w) { m_chanC->device_serial_interface::rx_w((uint8_t)state); }
-	DECLARE_WRITE_LINE_MEMBER(rx_d_w) { m_chanD->device_serial_interface::rx_w((uint8_t)state); }
+	void rx_c_w(int state) { m_chanC->device_serial_interface::rx_w((uint8_t)state); }
+	void rx_d_w(int state) { m_chanD->device_serial_interface::rx_w((uint8_t)state); }
 
 	virtual uint8_t read(offs_t offset) override;
 	virtual void write(offs_t offset, uint8_t data) override;
 
 protected:
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 
 private:
 };
@@ -251,7 +292,7 @@ public:
 	virtual void write(offs_t offset, uint8_t data) override;
 
 protected:
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 	mc68340_duart_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
 private:
@@ -267,8 +308,8 @@ public:
 	virtual void write(offs_t offset, uint8_t data) override;
 
 protected:
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	virtual int calc_baud(int ch, bool rx, uint8_t data) override;
@@ -280,6 +321,7 @@ DECLARE_DEVICE_TYPE(SCN2681, scn2681_device)
 DECLARE_DEVICE_TYPE(MC68681, mc68681_device)
 DECLARE_DEVICE_TYPE(SC28C94, sc28c94_device)
 DECLARE_DEVICE_TYPE(MC68340_DUART, mc68340_duart_device)
+DECLARE_DEVICE_TYPE(MCF5206E_UART, mcf5206e_uart_device)
 DECLARE_DEVICE_TYPE(XR68C681, xr68c681_device)
 DECLARE_DEVICE_TYPE(DUART_CHANNEL, duart_channel)
 

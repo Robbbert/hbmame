@@ -96,7 +96,7 @@ const tiny_rom_entry *bsmt2000_device::device_rom_region() const
 
 void bsmt2000_device::device_add_mconfig(machine_config &config)
 {
-	tms32015_device &tms(TMS32015(config, "bsmt2000", DERIVED_CLOCK(1,1)));
+	tms320c15_device &tms(TMS320C15(config, "bsmt2000", DERIVED_CLOCK(1,1)));
 	tms.set_addrmap(AS_PROGRAM, &bsmt2000_device::tms_program_map);
 	// data map is internal to the CPU
 	tms.set_addrmap(AS_IO, &bsmt2000_device::tms_io_map);
@@ -110,7 +110,7 @@ void bsmt2000_device::device_add_mconfig(machine_config &config)
 
 void bsmt2000_device::device_start()
 {
-	m_ready_callback.resolve();
+	m_ready_callback.resolve_safe();
 
 	// create the stream; BSMT typically runs at 24MHz and writes to a DAC, so
 	// in theory we should generate a 24MHz stream, but that's certainly overkill
@@ -186,20 +186,21 @@ TIMER_CALLBACK_MEMBER(bsmt2000_device::deferred_data_write)
 //  for our sound stream
 //-------------------------------------------------
 
-void bsmt2000_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void bsmt2000_device::sound_stream_update(sound_stream &stream)
 {
 	// just fill with current left/right values
-	constexpr stream_buffer::sample_t sample_scale = 1.0 / 32768.0;
-	outputs[0].fill(stream_buffer::sample_t(m_left_data) * sample_scale);
-	outputs[1].fill(stream_buffer::sample_t(m_right_data) * sample_scale);
+	constexpr sound_stream::sample_t sample_scale = 1.0 / 32768.0;
+	stream.fill(0, sound_stream::sample_t(m_left_data) * sample_scale);
+	stream.fill(1, sound_stream::sample_t(m_right_data) * sample_scale);
 }
 
 
 //-------------------------------------------------
-//  rom_bank_updated - the rom bank has changed
+//  rom_bank_pre_change - refresh the stream if the
+//  ROM banking changes
 //-------------------------------------------------
 
-void bsmt2000_device::rom_bank_updated()
+void bsmt2000_device::rom_bank_pre_change()
 {
 	m_stream->update();
 }
@@ -236,7 +237,7 @@ void bsmt2000_device::write_data(uint16_t data)
 	m_deferred_data_write->adjust(attotime::zero, data);
 
 	// boost the interleave on a write so that the caller detects the status more accurately
-	machine().scheduler().boost_interleave(attotime::from_usec(1), attotime::from_usec(10));
+	machine().scheduler().add_quantum(attotime::from_usec(1), attotime::from_usec(10));
 }
 
 
@@ -260,8 +261,7 @@ uint16_t bsmt2000_device::tms_data_r()
 {
 	// also implicitly clear the write pending flag
 	m_write_pending = false;
-	if (!m_ready_callback.isnull())
-		m_ready_callback();
+	m_ready_callback();
 	return m_write_data;
 }
 
@@ -327,10 +327,10 @@ void bsmt2000_device::tms_right_w(uint16_t data)
 //-------------------------------------------------
 //  tms_write_pending_r - return whether a write
 //  is pending; this data is fed into the BIO line
-//  on the TMS32015
+//  on the TMS320C15
 //-------------------------------------------------
 
-READ_LINE_MEMBER( bsmt2000_device::tms_write_pending_r )
+int bsmt2000_device::tms_write_pending_r()
 {
 	return m_write_pending ? 1 : 0;
 }

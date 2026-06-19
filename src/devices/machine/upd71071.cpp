@@ -88,8 +88,11 @@
 */
 
 #include "emu.h"
-#include "machine/upd71071.h"
+#include "upd71071.h"
 
+//#define VERBOSE (LOG_GENERAL)
+
+#include "logmacro.h"
 
 DEFINE_DEVICE_TYPE(UPD71071, upd71071_device, "upd71071", "NEC uPD71071 DMA Controller")
 
@@ -98,7 +101,7 @@ upd71071_device::upd71071_device(const machine_config &mconfig, const char *tag,
 	, m_upd_clock(0)
 	, m_out_hreq_cb(*this)
 	, m_out_eop_cb(*this)
-	, m_dma_read_cb(*this)
+	, m_dma_read_cb(*this, 0)
 	, m_dma_write_cb(*this)
 	, m_out_dack_cb(*this)
 	, m_cpu(*this, finder_base::DUMMY_TAG)
@@ -111,19 +114,16 @@ upd71071_device::upd71071_device(const machine_config &mconfig, const char *tag,
 
 void upd71071_device::device_start()
 {
-	m_out_hreq_cb.resolve_safe();
-	m_out_eop_cb.resolve_safe();
-	m_dma_read_cb.resolve_all_safe(0);
-	m_dma_write_cb.resolve_all_safe();
-	m_out_dack_cb.resolve_all_safe();
 	for (auto &elem : m_timer)
 		elem = timer_alloc(FUNC(upd71071_device::dma_transfer_timer), this);
 	m_selected_channel = 0;
 
 	m_reg.device_control = 0;
 	m_reg.mask = 0x0f;  // mask all channels
-	for (int x = 0; x < 4; x++)
-		m_reg.mode_control[x] = 0;
+
+	std::fill(std::begin(m_reg.address_current), std::end(m_reg.address_current), 0);
+	std::fill(std::begin(m_reg.count_current), std::end(m_reg.count_current), 0);
+	std::fill(std::begin(m_reg.mode_control), std::end(m_reg.mode_control), 0);
 
 	save_item(NAME(m_reg.initialise));
 	save_item(NAME(m_reg.channel));
@@ -166,7 +166,7 @@ TIMER_CALLBACK_MEMBER(upd71071_device::dma_transfer_timer)
 		case 1:
 		case 2:
 		case 3:
-			if (!m_dma_read_cb[channel].isnull())
+			if (!m_dma_read_cb[channel].isunset())
 				data = m_dma_read_cb[channel](0);
 			break;
 		}
@@ -221,8 +221,7 @@ TIMER_CALLBACK_MEMBER(upd71071_device::dma_transfer_timer)
 		case 1:
 		case 2:
 		case 3:
-			if (!m_dma_write_cb[channel].isnull())
-				m_dma_write_cb[channel](offs_t(0), data);
+			m_dma_write_cb[channel](offs_t(0), data);
 			break;
 		}
 		if (m_reg.mode_control[channel] & 0x20)  // Address direction
@@ -312,7 +311,7 @@ uint8_t upd71071_device::read(offs_t offset)
 {
 	uint8_t ret = 0;
 
-	logerror("DMA: read from register %02x\n",offset);
+	LOG("DMA: read from register %02x\n",offset);
 	switch(offset)
 	{
 	case 0x01:  // Channel
@@ -394,12 +393,12 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		m_buswidth = data & 0x02;
 		if (data & 0x01)
 			soft_reset();
-		logerror("DMA: Initialise [%02x]\n",data);
+		LOG("DMA: Initialise [%02x]\n",data);
 		break;
 	case 0x01:  // Channel
 		m_selected_channel = data & 0x03;
 		m_base = data & 0x04;
-		logerror("DMA: Channel selected [%02x]\n",data);
+		LOG("DMA: Channel selected [%02x]\n",data);
 		break;
 	case 0x02:  // Count (low)
 		m_reg.count_base[m_selected_channel] =
@@ -407,7 +406,7 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		if (m_base == 0)
 			m_reg.count_current[m_selected_channel] =
 				(m_reg.count_current[m_selected_channel] & 0xff00) | data;
-		logerror("DMA: Channel %i Counter set [%04x]\n",m_selected_channel,m_reg.count_base[m_selected_channel]);
+		LOG("DMA: Channel %i Counter set [%04x]\n",m_selected_channel,m_reg.count_base[m_selected_channel]);
 		break;
 	case 0x03:  // Count (high)
 		m_reg.count_base[m_selected_channel] =
@@ -415,7 +414,7 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		if (m_base == 0)
 			m_reg.count_current[m_selected_channel] =
 				(m_reg.count_current[m_selected_channel] & 0x00ff) | (data << 8);
-		logerror("DMA: Channel %i Counter set [%04x]\n",m_selected_channel,m_reg.count_base[m_selected_channel]);
+		LOG("DMA: Channel %i Counter set [%04x]\n",m_selected_channel,m_reg.count_base[m_selected_channel]);
 		break;
 	case 0x04:  // Address (low)
 		m_reg.address_base[m_selected_channel] =
@@ -423,7 +422,7 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		if (m_base == 0)
 			m_reg.address_current[m_selected_channel] =
 				(m_reg.address_current[m_selected_channel] & 0xffffff00) | data;
-		logerror("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
+		LOG("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
 		break;
 	case 0x05:  // Address (mid)
 		m_reg.address_base[m_selected_channel] =
@@ -431,7 +430,7 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		if (m_base == 0)
 			m_reg.address_current[m_selected_channel] =
 				(m_reg.address_current[m_selected_channel] & 0xffff00ff) | (data << 8);
-		logerror("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
+		LOG("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
 		break;
 	case 0x06:  // Address (high)
 		m_reg.address_base[m_selected_channel] =
@@ -439,7 +438,7 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		if (m_base == 0)
 			m_reg.address_current[m_selected_channel] =
 				(m_reg.address_current[m_selected_channel] & 0xff00ffff) | (data << 16);
-		logerror("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
+		LOG("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
 		break;
 	case 0x07:  // Address (highest)
 		m_reg.address_base[m_selected_channel] =
@@ -447,32 +446,32 @@ void upd71071_device::write(offs_t offset, uint8_t data)
 		if (m_base == 0)
 			m_reg.address_current[m_selected_channel] =
 				(m_reg.address_current[m_selected_channel] & 0x00ffffff) | (data << 24);
-		logerror("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
+		LOG("DMA: Channel %i Address set [%08x]\n",m_selected_channel,m_reg.address_base[m_selected_channel]);
 		break;
 	case 0x08:  // Device control (low)
 		m_reg.device_control = (m_reg.device_control & 0xff00) | data;
-		logerror("DMA: Device control set [%04x]\n",m_reg.device_control);
+		LOG("DMA: Device control set [%04x]\n",m_reg.device_control);
 		break;
 	case 0x09:  // Device control (high)
 		m_reg.device_control = (m_reg.device_control & 0x00ff) | (data << 8);
-		logerror("DMA: Device control set [%04x]\n",m_reg.device_control);
+		LOG("DMA: Device control set [%04x]\n",m_reg.device_control);
 		break;
 	case 0x0a:  // Mode control
 		m_reg.mode_control[m_selected_channel] = data;
-		logerror("DMA: Channel %i Mode control set [%02x]\n",m_selected_channel,m_reg.mode_control[m_selected_channel]);
+		LOG("DMA: Channel %i Mode control set [%02x]\n",m_selected_channel,m_reg.mode_control[m_selected_channel]);
 		break;
 	case 0x0e:  // Request
 		m_reg.request = data;
-		logerror("DMA: Request set [%02x]\n",data);
+		LOG("DMA: Request set [%02x]\n",data);
 		break;
 	case 0x0f:  // Mask
 		m_reg.mask = data;
-		logerror("DMA: Mask set [%02x]\n",data);
+		LOG("DMA: Mask set [%02x]\n",data);
 		break;
 	}
 }
 
-WRITE_LINE_MEMBER(upd71071_device::set_hreq)
+void upd71071_device::set_hreq(int state)
 {
 	if (m_hreq != state)
 	{
@@ -481,7 +480,7 @@ WRITE_LINE_MEMBER(upd71071_device::set_hreq)
 	}
 }
 
-WRITE_LINE_MEMBER(upd71071_device::set_eop)
+void upd71071_device::set_eop(int state)
 {
 	if (m_eop != state)
 	{

@@ -17,7 +17,7 @@ class dpc_device : public device_t
 {
 public:
 	// construction/destruction
-	dpc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	dpc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void set_display_data(uint8_t *data) { m_displaydata = data; }
 
@@ -26,8 +26,8 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	TIMER_CALLBACK_MEMBER(oscillator_tick);
 
@@ -67,22 +67,17 @@ DECLARE_DEVICE_TYPE(ATARI_DPC, dpc_device)
 class a26_rom_dpc_device : public a26_rom_f8_device
 {
 public:
-	// construction/destruction
-	a26_rom_dpc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	a26_rom_dpc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	required_device<dpc_device> m_dpc;
 
-	// reading and writing
-	virtual uint8_t read_rom(offs_t offset) override;
-	virtual void write_bank(address_space &space, offs_t offset, uint8_t data) override;
+	virtual void install_memory_handlers(address_space *space) override;
 
 	virtual void setup_addon_ptr(uint8_t *ptr) override;
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_reset() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual uint8_t get_start_bank() override { return 0; }
 };
 
 

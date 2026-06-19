@@ -23,11 +23,10 @@ DEFINE_DEVICE_TYPE(CENTRONICS_SAMDAC, centronics_samdac_device, "centronics_samd
 
 void centronics_samdac_device::device_add_mconfig(machine_config &config)
 {
-	SPEAKER(config, "lspeaker").front_left();
-	SPEAKER(config, "rspeaker").front_right();
+	SPEAKER(config, "speaker", 2).front();
 
-	DAC_8BIT_R2R(config, m_dac[0], 0).add_route(ALL_OUTPUTS, "lspeaker", 0.5);
-	DAC_8BIT_R2R(config, m_dac[1], 0).add_route(ALL_OUTPUTS, "rspeaker", 0.5);
+	DAC_8BIT_R2R(config, m_dac[0], 0).add_route(ALL_OUTPUTS, "speaker", 0.5, 0);
+	DAC_8BIT_R2R(config, m_dac[1], 0).add_route(ALL_OUTPUTS, "speaker", 0.5, 1);
 }
 
 
@@ -64,7 +63,7 @@ void centronics_samdac_device::device_start()
 //  IMPLEMENTATION
 //**************************************************************************
 
-WRITE_LINE_MEMBER( centronics_samdac_device::input_strobe )
+void centronics_samdac_device::input_strobe(int state)
 {
 	// raising edge, write to left channel
 	if (m_strobe == 0 && state == 1)

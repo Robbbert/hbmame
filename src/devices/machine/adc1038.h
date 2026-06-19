@@ -29,21 +29,21 @@ class adc1038_device : public device_t
 public:
 	typedef device_delegate<int (int input)> input_delegate;
 
-	adc1038_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	adc1038_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	template <typename... T> void set_input_callback(T &&... args) { m_input_cb.set(std::forward<T>(args)...); }
 
 	void set_gti_club_hack(bool hack) { m_gticlub_hack = hack; }
 
-	DECLARE_READ_LINE_MEMBER( do_read );
-	DECLARE_READ_LINE_MEMBER( sars_read );
-	DECLARE_WRITE_LINE_MEMBER( di_write );
-	DECLARE_WRITE_LINE_MEMBER( clk_write );
+	int do_read();
+	int sars_read();
+	void di_write(int state);
+	void clk_write(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	// internal state

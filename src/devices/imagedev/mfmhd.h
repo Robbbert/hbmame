@@ -11,8 +11,8 @@
 
 *****************************************************************************/
 
-#ifndef MAME_DEVICES_IMAGEDEV_MFMHD_H
-#define MAME_DEVICES_IMAGEDEV_MFMHD_H
+#ifndef MAME_IMAGEDEV_MFMHD_H
+#define MAME_IMAGEDEV_MFMHD_H
 
 #pragma once
 
@@ -20,7 +20,9 @@
 
 #include "formats/mfm_hd.h"
 
+#include <string>
 #include <system_error>
+#include <utility>
 
 
 class mfm_harddisk_device;
@@ -99,7 +101,7 @@ public:
 	// Head select
 	void            headsel_w(int head) { m_current_head = head & 0x0f; }
 
-	image_init_result            call_load() override;
+	std::pair<std::error_condition, std::string> call_load() override;
 	void            call_unload() override;
 
 	// Tells us the time when the track ends (next index pulse). Needed by the controller.
@@ -230,10 +232,7 @@ public:
 		const char *dflt, mfmhd_enc_t enc, int spinup, int cache, const mfmhd_format_type format, bool fixed = false)
 		: mfm_harddisk_connector(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(fixed);
+		set_options(std::forward<T>(opts), dflt, fixed);
 		configure(enc, spinup, cache, format);
 	}
 
@@ -255,16 +254,16 @@ public:
 	void configure(mfmhd_enc_t encoding, int spinupms, int cache, mfmhd_format_type format);
 
 protected:
-	void device_start() override;
+	void device_start() override ATTR_COLD;
 	void device_config_complete() override;
 
 private:
 	mfmhd_enc_t m_encoding;
 	int m_spinupms;
 	int m_cachesize;
-	mfmhd_image_format_t* m_format;
+	mfmhd_image_format_t *m_format;
 };
 
 DECLARE_DEVICE_TYPE(MFM_HD_CONNECTOR, mfm_harddisk_connector)
 
-#endif // MAME_DEVICES_IMAGEDEV_MFMHD_H
+#endif // MAME_IMAGEDEV_MFMHD_H

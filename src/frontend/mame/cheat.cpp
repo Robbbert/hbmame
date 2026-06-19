@@ -683,7 +683,7 @@ void cheat_script::script_entry::output_argument::save(util::core_file &cheatfil
 
 cheat_entry::cheat_entry(cheat_manager &manager, symbol_table &globaltable, std::string const &filename, util::xml::data_node const &cheatnode)
 	: m_manager(manager)
-	, m_symbols(manager.machine(), &globaltable)
+	, m_symbols(manager.machine(), symbol_table::BUILTIN_GLOBALS, &globaltable)
 	, m_state(SCRIPT_STATE_OFF)
 	, m_numtemp(DEFAULT_TEMP_VARIABLES)
 	, m_argindex(0)
@@ -1065,7 +1065,7 @@ cheat_manager::cheat_manager(running_machine &machine)
 	, m_numlines(0)
 	, m_lastline(0)
 	, m_disabled(true)
-	, m_symtable(machine)
+	, m_symtable(machine, symbol_table::BUILTIN_GLOBALS)
 {
 	// if the cheat engine is disabled, we're done
 	if (!machine.options().cheat())
@@ -1098,7 +1098,7 @@ cheat_manager::cheat_manager(running_machine &machine)
 //  cheat engine
 //-------------------------------------------------
 
-void cheat_manager::set_enable(bool enable)
+void cheat_manager::set_enable(bool enable, bool show)
 {
 	// if the cheat engine is disabled, we're done
 	if (!machine().options().cheat())
@@ -1114,7 +1114,8 @@ void cheat_manager::set_enable(bool enable)
 			if (cheat->state() == SCRIPT_STATE_RUN)
 				cheat->execute_off_script();
 		}
-		machine().popmessage("Cheats Disabled");
+		if (show)
+			machine().popmessage("Cheats Disabled");
 		m_disabled = true;
 	}
 	else if (m_disabled && enable)
@@ -1128,7 +1129,8 @@ void cheat_manager::set_enable(bool enable)
 			if (cheat->state() == SCRIPT_STATE_RUN)
 				cheat->execute_on_script();
 		}
-		machine().popmessage("Cheats Enabled");
+		if (show)
+			machine().popmessage("Cheats Enabled");
 	}
 }
 
@@ -1236,21 +1238,25 @@ bool cheat_manager::save_all(std::string const &filename)
 //  render text
 //-------------------------------------------------
 
-void cheat_manager::render_text(mame_ui_manager &mui, render_container &container)
+void cheat_manager::render_text(mame_ui_manager &mui, render_target &target)
 {
 	// render any text and free it along the way
-	for (int linenum = 0; linenum < m_output.size(); linenum++)
+	if (!m_output.empty())
 	{
-		if (!m_output[linenum].empty())
+		float const lineheight = mui.get_line_height(target);
+		for (int linenum = 0; linenum < m_output.size(); linenum++)
 		{
-			// output the text
-			mui.draw_text_full(
-					container,
-					m_output[linenum],
-					0.0f, float(linenum) * mui.get_line_height(), 1.0f,
-					m_justify[linenum], ui::text_layout::word_wrapping::NEVER,
-					mame_ui_manager::OPAQUE_, rgb_t::white(), rgb_t::black(),
-					nullptr, nullptr);
+			if (!m_output[linenum].empty())
+			{
+				// output the text
+				mui.draw_text_full(
+						target,
+						m_output[linenum],
+						0.0f, float(linenum) * lineheight, 1.0f,
+						m_justify[linenum], ui::text_layout::word_wrapping::NEVER,
+						mame_ui_manager::OPAQUE_, rgb_t::white(), rgb_t::black(),
+						nullptr, nullptr);
+			}
 		}
 	}
 }
@@ -1304,6 +1310,11 @@ std::string cheat_manager::quote_expression(const parsed_expression &expression)
 	strreplace(str, "& ", " band ");
 	strreplace(str, "&", " band ");
 
+	strreplace(str, " << ", " lshift ");
+	strreplace(str, " <<", " lshift ");
+	strreplace(str, "<< ", " lshift ");
+	strreplace(str, "<<", " lshift ");
+
 	strreplace(str, " <= ", " le ");
 	strreplace(str, " <=", " le ");
 	strreplace(str, "<= ", " le ");
@@ -1313,11 +1324,6 @@ std::string cheat_manager::quote_expression(const parsed_expression &expression)
 	strreplace(str, " <", " lt ");
 	strreplace(str, "< ", " lt ");
 	strreplace(str, "<", " lt ");
-
-	strreplace(str, " << ", " lshift ");
-	strreplace(str, " <<", " lshift ");
-	strreplace(str, "<< ", " lshift ");
-	strreplace(str, "<<", " lshift ");
 
 	return str;
 }
@@ -1369,9 +1375,10 @@ uint64_t cheat_manager::execute_tobcd(int params, const uint64_t *param)
 
 void cheat_manager::frame_update()
 {
+	// FIXME: this assumes the overlay will always be on the default UI target
 	// set up for accumulating output
 	m_lastline = 0;
-	m_numlines = floor(1.0f / mame_machine_manager::instance()->ui().get_line_height());
+	m_numlines = floor(1.0f / mame_machine_manager::instance()->ui().get_line_height(machine().render().ui_target()));
 	m_numlines = std::min<uint8_t>(m_numlines, m_output.size());
 	for (auto & elem : m_output)
 		elem.clear();
@@ -1407,7 +1414,7 @@ void cheat_manager::load_cheats(std::string const &filename)
 			osd_printf_verbose("Loading cheats file from %s\n", cheatfile.fullpath());
 
 			// read the XML file into internal data structures
-			util::xml::parse_options options = { nullptr };
+			util::xml::parse_options options;
 			util::xml::parse_error error;
 			options.error = &error;
 			util::xml::file::ptr const rootnode(util::xml::file::read(cheatfile, &options));

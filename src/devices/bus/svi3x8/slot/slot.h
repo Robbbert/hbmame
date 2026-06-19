@@ -39,6 +39,9 @@
 
 #pragma once
 
+#include <functional>
+#include <vector>
+
 
 
 //**************************************************************************
@@ -53,7 +56,7 @@ class svi_slot_bus_device : public device_t
 {
 public:
 	// construction/destruction
-	svi_slot_bus_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	svi_slot_bus_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 	virtual ~svi_slot_bus_device();
 
 	// callbacks
@@ -64,9 +67,9 @@ public:
 	void add_card(device_svi_slot_interface &card);
 
 	// from slot
-	DECLARE_WRITE_LINE_MEMBER( int_w ) { m_int_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( romdis_w ) { m_romdis_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( ramdis_w ) { m_ramdis_handler(state); }
+	void int_w(int state) { m_int_handler(state); }
+	void romdis_w(int state) { m_romdis_handler(state); }
+	void ramdis_w(int state) { m_ramdis_handler(state); }
 
 	// from host
 	uint8_t mreq_r(offs_t offset);
@@ -74,23 +77,25 @@ public:
 	uint8_t iorq_r(offs_t offset);
 	void iorq_w(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( bk21_w );
-	DECLARE_WRITE_LINE_MEMBER( bk22_w );
-	DECLARE_WRITE_LINE_MEMBER( bk31_w );
-	DECLARE_WRITE_LINE_MEMBER( bk32_w );
+	void bk21_w(int state);
+	void bk22_w(int state);
+	void bk31_w(int state);
+	void bk32_w(int state);
 
 private:
-	// device-level overrides
-	virtual void device_start() override;
+	using card_vector = std::vector<std::reference_wrapper<device_svi_slot_interface> >;
 
-	simple_list<device_svi_slot_interface> m_dev;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+
+	card_vector m_dev;
 
 	devcb_write_line m_int_handler;
 	devcb_write_line m_romdis_handler;
 	devcb_write_line m_ramdis_handler;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(SVI_SLOT_BUS, svi_slot_bus_device)
 
 // ======================> svi_slot_device
@@ -100,13 +105,10 @@ class svi_slot_device : public device_t, public device_single_card_slot_interfac
 public:
 	// construction/destruction
 	template <typename T, typename U>
-	svi_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&bus, U &&opts, char const *dflt)
-		: svi_slot_device(mconfig, tag, owner, 0)
+	svi_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock, T &&bus, U &&opts, char const *dflt)
+		: svi_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<U>(opts), dflt, false);
 		set_bus(std::forward<T>(bus));
 	}
 
@@ -115,46 +117,40 @@ public:
 	template <typename T> void set_bus(T &&tag) { m_bus.set_tag(std::forward<T>(tag)); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	// configuration
 	required_device<svi_slot_bus_device> m_bus;
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(SVI_SLOT, svi_slot_device)
 
 // ======================> svi_slot_device
 
 class device_svi_slot_interface : public device_interface
 {
-	template <class ElementType> friend class simple_list;
 public:
 	// construction/destruction
 	virtual ~device_svi_slot_interface();
 
 	void set_bus_device(svi_slot_bus_device &bus);
 
-	device_svi_slot_interface *next() const { return m_next; }
-
 	virtual uint8_t mreq_r(offs_t offset) { return 0xff; }
 	virtual void mreq_w(offs_t offset, uint8_t data) { }
 	virtual uint8_t iorq_r(offs_t offset) { return 0xff; }
 	virtual void iorq_w(offs_t offset, uint8_t data) { }
 
-	virtual DECLARE_WRITE_LINE_MEMBER( bk21_w ) { }
-	virtual DECLARE_WRITE_LINE_MEMBER( bk22_w ) { }
-	virtual DECLARE_WRITE_LINE_MEMBER( bk31_w ) { }
-	virtual DECLARE_WRITE_LINE_MEMBER( bk32_w ) { }
+	virtual void bk21_w(int state) { }
+	virtual void bk22_w(int state) { }
+	virtual void bk31_w(int state) { }
+	virtual void bk32_w(int state) { }
 
 protected:
 	device_svi_slot_interface(const machine_config &mconfig, device_t &device);
 
 	svi_slot_bus_device *m_bus;
-
-private:
-	device_svi_slot_interface *m_next;
 };
 
 // include here so drivers don't need to

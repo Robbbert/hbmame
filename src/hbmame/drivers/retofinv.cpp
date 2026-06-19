@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/retofinv.cpp"
+#include "../mame/taito/retofinv.cpp"
 
 ROM_START( retofinv4 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -17,16 +17,16 @@ ROM_START( retofinv4 )
 	ROM_REGION( 0x0800, "68705:mcu", 0 )
 	ROM_LOAD( "a37-09_bootleg.37", 0x00000, 0x0800, CRC(79bd6ded) SHA1(4967e95b4461c1bfb4e933d1804677799014f77b) )
 
-	ROM_REGION( 0x02000, "gfx1", 0 )
+	ROM_REGION( 0x02000, "fgtiles", 0 )
 	ROM_LOAD( "4_a37-16.61", 0x0000, 0x2000, CRC(e0de0cc4) SHA1(a9a19ed25de26306a328cc158843f43ade6eede1) )
 
-	ROM_REGION( 0x08000, "gfx2", 0 )
+	ROM_REGION( 0x08000, "sprites", 0 )
 	ROM_LOAD( "4_a37-10.8",  0x0000, 0x2000, CRC(c691fdbe) SHA1(b2f4c41cb0d059c9aa8045fc3e8e684bcc96b309) )
 	ROM_LOAD( "4_a37-11.9",  0x2000, 0x2000, CRC(0ff8cf5b) SHA1(46a67a8d7d59cdbf1a4ce9e8b9361a5766880e96) )
 	ROM_LOAD( "4_a37-12.10", 0x4000, 0x2000, CRC(90fd7496) SHA1(db2a98f4b07996d178c99a2653e1df1be4619644) )
 	ROM_LOAD( "4_a37-13.11", 0x6000, 0x2000, CRC(a2526b5e) SHA1(a31999c86aff8977cbec4bd24056a097aaa738c7) )
 
-	ROM_REGION( 0x04000, "gfx3", 0 )
+	ROM_REGION( 0x04000, "bgtiles", 0 )
 	ROM_LOAD( "4_a37-14.55", 0x0000, 0x2000, CRC(f233c421) SHA1(77da9750f88d032143968104e0b400ed1a07adca) )
 	ROM_LOAD( "4_a37-15.56", 0x2000, 0x2000, CRC(58c3f1c9) SHA1(5e0c46a5cd6adfcccba5cf33271a51a23ff9752a) )
 
@@ -39,5 +39,5 @@ ROM_START( retofinv4 )
 	ROM_LOAD( "82s191n",   0x0000, 0x0800, CRC(93c891e3) SHA1(643a0107717b6a434432dda73a0102e6e8adbca7) )
 ROM_END
 
-GAME( 2011, retofinv4, retofinv, retofinvb1, retofinv, retofinv_state, empty_init, ROT90, "Paul Smith", "Return of the Invaders (hack)", 0 )
+GAME( 2011, retofinv4, retofinv, retofinvb1, retofinv, retofinv_mcu_state, empty_init, ROT90, "Paul Smith", "Return of the Invaders (hack)", 0 )
 

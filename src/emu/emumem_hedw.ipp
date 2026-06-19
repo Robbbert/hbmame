@@ -25,6 +25,7 @@ template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<Hi
 	m_a_dispatch = m_dispatch_array[0].data();
 	m_u_ranges = m_ranges_array[0].data();
 	m_u_dispatch = m_dispatch_array[0].data();
+	m_global_range = init;
 
 	if (!handler)
 		handler = space->get_unmap_w<Width, AddrShift>();
@@ -35,7 +36,7 @@ template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<Hi
 	}
 }
 
-template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<HighBits, Width, AddrShift>::handler_entry_write_dispatch(address_space *space, memory_view &view) : handler_entry_write<Width, AddrShift>(space, handler_entry::F_VIEW), m_view(&view), m_a_dispatch(nullptr), m_a_ranges(nullptr), m_u_dispatch(nullptr), m_u_ranges(nullptr)
+template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<HighBits, Width, AddrShift>::handler_entry_write_dispatch(address_space *space, memory_view &view, offs_t addrstart, offs_t addrend) : handler_entry_write<Width, AddrShift>(space, handler_entry::F_VIEW), m_view(&view), m_a_dispatch(nullptr), m_a_ranges(nullptr), m_u_dispatch(nullptr), m_u_ranges(nullptr)
 {
 	m_ranges_array.resize(1);
 	m_dispatch_array.resize(1);
@@ -43,11 +44,16 @@ template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<Hi
 	m_a_dispatch = m_dispatch_array[0].data();
 	m_u_ranges = m_ranges_array[0].data();
 	m_u_dispatch = m_dispatch_array[0].data();
+	m_global_range.start = addrstart;
+	m_global_range.end = addrend;
 
 	auto handler = space->get_unmap_w<Width, AddrShift>();
 	handler->ref(COUNT);
-	for(unsigned int i=0; i != COUNT; i++)
+	for(unsigned int i=0; i != COUNT; i++) {
 		m_u_dispatch[i] = handler;
+		m_u_ranges[i].start = addrstart;
+		m_u_ranges[i].end = addrend;
+	}
 }
 
 template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<HighBits, Width, AddrShift>::handler_entry_write_dispatch(handler_entry_write_dispatch<HighBits, Width, AddrShift> *src) : handler_entry_write<Width, AddrShift>(src->m_space, handler_entry::F_DISPATCH), m_view(nullptr)
@@ -58,9 +64,20 @@ template<int HighBits, int Width, int AddrShift> handler_entry_write_dispatch<Hi
 	m_a_dispatch = m_dispatch_array[0].data();
 	m_u_ranges = m_ranges_array[0].data();
 	m_u_dispatch = m_dispatch_array[0].data();
+	m_global_range = src->m_global_range;
 
+	std::map<handler_entry_write<Width, AddrShift> *, handler_entry_write<Width, AddrShift> *> dupmap;
 	for(unsigned int i=0; i != COUNT; i++) {
-		m_u_dispatch[i] = src->m_u_dispatch[i]->dup();
+		handler_entry_write<Width, AddrShift> *msrc = src->m_u_dispatch[i];
+		auto m = dupmap.find(msrc);
+		if(m != dupmap.end()) {
+			m->second->ref();
+			m_u_dispatch[i] = m->second;
+		} else {
+			handler_entry_write<Width, AddrShift> *dest = msrc->dup();
+			dupmap[src] = dest;
+			m_u_dispatch[i] = dest;
+		}
 		m_u_ranges[i] = src->m_u_ranges[i];
 	}
 }
@@ -92,37 +109,63 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 {
 	if(m_view) {
 		for(u32 i = 0; i != m_dispatch_array.size(); i++) {
-			u32 j = map.size();
-			offs_t cur = map.empty() ? m_view->m_addrstart & HIGHMASK : map.back().end + 1;
-			offs_t end = m_view->m_addrend + 1;
+			u32 map_start_index = map.size();
+			offs_t j = 0;
+			offs_t k = j + 1;
+			handler_entry *handle = m_dispatch_array[i][j];
 			do {
-				offs_t entry = (cur >> LowBits) & BITMASK;
-				if(m_dispatch_array[i][entry]->is_dispatch() || m_dispatch_array[i][entry]->is_view())
-					m_dispatch_array[i][entry]->dump_map(map);
-				else
-					map.emplace_back(memory_entry{ m_ranges_array[i][entry].start, m_ranges_array[i][entry].end, m_dispatch_array[i][entry] });
-				cur = map.back().end + 1;
-			} while(cur != end);
+				while((handle == m_dispatch_array[i][k]) && (k < BITMASK)) {
+					k++;
+				}
+
+				k--;
+
+				if(m_dispatch_array[i][j]->is_dispatch() || m_dispatch_array[i][j]->is_view()) {
+					m_dispatch_array[i][j]->dump_map(map);
+				} else {
+					if(!handler_entry::is_handler_in_map(map, m_ranges_array[i][j].start, m_ranges_array[i][j].end, m_dispatch_array[i][j])) {
+						map.emplace_back(memory_entry{ m_ranges_array[i][j].start, m_ranges_array[i][k].end, m_dispatch_array[i][j]});
+					}
+				}
+
+				j = k + 1;
+				k = j + 1;
+				handle = m_dispatch_array[i][j];
+			} while (j < BITMASK);
+
 			if(i == 0) {
-				for(u32 k = j; k != map.size(); k++)
+				for(u32 k = map_start_index; k != map.size(); k++)
 					map[k].context.emplace(map[k].context.begin(), memory_entry_context{ m_view, true, 0 });
 			} else {
 				int slot = m_view->id_to_slot(int(i)-1);
-				for(u32 k = j; k != map.size(); k++)
+				for(u32 k = map_start_index; k != map.size(); k++)
 					map[k].context.emplace(map[k].context.begin(), memory_entry_context{ m_view, false, slot });
 			}
 		}
 	} else {
-		offs_t cur = map.empty() ? 0 : map.back().end + 1;
-		offs_t base = cur & UPMASK;
+		offs_t j = 0;
+		offs_t k = j + 1;
+		handler_entry *the_handler;
 		do {
-			offs_t entry = (cur >> LowBits) & BITMASK;
-			if(m_a_dispatch[entry]->is_dispatch() || m_a_dispatch[entry]->is_view())
-				m_a_dispatch[entry]->dump_map(map);
-			else
-				map.emplace_back(memory_entry{ m_a_ranges[entry].start, m_a_ranges[entry].end, m_a_dispatch[entry] });
-			cur = map.back().end + 1;
-		} while(cur && !((cur ^ base) & UPMASK));
+			the_handler = m_a_dispatch[j];
+			while((the_handler == m_a_dispatch[k]) && (k < COUNT)) {
+				k++;
+			}
+
+			k--;
+
+			for(unsigned int z = j; z <= k; z++) {
+				if(!handler_entry::is_handler_in_map(map, m_a_ranges[z].start, m_a_ranges[z].end, m_a_dispatch[z])) {
+					if(m_a_dispatch[z]->is_dispatch() || m_a_dispatch[z]->is_view()) {
+						m_a_dispatch[z]->dump_map(map);
+					}
+					else
+						map.emplace_back(memory_entry{m_a_ranges[z].start,m_a_ranges[z].end,m_a_dispatch[z]});
+				}
+			}
+			j = k + 1;
+			k = j + 1;
+		} while(j < COUNT);
 	}
 }
 
@@ -131,9 +174,19 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 	dispatch_write<Level, Width, AddrShift>(HIGHMASK, offset, data, mem_mask, m_a_dispatch);
 }
 
+template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispatch<HighBits, Width, AddrShift>::write_interruptible(offs_t offset, uX data, uX mem_mask) const
+{
+	dispatch_write_interruptible<Level, Width, AddrShift>(HIGHMASK, offset, data, mem_mask, m_a_dispatch);
+}
+
 template<int HighBits, int Width, int AddrShift> u16 handler_entry_write_dispatch<HighBits, Width, AddrShift>::write_flags(offs_t offset, uX data, uX mem_mask) const
 {
 	return dispatch_write_flags<Level, Width, AddrShift>(HIGHMASK, offset, data, mem_mask, m_a_dispatch);
+}
+
+template<int HighBits, int Width, int AddrShift> u16 handler_entry_write_dispatch<HighBits, Width, AddrShift>::lookup_flags(offs_t offset, uX mem_mask) const
+{
+	return dispatch_lookup_write_flags<Level, Width, AddrShift>(HIGHMASK, offset, mem_mask, m_a_dispatch);
 }
 
 template<int HighBits, int Width, int AddrShift> void *handler_entry_write_dispatch<HighBits, Width, AddrShift>::get_ptr(offs_t offset) const
@@ -195,6 +248,8 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 		cur->unref();
 		m_u_dispatch[entry] = subdispatch;
 		subdispatch->populate_nomirror(start, end, ostart, oend, handler);
+		range_cut_before((entry << LowBits) - 1, entry);
+		range_cut_after((entry + 1) << LowBits, entry);
 	}
 }
 
@@ -270,6 +325,8 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 		cur->unref();
 		m_u_dispatch[entry] = subdispatch;
 		subdispatch->populate_mirror(start, end, ostart, oend, mirror, handler);
+		range_cut_before((entry << LowBits) - 1, entry);
+		range_cut_after((entry + 1) << LowBits, entry);
 	}
 }
 
@@ -437,20 +494,63 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 
 template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispatch<HighBits, Width, AddrShift>::passthrough_patch(handler_entry_write_passthrough<Width, AddrShift> *handler, std::vector<mapping> &mappings, handler_entry_write<Width, AddrShift> *&target)
 {
-	handler_entry_write<Width, AddrShift> *original = target;
-	handler_entry_write<Width, AddrShift> *replacement = nullptr;
+	// Look in cache first
 	for(const auto &p : mappings)
-		if(p.original == original) {
-			replacement = p.patched;
-			break;
+		if(p.original == target) {
+			p.patched->ref();
+			target->unref();
+			target = p.patched;
+			return;
 		}
-	if(!replacement) {
-		replacement = handler->instantiate(original);
+
+	handler_entry_write<Width, AddrShift> *original = target;
+	u32 target_priority = original->f_get_pt();
+	u32 new_priority = handler->f_get_pt();
+
+	// 3 cases: new one on top, new one on bottom, or new one replaces old one
+
+	if(!target_priority || new_priority > target_priority || (new_priority == target_priority && !(new_priority & 1))) {
+		// New one goes over the old one
+		//   previous one is not passthrough (target_priority = 0)
+		//   new one has higher priority
+		//   both have the same priority, and the priority is even which means keep both
+
+		// We instantiate the new one with the old one under it and put it in place and in the cache
+
+		handler_entry_write<Width, AddrShift> *replacement = handler->instantiate(original);
 		mappings.emplace_back(mapping{ original, replacement });
-	} else
-		replacement->ref();
-	target->unref();
-	target = replacement;
+		target->unref();
+		target = replacement;
+
+	} else if(new_priority == target_priority) {
+		// New one replaces the old one
+		//   both have the same priority, and the priority is odd which means keep only the new one
+
+		// We instantiate the new one with the old one's subtarget and put it in place and in the cache
+
+		handler_entry_write<Width, AddrShift> *replacement = handler->instantiate(static_cast<handler_entry_write_passthrough<Width, AddrShift> *>(original)->get_subhandler());
+		mappings.emplace_back(mapping{ original, replacement });
+		target->unref();
+		target = replacement;
+
+	} else {
+		// New one goes under the old one
+		//   both are passthrough and new one has lower priority
+		//
+		// This can be recursive, so do the passthrough patch on the subhandler, then instantiate the old one with the result
+
+		handler_entry_write<Width, AddrShift> *recursive = static_cast<handler_entry_write_passthrough<Width, AddrShift> *>(original)->get_subhandler();
+		recursive->ref();
+
+		passthrough_patch(handler, mappings, recursive);
+
+		handler_entry_write<Width, AddrShift> *replacement = static_cast<handler_entry_write_passthrough<Width, AddrShift> *>(original)->instantiate(recursive);
+		mappings.emplace_back(mapping{ original, replacement });
+		target->unref();
+		target = replacement;
+		recursive->unref();
+	}
+
 }
 
 template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispatch<HighBits, Width, AddrShift>::populate_passthrough_nomirror_subdispatch(offs_t entry, offs_t start, offs_t end, offs_t ostart, offs_t oend, handler_entry_write_passthrough<Width, AddrShift> *handler, std::vector<mapping> &mappings)
@@ -598,57 +698,29 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 		u32 dt = lowbits - LowBits;
 		u32 ne = 1 << dt;
 		u32 ee = end_entry - start_entry;
-		if(m_view) {
-			auto filter = [s = m_view->m_addrstart, e = m_view->m_addrend] (handler_entry::range r) { r.intersect(s, e); return r; };
-
-			for(offs_t entry = 0; entry <= ee; entry++) {
-				dispatch[entry]->ref(ne);
-				u32 e0 = (entry << dt) & BITMASK;
-				for(offs_t e = 0; e != ne; e++) {
-					offs_t e1 = e0 | e;
-					if(!(m_u_dispatch[e1]->flags() & handler_entry::F_UNMAP))
-						fatalerror("Collision on multiple init_handlers calls");
-					m_u_dispatch[e1]->unref();
-					m_u_dispatch[e1] = dispatch[entry];
-					m_u_ranges[e1] = filter(ranges[entry]);
-				}
-			}
-		} else {
-			for(offs_t entry = 0; entry <= ee; entry++) {
-				dispatch[entry]->ref(ne);
-				u32 e0 = (entry << dt) & BITMASK;
-				for(offs_t e = 0; e != ne; e++) {
-					offs_t e1 = e0 | e;
-					if(!(m_u_dispatch[e1]->flags() & handler_entry::F_UNMAP))
-						fatalerror("Collision on multiple init_handlers calls");
-					m_u_dispatch[e1]->unref();
-					m_u_dispatch[e1] = dispatch[entry];
-					m_u_ranges[e1] = ranges[entry];
-				}
+		auto filter = [s = m_global_range.start, e = m_global_range.end] (handler_entry::range r) { r.intersect(s, e); return r; };
+		for(offs_t entry = 0; entry <= ee; entry++) {
+			dispatch[entry]->ref(ne);
+			u32 e0 = (entry << dt) & BITMASK;
+			for(offs_t e = 0; e != ne; e++) {
+				offs_t e1 = e0 | e;
+				if(!(m_u_dispatch[e1]->flags() & handler_entry::F_UNMAP))
+					fatalerror("Collision on multiple init_handlers calls");
+				m_u_dispatch[e1]->unref();
+				m_u_dispatch[e1] = dispatch[entry];
+				m_u_ranges[e1] = filter(ranges[entry]);
 			}
 		}
 
 	} else {
-		if(m_view) {
-			auto filter = [s = m_view->m_addrstart, e = m_view->m_addrend] (handler_entry::range r) { r.intersect(s, e); return r; };
-
-			for(offs_t entry = start_entry & BITMASK; entry <= (end_entry & BITMASK); entry++) {
-				if(!(m_u_dispatch[entry]->flags() & handler_entry::F_UNMAP))
-					fatalerror("Collision on multiple init_handlers calls");
-				m_u_dispatch[entry]->unref();
-				m_u_dispatch[entry] = dispatch[entry];
-				m_u_ranges[entry] = filter(ranges[entry]);
-				dispatch[entry]->ref();
-			}
-		} else {
-			for(offs_t entry = start_entry & BITMASK; entry <= (end_entry & BITMASK); entry++) {
-				if(!(m_u_dispatch[entry]->flags() & handler_entry::F_UNMAP))
-					fatalerror("Collision on multiple init_handlers calls");
-				m_u_dispatch[entry]->unref();
-				m_u_dispatch[entry] = dispatch[entry];
-				m_u_ranges[entry] = ranges[entry];
-				dispatch[entry]->ref();
-			}
+		auto filter = [s = m_global_range.start, e = m_global_range.end] (handler_entry::range r) { r.intersect(s, e); return r; };
+		for(offs_t entry = start_entry & BITMASK; entry <= (end_entry & BITMASK); entry++) {
+			if(!(m_u_dispatch[entry]->flags() & handler_entry::F_UNMAP))
+				fatalerror("Collision on multiple init_handlers calls");
+			m_u_dispatch[entry]->unref();
+			m_u_dispatch[entry] = dispatch[entry];
+			m_u_ranges[entry] = filter(ranges[entry]);
+			dispatch[entry]->ref();
 		}
 	}
 }
@@ -678,9 +750,20 @@ template<int HighBits, int Width, int AddrShift> void handler_entry_write_dispat
 		m_u_ranges = m_ranges_array[i].data();
 		m_u_dispatch = m_dispatch_array[i].data();
 
+		std::map<handler_entry_write<Width, AddrShift> *, handler_entry_write<Width, AddrShift> *> dupmap;
+
 		for(u32 entry = 0; entry != COUNT; entry++)
 			if(m_dispatch_array[0][entry]) {
-				m_u_dispatch[entry] = m_dispatch_array[0][entry]->dup();
+				handler_entry_write<Width, AddrShift> *src = m_dispatch_array[0][entry];
+				auto m = dupmap.find(src);
+				if(m != dupmap.end()) {
+					m->second->ref();
+					m_u_dispatch[entry] = m->second;
+				} else {
+					handler_entry_write<Width, AddrShift> *dest = src->dup();
+					dupmap[src] = dest;
+					m_u_dispatch[entry] = dest;
+				}
 				m_u_ranges[entry] = m_ranges_array[0][entry];
 			}
 

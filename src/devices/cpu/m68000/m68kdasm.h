@@ -8,7 +8,7 @@
  *                                Version 3.32
  *
  * A portable Motorola M680x0 processor emulation engine.
- * Copyright Karl Stenerud.  All rights reserved.
+ * Copyright Karl Stenerud.
  *
  */
 
@@ -27,7 +27,7 @@ public:
 		TYPE_68020 = 8,
 		TYPE_68030 = 16,
 		TYPE_68040 = 32,
-		TYPE_68340 = 64,   // (CPU32)
+		TYPE_CPU32 = 64,
 		TYPE_COLDFIRE = 128,
 	};
 
@@ -42,13 +42,13 @@ protected:
 		M68000_ONLY = (TYPE_68000 | TYPE_68008),
 		M68010_ONLY = TYPE_68010,
 		M68010_LESS = (TYPE_68000 | TYPE_68008 | TYPE_68010),
-		M68010_PLUS = (TYPE_68010 | TYPE_68020 | TYPE_68030 | TYPE_68040 | TYPE_68340 | TYPE_COLDFIRE),
-		M68020_ONLY = (TYPE_68020 | TYPE_68340),
-		M68020_LESS = (TYPE_68010 | TYPE_68020 | TYPE_68340),
-		M68020_PLUS = (TYPE_68020 | TYPE_68030 | TYPE_68040 | TYPE_68340 | TYPE_COLDFIRE),
+		M68010_PLUS = (TYPE_68010 | TYPE_68020 | TYPE_68030 | TYPE_68040 | TYPE_CPU32 | TYPE_COLDFIRE),
+		M68020_ONLY = (TYPE_68020 | TYPE_CPU32),
+		M68020_LESS = (TYPE_68010 | TYPE_68020 | TYPE_CPU32),
+		M68020_PLUS = (TYPE_68020 | TYPE_68030 | TYPE_68040 | TYPE_CPU32 | TYPE_COLDFIRE),
 
 		M68030_ONLY = TYPE_68030,
-		M68030_LESS = (TYPE_68010 | TYPE_68020 | TYPE_68030 | TYPE_68340 ),
+		M68030_LESS = (TYPE_68010 | TYPE_68020 | TYPE_68030 | TYPE_CPU32 ),
 		M68030_PLUS = (TYPE_68030 | TYPE_68040),
 		M68040_PLUS = TYPE_68040,
 
@@ -81,7 +81,6 @@ protected:
 	static inline u32 ext_outer_displacement_word(u32 A)    { return (((A)&3) == 2 && ((A)&0x47) < 0x44); }
 	static inline u32 ext_outer_displacement_long(u32 A)    { return (((A)&3) == 3 && ((A)&0x47) < 0x44); }
 
-	static inline s32 sext_7bit_int(u32 value) { return (value & 0x40) ? (value | 0xffffff80) : (value & 0x7f); }
 	static inline s32 make_int_8(u8 value) { return s8(value); }
 	static inline s32 make_int_16(u16 value) { return s16(value); }
 	static inline s32 make_int_32(u32 value) { return s32(value); }
@@ -261,6 +260,7 @@ protected:
 	std::string d68020_extb_32();
 	std::string d68881_ftrap();
 	std::string d68040_fpu();
+	std::string dcoldfire_halt();
 	std::string d68000_jmp();
 	std::string d68000_jsr();
 	std::string d68000_lea();
@@ -322,7 +322,6 @@ protected:
 	std::string d68000_negx_16();
 	std::string d68000_negx_32();
 	std::string d68000_nop();
-	std::string d68000_nophb();
 	std::string d68000_not_8();
 	std::string d68000_not_16();
 	std::string d68000_not_32();
@@ -374,7 +373,6 @@ protected:
 	std::string d68020_rtm();
 	std::string d68000_rtr();
 	std::string d68000_rts();
-	std::string d68000_rtshb();
 	std::string d68000_sbcd_rr();
 	std::string d68000_sbcd_mm();
 	std::string d68000_scc();

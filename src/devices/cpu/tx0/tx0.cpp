@@ -14,7 +14,7 @@
 #include "tx0.h"
 #include "tx0dasm.h"
 
-#define LOG_RIM (1 << 1U)
+#define LOG_RIM (1U << 1)
 //#define VERBOSE (LOG_RIM)
 #include "logmacro.h"
 
@@ -152,18 +152,6 @@ void tx0_device::device_start()
 	m_ioh = 0;
 	m_ios = 0;
 
-	// Resolve callbacks
-	m_cpy_handler.resolve();
-	m_r1l_handler.resolve();
-	m_dis_handler.resolve();
-	m_r3l_handler.resolve();
-	m_prt_handler.resolve();
-	m_rsv_handler.resolve();
-	m_p6h_handler.resolve();
-	m_p7h_handler.resolve();
-	m_sel_handler.resolve();
-	m_io_reset_callback.resolve();
-
 	m_program = &space(AS_PROGRAM);
 
 	save_item(NAME(m_mbr));
@@ -274,7 +262,7 @@ void tx0_64kw_device::execute_run()
 
 		if ((! m_run) && (! m_rim))
 		{
-			debugger_instruction_hook(PC);
+			debugger_wait_hook();
 			m_icount = 0;   /* if processor is stopped, just burn cycles */
 		}
 		else if (m_rim)
@@ -380,7 +368,7 @@ void tx0_8kw_device::execute_run()
 
 		if ((! m_run) && (! m_rim))
 		{
-			debugger_instruction_hook(PC);
+			debugger_wait_hook();
 			m_icount = 0;   /* if processor is stopped, just burn cycles */
 		}
 		else if (m_rim)

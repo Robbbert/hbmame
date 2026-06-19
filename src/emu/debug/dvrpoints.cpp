@@ -11,11 +11,12 @@
 #include "emu.h"
 #include "dvrpoints.h"
 
-#include "debugger.h"
+#include "debugcpu.h"
 #include "points.h"
 
 #include <algorithm>
 #include <iomanip>
+#include <locale>
 
 
 namespace {
@@ -62,7 +63,7 @@ bool cConditionDescending(std::pair<device_t *, debug_registerpoint const *> con
 
 bool cActionAscending(std::pair<device_t *, debug_registerpoint const *> const &a, std::pair<device_t *, debug_registerpoint const *> const &b)
 {
-	return strcmp(a.second->action(), b.second->action()) < 0;
+	return a.second->action() < b.second->action();
 }
 
 bool cActionDescending(std::pair<device_t *, debug_registerpoint const *> const &a, std::pair<device_t *, debug_registerpoint const *> const &b)
@@ -120,7 +121,7 @@ void debug_view_registerpoints::enumerate_sources()
 	{
 		m_source_list.emplace_back(
 				std::make_unique<debug_view_source>(
-					util::string_format("%s '%s'", dasm.device().name(), dasm.device().tag()),
+					util::string_format(std::locale::classic(), "%s '%s'", dasm.device().name(), dasm.device().tag()),
 					&dasm.device()));
 	}
 
@@ -217,6 +218,7 @@ void debug_view_registerpoints::view_update()
 	// Draw
 	debug_view_char     *dest = &m_viewdata[0];
 	util::ovectorstream linebuf;
+	linebuf.imbue(std::locale::classic());
 	linebuf.reserve(std::size(TABLE_BREAKS) - 1);
 
 	// Header

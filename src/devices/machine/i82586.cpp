@@ -31,9 +31,10 @@
 
 #include "emu.h"
 #include "i82586.h"
-#include "hashing.h"
 
-#define LOG_GENERAL (1U << 0)
+#include "hashing.h"
+#include "multibyte.h"
+
 #define LOG_FRAMES  (1U << 1)
 #define LOG_FILTER  (1U << 2)
 #define LOG_CONFIG  (1U << 3)
@@ -120,6 +121,7 @@ i82586_base_device::i82586_base_device(const machine_config &mconfig, device_typ
 	, m_rnr(false)
 	, m_initialised(false)
 	, m_reset(false)
+	, m_irq(false)
 	, m_irq_assert(1)
 	, m_cu_state(CU_IDLE)
 	, m_ru_state(RU_IDLE)
@@ -162,10 +164,7 @@ void i82586_base_device::device_start()
 {
 	m_space = &space(0);
 
-	m_out_irq.resolve_safe();
-
 	m_cu_timer = timer_alloc(FUNC(i82586_base_device::cu_execute), this);
-	m_cu_timer->enable(false);
 
 	save_item(NAME(m_cx));
 	save_item(NAME(m_fr));
@@ -173,6 +172,7 @@ void i82586_base_device::device_start()
 	save_item(NAME(m_rnr));
 	save_item(NAME(m_initialised));
 	save_item(NAME(m_reset));
+	save_item(NAME(m_irq));
 
 	save_item(NAME(m_cu_state));
 	save_item(NAME(m_ru_state));
@@ -189,7 +189,7 @@ void i82586_base_device::device_start()
 
 void i82586_base_device::device_reset()
 {
-	m_cu_timer->enable(false);
+	m_cu_timer->reset();
 
 	m_cx = false;
 	m_fr = false;
@@ -202,6 +202,8 @@ void i82586_base_device::device_reset()
 
 	m_scp_address = SCP_ADDRESS;
 	m_mac_multi = 0;
+
+	set_irq(false);
 }
 
 device_memory_interface::space_config_vector i82586_base_device::memory_space_config() const
@@ -211,7 +213,7 @@ device_memory_interface::space_config_vector i82586_base_device::memory_space_co
 	};
 }
 
-WRITE_LINE_MEMBER(i82586_base_device::ca)
+void i82586_base_device::ca(int state)
 {
 	LOG("channel attention %s (%s)\n", state ? "asserted" : "cleared", machine().describe_context());
 
@@ -225,7 +227,7 @@ WRITE_LINE_MEMBER(i82586_base_device::ca)
 	}
 }
 
-WRITE_LINE_MEMBER(i82586_base_device::reset_w)
+void i82586_base_device::reset_w(int state)
 {
 	LOG("reset %s (%s)\n", state ? "asserted" : "cleared", machine().describe_context());
 
@@ -266,7 +268,8 @@ int i82586_base_device::recv_start(u8 *buf, int length)
 	if (address_filter(buf))
 	{
 		LOG("recv_start receiving frame length %d\n", length);
-		dump_bytes(buf, length);
+		if (VERBOSE & LOG_FRAMES)
+			log_bytes(buf, length);
 
 		return ru_execute(buf, length);
 	}
@@ -327,12 +330,12 @@ void i82586_base_device::process_scb()
 
 	case CUC_RESUME:
 		m_cu_state = CU_ACTIVE;
-		m_cu_timer->enable(true);
+		m_cu_timer->adjust(attotime::zero);
 		break;
 
 	case CUC_SUSPEND:
 		m_cu_state = CU_SUSPENDED;
-		m_cu_timer->enable(false);
+		m_cu_timer->reset();
 		m_cna = true;
 		break;
 
@@ -491,7 +494,7 @@ void i82586_base_device::cu_complete(const u16 status)
 	if (cb_cs & CB_S)
 	{
 		m_cu_state = CU_SUSPENDED;
-		m_cu_timer->enable(false);
+		m_cu_timer->reset();
 		m_cna = true;
 	}
 
@@ -531,7 +534,7 @@ bool i82586_base_device::address_filter(u8 *mac)
 	}
 
 	// individual address
-	if (!memcmp(mac, get_mac(), cfg_address_length()))
+	if (!memcmp(mac, &get_mac()[0], cfg_address_length()))
 	{
 		LOGMASKED(LOG_FILTER, "address_filter accepted: individual address match\n");
 
@@ -557,9 +560,16 @@ void i82586_base_device::set_irq(bool irq)
 	{
 		LOG("irq asserted\n");
 
+		// ensure an edge is generated if interrupt already asserted
+		if (m_irq)
+			m_out_irq(!m_irq_assert);
+
 		m_out_irq(m_irq_assert);
-		m_out_irq(!m_irq_assert);
 	}
+	else if (m_irq)
+		m_out_irq(!m_irq_assert);
+
+	m_irq = irq;
 }
 
 u32 i82586_base_device::compute_crc(u8 *buf, int length, bool crc16)
@@ -593,7 +603,7 @@ int i82586_base_device::fetch_bytes(u8 *buf, u32 src, int length)
 		// fetch aligned words from the source
 		while (offset + 1 < length)
 		{
-			*(u16 *)&buf[offset] = m_space->read_word(src + offset);
+			put_u16le(&buf[offset], m_space->read_word(src + offset));
 			offset += 2;
 		}
 
@@ -610,15 +620,12 @@ int i82586_base_device::fetch_bytes(u8 *buf, u32 src, int length)
 		switch (src & 3)
 		{
 		case 1:
-			buf[offset] = m_space->read_byte(src + offset);
-			offset++;
-
-			*(u16 *)&buf[offset] = m_space->read_word(src + offset);
-			offset += 2;
+			put_u24le(&buf[offset], m_space->read_dword(src + offset, 0xffffff));
+			offset += 3;
 			break;
 
 		case 2:
-			*(u16 *)&buf[offset] = m_space->read_word(src + offset);
+			put_u16le(&buf[offset], m_space->read_word(src + offset));
 			offset += 2;
 			break;
 
@@ -631,7 +638,7 @@ int i82586_base_device::fetch_bytes(u8 *buf, u32 src, int length)
 		// fetch aligned dwords from the source
 		while (offset + 3 < length)
 		{
-			*(u32 *)&buf[offset] = m_space->read_dword(src + offset);
+			put_u32le(&buf[offset], m_space->read_dword(src + offset));
 			offset += 4;
 		}
 
@@ -644,15 +651,13 @@ int i82586_base_device::fetch_bytes(u8 *buf, u32 src, int length)
 			break;
 
 		case 2:
-			*(u16 *)&buf[offset] = m_space->read_word(src + offset);
+			put_u16le(&buf[offset], m_space->read_word(src + offset));
 			offset += 2;
 			break;
 
 		case 3:
-			*(u16 *)&buf[offset] = m_space->read_word(src + offset);
-			offset += 2;
-			buf[offset] = m_space->read_byte(src + offset);
-			offset++;
+			put_u24le(&buf[offset], m_space->read_dword(src + offset, 0xffffff));
+			offset += 3;
 			break;
 		}
 		break;
@@ -678,7 +683,7 @@ int i82586_base_device::store_bytes(u32 dst, u8 *buf, int length)
 		// store aligned words to the destination
 		while (offset + 1 < length)
 		{
-			m_space->write_word(dst + offset, *(u16 *)&buf[offset]);
+			m_space->write_word(dst + offset, get_u16le(&buf[offset]));
 			offset += 2;
 		}
 
@@ -695,14 +700,12 @@ int i82586_base_device::store_bytes(u32 dst, u8 *buf, int length)
 		switch (dst & 3)
 		{
 		case 1:
-			m_space->write_byte(dst + offset, buf[offset]);
-			offset++;
-			m_space->write_word(dst + offset, *(u16 *)&buf[offset]);
-			offset += 2;
+			m_space->write_dword(dst + offset, get_u24le(&buf[offset]), 0xffffff);
+			offset += 3;
 			break;
 
 		case 2:
-			m_space->write_word(dst + offset, *(u16 *)&buf[offset]);
+			m_space->write_word(dst + offset, get_u16le(&buf[offset]));
 			offset += 2;
 			break;
 
@@ -715,7 +718,7 @@ int i82586_base_device::store_bytes(u32 dst, u8 *buf, int length)
 		// store aligned dwords to the destination
 		while (offset + 3 < length)
 		{
-			m_space->write_dword(dst + offset, *(u32 *)&buf[offset]);
+			m_space->write_dword(dst + offset, get_u32le(&buf[offset]));
 			offset += 4;
 		}
 
@@ -728,37 +731,19 @@ int i82586_base_device::store_bytes(u32 dst, u8 *buf, int length)
 			break;
 
 		case 2:
-			m_space->write_word(dst + offset, *(u16 *)&buf[offset]);
+			m_space->write_word(dst + offset, get_u16le(&buf[offset]));
 			offset += 2;
 			break;
 
 		case 3:
-			m_space->write_word(dst + offset, *(u16 *)&buf[offset]);
-			offset += 2;
-			m_space->write_byte(dst + offset, buf[offset]);
-			offset++;
+			m_space->write_dword(dst + offset, get_u24le(&buf[offset]), 0xffffff);
+			offset += 3;
 			break;
 		}
 		break;
 	}
 
 	return offset;
-}
-
-void i82586_base_device::dump_bytes(u8 *buf, int length)
-{
-	if (VERBOSE & LOG_FRAMES)
-	{
-		// pad frame with zeros to 8-byte boundary
-		for (int i = 0; i < 8 - (length % 8); i++)
-			buf[length + i] = 0;
-
-		// dump length / 8 (rounded up) groups of 8 bytes
-		for (int i = 0; i < (length + 7) / 8; i++)
-			LOGMASKED(LOG_FRAMES, "%02x %02x %02x %02x %02x %02x %02x %02x\n",
-				buf[i * 8 + 0], buf[i * 8 + 1], buf[i * 8 + 2], buf[i * 8 + 3],
-				buf[i * 8 + 4], buf[i * 8 + 5], buf[i * 8 + 6], buf[i * 8 + 7]);
-	}
 }
 
 // 82586 implementation
@@ -812,7 +797,7 @@ void i82586_device::initialise()
 bool i82586_device::cu_iasetup()
 {
 	int len = cfg_address_length();
-	char mac[6];
+	u8 mac[6];
 	u32 data;
 
 	if (len != 6)
@@ -823,14 +808,10 @@ bool i82586_device::cu_iasetup()
 	}
 
 	data = m_space->read_dword(m_cba + 4);
-	mac[0] = (data >> 16) & 0xff;
-	mac[1] = (data >> 24) & 0xff;
+	put_u16le(&mac[0], data >> 16);
 
 	data = m_space->read_dword(m_cba + 8);
-	mac[2] = (data >> 0) & 0xff;
-	mac[3] = (data >> 8) & 0xff;
-	mac[4] = (data >> 16) & 0xff;
-	mac[5] = (data >> 24) & 0xff;
+	put_u32le(&mac[2], data);
 
 	LOG("cu_iasetup individual address %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 	set_mac(mac);
@@ -945,19 +926,17 @@ bool i82586_device::cu_transmit(u32 command)
 	// optionally insert source, destination address and length (14 bytes)
 	if (!cfg_no_src_add_ins())
 	{
-		const char *mac = get_mac();
+		const std::array<u8, 6> &mac = get_mac();
 		u32 data;
 
 		// insert destination address (6 bytes)
 		data = m_space->read_dword(m_cba + 8);
-		buf[length++] = (data >> 0) & 0xff;
-		buf[length++] = (data >> 8) & 0xff;
-		buf[length++] = (data >> 16) & 0xff;
-		buf[length++] = (data >> 24) & 0xff;
+		put_u32le(&buf[length], data);
+		length += 4;
 
 		data = m_space->read_dword(m_cba + 12);
-		buf[length++] = (data >> 0) & 0xff;
-		buf[length++] = (data >> 8) & 0xff;
+		put_u16le(&buf[length], data & 0xffff);
+		length += 2;
 
 		// insert source address (6 bytes)
 		LOG("cu_transmit inserting source address %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
@@ -966,8 +945,8 @@ bool i82586_device::cu_transmit(u32 command)
 
 		// insert length (2 bytes)
 		LOG("cu_transmit frame length 0x%04x\n", ((data >> 24) & 0xff) | ((data >> 16) & 0xff00));
-		buf[length++] = (data >> 16) & 0xff;
-		buf[length++] = (data >> 24) & 0xff;
+		put_u16le(&buf[length], data >> 16);
+		length += 2;
 	}
 
 	// check if there is no tbd
@@ -998,10 +977,8 @@ bool i82586_device::cu_transmit(u32 command)
 		u32 crc = compute_crc(buf, length, cfg_crc16());
 
 		// insert the fcs
-		buf[length++] = (crc >> 0) & 0xff;
-		buf[length++] = (crc >> 8) & 0xff;
-		buf[length++] = (crc >> 16) & 0xff;
-		buf[length++] = (crc >> 24) & 0xff;
+		put_u32le(&buf[length], crc);
+		length += 4;
 	}
 
 	if (cfg_loopback_mode())
@@ -1019,7 +996,8 @@ bool i82586_device::cu_transmit(u32 command)
 	else
 	{
 		LOG("cu_transmit sending frame length %d\n", length);
-		dump_bytes(buf, length);
+		if (VERBOSE & LOG_FRAMES)
+			log_bytes(buf, length);
 
 		return send(buf, length, 4) == length;
 	}
@@ -1053,10 +1031,10 @@ bool i82586_device::cu_dump()
 	memcpy(&buf[0x00], &m_cfg_bytes[0], CFG_SIZE);
 
 	// individual address
-	memcpy(&buf[0x0c], get_mac(), 6);
+	memcpy(&buf[0x0c], &get_mac()[0], 6);
 
 	// hash register
-	*(u64 *)&buf[0x24] = m_mac_multi;
+	put_u64le(&buf[0x24], m_mac_multi);
 
 	// store dump buffer
 	dump_address = m_scb_base + m_space->read_word(m_cba + 6);
@@ -1099,7 +1077,7 @@ u16 i82586_device::ru_execute(u8 *buf, int length)
 	if (~compute_crc(buf, length, cfg_crc16()) != FCS_RESIDUE)
 	{
 		LOGMASKED(LOG_FRAMES, "ru_execute crc error computed 0x%08x stored 0x%08x\n",
-			compute_crc(buf, length - 4, cfg_crc16()), *(u32 *)&buf[length - 4]);
+			compute_crc(buf, length - 4, cfg_crc16()), get_u32le(&buf[length - 4]));
 
 		// increment crc error count
 		m_space->write_word(m_scb_address + 8, m_space->read_word(m_scb_address + 8) + 1);
@@ -1147,25 +1125,27 @@ u16 i82586_device::ru_execute(u8 *buf, int length)
 		m_space->write_word(m_scb_base + m_rbd_offset + 0, actual | RB_F | (remaining ? 0 : RB_EOF));
 
 		// check if buffers exhausted
-		if ((rbd_size & RB_EL))
+		if (rbd_size & RB_EL)
 		{
 			m_rbd_offset = RBD_EMPTY;
 
-			if (remaining)
-			{
-				// set buffers exhausted status
-				status |= RFD_S_BUFFER;
-
-				m_ru_state = RU_NR;
-				m_rnr = true;
-			}
+			m_ru_state = RU_NR;
+			m_rnr = true;
 		}
 		else
 			// fetch next rbd offset
 			m_rbd_offset = m_space->read_word(m_scb_base + m_rbd_offset + 2);
 	}
 
-	if (remaining == 0 || cfg_save_bad_frames())
+	if (remaining)
+	{
+		// set buffer exhausted status
+		status |= RFD_S_BUFFER;
+
+		// increment resource error count
+		m_space->write_word(m_scb_address + 12, m_space->read_word(m_scb_address + 12) + 1);
+	}
+	else
 		// set frame received status
 		status |= RFD_C;
 
@@ -1336,7 +1316,7 @@ bool i82596_device::cu_iasetup()
 {
 	int len = cfg_address_length();
 	u32 data;
-	char mac[6];
+	u8 mac[6];
 
 	if (len != 6)
 	{
@@ -1350,26 +1330,18 @@ bool i82596_device::cu_iasetup()
 	case MODE_82586:
 	case MODE_32SEGMENTED:
 		data = m_space->read_dword(m_cba + 4);
-		mac[0] = (data >> 16) & 0xff;
-		mac[1] = (data >> 24) & 0xff;
+		put_u16le(&mac[0], data >> 16);
 
 		data = m_space->read_dword(m_cba + 8);
-		mac[2] = (data >> 0) & 0xff;
-		mac[3] = (data >> 8) & 0xff;
-		mac[4] = (data >> 16) & 0xff;
-		mac[5] = (data >> 24) & 0xff;
+		put_u32le(&mac[2], data);
 		break;
 
 	case MODE_LINEAR:
 		data = m_space->read_dword(m_cba + 8);
-		mac[0] = (data >> 0) & 0xff;
-		mac[1] = (data >> 8) & 0xff;
-		mac[2] = (data >> 16) & 0xff;
-		mac[3] = (data >> 24) & 0xff;
+		put_u32le(&mac[0], data);
 
 		data = m_space->read_dword(m_cba + 12);
-		mac[4] = (data >> 0) & 0xff;
-		mac[5] = (data >> 8) & 0xff;
+		put_u16le(&mac[4], data & 0xffff);
 		break;
 	}
 
@@ -1591,19 +1563,17 @@ bool i82596_device::cu_transmit(u32 command)
 		// optionally insert destination, source and length (14 bytes)
 		if (!cfg_no_src_add_ins())
 		{
-			const char *mac = get_mac();
+			const std::array<u8, 6> &mac = get_mac();
 			u32 data;
 
 			// insert destination address (6 bytes)
 			data = m_space->read_dword(m_cba + 12 + offset);
-			buf[length++] = (data >> 0) & 0xff;
-			buf[length++] = (data >> 8) & 0xff;
-			buf[length++] = (data >> 16) & 0xff;
-			buf[length++] = (data >> 24) & 0xff;
+			put_u32le(&buf[length], data);
+			length += 4;
 
 			data = m_space->read_dword(m_cba + 16 + offset);
-			buf[length++] = (data >> 0) & 0xff;
-			buf[length++] = (data >> 8) & 0xff;
+			put_u16le(&buf[length], data & 0xffff);
+			length += 2;
 
 			// insert source address (6 bytes)
 			LOG("cu_transmit inserting source address %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
@@ -1612,8 +1582,8 @@ bool i82596_device::cu_transmit(u32 command)
 
 			// insert length from tcb (2 bytes)
 			LOG("cu_transmit frame length 0x%04x\n", ((data >> 24) & 0xff) | ((data >> 16) & 0xff00));
-			buf[length++] = (data >> 16) & 0xff;
-			buf[length++] = (data >> 24) & 0xff;
+			put_u16le(&buf[length], data >> 16);
+			length += 2;
 
 			// insert payload from tcb
 			LOG("cu_transmit inserting %d bytes from transmit command block\n", (tcb_count & TB_COUNT) - 8);
@@ -1670,10 +1640,8 @@ bool i82596_device::cu_transmit(u32 command)
 		u32 crc = compute_crc(buf, length, cfg_crc16());
 
 		// append the fcs
-		buf[length++] = (crc >> 0) & 0xff;
-		buf[length++] = (crc >> 8) & 0xff;
-		buf[length++] = (crc >> 16) & 0xff;
-		buf[length++] = (crc >> 24) & 0xff;
+		put_u32le(&buf[length], crc);
+		length += 4;
 	}
 
 	if (cfg_loopback_mode())
@@ -1691,7 +1659,8 @@ bool i82596_device::cu_transmit(u32 command)
 	else
 	{
 		LOG("cu_transmit sending frame length %d\n", length);
-		dump_bytes(buf, length);
+		if (VERBOSE & LOG_FRAMES)
+			log_bytes(buf, length);
 
 		return send(buf, length) == length;
 	}
@@ -1730,10 +1699,10 @@ bool i82596_device::cu_dump()
 		memcpy(&buf[0x02], &m_cfg_bytes[2], 9);
 
 		// individual address
-		memcpy(&buf[0x0c], get_mac(), 6);
+		memcpy(&buf[0x0c], &get_mac()[0], 6);
 
 		// hash register
-		*(u64 *)&buf[0x24] = m_mac_multi;
+		put_u64le(&buf[0x24], m_mac_multi);
 	}
 	else
 	{
@@ -1741,10 +1710,10 @@ bool i82596_device::cu_dump()
 		memcpy(&buf[0x00], &m_cfg_bytes[2], 12);
 
 		// individual address
-		memcpy(&buf[0x0e], get_mac(), 6);
+		memcpy(&buf[0x0e], &get_mac()[0], 6);
 
 		// hash register
-		*(u64 *)&buf[0x26] = m_mac_multi;
+		put_u64le(&buf[0x26], m_mac_multi);
 	}
 
 	// store dump buffer
@@ -1823,7 +1792,7 @@ u16 i82596_device::ru_execute(u8 *buf, int length)
 	if (~compute_crc(buf, length, cfg_crc16()) != FCS_RESIDUE)
 	{
 		LOGMASKED(LOG_FRAMES, "ru_execute crc error computed 0x%08x stored 0x%08x\n",
-			compute_crc(buf, length - 4, cfg_crc16()), *(u32 *)&buf[length - 4]);
+			compute_crc(buf, length - 4, cfg_crc16()), get_u32le(&buf[length - 4]));
 
 		// increment crc error count
 		if (mode() == MODE_82586)
@@ -1838,7 +1807,7 @@ u16 i82596_device::ru_execute(u8 *buf, int length)
 	// TODO: increment alignment error counter
 
 	// set multicast status
-	if (mode() != MODE_82586 && memcmp(buf, get_mac(), cfg_address_length()))
+	if (mode() != MODE_82586 && memcmp(buf, &get_mac()[0], cfg_address_length()))
 		status |= RFD_S_MULTICAST;
 
 	// fetch initial rbd address from rfd

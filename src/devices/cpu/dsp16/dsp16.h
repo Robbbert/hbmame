@@ -17,10 +17,11 @@
 #include <memory>
 #include <utility>
 
+
 class dsp16_device_base : public cpu_device, protected dsp16_disassembler::cpu
 {
 public:
-	DECLARE_WRITE_LINE_MEMBER(exm_w);
+	void exm_w(int state);
 
 	// interrupt output callbacks
 	auto iack_cb() { return m_iack_cb.bind(); }
@@ -44,24 +45,24 @@ public:
 	auto pods_cb() { return m_pods_cb.bind(); }
 
 	// interrupt outputs
-	DECLARE_READ_LINE_MEMBER(iack_r) { return m_iack_out; }
+	int iack_r() { return m_iack_out; }
 
 	// serial outputs
-	DECLARE_READ_LINE_MEMBER(ick_r) { return sio_ick_active() ? m_sio_clk : 1; }
-	DECLARE_READ_LINE_MEMBER(ild_r) { return sio_ild_active() ? m_sio_ld : 1; }
-	DECLARE_READ_LINE_MEMBER(do_r) { return m_do_out; }
-	DECLARE_READ_LINE_MEMBER(ock_r) { return sio_ock_active() ? m_sio_clk : 1; }
-	DECLARE_READ_LINE_MEMBER(old_r) { return sio_old_active() ? m_sio_ld : 1; }
-	DECLARE_READ_LINE_MEMBER(ose_r) { return m_ose_out; }
+	int ick_r() { return sio_ick_active() ? m_sio_clk : 1; }
+	int ild_r() { return sio_ild_active() ? m_sio_ld : 1; }
+	int do_r() { return m_do_out; }
+	int ock_r() { return sio_ock_active() ? m_sio_clk : 1; }
+	int old_r() { return sio_old_active() ? m_sio_ld : 1; }
+	int ose_r() { return m_ose_out; }
 
 	// high-level passive parallel I/O handlers
 	u16 pio_r();
 	void pio_w(u16 data);
 
 	// parallel I/O outputs
-	DECLARE_READ_LINE_MEMBER(psel_r) { return m_psel_out; }
-	DECLARE_READ_LINE_MEMBER(pids_r) { return m_pids_out; }
-	DECLARE_READ_LINE_MEMBER(pods_r) { return m_pods_out; }
+	int psel_r() { return m_psel_out; }
+	int pids_r() { return m_pids_out; }
+	int pods_r() { return m_pods_out; }
 
 protected:
 	// construction/destruction
@@ -75,15 +76,13 @@ protected:
 			address_map_constructor &&data_map);
 
 	// device_t implementation
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
-	virtual void device_stop() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_stop() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_execute_interface implementation
 	virtual u64 execute_clocks_to_cycles(u64 clocks) const noexcept override { return (clocks + 2 - 1) >> 1; }
 	virtual u64 execute_cycles_to_clocks(u64 cycles) const noexcept override { return cycles << 1; }
-	virtual u32 execute_input_lines() const noexcept override { return 5U; }
 	virtual void execute_run() override;
 	virtual void execute_set_input(int inputnum, int state) override;
 
@@ -175,13 +174,15 @@ private:
 
 	// recompiler helpers
 	class core_state;
+	class opcode_desc;
 	class frontend;
 	class recompiler;
-	using core_state_ptr = std::unique_ptr<core_state, void (*)(core_state *)>;
+	struct core_destructer { void operator()(core_state *obj) const noexcept; };
+	using core_state_ptr = std::unique_ptr<core_state, core_destructer>;
 	using recompiler_ptr = std::unique_ptr<recompiler>;
 
 	// internal address maps
-	void program_map(address_map &map);
+	void program_map(address_map &map) ATTR_COLD;
 
 	// instruction execution
 	template <bool Debugger, bool Caching> void execute_some_rom();
@@ -349,7 +350,7 @@ protected:
 	virtual void external_memory_enable(address_space &space, bool enable) override;
 
 	// internal address maps
-	void data_map(address_map &map);
+	void data_map(address_map &map) ATTR_COLD;
 
 private:
 	required_region_ptr<u16>    m_rom;
@@ -367,7 +368,7 @@ protected:
 	virtual void external_memory_enable(address_space &space, bool enable) override;
 
 	// internal address maps
-	void data_map(address_map &map);
+	void data_map(address_map &map) ATTR_COLD;
 
 private:
 	required_region_ptr<u16>    m_rom;

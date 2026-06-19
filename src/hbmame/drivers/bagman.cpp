@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/bagman.cpp"
+#include "../mame/valadon/bagman.cpp"
 
 ROM_START( bagturbo )
 	ROM_REGION( 0x10000, "maincpu", 0 )

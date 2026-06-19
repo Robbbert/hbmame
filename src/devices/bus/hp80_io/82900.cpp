@@ -85,7 +85,7 @@ ROM_START(hp82900)
 	ROM_LOAD("82900-60002.bin" , 0 , 0x800 , CRC(48745bbb) SHA1(fb4427f729eedba5ac01809718b841c7bdd85e1f))
 ROM_END
 
-WRITE_LINE_MEMBER(hp82900_io_card_device::reset_w)
+void hp82900_io_card_device::reset_w(int state)
 {
 	LOG("reset_w %d\n" , state);
 	m_cpu->set_input_line(INPUT_LINE_RESET , state);
@@ -163,7 +163,7 @@ void hp82900_io_card_device::device_add_mconfig(machine_config &config)
 	m_cpu->set_addrmap(AS_IO , &hp82900_io_card_device::cpu_io_map);
 	m_cpu->refresh_cb().set(FUNC(hp82900_io_card_device::z80_m1_w));
 
-	HP_1MB5(config, m_translator, 0);
+	HP_1MB5(config, m_translator);
 	m_translator->irl_handler().set(FUNC(hp82900_io_card_device::irl_w));
 	m_translator->halt_handler().set(FUNC(hp82900_io_card_device::halt_w));
 	m_translator->reset_handler().set(FUNC(hp82900_io_card_device::reset_w));

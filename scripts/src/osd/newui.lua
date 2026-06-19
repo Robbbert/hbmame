@@ -16,9 +16,9 @@ premake.make.linkoptions_after = false;
 function maintargetosdoptions(_target,_subtarget)
 	osdmodulestargetconf()
 
-	configuration { "mingw*" }
-		links {
-			"mingw32",
+	configuration { "mingw*-gcc" }
+		linkoptions {
+			"-municode",
 		}
 
 	configuration { }
@@ -60,7 +60,7 @@ function maintargetosdoptions(_target,_subtarget)
 		rcfile,
 	}
 	dependency {
-		{ "$(OBJDIR)/".._subtarget..".res" ,  GEN_DIR  .. "/resource/".._subtarget.."vers.rc", true  },
+		{ "$(OBJDIR)/".._subtarget..".res" ,  GEN_DIR  .. "resource/".._subtarget.."vers.rc", true  },
 	}
 end
 
@@ -99,7 +99,7 @@ project ("osd_" .. _OPTIONS["osd"])
 	uuid (os.uuid("osd_" .. _OPTIONS["osd"]))
 	kind "StaticLib"
 
-	dofile("winui_cfg.lua")
+	dofile("windows_cfg.lua")
 	osdmodulesbuild()
 
 	defines {
@@ -151,6 +151,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/osdepend.h",
 		MAME_DIR .. "src/osd/winui/newui.cpp",
 		MAME_DIR .. "src/osd/windows/winmain.cpp",
+		MAME_DIR .. "src/osd/windows/winopts.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.cpp",
 		MAME_DIR .. "src/osd/modules/debugger/win/consolewininfo.h",
 		MAME_DIR .. "src/osd/modules/debugger/win/debugbaseinfo.cpp",

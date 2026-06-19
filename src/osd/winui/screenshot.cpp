@@ -112,7 +112,7 @@ static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETT
 	mfile.length(bytes);
 	unsigned char* content = (unsigned char*)::malloc(bytes * sizeof(unsigned char));
 	size_t length;
-	mfile.read(content,bytes,length);
+	mfile.read_some(content,bytes,length);
 	if (length == 0)
 		return false;
 

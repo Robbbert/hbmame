@@ -9,10 +9,8 @@
 *******************************************************************************/
 
 #include "emu.h"
-#include "machine/s3c2400.h"
+#include "s3c2400.h"
 
-#include "cpu/arm7/arm7.h"
-#include "cpu/arm7/arm7core.h"
 #include "screen.h"
 
 
@@ -166,14 +164,14 @@ s3c2400_device::s3c2400_device(const machine_config &mconfig, const char *tag, d
 	, m_cpu(*this, ":maincpu")
 	, m_palette(*this, finder_base::DUMMY_TAG)
 	, m_screen(*this, finder_base::DUMMY_TAG)
-	, m_pin_r_cb(*this)
+	, m_pin_r_cb(*this, 0)
 	, m_pin_w_cb(*this)
-	, m_port_r_cb(*this)
+	, m_port_r_cb(*this, 0)
 	, m_port_w_cb(*this)
 	, m_scl_w_cb(*this)
-	, m_sda_r_cb(*this)
+	, m_sda_r_cb(*this, 1)
 	, m_sda_w_cb(*this)
-	, m_data_r_cb(*this)
+	, m_data_r_cb(*this, 0)
 	, m_data_w_cb(*this)
 	, m_flags(0)
 {
@@ -182,7 +180,7 @@ s3c2400_device::s3c2400_device(const machine_config &mconfig, const char *tag, d
 	memset(&m_irq, 0, sizeof(m_irq));
 	memset(m_dma, 0, sizeof(m_dma));
 	memset(&m_clkpow, 0, sizeof(m_clkpow));
-	memset(&m_lcd, 0, sizeof(m_lcd));
+	m_lcd.clear();
 	memset(&m_lcdpal, 0, sizeof(m_lcdpal));
 	memset(m_uart, 0, sizeof(m_uart));
 	memset(&m_pwm, 0, sizeof(m_pwm));

@@ -50,10 +50,7 @@ public:
 	comx_expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock, T &&opts, const char *dflt)
 		: comx_expansion_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	comx_expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -66,19 +63,19 @@ public:
 	uint8_t io_r(offs_t offset);
 	void io_w(offs_t offset, uint8_t data);
 
-	DECLARE_READ_LINE_MEMBER(ef4_r);
+	int ef4_r();
 
-	DECLARE_WRITE_LINE_MEMBER(ds_w);
-	DECLARE_WRITE_LINE_MEMBER(q_w);
+	void ds_w(int state);
+	void q_w(int state);
 
-	DECLARE_WRITE_LINE_MEMBER(irq_w) { m_write_irq(state); }
+	void irq_w(int state) { m_write_irq(state); }
 
 	void sc_w(offs_t offset, uint8_t data);
-	DECLARE_WRITE_LINE_MEMBER(tpb_w);
+	void tpb_w(int state);
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	devcb_write_line   m_write_irq;
 

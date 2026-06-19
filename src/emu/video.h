@@ -60,6 +60,7 @@ public:
 	void set_throttle_rate(float throttle_rate) { m_throttle_rate = throttle_rate; }
 	void set_fastforward(bool ffwd) { m_fastforward = ffwd; }
 	void set_output_changed() { m_output_changed = true; }
+	void set_speed_factor(int speed) { m_speed = speed; }
 
 	// misc
 	void toggle_record_movie(movie_recording::format format);
@@ -90,7 +91,7 @@ public:
 private:
 	// internal helpers
 	void exit();
-	void screenless_update_callback(int param);
+	void screenless_update_callback(s32 param);
 	void postload();
 
 	// effective value helpers

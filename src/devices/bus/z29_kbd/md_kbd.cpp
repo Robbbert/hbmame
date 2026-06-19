@@ -42,11 +42,6 @@ md_keyboard_device::md_keyboard_device(const machine_config &mconfig, const char
 {
 }
 
-void md_keyboard_device::device_resolve_objects()
-{
-	m_leds.resolve();
-}
-
 void md_keyboard_device::device_start()
 {
 	save_item(NAME(m_14515b_select));
@@ -89,7 +84,7 @@ void md_keyboard_device::mcu_p1_w(u8 data)
 	m_ls175_clock = BIT(data, 6);
 }
 
-READ_LINE_MEMBER(md_keyboard_device::mcu_t1_r)
+int md_keyboard_device::mcu_t1_r()
 {
 	return m_recv_data;
 }

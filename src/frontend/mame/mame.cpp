@@ -74,6 +74,7 @@ mame_machine_manager::mame_machine_manager(emu_options &options,osd_interface &o
 
 mame_machine_manager::~mame_machine_manager()
 {
+	m_autoboot_script.reset();
 	m_lua.reset();
 	s_manager = nullptr;
 }
@@ -142,10 +143,7 @@ void mame_machine_manager::start_luaengine()
 		std::string pluginpath;
 		while (iter.next(pluginpath))
 		{
-			// user may specify environment variables; subsitute them
-			pluginpath = osd_subst_env(pluginpath);
-
-			// and then scan the directory recursively
+			// scan the directory recursively
 			m_plugins->scan_directory(pluginpath, true);
 		}
 
@@ -171,7 +169,7 @@ void mame_machine_manager::start_luaengine()
 		{
 			plugin_options::plugin *p = m_plugins->find(incl);
 			if (!p)
-				osd_printf_warning("Could not load plugin: %s\n", incl); // MESSUI - removed fatalerror
+				osd_printf_error("Fatal error: Could not load plugin: %s\n", incl);
 			else
 				p->m_start = true;
 		}
@@ -181,7 +179,7 @@ void mame_machine_manager::start_luaengine()
 		{
 			plugin_options::plugin *p = m_plugins->find(excl);
 			if (!p)
-				osd_printf_warning("Unknown plugin: %s\n", excl); // MESSUI - removed fatalerror
+				osd_printf_error("Fatal error: Unknown plugin: %s\n", excl);
 			else
 				p->m_start = false;
 		}
@@ -192,7 +190,7 @@ void mame_machine_manager::start_luaengine()
 	{
 		plugin_options::plugin *p = m_plugins->find(OPTION_CONSOLE);
 		if (!p)
-			osd_printf_warning("Fatal error: Console plugin not found.\n"); // MESSUI - removed fatalerror
+			osd_printf_error("Fatal error: Console plugin not found.\n");
 		else
 			p->m_start = true;
 	}
@@ -204,28 +202,28 @@ void mame_machine_manager::start_luaengine()
 		std::error_condition const filerr = file.open("boot.lua");
 		if (!filerr)
 		{
-			const std::string exppath = osd_subst_env(file.fullpath());
+			const std::string exppath = file.fullpath();
 			auto &l(*lua());
 			auto load_result = l.load_script(exppath);
 			if (!load_result.valid())
 			{
-				sol::error err = load_result;
-				sol::load_status status = load_result.status();
-				fatalerror("Error plugin bootstrap script %s: %s error\n%s\n",
-						exppath,
-						sol::to_string(status),
-						err.what());
+//				sol::error err = load_result;
+//				sol::load_status status = load_result.status();
+//				fatalerror("Error plugin bootstrap script %s: %s error\n%s\n",
+//						exppath,
+//						sol::to_string(status),
+//						err.what());
 			}
 			sol::protected_function func = load_result;
 			sol::protected_function_result call_result = l.invoke(func);
 			if (!call_result.valid())
 			{
-				sol::error err = call_result;
-				sol::call_status status = call_result.status();
-				fatalerror("Error running plugin bootstrap script %s: %s error\n%s\n",
-						options().autoboot_script(),
-						sol::to_string(status),
-						err.what());
+//				sol::error err = call_result;
+//				sol::call_status status = call_result.status();
+//				fatalerror("Error running plugin bootstrap script %s: %s error\n%s\n",
+//						options().autoboot_script(),
+//						sol::to_string(status),
+//						err.what());
 			}
 		}
 	}
@@ -268,7 +266,7 @@ int mame_machine_manager::execute()
 			m_options.revert(OPTION_PRIORITY_INI);
 
 			std::ostringstream errors;
-			mame_options::parse_standard_inis(m_options, errors);
+			mame_options::parse_standard_inis(m_options, errors, system);
 		}
 
 		// otherwise, perform validity checks before anything else
@@ -302,7 +300,10 @@ int mame_machine_manager::execute()
 		else
 		{
 			if (machine.exit_pending())
+			{
 				m_options.set_system_name("");
+				m_options.set_value(OPTION_BIOS, "", OPTION_PRIORITY_CMDLINE);
+			}
 		}
 
 		if (machine.exit_pending() && (!started_empty || is_empty))
@@ -324,12 +325,12 @@ TIMER_CALLBACK_MEMBER(mame_machine_manager::autoboot_callback)
 		sol::protected_function_result result = lua()->invoke(func);
 		if (!result.valid())
 		{
-			sol::error err = result;
-			sol::call_status status = result.status();
-			fatalerror("Error running autoboot script %s: %s error\n%s\n",
-					options().autoboot_script(),
-					sol::to_string(status),
-					err.what());
+//			sol::error err = result;
+//			sol::call_status status = result.status();
+//			fatalerror("Error running autoboot script %s: %s error\n%s\n",
+//					options().autoboot_script(),
+//					sol::to_string(status),
+//					err.what());
 		}
 	}
 	else if (*options().autoboot_command())
@@ -338,7 +339,7 @@ TIMER_CALLBACK_MEMBER(mame_machine_manager::autoboot_callback)
 		strreplace(cmd, "'", "\\'");
 		std::string val = std::string("emu.keypost('").append(cmd).append("')");
 		auto &l(*lua());
-		l.invoke(l.load_string(val));
+		l.invoke(l.load_string(val).get<sol::protected_function>());
 	}
 }
 
@@ -354,8 +355,6 @@ ui_manager* mame_machine_manager::create_ui(running_machine& machine)
 	m_ui->init();
 
 	machine.add_notifier(MACHINE_NOTIFY_RESET, machine_notify_delegate(&mame_machine_manager::reset, this));
-
-	m_ui->set_startup_text("Initializing...", true);
 
 	return m_ui.get();
 }
@@ -391,12 +390,12 @@ void mame_machine_manager::create_custom(running_machine &machine)
 		auto result = lua()->load_script(options().autoboot_script());
 		if (!result.valid())
 		{
-			sol::error err = result;
-			sol::load_status status = result.status();
-			fatalerror("Error loading autoboot script %s: %s error\n%s\n",
-					options().autoboot_script(),
-					sol::to_string(status),
-					err.what());
+//			sol::error err = result;
+//			sol::load_status status = result.status();
+//			fatalerror("Error loading autoboot script %s: %s error\n%s\n",
+//					options().autoboot_script(),
+//					sol::to_string(status),
+//					err.what());
 		}
 		m_autoboot_script.reset(new sol::load_result(std::move(result)));
 		sol::protected_function func = *m_autoboot_script;
@@ -444,11 +443,11 @@ void emulator_info::display_ui_chooser(running_machine& machine)
 {
 	// force the UI to show the game select screen
 	mame_ui_manager &mui = mame_machine_manager::instance()->ui();
-	render_container &container = machine.render().ui_container();
+	render_target &target = machine.render().ui_target();
 	if (machine.options().ui() == emu_options::UI_SIMPLE)
-		ui::simple_menu_select_game::force_game_select(mui, container);
+		ui::simple_menu_select_game::force_game_select(mui, target);
 	else
-		ui::menu_select_game::force_game_select(mui, container);
+		ui::menu_select_game::force_game_select(mui, target);
 }
 
 int emulator_info::start_frontend(emu_options &options, osd_interface &osd, std::vector<std::string> &args)
@@ -463,9 +462,9 @@ int emulator_info::start_frontend(emu_options &options, osd_interface &osd, int 
 	return start_frontend(options, osd, args);
 }
 
-void emulator_info::draw_user_interface(running_machine& machine)
+bool emulator_info::draw_user_interface(running_machine& machine)
 {
-	mame_machine_manager::instance()->ui().update_and_render(machine.render().ui_container());
+	return mame_machine_manager::instance()->ui().update_and_render(machine.render().ui_target());
 }
 
 void emulator_info::periodic_check()
@@ -478,9 +477,9 @@ bool emulator_info::frame_hook()
 	return mame_machine_manager::instance()->lua()->frame_hook();
 }
 
-void emulator_info::sound_hook()
+void emulator_info::sound_hook(const std::map<std::string, std::vector<std::pair<const float *, int>>> &sound)
 {
-	return mame_machine_manager::instance()->lua()->on_sound_update();
+	return mame_machine_manager::instance()->lua()->on_sound_update(sound);
 }
 
 void emulator_info::layout_script_cb(layout_file &file, const char *script)

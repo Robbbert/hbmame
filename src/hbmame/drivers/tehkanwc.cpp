@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/tehkanwc.cpp"
+#include "../mame/tecmo/tehkanwc.cpp"
 
 ROM_START( ballonwc )
 	ROM_REGION( 0x10000, "maincpu", 0 )

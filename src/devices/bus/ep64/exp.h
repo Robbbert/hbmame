@@ -68,10 +68,7 @@ public:
 	ep64_expansion_bus_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, char const *dflt)
 		: ep64_expansion_bus_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		ep64_expansion_bus_cards(*this);
 		set_default_option(dflt);
-		set_fixed(false);
 	}
 	ep64_expansion_bus_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
@@ -81,16 +78,16 @@ public:
 	auto nmi_wr() { return m_write_nmi.bind(); }
 	auto wait_wr() { return m_write_wait.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER( irq_w ) { m_write_irq(state); }
-	DECLARE_WRITE_LINE_MEMBER( nmi_w ) { m_write_nmi(state); }
-	DECLARE_WRITE_LINE_MEMBER( wait_w ) { m_write_wait(state); }
+	void irq_w(int state) { m_write_irq(state); }
+	void nmi_w(int state) { m_write_nmi(state); }
+	void wait_w(int state) { m_write_wait(state); }
 
 	address_space &program() { return *m_program_space; }
 	address_space &io() { return *m_io_space; }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	devcb_write_line m_write_irq;
@@ -116,7 +113,7 @@ protected:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(EP64_EXPANSION_BUS_SLOT, ep64_expansion_bus_slot_device)
 
 #endif // MAME_BUS_EP64_EXP_H

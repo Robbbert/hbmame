@@ -287,7 +287,7 @@ void schaser_state::apply_effect(uint8_t effect, bool remain)
 			if (!m_555_is_low)
 			{
 				if (remain)
-					m_555_time_remain = m_555_timer->time_left();
+					m_555_time_remain = m_555_timer->remaining();
 				else
 					m_555_time_remain = attotime::zero;
 

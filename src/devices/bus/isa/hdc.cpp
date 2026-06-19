@@ -117,7 +117,7 @@ const char *const s_hdc_command_names[] =
 
 ROM_START( hdc )
 	ROM_REGION(0x02000,"hdc", 0)
-	// Bios taken from WD1002A-WX1
+	// BIOS taken from WD1002A-WX1
 	ROM_LOAD("wdbios.rom",  0x00000, 0x02000, CRC(8e9e2bd4) SHA1(601d7ceab282394ebab50763c267e915a6a2166a)) /* WDC IDE Superbios 2.0 (06/28/89) Expansion Rom C8000-C9FFF  */
 ROM_END
 
@@ -145,7 +145,7 @@ static INPUT_PORTS_START( isa_hdc )
 INPUT_PORTS_END
 
 DEFINE_DEVICE_TYPE(XT_HDC,     xt_hdc_device, "xt_hdc", "Generic PC-XT Fixed Disk Controller")
-DEFINE_DEVICE_TYPE(EC1841_HDC, ec1841_device, "ec1481", "EX1841 Fixed Disk Controller")
+DEFINE_DEVICE_TYPE(EC1841_HDC, ec1841_device, "ec1841_hdc", "EC1841 Fixed Disk Controller")
 DEFINE_DEVICE_TYPE(ST11M_HDC,  st11m_device,  "st11m",  "Seagate ST11M Fixed Disk Controller")
 
 xt_hdc_device::xt_hdc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
@@ -194,17 +194,15 @@ st11m_device::st11m_device(const machine_config &mconfig, const char *tag, devic
 
 void xt_hdc_device::device_start()
 {
-	m_buffer = std::make_unique<uint8_t[]>(256*512);   // maximum possible transfer
+	m_buffer = std::make_unique<uint8_t[]>(256 * 512); // maximum possible transfer
 	m_timer = timer_alloc(FUNC(xt_hdc_device::process_command), this);
-	m_irq_handler.resolve_safe();
-	m_drq_handler.resolve_safe();
 }
 
 void xt_hdc_device::device_reset()
 {
 	m_drv = 0;
 	m_data_cnt = 0;
-	m_buffer_ptr = nullptr;
+	m_buffer_ptr = &m_buffer[0];
 	m_hdc_control = 0;
 	for (int i = 0; i < 2; i++)
 	{
@@ -223,11 +221,11 @@ void xt_hdc_device::device_reset()
 	}
 
 	m_csb = 0;
-	m_status = 0;
+	m_status = STA_COMMAND | STA_READY;
 	m_error = 0;
 }
 
-hard_disk_file *xt_hdc_device::pc_hdc_file(int id)
+harddisk_image_device *xt_hdc_device::pc_hdc_file(int id)
 {
 	harddisk_image_device *img = nullptr;
 	switch (id)
@@ -245,7 +243,7 @@ hard_disk_file *xt_hdc_device::pc_hdc_file(int id)
 	if (!img->exists())
 		return nullptr;
 
-	return img->get_hard_disk_file();
+	return img;
 }
 
 void xt_hdc_device::pc_hdc_result(bool set_error_info)
@@ -291,7 +289,7 @@ bool xt_hdc_device::no_dma()
 
 int xt_hdc_device::get_lbasector()
 {
-	hard_disk_file *file = pc_hdc_file(m_drv);
+	harddisk_image_device *file = pc_hdc_file(m_drv);
 	const auto &info = file->get_info();
 
 	int lbasector = m_cylinder[m_drv];
@@ -312,9 +310,9 @@ int xt_hdc_device::get_lbasector()
  * implementation that threw the idea of "emulating the hardware" to the wind
  */
 
-int xt_hdc_device::dack_r()
+uint8_t xt_hdc_device::dack_r()
 {
-	hard_disk_file *file = pc_hdc_file(m_drv);
+	harddisk_image_device *file = pc_hdc_file(m_drv);
 	if (!file)
 		return 0;
 	const auto &info = file->get_info();
@@ -356,7 +354,7 @@ int xt_hdc_device::dack_r()
 	return result;
 }
 
-int xt_hdc_device::dack_rs()
+uint8_t xt_hdc_device::dack_rs()
 {
 	logerror("%s dack_rs(%d %d)\n", machine().describe_context(), m_hdcdma_read, m_hdcdma_size);
 
@@ -385,9 +383,9 @@ int xt_hdc_device::dack_rs()
 
 
 
-void xt_hdc_device::dack_w(int data)
+void xt_hdc_device::dack_w(uint8_t data)
 {
-	hard_disk_file *file = pc_hdc_file(m_drv);
+	harddisk_image_device *file = pc_hdc_file(m_drv);
 	if (!file)
 		return;
 	const auto &info = file->get_info();
@@ -425,7 +423,7 @@ void xt_hdc_device::dack_w(int data)
 
 
 
-void xt_hdc_device::dack_ws(int data)
+void xt_hdc_device::dack_ws(uint8_t data)
 {
 	*(m_hdcdma_dst++) = data;
 
@@ -455,7 +453,7 @@ void xt_hdc_device::execute_read()
 	if (m_sector_cnt[m_drv] == 0)
 		size = 256 * 512;
 
-	hard_disk_file *disk = pc_hdc_file(m_drv);
+	harddisk_image_device *disk = pc_hdc_file(m_drv);
 	if (!disk)
 		return;
 
@@ -504,7 +502,7 @@ void xt_hdc_device::execute_write()
 	if (m_sector_cnt[m_drv] == 0)
 		size = 256 * 512;
 
-	hard_disk_file *disk = pc_hdc_file(m_drv);
+	harddisk_image_device *disk = pc_hdc_file(m_drv);
 	if (!disk)
 		return;
 
@@ -831,6 +829,7 @@ void xt_hdc_device::select_w(uint8_t data)
 {
 	m_status &= ~STA_INTERRUPT;
 	m_status |= STA_SELECT;
+	m_status |= STA_READY;
 }
 
 
@@ -916,7 +915,7 @@ DEFINE_DEVICE_TYPE(ISA8_HDC_EC1841, isa8_hdc_ec1841_device, "isa_hdc_ec1841", "E
 
 void isa8_hdc_device::device_add_mconfig(machine_config &config)
 {
-	XT_HDC(config, m_hdc,0);
+	XT_HDC(config, m_hdc);
 	m_hdc->irq_handler().set(FUNC(isa8_hdc_device::irq_w));
 	m_hdc->drq_handler().set(FUNC(isa8_hdc_device::drq_w));
 	HARDDISK(config, "hdc:primary", "st_hdd");
@@ -925,7 +924,7 @@ void isa8_hdc_device::device_add_mconfig(machine_config &config)
 
 void isa8_hdc_ec1841_device::device_add_mconfig(machine_config &config)
 {
-	EC1841_HDC(config, m_hdc,0);
+	EC1841_HDC(config, m_hdc);
 	m_hdc->irq_handler().set(FUNC(isa8_hdc_ec1841_device::irq_w));
 	m_hdc->drq_handler().set(FUNC(isa8_hdc_ec1841_device::drq_w));
 	HARDDISK(config, "hdc:primary", "st_hdd");
@@ -1076,7 +1075,7 @@ uint8_t isa8_hdc_device::pc_hdc_dipswitch_r()
 	return m_dip;
 }
 
-WRITE_LINE_MEMBER(isa8_hdc_device::irq_w)
+void isa8_hdc_device::irq_w(int state)
 {
 	if (BIT(m_dip, 6))
 		m_isa->irq5_w(state);
@@ -1084,7 +1083,7 @@ WRITE_LINE_MEMBER(isa8_hdc_device::irq_w)
 		m_isa->irq2_w(state);
 }
 
-WRITE_LINE_MEMBER(isa8_hdc_device::drq_w)
+void isa8_hdc_device::drq_w(int state)
 {
 	m_isa->drq3_w(state);
 }

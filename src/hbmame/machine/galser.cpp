@@ -28,7 +28,7 @@ galser_device::galser_device(const machine_config &mconfig, const char *tag, dev
 	: device_t(mconfig, GALSER, tag, owner, clock)
 	, device_nvram_interface(mconfig, *this)
 	, m_region(*this, DEVICE_SELF)
-	, m_data_size(0x200)
+	, m_data_size(sizeof(m_data))
 	, m_scl(0)
 	, m_sdaw(0)
 	, m_en(0)
@@ -47,8 +47,6 @@ galser_device::galser_device(const machine_config &mconfig, const char *tag, dev
 
 void galser_device::device_start()
 {
-	m_data = std::make_unique<uint8_t []>(m_data_size);
-
 	save_item( NAME(m_scl) );
 	save_item( NAME(m_sdaw) );
 	save_item( NAME(m_sdar) );
@@ -95,8 +93,8 @@ void galser_device::nvram_default()
 
 bool galser_device::nvram_read( util::read_stream &file )
 {
-	size_t actual;
-	return !file.read( &m_data[0], m_data_size, actual ) && actual == m_data_size;
+	auto const [err, actual] = read(file, m_data, m_data_size);
+	return !err && (actual == m_data_size);
 }
 
 //-------------------------------------------------
@@ -106,8 +104,8 @@ bool galser_device::nvram_read( util::read_stream &file )
 
 bool galser_device::nvram_write( util::write_stream &file )
 {
-	size_t actual;
-	return !file.write( &m_data[0], m_data_size, actual ) && actual == m_data_size;
+	auto const [err, actual] = write(file, m_data, m_data_size);
+	return !err;
 }
 
 
@@ -116,7 +114,7 @@ bool galser_device::nvram_write( util::write_stream &file )
 //  READ/WRITE HANDLERS
 //**************************************************************************
 
-WRITE_LINE_MEMBER( galser_device::write_en )
+void galser_device::write_en(int state)
 {
 	m_en = state ? 1 : 0;
 	if (m_en == 0)
@@ -142,14 +140,14 @@ WRITE_LINE_MEMBER( galser_device::write_en )
 	}
 }
 
-WRITE_LINE_MEMBER( galser_device::write_sda )
+void galser_device::write_sda(int state)
 {
 	state &= 1;
 	// no start or stop bits
 	m_sdaw = state;
 }
 
-WRITE_LINE_MEMBER( galser_device::write_scl )
+void galser_device::write_scl(int state)
 {
 	m_scl = state & 1;
 	if (m_scl)
@@ -176,7 +174,7 @@ WRITE_LINE_MEMBER( galser_device::write_scl )
 }
 
 
-READ_LINE_MEMBER( galser_device::read_sda )
+int galser_device::read_sda()
 {
 	int res = m_sdar;
 	m_sdar = BIT(m_data_out, 7);

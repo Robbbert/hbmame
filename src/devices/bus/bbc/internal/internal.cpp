@@ -37,10 +37,10 @@ device_bbc_internal_interface::device_bbc_internal_interface(const machine_confi
 	, m_maincpu(*this, ":maincpu")
 	, m_mb_ram(*this, ":ram")
 	, m_mb_rom(*this, ":romslot%u", 0U)
-	, m_region_swr(*this, ":swr")
+	, m_region_swr(*this, ":rom")
 	, m_region_mos(*this, ":mos")
+	, m_slot(dynamic_cast<bbc_internal_slot_device *>(device.owner()))
 {
-	m_slot = dynamic_cast<bbc_internal_slot_device *>(device.owner());
 }
 
 
@@ -69,10 +69,6 @@ bbc_internal_slot_device::bbc_internal_slot_device(const machine_config &mconfig
 void bbc_internal_slot_device::device_start()
 {
 	m_card = get_card_device();
-
-	// resolve callbacks
-	m_irq_handler.resolve_safe();
-	m_nmi_handler.resolve_safe();
 }
 
 
@@ -146,7 +142,7 @@ void bbc_internal_slot_device::latch_fe60_w(uint8_t data)
 		m_card->latch_fe60_w(data);
 }
 
-WRITE_LINE_MEMBER(bbc_internal_slot_device::irq6502_w)
+void bbc_internal_slot_device::irq6502_w(int state)
 {
 	if (m_card)
 		m_card->irq6502_w(state);

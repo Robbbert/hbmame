@@ -990,7 +990,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.25" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;1">
+		<text string="£1">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1394,7 +1394,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.13" blue="0.13"/>
 		</rect>
-		<text string="&#xA3;5 Repeater">
+		<text string="£5 Repeater">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1414,7 +1414,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.13" blue="0.13"/>
 		</rect>
-		<text string="&#xA3;4 Repeater">
+		<text string="£4 Repeater">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1434,7 +1434,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.13" blue="0.13"/>
 		</rect>
-		<text string="&#xA3;3 Repeater">
+		<text string="£3 Repeater">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1454,7 +1454,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.13" blue="0.13"/>
 		</rect>
-		<text string="&#xA3;2 Repeater">
+		<text string="£2 Repeater">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1474,7 +1474,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.13" blue="0.13"/>
 		</rect>
-		<text string="&#xA3;1 Repeater">
+		<text string="£1 Repeater">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1542,7 +1542,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.25" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;1">
+		<text string="£1">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -1850,7 +1850,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;8.00">
+		<text string="£8.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -1910,7 +1910,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;3.00">
+		<text string="£3.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -1930,7 +1930,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;2.40">
+		<text string="£2.40">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -1950,7 +1950,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;2.00">
+		<text string="£2.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -1970,7 +1970,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;1.60">
+		<text string="£1.60">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -1990,7 +1990,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;1.20">
+		<text string="£1.20">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2010,7 +2010,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;1.00">
+		<text string="£1.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2190,7 +2190,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;3.60">
+		<text string="£3.60">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2210,7 +2210,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;4.00">
+		<text string="£4.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2230,7 +2230,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;5.00">
+		<text string="£5.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2250,7 +2250,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;6.00">
+		<text string="£6.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2270,7 +2270,7 @@
 		<disk state="0">
 			<color red="0.25" green="0.25" blue="0.13"/>
 		</disk>
-		<text string="&#xA3;7.00">
+		<text string="£7.00">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -2650,7 +2650,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;5">
+		<text string="£5">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2670,7 +2670,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;6">
+		<text string="£6">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2690,7 +2690,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;7">
+		<text string="£7">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2710,7 +2710,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;8">
+		<text string="£8">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2730,7 +2730,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;10">
+		<text string="£10">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2750,7 +2750,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;4">
+		<text string="£4">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2770,7 +2770,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;3">
+		<text string="£3">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2790,7 +2790,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;2">
+		<text string="£2">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -2810,7 +2810,7 @@
 		<rect state="0">
 			<color red="0.13" green="0.00" blue="0.25"/>
 		</rect>
-		<text string="&#xA3;1">
+		<text string="£1">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.05" y="0.05" width="0.90" height="0.90"/>
 		</text>
@@ -3174,7 +3174,7 @@
 		<rect state="0">
 			<color red="0.25" green="0.25" blue="0.25"/>
 		</rect>
-		<text string="Insert &#xA3;1">
+		<text string="Insert £1">
 			<color red="0.0" green="0.0" blue="0.0"/>
 			<bounds x="0.10" y="0.10" width="0.80" height="0.80"/>
 		</text>
@@ -3631,7 +3631,7 @@
 		</element>
 		<element ref="reel0">
 			<bounds x="113" y="486" width="80" height="140"/>
-			<yscroll name="sreel1" size="0.1875" wrap="yes" min="128342" max="62807"/>
+			<yscroll name="reel1:scroll" size="0.1875" wrap="yes" min="128342" max="62807"/>
 		</element>
 		<element ref="reel_background">
 			<bounds x="205" y="486" width="80" height="140"/>
@@ -3647,7 +3647,7 @@
 		</element>
 		<element ref="reel1">
 			<bounds x="205" y="486" width="80" height="140"/>
-			<yscroll name="sreel2" size="0.1875" wrap="yes" min="128342" max="62807"/>
+			<yscroll name="reel2:scroll" size="0.1875" wrap="yes" min="128342" max="62807"/>
 		</element>
 		<element ref="reel_background">
 			<bounds x="297" y="486" width="80" height="140"/>
@@ -3663,7 +3663,7 @@
 		</element>
 		<element ref="reel2">
 			<bounds x="297" y="486" width="80" height="140"/>
-			<yscroll name="sreel3" size="0.1875" wrap="yes" min="128342" max="62807"/>
+			<yscroll name="reel3:scroll" size="0.1875" wrap="yes" min="128342" max="62807"/>
 		</element>
 		<element ref="reel_background">
 			<bounds x="816" y="24" width="80" height="80"/>
@@ -3673,7 +3673,7 @@
 		</element>
 		<element ref="reel3">
 			<bounds x="816" y="24" width="80" height="80"/>
-			<yscroll name="sreel4" size="0.0833333" wrap="yes" min="66901" max="1366"/>
+			<yscroll name="reel4:scroll" size="0.0833333" wrap="yes" min="66901" max="1366"/>
 		</element>
 		<element name="lamp143" ref="lamp_143_1_border" state="0">
 			<bounds x="139" y="43" width="42" height="42"/>
@@ -5866,7 +5866,7 @@
 		</element>
 		<element ref="reel0">
 			<bounds x="1100" y="32" width="120" height="240"/>
-			<yscroll name="sreel1" size="0.1875" wrap="yes" min="128342" max="62807"/>
+			<yscroll name="reel1:scroll" size="0.1875" wrap="yes" min="128342" max="62807"/>
 		</element>
 		<element ref="reel_background">
 			<bounds x="1240" y="32" width="120" height="240"/>
@@ -5882,7 +5882,7 @@
 		</element>
 		<element ref="reel1">
 			<bounds x="1240" y="32" width="120" height="240"/>
-			<yscroll name="sreel2" size="0.1875" wrap="yes" min="128342" max="62807"/>
+			<yscroll name="reel2:scroll" size="0.1875" wrap="yes" min="128342" max="62807"/>
 		</element>
 		<element ref="reel_background">
 			<bounds x="1380" y="32" width="120" height="240"/>
@@ -5898,7 +5898,7 @@
 		</element>
 		<element ref="reel2">
 			<bounds x="1380" y="32" width="120" height="240"/>
-			<yscroll name="sreel2" size="0.1875" wrap="yes" min="128342" max="62807"/>
+			<yscroll name="reel2:scroll" size="0.1875" wrap="yes" min="128342" max="62807"/>
 		</element>
 		<element ref="reel_background">
 			<bounds x="1520" y="32" width="120" height="240"/>
@@ -5908,18 +5908,18 @@
 		</element>
 		<element ref="reel3">
 			<bounds x="1520" y="32" width="120" height="240"/>
-			<yscroll name="sreel4" size="0.0833333" wrap="yes" min="66901" max="1366"/>
+			<yscroll name="reel4:scroll" size="0.0833333" wrap="yes" min="66901" max="1366"/>
 		</element>
-		<element name="reel1" ref="debug_stepper_value">
+		<element name="reel1:pos" ref="debug_stepper_value">
 			<bounds x="1100" y="272" width="50" height="30"/>
 		</element>
-		<element name="reel2" ref="debug_stepper_value">
+		<element name="reel2:pos" ref="debug_stepper_value">
 			<bounds x="1240" y="272" width="50" height="30"/>
 		</element>
-		<element name="reel3" ref="debug_stepper_value">
+		<element name="reel3:pos" ref="debug_stepper_value">
 			<bounds x="1380" y="272" width="50" height="30"/>
 		</element>
-		<element name="reel4" ref="debug_stepper_value">
+		<element name="reel4:pos" ref="debug_stepper_value">
 			<bounds x="1520" y="272" width="50" height="30"/>
 		</element>
 		<element name="debug_reel_symbol_count" ref="debug_reel_symbol_count_0">

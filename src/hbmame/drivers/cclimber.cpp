@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/cclimber.cpp"
+#include "../mame/nichibutsu/cclimber.cpp"
 
 // Crazy Climber
 ROM_START( cclimbrm )
@@ -11,13 +11,13 @@ ROM_START( cclimbrm )
 	ROM_LOAD( "cc08",          0x3000, 0x1000, CRC(f48c5fe3) SHA1(79072bbbf37387998ffd031afe8eb569a16fa9bd) )
 	ROM_LOAD( "cc07m",         0x4000, 0x1000, CRC(a417e7a3) SHA1(0cc8e306268119e11d8375749147cb7c1a831bd8) )
 
-	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_REGION( 0x4000, "tile", 0 )
 	ROM_LOAD( "cc06",         0x0000, 0x0800, CRC(481b64cc) SHA1(3f35c545fc784ed4f969aba2d7be6e13a5ae32b7) )
 	ROM_LOAD( "cc04",         0x2000, 0x0800, CRC(332347cb) SHA1(4115ca32af73f1791635b7d9e093bf77088a8222) )
 	ROM_LOAD( "cc05",         0x1000, 0x0800, CRC(2c33b760) SHA1(2edea8fe13376fbd51a5586d97aba3b30d78e94b) )
 	ROM_LOAD( "cc03",         0x3000, 0x0800, CRC(4e4b3658) SHA1(0d39a8cb5cd6cf06008be60707f9b277a8a32a2d) )
 
-	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_REGION( 0x1000, "bigsprite", 0 )
 	ROM_LOAD( "cc02",         0x0000, 0x0800, CRC(14f3ecc9) SHA1(a1b5121abfbe8f07580eb3fa6384352d239a3d75) )
 	ROM_LOAD( "cc01",         0x0800, 0x0800, CRC(21c0f9fb) SHA1(44fad56d302a439257216ddac9fd62b3666589f1) )
 
@@ -25,6 +25,9 @@ ROM_START( cclimbrm )
 	ROM_LOAD( "cclimber.pr1", 0x0000, 0x0020, CRC(751c3325) SHA1(edce2bc883996c1d72dc6c1c9f62799b162d415a) )
 	ROM_LOAD( "cclimber.pr2", 0x0020, 0x0020, CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423) )
 	ROM_LOAD( "cclimber.pr3", 0x0040, 0x0020, CRC(71317756) SHA1(1195f0a037e379cc1a3c0314cb746f5cd2bffe50) )
+
+	ROM_REGION( 0x0100, "decryption_prom", 0 ) // in CPU block along with Z80, 74LS241 and 74LS00
+	ROM_LOAD( "dm7052.cpu", 0x0000, 0x0100, CRC(f4179117) SHA1(a2acd492733768889e321a2d4516118164ed9a25) )
 
 	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "cc13",         0x0000, 0x1000, CRC(e0042f75) SHA1(86cb31b110742a0f7ae33052c88f42d00deb5468) )
@@ -42,13 +45,13 @@ ROM_START( ckong01 )
 	ROM_LOAD( "l05-11.bin",   0x4000, 0x1000, CRC(ae159192) SHA1(d467256a3a366e246243e7828ff4a45d4c146e2c) )
 	ROM_LOAD( "n05-12.bin",   0x5000, 0x1000, CRC(966bc9ab) SHA1(4434fc620169ffea1b1f227b61674e1daf79b54b) )
 
-	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_REGION( 0x4000, "tile", 0 )
 	ROM_LOAD( "n11-06.bin",   0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
 	ROM_LOAD( "l11-05.bin",   0x1000, 0x1000, CRC(fa7cbd91) SHA1(0208d2ebc59f3600005476b6987472685bc99d67) )
 	ROM_LOAD( "k11-04.bin",   0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
 	ROM_LOAD( "h11-03.bin",   0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
 
-	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_REGION( 0x1000, "bigsprite", 0 )
 	ROM_LOAD( "c11-02f.bin",  0x0000, 0x0800, CRC(881ed76e) SHA1(e516d898b68da7040f7fb8c7dbc47e0526349e4c) )
 	ROM_LOAD( "a11-01f.bin",  0x0800, 0x0800, CRC(d49aa505) SHA1(7dec6d62e874fb23f827ffddb72d85777a5c39f7) )
 
@@ -73,13 +76,13 @@ ROM_START( ckongpt2s01 )
 	ROM_LOAD( "11s01.5l",     0x4000, 0x1000, CRC(c6f2913e) SHA1(5ff0cb5b9c4616cdf870a45cae5833cb0c3b3556) )
 	ROM_LOAD( "12s01.5n",     0x5000, 0x1000, CRC(34c7a93b) SHA1(10897cdb946b520f18021fba07d559a9cc0fb4de) )
 
-	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_REGION( 0x4000, "tile", 0 )
 	ROM_LOAD( "6s01.11n",     0x0000, 0x1000, CRC(b6201ddb) SHA1(4aa1ed5273aedc78e55e9401f6f17705a264aa58) )
 	ROM_LOAD( "5s01.11l",     0x1000, 0x1000, CRC(090b509a) SHA1(e83a4f05a622e04b712244bb146c734fc5a4ae92) )
 	ROM_LOAD( "4s01.11k",     0x2000, 0x1000, CRC(a9e9ebc2) SHA1(b631ee88061e3889ea65e9c1d3448e64d98a6412) )
 	ROM_LOAD( "3s01.11h",     0x3000, 0x1000, CRC(bac1e8a5) SHA1(a06d17e3a18709e82283bcf641989fb4dcff9d53) )
 
-	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_REGION( 0x1000, "bigsprite", 0 )
 	ROM_LOAD( "2s01.11c",     0x0000, 0x0800, CRC(eeb3360a) SHA1(3dcf6a2c35b46fe06af008083900d305f18df15e) )
 	ROM_LOAD( "1s01.11a",     0x0800, 0x0800, CRC(b8873065) SHA1(24677b74136bf5c064f7de2b62ad6edf9f14f2e6) )
 
@@ -103,13 +106,13 @@ ROM_START( ckongpt2s02 ) // Sock Master hack of ckongpt2a
 	ROM_LOAD( "11s02.5l",        0x4000, 0x1000, CRC(31609813) SHA1(19d7f75f2de2a3632a47b45e733495d476090467) )
 	ROM_LOAD( "12s02.5n",        0x5000, 0x1000, CRC(75cb6387) SHA1(6701b3eee6fc44852d1b36ca52e214811171009b) )
 
-	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_REGION( 0x4000, "tile", 0 )
 	ROM_LOAD( "6.11n",        0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
 	ROM_LOAD( "5.11l",        0x1000, 0x1000, CRC(fa7cbd91) SHA1(0208d2ebc59f3600005476b6987472685bc99d67) )
 	ROM_LOAD( "4.11k",        0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
 	ROM_LOAD( "3.11h",        0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
 
-	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_REGION( 0x1000, "bigsprite", 0 )
 	ROM_LOAD( "2.11c",        0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
 	ROM_LOAD( "1.11a",        0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
 
@@ -135,13 +138,13 @@ ROM_START( tongypac )
 	ROM_LOAD( "md5l.bin",     0x4000, 0x1000, CRC(d1db1bb0) SHA1(fe7d700c7f9eca9c389be3717ebebf3e7dc63aa2) )
 	/* no ROM at 5000 */
 
-	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_REGION( 0x4000, "tile", 0 )
 	ROM_LOAD( "tpac6.bin",    0x0000, 0x1000, CRC(918e3c52) SHA1(bc630759a525615aba1a06a0781e26a1a5c2c377) )
 	ROM_LOAD( "tpac5.bin",    0x1000, 0x1000, CRC(2bbc69e7) SHA1(5741aa6944e9b936289368d533c2b19d34320260) )
 	ROM_LOAD( "tpac4.bin",    0x2000, 0x1000, CRC(8d5890b6) SHA1(92d48d75084df2e2a3fa9d92a3c6c059f0781d81) )
 	ROM_LOAD( "tpac3.bin",    0x3000, 0x1000, CRC(6b16145b) SHA1(ef17fad07b81c9dae5c6e16a86afc4a8f6a7ff8c) )
 
-	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_REGION( 0x1000, "bigsprite", 0 )
 	ROM_LOAD( "falcon2",      0x0000, 0x0800, CRC(f67c80f1) SHA1(d1fbcce1b6242f810e106ff50812636e3168ebc1) )
 	ROM_LOAD( "falcon1",      0x0800, 0x0800, CRC(80eb517d) SHA1(fef4111f656c58b28e7eac5aa5b5cc7e07ccb2fd) )
 

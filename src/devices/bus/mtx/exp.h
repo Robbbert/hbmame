@@ -32,10 +32,7 @@ public:
 	mtx_exp_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&slot_options, const char *default_option)
 		: mtx_exp_slot_device(mconfig, tag, owner)
 	{
-		option_reset();
-		slot_options(*this);
-		set_default_option(default_option);
-		set_fixed(false);
+		set_options(std::forward<T>(slot_options), default_option, false);
 	}
 
 	mtx_exp_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock = 0);
@@ -49,24 +46,24 @@ public:
 	auto nmi_handler() { return m_nmi_handler.bind(); }
 
 	// for the card to use
-	DECLARE_WRITE_LINE_MEMBER( busreq_w ) { m_busreq_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( int_w ) { m_int_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER( nmi_w ) { m_nmi_handler(state); }
+	void busreq_w(int state) { m_busreq_handler(state); }
+	void int_w(int state) { m_int_handler(state); }
+	void nmi_w(int state) { m_nmi_handler(state); }
 
 	virtual void bankswitch(uint8_t data);
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 	virtual const char *image_interface() const noexcept override { return "mtx_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,rom"; }
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 private:

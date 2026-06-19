@@ -19,6 +19,9 @@
     - 8520 read/write
     - 5710 read/write
     - optimize
+    - off by one errors in vAmigaTS/showcia1 TODLO (reproducible particularly with -nothrottle)
+    - flag_w & amigafdc both auto-inverts index pulses, it also fails ICR vAmigaTS/showcia1 test
+      (expected: 0x00, actual: 0x10)
 
 */
 
@@ -293,7 +296,7 @@ void mos6526_device::clock_tod()
 void mos8520_device::clock_tod()
 {
 	m_tod++;
-	m_tod &= 0xffffff;
+	m_tod &= 0x00ffffff;
 }
 
 
@@ -485,12 +488,13 @@ void mos6526_device::update_interrupt()
 		m_icr |= ICR_TA;
 	}
 
-	if (m_tb_out && !m_icr_read)
+	// cpm68k-amiga doesn't want icr_read (it masks in IMR, tight loop otherwise)
+	if (m_tb_out) //&& !m_icr_read)
 	{
 		m_icr |= ICR_TB;
 	}
 
-	m_icr_read = false;
+//  m_icr_read = false;
 }
 
 
@@ -587,20 +591,20 @@ void mos6526_device::synchronize()
 //  mos6526_device - constructor
 //-------------------------------------------------
 
-mos6526_device::mos6526_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, uint32_t variant)
-	: device_t(mconfig, type, tag, owner, clock),
-		device_execute_interface(mconfig, *this),
-		m_icount(0),
-		m_variant(variant),
-		m_tod_clock(0),
-		m_write_irq(*this),
-		m_write_pc(*this),
-		m_write_cnt(*this),
-		m_write_sp(*this),
-		m_read_pa(*this),
-		m_write_pa(*this),
-		m_read_pb(*this),
-		m_write_pb(*this)
+mos6526_device::mos6526_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, uint32_t variant) :
+	device_t(mconfig, type, tag, owner, clock),
+	device_execute_interface(mconfig, *this),
+	m_icount(0),
+	m_variant(variant),
+	m_tod_clock(0),
+	m_write_irq(*this),
+	m_write_pc(*this),
+	m_write_cnt(*this),
+	m_write_sp(*this),
+	m_read_pa(*this, 0xff),
+	m_write_pa(*this),
+	m_read_pb(*this, 0xff),
+	m_write_pb(*this)
 {
 }
 
@@ -630,16 +634,6 @@ void mos6526_device::device_start()
 	m_flag = 1;
 	m_cnt = 1;
 	m_cra = 0;
-
-	// resolve callbacks
-	m_write_irq.resolve_safe();
-	m_write_pc.resolve_safe();
-	m_write_cnt.resolve_safe();
-	m_write_sp.resolve_safe();
-	m_read_pa.resolve_safe(0xff);
-	m_write_pa.resolve_safe();
-	m_read_pb.resolve_safe(0xff);
-	m_write_pb.resolve_safe();
 
 	// allocate timer
 	if (m_tod_clock != 0)
@@ -697,7 +691,7 @@ void mos6526_device::device_reset()
 	m_ir1 = 0;
 	m_icr = 0;
 	m_imr = 0;
-	m_icr_read = false;
+//  m_icr_read = false;
 
 	m_pc = 1;
 	m_flag = 1;
@@ -737,8 +731,9 @@ void mos6526_device::device_reset()
 	m_load_b1 = 0;
 	m_load_b2 = 0;
 	m_oneshot_b0 = 0;
-	m_ta = 0;
-	m_tb = 0;
+	// initial state is confirmed floating high as per vAmigaTS/showcia1
+	m_ta = 0xffff;
+	m_tb = 0xffff;
 	m_ta_latch = 0xffff;
 	m_tb_latch = 0xffff;
 	m_cra = 0;
@@ -904,7 +899,7 @@ uint8_t mos6526_device::read(offs_t offset)
 		if (machine().side_effects_disabled() || !m_icr)
 			return data;
 
-		m_icr_read = true;
+		//m_icr_read = true;
 
 		m_ir0 = 0;
 		m_ir1 = 0;
@@ -932,7 +927,9 @@ uint8_t mos8520_device::read(offs_t offset)
 	switch (offset & 0x0f)
 	{
 	case TOD_MIN:
-		if (!m_tod_latched)
+		// tod is not latched when CRB_ALARM is set
+		// test case: amigaocs_flop:batman1
+		if (!m_tod_latched && !CRB_ALARM)
 		{
 			m_tod_latched = true;
 			m_tod_latch = m_tod;
@@ -941,8 +938,9 @@ uint8_t mos8520_device::read(offs_t offset)
 		data = read_tod(2);
 		break;
 
+	// unused register returns floating high as per vAmigaTS/showcia1
 	case TOD_HR:
-		data = read_tod(3);
+		data = 0xff;
 		break;
 
 	default:
@@ -1112,7 +1110,7 @@ void mos8520_device::write(offs_t offset, uint8_t data)
 		break;
 
 	case TOD_HR:
-		write_tod(3, data);
+		// ignored in mos8520
 		break;
 	}
 }
@@ -1122,7 +1120,7 @@ void mos8520_device::write(offs_t offset, uint8_t data)
 //  sp_w - serial port write
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( mos6526_device::sp_w )
+void mos6526_device::sp_w(int state)
 {
 	m_sp = state;
 }
@@ -1132,7 +1130,7 @@ WRITE_LINE_MEMBER( mos6526_device::sp_w )
 //  cnt_w - serial counter write
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( mos6526_device::cnt_w )
+void mos6526_device::cnt_w(int state)
 {
 	if (CRA_SPMODE) return;
 
@@ -1155,7 +1153,7 @@ WRITE_LINE_MEMBER( mos6526_device::cnt_w )
 //  flag_w - flag write
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( mos6526_device::flag_w )
+void mos6526_device::flag_w(int state)
 {
 	if (m_flag && !state)
 	{
@@ -1170,7 +1168,7 @@ WRITE_LINE_MEMBER( mos6526_device::flag_w )
 //  tod_w - time-of-day clock write
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( mos6526_device::tod_w )
+void mos6526_device::tod_w(int state)
 {
 	if (state && !m_tod_stopped)
 	{

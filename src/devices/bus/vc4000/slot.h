@@ -6,8 +6,6 @@
 #include "imagedev/cartrom.h"
 
 
-#define VC4000SLOT_ROM_REGION_TAG ":cart:rom"
-
 /* PCB */
 enum
 {
@@ -32,7 +30,7 @@ public:
 	virtual uint8_t read_ram(offs_t offset) { return 0xff; }
 	virtual void write_ram(offs_t offset, uint8_t data) { }
 
-	void rom_alloc(uint32_t size, const char *tag);
+	void rom_alloc(uint32_t size);
 	void ram_alloc(uint32_t size);
 	uint8_t* get_rom_base() { return m_rom; }
 	uint8_t* get_ram_base() { return &m_ram[0]; }
@@ -63,23 +61,20 @@ public:
 	vc4000_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, char const *dflt)
 		: vc4000_cart_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	vc4000_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~vc4000_cart_slot_device();
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override { }
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 	virtual const char *image_interface() const noexcept override { return "vc4000_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,rom"; }
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 	int get_type() { return m_type; }
@@ -100,8 +95,8 @@ protected:
 			device_t *owner,
 			uint32_t clock);
 
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	int m_type;
 	device_vc4000_cart_interface *m_cart;
@@ -115,10 +110,7 @@ public:
 	h21_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, char const *dflt)
 		: h21_cart_slot_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	h21_cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~h21_cart_slot_device();
@@ -126,7 +118,7 @@ public:
 	virtual const char *image_interface() const noexcept override { return "h21_cart"; }
 };
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(VC4000_CART_SLOT, vc4000_cart_slot_device)
 DECLARE_DEVICE_TYPE(H21_CART_SLOT,    h21_cart_slot_device)
 

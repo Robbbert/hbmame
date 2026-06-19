@@ -32,10 +32,10 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual const tiny_rom_entry *device_rom_region() const override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
 
 	required_region_ptr<uint8_t> m_2c33_rom;
 
@@ -55,8 +55,8 @@ private:
 	void unload_disk(device_image_interface &image);
 
 	uint16_t m_irq_count, m_irq_count_latch;
-	int m_irq_enable, m_irq_repeat, m_irq_transfer;
-	int m_disk_reg_enable;
+	bool m_irq_enable, m_irq_repeat, m_irq_transfer;
+	bool m_disk_reg_enable;
 	bool m_sound_en;
 
 	uint8_t m_fds_motor_on;
@@ -68,8 +68,8 @@ private:
 	uint8_t m_drive_ready;
 
 	uint8_t m_fds_sides;
-	int m_fds_last_side;
-	int m_fds_count;
+	int32_t m_fds_last_side;
+	int32_t m_fds_count;
 };
 
 

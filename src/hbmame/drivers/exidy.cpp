@@ -1,7 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/exidy.cpp"
-#include "../mame/video/victory.cpp"
+#include "../mame/exidy/exidy.cpp"
 
 
 

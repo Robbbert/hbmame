@@ -23,7 +23,6 @@ DEFINE_DEVICE_TYPE(MM74C923, mm74c923_device, "mm74c923", "MM74C923 20-Key Encod
 
 
 
-
 //**************************************************************************
 //  LIVE DEVICE
 //**************************************************************************
@@ -34,7 +33,7 @@ DEFINE_DEVICE_TYPE(MM74C923, mm74c923_device, "mm74c923", "MM74C923 20-Key Encod
 
 mm74c922_device::mm74c922_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, int max_y) :
 	device_t(mconfig, type, tag, owner, clock),
-	m_write_da(*this), m_read_x(*this), m_tristate_data(*this),
+	m_write_da(*this), m_read_x(*this, (1 << max_y) - 1), m_tristate_data(*this, (1 << max_y) - 1),
 	m_cap_osc(0), m_cap_debounce(0),
 	m_max_y(max_y),
 	m_inhibit(false),
@@ -63,11 +62,6 @@ mm74c923_device::mm74c923_device(const machine_config &mconfig, const char *tag,
 
 void mm74c922_device::device_start()
 {
-	// resolve callbacks
-	m_write_da.resolve_safe();
-	m_read_x.resolve_all_safe((1 << m_max_y) - 1);
-	m_tristate_data.resolve_safe((1 << m_max_y) - 1);
-
 	// set initial values
 	change_output_lines();
 
@@ -116,6 +110,13 @@ uint8_t mm74c922_device::read()
 
 void mm74c922_device::change_output_lines()
 {
+	// clock data latches
+	if (m_next_data != m_data)
+	{
+		m_data = m_next_data;
+	}
+
+	// clock data available
 	if (m_next_da != m_da)
 	{
 		m_da = m_next_da;
@@ -124,12 +125,6 @@ void mm74c922_device::change_output_lines()
 
 		// active high output
 		m_write_da(m_da ? 1 : 0);
-	}
-
-	// clock data latches
-	if (m_next_data != m_data)
-	{
-		m_data = m_next_data;
 	}
 }
 

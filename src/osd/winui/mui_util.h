@@ -6,25 +6,25 @@
 
 #include "emucore.h"
 
-extern void __cdecl ErrorMsg(const char* fmt, ...);
-extern void __cdecl dprintf(const char* fmt, ...);
+void __cdecl ErrorMsg(const char* fmt, ...);
+void __cdecl dprintf(const char* fmt, ...);
 
 
-extern UINT GetDepth(HWND hWnd);
+UINT GetDepth(HWND hWnd);
 
 /* Open a text file */
-extern void DisplayTextFile(HWND hWnd, const char *cName);
+void DisplayTextFile(HWND hWnd, const char *cName);
 
 #define PACKVERSION(major,minor) MAKELONG(minor,major)
 
 /* Check for old version of comctl32.dll */
-extern LONG GetCommonControlVersion(void);
+LONG GetCommonControlVersion(void);
 
 void ShellExecuteCommon(HWND hWnd, const char *cName);
-extern char * MyStrStrI(const char* pFirst, const char* pSrch);
-extern char * ConvertToWindowsNewlines(const char *source);
+char * MyStrStrI(const char* pFirst, const char* pSrch);
+char * ConvertToWindowsNewlines(const char *source);
 
-extern const char * GetDriverFilename(uint32_t nIndex);
+const char * GetDriverFilename(int);
 
 BOOL DriverIsClone(uint32_t driver_index);
 BOOL DriverIsBroken(uint32_t driver_index);
@@ -64,8 +64,6 @@ TCHAR* win_tstring_strdup(LPCTSTR str);
 HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD sharemode,
 							LPSECURITY_ATTRIBUTES securityattributes, DWORD creationdisposition,
 							DWORD flagsandattributes, HANDLE templatehandle);
-DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer);
-HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfiledata);
 void ErrorMessageBox(const char *fmt, ...);
 
  //  wstring_from_utf8

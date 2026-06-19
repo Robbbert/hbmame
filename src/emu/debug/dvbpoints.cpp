@@ -9,12 +9,14 @@
 ***************************************************************************/
 
 #include "emu.h"
-#include "debugger.h"
 #include "dvbpoints.h"
+
+#include "debugcpu.h"
 #include "points.h"
 
 #include <algorithm>
 #include <iomanip>
+#include <locale>
 
 
 
@@ -71,7 +73,7 @@ static bool cConditionDescending(const debug_breakpoint *a, const debug_breakpoi
 
 static bool cActionAscending(const debug_breakpoint *a, const debug_breakpoint *b)
 {
-	return strcmp(a->action(), b->action()) < 0;
+	return a->action() < b->action();
 }
 
 static bool cActionDescending(const debug_breakpoint *a, const debug_breakpoint *b)
@@ -126,7 +128,7 @@ void debug_view_breakpoints::enumerate_sources()
 	{
 		m_source_list.emplace_back(
 				std::make_unique<debug_view_source>(
-					util::string_format("%s '%s'", dasm.device().name(), dasm.device().tag()),
+					util::string_format(std::locale::classic(), "%s '%s'", dasm.device().name(), dasm.device().tag()),
 					&dasm.device()));
 	}
 
@@ -225,6 +227,7 @@ void debug_view_breakpoints::view_update()
 	// Draw
 	debug_view_char     *dest = &m_viewdata[0];
 	util::ovectorstream linebuf;
+	linebuf.imbue(std::locale::classic());
 	linebuf.reserve(std::size(tableBreaks) - 1);
 
 	// Header

@@ -4,7 +4,7 @@
 
     inputcode.h
 
-    Codes for representing host inputs
+    Codes for representing host controls
 
 ***************************************************************************/
 #ifndef MAME_OSD_INTERFACE_INPUTCODE_H
@@ -379,7 +379,7 @@ public:
 	// setters
 	void set_device_class(input_device_class devclass) noexcept
 	{
-		assert(devclass >= 0 && devclass <= 0xf);
+		assert(0 == (std::underlying_type_t<input_device_class>(devclass) & ~0xf));
 		m_internal = (m_internal & ~(0xf << 28)) | ((devclass & 0xf) << 28);
 	}
 	void set_device_index(int devindex) noexcept
@@ -389,17 +389,17 @@ public:
 	}
 	void set_item_class(input_item_class itemclass) noexcept
 	{
-		assert(itemclass >= 0 && itemclass <= 0xf);
+		assert(0 == (std::underlying_type_t<input_item_class>(itemclass) & ~0xf));
 		m_internal = (m_internal & ~(0xf << 16)) | ((itemclass & 0xf) << 16);
 	}
 	void set_item_modifier(input_item_modifier modifier) noexcept
 	{
-		assert(modifier >= 0 && modifier <= 0xf);
+		assert(0 == (std::underlying_type_t<input_item_modifier>(modifier) & ~0xf));
 		m_internal = (m_internal & ~(0xf << 12)) | ((modifier & 0xf) << 12);
 	}
 	void set_item_id(input_item_id itemid) noexcept
 	{
-		assert(itemid >= 0 && itemid <= 0xfff);
+		assert(0 == (std::underlying_type_t<input_item_id>(itemid) & ~0xfff));
 		m_internal = (m_internal & ~0xfff) | (itemid & 0xfff);
 	}
 
@@ -867,6 +867,41 @@ constexpr input_code JOYCODE_SELECT_INDEXED(int n)   { return input_code(DEVICE_
 #define JOYCODE_BUTTON32 JOYCODE_BUTTON32_INDEXED(0)
 #define JOYCODE_START JOYCODE_START_INDEXED(0)
 #define JOYCODE_SELECT JOYCODE_SELECT_INDEXED(0)
+
+// joystick hats
+constexpr input_code JOYCODE_HAT1UP_INDEXED(int n)    { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT1UP); }
+constexpr input_code JOYCODE_HAT1DOWN_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT1DOWN); }
+constexpr input_code JOYCODE_HAT1LEFT_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT1LEFT); }
+constexpr input_code JOYCODE_HAT1RIGHT_INDEXED(int n) { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT1RIGHT); }
+constexpr input_code JOYCODE_HAT2UP_INDEXED(int n)    { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT2UP); }
+constexpr input_code JOYCODE_HAT2DOWN_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT2DOWN); }
+constexpr input_code JOYCODE_HAT2LEFT_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT2LEFT); }
+constexpr input_code JOYCODE_HAT2RIGHT_INDEXED(int n) { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT2RIGHT); }
+constexpr input_code JOYCODE_HAT3UP_INDEXED(int n)    { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT3UP); }
+constexpr input_code JOYCODE_HAT3DOWN_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT3DOWN); }
+constexpr input_code JOYCODE_HAT3LEFT_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT3LEFT); }
+constexpr input_code JOYCODE_HAT3RIGHT_INDEXED(int n) { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT3RIGHT); }
+constexpr input_code JOYCODE_HAT4UP_INDEXED(int n)    { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT4UP); }
+constexpr input_code JOYCODE_HAT4DOWN_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT4DOWN); }
+constexpr input_code JOYCODE_HAT4LEFT_INDEXED(int n)  { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT4LEFT); }
+constexpr input_code JOYCODE_HAT4RIGHT_INDEXED(int n) { return input_code(DEVICE_CLASS_JOYSTICK, n, ITEM_CLASS_SWITCH, ITEM_MODIFIER_NONE, ITEM_ID_HAT4RIGHT); }
+
+#define JOYCODE_HAT1UP    JOYCODE_HAT1UP_INDEXED(0)
+#define JOYCODE_HAT1DOWN  JOYCODE_HAT1DOWN_INDEXED(0)
+#define JOYCODE_HAT1LEFT  JOYCODE_HAT1LEFT_INDEXED(0)
+#define JOYCODE_HAT1RIGHT JOYCODE_HAT1RIGHT_INDEXED(0)
+#define JOYCODE_HAT2UP    JOYCODE_HAT2UP_INDEXED(0)
+#define JOYCODE_HAT2DOWN  JOYCODE_HAT2DOWN_INDEXED(0)
+#define JOYCODE_HAT2LEFT  JOYCODE_HAT2LEFT_INDEXED(0)
+#define JOYCODE_HAT2RIGHT JOYCODE_HAT2RIGHT_INDEXED(0)
+#define JOYCODE_HAT3UP    JOYCODE_HAT3UP_INDEXED(0)
+#define JOYCODE_HAT3DOWN  JOYCODE_HAT3DOWN_INDEXED(0)
+#define JOYCODE_HAT3LEFT  JOYCODE_HAT3LEFT_INDEXED(0)
+#define JOYCODE_HAT3RIGHT JOYCODE_HAT3RIGHT_INDEXED(0)
+#define JOYCODE_HAT4UP    JOYCODE_HAT4UP_INDEXED(0)
+#define JOYCODE_HAT4DOWN  JOYCODE_HAT4DOWN_INDEXED(0)
+#define JOYCODE_HAT4LEFT  JOYCODE_HAT4LEFT_INDEXED(0)
+#define JOYCODE_HAT4RIGHT JOYCODE_HAT4RIGHT_INDEXED(0)
 
 
 #endif // MAME_OSD_INTERFACE_INPUTCODE_H

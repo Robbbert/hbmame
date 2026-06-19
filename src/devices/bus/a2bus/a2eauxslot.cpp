@@ -2,9 +2,8 @@
 // copyright-holders:R. Belmont
 /***************************************************************************
 
-  a2eauxslot.c - Apple IIe auxiliary slot and card emulation
-
-  by R. Belmont
+    a2eauxslot.cpp - Apple IIe auxiliary slot and card emulation
+    by R. Belmont
 
 ***************************************************************************/
 
@@ -44,6 +43,10 @@ void a2eauxslot_slot_device::device_resolve_objects()
 		dev->set_a2eauxslot(m_a2eauxslot.target(), tag());
 }
 
+void a2eauxslot_slot_device::device_start()
+{
+}
+
 //**************************************************************************
 //  GLOBAL VARIABLES
 //**************************************************************************
@@ -70,19 +73,6 @@ a2eauxslot_device::a2eauxslot_device(const machine_config &mconfig, device_type 
 	, m_out_nmi_cb(*this)
 	, m_device(nullptr)
 {
-}
-
-//-------------------------------------------------
-//  device_resolve_objects - resolve objects that
-//  may be needed for other devices to set
-//  initial conditions at start time
-//-------------------------------------------------
-
-void a2eauxslot_device::device_resolve_objects()
-{
-	// resolve callbacks
-	m_out_irq_cb.resolve_safe();
-	m_out_nmi_cb.resolve_safe();
 }
 
 //-------------------------------------------------
@@ -114,8 +104,8 @@ void a2eauxslot_device::set_nmi_line(int state)
 }
 
 // interrupt request from a2eauxslot card
-WRITE_LINE_MEMBER( a2eauxslot_device::irq_w ) { m_out_irq_cb(state); }
-WRITE_LINE_MEMBER( a2eauxslot_device::nmi_w ) { m_out_nmi_cb(state); }
+void a2eauxslot_device::irq_w(int state) { m_out_irq_cb(state); }
+void a2eauxslot_device::nmi_w(int state) { m_out_nmi_cb(state); }
 
 //**************************************************************************
 //  DEVICE CONFIG A2EAUXSLOT CARD INTERFACE
@@ -131,9 +121,9 @@ WRITE_LINE_MEMBER( a2eauxslot_device::nmi_w ) { m_out_nmi_cb(state); }
 //-------------------------------------------------
 
 device_a2eauxslot_card_interface::device_a2eauxslot_card_interface(const machine_config &mconfig, device_t &device)
-	: device_interface(device, "a2eaux"),
-			m_a2eauxslot_finder(device, finder_base::DUMMY_TAG), m_a2eauxslot(nullptr),
-			m_a2eauxslot_slottag(nullptr), m_slot(0), m_next(nullptr)
+	: device_interface(device, "a2eaux")
+	, m_a2eauxslot_finder(device, finder_base::DUMMY_TAG), m_a2eauxslot(nullptr)
+	, m_a2eauxslot_slottag(nullptr), m_slot(0), m_next(nullptr)
 {
 }
 

@@ -3,7 +3,8 @@
 #include "emu.h"
 #include "bus/nscsi/s1410.h"
 
-#define LOG_GENERAL (1U << 0)
+#include "multibyte.h"
+
 #define LOG_COMMAND (1U << 1)
 #define LOG_DATA    (1U << 2)
 
@@ -33,19 +34,52 @@ void nscsi_s1410_device::device_reset()
 	params[7] = 11;
 }
 
+bool nscsi_s1410_device::scsi_command_done(uint8_t command, uint8_t length)
+{
+	if(!length)
+		return false;
+	switch(command >> 5) {
+	case 0: return length == 6;
+	case 1: return true;
+	case 2: return true;
+	case 3: return true;
+	case 4: return true;
+	case 5: return true;
+	case 6: return true;
+	case 7: return length == 6;
+	}
+	return true;
+}
+
 void nscsi_s1410_device::scsi_command()
 {
-	switch(scsi_cmdbuf[0]) {
+	memset(m_scsi_sense_buffer, 0, sizeof(m_scsi_sense_buffer));
+
+	switch(m_scsi_cmdbuf[0]) {
 	case SC_TEST_UNIT_READY:
-	case SC_REZERO:
+	case SC_REZERO_UNIT:
 	case SC_REASSIGN_BLOCKS:
 	case SC_READ:
 	case SC_WRITE:
-	case SC_SEEK:
-		if (scsi_cmdbuf[1] >> 5) {
+		if (m_scsi_cmdbuf[1] >> 5) {
 			scsi_status_complete(SS_NOT_READY);
+			m_scsi_sense_buffer[0] = SK_DRIVE_NOT_READY;
 		} else {
 			nscsi_harddisk_device::scsi_command();
+		}
+		break;
+
+	case SC_SEEK:
+		{
+			const auto &info = image->get_info();
+			int max_lba = (info.cylinders * info.heads * info.sectors) - 1;
+			lba = get_u24be(&m_scsi_cmdbuf[1]) & 0x1fffff;
+			if (lba <= max_lba) {
+				scsi_status_complete(SS_GOOD);
+			} else {
+				scsi_status_complete(SS_SEEK_ERROR);
+				m_scsi_sense_buffer[0] = SK_DRIVE_NOT_READY;
+			}
 		}
 		break;
 
@@ -57,33 +91,35 @@ void nscsi_s1410_device::scsi_command()
 	case SC_FORMAT_UNIT:
 		LOG("command FORMAT UNIT\n");
 		{
-			const auto &info = harddisk->get_info();
+			const auto &info = image->get_info();
 			auto block = std::make_unique<uint8_t[]>(info.sectorbytes);
 			memset(&block[0], 0x6c, info.sectorbytes);
-			lba = ((scsi_cmdbuf[1] & 0x1f)<<16) | (scsi_cmdbuf[2]<<8) | scsi_cmdbuf[3];
+			lba = get_u24be(&m_scsi_cmdbuf[1]) & 0x1fffff;
 			for(; lba < (info.cylinders * info.heads * info.sectors); lba++) {
-				harddisk->write(lba, block.get());
+				image->write(lba, block.get());
 			}
 		}
 		scsi_status_complete(SS_GOOD);
 		break;
 
 	case SC_FORMAT_TRACK: {
-		if (scsi_cmdbuf[1] >> 5) {
+		if (m_scsi_cmdbuf[1] >> 5) {
 			scsi_status_complete(SS_NOT_READY);
+			m_scsi_sense_buffer[0] = SK_DRIVE_NOT_READY;
 			return;
 		}
 
-		lba = ((scsi_cmdbuf[1] & 0x1f)<<16) | (scsi_cmdbuf[2]<<8) | scsi_cmdbuf[3];
+		lba = get_u24be(&m_scsi_cmdbuf[1]) & 0x1fffff;
 		blocks = (bytes_per_sector == 256) ? 32 : 17;
 
 		int track_length = blocks*bytes_per_sector;
 		auto block = std::make_unique<uint8_t[]>(track_length);
 		memset(&block[0], 0x6c, track_length);
 
-		if(!harddisk->write(lba, &block[0])) {
+		if(!image->write(lba, &block[0])) {
 			logerror("%s: HD WRITE ERROR !\n", tag());
 			scsi_status_complete(SS_FORMAT_ERROR);
+			m_scsi_sense_buffer[0] = SK_FORMAT_ERROR;
 		} else {
 			scsi_status_complete(SS_GOOD);
 		}
@@ -91,8 +127,9 @@ void nscsi_s1410_device::scsi_command()
 		break;
 
 	case SC_FORMAT_ALT_TRACK:
-		if (scsi_cmdbuf[1] >> 5) {
+		if (m_scsi_cmdbuf[1] >> 5) {
 			scsi_status_complete(SS_NOT_READY);
+			m_scsi_sense_buffer[0] = SK_DRIVE_NOT_READY;
 			return;
 		}
 
@@ -116,8 +153,9 @@ void nscsi_s1410_device::scsi_command()
 		break;
 
 	case SC_CHECK_TRACK_FORMAT:
-		if (scsi_cmdbuf[1] >> 5) {
+		if (m_scsi_cmdbuf[1] >> 5) {
 			scsi_status_complete(SS_NOT_READY);
+			m_scsi_sense_buffer[0] = SK_DRIVE_NOT_READY;
 			return;
 		}
 		scsi_status_complete(SS_GOOD);
@@ -133,14 +171,14 @@ void nscsi_s1410_device::scsi_command()
 		break;
 
 	default:
-		logerror("%s: command %02x ***UNKNOWN***\n", tag(), scsi_cmdbuf[0]);
+		logerror("%s: command %02x ***UNKNOWN***\n", tag(), m_scsi_cmdbuf[0]);
 		break;
 	}
 }
 
 uint8_t nscsi_s1410_device::scsi_get_data(int id, int pos)
 {
-	switch(scsi_cmdbuf[0]) {
+	switch(m_scsi_cmdbuf[0]) {
 	case SC_READ_SECTOR_BUFFER:
 		return block[pos];
 
@@ -155,7 +193,7 @@ void nscsi_s1410_device::scsi_put_data(int id, int pos, uint8_t data)
 		return nscsi_harddisk_device::scsi_put_data(id, pos, data);
 	}
 
-	switch(scsi_cmdbuf[0]) {
+	switch(m_scsi_cmdbuf[0]) {
 	case SC_FORMAT_ALT_TRACK:
 		LOGMASKED(LOG_DATA, "s1410: scsi_put_data, id:%d pos:%d data:%02x %c\n", id, pos, data, data >= 0x20 && data < 0x7f ? (char)data : ' ');
 		break;
@@ -172,5 +210,31 @@ void nscsi_s1410_device::scsi_put_data(int id, int pos, uint8_t data)
 
 	default:
 		return nscsi_harddisk_device::scsi_put_data(id, pos, data);
+	}
+}
+
+// Byte transfer rate (5Mb/s)
+attotime nscsi_s1410_device::scsi_data_byte_period()
+{
+	return attotime::from_nsec(1600);
+}
+
+// Command execution delay
+attotime nscsi_s1410_device::scsi_data_command_delay()
+{
+	switch(m_scsi_cmdbuf[0]) {
+	case SC_READ:
+	case SC_WRITE:
+	case SC_SEEK:
+		// Legacy default (unchanged unless a driver calls set_seek_timing()): a
+		// flat average-seek delay charged on every command, matching the older
+		// NEC D5126A approximation the existing s1410 users rely on.  With a
+		// model configured, defer to the base's cylinder-aware timing.
+		if (!m_seek_model)
+			return attotime::from_msec(85);
+		return seek_time(get_u24be(&m_scsi_cmdbuf[1]) & 0x1fffff);
+
+	default:
+		return attotime::zero;
 	}
 }

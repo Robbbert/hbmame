@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/1942.cpp"
+#include "../mame/capcom/1942.cpp"
 
 ROM_START( 1942c64 )
 	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASEFF )
@@ -44,11 +44,8 @@ ROM_START( 1942c64 )
 	ROM_REGION( 0x0100, "sprprom", 0 )
 	ROM_LOAD( "sb-8.k3",     0x0000, 0x0100, CRC(f6fad943) SHA1(b0a24ea7805272e8ebf72a99b08907bc00d5f82f) )
 
-	ROM_REGION( 0x0400, "proms", 0 )
-	ROM_LOAD( "sb-2.d1",     0x0000, 0x0100, CRC(8bb8b3df) SHA1(49de2819c4c92057fedcb20425282515d85829aa) )
-	ROM_LOAD( "sb-3.d2",     0x0100, 0x0100, CRC(3b0c99af) SHA1(38f30ac1e48632634e409f328ee3051b987de7ad) )
-	ROM_LOAD( "sb-1.k6",     0x0200, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
-	ROM_LOAD( "sb-9.m11",    0x0300, 0x0100, CRC(4921635c) SHA1(aee37d6cdc36acf0f11ff5f93e7b16e4b12f6c39) )
+	ROM_REGION( 0x0100, "irqprom", 0 )
+	ROM_LOAD( "sb-1.k6",  0x0000, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
 ROM_END
 
 ROM_START( 1942fpa )
@@ -93,11 +90,8 @@ ROM_START( 1942fpa )
 	ROM_REGION( 0x0100, "sprprom", 0 )
 	ROM_LOAD( "sb-8.k3",     0x0000, 0x0100, CRC(f6fad943) SHA1(b0a24ea7805272e8ebf72a99b08907bc00d5f82f) )
 
-	ROM_REGION( 0x0400, "proms", 0 )
-	ROM_LOAD( "sb-2.d1",     0x0000, 0x0100, CRC(8bb8b3df) SHA1(49de2819c4c92057fedcb20425282515d85829aa) )
-	ROM_LOAD( "sb-3.d2",     0x0100, 0x0100, CRC(3b0c99af) SHA1(38f30ac1e48632634e409f328ee3051b987de7ad) )
-	ROM_LOAD( "sb-1.k6",     0x0200, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
-	ROM_LOAD( "sb-9.m11",    0x0300, 0x0100, CRC(4921635c) SHA1(aee37d6cdc36acf0f11ff5f93e7b16e4b12f6c39) )
+	ROM_REGION( 0x0100, "irqprom", 0 )
+	ROM_LOAD( "sb-1.k6",  0x0000, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
 ROM_END
 
 ROM_START( galagax )
@@ -142,11 +136,8 @@ ROM_START( galagax )
 	ROM_REGION( 0x0100, "sprprom", 0 )
 	ROM_LOAD( "sb-8.k3",     0x0000, 0x0100, CRC(f6fad943) SHA1(b0a24ea7805272e8ebf72a99b08907bc00d5f82f) )
 
-	ROM_REGION( 0x0400, "proms", 0 )
-	ROM_LOAD( "sb-2.d1",     0x0000, 0x0100, CRC(8bb8b3df) SHA1(49de2819c4c92057fedcb20425282515d85829aa) )
-	ROM_LOAD( "sb-3.d2",     0x0100, 0x0100, CRC(3b0c99af) SHA1(38f30ac1e48632634e409f328ee3051b987de7ad) )
-	ROM_LOAD( "sb-1.k6",     0x0200, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
-	ROM_LOAD( "sb-9.m11",    0x0300, 0x0100, CRC(4921635c) SHA1(aee37d6cdc36acf0f11ff5f93e7b16e4b12f6c39) )
+	ROM_REGION( 0x0100, "irqprom", 0 )
+	ROM_LOAD( "sb-1.k6",  0x0000, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
 ROM_END
 
 

@@ -116,7 +116,7 @@ void dmv_k806_device::device_add_mconfig(machine_config &config)
 	m_mcu->p2_out_cb().set(FUNC(dmv_k806_device::port2_w));
 	m_mcu->t1_in_cb().set(FUNC(dmv_k806_device::portt1_r));
 
-	TIMER(config, "mouse_timer", 0).configure_periodic(FUNC(dmv_k806_device::mouse_timer), attotime::from_hz(1000));
+	TIMER(config, "mouse_timer").configure_periodic(FUNC(dmv_k806_device::mouse_timer), attotime::from_hz(1000));
 }
 
 //-------------------------------------------------
@@ -175,7 +175,7 @@ uint8_t dmv_k806_device::port1_r()
 	return data;
 }
 
-READ_LINE_MEMBER( dmv_k806_device::portt1_r )
+int dmv_k806_device::portt1_r()
 {
 	return BIT(m_jumpers->read(), 7) ? 0 : 1;
 }

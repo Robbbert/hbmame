@@ -12,8 +12,8 @@
 
 ***************************************************************************/
 
-#ifndef MAME_BUS_AMIGA_KEYBOARD_H
-#define MAME_BUS_AMIGA_KEYBOARD_H
+#ifndef MAME_BUS_AMIGA_KEYBOARD_KEYBOARD_H
+#define MAME_BUS_AMIGA_KEYBOARD_KEYBOARD_H
 
 #pragma once
 
@@ -35,10 +35,7 @@ public:
 	amiga_keyboard_bus_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt)
 		: amiga_keyboard_bus_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	amiga_keyboard_bus_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0U);
 	virtual ~amiga_keyboard_bus_device();
@@ -49,17 +46,17 @@ public:
 	auto krst_handler() { return m_krst_handler.bind(); }
 
 	// called from keyboard
-	DECLARE_WRITE_LINE_MEMBER(kclk_w) { m_kclk_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER(kdat_w) { m_kdat_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER(krst_w) { m_krst_handler(state); }
+	void kclk_w(int state) { m_kclk_handler(state); }
+	void kdat_w(int state) { m_kdat_handler(state); }
+	void krst_w(int state) { m_krst_handler(state); }
 
 	// called from host
-	DECLARE_WRITE_LINE_MEMBER(kdat_in_w);
+	void kdat_in_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	device_amiga_keyboard_interface *m_kbd;
@@ -77,7 +74,7 @@ public:
 	// construction/destruction
 	virtual ~device_amiga_keyboard_interface();
 
-	virtual DECLARE_WRITE_LINE_MEMBER(kdat_w) = 0;
+	virtual void kdat_w(int state) = 0;
 
 protected:
 	device_amiga_keyboard_interface(const machine_config &mconfig, device_t &device);
@@ -93,4 +90,4 @@ void amiga_keyboard_devices(device_slot_interface &device);
 void a500_keyboard_devices(device_slot_interface &device);
 void a600_keyboard_devices(device_slot_interface &device);
 
-#endif // MAME_BUS_AMIGA_KEYBOARD_H
+#endif // MAME_BUS_AMIGA_KEYBOARD_KEYBOARD_H

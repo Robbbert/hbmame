@@ -20,7 +20,7 @@ enum
 	INT_9980A_LEVEL2 = 4,
 	INT_9980A_LEVEL3 = 5,
 	INT_9980A_LEVEL4 = 6,
-	INT_9980A_CLEAR= 7
+	INT_9980A_CLEAR = 7
 };
 
 class tms9980a_device : public tms99xx_device
@@ -35,14 +35,11 @@ protected:
 	void        mem_write(void) override;
 	void        acquire_instruction(void) override;
 
-	void        resolve_lines() override;
-
-	uint16_t      read_workspace_register_debug(int reg) override;
+	uint16_t    read_workspace_register_debug(int reg) override;
 	void        write_workspace_register_debug(int reg, uint16_t data) override;
 
-	uint32_t      execute_min_cycles() const noexcept override;
-	uint32_t      execute_max_cycles() const noexcept override;
-	uint32_t      execute_input_lines() const noexcept override;
+	uint32_t    execute_min_cycles() const noexcept override;
+	uint32_t    execute_max_cycles() const noexcept override;
 	void        execute_set_input(int irqline, int state) override;
 
 	// The clock is internally divided by 4

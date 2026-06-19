@@ -2,7 +2,7 @@
 // copyright-holders:Nigel Barnes
 /*********************************************************************
 
-    formats/apd_dsk.c
+    formats/apd_dsk.cpp
 
     Archimedes Protected Disk Image format
 
@@ -63,8 +63,9 @@
 #include "formats/apd_dsk.h"
 
 #include "ioprocs.h"
+#include "multibyte.h"
 
-#include "osdcore.h" // osd_printf_*, little_endianize_int32
+#include "osdcore.h" // osd_printf_*
 
 #include <zlib.h>
 
@@ -78,17 +79,17 @@ apd_format::apd_format()
 {
 }
 
-const char *apd_format::name() const
+const char *apd_format::name() const noexcept
 {
 	return "apd";
 }
 
-const char *apd_format::description() const
+const char *apd_format::description() const noexcept
 {
 	return "Archimedes Protected Disk Image";
 }
 
-const char *apd_format::extensions() const
+const char *apd_format::extensions() const noexcept
 {
 	return "apd";
 }
@@ -100,8 +101,9 @@ int apd_format::identify(util::random_read &io, uint32_t form_factor, const std:
 		return 0;
 
 	std::vector<uint8_t> img(size);
-	size_t actual;
-	io.read_at(0, &img[0], size, actual);
+	auto const [ioerr, actual] = read_at(io, 0, &img[0], size);
+	if (ioerr || (actual != size))
+		return 0;
 
 	int err;
 	std::vector<uint8_t> gz_ptr(8);
@@ -125,7 +127,7 @@ int apd_format::identify(util::random_read &io, uint32_t form_factor, const std:
 		err = inflateEnd(&d_stream);
 		if (err != Z_OK) return 0;
 
-		img = gz_ptr;
+		img = std::move(gz_ptr);
 	}
 
 	if (!memcmp(&img[0], APD_HEADER, sizeof(APD_HEADER))) {
@@ -135,20 +137,21 @@ int apd_format::identify(util::random_read &io, uint32_t form_factor, const std:
 	return 0;
 }
 
-bool apd_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
+bool apd_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image &image) const
 {
 	uint64_t size;
 	if (io.length(size))
 		return false;
 
 	std::vector<uint8_t> img(size);
-	size_t actual;
-	io.read_at(0, &img[0], size, actual);
+	auto const [ioerr, actual] = read_at(io, 0, &img[0], size);
+	if (ioerr || (actual != size))
+		return false;
 
 	int err;
 	std::vector<uint8_t> gz_ptr;
 	z_stream d_stream;
-	int inflate_size = (img[size - 1] << 24) | (img[size - 2] << 16) | (img[size - 3] << 8) | img[size - 4];
+	int inflate_size = get_u32le(&img[size - 4]);
 	uint8_t *in_ptr = &img[0];
 
 	if (!memcmp(&img[0], GZ_HEADER, sizeof(GZ_HEADER))) {
@@ -183,9 +186,9 @@ bool apd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 
 	int data = 0x7d0;
 	for (int track = 0; track < 166; track++) {
-		uint32_t sdlen = little_endianize_int32(*(uint32_t *)(&img[(track * 12) + 8 + 0x0]));
-		uint32_t ddlen = little_endianize_int32(*(uint32_t *)(&img[(track * 12) + 8 + 0x4]));
-		uint32_t qdlen = little_endianize_int32(*(uint32_t *)(&img[(track * 12) + 8 + 0x8]));
+		uint32_t sdlen = get_u32le(&img[(track * 12) + 8 + 0x0]);
+		uint32_t ddlen = get_u32le(&img[(track * 12) + 8 + 0x4]);
+		uint32_t qdlen = get_u32le(&img[(track * 12) + 8 + 0x8]);
 
 		if (sdlen > 0) {
 			generate_track_from_bitstream(track / 2, track % 2, &img[data], sdlen, image);
@@ -200,14 +203,9 @@ bool apd_format::load(util::random_read &io, uint32_t form_factor, const std::ve
 			data += (qdlen + 7) >> 3;
 		}
 	}
-	image->set_variant(floppy_image::DSDD);
+	image.set_variant(floppy_image::DSDD);
 
 	return true;
-}
-
-bool apd_format::supports_save() const
-{
-	return false;
 }
 
 const apd_format FLOPPY_APD_FORMAT;

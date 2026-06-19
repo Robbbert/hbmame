@@ -87,14 +87,14 @@ DEFINE_DEVICE_TYPE(NCR53C7XX, ncr53c7xx_device, "ncr537xx", "NCR 53C7xx SCSI")
 //  ncr53c7xx_device - constructor/destructor
 //-------------------------------------------------
 
-ncr53c7xx_device::ncr53c7xx_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	:   nscsi_device(mconfig, NCR53C7XX, tag, owner, clock),
-		nscsi_slot_card_interface(mconfig, *this, DEVICE_SELF),
-		device_execute_interface(mconfig, *this),
-		m_icount(0),
-		m_irq_handler(*this),
-		m_host_write(*this),
-		m_host_read(*this)
+ncr53c7xx_device::ncr53c7xx_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	device_t(mconfig, NCR53C7XX, tag, owner, clock),
+	nscsi_device_interface(mconfig, *this),
+	device_execute_interface(mconfig, *this),
+	m_icount(0),
+	m_irq_handler(*this),
+	m_host_write(*this),
+	m_host_read(*this, 0)
 {
 }
 
@@ -107,11 +107,6 @@ void ncr53c7xx_device::device_start()
 {
 	// set our instruction counter
 	set_icountptr(m_icount);
-
-	// resolve line callbacks
-	m_irq_handler.resolve_safe();
-	m_host_read.resolve_safe(0);
-	m_host_write.resolve_safe();
 
 	m_tm = timer_alloc(FUNC(ncr53c7xx_device::step_timer), this);
 
@@ -197,7 +192,7 @@ void ncr53c7xx_device::device_reset()
 	m_finished = false;
 	m_connected = false;
 
-	scsi_bus->ctrl_wait(scsi_refid, S_SEL | S_BSY | S_RST, S_ALL);
+	m_scsi_bus->ctrl_wait(m_scsi_refid, S_SEL | S_BSY | S_RST, S_ALL);
 	set_scripts_state(SCRIPTS_IDLE);
 	set_scsi_state(IDLE);
 
@@ -737,9 +732,9 @@ void ncr53c7xx_device::send_byte()
 	++m_dnad;
 	--m_dbc;
 
-	scsi_bus->data_w(scsi_refid, data);
-	scsi_bus->ctrl_w(scsi_refid, S_ACK, S_ACK);
-	scsi_bus->ctrl_wait(scsi_refid, S_REQ, S_REQ);
+	m_scsi_bus->data_w(m_scsi_refid, data);
+	m_scsi_bus->ctrl_w(m_scsi_refid, S_ACK, S_ACK);
+	m_scsi_bus->ctrl_wait(m_scsi_refid, S_REQ, S_REQ);
 	delay(attotime::from_nsec(5));
 }
 
@@ -750,7 +745,7 @@ void ncr53c7xx_device::send_byte()
 
 void ncr53c7xx_device::recv_byte()
 {
-	scsi_bus->ctrl_wait(scsi_refid, S_REQ, S_REQ);
+	m_scsi_bus->ctrl_wait(m_scsi_refid, S_REQ, S_REQ);
 	set_scsi_state( (m_scsi_state & STATE_MASK) | (RECV_WAIT_REQ_1 << SUB_SHIFT) );
 	step(false);
 }
@@ -773,8 +768,8 @@ TIMER_CALLBACK_MEMBER(ncr53c7xx_device::step_timer)
 
 void ncr53c7xx_device::step(bool timeout)
 {
-	uint32_t ctrl = scsi_bus->ctrl_r();
-	uint32_t data = scsi_bus->data_r();
+	uint32_t ctrl = m_scsi_bus->ctrl_r();
+	uint32_t data = m_scsi_bus->data_r();
 
 	LOGMASKED(LOG_STATE, "Step: CTRL:%x DATA:%x (%d.%d) Timeout:%d\n", ctrl, data, m_scsi_state & STATE_MASK, m_scsi_state >> SUB_SHIFT, timeout);
 
@@ -830,17 +825,17 @@ void ncr53c7xx_device::step(bool timeout)
 			if ((ctrl & (S_BSY | S_SEL)) == 0)
 			{
 				// Bus is free - assert the controller SCSI ID and BUSY
-				scsi_bus->ctrl_w(scsi_refid, S_BSY, S_BSY);
+				m_scsi_bus->ctrl_w(m_scsi_refid, S_BSY, S_BSY);
 
 				if (((m_scntl[0] >> SCNTL0_ARB_SHIFT) & SCNTL0_ARB_MASK) == 3)
 				{
 					// Full arbitration
-					scsi_bus->data_w(scsi_refid, m_scid);
+					m_scsi_bus->data_w(m_scsi_refid, m_scid);
 				}
 				else
 				{
 					// Simple arbitration
-					scsi_bus->data_w(scsi_refid, m_sodl);
+					m_scsi_bus->data_w(m_scsi_refid, m_sodl);
 				}
 
 				set_scsi_state(ARBITRATE_EXAMINE_BUS);
@@ -857,8 +852,8 @@ void ncr53c7xx_device::step(bool timeout)
 
 			if (ctrl & S_SEL)
 			{
-				scsi_bus->ctrl_w(scsi_refid, 0, S_BSY);
-				scsi_bus->data_w(scsi_refid, 0);
+				m_scsi_bus->ctrl_w(m_scsi_refid, 0, S_BSY);
+				m_scsi_bus->data_w(m_scsi_refid, 0);
 
 				if (((m_scntl[0] >> SCNTL0_ARB_SHIFT) & SCNTL0_ARB_MASK) == 3)
 				{
@@ -889,8 +884,8 @@ void ncr53c7xx_device::step(bool timeout)
 
 				if ((1 << win) != m_scid)
 				{
-					scsi_bus->data_w(scsi_refid, 0);
-					scsi_bus->ctrl_w(scsi_refid, 0, S_ALL);
+					m_scsi_bus->data_w(m_scsi_refid, 0);
+					m_scsi_bus->ctrl_w(m_scsi_refid, 0, S_ALL);
 
 					delay(attotime::from_nsec(2400));
 					break;
@@ -898,7 +893,7 @@ void ncr53c7xx_device::step(bool timeout)
 
 				// Begin the select phase; assert SEL
 				m_sstat[1] |= SSTAT1_WOA;
-				scsi_bus->ctrl_w(scsi_refid, S_SEL, S_SEL);
+				m_scsi_bus->ctrl_w(m_scsi_refid, S_SEL, S_SEL);
 				set_scsi_state(ARBITRATE_ASSERT_SEL);
 				delay(attotime::from_nsec(1200));
 			}
@@ -921,7 +916,7 @@ void ncr53c7xx_device::step(bool timeout)
 				break;
 
 			// Activate data line of the thing
-			scsi_bus->data_w(scsi_refid, m_sdid);
+			m_scsi_bus->data_w(m_scsi_refid, m_sdid);
 
 			set_scsi_state(ARBITRATE_SELECT_DEST);
 			delay(attotime::from_nsec(2));
@@ -934,7 +929,7 @@ void ncr53c7xx_device::step(bool timeout)
 			if (!timeout)
 				break;
 
-			scsi_bus->ctrl_w(scsi_refid, m_scntl[0] & SCNTL0_WATN ? S_ATN : 0, S_ATN | S_BSY);
+			m_scsi_bus->ctrl_w(m_scsi_refid, m_scntl[0] & SCNTL0_WATN ? S_ATN : 0, S_ATN | S_BSY);
 
 			set_scsi_state(ARBITRATE_RELEASE_BSY);
 			delay(attotime::from_nsec(20));
@@ -959,8 +954,8 @@ void ncr53c7xx_device::step(bool timeout)
 				break;
 
 			// Clear everything
-			scsi_bus->data_w(scsi_refid, 0);
-			scsi_bus->ctrl_w(scsi_refid, 0, S_SEL);
+			m_scsi_bus->data_w(m_scsi_refid, 0);
+			m_scsi_bus->ctrl_w(m_scsi_refid, 0, S_SEL);
 
 			// Done?
 			m_sstat[0] |= SSTAT0_CMP;
@@ -985,7 +980,7 @@ void ncr53c7xx_device::step(bool timeout)
 			else
 			{
 				if (m_dbc == 1)
-					scsi_bus->ctrl_w(scsi_refid, 0, S_ATN);
+					m_scsi_bus->ctrl_w(m_scsi_refid, 0, S_ATN);
 
 				set_scsi_state(INIT_XFER_SEND_BYTE);
 				send_byte();
@@ -1012,7 +1007,7 @@ void ncr53c7xx_device::step(bool timeout)
 		case INIT_XFER_RECV_BYTE_ACK:
 		{
 			set_scsi_state(INIT_XFER_WAIT_REQ);
-			scsi_bus->ctrl_w(scsi_refid, 0, S_ACK);
+			m_scsi_bus->ctrl_w(m_scsi_refid, 0, S_ACK);
 
 			break;
 		}
@@ -1061,8 +1056,8 @@ void ncr53c7xx_device::step(bool timeout)
 				break;
 
 			set_scsi_state(m_scsi_state & STATE_MASK);
-			scsi_bus->data_w(scsi_refid, 0);
-			scsi_bus->ctrl_w(scsi_refid, 0, S_ACK);
+			m_scsi_bus->data_w(m_scsi_refid, 0);
+			m_scsi_bus->ctrl_w(m_scsi_refid, 0, S_ACK);
 
 			step(false);
 
@@ -1087,7 +1082,7 @@ void ncr53c7xx_device::step(bool timeout)
 
 			if ((m_scsi_state & STATE_MASK) != INIT_XFER_RECV_PAD)
 			{
-				m_last_data = scsi_bus->data_r();
+				m_last_data = m_scsi_bus->data_r();
 
 				uint32_t shift = (8 * (m_dnad & 3));
 				uint32_t mem_mask = 0xff << shift;
@@ -1097,7 +1092,7 @@ void ncr53c7xx_device::step(bool timeout)
 				--m_dbc;
 			}
 
-			scsi_bus->ctrl_w(scsi_refid, S_ACK, S_ACK);
+			m_scsi_bus->ctrl_w(m_scsi_refid, S_ACK, S_ACK);
 			set_scsi_state( (m_scsi_state & STATE_MASK) | (RECV_WAIT_REQ_0 << SUB_SHIFT) );
 			step(false);
 
@@ -1427,7 +1422,7 @@ void ncr53c7xx_device::bm_i_wmov()
 				m_dnad = m_host_read(m_dnad, 0xffffffff);
 
 			// Compare the phase bits
-			if ((scsi_bus->ctrl_r() & 7) == (m_dcmd & 7))
+			if ((m_scsi_bus->ctrl_r() & 7) == (m_dcmd & 7))
 			{
 				// Transfer bytes
 				set_scsi_state(INIT_XFER);
@@ -1542,7 +1537,7 @@ void ncr53c7xx_device::io_i_select()
 
 void ncr53c7xx_device::io_i_waitdisconnect()
 {
-	if (scsi_bus->ctrl_r() & (S_BSY | S_SEL))
+	if (m_scsi_bus->ctrl_r() & (S_BSY | S_SEL))
 		scripts_yield();
 	else
 		set_scripts_state(SCRIPTS_FETCH);
@@ -1573,7 +1568,7 @@ void ncr53c7xx_device::io_i_set()
 	if (m_dbc & (1 << 6))
 		mask |= S_ACK;
 
-	scsi_bus->ctrl_w(scsi_refid, mask, mask);
+	m_scsi_bus->ctrl_w(m_scsi_refid, mask, mask);
 
 	set_scripts_state(SCRIPTS_FETCH);
 }
@@ -1593,7 +1588,7 @@ void ncr53c7xx_device::io_i_clear()
 	if (m_dbc & (1 << 6))
 		mask |= S_ACK;
 
-	scsi_bus->ctrl_w(scsi_refid, 0, mask);
+	m_scsi_bus->ctrl_w(m_scsi_refid, 0, mask);
 
 	set_scripts_state(SCRIPTS_FETCH);
 }
@@ -1613,7 +1608,7 @@ void ncr53c7xx_device::tc_jump()
 	if (m_dbc & (1 << 17))
 	{
 		// Phase
-		jump &= (m_dcmd & 7) == (scsi_bus->ctrl_r() & 7);
+		jump &= (m_dcmd & 7) == (m_scsi_bus->ctrl_r() & 7);
 	}
 	if (m_dbc & (1 << 18))
 	{
@@ -1643,7 +1638,7 @@ void ncr53c7xx_device::tc_call()
 	if (m_dbc & (1 << 17))
 	{
 		// Phase
-		jump &= (m_dcmd & 7) == (scsi_bus->ctrl_r() & 7);
+		jump &= (m_dcmd & 7) == (m_scsi_bus->ctrl_r() & 7);
 	}
 	if (m_dbc & (1 << 18))
 	{
@@ -1674,7 +1669,7 @@ void ncr53c7xx_device::tc_return()
 	if (m_dbc & (1 << 17))
 	{
 		// Phase
-		jump &= (m_dcmd & 7) == (scsi_bus->ctrl_r() & 7);
+		jump &= (m_dcmd & 7) == (m_scsi_bus->ctrl_r() & 7);
 	}
 	if (m_dbc & (1 << 18))
 	{
@@ -1704,7 +1699,7 @@ void ncr53c7xx_device::tc_int()
 	if (m_dbc & (1 << 17))
 	{
 		// Phase
-		jump &= (m_dcmd & 7) == (scsi_bus->ctrl_r() & 7);
+		jump &= (m_dcmd & 7) == (m_scsi_bus->ctrl_r() & 7);
 	}
 	if (m_dbc & (1 << 18))
 	{

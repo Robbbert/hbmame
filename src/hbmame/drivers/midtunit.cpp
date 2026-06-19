@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/midtunit.cpp"
+#include "../mame/williams/midtunit.cpp"
 
 /*************
  Mortal Kombat
@@ -19,7 +19,7 @@ ROM_START( mk01 )
 	ROM_LOAD16_BYTE( "mk01.uj12", 0x00000, 0x80000, CRC(4192e38f) SHA1(abe2e6f643a36df48a23aaa2f9027c78c6078d2d) )
 	ROM_LOAD16_BYTE( "mk01.ug12", 0x00001, 0x80000, CRC(8799979d) SHA1(4f094540e68c03fbd03cd8731797c55e455f61e6) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -50,7 +50,7 @@ ROM_START( mk02 )
 	ROM_LOAD16_BYTE( "mk02.uj12", 0x00000, 0x80000, CRC(2f47f224) SHA1(44c10853696507e0c73eaeb1d5bda095af9ae62f) )
 	ROM_LOAD16_BYTE( "mk02.ug12", 0x00001, 0x80000, CRC(39dd89b7) SHA1(e2cfa470ed07824de2d1d43b7a6e7fb4bb8dacf3) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -81,7 +81,7 @@ ROM_START( mk03 ) //mkk
 	ROM_LOAD16_BYTE( "mk03.uj12", 0x00000, 0x80000, CRC(f04ded75) SHA1(0ba305c8b63085889e1827e5231ce08b5b1adb6c) )
 	ROM_LOAD16_BYTE( "mk03.ug12", 0x00001, 0x80000, CRC(30fd0268) SHA1(2336e5d8cbaaeb6b08f7c68c32af3d02492f81f8) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -112,7 +112,7 @@ ROM_START( mk04 ) // mkturbod
 	ROM_LOAD16_BYTE( "mk04.uj12", 0x00000, 0x80000, CRC(7a441f2d) SHA1(3b731bcbd73721ea0cc20157ec5181d25922523c) )
 	ROM_LOAD16_BYTE( "mk04.ug12", 0x00001, 0x80000, CRC(bfab4bb6) SHA1(fc48b4b1fd4f32d9a597e292a1121916c98968d1) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -145,7 +145,7 @@ ROM_START( mk05 ) // mktturboen
 	ROM_FILL(0xF7914, 1, 0x60)
 	ROM_FILL(0xF7915, 1, 0x09)
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -178,7 +178,7 @@ ROM_START( mk06 ) // mktturbopi
 	ROM_FILL(0xF7914, 1, 0x60)
 	ROM_FILL(0xF7915, 1, 0x09)
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -209,7 +209,7 @@ ROM_START( mk07 ) // mkplus
 	ROM_LOAD16_BYTE( "mk07.uj12", 0x00000, 0x80000, CRC(8edf28c0) SHA1(bc91c95d3bbe9942e6cbfa04b77449f9b7becef5) )
 	ROM_LOAD16_BYTE( "mk07.ug12", 0x00001, 0x80000, CRC(be771d8d) SHA1(9644acd2c9392c3a84586d0ea9a51e96e195bf27) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug14_game_rom.ug14", 0x000000, 0x80000, CRC(9e00834e) SHA1(2b97b63f52ba1dba6af6ae56c223519a52b2ab9d) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj14_game_rom.uj14", 0x000001, 0x80000, CRC(f4b0aaa7) SHA1(4cc6ee34c89e3cde325ad24b29511f70ae6a5a72) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_ug19_game_rom.ug19", 0x000002, 0x80000, CRC(2d8c7ba1) SHA1(f891d6eb618dbf3e77f02e0f93da216e20571905) )
@@ -248,7 +248,7 @@ ROM_START( mk2s01 ) //mk2k
 	ROM_LOAD16_BYTE( "mk2s01.uj12", 0x00000, 0x80000, CRC(049aa957) SHA1(5a173938d7786a55fbf78db3df25aa9be8efea9c) )
 	ROM_LOAD16_BYTE( "mk2s01.ug12", 0x00001, 0x80000, CRC(6eb2bd15) SHA1(e767ba4e5878a2e139803f2ec9cc60a4baaad556) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -284,7 +284,7 @@ ROM_START( mk2s02 ) // mk2fr
 	ROM_LOAD16_BYTE( "mk2s02.uj12", 0x00000, 0x80000, CRC(0f801e9b) SHA1(b0dc620e1be6b89ff0a1dcd64eec678e81a2ea69) )
 	ROM_LOAD16_BYTE( "mk2s02.ug12", 0x00001, 0x80000, CRC(d896c9b6) SHA1(61e26c6acaf810e0788aef31000056e524b87b06) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -320,7 +320,7 @@ ROM_START( mk2s03 ) // mk2pb1
 	ROM_LOAD16_BYTE( "mk2s03.uj12", 0x00000, 0x80000, CRC(87a755b5) SHA1(d1796dfae89ca1163cb3db3638066d4bd54d32a8) )
 	ROM_LOAD16_BYTE( "mk2s03.ug12", 0x00001, 0x80000, CRC(b59368c4) SHA1(987ff2ee0944955289b6b156c375b183819072bd) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -356,7 +356,7 @@ ROM_START( mk2s04 ) // mk2pb2
 	ROM_LOAD16_BYTE( "mk2s04.uj12", 0x00000, 0x80000, CRC(05ff15a9) SHA1(23e9c47644c756d7568b6e5122801b19cf594e9b) )
 	ROM_LOAD16_BYTE( "mk2s04.ug12", 0x00001, 0x80000, CRC(b6d8ff5c) SHA1(ad974cc0dcdf35c7175f7cb8c620b58b82843523) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -392,7 +392,7 @@ ROM_START( mk2s05 ) // mk2r33
 	ROM_LOAD16_BYTE( "mk2s05.uj12", 0x00000, 0x80000, CRC(84cb0bf4) SHA1(098e0b5be75c60733f3a63893431506cb99f0981) )
 	ROM_LOAD16_BYTE( "mk2s05.ug12", 0x00001, 0x80000, CRC(2021ec4f) SHA1(7f357abd7ae66eda8eae2b318426da668cfe1deb) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -428,7 +428,7 @@ ROM_START( mk2s06 ) // mk2la03
 	ROM_LOAD16_BYTE( "mk2s06.uj12", 0x00000, 0x80000, CRC(a755a400) SHA1(0c5ca8885369897f08a81f0b9e49f05919e3efcf) )
 	ROM_LOAD16_BYTE( "mk2s06.ug12", 0x00001, 0x80000, CRC(d1fef398) SHA1(10aa6bf25f89327207697b968d9f57d2c6127328) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -467,7 +467,7 @@ ROM_START( umk2s01 ) // umk2te50
 	ROM_LOAD16_BYTE( "umk2s01.uj12", 0x00000, 0x80000, CRC(62ef20f8) SHA1(0e0392bb4b59fb4e01369f533fdcfa6ee5fb6939) )
 	ROM_LOAD16_BYTE( "umk2s01.ug12", 0x00001, 0x80000, CRC(8c66e999) SHA1(ddb9f39149a7ded105f2e993a4c39c473067adf6) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -503,7 +503,7 @@ ROM_START( umk2s02 ) // umk2te51
 	ROM_LOAD16_BYTE( "umk2s02.uj12", 0x00000, 0x80000, CRC(fbf97b24) SHA1(902614ce3a4527d1a78e148a876cd321ea221e8f) )
 	ROM_LOAD16_BYTE( "umk2s02.ug12", 0x00001, 0x80000, CRC(8d67c168) SHA1(699bf8e6924429221ace092fb66ae4c85eede8d2) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -539,7 +539,7 @@ ROM_START( umk2s03 ) // umk2te52
 	ROM_LOAD16_BYTE( "umk2s03.uj12", 0x00000, 0x80000, CRC(a027088c) SHA1(10aced067d8e3a5fe905c07e2ee27904e3dd8855) )
 	ROM_LOAD16_BYTE( "umk2s03.ug12", 0x00001, 0x80000, CRC(474cf238) SHA1(fee96dc9390ade206be3768812040f3bb4ea1e2c) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -575,7 +575,7 @@ ROM_START( umk2s04 ) //mk2tek
 	ROM_LOAD16_BYTE( "umk2s04.uj12", 0x00000, 0x80000, CRC(5ca32ce4) SHA1(dce19a8c704dba7d78910be13580a7e7defd16b8) )
 	ROM_LOAD16_BYTE( "umk2s04.ug12", 0x00001, 0x80000, CRC(90a3ee29) SHA1(0b5b84f1f14a6722cfcbd701537918e4624d0407) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -611,7 +611,7 @@ ROM_START( umk2s05 ) // umk2te53
 	ROM_LOAD16_BYTE( "umk2s05.uj12", 0x00000, 0x80000, CRC(82c0ef47) SHA1(ae157efe65a3faf9f638e30858475f0c0c2a5a62) )
 	ROM_LOAD16_BYTE( "umk2s05.ug12", 0x00001, 0x80000, CRC(bad41b9f) SHA1(1dc178a5a1fa7e84892f8c2fb1baaad01d5549b6) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
@@ -645,7 +645,7 @@ ROM_START( nbajam01 ) // nbajamtexxx
 	ROM_LOAD16_BYTE( "l4_nba_jam_tournament_game_rom_uj12.uj12", 0x00000, 0x80000, CRC(d7c21bc4) SHA1(e05f0299b955500df6a08b1c0b24b932a9cdfa6a) )
 	ROM_LOAD16_BYTE( "l4_nba_jam_tournament_game_rom_ug12.ug12", 0x00001, 0x80000, CRC(7ad49229) SHA1(e9ceedb0e620809d8a4d42087d806aa296a4cd59) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
@@ -680,7 +680,7 @@ ROM_START( nbajam02 ) // nbajamre
 	ROM_LOAD16_BYTE( "nbajam02.uj12", 0x00000, 0x80000, CRC(9b3fc483) SHA1(4e7b6b85d9972063ebdb08ad2c860e082b6e886b) )
 	ROM_LOAD16_BYTE( "nbajam02.ug12", 0x00001, 0x80000, CRC(18e75204) SHA1(e33eaa969dbc7ac19641238fc62d2af4d75bddef) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
@@ -715,7 +715,7 @@ ROM_START( nbajam03 ) // nbajamse
 	ROM_LOAD16_BYTE( "nbajam03.uj12", 0x00000, 0x80000, CRC(a317f3bf) SHA1(059cec300e8ea856b3e89fb80b6d53dcb7461598) )
 	ROM_LOAD16_BYTE( "nbajam03.ug12", 0x00001, 0x80000, CRC(90e66e60) SHA1(3ab49ab0c8fcd3fc9344426140c28218e0a9fbe7) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
@@ -750,7 +750,7 @@ ROM_START( nbajam04 )
 	ROM_LOAD16_BYTE( "nbajam02.uj12", 0x00000, 0x80000, CRC(9b3fc483) SHA1(4e7b6b85d9972063ebdb08ad2c860e082b6e886b) )
 	ROM_LOAD16_BYTE( "nbajam02.ug12", 0x00001, 0x80000, CRC(18e75204) SHA1(e33eaa969dbc7ac19641238fc62d2af4d75bddef) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
@@ -785,7 +785,7 @@ ROM_START( nbajam05 ) // nbajamse
 	ROM_LOAD16_BYTE( "nbajam05.uj12", 0x00000, 0x80000, CRC(08507007) SHA1(b900ce98dc0725c4cd5f6a1eeefffe1f7c910d2b) )
 	ROM_LOAD16_BYTE( "nbajam05.ug12", 0x00001, 0x80000, CRC(d784608e) SHA1(ed086f3d0a08392999f13cb576abecac06405484) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
@@ -820,7 +820,7 @@ ROM_START( nbajam07 ) // nbajamr4j
 	ROM_LOAD16_BYTE( "nbajam07.uj12", 0x00000, 0x80000, CRC(1ef0eb74) SHA1(ca489e03f657780bcad3b1600b06b3e76f86c95a) )
 	ROM_LOAD16_BYTE( "nbajam07.ug12", 0x00001, 0x80000, CRC(b2dd7831) SHA1(9ac312fd0124e0a0a2bcba1a00bd42f3a55f5641) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
 	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
@@ -859,7 +859,7 @@ ROM_START( roadkill )
 	ROM_LOAD16_BYTE( "roadkill.uj12", 0x00000, 0x80000, CRC(6886e5fd) SHA1(f986b4520008206c1068f8711e2250ebac568659) )
 	ROM_LOAD16_BYTE( "roadkill.ug12", 0x00001, 0x80000, CRC(ad9d9e36) SHA1(45af79e9208c500460d834797aff3fa076dfaec5) )
 
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_REGION( 0xc00000, "video", 0 )
 	ROM_LOAD32_BYTE( "roadkill.ug14", 0x000000, 0x80000, CRC(d8a59fc9) SHA1(103b811945f43e60750deb4a190cf6da9b764166) )
 	ROM_LOAD32_BYTE( "roadkill.uj14", 0x000001, 0x80000, CRC(68489a33) SHA1(d2b4b5fdb4d905d98635c0ef872bdf2648a10086) )
 	ROM_LOAD32_BYTE( "roadkill.ug19", 0x000002, 0x80000, CRC(d4c8e3bc) SHA1(87796a8e9b65134478a45bd83160893d047a2b80) )
@@ -887,33 +887,33 @@ ROM_END
 
 /*    YEAR  NAME         PARENT    MACHINE      INPUT     CLASS           INIT          MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
-GAME( 2007, mk01,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk02,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "S.Arkames", "Mortal Kombat (French Rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mk03,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "hack", "Mortal Kombat (5.0K, 2018-02-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, mk04,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mk05,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mk06,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mk07,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "Zpaul2fresh8", "Mortal Kombat Plus (v5.0.0741)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk01,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk02,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "S.Arkames", "Mortal Kombat (French Rev.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mk03,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "hack", "Mortal Kombat (5.0K, 2018-02-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mk04,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mk05,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mk06,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mk07,        mk,       tunit_adpcm, mk,       midtunit_adpcm_state, init_mktunit,  ROT0, "Zpaul2fresh8", "Mortal Kombat Plus (v5.0.0741)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat II
-GAME( 2020, mk2s01,      mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "TEAM UMK 3", "Mortal Kombat II (3.1K, 2020-06-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2s02,      mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "Arkatrad", "Mortal Kombat II (French, 2007-02-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mk2s03,      mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.0 plus beta 1, 2017-09-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mk2s04,      mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.5 plus beta 2, 2018-12-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mk2s05,      mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "Midway", "Mortal Kombat II (3.3 prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, mk2s06,      mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "hack", "Mortal Kombat II (SP4K, 2021-08-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mk2s01,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "TEAM UMK 3", "Mortal Kombat II (3.1K, 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2s02,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "Arkatrad", "Mortal Kombat II (French, 2007-02-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mk2s03,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.0 plus beta 1, 2017-09-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mk2s04,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.5 plus beta 2, 2018-12-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mk2s05,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "Midway", "Mortal Kombat II (3.3 prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mk2s06,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "hack", "Mortal Kombat II (SP4K, 2021-08-05)", MACHINE_SUPPORTS_SAVE )
 // Ultimate Mortal Kombat II
-GAME( 2014, umk2s01,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.050)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2s02,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.051)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2s03,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.052)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, umk2s04,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "hack", "Ultimate Mortal Kombat II (Tournament Edition, 5.0.052K, 2020-07-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, umk2s05,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.053)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2s01,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.050)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2s02,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.051)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2s03,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.052)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, umk2s04,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "hack", "Ultimate Mortal Kombat II (Tournament Edition, 5.0.052K, 2020-07-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, umk2s05,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.053)", MACHINE_SUPPORTS_SAVE )
 // NBA Jam
-GAME( 1994, nbajam01,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Midway", "NBA Jam TE (rev XXX)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, nbajam02,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, nbajam03,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, nbajam04,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, nbajam05,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, nbajam07,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "hack", "NBA Rewind 4 Jam (unprotected, v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, nbajam01,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Midway", "NBA Jam TE (rev XXX)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, nbajam02,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, nbajam03,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, nbajam04,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, nbajam05,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, nbajam07,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "hack", "NBA Rewind 4 Jam (unprotected, v1.2)", MACHINE_SUPPORTS_SAVE )
 // Roadkill
-GAME( 2023, roadkill,    0,        tunit_adpcm, nbajam,   midtunit_state, init_nbajamte, ROT0, "Midway", "Roadkill demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // inputs broken
+GAME( 2023, roadkill,    0,        tunit_adpcm, nbajam,   midtunit_adpcm_state, init_nbajamte, ROT0, "Midway", "Roadkill demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // inputs broken
 

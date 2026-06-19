@@ -6,7 +6,7 @@
  *   portable sharp 61860 emulator interface
  *   (sharp pocket computers)
  *
- *   Copyright Peter Trauner, all rights reserved.
+ *   Copyright Peter Trauner
  *
  * History of changes:
  * 21.07.2001 Several changes listed below were made by Mario Konegger
@@ -468,9 +468,9 @@ void sc61860_device::sc61860_test_special()
 	int t=0;
 	if (m_timer.t512ms) t|=1;
 	if (m_timer.t2ms) t|=2;
-	if (!m_brk.isnull()&&m_brk()) t|=8;
-	if (!m_reset.isnull()&&m_reset()) t|=0x40;
-	if (!m_x.isnull()&&m_x()) t|=0x80;
+	if (!m_brk.isunset()&&m_brk()) t|=8;
+	if (!m_reset.isunset()&&m_reset()) t|=0x40;
+	if (!m_x.isunset()&&m_x()) t|=0x80;
 
 	m_zero=(t&READ_OP())==0;
 }
@@ -740,15 +740,14 @@ void sc61860_device::sc61860_exchange_ext(int count)
 	}
 }
 
-// undocumented
-// only 1 opcode working in pc1403
-// both opcodes working in pc1350
+// Documented in PC1350_MachineLanguage: IPXL = CDN, IPXH = CUP
+// only 1 opcode working in pc1403 (IPXL, or IPXH?)
 void sc61860_device::sc61860_wait_x(int level)
 {
 	int c;
 	m_zero=level;
 
-	if (!m_x.isnull()) {
+	if (!m_x.isunset()) {
 		for (c=READ_RAM(I); c>=0; c--) {
 			uint8_t t = (READ_RAM(m_p)+1)&0x7f;
 			WRITE_RAM(m_p, t);

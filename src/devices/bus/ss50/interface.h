@@ -31,10 +31,7 @@ public:
 	ss50_interface_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: ss50_interface_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	ss50_interface_port_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
@@ -48,16 +45,16 @@ public:
 	void write(offs_t offset, u8 data);
 
 	// baud rates
-	DECLARE_WRITE_LINE_MEMBER(f110_w);
-	DECLARE_WRITE_LINE_MEMBER(f150_9600_w);
-	DECLARE_WRITE_LINE_MEMBER(f300_w);
-	DECLARE_WRITE_LINE_MEMBER(f600_4800_w);
-	DECLARE_WRITE_LINE_MEMBER(f600_1200_w);
+	void f110_w(int state);
+	void f150_9600_w(int state);
+	void f300_w(int state);
+	void f600_4800_w(int state);
+	void f600_1200_w(int state);
 
 protected:
-	// device-specific overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_resolve_objects() override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	// output callbacks
@@ -83,15 +80,15 @@ protected:
 	virtual void register_write(offs_t offset, u8 data) = 0;
 
 	// optional overrides
-	virtual DECLARE_WRITE_LINE_MEMBER(f110_w) { }
-	virtual DECLARE_WRITE_LINE_MEMBER(f150_9600_w) { }
-	virtual DECLARE_WRITE_LINE_MEMBER(f300_w) { }
-	virtual DECLARE_WRITE_LINE_MEMBER(f600_4800_w) { }
-	virtual DECLARE_WRITE_LINE_MEMBER(f600_1200_w) { }
+	virtual void f110_w(int state) { }
+	virtual void f150_9600_w(int state) { }
+	virtual void f300_w(int state) { }
+	virtual void f600_4800_w(int state) { }
+	virtual void f600_1200_w(int state) { }
 
 	// IRQ/FIRQ/NMI outputs
-	DECLARE_WRITE_LINE_MEMBER(write_irq) { m_slot->m_irq_cb(state); }
-	DECLARE_WRITE_LINE_MEMBER(write_firq) { m_slot->m_firq_cb(state); }
+	void write_irq(int state) { m_slot->m_irq_cb(state); }
+	void write_firq(int state) { m_slot->m_firq_cb(state); }
 
 private:
 	virtual void interface_pre_start() override;
@@ -100,7 +97,7 @@ private:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(SS50_INTERFACE, ss50_interface_port_device)
 
 void ss50_default_2rs_devices(device_slot_interface &device);

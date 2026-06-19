@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/gng.cpp"
+#include "../mame/capcom/gng.cpp"
 
 ROM_START( gngknight )
 	ROM_REGION( 0x18000, "maincpu", 0 )

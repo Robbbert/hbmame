@@ -1,6 +1,6 @@
 /*
- * Copyright 2011-2021 Branimir Karadzic. All rights reserved.
- * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
+ * Copyright 2011-2022 Branimir Karadzic. All rights reserved.
+ * License: https://github.com/bkaradzic/bgfx/blob/master/LICENSE
  */
 
 #include "entry_p.h"
@@ -8,9 +8,6 @@
 #if ENTRY_CONFIG_USE_SDL
 
 #if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-#	if ENTRY_CONFIG_USE_WAYLAND
-#		include <wayland-egl.h>
-#	endif
 #elif BX_PLATFORM_WINDOWS
 #	define SDL_MAIN_HANDLED
 #endif
@@ -49,22 +46,14 @@ namespace entry
 		}
 
 #	if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-#		if ENTRY_CONFIG_USE_WAYLAND
-		wl_egl_window *win_impl = (wl_egl_window*)SDL_GetWindowData(_window, "wl_egl_window");
-		if(!win_impl)
+		if (wmi.subsystem == SDL_SYSWM_WAYLAND)
 		{
-			int width, height;
-			SDL_GetWindowSize(_window, &width, &height);
-			struct wl_surface* surface = wmi.info.wl.surface;
-			if(!surface)
-				return nullptr;
-			win_impl = wl_egl_window_create(surface, width, height);
-			SDL_SetWindowData(_window, "wl_egl_window", win_impl);
+			return (void*)wmi.info.wl.surface;
 		}
-		return (void*)(uintptr_t)win_impl;
-#		else
-		return (void*)wmi.info.x11.window;
-#		endif
+		else
+		{
+			return (void*)wmi.info.x11.window;
+		}
 #	elif BX_PLATFORM_OSX || BX_PLATFORM_IOS
 		return wmi.info.cocoa.window;
 #	elif BX_PLATFORM_WINDOWS
@@ -72,52 +61,6 @@ namespace entry
 #   elif BX_PLATFORM_ANDROID
 		return wmi.info.android.window;
 #	endif // BX_PLATFORM_
-	}
-
-	inline bool sdlSetWindow(SDL_Window* _window)
-	{
-		SDL_SysWMinfo wmi;
-		SDL_VERSION(&wmi.version);
-		if (!SDL_GetWindowWMInfo(_window, &wmi) )
-		{
-			return false;
-		}
-
-		bgfx::PlatformData pd;
-#	if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-#		if ENTRY_CONFIG_USE_WAYLAND
-		pd.ndt          = wmi.info.wl.display;
-#		else
-		pd.ndt          = wmi.info.x11.display;
-#		endif
-#	else
-		pd.ndt          = NULL;
-#	endif // BX_PLATFORM_
-		pd.nwh          = sdlNativeWindowHandle(_window);
-
-		pd.context      = NULL;
-		pd.backBuffer   = NULL;
-		pd.backBufferDS = NULL;
-		bgfx::setPlatformData(pd);
-
-		return true;
-	}
-
-	static void sdlDestroyWindow(SDL_Window* _window)
-	{
-		if(!_window)
-			return;
-#	if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-#		if ENTRY_CONFIG_USE_WAYLAND
-		wl_egl_window *win_impl = (wl_egl_window*)SDL_GetWindowData(_window, "wl_egl_window");
-		if(win_impl)
-		{
-			SDL_SetWindowData(_window, "wl_egl_window", nullptr);
-			wl_egl_window_destroy(win_impl);
-		}
-#		endif
-#	endif
-		SDL_DestroyWindow(_window);
 	}
 
 	static uint8_t translateKeyModifiers(uint16_t _sdl)
@@ -513,14 +456,13 @@ namespace entry
 
 			s_userEventStart = SDL_RegisterEvents(7);
 
-			sdlSetWindow(m_window[0]);
 			bgfx::renderFrame();
 
 			m_thread.init(MainThreadEntry::threadFunc, &m_mte);
 
 			// Force window resolution...
 			WindowHandle defaultWindow = { 0 };
-			setWindowSize(defaultWindow, m_width, m_height, true);
+			entry::setWindowSize(defaultWindow, m_width, m_height);
 
 			SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
@@ -536,7 +478,7 @@ namespace entry
 				bx::AllocatorI* allocator = getAllocator();
 				uint32_t size = (uint32_t)bx::getSize(reader);
 				void* data = BX_ALLOC(allocator, size + 1);
-				bx::read(reader, data, size);
+				bx::read(reader, data, size, bx::ErrorAssert{});
 				bx::close(reader);
 				((char*)data)[size] = '\0';
 
@@ -698,7 +640,15 @@ namespace entry
 							case SDL_WINDOWEVENT_SIZE_CHANGED:
 								{
 									WindowHandle handle = findHandle(wev.windowID);
-									setWindowSize(handle, wev.data1, wev.data2);
+									uint32_t width = wev.data1;
+									uint32_t height = wev.data2;
+									if (width  != m_width
+									||  height != m_height)
+									{
+										m_width  = width;
+										m_height = height;
+										m_eventQueue.postSizeEvent(handle, m_width, m_height);
+									}
 								}
 								break;
 
@@ -892,7 +842,7 @@ namespace entry
 									if (isValid(handle) )
 									{
 										m_eventQueue.postWindowEvent(handle);
-										sdlDestroyWindow(m_window[handle.idx]);
+										SDL_DestroyWindow(m_window[handle.idx]);
 										m_window[handle.idx] = NULL;
 									}
 								}
@@ -943,7 +893,7 @@ namespace entry
 									Msg* msg = (Msg*)uev.data2;
 									if (isValid(handle) )
 									{
-										setWindowSize(handle, msg->m_width, msg->m_height);
+										SDL_SetWindowSize(m_window[handle.idx], msg->m_width, msg->m_height);
 									}
 									delete msg;
 								}
@@ -986,7 +936,7 @@ namespace entry
 			while (bgfx::RenderFrame::NoContext != bgfx::renderFrame() ) {};
 			m_thread.shutdown();
 
-			sdlDestroyWindow(m_window[0]);
+			SDL_DestroyWindow(m_window[0]);
 			SDL_Quit();
 
 			return m_thread.getExitCode();
@@ -1013,20 +963,6 @@ namespace entry
 
 			WindowHandle invalid = { UINT16_MAX };
 			return invalid;
-		}
-
-		void setWindowSize(WindowHandle _handle, uint32_t _width, uint32_t _height, bool _force = false)
-		{
-			if (_width  != m_width
-			||  _height != m_height
-			||  _force)
-			{
-				m_width  = _width;
-				m_height = _height;
-
-				SDL_SetWindowSize(m_window[_handle.idx], m_width, m_height);
-				m_eventQueue.postSizeEvent(_handle, m_width, m_height);
-			}
 		}
 
 		GamepadHandle findGamepad(SDL_JoystickID _jid)
@@ -1129,6 +1065,7 @@ namespace entry
 
 	void setWindowSize(WindowHandle _handle, uint32_t _width, uint32_t _height)
 	{
+		// Function to set the window size programmatically from the examples/tools.
 		Msg* msg = new Msg;
 		msg->m_width  = _width;
 		msg->m_height = _height;
@@ -1160,6 +1097,47 @@ namespace entry
 	void setMouseLock(WindowHandle _handle, bool _lock)
 	{
 		sdlPostEvent(SDL_USER_WINDOW_MOUSE_LOCK, _handle, NULL, _lock);
+	}
+
+	void* getNativeWindowHandle(WindowHandle _handle)
+	{
+		return sdlNativeWindowHandle(s_ctx.m_window[_handle.idx]);
+	}
+
+	void* getNativeDisplayHandle()
+	{
+		SDL_SysWMinfo wmi;
+		SDL_VERSION(&wmi.version);
+		if (!SDL_GetWindowWMInfo(s_ctx.m_window[0], &wmi) )
+		{
+			return NULL;
+		}
+#	if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+		if (wmi.subsystem == SDL_SYSWM_WAYLAND)
+			return wmi.info.wl.display;
+		else
+			return wmi.info.x11.display;
+#	else
+		return NULL;
+#	endif // BX_PLATFORM_*
+	}
+
+	bgfx::NativeWindowHandleType::Enum getNativeWindowHandleType(WindowHandle _handle)
+	{
+		SDL_SysWMinfo wmi;
+		SDL_VERSION(&wmi.version);
+		if (!SDL_GetWindowWMInfo(s_ctx.m_window[_handle.idx], &wmi) )
+		{
+			return bgfx::NativeWindowHandleType::Default;
+		}
+#	if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+		if (wmi.subsystem == SDL_SYSWM_WAYLAND)
+			return bgfx::NativeWindowHandleType::Wayland;
+		else
+			return bgfx::NativeWindowHandleType::Default;
+#	else
+		return bgfx::NativeWindowHandleType::Default;
+#	endif // BX_PLATFORM_*
 	}
 
 	int32_t MainThreadEntry::threadFunc(bx::Thread* _thread, void* _userData)

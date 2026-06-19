@@ -17,24 +17,30 @@
 #ifndef MAME_EMU_IOPORT_H
 #define MAME_EMU_IOPORT_H
 
+#include "inpttype.h"
+
+#include "interface/inputseq.h"
+
 #include "ioprocs.h"
 #include "fileio.h"
+#include "multibyte.h"
 
 #include <array>
 #include <cstdint>
 #include <cstring>
 #include <ctime>
+#include <functional>
+#include <iosfwd>
+#include <initializer_list>
 #include <list>
 #include <memory>
+#include <string_view>
 #include <vector>
 
 
 //**************************************************************************
 //  CONSTANTS
 //**************************************************************************
-
-// input ports support up to 32 bits each
-typedef u32 ioport_value;
 
 // active high/low values for input ports
 constexpr ioport_value IP_ACTIVE_HIGH = 0x00000000;
@@ -44,24 +50,13 @@ constexpr ioport_value IP_ACTIVE_LOW = 0xffffffff;
 constexpr int MAX_PLAYERS = 10;
 
 // unicode constants
+constexpr char32_t UCHAR_INVALID = 0xffff;
 constexpr char32_t UCHAR_PRIVATE = 0x100000;
 constexpr char32_t UCHAR_SHIFT_1 = UCHAR_PRIVATE + 0;
 constexpr char32_t UCHAR_SHIFT_2 = UCHAR_PRIVATE + 1;
 constexpr char32_t UCHAR_SHIFT_BEGIN = UCHAR_SHIFT_1;
 constexpr char32_t UCHAR_SHIFT_END = UCHAR_SHIFT_2;
-constexpr char32_t UCHAR_MAMEKEY_BEGIN = UCHAR_PRIVATE + 2;
-
-
-// sequence types for input_port_seq() call
-enum input_seq_type
-{
-	SEQ_TYPE_INVALID = -1,
-	SEQ_TYPE_STANDARD = 0,
-	SEQ_TYPE_INCREMENT,
-	SEQ_TYPE_DECREMENT,
-	SEQ_TYPE_TOTAL
-};
-DECLARE_ENUM_INCDEC_OPERATORS(input_seq_type)
+constexpr char32_t UCHAR_MAMEKEY_BEGIN = UCHAR_SHIFT_END + 1;
 
 
 // crosshair types
@@ -93,323 +88,6 @@ enum ioport_group
 };
 
 
-// various input port types
-enum ioport_type
-{
-	// pseudo-port types
-	IPT_INVALID = 0,
-	IPT_UNUSED,
-	IPT_END,
-	IPT_UNKNOWN,
-	IPT_PORT,
-	IPT_DIPSWITCH,
-	IPT_CONFIG,
-
-	// start buttons
-	IPT_START1,
-	IPT_START2,
-	IPT_START3,
-	IPT_START4,
-	IPT_START5,
-	IPT_START6,
-	IPT_START7,
-	IPT_START8,
-	IPT_START9,
-	IPT_START10,
-
-	// coin slots
-	IPT_COIN1,
-	IPT_COIN2,
-	IPT_COIN3,
-	IPT_COIN4,
-	IPT_COIN5,
-	IPT_COIN6,
-	IPT_COIN7,
-	IPT_COIN8,
-	IPT_COIN9,
-	IPT_COIN10,
-	IPT_COIN11,
-	IPT_COIN12,
-	IPT_BILL1,
-
-	// service coin
-	IPT_SERVICE1,
-	IPT_SERVICE2,
-	IPT_SERVICE3,
-	IPT_SERVICE4,
-
-	// tilt inputs
-	IPT_TILT1,
-	IPT_TILT2,
-	IPT_TILT3,
-	IPT_TILT4,
-
-	// misc other digital inputs
-	IPT_POWER_ON,
-	IPT_POWER_OFF,
-	IPT_SERVICE,
-	IPT_TILT,
-	IPT_INTERLOCK,
-	IPT_MEMORY_RESET,
-	IPT_VOLUME_UP,
-	IPT_VOLUME_DOWN,
-	IPT_START,              // use the numbered start button(s) for coin-ops
-	IPT_SELECT,
-	IPT_KEYPAD,
-	IPT_KEYBOARD,
-
-	// digital joystick inputs
-	IPT_DIGITAL_JOYSTICK_FIRST,
-
-		// use IPT_JOYSTICK for panels where the player has one single joystick
-		IPT_JOYSTICK_UP,
-		IPT_JOYSTICK_DOWN,
-		IPT_JOYSTICK_LEFT,
-		IPT_JOYSTICK_RIGHT,
-
-		// use IPT_JOYSTICKLEFT and IPT_JOYSTICKRIGHT for dual joystick panels
-		IPT_JOYSTICKRIGHT_UP,
-		IPT_JOYSTICKRIGHT_DOWN,
-		IPT_JOYSTICKRIGHT_LEFT,
-		IPT_JOYSTICKRIGHT_RIGHT,
-		IPT_JOYSTICKLEFT_UP,
-		IPT_JOYSTICKLEFT_DOWN,
-		IPT_JOYSTICKLEFT_LEFT,
-		IPT_JOYSTICKLEFT_RIGHT,
-
-	IPT_DIGITAL_JOYSTICK_LAST,
-
-	// action buttons
-	IPT_BUTTON1,
-	IPT_BUTTON2,
-	IPT_BUTTON3,
-	IPT_BUTTON4,
-	IPT_BUTTON5,
-	IPT_BUTTON6,
-	IPT_BUTTON7,
-	IPT_BUTTON8,
-	IPT_BUTTON9,
-	IPT_BUTTON10,
-	IPT_BUTTON11,
-	IPT_BUTTON12,
-	IPT_BUTTON13,
-	IPT_BUTTON14,
-	IPT_BUTTON15,
-	IPT_BUTTON16,
-
-	// mahjong inputs
-	IPT_MAHJONG_FIRST,
-
-		IPT_MAHJONG_A,
-		IPT_MAHJONG_B,
-		IPT_MAHJONG_C,
-		IPT_MAHJONG_D,
-		IPT_MAHJONG_E,
-		IPT_MAHJONG_F,
-		IPT_MAHJONG_G,
-		IPT_MAHJONG_H,
-		IPT_MAHJONG_I,
-		IPT_MAHJONG_J,
-		IPT_MAHJONG_K,
-		IPT_MAHJONG_L,
-		IPT_MAHJONG_M,
-		IPT_MAHJONG_N,
-		IPT_MAHJONG_O,
-		IPT_MAHJONG_P,
-		IPT_MAHJONG_Q,
-		IPT_MAHJONG_KAN,
-		IPT_MAHJONG_PON,
-		IPT_MAHJONG_CHI,
-		IPT_MAHJONG_REACH,
-		IPT_MAHJONG_RON,
-		IPT_MAHJONG_FLIP_FLOP,
-		IPT_MAHJONG_BET,
-		IPT_MAHJONG_SCORE,
-		IPT_MAHJONG_DOUBLE_UP,
-		IPT_MAHJONG_BIG,
-		IPT_MAHJONG_SMALL,
-		IPT_MAHJONG_LAST_CHANCE,
-
-	IPT_MAHJONG_LAST,
-
-	// hanafuda inputs
-	IPT_HANAFUDA_FIRST,
-
-		IPT_HANAFUDA_A,
-		IPT_HANAFUDA_B,
-		IPT_HANAFUDA_C,
-		IPT_HANAFUDA_D,
-		IPT_HANAFUDA_E,
-		IPT_HANAFUDA_F,
-		IPT_HANAFUDA_G,
-		IPT_HANAFUDA_H,
-		IPT_HANAFUDA_YES,
-		IPT_HANAFUDA_NO,
-
-	IPT_HANAFUDA_LAST,
-
-	// gambling inputs
-	IPT_GAMBLING_FIRST,
-
-		IPT_GAMBLE_KEYIN,   // attendant
-		IPT_GAMBLE_KEYOUT,  // attendant
-		IPT_GAMBLE_SERVICE, // attendant
-		IPT_GAMBLE_BOOK,    // attendant
-		IPT_GAMBLE_DOOR,    // attendant
-	//  IPT_GAMBLE_DOOR2,   // many gambling games have several doors.
-	//  IPT_GAMBLE_DOOR3,
-	//  IPT_GAMBLE_DOOR4,
-	//  IPT_GAMBLE_DOOR5,
-
-		IPT_GAMBLE_PAYOUT,  // player
-		IPT_GAMBLE_BET,     // player
-		IPT_GAMBLE_DEAL,    // player
-		IPT_GAMBLE_STAND,   // player
-		IPT_GAMBLE_TAKE,    // player
-		IPT_GAMBLE_D_UP,    // player
-		IPT_GAMBLE_HALF,    // player
-		IPT_GAMBLE_HIGH,    // player
-		IPT_GAMBLE_LOW,     // player
-
-		// poker-specific inputs
-		IPT_POKER_HOLD1,
-		IPT_POKER_HOLD2,
-		IPT_POKER_HOLD3,
-		IPT_POKER_HOLD4,
-		IPT_POKER_HOLD5,
-		IPT_POKER_CANCEL,
-
-		// slot-specific inputs
-		IPT_SLOT_STOP1,
-		IPT_SLOT_STOP2,
-		IPT_SLOT_STOP3,
-		IPT_SLOT_STOP4,
-		IPT_SLOT_STOP_ALL,
-
-	IPT_GAMBLING_LAST,
-
-	// analog inputs
-	IPT_ANALOG_FIRST,
-
-		IPT_ANALOG_ABSOLUTE_FIRST,
-
-			IPT_AD_STICK_X,     // absolute // autocenter
-			IPT_AD_STICK_Y,     // absolute // autocenter
-			IPT_AD_STICK_Z,     // absolute // autocenter
-			IPT_PADDLE,         // absolute // autocenter
-			IPT_PADDLE_V,       // absolute // autocenter
-			IPT_PEDAL,          // absolute // autocenter
-			IPT_PEDAL2,         // absolute // autocenter
-			IPT_PEDAL3,         // absolute // autocenter
-			IPT_LIGHTGUN_X,     // absolute
-			IPT_LIGHTGUN_Y,     // absolute
-			IPT_POSITIONAL,     // absolute // autocenter if not wraps
-			IPT_POSITIONAL_V,   // absolute // autocenter if not wraps
-
-		IPT_ANALOG_ABSOLUTE_LAST,
-
-		IPT_DIAL,           // relative
-		IPT_DIAL_V,         // relative
-		IPT_TRACKBALL_X,    // relative
-		IPT_TRACKBALL_Y,    // relative
-		IPT_MOUSE_X,        // relative
-		IPT_MOUSE_Y,        // relative
-
-	IPT_ANALOG_LAST,
-
-	// analog adjuster support
-	IPT_ADJUSTER,
-
-	// the following are special codes for user interface handling - not to be used by drivers!
-	IPT_UI_FIRST,
-
-		IPT_UI_CONFIGURE,
-		IPT_UI_ON_SCREEN_DISPLAY,
-		IPT_UI_DEBUG_BREAK,
-		IPT_UI_PAUSE,
-		IPT_UI_PAUSE_SINGLE,
-		IPT_UI_REWIND_SINGLE,
-		IPT_UI_RESET_MACHINE,
-		IPT_UI_SOFT_RESET,
-		IPT_UI_SHOW_GFX,
-		IPT_UI_FRAMESKIP_DEC,
-		IPT_UI_FRAMESKIP_INC,
-		IPT_UI_THROTTLE,
-		IPT_UI_FAST_FORWARD,
-		IPT_UI_SHOW_FPS,
-		IPT_UI_SNAPSHOT,
-		IPT_UI_RECORD_MNG,
-		IPT_UI_RECORD_AVI,
-		IPT_UI_TOGGLE_CHEAT,
-		IPT_UI_UP,
-		IPT_UI_DOWN,
-		IPT_UI_LEFT,
-		IPT_UI_RIGHT,
-		IPT_UI_HOME,
-		IPT_UI_END,
-		IPT_UI_PAGE_UP,
-		IPT_UI_PAGE_DOWN,
-		IPT_UI_FOCUS_NEXT,
-		IPT_UI_FOCUS_PREV,
-		IPT_UI_SELECT,
-		IPT_UI_CANCEL,
-		IPT_UI_DISPLAY_COMMENT,
-		IPT_UI_CLEAR,
-		IPT_UI_ZOOM_IN,
-		IPT_UI_ZOOM_OUT,
-		IPT_UI_ZOOM_DEFAULT,
-		IPT_UI_PREV_GROUP,
-		IPT_UI_NEXT_GROUP,
-		IPT_UI_ROTATE,
-		IPT_UI_SHOW_PROFILER,
-		IPT_UI_TOGGLE_UI,
-		IPT_UI_RELEASE_POINTER,
-		IPT_UI_PASTE,
-		IPT_UI_SAVE_STATE,
-		IPT_UI_LOAD_STATE,
-		IPT_UI_TAPE_START,
-		IPT_UI_TAPE_STOP,
-		IPT_UI_DATS,
-		IPT_UI_FAVORITES,
-		IPT_UI_EXPORT,
-		IPT_UI_AUDIT,
-
-		// additional OSD-specified UI port types (up to 16)
-		IPT_OSD_1,
-		IPT_OSD_2,
-		IPT_OSD_3,
-		IPT_OSD_4,
-		IPT_OSD_5,
-		IPT_OSD_6,
-		IPT_OSD_7,
-		IPT_OSD_8,
-		IPT_OSD_9,
-		IPT_OSD_10,
-		IPT_OSD_11,
-		IPT_OSD_12,
-		IPT_OSD_13,
-		IPT_OSD_14,
-		IPT_OSD_15,
-		IPT_OSD_16,
-
-	IPT_UI_LAST,
-
-	IPT_OTHER, // not mapped to standard defaults
-
-	IPT_SPECIAL, // uninterpreted characters
-	IPT_CUSTOM, // handled by custom code
-	IPT_OUTPUT,
-
-	IPT_COUNT
-};
-DECLARE_ENUM_INCDEC_OPERATORS(ioport_type)
-// aliases for some types
-#define IPT_PADDLE_H        IPT_PADDLE
-#define IPT_PEDAL1          IPT_PEDAL
-#define IPT_POSITIONAL_H    IPT_POSITIONAL
-#define IPT_DIAL_H          IPT_DIAL
-
-
 // input type classes
 enum ioport_type_class
 {
@@ -423,7 +101,7 @@ enum ioport_type_class
 
 
 // default strings used in port definitions
-enum
+enum input_string_index
 {
 	INPUT_STRING_Off = 1,
 	INPUT_STRING_On,
@@ -438,8 +116,8 @@ enum
 	INPUT_STRING_Coin_B,
 //  INPUT_STRING_20C_1C,    //  0.050000
 //  INPUT_STRING_15C_1C,    //  0.066667
-//  INPUT_STRING_10C_1C,    //  0.100000
-#define __input_string_coinage_start INPUT_STRING_9C_1C
+#define __input_string_coinage_start INPUT_STRING_10C_1C
+	INPUT_STRING_10C_1C,    //  0.100000
 	INPUT_STRING_9C_1C,     //  0.111111
 	INPUT_STRING_8C_1C,     //  0.125000
 	INPUT_STRING_7C_1C,     //  0.142857
@@ -456,13 +134,13 @@ enum
 	INPUT_STRING_3C_1C,     //  0.333333
 	INPUT_STRING_8C_3C,     //  0.375000
 //  INPUT_STRING_10C_4C,    //  0.400000
+	INPUT_STRING_5C_2C,     //  0.400000
 //  INPUT_STRING_7C_3C,     //  0.428571
 //  INPUT_STRING_9C_4C,     //  0.444444
 //  INPUT_STRING_10C_5C,    //  0.500000
 //  INPUT_STRING_8C_4C,     //  0.500000
 //  INPUT_STRING_6C_3C,     //  0.500000
 	INPUT_STRING_4C_2C,     //  0.500000
-	INPUT_STRING_5C_2C,     //  0.500000
 	INPUT_STRING_2C_1C,     //  0.500000
 //  INPUT_STRING_9C_5C,     //  0.555556
 //  INPUT_STRING_7C_4C,     //  0.571429
@@ -500,7 +178,6 @@ enum
 //  INPUT_STRING_6C_7C,     //  1.166667
 //  INPUT_STRING_5C_6C,     //  1.200000
 //  INPUT_STRING_8C_10C,    //  1.250000
-	INPUT_STRING_3C_5C,     //  1.250000
 	INPUT_STRING_4C_5C,     //  1.250000
 //  INPUT_STRING_7C_9C,     //  1.285714
 //  INPUT_STRING_6C_8C,     //  1.333333
@@ -512,7 +189,7 @@ enum
 	INPUT_STRING_2C_3C,     //  1.500000
 //  INPUT_STRING_5C_8C,     //  1.600000
 //  INPUT_STRING_6C_10C,    //  1.666667
-//  INPUT_STRING_3C_5C,     //  1.666667
+	INPUT_STRING_3C_5C,     //  1.666667
 	INPUT_STRING_4C_7C,     //  1.750000
 //  INPUT_STRING_5C_9C,     //  1.800000
 //  INPUT_STRING_5C_10C,    //  2.000000
@@ -539,20 +216,20 @@ enum
 	INPUT_STRING_1C_7C,     //  7.000000
 	INPUT_STRING_1C_8C,     //  8.000000
 	INPUT_STRING_1C_9C,     //  9.000000
-#define __input_string_coinage_end INPUT_STRING_1C_9C
-//  INPUT_STRING_1C_10C,    //  10.000000
+	INPUT_STRING_1C_10C,    //  10.000000
 //  INPUT_STRING_1C_11C,    //  11.000000
 //  INPUT_STRING_1C_12C,    //  12.000000
 //  INPUT_STRING_1C_13C,    //  13.000000
 //  INPUT_STRING_1C_14C,    //  14.000000
 //  INPUT_STRING_1C_15C,    //  15.000000
-//  INPUT_STRING_1C_20C,    //  20.000000
-//  INPUT_STRING_1C_25C,    //  25.000000
+	INPUT_STRING_1C_20C,    //  20.000000
+	INPUT_STRING_1C_25C,    //  25.000000
 //  INPUT_STRING_1C_30C,    //  30.000000
 //  INPUT_STRING_1C_40C,    //  40.000000
-//  INPUT_STRING_1C_50C,    //  50.000000
+	INPUT_STRING_1C_50C,    //  50.000000
 //  INPUT_STRING_1C_99C,    //  99.000000
-//  INPUT_STRING_1C_100C,   //  100.000000
+	INPUT_STRING_1C_100C,   //  100.000000
+#define __input_string_coinage_end INPUT_STRING_1C_100C
 //  INPUT_STRING_1C_120C,   //  120.000000
 //  INPUT_STRING_1C_125C,   //  125.000000
 //  INPUT_STRING_1C_150C,   //  150.000000
@@ -654,8 +331,11 @@ enum
 //  TYPE DEFINITIONS
 //**************************************************************************
 
+using osd::input_seq; // too much trouble to qualify this everywhere
+
+
 // constructor function pointer
-typedef void(*ioport_constructor)(device_t &owner, ioport_list &portlist, std::string &errorbuf);
+typedef void(*ioport_constructor)(device_t &owner, ioport_list &portlist, std::ostream &errorbuf);
 
 // I/O port callback function delegates
 typedef device_delegate<ioport_value ()> ioport_field_read_delegate;
@@ -688,15 +368,7 @@ public:
 	}
 	u64 get_basetime() const
 	{
-		return
-				(u64(m_data[OFFS_BASETIME + 0]) << (0 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 1]) << (1 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 2]) << (2 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 3]) << (3 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 4]) << (4 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 5]) << (5 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 6]) << (6 * 8)) |
-				(u64(m_data[OFFS_BASETIME + 7]) << (7 * 8));
+		return get_u64le(m_data + OFFS_BASETIME);
 	}
 	unsigned get_majversion() const
 	{
@@ -721,14 +393,7 @@ public:
 	}
 	void set_basetime(u64 time)
 	{
-		m_data[OFFS_BASETIME + 0] = u8((time >> (0 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 1] = u8((time >> (1 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 2] = u8((time >> (2 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 3] = u8((time >> (3 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 4] = u8((time >> (4 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 5] = u8((time >> (5 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 6] = u8((time >> (6 * 8)) & 0x00ff);
-		m_data[OFFS_BASETIME + 7] = u8((time >> (7 * 8)) & 0x00ff);
+		put_u64le(m_data + OFFS_BASETIME, time);
 	}
 	void set_version()
 	{
@@ -910,7 +575,7 @@ public:
 	bool none() const { return (m_condition == ALWAYS); }
 
 	// configuration
-	void reset() { set(ALWAYS, nullptr, 0, 0); }
+	void reset() { set(ALWAYS, "", 0, 0); }
 	void set(condition_t condition, const char *tag, ioport_value mask, ioport_value value)
 	{
 		m_condition = condition;
@@ -925,7 +590,7 @@ public:
 private:
 	// internal state
 	condition_t     m_condition;    // condition to use
-	const char *    m_tag;          // tag of port whose condition is to be tested
+	const char *    m_tag;          // tag of port whose condition is to be tested (must never be nullptr)
 	ioport_port *   m_port;         // reference to the port to be tested
 	ioport_value    m_mask;         // mask to apply to the port
 	ioport_value    m_value;        // value to compare against
@@ -969,7 +634,7 @@ class ioport_diplocation
 {
 public:
 	// construction/destruction
-	ioport_diplocation(const char *name, u8 swnum, bool invert);
+	ioport_diplocation(std::string_view name, u8 swnum, bool invert);
 
 	// getters
 	const char *name() const { return m_name.c_str(); }
@@ -995,14 +660,12 @@ class ioport_field
 	friend class dynamic_field;
 
 	// flags for ioport_fields
-	static inline constexpr u32 FIELD_FLAG_OPTIONAL = 0x0001;    // set if this field is not required but recognized by hw
-	static inline constexpr u32 FIELD_FLAG_COCKTAIL = 0x0002;    // set if this field is relevant only for cocktail cabinets
-	static inline constexpr u32 FIELD_FLAG_TOGGLE =   0x0004;    // set if this field should behave as a toggle
-	static inline constexpr u32 FIELD_FLAG_ROTATED =  0x0008;    // set if this field represents a rotated control
-	static inline constexpr u32 ANALOG_FLAG_REVERSE = 0x0010;    // analog only: reverse the sense of the axis
-	static inline constexpr u32 ANALOG_FLAG_RESET =   0x0020;    // analog only: always preload in->default for relative axes, returning only deltas
-	static inline constexpr u32 ANALOG_FLAG_WRAPS =   0x0040;    // analog only: positional count wraps around
-	static inline constexpr u32 ANALOG_FLAG_INVERT =  0x0080;    // analog only: bitwise invert bits
+	static inline constexpr u32 FIELD_FLAG_COCKTAIL = 0x0001;    // set if this field is relevant only for cocktail cabinets
+	static inline constexpr u32 FIELD_FLAG_TOGGLE =   0x0002;    // set if this field should behave as a toggle
+	static inline constexpr u32 ANALOG_FLAG_REVERSE = 0x0004;    // analog only: reverse the sense of the axis
+	static inline constexpr u32 ANALOG_FLAG_RESET =   0x0008;    // analog only: always preload in->default for relative axes, returning only deltas
+	static inline constexpr u32 ANALOG_FLAG_WRAPS =   0x0010;    // analog only: positional count wraps around
+	static inline constexpr u32 ANALOG_FLAG_INVERT =  0x0020;    // analog only: bitwise invert bits
 
 public:
 	// construction/destruction
@@ -1029,10 +692,8 @@ public:
 	void set_value(ioport_value value);
 	void clear_value();
 
-	bool optional() const { return ((m_flags & FIELD_FLAG_OPTIONAL) != 0); }
 	bool cocktail() const { return ((m_flags & FIELD_FLAG_COCKTAIL) != 0); }
 	bool toggle() const { return ((m_flags & FIELD_FLAG_TOGGLE) != 0); }
-	bool rotated() const { return ((m_flags & FIELD_FLAG_ROTATED) != 0); }
 	bool analog_reverse() const { return ((m_flags & ANALOG_FLAG_REVERSE) != 0); }
 	bool analog_reset() const { return ((m_flags & ANALOG_FLAG_RESET) != 0); }
 	bool analog_wraps() const { return ((m_flags & ANALOG_FLAG_WRAPS) != 0); }
@@ -1104,7 +765,7 @@ public:
 	void set_user_settings(const user_settings &settings);
 
 private:
-	void expand_diplocation(const char *location, std::string &errorbuf);
+	void expand_diplocation(const char *location, std::ostream &errorbuf);
 
 	// internal state
 	ioport_field *              m_next;             // pointer to next field in sequence
@@ -1177,14 +838,14 @@ struct ioport_field_live
 // ======================> ioport_list
 
 // class that holds a list of I/O ports
-class ioport_list : public std::map<std::string, std::unique_ptr<ioport_port>>
+class ioport_list : public util::transparent_string_map<std::string, std::unique_ptr<ioport_port> >
 {
 	DISABLE_COPYING(ioport_list);
 
 public:
 	ioport_list() { }
 
-	void append(device_t &device, std::string &errorbuf);
+	void append(device_t &device, std::ostream &errorbuf);
 };
 
 
@@ -1219,13 +880,13 @@ public:
 
 	// other operations
 	ioport_field *field(ioport_value mask) const;
-	void collapse_fields(std::string &errorbuf);
+	void collapse_fields(std::ostream &errorbuf);
 	void frame_update();
 	void init_live_state();
 	void update_defvalue(bool flush_defaults);
 
 private:
-	void insert_field(ioport_field &newfield, ioport_value &disallowedbits, std::string &errorbuf);
+	void insert_field(ioport_field &newfield, ioport_value &disallowedbits, std::ostream &errorbuf);
 
 	// internal state
 	ioport_port *               m_next;         // pointer to next port
@@ -1279,8 +940,8 @@ private:
 	ioport_field &      m_field;                // pointer to the input field referenced
 
 	// adjusted values (right-justified and tweaked)
-	u8                  m_shift;                // shift to align final value in the port
-	s32                 m_adjdefvalue;          // adjusted default value from the config
+	u8 const            m_shift;                // shift to align final value in the port
+	s32 const           m_adjdefvalue;          // adjusted default value from the config
 	s32                 m_adjmin;               // adjusted minimum value from the config
 	s32                 m_adjmax;               // adjusted maximum value from the config
 	s32                 m_adjoverride;          // programmatically set adjusted value
@@ -1402,7 +1063,7 @@ public:
 private:
 	// internal helpers
 	void init_port_types();
-	void init_autoselect_devices(int type1, int type2, int type3, const char *option, const char *ananame);
+	void init_autoselect_devices(std::initializer_list<ioport_type> types, std::string_view option, std::string_view ananame);
 
 	void frame_update_callback();
 	void frame_update();
@@ -1417,6 +1078,7 @@ private:
 	bool load_default_config(int type, int player, const std::pair<input_seq, char const *> (&newseq)[SEQ_TYPE_TOTAL]);
 	bool load_controller_config(util::xml::data_node const &portnode, int type, int player, const std::pair<input_seq, char const *> (&newseq)[SEQ_TYPE_TOTAL]);
 	void load_system_config(util::xml::data_node const &portnode, int type, int player, const std::pair<input_seq, char const *> (&newseq)[SEQ_TYPE_TOTAL]);
+	void apply_device_defaults();
 
 	void save_config(config_type cfg_type, util::xml::data_node *parentnode);
 	bool save_this_input_field_type(ioport_type type);
@@ -1461,6 +1123,7 @@ private:
 
 	// storage for inactive configuration
 	std::unique_ptr<util::xml::file> m_deselected_card_config;
+	bool m_applied_device_defaults;
 };
 
 
@@ -1471,10 +1134,10 @@ class ioport_configurer
 {
 public:
 	// construction/destruction
-	ioport_configurer(device_t &owner, ioport_list &portlist, std::string &errorbuf);
+	ioport_configurer(device_t &owner, ioport_list &portlist, std::ostream &errorbuf);
 
 	// static helpers
-	static const char *string_from_token(const char *string);
+	static const char *string_from_token(input_string_index string);
 
 	// port helpers
 	ioport_configurer& port_alloc(const char *tag);
@@ -1482,18 +1145,19 @@ public:
 
 	// field helpers
 	ioport_configurer& field_alloc(ioport_type type, ioport_value defval, ioport_value mask, const char *name = nullptr);
+	ioport_configurer& field_alloc(ioport_type type, ioport_value defval, ioport_value mask, input_string_index name);
 	ioport_configurer& field_add_char(std::initializer_list<char32_t> charlist);
 	ioport_configurer& field_add_code(input_seq_type which, input_code code);
 	ioport_configurer& field_set_way(int way) { m_curfield->m_way = way; return *this; }
-	ioport_configurer& field_set_rotated() { m_curfield->m_flags |= ioport_field::FIELD_FLAG_ROTATED; return *this; }
-	ioport_configurer& field_set_name(const char *name) { assert(m_curfield != nullptr); m_curfield->m_name = string_from_token(name); return *this; }
+	ioport_configurer& field_set_name(const char *name) { assert(m_curfield != nullptr); m_curfield->m_name = name; return *this; }
+	ioport_configurer& field_set_name(input_string_index name) { assert(m_curfield != nullptr); m_curfield->m_name = string_from_token(name); return *this; }
 	ioport_configurer& field_set_player(int player) { m_curfield->m_player = player - 1; return *this; }
 	ioport_configurer& field_set_cocktail() { m_curfield->m_flags |= ioport_field::FIELD_FLAG_COCKTAIL; field_set_player(2); return *this; }
 	ioport_configurer& field_set_toggle() { m_curfield->m_flags |= ioport_field::FIELD_FLAG_TOGGLE; return *this; }
 	ioport_configurer& field_set_impulse(u8 impulse) { m_curfield->m_impulse = impulse; return *this; }
 	ioport_configurer& field_set_analog_reverse() { m_curfield->m_flags |= ioport_field::ANALOG_FLAG_REVERSE; return *this; }
+	[[deprecated("PORT_RESET is deprecated; manage counter state explicitly")]]
 	ioport_configurer& field_set_analog_reset() { m_curfield->m_flags |= ioport_field::ANALOG_FLAG_RESET; return *this; }
-	ioport_configurer& field_set_optional() { m_curfield->m_flags |= ioport_field::FIELD_FLAG_OPTIONAL; return *this; }
 	ioport_configurer& field_set_min_max(ioport_value minval, ioport_value maxval) { m_curfield->m_min = minval; m_curfield->m_max = maxval; return *this; }
 	ioport_configurer& field_set_sensitivity(s32 sensitivity) { m_curfield->m_sensitivity = sensitivity; return *this; }
 	ioport_configurer& field_set_delta(s32 delta) { m_curfield->m_centerdelta = m_curfield->m_delta = delta; return *this; }
@@ -1507,23 +1171,33 @@ public:
 	ioport_configurer& field_set_dynamic_read(ioport_field_read_delegate delegate) { m_curfield->m_read = delegate; return *this; }
 	ioport_configurer& field_set_dynamic_write(ioport_field_write_delegate delegate, u32 param = 0) { m_curfield->m_write = delegate; m_curfield->m_write_param = param; return *this; }
 	ioport_configurer& field_set_diplocation(const char *location) { m_curfield->expand_diplocation(location, m_errorbuf); return *this; }
+	ioport_configurer& field_set_gm_note(u8 note);
 
 	// setting helpers
 	ioport_configurer& setting_alloc(ioport_value value, const char *name);
+	ioport_configurer& setting_alloc(ioport_value value, input_string_index name);
 
 	// misc helpers
 	ioport_configurer& set_condition(ioport_condition::condition_t condition, const char *tag, ioport_value mask, ioport_value value);
 	ioport_configurer& onoff_alloc(const char *name, ioport_value defval, ioport_value mask, const char *diplocation);
+	ioport_configurer& onoff_alloc(input_string_index name, ioport_value defval, ioport_value mask, const char *diplocation);
+
+	// allow UTF-8 strings to be used for names transparently
+	ioport_configurer& field_alloc(ioport_type type, ioport_value defval, ioport_value mask, const char8_t *name) { return field_alloc(type, defval, mask, reinterpret_cast<const char *>(name)); }
+	ioport_configurer& field_set_name(const char8_t *name) { return field_set_name(reinterpret_cast<const char *>(name)); }
+	ioport_configurer& setting_alloc(ioport_value value, const char8_t *name) { return setting_alloc(value, reinterpret_cast<const char *>(name)); }
+	ioport_configurer& onoff_alloc(const char8_t *name, ioport_value defval, ioport_value mask, const char *diplocation) { return onoff_alloc(reinterpret_cast<const char *>(name), defval, mask, diplocation); }
 
 private:
 	// internal state
 	device_t &          m_owner;
 	ioport_list &       m_portlist;
-	std::string &       m_errorbuf;
+	std::ostream &      m_errorbuf;
 
 	ioport_port *       m_curport;
 	ioport_field *      m_curfield;
 	ioport_setting *    m_cursetting;
+	int                 m_curshift;
 };
 
 
@@ -1534,20 +1208,12 @@ private:
 
 #define UCHAR_MAMEKEY(code) (UCHAR_MAMEKEY_BEGIN + ITEM_ID_##code)
 
-// macro for a read callback function (PORT_CUSTOM)
-#define CUSTOM_INPUT_MEMBER(name)   ioport_value name()
-#define DECLARE_CUSTOM_INPUT_MEMBER(name)   ioport_value name()
-
 // macro for port write callback functions (PORT_CHANGED)
 #define INPUT_CHANGED_MEMBER(name)  void name(ioport_field &field, u32 param, ioport_value oldval, ioport_value newval)
 #define DECLARE_INPUT_CHANGED_MEMBER(name)  void name(ioport_field &field, u32 param, ioport_value oldval, ioport_value newval)
 
-// macro for port changed callback functions (PORT_CROSSHAIR_MAPPER)
-#define CROSSHAIR_MAPPER_MEMBER(name)   float name(float linear_value)
-#define DECLARE_CROSSHAIR_MAPPER_MEMBER(name)   float name(float linear_value)
-
 // macro for wrapping a default string
-#define DEF_STR(str_num) ((const char *)INPUT_STRING_##str_num)
+#define DEF_STR(str_num) (INPUT_STRING_##str_num)
 
 
 
@@ -1563,7 +1229,7 @@ private:
 
 // start of table
 #define INPUT_PORTS_START(_name) \
-ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, std::string &errorbuf) \
+ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, std::ostream &errorbuf) \
 { \
 	ioport_configurer configurer(owner, portlist, errorbuf);
 // end of table
@@ -1572,7 +1238,7 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 
 // aliasing
 #define INPUT_PORTS_EXTERN(_name) \
-	extern void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, std::string &errorbuf)
+	extern void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, std::ostream &errorbuf)
 
 // including
 #define PORT_INCLUDE(_name) \
@@ -1614,9 +1280,6 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 #define PORT_16WAY \
 	configurer.field_set_way(16);
 
-#define PORT_ROTATED \
-	configurer.field_set_rotated();
-
 // general flags
 #define PORT_NAME(_name) \
 	configurer.field_set_name(_name);
@@ -1639,8 +1302,8 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 #define PORT_RESET \
 	configurer.field_set_analog_reset();
 
-#define PORT_OPTIONAL \
-	configurer.field_set_optional();
+#define PORT_GM_NOTE(_id) \
+	configurer.field_set_gm_note(_id);
 
 // analog settings
 // if this macro is not used, the minimum defaults to 0 and maximum defaults to the mask value
@@ -1659,11 +1322,10 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 #define PORT_CROSSHAIR(axis, scale, offset, altaxis) \
 	configurer.field_set_crosshair(CROSSHAIR_AXIS_##axis, altaxis, scale, offset);
 
-#define PORT_CROSSHAIR_MAPPER(_callback) \
-	configurer.field_set_crossmapper(ioport_field_crossmap_delegate(_callback, #_callback, DEVICE_SELF, (device_t *)nullptr));
-
-#define PORT_CROSSHAIR_MAPPER_MEMBER(_device, _class, _member) \
-	configurer.field_set_crossmapper(ioport_field_crossmap_delegate(&_class::_member, #_class "::" #_member, _device, (_class *)nullptr));
+#define PORT_CROSSHAIR_MAPPER_MEMBER_IMPL(_device, _funcptr, _name) \
+	configurer.field_set_crossmapper(ioport_field_crossmap_delegate(owner, _device, _funcptr, _name));
+#define PORT_CROSSHAIR_MAPPER_DEVICE_MEMBER(...) PORT_CROSSHAIR_MAPPER_MEMBER_IMPL(__VA_ARGS__)
+#define PORT_CROSSHAIR_MAPPER_MEMBER(...) PORT_CROSSHAIR_MAPPER_MEMBER_IMPL(DEVICE_SELF, __VA_ARGS__)
 
 // how many optical counts for 1 full turn of the control
 #define PORT_FULL_TURN_COUNT(_count) \
@@ -1689,48 +1351,41 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 	configurer.field_set_analog_invert();
 
 // read callbacks
-#define PORT_CUSTOM_MEMBER(_class, _member) \
-	configurer.field_set_dynamic_read(ioport_field_read_delegate(owner, DEVICE_SELF, &_class::_member, #_class "::" #_member));
-#define PORT_CUSTOM_DEVICE_MEMBER(_device, _class, _member) \
-	configurer.field_set_dynamic_read(ioport_field_read_delegate(owner, _device, &_class::_member, #_class "::" #_member));
+#define PORT_CUSTOM_MEMBER_IMPL(_device, _funcptr, _name) \
+	configurer.field_set_dynamic_read(ioport_field_read_delegate(owner, _device, _funcptr, _name));
+#define PORT_CUSTOM_DEVICE_MEMBER(...) PORT_CUSTOM_MEMBER_IMPL(__VA_ARGS__)
+#define PORT_CUSTOM_MEMBER(...) PORT_CUSTOM_MEMBER_IMPL(DEVICE_SELF, __VA_ARGS__);
 
 // write callbacks
-#define PORT_CHANGED_MEMBER(_device, _class, _member, _param) \
-	configurer.field_set_dynamic_write(ioport_field_write_delegate(owner, _device, &_class::_member, #_class "::" #_member), (_param));
+#define PORT_CHANGED_MEMBER_IMPL(_device, _funcptr, _name, _param) \
+	configurer.field_set_dynamic_write(ioport_field_write_delegate(owner, _device, _funcptr, _name), (_param));
+#define PORT_CHANGED_MEMBER(...) PORT_CHANGED_MEMBER_IMPL(__VA_ARGS__)
 
 // input device handler
-#define PORT_READ_LINE_MEMBER(_class, _member) \
-	configurer.field_set_dynamic_read( \
-			ioport_field_read_delegate( \
-				owner, \
-				DEVICE_SELF, \
-				static_cast<ioport_value (*)(_class &)>([] (_class &device) -> ioport_value { return (device._member() & 1) ? ~ioport_value(0) : 0; }), \
-				#_class "::" #_member));
-#define PORT_READ_LINE_DEVICE_MEMBER(_device, _class, _member) \
+#define PORT_READ_LINE_MEMBER_IMPL(_device, _funcptr, _name) \
 	configurer.field_set_dynamic_read( \
 			ioport_field_read_delegate( \
 				owner, \
 				_device, \
-				static_cast<ioport_value (*)(_class &)>([] (_class &device) -> ioport_value { return (device._member() & 1) ? ~ioport_value(0) : 0; }), \
-				#_class "::" #_member));
+				static_cast<ioport_value (*)(emu::detail::rw_delegate_device_class_t<decltype(_funcptr)> &)>( \
+					[] (auto &device) -> ioport_value { return (std::invoke(_funcptr, device) & 1) ? ~ioport_value(0) : 0; }), \
+				_name));
+#define PORT_READ_LINE_DEVICE_MEMBER(...) PORT_READ_LINE_MEMBER_IMPL(__VA_ARGS__)
+#define PORT_READ_LINE_MEMBER(...) PORT_READ_LINE_MEMBER_IMPL(DEVICE_SELF, __VA_ARGS__)
 
 // output device handler
-#define PORT_WRITE_LINE_MEMBER(_class, _member) \
-	configurer.field_set_dynamic_write( \
-			ioport_field_write_delegate( \
-				owner, \
-				DEVICE_SELF, \
-				static_cast<void (*)(_class &, ioport_field &, u32, ioport_value, ioport_value)>([] (_class &device, ioport_field &field, u32 param, ioport_value oldval, ioport_value newval) { device._member(newval); }), \
-				#_class "::" #_member));
-#define PORT_WRITE_LINE_DEVICE_MEMBER(_device, _class, _member) \
+#define PORT_WRITE_LINE_MEMBER_IMPL(_device, _funcptr, _name) \
 	configurer.field_set_dynamic_write( \
 			ioport_field_write_delegate( \
 				owner, \
 				_device, \
-				static_cast<void (*)(_class &, ioport_field &, u32, ioport_value, ioport_value)>([] (_class &device, ioport_field &field, u32 param, ioport_value oldval, ioport_value newval) { device._member(newval); }), \
-				#_class "::" #_member));
+				static_cast<void (*)(emu::detail::rw_delegate_device_class_t<decltype(_funcptr)> &, ioport_field &, u32, ioport_value, ioport_value)>( \
+					[] (auto &device, ioport_field &field, u32 param, ioport_value oldval, ioport_value newval) { std::invoke(_funcptr, device, newval); }), \
+				_name));
+#define PORT_WRITE_LINE_DEVICE_MEMBER(...) PORT_WRITE_LINE_MEMBER_IMPL(__VA_ARGS__)
+#define PORT_WRITE_LINE_MEMBER(...) PORT_WRITE_LINE_MEMBER_IMPL(DEVICE_SELF, __VA_ARGS__)
 
-// dip switch definition
+// DIP switch definition
 #define PORT_DIPNAME(_mask, _default, _name) \
 	configurer.field_alloc(IPT_DIPSWITCH, (_default), (_mask), (_name));
 #define PORT_DIPSETTING(_default, _name) \
@@ -1739,7 +1394,7 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 // note that these are specified LSB-first
 #define PORT_DIPLOCATION(_location) \
 	configurer.field_set_diplocation(_location);
-// conditionals for dip switch settings
+// conditionals for DIP switch settings
 #define PORT_CONDITION(_tag, _mask, _condition, _value) \
 	configurer.set_condition(ioport_condition::_condition, _tag, _mask, _value);
 // analog adjuster definition
@@ -1756,6 +1411,103 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 #define PORT_CHAR(...) \
 	configurer.field_add_char({ __VA_ARGS__ });
 
+// General-midi derived piano notes
+#define PORT_GM_A0   PORT_GM_NOTE( 21)  // Start of 88-key keyboard
+#define PORT_GM_AS0  PORT_GM_NOTE( 22)
+#define PORT_GM_B0   PORT_GM_NOTE( 23)
+
+#define PORT_GM_C1   PORT_GM_NOTE( 24)
+#define PORT_GM_CS1  PORT_GM_NOTE( 25)
+#define PORT_GM_D1   PORT_GM_NOTE( 26)
+#define PORT_GM_DS1  PORT_GM_NOTE( 27)
+#define PORT_GM_E1   PORT_GM_NOTE( 28)  // Start of 76-key keyboard
+#define PORT_GM_F1   PORT_GM_NOTE( 29)
+#define PORT_GM_FS1  PORT_GM_NOTE( 30)
+#define PORT_GM_G1   PORT_GM_NOTE( 31)
+#define PORT_GM_GS1  PORT_GM_NOTE( 32)
+#define PORT_GM_A1   PORT_GM_NOTE( 33)
+#define PORT_GM_AS1  PORT_GM_NOTE( 34)
+#define PORT_GM_B1   PORT_GM_NOTE( 35)
+
+#define PORT_GM_C2   PORT_GM_NOTE( 36)  // Start of 49 and 61-key keyboards
+#define PORT_GM_CS2  PORT_GM_NOTE( 37)
+#define PORT_GM_D2   PORT_GM_NOTE( 38)
+#define PORT_GM_DS2  PORT_GM_NOTE( 39)
+#define PORT_GM_E2   PORT_GM_NOTE( 40)
+#define PORT_GM_F2   PORT_GM_NOTE( 41)
+#define PORT_GM_FS2  PORT_GM_NOTE( 42)
+#define PORT_GM_G2   PORT_GM_NOTE( 43)
+#define PORT_GM_GS2  PORT_GM_NOTE( 44)
+#define PORT_GM_A2   PORT_GM_NOTE( 45)
+#define PORT_GM_AS2  PORT_GM_NOTE( 46)
+#define PORT_GM_B2   PORT_GM_NOTE( 47)
+
+#define PORT_GM_C3   PORT_GM_NOTE( 48)
+#define PORT_GM_CS3  PORT_GM_NOTE( 49)
+#define PORT_GM_D3   PORT_GM_NOTE( 50)
+#define PORT_GM_DS3  PORT_GM_NOTE( 51)
+#define PORT_GM_E3   PORT_GM_NOTE( 52)
+#define PORT_GM_F3   PORT_GM_NOTE( 53)
+#define PORT_GM_FS3  PORT_GM_NOTE( 54)
+#define PORT_GM_G3   PORT_GM_NOTE( 55)
+#define PORT_GM_GS3  PORT_GM_NOTE( 56)
+#define PORT_GM_A3   PORT_GM_NOTE( 57)
+#define PORT_GM_AS3  PORT_GM_NOTE( 58)
+#define PORT_GM_B3   PORT_GM_NOTE( 59)
+
+#define PORT_GM_C4   PORT_GM_NOTE( 60)  // Middle C
+#define PORT_GM_CS4  PORT_GM_NOTE( 61)
+#define PORT_GM_D4   PORT_GM_NOTE( 62)
+#define PORT_GM_DS4  PORT_GM_NOTE( 63)
+#define PORT_GM_E4   PORT_GM_NOTE( 64)
+#define PORT_GM_F4   PORT_GM_NOTE( 65)
+#define PORT_GM_FS4  PORT_GM_NOTE( 66)
+#define PORT_GM_G4   PORT_GM_NOTE( 67)
+#define PORT_GM_GS4  PORT_GM_NOTE( 68)
+#define PORT_GM_A4   PORT_GM_NOTE( 69)
+#define PORT_GM_AS4  PORT_GM_NOTE( 70)
+#define PORT_GM_B4   PORT_GM_NOTE( 71)
+
+#define PORT_GM_C5   PORT_GM_NOTE( 72)
+#define PORT_GM_CS5  PORT_GM_NOTE( 73)
+#define PORT_GM_D5   PORT_GM_NOTE( 74)
+#define PORT_GM_DS5  PORT_GM_NOTE( 75)
+#define PORT_GM_E5   PORT_GM_NOTE( 76)
+#define PORT_GM_F5   PORT_GM_NOTE( 77)
+#define PORT_GM_FS5  PORT_GM_NOTE( 78)
+#define PORT_GM_G5   PORT_GM_NOTE( 79)
+#define PORT_GM_GS5  PORT_GM_NOTE( 80)
+#define PORT_GM_A5   PORT_GM_NOTE( 81)
+#define PORT_GM_AS5  PORT_GM_NOTE( 82)
+#define PORT_GM_B5   PORT_GM_NOTE( 83)
+
+#define PORT_GM_C6   PORT_GM_NOTE( 84)  // End of 49-key keyboard
+#define PORT_GM_CS6  PORT_GM_NOTE( 85)
+#define PORT_GM_D6   PORT_GM_NOTE( 86)
+#define PORT_GM_DS6  PORT_GM_NOTE( 87)
+#define PORT_GM_E6   PORT_GM_NOTE( 88)
+#define PORT_GM_F6   PORT_GM_NOTE( 89)
+#define PORT_GM_FS6  PORT_GM_NOTE( 90)
+#define PORT_GM_G6   PORT_GM_NOTE( 91)
+#define PORT_GM_GS6  PORT_GM_NOTE( 92)
+#define PORT_GM_A6   PORT_GM_NOTE( 93)
+#define PORT_GM_AS6  PORT_GM_NOTE( 94)
+#define PORT_GM_B6   PORT_GM_NOTE( 95)
+
+#define PORT_GM_C7   PORT_GM_NOTE( 96)  // End of 61-key keyboard
+#define PORT_GM_CS7  PORT_GM_NOTE( 97)
+#define PORT_GM_D7   PORT_GM_NOTE( 98)
+#define PORT_GM_DS7  PORT_GM_NOTE( 99)
+#define PORT_GM_E7   PORT_GM_NOTE(100)
+#define PORT_GM_F7   PORT_GM_NOTE(101)
+#define PORT_GM_FS7  PORT_GM_NOTE(102)
+#define PORT_GM_G7   PORT_GM_NOTE(103)  // End of 76-key keyboard
+#define PORT_GM_GS7  PORT_GM_NOTE(104)
+#define PORT_GM_A7   PORT_GM_NOTE(105)
+#define PORT_GM_AS7  PORT_GM_NOTE(106)
+#define PORT_GM_B7   PORT_GM_NOTE(107)
+
+#define PORT_GM_C8   PORT_GM_NOTE(108)  // End of 88-key keyboard
 
 // name of table
 #define DEVICE_INPUT_DEFAULTS_NAME(_name) device_iptdef_##_name
@@ -1798,12 +1550,6 @@ ATTR_COLD void INPUT_PORTS_NAME(_name)(device_t &owner, ioport_list &portlist, s
 
 #define PORT_SERVICE_NO_TOGGLE(_mask, _default) \
 	PORT_BIT( _mask, _mask & _default, IPT_SERVICE ) PORT_NAME( DEF_STR( Service_Mode ))
-
-#define PORT_VBLANK(_screen) \
-	PORT_READ_LINE_DEVICE_MEMBER(_screen, screen_device, vblank)
-
-#define PORT_HBLANK(_screen) \
-	PORT_READ_LINE_DEVICE_MEMBER(_screen, screen_device, hblank)
 
 //**************************************************************************
 //  INLINE FUNCTIONS

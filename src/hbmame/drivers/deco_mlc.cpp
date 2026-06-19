@@ -1,6 +1,6 @@
 // license:GPL-2.0+
 // copyright-holders:Robbbert
-#include "../mame/drivers/deco_mlc.cpp"
+#include "../mame/dataeast/deco_mlc.cpp"
 
 
 ROM_START( avengrgs01 )

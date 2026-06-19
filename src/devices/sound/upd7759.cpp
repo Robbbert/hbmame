@@ -257,7 +257,7 @@ void upd775x_device::device_clock_changed()
 	m_channel->set_sample_rate(clock() / 4);
 }
 
-void upd775x_device::rom_bank_updated()
+void upd775x_device::rom_bank_pre_change()
 {
 	m_channel->update();
 }
@@ -269,8 +269,6 @@ void upd7759_device::device_start()
 	m_sample_offset_shift = 1;
 
 	m_timer = timer_alloc(FUNC(upd7759_device::drq_update), this);
-
-	m_drqcallback.resolve_safe();
 }
 
 
@@ -281,7 +279,6 @@ void upd7759_device::device_start()
 void upd775x_device::device_reset()
 {
 	m_pos                = 0;
-	//m_fifo_in            = 0; // this seems to keep state when /RESET line asserted (test case: konmedal.cpp games)
 	m_state              = STATE_IDLE;
 	m_clocks_left        = 0;
 	m_nibbles_left       = 0;
@@ -565,17 +562,12 @@ void upd775x_device::advance_state()
 	}
 }
 
-TIMER_CALLBACK_MEMBER(upd775x_device::sync_port_write)
-{
-	m_fifo_in = param;
-}
-
 TIMER_CALLBACK_MEMBER(upd7759_device::drq_update)
 {
+	m_channel->update();
+
 	uint8_t olddrq = m_drq;
 	int old_state = m_state;
-
-	m_channel->update();
 
 	advance_state();
 
@@ -590,104 +582,78 @@ TIMER_CALLBACK_MEMBER(upd7759_device::drq_update)
 		m_timer->adjust(m_clock_period * m_clocks_left);
 }
 
+
+
 /************************************************************
 
     I/O handlers
 
 *************************************************************/
 
-WRITE_LINE_MEMBER( upd775x_device::reset_w )
+void upd775x_device::reset_w(int state)
 {
 	machine().scheduler().synchronize(timer_expired_delegate(FUNC(upd775x_device::internal_reset_w), this), state);
 }
 
 TIMER_CALLBACK_MEMBER(upd775x_device::internal_reset_w)
 {
+	m_channel->update();
+
 	uint8_t oldreset = m_reset;
 	m_reset = (param != 0);
-
-	m_channel->update();
 
 	if (oldreset && !m_reset)
 		device_reset();
 }
 
-TIMER_CALLBACK_MEMBER(upd7759_device::internal_reset_w)
-{
-	uint8_t oldreset = m_reset;
-	upd775x_device::internal_reset_w(param);
 
-	if (!oldreset && m_reset)
-	{
-		if (!m_md)
-		{
-			m_mode = MODE_SLAVE;
-			m_state = STATE_START;
-			m_timer->adjust(attotime::zero);
-		}
-	}
-}
-
-WRITE_LINE_MEMBER( upd775x_device::start_w )
+void upd775x_device::start_w(int state)
 {
 	machine().scheduler().synchronize(timer_expired_delegate(FUNC(upd775x_device::internal_start_w), this), state);
 }
 
-void upd7759_device::internal_start_w(int state)
+void upd775x_device::internal_start_w(int state)
 {
+	m_channel->update();
+
 	uint8_t oldstart = m_start;
 	m_start = (state != 0);
 
 	LOG_STATE("upd7759_start_w: %d->%d\n", oldstart, m_start);
-
-	m_channel->update();
 
 	if (m_state == STATE_IDLE && m_mode == MODE_STAND_ALONE && oldstart && !m_start && m_reset)
 	{
 		m_state = STATE_START;
-
-		if (m_mode == MODE_SLAVE)
-			m_timer->adjust(attotime::zero);
 	}
 }
 
-void upd7756_device::internal_start_w(int state)
+
+void upd775x_device::port_w(u8 data)
 {
+	machine().scheduler().synchronize(timer_expired_delegate(FUNC(upd775x_device::internal_port_w), this), data);
+}
 
-	uint8_t oldstart = m_start;
-	m_start = (state != 0);
-
-	LOG_STATE("upd7759_start_w: %d->%d\n", oldstart, m_start);
-
+TIMER_CALLBACK_MEMBER(upd775x_device::internal_port_w)
+{
 	m_channel->update();
 
-	if (m_state == STATE_IDLE && oldstart && !m_start && m_reset)
-	{
-		m_state = STATE_START;
-	}
+	m_fifo_in = param;
 }
 
 
-WRITE_LINE_MEMBER(upd7759_device::md_w)
+void upd7759_device::md_w(int state)
 {
-	// When called from machine configs/during start up set the mode pin directly.
-	if (m_timer == nullptr)
-	{
-		m_md = state;
-		return;
-	}
 	machine().scheduler().synchronize(timer_expired_delegate(FUNC(upd7759_device::internal_md_w), this), state);
 }
 
-
 TIMER_CALLBACK_MEMBER(upd7759_device::internal_md_w)
 {
+	m_channel->update();
+
 	uint8_t old_md = m_md;
 	m_md = (param != 0);
 
 	LOG_STATE("upd7759_md_w: %d->%d\n", old_md, m_md);
-
-	m_channel->update();
 
 	if (m_state == STATE_IDLE && m_reset)
 	{
@@ -705,13 +671,7 @@ TIMER_CALLBACK_MEMBER(upd7759_device::internal_md_w)
 }
 
 
-void upd775x_device::port_w(u8 data)
-{
-	machine().scheduler().synchronize(timer_expired_delegate(FUNC(upd775x_device::sync_port_write), this), data);
-}
-
-
-READ_LINE_MEMBER( upd775x_device::busy_r )
+int upd775x_device::busy_r()
 {
 	m_channel->update();
 
@@ -724,19 +684,19 @@ READ_LINE_MEMBER( upd775x_device::busy_r )
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void upd775x_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void upd775x_device::sound_stream_update(sound_stream &stream)
 {
-	constexpr stream_buffer::sample_t sample_scale = 128.0 / 32768.0;
-	stream_buffer::sample_t sample = stream_buffer::sample_t(m_sample) * sample_scale;
+	constexpr sound_stream::sample_t sample_scale = 128.0 / 32768.0;
+	sound_stream::sample_t sample = sound_stream::sample_t(m_sample) * sample_scale;
 	int32_t clocks_left = m_clocks_left;
 	uint32_t step = m_step;
 	uint32_t pos = m_pos;
 
 	u32 index = 0;
 	if (m_state != STATE_IDLE)
-		for ( ; index < outputs[0].samples(); index++)
+		for ( ; index < stream.samples(); index++)
 		{
-			outputs[0].put(index, sample);
+			stream.put(0, index, sample);
 
 			pos += step;
 
@@ -756,14 +716,14 @@ void upd775x_device::sound_stream_update(sound_stream &stream, std::vector<read_
 						break;
 
 					clocks_left = m_clocks_left;
-					sample = stream_buffer::sample_t(m_sample) * sample_scale;
+					sample = sound_stream::sample_t(m_sample) * sample_scale;
 				}
 			}
 		}
 
 	// if we got out early, just zap the rest of the buffer
-	for (; index < outputs[0].samples(); index++)
-		outputs[0].put(index, 0);
+	for (; index < stream.samples(); index++)
+		stream.put(0, index, 0);
 
 	m_clocks_left = clocks_left;
 	m_pos = pos;

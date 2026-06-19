@@ -2,7 +2,7 @@
 // copyright-holders:Aaron Giles, Vas Crabb
 //============================================================
 //
-//  debugview.c - Win32 debug window handling
+//  debugviewinfo.cpp - Win32 debug window handling
 //
 //============================================================
 
@@ -12,8 +12,11 @@
 #include "debugwininfo.h"
 #include "uimetrics.h"
 #include "debugger.h"
+
 #include "debug/debugcon.h"
 #include "debug/debugcpu.h"
+
+#include "util/xmlfile.h"
 
 #include "strconv.h"
 
@@ -21,6 +24,8 @@
 
 #include <mmsystem.h>
 
+
+namespace osd::debugger::win {
 
 // debugger view styles
 #define DEBUG_VIEW_STYLE    WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN
@@ -109,7 +114,8 @@ bool debugview_info::is_valid() const
 
 uint32_t debugview_info::prefwidth() const
 {
-	return (m_view->total_size().x * metrics().debug_font_width()) + metrics().vscroll_width();
+	ui_metrics const &metrics = m_owner.metrics();
+	return (m_view->total_size().x * metrics.debug_font_width()) + metrics.vscroll_width();
 }
 
 
@@ -121,12 +127,12 @@ uint32_t debugview_info::maxwidth()
 	{
 		m_view->set_source(*source);
 		uint32_t const chars = m_view->total_size().x;
-		if (max < chars)
-			max = chars;
+		max = std::max(max, chars);
 	}
 	if (cursource)
 		m_view->set_source(*cursource);
-	return (max * metrics().debug_font_width()) + metrics().vscroll_width();
+	ui_metrics const &metrics = m_owner.metrics();
+	return (max * metrics.debug_font_width()) + metrics.vscroll_width();
 }
 
 
@@ -177,6 +183,18 @@ void debugview_info::send_pagedown()
 {
 	if (m_vscroll)
 		SendMessage(m_wnd, WM_VSCROLL, SB_PAGERIGHT, (LPARAM)m_vscroll);
+}
+
+
+int debugview_info::source_index() const
+{
+	if (m_view)
+	{
+		debug_view_source const *const source = m_view->source();
+		if (source)
+			return m_view->source_index(*source);
+	}
+	return -1;
 }
 
 
@@ -258,10 +276,11 @@ bool debugview_info::set_source_for_visible_cpu()
 HWND debugview_info::create_source_combobox(HWND parent, LONG_PTR userdata)
 {
 	// create a combo box
+	ui_metrics const &metrics = m_owner.metrics();
 	HWND const result = CreateWindowEx(COMBO_BOX_STYLE_EX, TEXT("COMBOBOX"), nullptr, COMBO_BOX_STYLE,
 			0, 0, 100, 1000, parent, nullptr, GetModuleHandleUni(), nullptr);
 	SetWindowLongPtr(result, GWLP_USERDATA, userdata);
-	SendMessage(result, WM_SETFONT, (WPARAM)metrics().debug_font(), (LPARAM)FALSE);
+	SendMessage(result, WM_SETFONT, (WPARAM)metrics.debug_font(), (LPARAM)FALSE);
 
 	// populate the combobox
 	debug_view_source const *const cursource = m_view->source();
@@ -269,18 +288,84 @@ HWND debugview_info::create_source_combobox(HWND parent, LONG_PTR userdata)
 	for (auto &source : m_view->source_list())
 	{
 		int const length = strlen(source->name());
-		if (length > maxlength)
-			maxlength = length;
+		maxlength = std::max(maxlength, length);
 		auto t_name = osd::text::to_tstring(source->name());
 		SendMessage(result, CB_ADDSTRING, 0, (LPARAM)t_name.c_str());
 	}
+	SendMessage(result, CB_SETDROPPEDWIDTH, ((maxlength + 2) * metrics.debug_font_width()) + metrics.vscroll_width(), 0);
 	if (cursource)
 	{
 		SendMessage(result, CB_SETCURSEL, m_view->source_index(*cursource), 0);
-		SendMessage(result, CB_SETDROPPEDWIDTH, ((maxlength + 2) * metrics().debug_font_width()) + metrics().vscroll_width(), 0);
 		m_view->set_source(*cursource);
 	}
 	return result;
+}
+
+
+void debugview_info::recompute_source_combobox(HWND wnd)
+{
+	int maxlength = 0;
+	for (auto &source : m_view->source_list())
+	{
+		int const length = strlen(source->name());
+		maxlength = std::max(maxlength, length);
+	}
+
+	ui_metrics const &metrics = m_owner.metrics();
+	SendMessage(wnd, WM_SETFONT, (WPARAM)metrics.debug_font(), (LPARAM)FALSE);
+	SendMessage(wnd, CB_SETDROPPEDWIDTH, ((maxlength + 2) * metrics.debug_font_width()) + metrics.vscroll_width(), 0);
+}
+
+
+void debugview_info::restore_configuration_from_node(util::xml::data_node const &node)
+{
+	if (m_view->cursor_supported())
+	{
+		util::xml::data_node const *const selection = node.get_child(NODE_WINDOW_SELECTION);
+		if (selection)
+		{
+			debug_view_xy pos = m_view->cursor_position();
+			m_view->set_cursor_visible(0 != selection->get_attribute_int(ATTR_SELECTION_CURSOR_VISIBLE, m_view->cursor_visible() ? 1 : 0));
+			selection->get_attribute_int(ATTR_SELECTION_CURSOR_X, pos.x);
+			selection->get_attribute_int(ATTR_SELECTION_CURSOR_Y, pos.y);
+			m_view->set_cursor_position(pos);
+		}
+	}
+
+	util::xml::data_node const *const scroll = node.get_child(NODE_WINDOW_SCROLL);
+	if (scroll)
+	{
+		ui_metrics const &metrics = m_owner.metrics();
+		debug_view_xy origin = m_view->visible_position();
+		origin.x = scroll->get_attribute_int(ATTR_SCROLL_ORIGIN_X, origin.x * metrics.debug_font_width()) / metrics.debug_font_width();
+		origin.y = scroll->get_attribute_int(ATTR_SCROLL_ORIGIN_Y, origin.y * metrics.debug_font_height()) / metrics.debug_font_height();
+		m_view->set_visible_position(origin);
+	}
+}
+
+
+void debugview_info::save_configuration_to_node(util::xml::data_node &node)
+{
+	if (m_view->cursor_supported())
+	{
+		util::xml::data_node *const selection = node.add_child(NODE_WINDOW_SELECTION, nullptr);
+		if (selection)
+		{
+			debug_view_xy const pos = m_view->cursor_position();
+			selection->set_attribute_int(ATTR_SELECTION_CURSOR_VISIBLE, m_view->cursor_visible() ? 1 : 0);
+			selection->set_attribute_int(ATTR_SELECTION_CURSOR_X, pos.x);
+			selection->set_attribute_int(ATTR_SELECTION_CURSOR_Y, pos.y);
+		}
+	}
+
+	util::xml::data_node *const scroll = node.add_child(NODE_WINDOW_SCROLL, nullptr);
+	if (scroll)
+	{
+		ui_metrics const &metrics = m_owner.metrics();
+		debug_view_xy const origin = m_view->visible_position();
+		scroll->set_attribute_int(ATTR_SCROLL_ORIGIN_X, origin.x * metrics.debug_font_width());
+		scroll->set_attribute_int(ATTR_SCROLL_ORIGIN_Y, origin.y * metrics.debug_font_height());
+	}
 }
 
 
@@ -395,13 +480,14 @@ void debugview_info::handle_context_menu(unsigned command)
 
 void debugview_info::draw_contents(HDC windc)
 {
+	ui_metrics const &metrics = m_owner.metrics();
 	debug_view_char const *viewdata = m_view->viewdata();
 	debug_view_xy const visarea = m_view->visible_size();
 
 	// get the client rect
 	RECT client;
 	GetClientRect(m_wnd, &client);
-	bool const need_filldown = client.bottom > (metrics().debug_font_height() * visarea.y);
+	bool const need_filldown = client.bottom > (metrics.debug_font_height() * visarea.y);
 
 	// create a compatible DC and an offscreen bitmap
 	HDC const dc = CreateCompatibleDC(windc);
@@ -416,10 +502,10 @@ void debugview_info::draw_contents(HDC windc)
 	HGDIOBJ const oldbitmap = SelectObject(dc, bitmap);
 	bool const show_hscroll = m_hscroll && IsWindowVisible(m_hscroll);
 	if (show_hscroll)
-		client.bottom -= metrics().hscroll_height();
+		client.bottom -= metrics.hscroll_height();
 
 	// set the font
-	HGDIOBJ const oldfont = SelectObject(dc, metrics().debug_font());
+	HGDIOBJ const oldfont = SelectObject(dc, metrics.debug_font());
 	COLORREF const oldfgcolor = GetTextColor(dc);
 	int const oldbkmode = GetBkMode(dc);
 	SetBkMode(dc, TRANSPARENT);
@@ -433,17 +519,18 @@ void debugview_info::draw_contents(HDC windc)
 		for (int iter = 0; iter < 2; iter++)
 		{
 			COLORREF fgcolor;
-			COLORREF bgcolor = RGB(0xff,0xff,0xff);
+			COLORREF bgcolor = metrics.view_colors(DCA_NORMAL).second;
 			HBRUSH bgbrush = nullptr;
 			int last_attrib = -1;
-			TCHAR buffer[256];
+			const int buffer_size = 512;
+			TCHAR buffer[buffer_size];
 			int count = 0;
 			RECT bounds;
 
 			// initialize the text bounds
 			bounds.left = bounds.right = 0;
-			bounds.top = row * metrics().debug_font_height();
-			bounds.bottom = bounds.top + metrics().debug_font_height();
+			bounds.top = row * metrics.debug_font_height();
+			bounds.bottom = bounds.top + metrics.debug_font_height();
 
 			// start with a brush on iteration #0
 			if (iter == 0)
@@ -457,31 +544,19 @@ void debugview_info::draw_contents(HDC windc)
 				{
 					COLORREF oldbg = bgcolor;
 
-					// pick new background color
-					bgcolor = RGB(0xff,0xff,0xff);
-					if (viewdata[col].attrib & DCA_VISITED) bgcolor = RGB(0xc6, 0xe2, 0xff);
-					if (viewdata[col].attrib & DCA_ANCILLARY) bgcolor = RGB(0xe0,0xe0,0xe0);
-					if (viewdata[col].attrib & DCA_SELECTED) bgcolor = RGB(0xff,0x80,0x80);
-					if (viewdata[col].attrib & DCA_CURRENT) bgcolor = RGB(0xff,0xff,0x00);
-					if ((viewdata[col].attrib & DCA_SELECTED) && (viewdata[col].attrib & DCA_CURRENT)) bgcolor = RGB(0xff,0xc0,0x80);
-
-					// pick new foreground color
-					fgcolor = RGB(0x00,0x00,0x00);
-					if (viewdata[col].attrib & DCA_CHANGED) fgcolor = RGB(0xff,0x00,0x00);
-					if (viewdata[col].attrib & DCA_INVALID) fgcolor = RGB(0x00,0x00,0xff);
-					if (viewdata[col].attrib & DCA_DISABLED) fgcolor = RGB((GetRValue(fgcolor) + GetRValue(bgcolor)) / 2, (GetGValue(fgcolor) + GetGValue(bgcolor)) / 2, (GetBValue(fgcolor) + GetBValue(bgcolor)) / 2);
-					if (viewdata[col].attrib & DCA_COMMENT) fgcolor = RGB(0x00,0x80,0x00);
+					// pick new colors
+					std::tie(fgcolor, bgcolor) = metrics.view_colors(viewdata[col].attrib);
 
 					// flush any pending drawing
 					if (count > 0)
 					{
-						bounds.right = bounds.left + (count * metrics().debug_font_width());
+						bounds.right = bounds.left + (count * metrics.debug_font_width());
 						if (iter == 0)
 						{
 							FillRect(dc, &bounds, bgbrush);
 							if (do_filldown)
 							{
-								COLORREF const filldown = (last_attrib & DCA_ANCILLARY) ? RGB(0xe0,0xe0,0xe0) : RGB(0xff,0xff,0xff);
+								COLORREF const filldown = metrics.view_colors(last_attrib & DCA_ANCILLARY).second;
 								if (oldbg != filldown)
 								{
 									DeleteObject(bgbrush);
@@ -496,7 +571,7 @@ void debugview_info::draw_contents(HDC windc)
 						}
 						else
 						{
-							ExtTextOut(dc, bounds.left, bounds.top, 0, nullptr, buffer, count, nullptr);
+							ExtTextOut(dc, bounds.left, bounds.top, 0, nullptr, buffer, std::min(count, buffer_size), nullptr);
 						}
 						bounds.left = bounds.right;
 						count = 0;
@@ -516,11 +591,13 @@ void debugview_info::draw_contents(HDC windc)
 				}
 
 				// add this character to the buffer
-				buffer[count++] = viewdata[col].byte;
+				if (count < buffer_size)
+					buffer[count] = viewdata[col].byte;
+				count++;
 			}
 
 			// flush any remaining stuff
-			bounds.right = bounds.left + (count * metrics().debug_font_width());
+			bounds.right = bounds.left + (count * metrics.debug_font_width());
 			if (iter == 0)
 			{
 				// erase to the end of the line
@@ -528,7 +605,7 @@ void debugview_info::draw_contents(HDC windc)
 				FillRect(dc, &bounds, bgbrush);
 				if (do_filldown)
 				{
-					COLORREF const filldown = (last_attrib & DCA_ANCILLARY) ? RGB(0xe0,0xe0,0xe0) : RGB(0xff,0xff,0xff);
+					COLORREF const filldown = metrics.view_colors(last_attrib & DCA_ANCILLARY).second;
 					if (bgcolor != filldown)
 					{
 						DeleteObject(bgbrush);
@@ -542,7 +619,7 @@ void debugview_info::draw_contents(HDC windc)
 			}
 			else if (count > 0)
 			{
-				ExtTextOut(dc, bounds.left, bounds.top, 0, nullptr, buffer, count, nullptr);
+				ExtTextOut(dc, bounds.left, bounds.top, 0, nullptr, buffer, std::min(count, buffer_size), nullptr);
 			}
 		}
 
@@ -554,7 +631,7 @@ void debugview_info::draw_contents(HDC windc)
 	if (show_hscroll)
 	{
 		client.top = client.bottom;
-		client.bottom = client.top + metrics().hscroll_height();
+		client.bottom = client.top + metrics.hscroll_height();
 		FillRect(dc, &client, (HBRUSH)GetStockObject(WHITE_BRUSH));
 	}
 
@@ -578,6 +655,7 @@ void debugview_info::update()
 	SCROLLINFO scrollinfo;
 
 	// get the updated total rows/cols and left row/col
+	ui_metrics const &metrics = m_owner.metrics();
 	debug_view_xy const totalsize = m_view->total_size();
 	debug_view_xy topleft = m_view->visible_position();
 
@@ -585,27 +663,27 @@ void debugview_info::update()
 	RECT bounds;
 	GetClientRect(m_wnd, &bounds);
 	debug_view_xy visiblesize;
-	visiblesize.x = (bounds.right - bounds.left) / metrics().debug_font_width();
-	visiblesize.y = (bounds.bottom - bounds.top) / metrics().debug_font_height();
+	visiblesize.x = (bounds.right - bounds.left) / metrics.debug_font_width();
+	visiblesize.y = (bounds.bottom - bounds.top) / metrics.debug_font_height();
 
 	// determine if we need to show the scrollbars
-	bool const fit_hscroll = (bounds.bottom - bounds.top) > metrics().hscroll_height();
+	bool const fit_hscroll = (bounds.bottom - bounds.top) > metrics.hscroll_height();
 	bool show_hscroll = fit_hscroll && (totalsize.x > visiblesize.x);
 	if (show_hscroll)
 	{
-		bounds.bottom -= metrics().hscroll_height();
-		visiblesize.y = (bounds.bottom - bounds.top) / metrics().debug_font_height();
+		bounds.bottom -= metrics.hscroll_height();
+		visiblesize.y = (bounds.bottom - bounds.top) / metrics.debug_font_height();
 	}
-	bool const fit_vscroll = (bounds.right - bounds.left) > metrics().vscroll_width();
+	bool const fit_vscroll = (bounds.right - bounds.left) > metrics.vscroll_width();
 	bool const show_vscroll = fit_vscroll && (totalsize.y > visiblesize.y);
 	if (show_vscroll)
 	{
-		bounds.right -= metrics().vscroll_width();
-		visiblesize.x = (bounds.right - bounds.left) / metrics().debug_font_width();
+		bounds.right -= metrics.vscroll_width();
+		visiblesize.x = (bounds.right - bounds.left) / metrics.debug_font_width();
 		if (fit_hscroll && !show_hscroll && (totalsize.x > visiblesize.x))
 		{
-			bounds.bottom -= metrics().hscroll_height();
-			visiblesize.y = (bounds.bottom - bounds.top) / metrics().debug_font_height();
+			bounds.bottom -= metrics.hscroll_height();
+			visiblesize.y = (bounds.bottom - bounds.top) / metrics.debug_font_height();
 			show_hscroll = true;
 		}
 	}
@@ -613,14 +691,14 @@ void debugview_info::update()
 	// compute the bounds of the scrollbars
 	RECT vscroll_bounds;
 	GetClientRect(m_wnd, &vscroll_bounds);
-	vscroll_bounds.left = vscroll_bounds.right - metrics().vscroll_width();
+	vscroll_bounds.left = vscroll_bounds.right - metrics.vscroll_width();
 	if (show_hscroll)
-		vscroll_bounds.bottom -= metrics().hscroll_height();
+		vscroll_bounds.bottom -= metrics.hscroll_height();
 	RECT hscroll_bounds;
 	GetClientRect(m_wnd, &hscroll_bounds);
-	hscroll_bounds.top = hscroll_bounds.bottom - metrics().hscroll_height();
+	hscroll_bounds.top = hscroll_bounds.bottom - metrics.hscroll_height();
 	if (show_vscroll)
-		hscroll_bounds.right -= metrics().vscroll_width();
+		hscroll_bounds.right -= metrics.vscroll_width();
 
 	// if we hid the scrollbars, make sure we reset the top/left corners
 	if (topleft.y + visiblesize.y > totalsize.y)
@@ -653,9 +731,9 @@ void debugview_info::update()
 	}
 
 	// update window info
-	if (((bounds.right - bounds.left) > (visiblesize.x * metrics().debug_font_width())) && ((topleft.x + visiblesize.x) < totalsize.x))
+	if (((bounds.right - bounds.left) > (visiblesize.x * metrics.debug_font_width())) && ((topleft.x + visiblesize.x) < totalsize.x))
 		visiblesize.x++;
-	if (((bounds.bottom - bounds.top) > (visiblesize.y * metrics().debug_font_height())) && ((topleft.y + visiblesize.y) < totalsize.y))
+	if (((bounds.bottom - bounds.top) > (visiblesize.y * metrics.debug_font_height())) && ((topleft.y + visiblesize.y) < totalsize.y))
 		visiblesize.y++;
 	m_view->set_visible_size(visiblesize);
 	m_view->set_visible_position(topleft);
@@ -909,11 +987,12 @@ LRESULT debugview_info::view_proc(UINT message, WPARAM wparam, LPARAM lparam)
 	case WM_LBUTTONDOWN:
 	case WM_MBUTTONDOWN:
 		{
+			ui_metrics const &metrics = m_owner.metrics();
 			debug_view_xy const topleft = m_view->visible_position();
 			debug_view_xy const visiblesize = m_view->visible_size();
 			debug_view_xy newpos;
-			newpos.x = std::max(std::min<int>(topleft.x + GET_X_LPARAM(lparam) / metrics().debug_font_width(), topleft.x + visiblesize.x - 1), 0);
-			newpos.y = std::max(std::min<int>(topleft.y + GET_Y_LPARAM(lparam) / metrics().debug_font_height(), topleft.y + visiblesize.y - 1), 0);
+			newpos.x = std::max(std::min<int>(topleft.x + GET_X_LPARAM(lparam) / metrics.debug_font_width(), topleft.x + visiblesize.x - 1), 0);
+			newpos.y = std::max(std::min<int>(topleft.y + GET_Y_LPARAM(lparam) / metrics.debug_font_height(), topleft.y + visiblesize.y - 1), 0);
 			m_view->process_click((message == WM_LBUTTONDOWN) ? DCK_LEFT_CLICK : DCK_MIDDLE_CLICK, newpos);
 			SetFocus(m_wnd);
 			break;
@@ -923,11 +1002,12 @@ LRESULT debugview_info::view_proc(UINT message, WPARAM wparam, LPARAM lparam)
 	case WM_RBUTTONDOWN:
 		if (m_view->cursor_supported())
 		{
+			ui_metrics const &metrics = m_owner.metrics();
 			debug_view_xy const topleft = m_view->visible_position();
 			debug_view_xy const visiblesize = m_view->visible_size();
 			debug_view_xy newpos;
-			newpos.x = std::max(std::min<int>(topleft.x + GET_X_LPARAM(lparam) / metrics().debug_font_width(), topleft.x + visiblesize.x - 1), 0);
-			newpos.y = std::max(std::min<int>(topleft.y + GET_Y_LPARAM(lparam) / metrics().debug_font_height(), topleft.y + visiblesize.y - 1), 0);
+			newpos.x = std::max(std::min<int>(topleft.x + GET_X_LPARAM(lparam) / metrics.debug_font_width(), topleft.x + visiblesize.x - 1), 0);
+			newpos.y = std::max(std::min<int>(topleft.y + GET_Y_LPARAM(lparam) / metrics.debug_font_height(), topleft.y + visiblesize.y - 1), 0);
 			m_view->set_cursor_position(newpos);
 			m_view->set_cursor_visible(true);
 		}
@@ -1021,3 +1101,5 @@ void debugview_info::register_window_class()
 		s_window_class_registered = true;
 	}
 }
+
+} // namespace osd::debugger::win

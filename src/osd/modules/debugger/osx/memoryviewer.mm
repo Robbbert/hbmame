@@ -46,7 +46,7 @@
 	// create the subview popup
 	subviewButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 19)];
 	[subviewButton setAutoresizingMask:(NSViewWidthSizable | NSViewMinXMargin | NSViewMinYMargin)];
-	[subviewButton setBezelStyle:NSShadowlessSquareBezelStyle];
+	[subviewButton setBezelStyle:NSBezelStyleShadowlessSquare];
 	[subviewButton setFocusRingType:NSFocusRingTypeNone];
 	[subviewButton setFont:defaultFont];
 	[subviewButton setTarget:self];
@@ -118,9 +118,11 @@
 
 	// calculate the optimal size for everything
 	NSSize const desired = [NSScrollView frameSizeForContentSize:[memoryView maximumFrameSize]
-										   hasHorizontalScroller:YES
-											 hasVerticalScroller:YES
-													  borderType:[memoryScroll borderType]];
+										 horizontalScrollerClass:[NSScroller class]
+										   verticalScrollerClass:[NSScroller class]
+													  borderType:[memoryScroll borderType]
+													 controlSize:NSControlSizeRegular
+												   scrollerStyle:NSScrollerStyleOverlay];
 	[self cascadeWindowWithDesiredSize:desired forView:memoryScroll];
 
 	// don't forget the result
@@ -140,7 +142,9 @@
 
 - (IBAction)debugNewMemoryWindow:(id)sender {
 	debug_view_memory_source const *source = [memoryView source];
-	[console debugNewMemoryWindowForSpace:source->space()
+	auto const [mintf, spacenum] = source->space();
+	assert(!mintf || ((0 <= spacenum) && mintf->has_space(spacenum)));
+	[console debugNewMemoryWindowForSpace:(mintf ? &mintf->space(spacenum) : nullptr)
 								   device:source->device()
 							   expression:[memoryView expression]];
 }
@@ -148,7 +152,9 @@
 
 - (IBAction)debugNewDisassemblyWindow:(id)sender {
 	debug_view_memory_source const *source = [memoryView source];
-	[console debugNewDisassemblyWindowForSpace:source->space()
+	auto const [mintf, spacenum] = source->space();
+	assert(!mintf || ((0 <= spacenum) && mintf->has_space(spacenum)));
+	[console debugNewDisassemblyWindowForSpace:(mintf ? &mintf->space(spacenum) : nullptr)
 										device:source->device()
 									expression:[memoryView expression]];
 }
@@ -178,15 +184,15 @@
 
 - (void)saveConfigurationToNode:(util::xml::data_node *)node {
 	[super saveConfigurationToNode:node];
-	node->set_attribute_int("type", MAME_DEBUGGER_WINDOW_TYPE_MEMORY_VIEWER);
-	node->set_attribute_int("memoryregion", [memoryView selectedSubviewIndex]);
+	node->set_attribute_int(osd::debugger::ATTR_WINDOW_TYPE, osd::debugger::WINDOW_TYPE_MEMORY_VIEWER);
+	node->set_attribute_int(osd::debugger::ATTR_WINDOW_MEMORY_REGION, [memoryView selectedSubviewIndex]);
 	[memoryView saveConfigurationToNode:node];
 }
 
 
 - (void)restoreConfigurationFromNode:(util::xml::data_node const *)node {
 	[super restoreConfigurationFromNode:node];
-	int const region = node->get_attribute_int("memoryregion", [memoryView selectedSubviewIndex]);
+	int const region = node->get_attribute_int(osd::debugger::ATTR_WINDOW_MEMORY_REGION, [memoryView selectedSubviewIndex]);
 	[memoryView selectSubviewAtIndex:region];
 	[window setTitle:[NSString stringWithFormat:@"Memory: %@", [memoryView selectedSubviewName]]];
 	[subviewButton selectItemAtIndex:[subviewButton indexOfItemWithTag:[memoryView selectedSubviewIndex]]];

@@ -10,20 +10,20 @@ class fga002_device :  public device_t
 {
 	public:
 	// construction/destruction
-	fga002_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	fga002_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void write(offs_t offset, uint8_t data);
 	uint8_t read(offs_t offset);
 
 	void lirq_w(int status, int vector, int control, int state);
-	DECLARE_WRITE_LINE_MEMBER( lirq0_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq1_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq2_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq3_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq4_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq5_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq6_w );
-	DECLARE_WRITE_LINE_MEMBER( lirq7_w );
+	void lirq0_w(int state);
+	void lirq1_w(int state);
+	void lirq2_w(int state);
+	void lirq3_w(int state);
+	void lirq4_w(int state);
+	void lirq5_w(int state);
+	void lirq6_w(int state);
+	void lirq7_w(int state);
 
 	u16 iack();
 	int acknowledge();
@@ -37,11 +37,11 @@ class fga002_device :  public device_t
 
  protected:
 	// type for array of mapping of FGA registers that assembles an IRQ source
-	typedef struct {
+	struct fga_irq_t {
 		int vector;
 		int status;
 		int control;
-	} fga_irq_t;
+	};
 
 	// interrupt sources in prio order if on same interrupt level. TODO: Add all sources
 	const static fga_irq_t s_irq_sources[];
@@ -49,8 +49,8 @@ class fga002_device :  public device_t
 	fga002_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 #if 0
 	// device_z80daisy_interface overrides
 	virtual int z80daisy_irq_state() override;

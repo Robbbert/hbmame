@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/taito_z.cpp"
+#include "../mame/taito/taito_z.cpp"
 
 
 ROM_START( contcirc01 )

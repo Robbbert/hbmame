@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/scramble.cpp"
+#include "../mame/galaxian/scramble.cpp"
 
 ROM_START( troopyx )
 	ROM_REGION( 0x10000, "maincpu", 0 )

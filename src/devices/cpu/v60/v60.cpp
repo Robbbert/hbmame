@@ -77,6 +77,9 @@ Package: 132-pin PGA, 200-pin QFP
 #include "v60.h"
 #include "v60d.h"
 
+#include "corefloat.h"
+
+
 DEFINE_DEVICE_TYPE(V60, v60_device, "v60", "NEC V60")
 DEFINE_DEVICE_TYPE(V70, v70_device, "v70", "NEC V70")
 
@@ -163,13 +166,13 @@ std::unique_ptr<util::disasm_interface> v60_device::create_disassembler()
 #define XORW(dst, src)      { (dst) ^= (src); _OV = 0; SetSZPF_Word(dst); }
 #define XORL(dst, src)      { (dst) ^= (src); _OV = 0; SetSZPF_Long(dst); }
 
-#define SUBB(dst, src)      { unsigned res = (dst) - (src); SetCFB(res); SetOFB_Sub(res, src, dst); SetSZPF_Byte(res); dst = (uint8_t)res; }
-#define SUBW(dst, src)      { unsigned res = (dst) - (src); SetCFW(res); SetOFW_Sub(res, src, dst); SetSZPF_Word(res); dst = (uint16_t)res; }
-#define SUBL(dst, src)      { uint64_t res = (uint64_t)(dst) - (int64_t)(src); SetCFL(res); SetOFL_Sub(res, src, dst); SetSZPF_Long(res); dst = (uint32_t)res; }
+#define SUBB(dst, src, c)   { unsigned res = (dst) - (src) - (c); SetCFB(res); SetOFB_Sub(res, src, dst); SetSZPF_Byte(res); dst = (uint8_t)res; }
+#define SUBW(dst, src, c)   { unsigned res = (dst) - (src) - (c); SetCFW(res); SetOFW_Sub(res, src, dst); SetSZPF_Word(res); dst = (uint16_t)res; }
+#define SUBL(dst, src, c)   { uint64_t res = (uint64_t)(dst) - (int64_t)(src) - (c); SetCFL(res); SetOFL_Sub(res, src, dst); SetSZPF_Long(res); dst = (uint32_t)res; }
 
-#define ADDB(dst, src)      { unsigned res = (dst) + (src); SetCFB(res); SetOFB_Add(res, src, dst); SetSZPF_Byte(res); dst = (uint8_t)res; }
-#define ADDW(dst, src)      { unsigned res = (dst) + (src); SetCFW(res); SetOFW_Add(res, src, dst); SetSZPF_Word(res); dst = (uint16_t)res; }
-#define ADDL(dst, src)      { uint64_t res = (uint64_t)(dst) + (uint64_t)(src); SetCFL(res); SetOFL_Add(res, src, dst); SetSZPF_Long(res); dst = (uint32_t)res; }
+#define ADDB(dst, src, c)   { unsigned res = (dst) + (src) + (c); SetCFB(res); SetOFB_Add(res, src, dst); SetSZPF_Byte(res); dst = (uint8_t)res; }
+#define ADDW(dst, src, c)   { unsigned res = (dst) + (src) + (c); SetCFW(res); SetOFW_Add(res, src, dst); SetSZPF_Word(res); dst = (uint16_t)res; }
+#define ADDL(dst, src, c)   { uint64_t res = (uint64_t)(dst) + (uint64_t)(src) + (c); SetCFL(res); SetOFL_Add(res, src, dst); SetSZPF_Long(res); dst = (uint32_t)res; }
 
 #define SETREG8(a, b)       (a) = ((a) & ~0xff) | ((b) & 0xff)
 #define SETREG16(a, b)      (a) = ((a) & ~0xffff) | ((b) & 0xffff)
@@ -559,6 +562,7 @@ void v60_device::stall()
 
 void v60_device::v60_do_irq(int vector)
 {
+	debugger_exception_hook(vector);
 	uint32_t oldPSW = v60_update_psw_for_exception(1, 0);
 
 	// Push PC and PSW onto the stack
@@ -580,7 +584,7 @@ void v60_device::v60_try_irq()
 		if(m_irq_line != ASSERT_LINE)
 			m_irq_line = CLEAR_LINE;
 
-		vector = standard_irq_callback(0);
+		vector = standard_irq_callback(0, PC);
 
 		v60_do_irq(vector + 0x40);
 	}

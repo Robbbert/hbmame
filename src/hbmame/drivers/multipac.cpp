@@ -165,7 +165,7 @@ void puckman_state::hackypac_map(address_map &map) {
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5008,0x503f).nopw();
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x507f).writeonly().share("spriteram2");
 	map(0x5080,0x50bf).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -195,7 +195,7 @@ void puckman_state::madpac_map(address_map &map) {
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5008,0x500f).nopw();  /* most pacman-type games write here */
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x507f).writeonly().share("spriteram2");
 	map(0x50c0,0x50c0).mirror(0x8000).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x5000,0x5000).mirror(0x8000).portr("IN0");
@@ -222,7 +222,7 @@ void puckman_state::mspaceur_map(address_map &map) {
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -243,7 +243,7 @@ void puckman_state::mschamp_map(address_map &map) {
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -265,7 +265,7 @@ void puckman_state::multipac_map(address_map &map) {
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -291,7 +291,7 @@ void puckman_state::pm4n1_map(address_map &map) {
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5004,0x5006).w(FUNC(puckman_state::pm4n1_rombank_w));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c1).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -311,7 +311,7 @@ void puckman_state::pm4n1c_map(address_map &map) {
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5004,0x5006).w(FUNC(puckman_state::pm4n1_rombank_w));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c1).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -332,7 +332,7 @@ void puckman_state::pm4n1d_map(address_map &map) {
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5004,0x5006).w(FUNC(puckman_state::pm4n1d_rombank_w));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c1).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -352,7 +352,7 @@ void puckman_state::superabc_map(address_map &map) {
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
 	map(0x5006,0x5006).w(FUNC(puckman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
 	map(0x50c0,0x50c1).w("watchdog",FUNC(watchdog_timer_device::reset_w));

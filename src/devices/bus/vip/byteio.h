@@ -61,10 +61,7 @@ public:
 	vip_byteio_port_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt)
 		: vip_byteio_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	vip_byteio_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
@@ -74,17 +71,17 @@ public:
 	// computer interface
 	uint8_t in_r();
 	void out_w(uint8_t data);
-	DECLARE_READ_LINE_MEMBER( ef3_r );
-	DECLARE_READ_LINE_MEMBER( ef4_r );
-	DECLARE_WRITE_LINE_MEMBER( q_w );
+	int ef3_r();
+	int ef4_r();
+	void q_w(int state);
 
 	// cartridge interface
-	DECLARE_WRITE_LINE_MEMBER( inst_w ) { m_write_inst(state); }
+	void inst_w(int state) { m_write_inst(state); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	devcb_write_line m_write_inst;
 
@@ -114,7 +111,7 @@ protected:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(VIP_BYTEIO_PORT, vip_byteio_port_device)
 
 

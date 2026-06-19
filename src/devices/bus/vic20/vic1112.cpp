@@ -27,7 +27,7 @@
 DEFINE_DEVICE_TYPE(VIC1112, vic1112_device, "vic1112", "VIC-1112 IEEE-488 Interface")
 
 
-WRITE_LINE_MEMBER( vic1112_device::via0_irq_w )
+void vic1112_device::via0_irq_w(int state)
 {
 	m_via0_irq = state;
 
@@ -85,7 +85,7 @@ void vic1112_device::via0_pb_w(uint8_t data)
 }
 
 
-WRITE_LINE_MEMBER( vic1112_device::via1_irq_w )
+void vic1112_device::via1_irq_w(int state)
 {
 	m_via1_irq = state;
 
@@ -111,7 +111,7 @@ void vic1112_device::device_add_mconfig(machine_config &config)
 	m_via1->cb2_handler().set(IEEE488_TAG, FUNC(ieee488_device::host_eoi_w));
 	m_via1->irq_handler().set(FUNC(vic1112_device::via1_irq_w));
 
-	IEEE488(config, m_bus, 0);
+	IEEE488(config, m_bus);
 	ieee488_slot_device::add_cbm_defaults(config, nullptr);
 	m_bus->srq_callback().set(m_via1, FUNC(via6522_device::write_cb1));
 }

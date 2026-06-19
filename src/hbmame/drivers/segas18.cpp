@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 // Thanks-to: Various people who shall remain unnamed for their own safety
-#include "../mame/drivers/segas18.cpp"
+#include "../mame/sega/segas18.cpp"
 
 namespace {
 

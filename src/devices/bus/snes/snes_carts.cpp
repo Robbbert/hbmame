@@ -7,19 +7,22 @@
 **********************************************************************/
 
 #include "emu.h"
+
 #include "snes_carts.h"
 
+#include "bsx.h"
+#include "event.h"
 #include "rom.h"
 #include "rom21.h"
-#include "bsx.h"
+#include "profighter.h"
 #include "sa1.h"
 #include "sdd1.h"
 #include "sfx.h"
 #include "sgb.h"
 #include "spc7110.h"
+#include "st018.h"
 #include "sufami.h"
 #include "upd.h"
-#include "event.h"
 
 
 void snes_cart(device_slot_interface &device)
@@ -38,7 +41,7 @@ void snes_cart(device_slot_interface &device)
 	device.option_add_internal("lorom_sgb2",    SNS_LOROM_SUPERGB2);    // SuperGB2 base cart - unsupported
 	device.option_add_internal("lorom_st010",   SNS_LOROM_SETA10);
 	device.option_add_internal("lorom_st011",   SNS_LOROM_SETA11);
-	device.option_add_internal("lorom_st018",   SNS_LOROM);             // Cart + ST018 - unsupported
+	device.option_add_internal("lorom_st018",   SNS_LOROM_ST018);
 	device.option_add_internal("lorom_sufami",  SNS_LOROM_SUFAMI);      // Sufami Turbo base cart
 	device.option_add_internal("hirom",         SNS_HIROM);
 	device.option_add_internal("hirom_bsx",     SNS_HIROM_BSX);         // HiROM + BS-X slot - unsupported
@@ -66,4 +69,9 @@ void snes_cart(device_slot_interface &device)
 	device.option_add_internal("hirom_dsp1leg", SNS_HIROM_NECDSP1_LEG);
 	device.option_add_internal("lorom_st10leg", SNS_LOROM_SETA10_LEG);
 	device.option_add_internal("lorom_st11leg", SNS_LOROM_SETA11_LEG);
+	// copiers
+	device.option_add("profighterq",  SNS_PRO_FIGHTER_Q);
+	device.option_add("profighterqa", SNS_PRO_FIGHTER_QA);
+	device.option_add("profighterqb", SNS_PRO_FIGHTER_QB);
+	device.option_add("profighterx",  SNS_PRO_FIGHTER_X);
 }

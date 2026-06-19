@@ -24,15 +24,15 @@ namespace ui {
 class menu_input_toggles : public menu
 {
 public:
-	menu_input_toggles(mame_ui_manager &mui, render_container &container);
+	menu_input_toggles(mame_ui_manager &mui, render_target &target);
 	virtual ~menu_input_toggles();
 
 protected:
 	virtual void menu_activated() override;
 
 private:
-	virtual void populate(float &customtop, float &custombottom) override;
-	virtual void handle(event const *ev) override;
+	virtual void populate() override;
+	virtual bool handle(event const *ev) override;
 
 	std::vector<std::reference_wrapper<ioport_field> > m_fields;
 };

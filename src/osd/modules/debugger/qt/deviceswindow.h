@@ -3,10 +3,15 @@
 #ifndef MAME_DEBUGGER_QT_DEVICESWINDOW_H
 #define MAME_DEBUGGER_QT_DEVICESWINDOW_H
 
+#pragma once
+
 #include "windowqt.h"
 
+#include <QtCore/QAbstractItemModel>
 #include <QtWidgets/QTreeView>
 
+
+namespace osd::debugger::qt {
 
 //============================================================
 //  The model for the treeview
@@ -20,13 +25,13 @@ public:
 	explicit DevicesWindowModel(running_machine &machine, QObject *parent = nullptr);
 	~DevicesWindowModel();
 
-	QVariant data(const QModelIndex &index, int role) const;
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+	virtual QVariant data(const QModelIndex &index, int role) const override;
+	virtual Qt::ItemFlags flags(const QModelIndex &index) const override;
+	virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+	virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+	virtual QModelIndex parent(const QModelIndex &index) const override;
+	virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 private:
 	running_machine &m_machine;
@@ -40,10 +45,13 @@ class DevicesWindow : public WindowQt
 	Q_OBJECT
 
 public:
-	DevicesWindow(running_machine &machine, QWidget *parent = nullptr);
+	DevicesWindow(DebuggerQt &debugger, QWidget *parent = nullptr);
 	virtual ~DevicesWindow();
 
-public slots:
+protected:
+	virtual void saveConfigurationToNode(util::xml::data_node &node) override;
+
+private slots:
 	void currentRowChanged(const QModelIndex &current, const QModelIndex &previous);
 	void activated(const QModelIndex &index);
 
@@ -53,27 +61,6 @@ private:
 	device_t *m_selected_device;
 };
 
-
-
-
-//=========================================================================
-//  A way to store the configuration of a window long enough to read/write.
-//=========================================================================
-class DevicesWindowQtConfig : public WindowQtConfig
-{
-public:
-	DevicesWindowQtConfig() :
-		WindowQtConfig(WIN_TYPE_DEVICES)
-	{
-	}
-
-	~DevicesWindowQtConfig() {}
-
-	void buildFromQWidget(QWidget *widget);
-	void applyToQWidget(QWidget *widget);
-	void addToXmlDataNode(util::xml::data_node &node) const;
-	void recoverFromXmlNode(util::xml::data_node const &node);
-};
-
+} // namespace osd::debugger::qt
 
 #endif // MAME_DEBUGGER_QT_DEVICESWINDOW_H

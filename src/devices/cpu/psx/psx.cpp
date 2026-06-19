@@ -1785,15 +1785,16 @@ void psxcpu_device::psxcpu_internal_map(address_map &map)
 //-------------------------------------------------
 
 psxcpu_device::psxcpu_device( const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock ) :
-	cpu_device( mconfig, type, tag, owner, clock ),
-	m_program_config( "program", ENDIANNESS_LITTLE, 32, 32, 0, address_map_constructor(FUNC(psxcpu_device::psxcpu_internal_map), this)),
-	m_gpu_read_handler( *this ),
-	m_gpu_write_handler( *this ),
-	m_spu_read_handler( *this ),
-	m_spu_write_handler( *this ),
-	m_cd_read_handler( *this ),
-	m_cd_write_handler( *this ),
-	m_ram( *this, "ram" )
+	cpu_device(mconfig, type, tag, owner, clock),
+	m_program_config("program", ENDIANNESS_LITTLE, 32, 32, 0, address_map_constructor(FUNC(psxcpu_device::psxcpu_internal_map), this)),
+	m_gpu_read_handler(*this, 0),
+	m_gpu_write_handler(*this),
+	m_spu_read_handler(*this, 0),
+	m_spu_write_handler(*this),
+	m_cd_read_handler(*this, 0),
+	m_cd_write_handler(*this),
+	m_ram(*this, "ram"),
+	m_rom(*this, "rom")
 {
 	m_disable_rom_berr = false;
 }
@@ -1835,7 +1836,7 @@ cxd8606cq_device::cxd8606cq_device( const machine_config &mconfig, const char *t
 void psxcpu_device::device_start()
 {
 	// get our address spaces
-	m_program = &space( AS_PROGRAM );
+	m_program = &space(AS_PROGRAM);
 	m_program->cache(m_instruction);
 	m_program->specific(m_data);
 
@@ -1983,20 +1984,10 @@ void psxcpu_device::device_start()
 	state_add( PSXCPU_CP2CR31, "flag", m_gte.m_cp2cr[ 31 ].d );
 
 	// initialize the registers once
-	for(int i=0; i != 32; i++)
-		m_r[i] = 0;
+	std::fill(std::begin(m_r), std::end(m_r), 0);
 
 	// set our instruction counter
 	set_icountptr(m_icount);
-
-	m_gpu_read_handler.resolve_safe( 0 );
-	m_gpu_write_handler.resolve_safe();
-	m_spu_read_handler.resolve_safe( 0 );
-	m_spu_write_handler.resolve_safe();
-	m_cd_read_handler.resolve_safe( 0 );
-	m_cd_write_handler.resolve_safe();
-
-	m_rom = memregion( "rom" );
 }
 
 
@@ -3452,17 +3443,17 @@ device_memory_interface::space_config_vector psxcpu_device::memory_space_config(
 
 void psxcpu_device::device_add_mconfig(machine_config &config)
 {
-	auto &irq(PSX_IRQ(config, "irq", 0));
+	auto &irq(PSX_IRQ(config, "irq"));
 	irq.irq().set_inputline(DEVICE_SELF, PSXCPU_IRQ0);
 
-	auto &dma(PSX_DMA(config, "dma", 0));
+	auto &dma(PSX_DMA(config, "dma"));
 	dma.irq().set("irq", FUNC(psxirq_device::intin3));
 
-	auto &mdec(PSX_MDEC(config, "mdec", 0));
+	auto &mdec(PSX_MDEC(config, "mdec"));
 	dma.install_write_handler(0, psxdma_device::write_delegate(&psxmdec_device::dma_write, &mdec));
 	dma.install_read_handler(1, psxdma_device::write_delegate(&psxmdec_device::dma_read, &mdec));
 
-	auto &rcnt(PSX_RCNT(config, "rcnt", 0));
+	auto &rcnt(PSX_RCNT(config, "rcnt"));
 	rcnt.irq0().set("irq", FUNC(psxirq_device::intin4));
 	rcnt.irq1().set("irq", FUNC(psxirq_device::intin5));
 	rcnt.irq2().set("irq", FUNC(psxirq_device::intin6));

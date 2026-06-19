@@ -2,7 +2,7 @@
 // copyright-holders:Wilbert Pol
 /***************************************************************************
 
-  a8sio.h - Atari 8 bit SIO bus interface
+  a8sio.cpp - Atari 8 bit SIO bus interface
 
 
               1 1
@@ -32,8 +32,10 @@
 
 #include "emu.h"
 #include "a8sio.h"
+
 #include "atari810.h"
 #include "atari1050.h"
+#include "atarifdc.h"
 #include "cassette.h"
 
 
@@ -41,7 +43,7 @@
 //  GLOBAL VARIABLES
 //**************************************************************************
 
-DEFINE_DEVICE_TYPE(A8SIO, a8sio_device, "a8sio", "Atari 8 bit SIO Slot")
+DEFINE_DEVICE_TYPE(A8SIO, a8sio_device, "a8sio", "Atari 8-bit SIO Slot")
 
 //**************************************************************************
 //  LIVE DEVICE
@@ -61,6 +63,7 @@ a8sio_device::a8sio_device(const machine_config &mconfig, const char *tag, devic
 	, m_out_interrupt_cb(*this)
 	, m_device(nullptr)
 {
+	set_options(a8sio_cards, nullptr, false);
 }
 
 //-------------------------------------------------
@@ -74,13 +77,6 @@ void a8sio_device::device_resolve_objects()
 	m_device = get_card_device();
 	if (m_device)
 		m_device->set_a8sio_device(this);
-
-	// resolve callbacks
-	m_out_clock_in_cb.resolve_safe();
-	m_out_data_in_cb.resolve_safe();
-	m_out_proceed_cb.resolve_safe();
-	m_out_audio_in_cb.resolve_safe();
-	m_out_interrupt_cb.resolve_safe();
 }
 
 //-------------------------------------------------
@@ -104,41 +100,47 @@ device_a8sio_card_interface *a8sio_device::get_a8sio_card()
 	return m_device;
 }
 
-WRITE_LINE_MEMBER( a8sio_device::clock_in_w )
+void a8sio_device::clock_in_w(int state)
 {
 	m_out_clock_in_cb(state);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::clock_out_w )
+void a8sio_device::clock_out_w(int state)
 {
 	if (m_device)
 		m_device->clock_out_w(state);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::data_in_w )
+void a8sio_device::data_in_w(int state)
 {
 	m_out_data_in_cb(state);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::data_out_w )
+void a8sio_device::data_out_w(int state)
 {
 	if (m_device)
 		m_device->data_out_w(state);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::command_w )
+void a8sio_device::command_w(int state)
 {
 	if (m_device)
 		m_device->command_w(state);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::motor_w )
+void a8sio_device::motor_w(int state)
 {
 	if (m_device)
 		m_device->motor_w(state);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::proceed_w )
+void a8sio_device::ready_w(int state)
+{
+	if (m_device)
+		m_device->ready_w(state);
+}
+
+void a8sio_device::proceed_w(int state)
 {
 	m_out_proceed_cb(state);
 }
@@ -148,7 +150,7 @@ void a8sio_device::audio_in_w(uint8_t data)
 	m_out_audio_in_cb(data);
 }
 
-WRITE_LINE_MEMBER( a8sio_device::interrupt_w )
+void a8sio_device::interrupt_w(int state)
 {
 	m_out_interrupt_cb(state);
 }
@@ -182,24 +184,24 @@ void device_a8sio_card_interface::set_a8sio_device(a8sio_device *sio)
 	m_a8sio = sio;
 }
 
-WRITE_LINE_MEMBER( device_a8sio_card_interface::clock_out_w )
+void device_a8sio_card_interface::clock_out_w(int state)
 {
 }
 
-WRITE_LINE_MEMBER( device_a8sio_card_interface::data_out_w )
+void device_a8sio_card_interface::data_out_w(int state)
 {
 }
 
-WRITE_LINE_MEMBER( device_a8sio_card_interface::command_w )
+void device_a8sio_card_interface::command_w(int state)
 {
 }
 
-WRITE_LINE_MEMBER( device_a8sio_card_interface::motor_w )
+void device_a8sio_card_interface::motor_w(int state)
 {
 	//printf("device_a8sio_card_interface::motor_w %d\n", state);
 }
 
-WRITE_LINE_MEMBER( device_a8sio_card_interface::ready_w )
+void device_a8sio_card_interface::ready_w(int state)
 {
 }
 
@@ -209,4 +211,5 @@ void a8sio_cards(device_slot_interface &device)
 	device.option_add("a810", ATARI810);
 	device.option_add("a1050", ATARI1050);
 	device.option_add("cassette", A8SIO_CASSETTE);
+	device.option_add("fdc", ATARI_FDC);
 }

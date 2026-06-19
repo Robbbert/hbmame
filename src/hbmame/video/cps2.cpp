@@ -1400,7 +1400,7 @@ if (0 && machine().input().code_pressed(KEYCODE_Z))
 	return 0;
 }
 
-WRITE_LINE_MEMBER(cps2_state::screen_vblank_cps1)
+void cps2_state::screen_vblank_cps1(int state)
 {
 	// rising edge
 	if (state)

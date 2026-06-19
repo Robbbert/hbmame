@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // Copyright-holders:Robbbert
-#include "../mame/drivers/tecmosys.cpp"
+#include "../mame/tecmo/tecmosys.cpp"
 
 /****************
  Deroon DeroDero

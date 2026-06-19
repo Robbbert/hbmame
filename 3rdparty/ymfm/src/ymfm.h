@@ -40,7 +40,9 @@
 #include <cassert>
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 #include <algorithm>
+#include <array>
 #include <memory>
 #include <string>
 #include <vector>
@@ -105,17 +107,6 @@ inline int32_t clamp(int32_t value, int32_t minval, int32_t maxval)
 	if (value > maxval)
 		return maxval;
 	return value;
-}
-
-
-//-------------------------------------------------
-//  array_size - return the size of an array
-//-------------------------------------------------
-
-template<typename ArrayType, int ArraySize>
-constexpr uint32_t array_size(ArrayType (&array)[ArraySize])
-{
-	return ArraySize;
 }
 
 
@@ -253,7 +244,8 @@ inline int16_t roundtrip_fp(int32_t value)
 
 	// apply the shift back and forth to zero out bits that are lost
 	exponent -= 1;
-	return (value >> exponent) << exponent;
+    int32_t mask = (1 << exponent) - 1;
+	return value & ~mask;
 }
 
 
@@ -322,6 +314,105 @@ struct ymfm_output
 
 	// internal state
 	int32_t data[NumOutputs];
+};
+
+
+// ======================> ymfm_wavfile
+
+// this class is a debugging helper that accumulates data and writes it to wav files
+template<int Channels>
+class ymfm_wavfile
+{
+public:
+	// construction
+	ymfm_wavfile(uint32_t samplerate = 44100) :
+		m_samplerate(samplerate)
+	{
+	}
+
+	// configuration
+	ymfm_wavfile &set_index(uint32_t index) { m_index = index; return *this; }
+	ymfm_wavfile &set_samplerate(uint32_t samplerate) { m_samplerate = samplerate; return *this; }
+
+	// destruction
+	~ymfm_wavfile()
+	{
+		if (!m_buffer.empty())
+		{
+			// create file
+			char name[20];
+			snprintf(&name[0], sizeof(name), "wavlog-%02d.wav", m_index);
+			FILE *out = fopen(name, "wb");
+
+			// make the wav file header
+			uint8_t header[44];
+			memcpy(&header[0], "RIFF", 4);
+			put_u32(&header[4], m_buffer.size() * 2 + 44 - 8);
+			memcpy(&header[8], "WAVE", 4);
+			memcpy(&header[12], "fmt ", 4);
+			put_u32(&header[16], 16);
+			put_u16(&header[20], 1);
+			put_u16(&header[22], Channels);
+			put_u32(&header[24], m_samplerate);
+			put_u32(&header[28], m_samplerate * 2 * Channels);
+			put_u16(&header[32], 2 * Channels);
+			put_u16(&header[34], 16);
+			memcpy(&header[36], "data", 4);
+			put_u32(&header[40], m_buffer.size() * 2 + 44 - 44);
+
+#if (defined(__BYTE_ORDER__) && ((defined(__ORDER_BIG_ENDIAN__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)) || (__BYTE_ORDER__ == 4321))) || (!defined(__BYTE_ORDER__) && !defined(__LITTLE_ENDIAN__))
+			for (int16_t &sample : m_buffer)
+				sample = int16_t(uint16_t((uint16_t(sample) >> 8) | (uint16_t(sample) << 8)));
+#endif
+
+			// write header then data
+			fwrite(&header[0], 1, sizeof(header), out);
+			fwrite(&m_buffer[0], 2, m_buffer.size(), out);
+			fclose(out);
+		}
+	}
+
+	// add data to the file
+	template<int Outputs>
+	void add(ymfm_output<Outputs> output)
+	{
+		int16_t sum[Channels] = { 0 };
+		for (int index = 0; index < Outputs; index++)
+			sum[index % Channels] += output.data[index];
+		for (int index = 0; index < Channels; index++)
+			m_buffer.push_back(sum[index]);
+	}
+
+	// add data to the file, using a reference
+	template<int Outputs>
+	void add(ymfm_output<Outputs> output, ymfm_output<Outputs> const &ref)
+	{
+		int16_t sum[Channels] = { 0 };
+		for (int index = 0; index < Outputs; index++)
+			sum[index % Channels] += output.data[index] - ref.data[index];
+		for (int index = 0; index < Channels; index++)
+			m_buffer.push_back(sum[index]);
+	}
+
+private:
+	static void put_u32(uint8_t *buffer, uint32_t value)
+	{
+		buffer[0] = uint8_t((value >> 0) & 0x00ff);
+		buffer[1] = uint8_t((value >> 8) & 0x00ff);
+		buffer[2] = uint8_t((value >> 16) & 0x00ff);
+		buffer[3] = uint8_t((value >> 24) & 0x00ff);
+	}
+
+	static void put_u16(uint8_t *buffer, uint16_t value)
+	{
+		buffer[0] = uint8_t((value >> 0) & 0x00ff);
+		buffer[1] = uint8_t((value >> 8) & 0x00ff);
+	}
+
+	// internal state
+	uint32_t m_index;
+	uint32_t m_samplerate;
+	std::vector<int16_t> m_buffer;
 };
 
 
@@ -402,6 +493,8 @@ public:
 class ymfm_engine_callbacks
 {
 public:
+	virtual ~ymfm_engine_callbacks() = default;
+
 	// timer callback; called by the interface when a timer fires
 	virtual void engine_timer_expired(uint32_t tnum) = 0;
 
@@ -423,6 +516,8 @@ class ymfm_interface
 	template<typename RegisterType> friend class fm_engine_base;
 
 public:
+	virtual ~ymfm_interface() = default;
+
 	// the following functions must be implemented by any derived classes; the
 	// default implementations are sufficient for some minimal operation, but will
 	// likely need to be overridden to integrate with the outside world; they are

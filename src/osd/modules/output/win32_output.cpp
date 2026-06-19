@@ -7,21 +7,28 @@
 //============================================================
 
 #include "output_module.h"
+
 #include "modules/osdmodule.h"
-#include "modules/lib/osdobj_common.h"
 
 #if defined(OSD_WINDOWS)
+
+#include "win32_output.h"
+
+#include "winmain.h"
+#include "winutil.h"
+
+// MAME headers
+#include "emu.h"
+
+#include <algorithm>
 
 // standard windows headers
 #include <windows.h>
 
-// MAME headers
-#include "emu.h"
-#include "winmain.h"
 
-#include "winutil.h"
-#include "win32_output.h"
+namespace osd {
 
+namespace {
 
 //============================================================
 //  CONSTANTS
@@ -42,7 +49,6 @@ struct registered_client
 	registered_client * next;       // next client in the list
 	LPARAM              id;         // client-specified ID
 	HWND                hwnd;       // client HWND
-	running_machine   * machine;
 };
 
 
@@ -66,30 +72,73 @@ class output_win32 : public osd_module, public output_module
 {
 public:
 	output_win32()
-		: osd_module(OSD_OUTPUT_PROVIDER, "windows"), output_module(), m_output_hwnd(nullptr), m_clientlist(nullptr)
+		: osd_module(OSD_OUTPUT_PROVIDER, "windows")
+		, output_module()
+		, m_output_hwnd(nullptr)
+		, m_clientlist(nullptr)
+		, m_machine(nullptr)
+		, m_next_id(12345)
 	{
 	}
 	virtual ~output_win32() { }
 
-	virtual int init(const osd_options &options) override;
+	virtual int init(osd_interface &osd, const osd_options &options) override;
 	virtual void exit() override;
 
 	// output_module
+	virtual void notify(const output_item &item, s32 seconds, s64 attoseconds) override;
+	virtual void pause() override;
+	virtual void resume() override;
+	virtual void update() override { }
 
-	virtual void notify(const char *outname, int32_t value) override;
+	running_machine &machine() { return *m_machine; }
 
-	int create_window_class();
 	LRESULT register_client(HWND hwnd, LPARAM id);
 	LRESULT unregister_client(HWND hwnd, LPARAM id);
 	LRESULT send_id_string(HWND hwnd, LPARAM id);
 
 private:
+	u32 find_id(const output_item &item)
+	{
+		const auto found = std::lower_bound(
+				m_item_to_id.begin(),
+				m_item_to_id.end(),
+				&item,
+				[] (const auto &a, const auto &b) { return a.first < b; });
+		if ((m_item_to_id.end() != found) && (&item == found->first))
+			return found->second;
+
+		auto const id = m_next_id++;
+		assert(m_id_to_item.empty() || (id > m_id_to_item.back().second));
+		m_id_to_item.emplace_back(&item, id);
+		m_item_to_id.emplace(found, &item, id);
+		return id;
+	}
+
+	const output_item *find_item(u32 id) const
+	{
+		const auto found = std::lower_bound(
+				m_id_to_item.begin(),
+				m_id_to_item.end(),
+				id,
+				[] (const auto &a, const auto &b) { return a.second < b; });
+		if ((m_id_to_item.end() != found) && (found->second == id))
+			return found->first;
+		else
+			return nullptr;
+	}
+
+	int create_window_class();
 	// our HWND
 	HWND                 m_output_hwnd;
 
 	// client list
 	registered_client *  m_clientlist;
 
+	running_machine *    m_machine;
+
+	std::vector<std::pair<const output_item *, u32> > m_id_to_item, m_item_to_id;
+	u32 m_next_id;
 };
 
 
@@ -97,8 +146,10 @@ private:
 //  output_init
 //============================================================
 
-int output_win32::init(const osd_options &options)
+int output_win32::init(osd_interface &osd, const osd_options &options)
 {
+	m_machine = &downcast<osd_common_t &>(osd).machine();
+
 	int result;
 
 	// reset globals
@@ -165,6 +216,9 @@ void output_win32::exit()
 		delete temp;
 	}
 
+	m_id_to_item.clear();
+	m_item_to_id.clear();
+
 	// broadcast a shutdown message
 	PostMessage(HWND_BROADCAST, om_mame_stop, (WPARAM)m_output_hwnd, 0);
 }
@@ -226,13 +280,13 @@ static LRESULT CALLBACK output_window_proc(HWND wnd, UINT message, WPARAM wparam
 	{
 		switch(wparam)
 		{
-		case IM_MAME_PAUSE:
+		case output_module::IM_MAME_PAUSE:
 			if (lparam == 1 && !output.machine().paused())
 				output.machine().pause();
 			else if (lparam == 0 && output.machine().paused())
 				output.machine().resume();
 			break;
-		case IM_MAME_SAVESTATE:
+		case output_module::IM_MAME_SAVESTATE:
 			if (lparam == 0)
 				output.machine().schedule_load("auto");
 			else if (lparam == 1)
@@ -255,26 +309,28 @@ static LRESULT CALLBACK output_window_proc(HWND wnd, UINT message, WPARAM wparam
 LRESULT output_win32::register_client(HWND hwnd, LPARAM id)
 {
 	registered_client **client;
+	auto const now = machine().scheduler().time();
 
 	// find the end of the list; if we find ourself already registered,
 	// return 1
 	for (client = &m_clientlist; *client != nullptr; client = &(*client)->next)
+	{
 		if ((*client)->id == id)
 		{
 			(*client)->hwnd = hwnd;
-			machine().output().notify_all([this] (const char *outname, int32_t value) { notify(outname, value); });
+			machine().output().notify_all([this, &now] (const output_item &item) { notify(item, now.seconds(), now.attoseconds()); });
 			return 1;
 		}
+	}
 
 	// add us to the end
 	*client = new registered_client;
 	(*client)->next = nullptr;
 	(*client)->id = id;
 	(*client)->hwnd = hwnd;
-	(*client)->machine = &machine();
 
 	// request a notification for all outputs
-	machine().output().notify_all([this] (const char *outname, int32_t value) { notify(outname, value); });
+	machine().output().notify_all([this, &now] (const output_item &item) { notify(item, now.seconds(), now.attoseconds()); });
 	return 0;
 }
 
@@ -311,25 +367,33 @@ LRESULT output_win32::unregister_client(HWND hwnd, LPARAM id)
 LRESULT output_win32::send_id_string(HWND hwnd, LPARAM id)
 {
 	COPYDATASTRUCT copydata;
-	const char *name;
+	std::string_view name;
 	int datalen;
 
-	// id 0 is the name of the game
 	if (id == 0)
+	{
+		// id 0 is the name short name of the running system
 		name = machine().system().name;
+	}
+	else if (id == 1)
+	{
+		// id 1 is a fake output indicating whether the emulation is paused
+		name = "pause";
+	}
 	else
-		name = machine().output().id_to_name(id);
-
-	// a NULL name is an empty string
-	if (name == nullptr)
-		name = "";
+	{
+		auto const found = find_item(id);
+		if (found)
+			name = found->qualified_name();
+	}
 
 	// allocate memory for the message
-	datalen = sizeof(copydata_id_string) + strlen(name) + 1;
+	datalen = sizeof(copydata_id_string) + name.length() + 1;
 	std::vector<uint8_t> buffer(datalen);
 	auto *temp = (copydata_id_string *)&buffer[0];
 	temp->id = id;
-	strcpy(temp->string, name);
+	std::copy(name.begin(), name.end(), temp->string);
+	temp->string[name.length()] = '\0';
 
 	// reply by using SendMessage with WM_COPYDATA
 	copydata.dwData = COPYDATA_MESSAGE_ID_STRING;
@@ -345,17 +409,38 @@ LRESULT output_win32::send_id_string(HWND hwnd, LPARAM id)
 //  notifier_callback
 //============================================================
 
-void output_win32::notify(const char *outname, int32_t value)
+void output_win32::notify(const output_item &item, s32 seconds, s64 attoseconds)
+{
+	// loop over clients and notify them
+	const u32 itemid = find_id(item);
+	const s32 value = item.value();
+	for (registered_client *client = m_clientlist; client != nullptr; client = client->next)
+		PostMessage(client->hwnd, om_mame_update_state, itemid, value);
+}
+
+void output_win32::pause()
 {
 	// loop over clients and notify them
 	for (registered_client *client = m_clientlist; client != nullptr; client = client->next)
-		PostMessage(client->hwnd, om_mame_update_state, client->machine->output().name_to_id(outname), value);
+		PostMessage(client->hwnd, om_mame_update_state, 1, 1);
 }
 
+void output_win32::resume()
+{
+	// loop over clients and notify them
+	for (registered_client *client = m_clientlist; client != nullptr; client = client->next)
+		PostMessage(client->hwnd, om_mame_update_state, 1, 0);
+}
+
+} // anonymous namespace
+
+} // namespace osd
 
 
 #else
-	MODULE_NOT_SUPPORTED(output_win32, OSD_OUTPUT_PROVIDER, "windows")
+
+namespace osd { namespace { MODULE_NOT_SUPPORTED(output_win32, OSD_OUTPUT_PROVIDER, "windows") } }
+
 #endif
 
-MODULE_DEFINITION(OUTPUT_WIN32, output_win32)
+MODULE_DEFINITION(OUTPUT_WIN32, osd::output_win32)

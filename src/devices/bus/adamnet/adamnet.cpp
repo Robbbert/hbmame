@@ -139,7 +139,7 @@ adamnet_device::daisy_entry::daisy_entry(device_t *device)
 //  rxd_r - receive data
 //-------------------------------------------------
 
-READ_LINE_MEMBER( adamnet_device::rxd_r )
+int adamnet_device::rxd_r()
 {
 	int state = m_txd;//1;
 
@@ -184,7 +184,7 @@ int adamnet_device::rxd_r(device_t *device)
 //  txd_w - transmit data
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( adamnet_device::txd_w )
+void adamnet_device::txd_w(int state)
 {
 	if (m_txd != state)
 	{
@@ -221,7 +221,7 @@ void adamnet_device::txd_w(device_t *device, int state)
 //  reset_r - bus reset
 //-------------------------------------------------
 
-READ_LINE_MEMBER( adamnet_device::reset_r )
+int adamnet_device::reset_r()
 {
 	return m_reset;
 }
@@ -231,7 +231,7 @@ READ_LINE_MEMBER( adamnet_device::reset_r )
 //  reset_w - bus reset
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( adamnet_device::reset_w )
+void adamnet_device::reset_w(int state)
 {
 	m_reset = state;
 
@@ -261,6 +261,10 @@ void adamnet_devices(device_slot_interface &device)
 {
 	device.option_add("ddp", ADAM_DDP);
 	device.option_add("fdc", ADAM_FDC);
+	device.option_add("fdc_320kb", ADAM_FDC_320KB);
+	device.option_add("fdc_a720dipi", ADAM_FDC_A720DIPI);
+	device.option_add("fdc_fp720at", ADAM_FDC_FP720AT);
+	device.option_add("fdc_mihddd", ADAM_FDC_MIHDDD);
 	device.option_add("kb", ADAM_KB);
 	device.option_add("prn", ADAM_PRN);
 	device.option_add("spi", ADAM_SPI);

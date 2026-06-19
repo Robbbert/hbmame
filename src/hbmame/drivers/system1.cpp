@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/system1.cpp"
+#include "../mame/sega/system1.cpp"
 
 // Wonder Boy in Monster Land
 ROM_START( wbml01 ) // wbmlbit
@@ -132,8 +132,8 @@ ROM_START( pitfall2u01 )
 ROM_END
 
 
-GAME( 1987, wbml01, wbml, sys2xb,    wbml, system1_state, init_bootsys2, ROT0, "Michele", "Wonder Boy in Monster Land (Italian - v0.99)", MACHINE_SUPPORTS_SAVE )
-GAME( 1987, wbml02, wbml, sys2xb,    wbml, system1_state, init_bootsys2, ROT0, "Aneue Bannzai", "Wonder Boy in Monster Land (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 1987, wbml03, wbml, sys2xboot, wbml, system1_state, init_bootsys2, ROT0, "bootleg", "Wonder Boy in Monster Land (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, wbml01, wbml, wbmlb,    wbml, system1_state, init_bootsys2, ROT0, "Michele", "Wonder Boy in Monster Land (Italian - v0.99)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, wbml02, wbml, wbmlb,    wbml, system1_state, init_bootsys2, ROT0, "Aneue Bannzai", "Wonder Boy in Monster Land (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, wbml03, wbml, wbmlb, wbml, system1_state, init_bootsys2, ROT0, "bootleg", "Wonder Boy in Monster Land (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, pitfall2u01,  pitfall2, sys1pio, pitfall2u, system1_state, empty_init, ROT0, "Sekret", "Pitfall II Trainer (2002-10-15)", MACHINE_SUPPORTS_SAVE )
 

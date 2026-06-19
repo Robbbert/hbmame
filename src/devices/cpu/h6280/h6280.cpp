@@ -66,7 +66,7 @@
         - Turrican: Allows the game to start
 
         Changed PLX and PLY to set NZ flags. Fixes:
-        - Afterburner: Graphics unpacking
+        - After Burner: Graphics unpacking
         - Aoi Blink: Collision detection with background
 
         Fixed the decimal version of ADC/SBC to *not* update the V flag,
@@ -169,10 +169,10 @@ DEFINE_DEVICE_TYPE(H6280, h6280_device, "h6280", "Hudson Soft HuC6280")
 
 h6280_device::h6280_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: cpu_device(mconfig, H6280, tag, owner, clock)
-	, device_mixer_interface(mconfig, *this, 2)
+	, device_mixer_interface(mconfig, *this)
 	, m_program_config("program", ENDIANNESS_LITTLE, 8, 21, 0, 16, 0, address_map_constructor(FUNC(h6280_device::internal_map), this))
 	, m_io_config("io", ENDIANNESS_LITTLE, 8, 2)
-	, m_port_in_cb(*this)
+	, m_port_in_cb(*this, 0)
 	, m_port_out_cb(*this)
 	, m_psg(*this, "psg")
 	, m_timer_scale(1)
@@ -232,15 +232,12 @@ const h6280_device::ophandler h6280_device::s_opcodetable[256] =
 void h6280_device::device_add_mconfig(machine_config &config)
 {
 	C6280(config, m_psg, DERIVED_CLOCK(1,2));
-	m_psg->add_route(0, *this, 1.0, AUTO_ALLOC_INPUT, 0);
-	m_psg->add_route(1, *this, 1.0, AUTO_ALLOC_INPUT, 1);
+	m_psg->add_route(0, *this, 1.0, 0);
+	m_psg->add_route(1, *this, 1.0, 1);
 }
 
 void h6280_device::device_start()
 {
-	m_port_in_cb.resolve();
-	m_port_out_cb.resolve_safe();
-
 	// register our state for the debugger
 	state_add(STATE_GENPC,      "GENPC",        m_pc.w.l).noshow();
 	state_add(STATE_GENPCBASE,  "CURPC",        m_pc.w.l).noshow();
@@ -413,14 +410,14 @@ inline void h6280_device::check_and_take_irq_lines()
 		if ( m_irq_state[0] != CLEAR_LINE &&
 				!(m_irq_mask & 0x2) )
 		{
+			standard_irq_callback(0, PCW);
 			do_interrupt(H6280_IRQ1_VEC);
-			standard_irq_callback(0);
 		} else
 		if ( m_irq_state[1] != CLEAR_LINE &&
 				!(m_irq_mask & 0x1) )
 		{
+			standard_irq_callback(1, PCW);
 			do_interrupt(H6280_IRQ2_VEC);
-			standard_irq_callback(1);
 		}
 	}
 }
@@ -2273,17 +2270,6 @@ uint32_t h6280_device::execute_max_cycles() const noexcept
 
 
 //-------------------------------------------------
-//  execute_input_lines - return the number of
-//  input/interrupt lines
-//-------------------------------------------------
-
-uint32_t h6280_device::execute_input_lines() const noexcept
-{
-	return 4;
-}
-
-
-//-------------------------------------------------
 //  execute_input_edge_triggered - return true if
 //  the input line has an asynchronous edge trigger
 //-------------------------------------------------
@@ -2582,7 +2568,7 @@ void h6280_device::timer_w(offs_t offset, uint8_t data)
 
 uint8_t h6280_device::port_r()
 {
-	if (!m_port_in_cb.isnull())
+	if (!m_port_in_cb.isunset())
 		return m_port_in_cb();
 	else
 		return m_io_buffer;
@@ -2606,8 +2592,9 @@ void h6280_device::psg_w(offs_t offset, uint8_t data)
 	m_psg->c6280_w(offset, data);
 }
 
-bool h6280_device::memory_translate(int spacenum, int intention, offs_t &address)
+bool h6280_device::memory_translate(int spacenum, int intention, offs_t &address, address_space *&target_space)
 {
+	target_space = &space(spacenum);
 	if (spacenum == AS_PROGRAM)
 		address = translated(address);
 

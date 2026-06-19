@@ -9,8 +9,12 @@
 #include "emu.h"
 #include "consolewininfo.h"
 
+#include "debuggerprefs.h"
 #include "debugviewinfo.h"
 #include "uimetrics.h"
+
+// devices
+#include "imagedev/cassette.h"
 
 // emu
 #include "debug/debugcon.h"
@@ -19,8 +23,8 @@
 #include "softlist_dev.h"
 #include "debug/debugcpu.h"
 
-// devices
-#include "imagedev/cassette.h"
+// util
+#include "util/xmlfile.h"
 
 // osd/windows
 #include "winutf8.h"
@@ -38,6 +42,8 @@
 #include <shtypes.h>
 #include <wrl/client.h>
 
+
+namespace osd::debugger::win {
 
 namespace {
 
@@ -121,7 +127,7 @@ void choose_image(device_image_interface &device, HWND owner, REFCLSID class_id,
 
 	// create file dialog
 	Microsoft::WRL::ComPtr<IFileDialog> dialog;
-	hr = CoCreateInstance(class_id, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(dialog.GetAddressOf()));
+	hr = CoCreateInstance(class_id, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&dialog));
 
 	// set file types
 	if (SUCCEEDED(hr))
@@ -154,7 +160,7 @@ void choose_image(device_image_interface &device, HWND owner, REFCLSID class_id,
 			// FIXME: strip off archive names - opening a file inside an archive decompresses it to a temporary location
 			std::wstring wfull = osd::text::to_wstring(full);
 			Microsoft::WRL::ComPtr<IShellItem> item;
-			if (SUCCEEDED(SHCreateItemFromParsingName(wfull.c_str(), nullptr, IID_PPV_ARGS(item.GetAddressOf()))))
+			if (SUCCEEDED(SHCreateItemFromParsingName(wfull.c_str(), nullptr, IID_PPV_ARGS(&item))))
 			{
 				//dialog->SetFolder(item); disabled until
 			}
@@ -171,7 +177,7 @@ void choose_image(device_image_interface &device, HWND owner, REFCLSID class_id,
 	if (SUCCEEDED(hr))
 	{
 		Microsoft::WRL::ComPtr<IShellItem> result;
-		hr = dialog->GetResult(result.GetAddressOf());
+		hr = dialog->GetResult(&result);
 		if (SUCCEEDED(hr))
 		{
 			PWSTR selection = nullptr;
@@ -205,59 +211,76 @@ void choose_image(device_image_interface &device, HWND owner, REFCLSID class_id,
 
 
 consolewin_info::consolewin_info(debugger_windows_interface &debugger) :
-	disasmbasewin_info(debugger, true, "Debug", nullptr),
+	disasmbasewin_info(debugger, true, VIEW_IDX_DISASM, "Debug", nullptr),
 	m_current_cpu(nullptr),
 	m_devices_menu(nullptr)
 {
-	if ((window() == nullptr) || (m_views[0] == nullptr))
+	if (!window() || !m_views[VIEW_IDX_DISASM])
 		goto cleanup;
 
 	// create the views
-	m_views[1].reset(new debugview_info(debugger, *this, window(), DVT_STATE));
-	if (!m_views[1]->is_valid())
+	m_views[VIEW_IDX_STATE].reset(new debugview_info(debugger, *this, window(), DVT_STATE));
+	if (!m_views[VIEW_IDX_STATE]->is_valid())
 		goto cleanup;
-	m_views[2].reset(new debugview_info(debugger, *this, window(), DVT_CONSOLE));
-	if (!m_views[2]->is_valid())
+	m_views[VIEW_IDX_CONSOLE].reset(new debugview_info(debugger, *this, window(), DVT_CONSOLE));
+	if (!m_views[VIEW_IDX_CONSOLE]->is_valid())
 		goto cleanup;
 
 	{
-		// Add image menu only if image devices exist
+		// add image menu only if image devices exist
 		image_interface_enumerator iter(machine().root_device());
 		if (iter.first() != nullptr)
 		{
 			m_devices_menu = CreatePopupMenu();
 			for (device_image_interface &img : iter)
 			{
-				if (!img.user_loadable())
-					continue;
-				osd::text::tstring tc_buf = osd::text::to_tstring(string_format("%s : %s", img.device().name(), img.exists() ? img.filename() : "[no image]"));
-				AppendMenu(m_devices_menu, MF_ENABLED, 0, tc_buf.c_str());
+				if (img.user_loadable())
+				{
+					osd::text::tstring tc_buf = osd::text::to_tstring(string_format("%s : %s", img.device().name(), img.exists() ? img.filename() : "[no image]"));
+					AppendMenu(m_devices_menu, MF_ENABLED, 0, tc_buf.c_str());
+				}
 			}
 			AppendMenu(GetMenu(window()), MF_ENABLED | MF_POPUP, (UINT_PTR)m_devices_menu, TEXT("Media"));
 		}
 
-		// get the work bounds
-		RECT work_bounds, bounds;
-		SystemParametersInfo(SPI_GETWORKAREA, 0, &work_bounds, 0);
+		// add the settings menu
+		HMENU const settingsmenu = CreatePopupMenu();
+		AppendMenu(settingsmenu, MF_ENABLED, ID_SAVE_WINDOWS, TEXT("Save Window Arrangement"));
+		AppendMenu(settingsmenu, MF_ENABLED, ID_GROUP_WINDOWS, TEXT("Group Debugger Windows (requires restart)"));
+		AppendMenu(settingsmenu, MF_DISABLED | MF_SEPARATOR, 0, TEXT(""));
+		AppendMenu(settingsmenu, MF_ENABLED, ID_LIGHT_BACKGROUND, TEXT("Light Background"));
+		AppendMenu(settingsmenu, MF_ENABLED, ID_DARK_BACKGROUND, TEXT("Dark Background"));
+		AppendMenu(GetMenu(window()), MF_ENABLED | MF_POPUP, (UINT_PTR)settingsmenu, TEXT("Settings"));
 
 		// adjust the min/max sizes for the window style
-		bounds.top = bounds.left = 0;
-		bounds.right = bounds.bottom = EDGE_WIDTH + m_views[1]->maxwidth() + (2 * EDGE_WIDTH) + 100 + EDGE_WIDTH;
-		AdjustWindowRectEx(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX);
-		set_minwidth(bounds.right - bounds.left);
+		adjust_minmax();
 
-		bounds.top = bounds.left = 0;
-		bounds.right = bounds.bottom = EDGE_WIDTH + m_views[1]->maxwidth() + (2 * EDGE_WIDTH) + std::max(m_views[0]->maxwidth(), m_views[2]->maxwidth()) + EDGE_WIDTH;
-		AdjustWindowRectEx(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX);
-		set_maxwidth(bounds.right - bounds.left);
+		// try to find the work bounds for the monitor
+		RECT work_bounds;
+		SystemParametersInfo(SPI_GETWORKAREA, 0, &work_bounds, 0);
+		HMONITOR const nearest_monitor = MonitorFromWindow(window(), MONITOR_DEFAULTTONEAREST);
+		if (nearest_monitor)
+		{
+			MONITORINFO info;
+			std::memset(&info, 0, sizeof(info));
+			info.cbSize = sizeof(info);
+			if (GetMonitorInfo(nearest_monitor, &info))
+				work_bounds = info.rcWork;
+		}
 
 		// position the window at the bottom-right
-		int const bestwidth = (std::min<uint32_t>)(maxwidth(), work_bounds.right - work_bounds.left);
-		int const bestheight = (std::min<uint32_t>)(500, work_bounds.bottom - work_bounds.top);
-		SetWindowPos(window(), HWND_TOP,
-					work_bounds.right - bestwidth, work_bounds.bottom - bestheight,
-					bestwidth, bestheight,
-					SWP_SHOWWINDOW);
+		int const bestwidth = (std::min<uint32_t>)(
+				maxwidth(),
+				work_bounds.right - work_bounds.left);
+		int const bestheight = std::min<uint32_t>(
+				(metrics().debug_font_ascent() * 40) + (metrics().hscroll_height() * 2),
+				work_bounds.bottom - work_bounds.top);
+		SetWindowPos(
+				window(),
+				HWND_TOP,
+				work_bounds.right - bestwidth, work_bounds.bottom - bestheight,
+				bestwidth, bestheight,
+				SWP_SHOWWINDOW);
 	}
 
 	// recompute the children
@@ -268,9 +291,9 @@ consolewin_info::consolewin_info(debugger_windows_interface &debugger) :
 	return;
 
 cleanup:
-	m_views[2].reset();
-	m_views[1].reset();
-	m_views[0].reset();
+	m_views[VIEW_IDX_CONSOLE].reset();
+	m_views[VIEW_IDX_STATE].reset();
+	m_views[VIEW_IDX_DISASM].reset();
 }
 
 
@@ -286,8 +309,8 @@ void consolewin_info::set_cpu(device_t &device)
 		m_current_cpu = &device;
 
 		// first set all the views to the new cpu number
-		m_views[0]->set_source_for_device(device);
-		m_views[1]->set_source_for_device(device);
+		m_views[VIEW_IDX_DISASM]->set_source_for_device(device);
+		m_views[VIEW_IDX_STATE]->set_source_for_device(device);
 
 		// then update the caption
 		std::string title = string_format("Debug: %s - %s '%s'", device.machine().system().name, device.name(), device.tag());
@@ -298,6 +321,13 @@ void consolewin_info::set_cpu(device_t &device)
 		// and recompute the children
 		recompute_children();
 	}
+}
+
+
+void consolewin_info::update_dpi()
+{
+	disasmbasewin_info::update_dpi();
+	adjust_minmax();
 }
 
 
@@ -312,7 +342,7 @@ void consolewin_info::recompute_children()
 	regrect.top = parent.top + EDGE_WIDTH;
 	regrect.bottom = parent.bottom - EDGE_WIDTH;
 	regrect.left = parent.left + EDGE_WIDTH;
-	regrect.right = regrect.left + m_views[1]->maxwidth();
+	regrect.right = regrect.left + m_views[VIEW_IDX_STATE]->maxwidth();
 
 	// edit box goes at the bottom of the remaining area
 	RECT editrect;
@@ -335,9 +365,9 @@ void consolewin_info::recompute_children()
 	conrect.right = parent.right - EDGE_WIDTH;
 
 	// set the bounds of things
-	m_views[0]->set_bounds(disrect);
-	m_views[1]->set_bounds(regrect);
-	m_views[2]->set_bounds(conrect);
+	m_views[VIEW_IDX_DISASM]->set_bounds(disrect);
+	m_views[VIEW_IDX_STATE]->set_bounds(regrect);
+	m_views[VIEW_IDX_CONSOLE]->set_bounds(conrect);
 	set_editwnd_bounds(editrect);
 }
 
@@ -346,7 +376,7 @@ void consolewin_info::update_menu()
 {
 	disasmbasewin_info::update_menu();
 
-	if (m_devices_menu != nullptr)
+	if (m_devices_menu)
 	{
 		// create the image menu
 		uint32_t cnt = 0;
@@ -432,67 +462,122 @@ void consolewin_info::update_menu()
 			cnt++;
 		}
 	}
+
+	HMENU const menu = GetMenu(window());
+	debugger_preferences const &prefs = debugger().preferences();
+	CheckMenuItem(menu, ID_SAVE_WINDOWS, MF_BYCOMMAND | (debugger().get_save_window_arrangement() ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(menu, ID_GROUP_WINDOWS, MF_BYCOMMAND | (debugger().get_group_windows_setting() ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(menu, ID_LIGHT_BACKGROUND, MF_BYCOMMAND | ((debugger_preferences::THEME_LIGHT_BACKGROUND == prefs.get_color_theme()) ? MF_CHECKED : MF_UNCHECKED));
+	CheckMenuItem(menu, ID_DARK_BACKGROUND, MF_BYCOMMAND | ((debugger_preferences::THEME_DARK_BACKGROUND == prefs.get_color_theme()) ? MF_CHECKED : MF_UNCHECKED));
 }
 
 
 bool consolewin_info::handle_command(WPARAM wparam, LPARAM lparam)
 {
-	if ((HIWORD(wparam) == 0) && (LOWORD(wparam) >= ID_DEVICE_OPTIONS))
+	if (HIWORD(wparam) == 0)
 	{
-		uint32_t const devid = (LOWORD(wparam) - ID_DEVICE_OPTIONS) / DEVOPTION_MAX;
-		image_interface_enumerator iter(machine().root_device());
-		device_image_interface *const img = iter.byindex(devid);
-		if (img != nullptr)
+		if (LOWORD(wparam) >= ID_DEVICE_OPTIONS)
 		{
-			switch ((LOWORD(wparam) - ID_DEVICE_OPTIONS) % DEVOPTION_MAX)
+			uint32_t const devid = (LOWORD(wparam) - ID_DEVICE_OPTIONS) / DEVOPTION_MAX;
+			image_interface_enumerator iter(machine().root_device());
+			device_image_interface *const img = iter.byindex(devid);
+			if (img != nullptr)
 			{
-			case DEVOPTION_ITEM:
-				// TODO: this is supposed to show a software list item picker - it never worked properly
-				return true;
-			case DEVOPTION_OPEN :
-				open_image_file(*img);
-				return true;
-			case DEVOPTION_CREATE:
-				create_image_file(*img);
-				return true;
-			case DEVOPTION_CLOSE:
-				img->unload();
-				return true;
-			}
-			if (img->device().type() == CASSETTE)
-			{
-				auto *const cassette = downcast<cassette_image_device *>(&img->device());
-				bool s;
 				switch ((LOWORD(wparam) - ID_DEVICE_OPTIONS) % DEVOPTION_MAX)
 				{
-				case DEVOPTION_CASSETTE_STOPPAUSE:
-					cassette->change_state(CASSETTE_STOPPED, CASSETTE_MASK_UISTATE);
+				case DEVOPTION_ITEM:
+					// TODO: this is supposed to show a software list item picker - it never worked properly
 					return true;
-				case DEVOPTION_CASSETTE_PLAY:
-					cassette->change_state(CASSETTE_PLAY, CASSETTE_MASK_UISTATE);
+				case DEVOPTION_OPEN :
+					open_image_file(*img);
 					return true;
-				case DEVOPTION_CASSETTE_RECORD:
-					cassette->change_state(CASSETTE_RECORD, CASSETTE_MASK_UISTATE);
+				case DEVOPTION_CREATE:
+					create_image_file(*img);
 					return true;
-				case DEVOPTION_CASSETTE_REWIND:
-					cassette->seek(0.0, SEEK_SET);  // to start
+				case DEVOPTION_CLOSE:
+					img->unload();
 					return true;
-				case DEVOPTION_CASSETTE_FASTFORWARD:
-					cassette->seek(+300.0, SEEK_CUR); // 5 minutes forward or end, whichever comes first
-					break;
-				case DEVOPTION_CASSETTE_MOTOR:
-					s =((cassette->get_state() & CASSETTE_MASK_MOTOR) == CASSETTE_MOTOR_DISABLED);
-					cassette->change_state(s ? CASSETTE_MOTOR_ENABLED : CASSETTE_MOTOR_DISABLED, CASSETTE_MASK_MOTOR);
-					break;
-				case DEVOPTION_CASSETTE_SOUND:
-					s =((cassette->get_state() & CASSETTE_MASK_SPEAKER) == CASSETTE_SPEAKER_MUTED);
-					cassette->change_state(s ? CASSETTE_SPEAKER_ENABLED : CASSETTE_SPEAKER_MUTED, CASSETTE_MASK_SPEAKER);
-					break;
+				}
+				if (img->device().type() == CASSETTE)
+				{
+					auto *const cassette = downcast<cassette_image_device *>(&img->device());
+					bool s;
+					switch ((LOWORD(wparam) - ID_DEVICE_OPTIONS) % DEVOPTION_MAX)
+					{
+					case DEVOPTION_CASSETTE_STOPPAUSE:
+						cassette->change_state(CASSETTE_STOPPED, CASSETTE_MASK_UISTATE);
+						return true;
+					case DEVOPTION_CASSETTE_PLAY:
+						cassette->change_state(CASSETTE_PLAY, CASSETTE_MASK_UISTATE);
+						return true;
+					case DEVOPTION_CASSETTE_RECORD:
+						cassette->change_state(CASSETTE_RECORD, CASSETTE_MASK_UISTATE);
+						return true;
+					case DEVOPTION_CASSETTE_REWIND:
+						cassette->seek(0.0, SEEK_SET);  // to start
+						return true;
+					case DEVOPTION_CASSETTE_FASTFORWARD:
+						cassette->seek(+300.0, SEEK_CUR); // 5 minutes forward or end, whichever comes first
+						return true;
+					case DEVOPTION_CASSETTE_MOTOR:
+						s = ((cassette->get_state() & CASSETTE_MASK_MOTOR) == CASSETTE_MOTOR_DISABLED);
+						cassette->change_state(s ? CASSETTE_MOTOR_ENABLED : CASSETTE_MOTOR_DISABLED, CASSETTE_MASK_MOTOR);
+						return true;
+					case DEVOPTION_CASSETTE_SOUND:
+						s = ((cassette->get_state() & CASSETTE_MASK_SPEAKER) == CASSETTE_SPEAKER_MUTED);
+						cassette->change_state(s ? CASSETTE_SPEAKER_ENABLED : CASSETTE_SPEAKER_MUTED, CASSETTE_MASK_SPEAKER);
+						return true;
+					}
 				}
 			}
 		}
+		else switch (LOWORD(wparam))
+		{
+		case ID_SAVE_WINDOWS:
+			debugger().set_save_window_arrangement(!debugger().get_save_window_arrangement());
+			return true;
+		case ID_GROUP_WINDOWS:
+			debugger().set_group_windows_setting(!debugger().get_group_windows_setting());
+			return true;
+		case ID_LIGHT_BACKGROUND:
+			debugger().set_color_theme(debugger_preferences::THEME_LIGHT_BACKGROUND);
+			return true;
+		case ID_DARK_BACKGROUND:
+			debugger().set_color_theme(debugger_preferences::THEME_DARK_BACKGROUND);
+			return true;
+		}
 	}
 	return disasmbasewin_info::handle_command(wparam, lparam);
+}
+
+
+void consolewin_info::save_configuration_to_node(util::xml::data_node &node)
+{
+	disasmbasewin_info::save_configuration_to_node(node);
+	node.set_attribute_int(ATTR_WINDOW_TYPE, WINDOW_TYPE_CONSOLE);
+}
+
+
+void consolewin_info::adjust_minmax()
+{
+	RECT bounds;
+
+	bounds.top = bounds.left = 0;
+	bounds.right = EDGE_WIDTH + m_views[VIEW_IDX_STATE]->maxwidth() + (2 * EDGE_WIDTH) + (metrics().debug_font_width() * 32) + metrics().vscroll_width() + EDGE_WIDTH;
+	bounds.bottom = (metrics().debug_font_ascent() * 24) + (metrics().hscroll_height() * 2);
+	AdjustWindowRectExForDpi(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX, metrics().dpi());
+	set_minwidth(bounds.right - bounds.left);
+	set_minheight(bounds.bottom - bounds.top);
+
+	bounds.top = bounds.left = 0;
+	bounds.right = bounds.bottom =
+			EDGE_WIDTH +
+			m_views[VIEW_IDX_STATE]->maxwidth() +
+			(2 * EDGE_WIDTH) +
+			std::max(m_views[VIEW_IDX_DISASM]->maxwidth(), m_views[VIEW_IDX_CONSOLE]->maxwidth()) +
+			EDGE_WIDTH;
+	AdjustWindowRectExForDpi(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX, metrics().dpi());
+	set_maxwidth(bounds.right - bounds.left);
 }
 
 
@@ -515,9 +600,11 @@ void consolewin_info::open_image_file(device_image_interface &device)
 			window(),
 			CLSID_FileOpenDialog,
 			true,
-			[&device] (std::string_view selection)
+			[this, &device] (std::string_view selection)
 			{
-				device.load(selection);
+				auto [err, message] = device.load(selection);
+				if (err)
+					machine().debugger().console().printf("Error mounting image file: %s\n", !message.empty() ? message : err.message());
 			});
 }
 
@@ -529,9 +616,11 @@ void consolewin_info::create_image_file(device_image_interface &device)
 			window(),
 			CLSID_FileSaveDialog,
 			false,
-			[&device] (std::string_view selection)
+			[this, &device] (std::string_view selection)
 			{
-				device.create(selection, device.device_get_indexed_creatable_format(0), nullptr);
+				auto [err, message] = device.create(selection, device.device_get_indexed_creatable_format(0), nullptr);
+				if (err)
+					machine().debugger().console().printf("Error creating image file: %s\n", !message.empty() ? message : err.message());
 			});
 }
 
@@ -589,3 +678,5 @@ bool consolewin_info::get_softlist_info(device_image_interface &device)
 
 	return passes_tests;
 }
+
+} // namespace osd::debugger::win

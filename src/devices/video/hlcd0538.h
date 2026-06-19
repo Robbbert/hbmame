@@ -2,7 +2,7 @@
 // copyright-holders:hap
 /*
 
-  Hughes HLCD 0538(A)/0539(A) LCD Driver
+  Hughes HLCD 0538(A)/0539(A)/0607(A) LCD Driver
 
 */
 
@@ -36,7 +36,8 @@
       C 14 19 |           | 22 C 11
       C 13 20 |___________| 21 C 12
 
-    HLCD 0539 has 8 more C pins(1-8) in place of R pins.
+    HLCD 0539 has 8 more C pins in place of R pins, pins 40-7 are C1-C34
+    HLCD 0607 has 4 more C pins in place of R5-R7, pins 36-7 are C1-C30
 */
 
 
@@ -46,27 +47,27 @@ public:
 	hlcd0538_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
 	// configuration helpers
-	auto write_cols() { return m_write_cols.bind(); }              // C/R pins (0538: d0-d7 for rows)
-	auto write_interrupt() { return m_write_interrupt.bind(); }    // INTERRUPT pin
+	auto write_cols() { return m_write_cols.bind(); }           // C/R pins (0538: d0-d7 for rows, 0607: d0-d3 for rows)
+	auto write_interrupt() { return m_write_interrupt.bind(); } // INTERRUPT pin
 
-	DECLARE_WRITE_LINE_MEMBER(clk_w);
-	DECLARE_WRITE_LINE_MEMBER(lcd_w);
-	DECLARE_WRITE_LINE_MEMBER(data_w) { m_data = (state) ? 1 : 0; }
+	void clk_w(int state);
+	void lcd_w(int state);
+	void data_w(int state) { m_data = (state) ? 1 : 0; }
 
 protected:
 	hlcd0538_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock);
 
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	TIMER_CALLBACK_MEMBER(toggle_lcd);
 
 	emu_timer *m_lcd_timer;
 
-	int m_lcd = 0;
-	int m_clk = 0;
-	int m_data = 0;
-	u64 m_shift = 0;
+	int m_lcd;
+	int m_clk;
+	int m_data;
+	u64 m_shift;
 
 	// callbacks
 	devcb_write64 m_write_cols;
@@ -81,8 +82,16 @@ public:
 };
 
 
+class hlcd0607_device : public hlcd0538_device
+{
+public:
+	hlcd0607_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
+};
+
+
 
 DECLARE_DEVICE_TYPE(HLCD0538, hlcd0538_device)
 DECLARE_DEVICE_TYPE(HLCD0539, hlcd0539_device)
+DECLARE_DEVICE_TYPE(HLCD0607, hlcd0607_device)
 
 #endif // MAME_VIDEO_HLCD0538_H

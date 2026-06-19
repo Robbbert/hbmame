@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/arkanoid.cpp"
+#include "../mame/taito/arkanoid.cpp"
 
 ROM_START( akblc2dx )
 	ROM_REGION( 0x10000, "maincpu", 0 )

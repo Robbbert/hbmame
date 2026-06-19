@@ -19,34 +19,6 @@
 
 #include <type_traits>
 
-
-//**************************************************************************
-//  CONSTANTS
-//**************************************************************************
-
-// Translation intentions
-constexpr int TRANSLATE_TYPE_MASK       = 0x03;     // read write or fetch
-constexpr int TRANSLATE_USER_MASK       = 0x04;     // user mode or fully privileged
-constexpr int TRANSLATE_DEBUG_MASK      = 0x08;     // debug mode (no side effects)
-
-constexpr int TRANSLATE_READ            = 0;        // translate for read
-constexpr int TRANSLATE_WRITE           = 1;        // translate for write
-constexpr int TRANSLATE_FETCH           = 2;        // translate for instruction fetch
-constexpr int TRANSLATE_READ_USER       = (TRANSLATE_READ | TRANSLATE_USER_MASK);
-constexpr int TRANSLATE_WRITE_USER      = (TRANSLATE_WRITE | TRANSLATE_USER_MASK);
-constexpr int TRANSLATE_FETCH_USER      = (TRANSLATE_FETCH | TRANSLATE_USER_MASK);
-constexpr int TRANSLATE_READ_DEBUG      = (TRANSLATE_READ | TRANSLATE_DEBUG_MASK);
-constexpr int TRANSLATE_WRITE_DEBUG     = (TRANSLATE_WRITE | TRANSLATE_DEBUG_MASK);
-constexpr int TRANSLATE_FETCH_DEBUG     = (TRANSLATE_FETCH | TRANSLATE_DEBUG_MASK);
-
-
-
-//**************************************************************************
-//  TYPE DEFINITIONS
-//**************************************************************************
-
-// ======================> device_memory_interface
-
 class device_memory_interface : public device_interface
 {
 	friend class device_scheduler;
@@ -57,6 +29,13 @@ class device_memory_interface : public device_interface
 	template <typename T, typename U> using is_unrelated_interface = std::bool_constant<emu::detail::is_device_interface<T>::value && !is_related_class<T, U>::value >;
 
 public:
+	// Translation intentions for the translate() call
+	enum {
+		TR_READ,
+		TR_WRITE,
+		TR_FETCH
+	};
+
 	// construction/destruction
 	device_memory_interface(const machine_config &mconfig, device_t &device);
 	virtual ~device_memory_interface();
@@ -64,28 +43,31 @@ public:
 	// configuration access
 	address_map_constructor get_addrmap(int spacenum = 0) const { return spacenum >= 0 && spacenum < int(m_address_map.size()) ? m_address_map[spacenum] : address_map_constructor(); }
 	const address_space_config *space_config(int spacenum = 0) const { return spacenum >= 0 && spacenum < int(m_address_config.size()) ? m_address_config[spacenum] : nullptr; }
-	int max_space_count() const { return m_address_config.size(); }
+	const address_space_config *logical_space_config(int spacenum = 0) const { return spacenum >= 0 && spacenum < int(m_logical_address_config.size()) ? m_logical_address_config[spacenum] : nullptr; }
+	int max_space_count() const { return std::max(m_address_config.size(), m_logical_address_config.size()); }
 
 	// configuration helpers
 	template <typename T, typename U, typename Ret, typename... Params>
-	std::enable_if_t<is_related_device<T, U>::value> set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) { set_addrmap(spacenum, address_map_constructor(func, obj.tag(), &downcast<U &>(obj))); }
+	void set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) requires is_related_device<T, U>::value { set_addrmap(spacenum, address_map_constructor(func, obj.tag(), &downcast<U &>(obj))); }
 	template <typename T, typename U, typename Ret, typename... Params>
-	std::enable_if_t<is_related_interface<T, U>::value> set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) { set_addrmap(spacenum, address_map_constructor(func, obj.device().tag(), &downcast<U &>(obj))); }
+	void set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) requires is_related_interface<T, U>::value { set_addrmap(spacenum, address_map_constructor(func, obj.device().tag(), &downcast<U &>(obj))); }
 	template <typename T, typename U, typename Ret, typename... Params>
-	std::enable_if_t<is_unrelated_device<T, U>::value> set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) { set_addrmap(spacenum, address_map_constructor(func, obj.tag(), &dynamic_cast<U &>(obj))); }
+	void set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) requires is_unrelated_device<T, U>::value { set_addrmap(spacenum, address_map_constructor(func, obj.tag(), &dynamic_cast<U &>(obj))); }
 	template <typename T, typename U, typename Ret, typename... Params>
-	std::enable_if_t<is_unrelated_interface<T, U>::value> set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) { set_addrmap(spacenum, address_map_constructor(func, obj.device().tag(), &dynamic_cast<U &>(obj))); }
+	void set_addrmap(int spacenum, T &obj, Ret (U::*func)(Params...)) requires is_unrelated_interface<T, U>::value { set_addrmap(spacenum, address_map_constructor(func, obj.device().tag(), &dynamic_cast<U &>(obj))); }
 	template <typename T, typename Ret, typename... Params>
 	void set_addrmap(int spacenum, Ret (T::*func)(Params...));
 	void set_addrmap(int spacenum, address_map_constructor map);
+	void remove_addrmap(int spacenum) { set_addrmap(spacenum, address_map_constructor()); }
 
 	// basic information getters
 	bool has_space(int index = 0) const { return index >= 0 && index < int(m_addrspace.size()) && m_addrspace[index]; }
+	bool has_logical_space(int index = 0) const { return index >= 0 && index < int(m_logical_address_config.size()) && m_logical_address_config[index]; }
 	bool has_configured_map(int index = 0) const { return index >= 0 && index < int(m_address_map.size()) && !m_address_map[index].isnull(); }
 	address_space &space(int index = 0) const { assert(index >= 0 && index < int(m_addrspace.size()) && m_addrspace[index]); return *m_addrspace[index]; }
 
 	// address translation
-	bool translate(int spacenum, int intention, offs_t &address) { return memory_translate(spacenum, intention, address); }
+	bool translate(int spacenum, int intention, offs_t &address, address_space *&target_space) { return memory_translate(spacenum, intention, address, target_space); }
 
 	// deliberately ambiguous functions; if you have the memory interface
 	// just use it
@@ -108,9 +90,10 @@ protected:
 
 	// required overrides
 	virtual space_config_vector memory_space_config() const = 0;
+	virtual space_config_vector memory_logical_space_config() const;
 
 	// optional operation overrides
-	virtual bool memory_translate(int spacenum, int intention, offs_t &address);
+	virtual bool memory_translate(int spacenum, int intention, offs_t &address, address_space *&target_space);
 
 	// interface-level overrides
 	virtual void interface_config_complete() override;
@@ -122,6 +105,7 @@ protected:
 private:
 	// internal state
 	std::vector<const address_space_config *>   m_address_config; // configuration for each space
+	std::vector<const address_space_config *>   m_logical_address_config; // configuration for each logical (virtual) space
 	std::vector<std::unique_ptr<address_space>> m_addrspace; // reported address spaces
 };
 

@@ -8,8 +8,8 @@
 
 *********************************************************************/
 
-#ifndef MAME_BUS_GIO_NEWPORT_H
-#define MAME_BUS_GIO_NEWPORT_H
+#ifndef MAME_BUS_GIO64_NEWPORT_H
+#define MAME_BUS_GIO64_NEWPORT_H
 
 #pragma once
 
@@ -34,7 +34,7 @@ public:
 		set_revision(revision);
 	}
 
-	xmap9_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	xmap9_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	uint32_t read(uint32_t offset);
 	void write(uint32_t offset, uint32_t data);
@@ -50,8 +50,8 @@ public:
 
 private:
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// Initializers
 	void set_revision(uint32_t revision) { m_revision = revision; }
@@ -85,7 +85,7 @@ public:
 		set_revision(revision);
 	}
 
-	cmap_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	cmap_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	uint32_t read(uint32_t offset);
 	void write(uint32_t offset, uint32_t data);
@@ -98,11 +98,11 @@ public:
 
 private:
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_palette_interface overrides
-	virtual uint32_t palette_entries() const override { return 0x2000; }
+	virtual uint32_t palette_entries() const noexcept override { return 0x2000; }
 
 	// Initializers
 	void set_revision(uint32_t revision) { m_revision = revision; }
@@ -125,7 +125,7 @@ DECLARE_DEVICE_TYPE(CMAP, cmap_device)
 class vc2_device : public device_t
 {
 public:
-	vc2_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	vc2_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	uint32_t read(uint32_t offset);
 	void write(uint32_t offset, uint32_t data, uint32_t mem_mask);
@@ -139,7 +139,7 @@ public:
 	uint16_t next_did_line_entry();
 	uint8_t get_cursor_pixel(int x, int y);
 
-	DECLARE_WRITE_LINE_MEMBER(vblank_w);
+	void vblank_w(int state);
 
 	auto vert_int() { return m_vert_int.bind(); }
 	auto screen_timing_changed() { return m_screen_timing_changed.bind(); } // Hack. TODO: Figure out a better way
@@ -149,8 +149,8 @@ public:
 
 private:
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	enum
 	{
@@ -227,7 +227,7 @@ public:
 		set_global_mask(global_mask);
 	}
 
-	rb2_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	rb2_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// Getters
 	const uint32_t *rgbci(int y) const { return &m_rgbci[1344 * y]; }
@@ -246,8 +246,8 @@ public:
 
 private:
 	// device_t overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	void logic_pixel(uint32_t src);
 	void store_pixel(uint32_t value);
@@ -290,15 +290,15 @@ class newport_base_device : public device_t
 						  , public device_gio64_card_interface
 {
 public:
-	newport_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
+	newport_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	uint64_t rex3_r(offs_t offset, uint64_t mem_mask = ~0);
 	void rex3_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
 
 	uint32_t screen_update(screen_device &device, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
-	DECLARE_WRITE_LINE_MEMBER(vrint_w);
-	DECLARE_WRITE_LINE_MEMBER(update_screen_size);
+	void vrint_w(int state);
+	void update_screen_size(int state);
 
 	auto write_mask() { return m_write_mask_w.bind(); }
 	auto draw_flags() { return m_draw_flags_w.bind(); }
@@ -311,9 +311,9 @@ public:
 
 protected:
 	// device_t overrides
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	void device_add_mconfig(machine_config &config, uint32_t xmap_revision, uint32_t cmap_revision, uint32_t global_mask);
 	void mem_map(address_map &map) override;
@@ -484,6 +484,7 @@ protected:
 		uint8_t loop;
 	};
 	uint8_t get_octant(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t dx, int32_t dy);
+	void do_setup();
 	void do_fline(uint32_t color);
 	void do_iline(uint32_t color);
 
@@ -531,7 +532,7 @@ public:
 	gio64_xl8_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0U);
 
 protected:
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 };
 
 class gio64_xl24_device : public newport_base_device
@@ -540,10 +541,10 @@ public:
 	gio64_xl24_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0U);
 
 protected:
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 };
 
 DECLARE_DEVICE_TYPE(GIO64_XL8,  gio64_xl8_device)
 DECLARE_DEVICE_TYPE(GIO64_XL24, gio64_xl24_device)
 
-#endif // MAME_BUS_GIO_NEWPORT_H
+#endif // MAME_BUS_GIO64_NEWPORT_H

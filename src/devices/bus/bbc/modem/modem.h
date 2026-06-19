@@ -37,7 +37,6 @@
 #pragma once
 
 
-
 //**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
@@ -54,10 +53,7 @@ public:
 	bbc_modem_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock, T &&slot_options, const char *default_option)
 		: bbc_modem_slot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		slot_options(*this);
-		set_default_option(default_option);
-		set_fixed(false);
+		set_options(std::forward<T>(slot_options), default_option, false);
 	}
 
 	bbc_modem_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock);
@@ -68,11 +64,11 @@ public:
 	virtual uint8_t read(offs_t offset);
 	virtual void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( irq_w ) { m_irq_handler(state); }
+	void irq_w(int state) { m_irq_handler(state); }
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t overrides
+	virtual void device_start() override ATTR_COLD;
 
 	device_bbc_modem_interface *m_card;
 
@@ -92,7 +88,7 @@ public:
 protected:
 	device_bbc_modem_interface(const machine_config &mconfig, device_t &device);
 
-	bbc_modem_slot_device *m_slot;
+	bbc_modem_slot_device *const m_slot;
 };
 
 

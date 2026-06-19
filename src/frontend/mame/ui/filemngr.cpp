@@ -17,10 +17,15 @@
 #include "ui/filesel.h"
 #include "ui/floppycntrl.h"
 #include "ui/imgcntrl.h"
+#include "ui/prscntrl.h"
 #include "ui/miscmenu.h"
 #include "ui/ui.h"
 
 #include "softlist.h"
+
+#include <string_view>
+#include <unordered_set>
+#include <utility>
 
 
 namespace ui {
@@ -33,14 +38,14 @@ namespace ui {
 //  ctor
 //-------------------------------------------------
 
-menu_file_manager::menu_file_manager(mame_ui_manager &mui, render_container &container, const char *warnings)
-	: menu(mui, container)
-	, selected_device(nullptr)
-	, m_warnings(warnings ? warnings : "")
+menu_file_manager::menu_file_manager(mame_ui_manager &mui, render_target &target, std::string &&warnings)
+	: menu(mui, target)
+	, m_warnings(std::move(warnings))
+	, m_selected_device(nullptr)
 {
 	// The warning string is used when accessing from the force_file_manager call, i.e.
 	// when the file manager is loaded top front in the case of mandatory image devices
-	set_heading(_("File Manager"));
+	set_heading(_("Media Control"));
 }
 
 
@@ -54,97 +59,174 @@ menu_file_manager::~menu_file_manager()
 
 
 //-------------------------------------------------
-//  custom_render - perform our special rendering
+//  recompute_metrics - recompute metrics
 //-------------------------------------------------
 
-void menu_file_manager::custom_render(void *selectedref, float top, float bottom, float origx1, float origy1, float origx2, float origy2)
+void menu_file_manager::recompute_metrics(uint32_t width, uint32_t height, float aspect)
 {
-	// access the path
-	std::string_view path = selected_device && selected_device->exists() ? selected_device->filename() : std::string_view();
-	extra_text_render(top, bottom, origx1, origy1, origx2, origy2, std::string_view(), path);
+	menu::recompute_metrics(width, height, aspect);
+
+	if (!m_warnings.empty())
+	{
+		m_warnings_layout.reset();
+
+		float const max_width(1.0F - (4.0F * lr_border()));
+		m_warnings_layout.emplace(create_layout(max_width, text_layout::text_justify::LEFT));
+		m_warnings_layout->add_text(m_warnings, ui().colors().text_color());
+
+		set_custom_space(0.0F, (float(m_warnings_layout->lines() + 3) * line_height()) + (6.0F * tb_border()));
+	}
+	else
+	{
+		set_custom_space(0.0F, (3.0F * line_height()) + (3.0F * tb_border()));
+	}
 }
 
 
-void menu_file_manager::fill_image_line(device_image_interface *img, std::string &instance, std::string &filename)
+//-------------------------------------------------
+//  custom_render - perform our special rendering
+//-------------------------------------------------
+
+void menu_file_manager::custom_render(uint32_t flags, void *selectedref, float top, float bottom, float origx1, float origy1, float origx2, float origy2)
 {
-	// get the image type/id
-	instance = string_format("%s (%s)", img->instance_name(), img->brief_instance_name());
-
-	// get the base name
-	if (img->basename() != nullptr)
+	// access the path
+	if (m_selected_device && m_selected_device->exists())
 	{
-		filename.assign(img->basename());
-
-		// if the image has been loaded through softlist, also show the loaded part
-		if (img->loaded_through_softlist())
+		if (m_selected_device->has_preset_images_selection())
 		{
-			const software_part *tmp = img->part_entry();
-			if (!tmp->name().empty())
+			extra_text_render(
+					top, (3.0F * tb_border()) + line_height(), origx1, origy1, origx2, origy2,
+					std::string_view(),
+					util::string_format(_("%1$s preset %2$u"), m_selected_device->filename(), m_selected_device->current_preset_image_id() + 1));
+		}
+		else if (!m_selected_device->loaded_through_softlist())
+		{
+			extra_text_render(
+					top, (3.0F * tb_border()) + line_height(), origx1, origy1, origx2, origy2,
+					std::string_view(),
+					m_selected_device->filename());
+		}
+		else
+		{
+			software_info const &swinfo(*m_selected_device->software_entry());
+			unsigned const lines((swinfo.supported() == software_support::SUPPORTED) ? 2 : 3);
+			std::string const line2(util::string_format(_("%1$s, %2$s"), swinfo.publisher(), swinfo.year()));
+			std::string_view text[3];
+			text[0] = swinfo.longname();
+			text[1] = line2;
+			switch (swinfo.supported())
 			{
-				filename.append(" (");
-				filename.append(tmp->name());
-				// also check if this part has a specific part_id (e.g. "Map Disc", "Bonus Disc", etc.), and in case display it
-				if (img->get_feature("part_id") != nullptr)
-				{
-					filename.append(": ");
-					filename.append(img->get_feature("part_id"));
-				}
-				filename.append(")");
+			case software_support::UNSUPPORTED:
+				text[2] = _("Not supported");
+				break;
+			case software_support::PARTIALLY_SUPPORTED:
+				text[2] = _("Partially supported");
+				break;
+			case software_support::SUPPORTED:
+				break;
 			}
+			draw_text_box(
+					std::begin(text), std::next(std::begin(text), lines),
+					origx1, origx2, origy2 + tb_border(), origy2 + (lines * line_height()) + (3.0F * tb_border()),
+					text_layout::text_justify::CENTER, text_layout::word_wrapping::NEVER, false,
+					ui().colors().text_color(), ui().colors().background_color());
 		}
 	}
+
+	// show the warnings if any
+	if (m_warnings_layout)
+	{
+		ui().draw_outlined_box(
+				container(),
+				((1.0F + m_warnings_layout->actual_width()) * 0.5F) + lr_border(), origy2 + (4.0F * tb_border()) + line_height(),
+				((1.0F - m_warnings_layout->actual_width()) * 0.5F) - lr_border(), origy2 + bottom,
+				ui().colors().background_color());
+		m_warnings_layout->emit(
+				container(),
+				(1.0F - m_warnings_layout->actual_width()) * 0.5F,
+				origy2 + (5.0F * tb_border()) + line_height());
+	}
+
+}
+
+
+void menu_file_manager::fill_image_line(device_image_interface &img, std::string &instance, std::string &filename)
+{
+	// get the image type/id
+	instance = string_format("%s (%s)", img.instance_name(), img.brief_instance_name());
+
+	if (!img.basename())
+	{
+		filename = "---";
+	}
+	else if (!img.loaded_through_softlist())
+	{
+		filename = img.basename();
+	}
 	else
-		filename.assign("---");
+	{
+		// if the image has been loaded through softlist, also show the loaded part
+		// also check if this part has a specific part_id (e.g. "Map Disc", "Bonus Disc", etc.)
+		software_part const *const part = img.part_entry();
+		auto const partid = img.get_feature("part_id");
+		if (partid)
+			filename = string_format(_("%1$s:%2$s (%3$s)"), img.basename(), part->name(), partid);
+		else
+			filename = string_format(_("%1$s:%2$s"), img.basename(), part->name());
+	}
 }
 
 //-------------------------------------------------
 //  populate
 //-------------------------------------------------
 
-void menu_file_manager::populate(float &customtop, float &custombottom)
+void menu_file_manager::populate()
 {
-	std::string tmp_inst, tmp_name;
-
-	if (!m_warnings.empty())
-		item_append(m_warnings, FLAG_DISABLE, nullptr);
+	m_notifiers.clear();
 
 	// cycle through all devices for this system
 	bool missing_mandatory = false;
-	std::unordered_set<std::string> devtags;
+	std::string tmp_inst, tmp_name;
+	device_t *prev_parent = nullptr;
 	for (device_t &dev : device_enumerator(machine().root_device()))
 	{
-		bool tag_appended = false;
-		if (!devtags.insert(dev.tag()).second)
-			continue;
-
 		// check whether it owns an image interface
-		image_interface_enumerator subiter(dev);
-		if (subiter.first() != nullptr)
+		for (device_image_interface &scan : image_interface_enumerator(dev, 1))
 		{
-			// if so, cycle through all its image interfaces
-			for (device_image_interface &scan : subiter)
+			if ((&scan.device() == &dev) || (!scan.has_preset_images_selection() && !scan.user_loadable()))
+				continue;
+
+			// check whether we already had some devices with the same owner: if not, output the owner tag!
+			if (&dev != prev_parent)
 			{
-				if (!scan.user_loadable())
-					continue;
+				item_append(string_format(_("[root%1$s]"), dev.tag()), FLAG_UI_HEADING | FLAG_DISABLE, nullptr);
+				prev_parent = &dev;
+			}
 
-				// if it is a child device, and not something further down the device tree, we want it in the menu!
-				if (strcmp(scan.device().owner()->tag(), dev.tag()) == 0)
-					if (devtags.insert(scan.device().tag()).second)
-					{
-						if (!scan.basename() && scan.must_be_loaded())
-							missing_mandatory = true;
-
-						// check whether we already had some devices with the same owner: if not, output the owner tag!
-						if (!tag_appended)
+			if (scan.has_preset_images_selection())
+			{
+				int const index = item_append(scan.image_type_name(), scan.preset_images_list()[scan.current_preset_image_id()], 0, (void *)&scan);
+				m_notifiers.emplace_back(scan.add_media_change_notifier(
+						[this, index, &scan] (device_image_interface::media_change_event ev)
 						{
-							item_append(string_format(_("[root%1$s]"), dev.tag()), FLAG_UI_HEADING | FLAG_DISABLE, nullptr);
-							tag_appended = true;
-						}
+							item(index).set_subtext(scan.preset_images_list()[scan.current_preset_image_id()]);
+						}));
+			}
+			else if (scan.user_loadable())
+			{
+				if (!scan.basename() && scan.must_be_loaded())
+					missing_mandatory = true;
 
-						// finally, append the image interface to the menu
-						fill_image_line(&scan, tmp_inst, tmp_name);
-						item_append(tmp_inst, tmp_name, 0, (void *)&scan);
-					}
+				// finally, append the image interface to the menu
+				fill_image_line(scan, tmp_inst, tmp_name);
+				int const index = item_append(std::move(tmp_inst), std::move(tmp_name), 0, (void *)&scan);
+				m_notifiers.emplace_back(scan.add_media_change_notifier(
+						[this, index, &scan] (device_image_interface::media_change_event ev)
+						{
+							std::string text, subtext;
+							fill_image_line(scan, text, subtext);
+							item(index).set_subtext(std::move(subtext));
+						}));
 			}
 		}
 	}
@@ -152,8 +234,6 @@ void menu_file_manager::populate(float &customtop, float &custombottom)
 
 	if (m_warnings.empty() || !missing_mandatory)
 		item_append(m_warnings.empty() ? _("Reset System") : _("Start System"), 0, (void *)1);
-
-	custombottom = ui().get_line_height() + 3.0f * ui().box_tb_border();
 }
 
 
@@ -161,40 +241,68 @@ void menu_file_manager::populate(float &customtop, float &custombottom)
 //  handle
 //-------------------------------------------------
 
-void menu_file_manager::handle(event const *ev)
+bool menu_file_manager::handle(event const *ev)
 {
-	// process the menu
-	if (ev && ev->itemref && (ev->iptkey == IPT_UI_SELECT))
+	bool result = false;
+
+	if (ev)
 	{
-		if ((uintptr_t)ev->itemref == 1)
+		if (uintptr_t(ev->itemref) == 1)
 		{
-			machine().schedule_hard_reset();
+			if (m_selected_device)
+			{
+				m_selected_device = nullptr;
+				result = true;
+			}
+
+			if (IPT_UI_SELECT == ev->iptkey)
+				machine().schedule_hard_reset();
 		}
 		else
 		{
-			selected_device = (device_image_interface *) ev->itemref;
-			if (selected_device)
+			if (ev->itemref != m_selected_device)
 			{
-				floppy_image_device *floppy_device = dynamic_cast<floppy_image_device *>(selected_device);
-				if (floppy_device)
-					menu::stack_push<menu_control_floppy_image>(ui(), container(), *floppy_device);
-				else
-					menu::stack_push<menu_control_device_image>(ui(), container(), *selected_device);
+				m_selected_device = (device_image_interface *)ev->itemref;
+				result = true;
+			}
 
-				// reset the existing menu
-				reset(reset_options::REMEMBER_POSITION);
+			if (m_selected_device && (IPT_UI_SELECT == ev->iptkey))
+			{
+				if (m_selected_device->has_preset_images_selection())
+				{
+					menu::stack_push<menu_control_device_preset>(ui(), target(), *m_selected_device);
+				}
+				else
+				{
+					floppy_image_device *floppy_device = dynamic_cast<floppy_image_device *>(m_selected_device);
+					if (floppy_device)
+						menu::stack_push<menu_control_floppy_image>(ui(), target(), *floppy_device);
+					else
+						menu::stack_push<menu_control_device_image>(ui(), target(), *m_selected_device);
+				}
 			}
 		}
 	}
+	else
+	{
+		auto const selected = get_selection_ref();
+		if (selected && (uintptr_t(selected) != 1) && (selected != m_selected_device))
+		{
+			m_selected_device = (device_image_interface *)selected;
+			result = true;
+		}
+	}
+
+	return result;
 }
 
 // force file manager menu
-void menu_file_manager::force_file_manager(mame_ui_manager &mui, render_container &container, const char *warnings)
+void menu_file_manager::force_file_manager(mame_ui_manager &mui, render_target &target, std::string &&warnings)
 {
 	// drop any existing menus and start the file manager
 	menu::stack_reset(mui);
-	menu::stack_push_special_main<menu_file_manager>(mui, container, warnings);
-	mui.show_menu();
+	menu::stack_push_special_main<menu_file_manager>(mui, target, std::move(warnings));
+	mui.show_menu(target);
 
 	// make sure MAME is paused
 	mui.machine().pause();

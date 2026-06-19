@@ -108,9 +108,6 @@ void sm8500_cpu_device::device_start()
 {
 	m_program = &space(AS_PROGRAM);
 
-	m_dma_func.resolve_safe();
-	m_timer_func.resolve_safe();
-
 	save_item(NAME(m_PC));
 	save_item(NAME(m_IE0));
 	save_item(NAME(m_IE1));
@@ -364,10 +361,10 @@ void sm8500_cpu_device::execute_run()
 		uint32_t  d1,d2;
 		uint32_t  res;
 
-		debugger_instruction_hook(m_PC);
-		m_oldpc = m_PC;
 		process_interrupts();
 		if ( !m_halted ) {
+			m_oldpc = m_PC;
+			debugger_instruction_hook(m_PC);
 			uint8_t op = mem_readbyte( m_PC++ );
 			m_SYS = m_program->read_byte(0x19);
 			m_PS0 = m_program->read_byte(0x1e);
@@ -382,6 +379,7 @@ void sm8500_cpu_device::execute_run()
 			mem_writebyte(0x1e,m_PS0); // need to update debugger
 			m_program->write_byte(0x1f,m_PS1);
 		} else {
+			debugger_wait_hook();
 			mycycles = 4;
 			m_dma_func( mycycles );
 		}

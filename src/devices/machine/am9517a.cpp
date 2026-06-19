@@ -441,42 +441,41 @@ void am9517a_device::end_of_process()
 //-------------------------------------------------
 
 
-am9517a_device::am9517a_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, type, tag, owner, clock),
-		device_execute_interface(mconfig, *this),
-		m_icount(0),
-		m_hack(0),
-		m_ready(1),
-		m_command(0),
-		m_status(0),
-		m_out_hreq_cb(*this),
-		m_out_eop_cb(*this),
-		m_in_memr_cb(*this),
-		m_out_memw_cb(*this),
-		m_in_ior_cb(*this),
-		m_out_iow_cb(*this),
-		m_out_dack_cb(*this)
+am9517a_device::am9517a_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock) :
+	device_t(mconfig, type, tag, owner, clock),
+	device_execute_interface(mconfig, *this),
+	m_icount(0),
+	m_hack(0),
+	m_ready(1),
+	m_command(0),
+	m_status(0),
+	m_out_hreq_cb(*this),
+	m_out_eop_cb(*this),
+	m_in_memr_cb(*this, 0),
+	m_out_memw_cb(*this),
+	m_in_ior_cb(*this, 0),
+	m_out_iow_cb(*this),
+	m_out_dack_cb(*this)
 {
 }
 
 
-am9517a_device::am9517a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: am9517a_device(mconfig, AM9517A, tag, owner, clock)
+am9517a_device::am9517a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	am9517a_device(mconfig, AM9517A, tag, owner, clock)
 {
 }
 
-v5x_dmau_device::v5x_dmau_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: am9517a_device(mconfig, V5X_DMAU, tag, owner, clock)
-	, m_in_mem16r_cb(*this)
-	, m_out_mem16w_cb(*this)
-	, m_in_io16r_cb(*this)
-	, m_out_io16w_cb(*this)
-
+v5x_dmau_device::v5x_dmau_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	am9517a_device(mconfig, V5X_DMAU, tag, owner, clock),
+	m_in_mem16r_cb(*this, 0),
+	m_out_mem16w_cb(*this),
+	m_in_io16r_cb(*this, 0),
+	m_out_io16w_cb(*this)
 {
 }
 
-pcxport_dmac_device::pcxport_dmac_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: am9517a_device(mconfig, PCXPORT_DMAC, tag, owner, clock)
+pcxport_dmac_device::pcxport_dmac_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	am9517a_device(mconfig, PCXPORT_DMAC, tag, owner, clock)
 {
 }
 
@@ -488,15 +487,6 @@ void am9517a_device::device_start()
 {
 	// set our instruction counter
 	set_icountptr(m_icount);
-
-	// resolve callbacks
-	m_out_hreq_cb.resolve_safe();
-	m_out_eop_cb.resolve_safe();
-	m_in_memr_cb.resolve_safe(0);
-	m_out_memw_cb.resolve_safe();
-	m_in_ior_cb.resolve_all_safe(0);
-	m_out_iow_cb.resolve_all_safe();
-	m_out_dack_cb.resolve_all_safe();
 
 	for(auto &elem : m_channel)
 	{
@@ -541,6 +531,11 @@ void am9517a_device::device_start()
 
 void am9517a_device::device_reset()
 {
+	soft_reset();
+}
+
+void am9517a_device::soft_reset()
+{
 	m_state = STATE_SI;
 	m_command = 0;
 	m_status &= 0xf0;
@@ -557,7 +552,6 @@ void am9517a_device::device_reset()
 
 	set_dack();
 }
-
 
 //-------------------------------------------------
 //  execute_run -
@@ -942,7 +936,7 @@ void am9517a_device::write(offs_t offset, uint8_t data)
 //  hack_w - hold acknowledge
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::hack_w )
+void am9517a_device::hack_w(int state)
 {
 	LOG("AM9517A Hold Acknowledge: %u\n", state);
 
@@ -955,7 +949,7 @@ WRITE_LINE_MEMBER( am9517a_device::hack_w )
 //  ready_w - ready
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::ready_w )
+void am9517a_device::ready_w(int state)
 {
 	LOG("AM9517A Ready: %u\n", state);
 
@@ -967,7 +961,7 @@ WRITE_LINE_MEMBER( am9517a_device::ready_w )
 //  eop_w - end of process
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::eop_w )
+void am9517a_device::eop_w(int state)
 {
 	LOG("AM9517A End of Process: %u\n", state);
 }
@@ -977,7 +971,7 @@ WRITE_LINE_MEMBER( am9517a_device::eop_w )
 //  dreq0_w - DMA request for channel 0
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::dreq0_w )
+void am9517a_device::dreq0_w(int state)
 {
 	dma_request(0, state);
 }
@@ -987,7 +981,7 @@ WRITE_LINE_MEMBER( am9517a_device::dreq0_w )
 //  dreq0_w - DMA request for channel 1
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::dreq1_w )
+void am9517a_device::dreq1_w(int state)
 {
 	dma_request(1, state);
 }
@@ -997,7 +991,7 @@ WRITE_LINE_MEMBER( am9517a_device::dreq1_w )
 //  dreq1_w - DMA request for channel 2
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::dreq2_w )
+void am9517a_device::dreq2_w(int state)
 {
 	dma_request(2, state);
 }
@@ -1007,7 +1001,7 @@ WRITE_LINE_MEMBER( am9517a_device::dreq2_w )
 //  dreq3_w - DMA request for channel 3
 //-------------------------------------------------
 
-WRITE_LINE_MEMBER( am9517a_device::dreq3_w )
+void am9517a_device::dreq3_w(int state)
 {
 	dma_request(3, state);
 }
@@ -1020,11 +1014,6 @@ void v5x_dmau_device::device_start()
 {
 	am9517a_device::device_start();
 	m_address_mask = 0x00ffffff;
-
-	m_in_mem16r_cb.resolve_safe(0);
-	m_out_mem16w_cb.resolve_safe();
-	m_in_io16r_cb.resolve_all_safe(0);
-	m_out_io16w_cb.resolve_all_safe();
 
 	m_selected_channel = 0;
 	m_base = 0;
@@ -1134,10 +1123,15 @@ void v5x_dmau_device::write(offs_t offset, uint8_t data)
 	switch (offset)
 	{
 		case 0x00:  // Initialise
-			// TODO: reset (bit 0)
-			//m_buswidth = data & 0x02;
-			//if (data & 0x01)
-			//  soft_reset();
+			// bit 0 = soft reset
+			if (BIT(data, 0))
+			{
+				soft_reset();
+
+				m_selected_channel = 0;
+				m_base = 0;
+			}
+
 			LOG("DMA: Initialise [%02x]\n", data);
 			break;
 		case 0x01:  // Channel

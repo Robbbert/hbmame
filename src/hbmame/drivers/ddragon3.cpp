@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/ddragon3.cpp"
+#include "../mame/technos/ddragon3.cpp"
 
  /**********************
  WWF Wrestling Festival

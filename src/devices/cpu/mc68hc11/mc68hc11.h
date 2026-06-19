@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Ville Linde, Angelo Salese
+// copyright-holders:Ville Linde, Angelo Salese, AJR
 #ifndef MAME_CPU_MC68HC11_MC68HC11_H
 #define MAME_CPU_MC68HC11_MC68HC11_H
 
@@ -8,8 +8,7 @@
 
 enum {
 	MC68HC11_IRQ_LINE           = 0,
-	MC68HC11_TOC1_LINE          = 1,
-	MC68HC11_RTI_LINE           = 2
+	MC68HC11_XIRQ_LINE          = 1
 };
 
 DECLARE_DEVICE_TYPE(MC68HC11A1, mc68hc11a1_device)
@@ -20,7 +19,7 @@ DECLARE_DEVICE_TYPE(MC68HC11F1, mc68hc11f1_device)
 DECLARE_DEVICE_TYPE(MC68HC11K1, mc68hc11k1_device)
 DECLARE_DEVICE_TYPE(MC68HC11M0, mc68hc11m0_device)
 
-class mc68hc11_cpu_device : public cpu_device
+class mc68hc11_cpu_device : public cpu_device, public device_nvram_interface
 {
 public:
 	// port configuration
@@ -51,31 +50,38 @@ public:
 	auto in_spi2_data_callback() { return m_spi2_data_input_cb.bind(); }
 	auto out_spi2_data_callback() { return m_spi2_data_output_cb.bind(); }
 
+	void set_default_config(uint8_t data) { assert(!configured()); m_config = data & m_config_mask; }
+
 protected:
 	mc68hc11_cpu_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, uint16_t ram_size, uint16_t reg_block_size, uint16_t rom_size, uint16_t eeprom_size, uint8_t init_value, uint8_t config_mask, uint8_t option_mask);
 
-	// device-level overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
-	// device_execute_interface overrides
+	// device_execute_interface implementation
 	virtual uint32_t execute_min_cycles() const noexcept override { return 1; }
 	virtual uint32_t execute_max_cycles() const noexcept override { return 41; }
-	virtual uint32_t execute_input_lines() const noexcept override { return 2; }
 	virtual uint64_t execute_clocks_to_cycles(uint64_t clocks) const noexcept override { return (clocks + 4 - 1) / 4; }
 	virtual uint64_t execute_cycles_to_clocks(uint64_t cycles) const noexcept override { return (cycles * 4); }
 	virtual void execute_run() override;
 	virtual void execute_set_input(int inputnum, int state) override;
 
-	// device_memory_interface overrides
+	// device_memory_interface implementation
 	virtual space_config_vector memory_space_config() const override;
 
-	// device_state_interface overrides
+	// device_nvram_interface implementation
+	virtual bool nvram_read(util::read_stream &file) override;
+	virtual bool nvram_write(util::write_stream &file) override;
+	virtual void nvram_default() override;
+
+	// device_state_interface implementation
 	virtual void state_string_export(const device_state_entry &entry, std::string &str) const override;
 
-	// device_disasm_interface overrides
+	// device_disasm_interface implementation
 	virtual std::unique_ptr<util::disasm_interface> create_disassembler() override;
+
+	void set_irq_state(uint8_t irqn, bool state);
 
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) = 0;
 
@@ -117,6 +123,8 @@ protected:
 	void config_w(uint8_t data);
 	uint8_t init_r();
 	void init_w(uint8_t data);
+	uint8_t init2_r();
+	void init2_w(uint8_t data);
 	uint8_t option_r();
 	void option_w(uint8_t data);
 	uint8_t scbd_r(offs_t offset);
@@ -157,7 +165,9 @@ private:
 	uint8_t m_adctl;
 	int m_ad_channel;
 
-	uint8_t m_irq_state[3];
+	uint32_t m_irq_state;
+	bool m_irq_asserted;
+
 	memory_access<16, 0, 0, ENDIANNESS_BIG>::cache m_cache;
 	memory_access<16, 0, 0, ENDIANNESS_BIG>::specific m_program;
 	devcb_read8::array<8> m_port_input_cb;
@@ -169,6 +179,8 @@ private:
 
 	memory_view m_ram_view;
 	memory_view m_reg_view;
+	memory_view m_eeprom_view;
+	optional_shared_ptr<uint8_t> m_eeprom_data;
 
 	const uint16_t m_internal_ram_size;
 	const uint16_t m_reg_block_size; // size of internal I/O space
@@ -192,6 +204,7 @@ private:
 	uint8_t m_tmsk2;
 	uint8_t m_pactl;
 	uint8_t m_init;
+	uint8_t m_init2;
 
 protected:
 	uint8_t m_config;
@@ -215,7 +228,7 @@ private:
 	ophandler hc11_optable_page3[256];
 	ophandler hc11_optable_page4[256];
 
-	void internal_map(address_map &map);
+	void internal_map(address_map &map) ATTR_COLD;
 
 	uint8_t FETCH();
 	uint16_t FETCH16();
@@ -551,7 +564,7 @@ public:
 	mc68hc11a1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
 
@@ -566,7 +579,7 @@ public:
 	mc68hc11d0_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
 
@@ -581,7 +594,7 @@ public:
 	mc68hc11e1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
 };
@@ -593,7 +606,7 @@ public:
 	mc68hc811e2_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
 };
@@ -605,7 +618,7 @@ public:
 	mc68hc11f1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	virtual void device_reset() override;
+	virtual void device_reset() override ATTR_COLD;
 
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
 };
@@ -627,8 +640,6 @@ public:
 	mc68hc11m0_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-	virtual void device_reset() override;
-
 	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
 };
 

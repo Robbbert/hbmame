@@ -16,8 +16,8 @@
 
 namespace ui {
 
-menu_pty_info::menu_pty_info(mame_ui_manager &mui, render_container &container) :
-	menu(mui, container)
+menu_pty_info::menu_pty_info(mame_ui_manager &mui, render_target &target) :
+	menu(mui, target)
 {
 	set_heading(_("Pseudo Terminals"));
 }
@@ -26,7 +26,7 @@ menu_pty_info::~menu_pty_info()
 {
 }
 
-void menu_pty_info::populate(float &customtop, float &custombottom)
+void menu_pty_info::populate()
 {
 	for (device_pty_interface &pty : pty_interface_enumerator(machine().root_device()))
 	{
@@ -39,8 +39,9 @@ void menu_pty_info::populate(float &customtop, float &custombottom)
 	}
 }
 
-void menu_pty_info::handle(event const *ev)
+bool menu_pty_info::handle(event const *ev)
 {
+	return false;
 }
 
 } // namespace ui

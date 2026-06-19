@@ -46,10 +46,7 @@ public:
 	pet_datassette_port_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&opts, const char *dflt)
 		: pet_datassette_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	pet_datassette_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -59,17 +56,17 @@ public:
 	auto read_handler() { return m_read_handler.bind(); }
 
 	// computer interface
-	DECLARE_READ_LINE_MEMBER( read );
-	DECLARE_WRITE_LINE_MEMBER( write );
-	DECLARE_READ_LINE_MEMBER( sense_r );
-	DECLARE_WRITE_LINE_MEMBER( motor_w );
+	int read();
+	void write(int state);
+	int sense_r();
+	void motor_w(int state);
 
 	// device interface
-	DECLARE_WRITE_LINE_MEMBER( read_w );
+	void read_w(int state);
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	devcb_write_line m_read_handler;
 

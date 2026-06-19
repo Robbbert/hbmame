@@ -36,7 +36,6 @@ DEFINE_DEVICE_TYPE(I8089, i8089_device, "i8089", "Intel 8089 I/O Processor")
 
 i8089_device::i8089_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	cpu_device(mconfig, I8089, tag, owner, clock),
-	m_icount(0),
 	m_ch1(*this, "1"),
 	m_ch2(*this, "2"),
 	m_write_sintr1(*this),
@@ -59,10 +58,6 @@ void i8089_device::device_start()
 {
 	// set our instruction counter
 	set_icountptr(m_icount);
-
-	// resolve callbacks
-	m_write_sintr1.resolve_safe();
-	m_write_sintr2.resolve_safe();
 
 	// register debugger states
 	state_add(SYSBUS, "SYSBUS", m_sysbus).mask(0x01).formatstr("%1s");
@@ -210,8 +205,8 @@ void i8089_device::state_string_export(const device_state_entry &entry, std::str
 
 void i8089_device::device_add_mconfig(machine_config &config)
 {
-	I8089_CHANNEL(config, m_ch1, 0).sintr().set(FUNC(i8089_device::ch1_sintr_w));
-	I8089_CHANNEL(config, m_ch2, 0).sintr().set(FUNC(i8089_device::ch2_sintr_w));
+	I8089_CHANNEL(config, m_ch1).sintr().set(FUNC(i8089_device::ch1_sintr_w));
+	I8089_CHANNEL(config, m_ch2).sintr().set(FUNC(i8089_device::ch2_sintr_w));
 }
 
 
@@ -346,7 +341,7 @@ void i8089_device::execute_run()
 //  EXTERNAL INPUTS
 //**************************************************************************
 
-WRITE_LINE_MEMBER( i8089_device::ca_w )
+void i8089_device::ca_w(int state)
 {
 	if (VERBOSE)
 		logerror("%s('%s'): ca_w: %u\n", shortname(), basetag(), state);
@@ -367,7 +362,7 @@ WRITE_LINE_MEMBER( i8089_device::ca_w )
 	m_ca = state;
 }
 
-WRITE_LINE_MEMBER( i8089_device::drq1_w ) { m_ch1->drq_w(state); }
-WRITE_LINE_MEMBER( i8089_device::drq2_w ) { m_ch2->drq_w(state); }
-WRITE_LINE_MEMBER( i8089_device::ext1_w ) { m_ch1->ext_w(state); }
-WRITE_LINE_MEMBER( i8089_device::ext2_w ) { m_ch2->ext_w(state); }
+void i8089_device::drq1_w(int state) { m_ch1->drq_w(state); }
+void i8089_device::drq2_w(int state) { m_ch2->drq_w(state); }
+void i8089_device::ext1_w(int state) { m_ch1->ext_w(state); }
+void i8089_device::ext2_w(int state) { m_ch2->ext_w(state); }

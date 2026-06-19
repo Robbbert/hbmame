@@ -41,7 +41,7 @@
 #include "emu.h"
 #include "q68.h"
 
-#include "cpu/m68000/m68000.h"
+#include "cpu/m68000/m68008.h"
 
 
 /***************************************************************************
@@ -135,6 +135,11 @@ void a2bus_68k_device::device_start()
 }
 
 void a2bus_68k_device::device_reset()
+{
+	reset_from_bus();
+}
+
+void a2bus_68k_device::reset_from_bus()
 {
 	m_m68008->set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
 	m_m68008->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);

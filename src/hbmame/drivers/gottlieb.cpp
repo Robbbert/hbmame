@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/gottlieb.cpp"
+#include "../mame/gottlieb/gottlieb.cpp"
 
 ROM_START( 711qbert ) // gfx hack of myqbert
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -34,7 +34,9 @@ ROM_START( pbert )
 	ROM_LOAD( "qb-snd2.bin",  0x7800, 0x0800, CRC(58437508) SHA1(09d8053e7e99679b602dcda230d64db7fe6cb7f5) )
 
 	ROM_REGION( 0x2000, "bgtiles", 0 )
-	ROM_LOAD( "pb-bg0.bin",   0x0000, 0x1000, CRC(14e193e9) SHA1(5d67b3da848d4a90a4f9bf7f6145ce1aa33188f7) )
+// This rom has bad gfx, using one from qbert
+//	ROM_LOAD( "pb-bg0.bin",   0x0000, 0x1000, CRC(14e193e9) SHA1(5d67b3da848d4a90a4f9bf7f6145ce1aa33188f7) )
+	ROM_LOAD( "qb-bg0.bin",   0x0000, 0x1000, CRC(7a9ba824) SHA1(12aa6df499eb6996ee35f56acac403ff6290f844) )
 	ROM_LOAD( "pb-bg1.bin",   0x1000, 0x1000, CRC(a91180f9) SHA1(c8a3ceae19afe9a0ad1e05bed99585e6bacbc09b) )
 
 	ROM_REGION( 0x8000, "sprites", 0 )

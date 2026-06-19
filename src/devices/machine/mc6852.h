@@ -41,11 +41,15 @@ class mc6852_device :   public device_t,
 						public device_serial_interface
 {
 public:
+	static constexpr flags_type emulation_flags() { return flags::SAVE_UNSUPPORTED; }
+
 	// construction/destruction
-	mc6852_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mc6852_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void set_rx_clock(int clock) { m_rx_clock = clock; }
 	void set_tx_clock(int clock) { m_tx_clock = clock; }
+
+	void set_tx_pull_mode(bool tx_pull_mode) { m_tx_pull_mode = tx_pull_mode; }
 
 	auto tx_data_callback() { return m_write_tx_data.bind(); }
 	auto irq_callback() { return m_write_irq.bind(); }
@@ -55,14 +59,14 @@ public:
 	uint8_t read(offs_t offset);
 	void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER( rx_data_w ) { device_serial_interface::rx_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( rx_clk_w ) { rx_clock_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( tx_clk_w ) { tx_clock_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( cts_w ) { m_cts = state; }
-	DECLARE_WRITE_LINE_MEMBER( dcd_w ) { m_dcd = state; }
+	void rx_data_w(int state) { device_serial_interface::rx_w(state); }
+	void rx_clk_w(int state) { rx_clock_w(state); }
+	void tx_clk_w(int state) { tx_clock_w(state); }
+	void cts_w(int state) { m_cts = state; }
+	void dcd_w(int state) { m_dcd = state; }
 
-	DECLARE_READ_LINE_MEMBER( sm_dtr_r ) { return m_sm_dtr; }
-	DECLARE_READ_LINE_MEMBER( tuf_r ) { return m_tuf; }
+	int sm_dtr_r() { return m_sm_dtr; }
+	int tuf_r() { return m_tuf; }
 
 	// These are to allow integration of this driver with code
 	// controlling floppy disks.
@@ -71,8 +75,8 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// device_serial_interface overrides
 	virtual void tra_callback() override;
@@ -120,7 +124,8 @@ private:
 		C2_1_2_BYTE = 0x04,
 		C2_PC_MASK = 0x03,
 		C2_PC2 = 0x02,
-		C2_PC1 = 0x01
+		C2_PC1 = 0x01,
+		C2_WS_SHIFT = 3
 	};
 
 	enum
@@ -146,6 +151,13 @@ private:
 
 	std::queue<uint8_t> m_rx_fifo;
 	std::queue<uint8_t> m_tx_fifo;
+
+	// If m_tx_pull_mode is true, get_tx_byte() must be called to retrieve
+	// the next byte to transmit, and the actual transmission must be
+	// carried out by some external mechanism.
+	bool m_tx_pull_mode;
+
+	bool m_tx_active;
 
 	int m_rx_clock;
 	int m_tx_clock;

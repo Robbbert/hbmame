@@ -53,14 +53,20 @@ static bool is_valid_softlist_part_char(char32_t ch)
 //  ctor
 //-------------------------------------------------
 
-menu_software_parts::menu_software_parts(mame_ui_manager &mui, render_container &container, const software_info *info, const char *interface, const software_part **part, bool other_opt, result &result)
-	: menu(mui, container),
-		m_result(result)
+menu_software_parts::menu_software_parts(
+		mame_ui_manager &mui,
+		render_target &target,
+		const software_info &info,
+		const char *interface,
+		bool other_opt,
+		handler_function &&handler)
+	: menu(mui, target)
+	, m_handler(std::move(handler))
+	, m_info(info)
+	, m_interface(interface)
+	, m_other_opt(other_opt)
 {
-	m_info = info;
-	m_interface = interface;
-	m_selected_part = part;
-	m_other_opt = other_opt;
+	set_heading(util::string_format(_("%1$s (%2$s)"), info.longname(), info.shortname()));
 }
 
 
@@ -77,7 +83,7 @@ menu_software_parts::~menu_software_parts()
 //  populate
 //-------------------------------------------------
 
-void menu_software_parts::populate(float &customtop, float &custombottom)
+void menu_software_parts::populate()
 {
 	m_entries.clear();
 
@@ -100,19 +106,22 @@ void menu_software_parts::populate(float &customtop, float &custombottom)
 		item_append(_("[software list]"), 0, &entry3);
 	}
 
-	for (const software_part &swpart : m_info->parts())
+	for (const software_part &swpart : m_info.parts())
 	{
 		if (swpart.matches_interface(m_interface))
 		{
 			software_part_menu_entry &entry(*m_entries.emplace(m_entries.end()));
 			// check if the available parts have specific part_id to be displayed (e.g. "Map Disc", "Bonus Disc", etc.)
-			// if not, we simply display "part_name"; if yes we display "part_name (part_id)"
-			std::string menu_part_name(swpart.name());
-			if (swpart.feature("part_id") != nullptr)
-				menu_part_name.append(" (").append(swpart.feature("part_id")).append(")");
+			// if not, we simply display "part_name"; if yes we display "part_id (part_name)"
+			std::string menu_part_name;
+			auto const partid = swpart.feature("part_id");
+			if (partid)
+				menu_part_name = string_format(_("%1$s (%2$s)"), partid, swpart.name());
+			else
+				menu_part_name = swpart.name();
 			entry.type = result::ENTRY;
 			entry.part = &swpart;
-			item_append(m_info->shortname(), menu_part_name, 0, &entry);
+			item_append(std::move(menu_part_name), m_info.shortname(), 0, &entry);
 		}
 	}
 
@@ -124,16 +133,15 @@ void menu_software_parts::populate(float &customtop, float &custombottom)
 //  handle
 //-------------------------------------------------
 
-void menu_software_parts::handle(event const *ev)
+bool menu_software_parts::handle(event const *ev)
 {
-	// process the menu
 	if (ev && (ev->iptkey == IPT_UI_SELECT) && ev->itemref)
 	{
 		software_part_menu_entry *entry = (software_part_menu_entry *)ev->itemref;
-		m_result = entry->type;
-		*m_selected_part = entry->part;
-		stack_pop();
+		m_handler(entry->type, entry->part);
 	}
+
+	return false;
 }
 
 
@@ -145,13 +153,20 @@ void menu_software_parts::handle(event const *ev)
 //  ctor
 //-------------------------------------------------
 
-menu_software_list::menu_software_list(mame_ui_manager &mui, render_container &container, software_list_device *swlist, const char *interface, std::string &result)
-	: menu(mui, container), m_result(result)
+menu_software_list::menu_software_list(
+		mame_ui_manager &mui,
+		render_target &target,
+		software_list_device &swlist,
+		const char *interface,
+		handler_function &&handler)
+	: menu(mui, target)
+	, m_handler(std::move(handler))
+	, m_swlist(swlist)
+	, m_interface(interface)
+	, m_ordered_by_shortname(false)
 {
+	set_heading(swlist.description());
 	set_process_flags(PROCESS_IGNOREPAUSE);
-	m_swlist = swlist;
-	m_interface = interface;
-	m_ordered_by_shortname = false;
 }
 
 
@@ -176,7 +191,7 @@ void menu_software_list::append_software_entry(const software_info &swinfo)
 	// check if at least one of the parts has the correct interface and add a menu entry only in this case
 	for (const software_part &swpart : swinfo.parts())
 	{
-		if (swpart.matches_interface(m_interface) && m_swlist->is_compatible(swpart) == SOFTWARE_IS_COMPATIBLE)
+		if (swpart.matches_interface(m_interface) && m_swlist.is_compatible(swpart) == SOFTWARE_IS_COMPATIBLE)
 		{
 			entry_updated = true;
 			entry.short_name.assign(swinfo.shortname());
@@ -192,20 +207,81 @@ void menu_software_list::append_software_entry(const software_info &swinfo)
 
 
 //-------------------------------------------------
+//  update_search - update meunu for new search text
+//-------------------------------------------------
+
+void menu_software_list::update_search(void *selectedref)
+{
+	// display the popup
+	ui().popup_time(ERROR_MESSAGE_TIME, "%s", m_search);
+
+	// identify the selected entry
+	entry_info const *const cur_selected = (uintptr_t(selectedref) != 1)
+			? reinterpret_cast<entry_info const *>(get_selection_ref())
+			: nullptr;
+
+	// if it's a perfect match for the current selection, don't move it
+	if (!cur_selected || core_strnicmp((m_ordered_by_shortname ? cur_selected->short_name : cur_selected->long_name).c_str(), m_search.c_str(), m_search.size()))
+	{
+		std::string::size_type bestmatch(0);
+		entry_info const *selected_entry(cur_selected);
+		for (auto &entry : m_entrylist)
+		{
+			// TODO: more efficient "common prefix" code
+			auto const &compare_name = m_ordered_by_shortname ? entry.short_name : entry.long_name;
+			std::string::size_type match(0);
+			for (std::string::size_type i = 1; m_search.size() >= i; ++i)
+			{
+				if (!core_strnicmp(compare_name.c_str(), m_search.c_str(), i))
+					match = i;
+				else
+					break;
+			}
+
+			if (match > bestmatch)
+			{
+				bestmatch = match;
+				selected_entry = &entry;
+			}
+		}
+
+		if (selected_entry && (selected_entry != cur_selected))
+		{
+			set_selection((void *)selected_entry);
+			centre_selection();
+		}
+	}
+}
+
+
+//-------------------------------------------------
 //  populate
 //-------------------------------------------------
 
-void menu_software_list::populate(float &customtop, float &custombottom)
+void menu_software_list::populate()
 {
 	// build up the list of entries for the menu
 	if (m_entrylist.empty())
-		for (const software_info &swinfo : m_swlist->get_info())
+		for (const software_info &swinfo : m_swlist.get_info())
 			append_software_entry(swinfo);
+
+	if (m_entrylist.size() > 1)
+	{
+		// add an entry to change ordering
+		item_append(_("Switch Item Ordering"), 0, ITEMREF_SWITCH_ITEM_ORDERING);
+
+		// initial cursor to first entry in the list
+		set_selected_index(1);
+	}
 
 	if (m_ordered_by_shortname)
 	{
 		// short names are restricted to lowercase ASCII anyway, a dumb compare works
 		m_entrylist.sort([] (entry_info const &e1, entry_info const &e2) { return e1.short_name < e2.short_name; });
+
+		// append all of the menu entries
+		for (auto &entry : m_entrylist)
+			item_append(entry.short_name, entry.long_name, 0, &entry);
 	}
 	else
 	{
@@ -222,14 +298,11 @@ void menu_software_list::populate(float &customtop, float &custombottom)
 					else
 						return e1.short_name < e2.short_name;
 				});
+
+		// append all of the menu entries
+		for (auto &entry : m_entrylist)
+			item_append(entry.long_name, entry.short_name, 0, &entry);
 	}
-
-	// add an entry to change ordering
-	item_append(_("Switch Item Ordering"), 0, ITEMREF_SWITCH_ITEM_ORDERING);
-
-	// append all of the menu entries
-	for (auto &entry : m_entrylist)
-		item_append(entry.long_name, entry.short_name, 0, &entry);
 
 	item_append(menu_item_type::SEPARATOR);
 }
@@ -239,89 +312,78 @@ void menu_software_list::populate(float &customtop, float &custombottom)
 //  handle
 //-------------------------------------------------
 
-void menu_software_list::handle(event const *ev)
+bool menu_software_list::handle(event const *ev)
 {
-	// process the menu
-	if (ev)
+	if (!ev)
 	{
-		if (ev->iptkey == IPT_UI_SELECT)
+		return false;
+	}
+	else if (ev->iptkey == IPT_UI_SELECT)
+	{
+		if (ev->itemref == ITEMREF_SWITCH_ITEM_ORDERING)
 		{
-			if (ev->itemref == ITEMREF_SWITCH_ITEM_ORDERING)
-			{
-				m_ordered_by_shortname = !m_ordered_by_shortname;
+			m_ordered_by_shortname = !m_ordered_by_shortname;
 
-				// reset the char buffer if we change ordering criterion
-				m_search.clear();
+			// reset the char buffer if we change ordering criterion
+			m_search.clear();
 
-				// reload the menu with the new order
-				reset(reset_options::REMEMBER_REF);
-				machine().popmessage(
-						m_ordered_by_shortname
-							? _("Switched Order: entries now ordered by shortname")
-							: _("Switched Order: entries now ordered by description"));
-			}
-			else if (ev->itemref)
-			{
-				// handle selections
-				entry_info *info = (entry_info *)ev->itemref;
-				m_result = info->short_name;
-				stack_pop();
-			}
+			// reload the menu with the new order
+			reset(reset_options::REMEMBER_REF);
+			machine().popmessage(
+					m_ordered_by_shortname
+						? _("Switched Order: entries now ordered by shortname")
+						: _("Switched Order: entries now ordered by description"));
 		}
-		else if (ev->iptkey == IPT_SPECIAL)
+		else if (ev->itemref)
 		{
-			if (input_character(m_search, ev->unichar, m_ordered_by_shortname ? is_valid_softlist_part_char : [] (char32_t ch) { return true; }))
-			{
-				// display the popup
-				ui().popup_time(ERROR_MESSAGE_TIME, "%s", m_search);
-
-				// identify the selected entry
-				entry_info const *const cur_selected = (uintptr_t(ev->itemref) != 1)
-						? reinterpret_cast<entry_info const *>(get_selection_ref())
-						: nullptr;
-
-				// if it's a perfect match for the current selection, don't move it
-				if (!cur_selected || core_strnicmp((m_ordered_by_shortname ? cur_selected->short_name : cur_selected->long_name).c_str(), m_search.c_str(), m_search.size()))
-				{
-					std::string::size_type bestmatch(0);
-					entry_info const *selected_entry(cur_selected);
-					for (auto &entry : m_entrylist)
-					{
-						// TODO: more efficient "common prefix" code
-						auto const &compare_name = m_ordered_by_shortname ? entry.short_name : entry.long_name;
-						std::string::size_type match(0);
-						for (std::string::size_type i = 1; m_search.size() >= i; ++i)
-						{
-							if (!core_strnicmp(compare_name.c_str(), m_search.c_str(), i))
-								match = i;
-							else
-								break;
-						}
-
-						if (match > bestmatch)
-						{
-							bestmatch = match;
-							selected_entry = &entry;
-						}
-					}
-
-					if (selected_entry && (selected_entry != cur_selected))
-					{
-						set_selection((void *)selected_entry);
-						centre_selection();
-					}
-				}
-			}
+			// handle selections
+			m_search.clear();
+			entry_info *info = (entry_info *)ev->itemref;
+			m_handler(info->short_name);
 		}
-		else if (ev->iptkey == IPT_UI_CANCEL)
+		return false;
+	}
+	else if (ev->iptkey == IPT_UI_PASTE)
+	{
+		if (paste_text(m_search, m_ordered_by_shortname ? is_valid_softlist_part_char : uchar_is_printable))
 		{
-			// reset the char buffer also in this case
-			if (!m_search.empty())
-			{
-				m_search.clear();
-				ui().popup_time(ERROR_MESSAGE_TIME, "%s", m_search);
-			}
+			update_search(ev->itemref);
+			return true;
 		}
+		else
+		{
+			return false;
+		}
+	}
+	else if (ev->iptkey == IPT_SPECIAL)
+	{
+		if (input_character(m_search, ev->unichar, m_ordered_by_shortname ? is_valid_softlist_part_char : uchar_is_printable))
+		{
+			update_search(ev->itemref);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if (ev->iptkey == IPT_UI_CANCEL)
+	{
+		// reset the char buffer also in this case
+		if (!m_search.empty())
+		{
+			m_search.clear();
+			ui().popup_time(ERROR_MESSAGE_TIME, "%s", m_search);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -335,11 +397,16 @@ void menu_software_list::handle(event const *ev)
 //  ctor
 //-------------------------------------------------
 
-menu_software::menu_software(mame_ui_manager &mui, render_container &container, const char *interface, software_list_device **result)
-	: menu(mui, container)
+menu_software::menu_software(
+		mame_ui_manager &mui,
+		render_target &target,
+		const char *interface,
+		handler_function &&handler)
+	: menu(mui, target)
+	, m_interface(interface)
+	, m_handler(std::move(handler))
 {
-	m_interface = interface;
-	m_result = result;
+	set_heading(_("Software Lists"));
 }
 
 
@@ -356,31 +423,41 @@ menu_software::~menu_software()
 //  populate
 //-------------------------------------------------
 
-void menu_software::populate(float &customtop, float &custombottom)
+void menu_software::populate()
 {
 	bool have_compatible = false;
 
 	// Add original software lists for this system
 	software_list_device_enumerator iter(machine().config().root_device());
 	for (software_list_device &swlistdev : iter)
+	{
 		if (swlistdev.is_original())
+		{
 			if (!swlistdev.get_info().empty() && m_interface != nullptr)
 			{
 				bool found = false;
 				for (const software_info &swinfo : swlistdev.get_info())
+				{
 					for (const software_part &swpart : swinfo.parts())
+					{
 						if (swpart.matches_interface(m_interface))
 						{
 							found = true;
 							break;
 						}
+					}
+				}
 				if (found)
 					item_append(swlistdev.description(), 0, (void *)&swlistdev);
 			}
+		}
+	}
 
 	// add compatible software lists for this system
 	for (software_list_device &swlistdev : iter)
+	{
 		if (swlistdev.is_compatible())
+		{
 			if (!swlistdev.get_info().empty() && m_interface != nullptr)
 			{
 				bool found = false;
@@ -394,11 +471,13 @@ void menu_software::populate(float &customtop, float &custombottom)
 				if (found)
 				{
 					if (!have_compatible)
-						item_append(_("[compatible lists]"), FLAG_DISABLE, nullptr);
+						item_append(_("[compatible lists]"), FLAG_UI_HEADING | FLAG_DISABLE, nullptr);
 					item_append(swlistdev.description(), 0, (void *)&swlistdev);
 				}
 				have_compatible = true;
 			}
+		}
+	}
 
 	item_append(menu_item_type::SEPARATOR);
 }
@@ -408,15 +487,16 @@ void menu_software::populate(float &customtop, float &custombottom)
 //  handle
 //-------------------------------------------------
 
-void menu_software::handle(event const *ev)
+bool menu_software::handle(event const *ev)
 {
-	// process the menu
 	if (ev && (ev->iptkey == IPT_UI_SELECT))
 	{
-		//menu::stack_push<menu_software_list>(ui(), container(), (software_list_config *)ev->itemref, image);
-		*m_result = reinterpret_cast<software_list_device *>(ev->itemref);
-		stack_pop();
+		//menu::stack_push<menu_software_list>(ui(), target(), (software_list_config *)ev->itemref, image);
+		auto *const result = reinterpret_cast<software_list_device *>(ev->itemref);
+		m_handler(result);
 	}
+
+	return false;
 }
 
 } // namespace ui

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/1943.cpp"
+#include "../mame/capcom/1943.cpp"
 
 ROM_START( 1943b2 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
@@ -118,7 +118,7 @@ ROM_END
 /***********************
  1943 Kai: Midway Kaisen
 **************************/
-ROM_START( 1943kais01 )
+ROM_START( 1943kai01 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bmk01.12dhc01", 0x00000, 0x08000, CRC(03036734) SHA1(cdde7a2ebe4be0d99de2d2dc39625e7d3976ee9b) )
 	ROM_LOAD( "bmk02.13d", 0x10000, 0x10000, CRC(2ebbc8c5) SHA1(3be5ad061411642723e3f2bcb7b3c3caa11ee15f) )
@@ -180,5 +180,5 @@ ROM_END
 GAME( 1987, 1943b2, 1943,  _1943b, 1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: Midway Kaisen (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
 GAME( 1987, 1943h,  1943,  _1943,  1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
 // 1943 Kai: Midway Kaisen
-GAME( 2009, 1943kais01,   1943kai,    _1943,   1943, _1943_state,  init_1943, ROT270,  "winux/pipi899",  "1943 Kai: Midway Kaisen(Ex Super Version 2009-02-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, 1943kai01,    1943kai,    _1943,   1943, _1943_state,  init_1943, ROT270,  "winux/pipi899",  "1943 Kai: Midway Kaisen(Ex Super Version 2009-02-10)", MACHINE_SUPPORTS_SAVE )
 

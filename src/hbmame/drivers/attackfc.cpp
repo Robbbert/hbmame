@@ -64,7 +64,7 @@ private:
 	void sound_w(uint8_t data);
 	TIMER_CALLBACK_MEMBER(interrupt_trigger);
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	DECLARE_WRITE_LINE_MEMBER(int_enable_w);
+	void int_enable_w(int);
 	IRQ_CALLBACK_MEMBER(interrupt_vector);
 	uint8_t vpos_to_vysnc_chain_counter(int vpos);
 	int vysnc_chain_counter_to_vpos(uint8_t counter, int vblank);
@@ -138,7 +138,7 @@ TIMER_CALLBACK_MEMBER(attackfc_state::interrupt_trigger)
 }
 
 
-WRITE_LINE_MEMBER(attackfc_state::int_enable_w)
+void attackfc_state::int_enable_w(int state)
 {
 	m_int_enable = state;
 }

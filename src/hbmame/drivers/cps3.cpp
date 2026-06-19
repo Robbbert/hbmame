@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/cps3.cpp"
+#include "../mame/capcom/cps3.cpp"
 
 namespace {
 

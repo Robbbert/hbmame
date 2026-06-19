@@ -6,8 +6,8 @@
 
 **********************************************************************/
 
-#ifndef MAME_BUS_P1_SOUND_H
-#define MAME_BUS_P1_SOUND_H
+#ifndef MAME_BUS_ISA_P1_SOUND_H
+#define MAME_BUS_ISA_P1_SOUND_H
 
 #pragma once
 
@@ -42,14 +42,14 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// Optional information overrides
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 
 private:
-	DECLARE_WRITE_LINE_MEMBER(sampler_sync);
+	void sampler_sync(int state);
 
 	uint8_t m_dac_data[16];
 	int m_dac_ptr;
@@ -67,4 +67,4 @@ private:
 DECLARE_DEVICE_TYPE(P1_SOUND, p1_sound_device)
 
 
-#endif // MAME_BUS_P1_SOUND_H
+#endif // MAME_BUS_ISA_P1_SOUND_H

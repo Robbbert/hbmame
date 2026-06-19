@@ -60,10 +60,11 @@ protected:
 class gba_lcd_device
 		: public device_t
 		, public device_video_interface
+		, public device_palette_interface
 		, protected gba_registers<0x060 / 4, 0x000>
 {
 public:
-	gba_lcd_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	gba_lcd_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	uint32_t video_r(offs_t offset, uint32_t mem_mask = ~0);
 	void video_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
@@ -84,9 +85,11 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+
+	virtual u32 palette_entries() const noexcept override { return 32 * 32 * 32; }
 
 private:
 	struct internal_reg
@@ -185,7 +188,7 @@ private:
 	uint32_t decrease_brightness(uint32_t color);
 
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void gba_palette(palette_device &palette) const;
+	void palette_init();
 
 	devcb_write_line m_int_hblank_cb;   /* H-Blank interrupt callback function */
 	devcb_write_line m_int_vblank_cb;   /* V-Blank interrupt callback function */

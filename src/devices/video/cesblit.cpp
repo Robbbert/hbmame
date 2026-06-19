@@ -92,9 +92,6 @@ device_memory_interface::space_config_vector cesblit_device::memory_space_config
 
 void cesblit_device::device_start()
 {
-	// resolve callbacks
-	m_blit_irq_cb.resolve();
-
 	// default to rom reading from a region
 	m_space = &space(AS_PROGRAM);
 	memory_region *region = memregion(tag());
@@ -146,13 +143,13 @@ void cesblit_device::regs_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 //      case 0x00/2:    // bit 15: FPGA programming serial in (lsb first)
 
 		case 0x10/2:
-			if (!m_blit_irq_cb.isnull() && !BIT(olddata, 3) && BIT(newdata, 3))
+			if (!BIT(olddata, 3) && BIT(newdata, 3))
 				m_blit_irq_cb(CLEAR_LINE);
 			break;
 
 		case 0x0e/2:
 			do_blit();
-			if (!m_blit_irq_cb.isnull() && BIT(m_regs[0x10/2], 3))
+			if (BIT(m_regs[0x10/2], 3))
 				m_blit_irq_cb(ASSERT_LINE);
 			break;
 	}
@@ -281,20 +278,8 @@ void cesblit_device::do_blit()
 
 uint32_t cesblit_device::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	int layers_ctrl = -1;
-
-#ifdef MAME_DEBUG
-	if (machine().input().code_pressed(KEYCODE_Z))
-	{
-		int mask = 0;
-		if (machine().input().code_pressed(KEYCODE_Q))  mask |= 1;
-		if (machine().input().code_pressed(KEYCODE_W))  mask |= 2;
-		if (mask != 0) layers_ctrl &= mask;
-	}
-#endif
-
-	if (layers_ctrl & 1)    copybitmap_trans(bitmap, m_bitmap[0][(m_regs[0x02/2]>>8)&1], 0,0,0,0, cliprect, 0xff);
-	if (layers_ctrl & 2)    copybitmap_trans(bitmap, m_bitmap[1][(m_regs[0x02/2]>>9)&1], 0,0,0,0, cliprect, 0xff);
+	copybitmap_trans(bitmap, m_bitmap[0][BIT(m_regs[0x02/2], 8)], 0,0,0,0, cliprect, 0xff);
+	copybitmap_trans(bitmap, m_bitmap[1][BIT(m_regs[0x02/2], 9)], 0,0,0,0, cliprect, 0xff);
 
 	return 0;
 }

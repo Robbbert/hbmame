@@ -16,17 +16,17 @@ class null_modem_device : public device_t,
 public:
 	null_modem_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
-	virtual WRITE_LINE_MEMBER( input_txd ) override { device_serial_interface::rx_w(state); }
-	virtual WRITE_LINE_MEMBER( input_rts ) override { m_rts = state; }
-	virtual WRITE_LINE_MEMBER( input_dtr ) override { m_dtr = state; }
+	virtual void input_txd(int state) override { device_serial_interface::rx_w(state); }
+	virtual void input_rts(int state) override { m_rts = state; }
+	virtual void input_dtr(int state) override { m_dtr = state; }
 
-	DECLARE_WRITE_LINE_MEMBER(update_serial);
+	void update_serial(int state);
 
 protected:
-	virtual ioport_constructor device_input_ports() const override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual ioport_constructor device_input_ports() const override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 
 	virtual void tra_callback() override;
 	virtual void tra_complete() override;
@@ -34,6 +34,7 @@ protected:
 
 private:
 	TIMER_CALLBACK_MEMBER(update_queue);
+	void update_input_buffer();
 
 	required_device<bitbanger_device> m_stream;
 
@@ -51,6 +52,7 @@ private:
 	int m_rts;
 	int m_dtr;
 	int m_xoff;
+	bool m_cr;
 };
 
 DECLARE_DEVICE_TYPE(NULL_MODEM, null_modem_device)

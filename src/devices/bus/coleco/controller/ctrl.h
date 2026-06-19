@@ -9,8 +9,8 @@
 
 **********************************************************************/
 
-#ifndef MAME_BUS_COLECO_CTRL_H
-#define MAME_BUS_COLECO_CTRL_H
+#ifndef MAME_BUS_COLECO_CONTROLLER_CTRL_H
+#define MAME_BUS_COLECO_CONTROLLER_CTRL_H
 
 #pragma once
 
@@ -52,10 +52,7 @@ public:
 	colecovision_control_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: colecovision_control_port_device(mconfig, tag, owner, (uint32_t)0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	colecovision_control_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
@@ -65,8 +62,8 @@ public:
 	// computer interface
 	uint8_t read() { uint8_t data = 0xff; if (exists()) data = m_device->joy_r(); return data; }
 
-	DECLARE_WRITE_LINE_MEMBER( common0_w ) { if (exists()) m_device->common0_w(state); }
-	DECLARE_WRITE_LINE_MEMBER( common1_w ) { if (exists()) m_device->common1_w(state); }
+	void common0_w(int state) { if (exists()) m_device->common0_w(state); }
+	void common1_w(int state) { if (exists()) m_device->common1_w(state); }
 
 	bool exists() { return m_device != nullptr; }
 
@@ -74,7 +71,7 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	device_colecovision_control_port_interface *m_device;
 
@@ -89,4 +86,4 @@ DECLARE_DEVICE_TYPE(COLECOVISION_CONTROL_PORT, colecovision_control_port_device)
 void colecovision_control_port_devices(device_slot_interface &device);
 
 
-#endif // MAME_BUS_COLECO_CTRL_H
+#endif // MAME_BUS_COLECO_CONTROLLER_CTRL_H

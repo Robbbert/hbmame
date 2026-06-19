@@ -14,6 +14,7 @@
 
 #include "emuopts.h"
 #include "fileio.h"
+#include "main.h"
 #include "rendfont.h"
 #include "rendutil.h"
 #include "video/rgbutil.h"
@@ -224,12 +225,18 @@ private:
 			{
 				if (m_float_valid)
 				{
-					m_text = std::to_string(m_float);
+					std::ostringstream stream;
+					stream.imbue(std::locale::classic());
+					stream << m_float;
+					m_text = std::move(stream).str();
 					m_text_valid = true;
 				}
 				else if (m_int_valid)
 				{
-					m_text = std::to_string(m_int);
+					std::ostringstream stream;
+					stream.imbue(std::locale::classic());
+					stream << m_int;
+					m_text = std::move(stream).str();
 					m_text_valid = true;
 				}
 			}
@@ -408,8 +415,8 @@ private:
 			m_entries.emplace(pos, std::move(name), std::forward<T>(value));
 	}
 
-	template <typename T, typename U, typename = std::enable_if_t<std::is_constructible_v<std::string, T>>>
-	void try_insert(T &&name, U &&value)
+	template <typename T, typename U>
+	void try_insert(T &&name, U &&value) requires std::is_constructible_v<std::string, T>
 	{
 		entry_vector::iterator const pos(
 				std::lower_bound(
@@ -1251,7 +1258,6 @@ layout_element::make_component_map const layout_element::s_make_component{
 	{ "image",         &make_component<image_component>         },
 	{ "text",          &make_component<text_component>          },
 	{ "simplecounter", &make_component<simplecounter_component> },
-	{ "reel",          &make_component<reel_component>          },
 	{ "led7seg",       &make_component<led7seg_component>       },
 	{ "led14seg",      &make_component<led14seg_component>      },
 	{ "led14segsc",    &make_component<led14segsc_component>    },
@@ -1270,6 +1276,7 @@ layout_element::layout_element(environment &env, util::xml::data_node const &ele
 	, m_defstate(env.get_attribute_int(elemnode, "defstate", -1))
 	, m_statemask(0)
 	, m_foldhigh(false)
+	, m_invalidated(false)
 {
 	// parse components in order
 	bool first = true;
@@ -1640,6 +1647,17 @@ render_texture *layout_element::state_texture(int state)
 
 
 //-------------------------------------------------
+//  set_draw_callback - set handler called after
+//  drawing components
+//-------------------------------------------------
+
+void layout_element::set_draw_callback(draw_delegate &&handler)
+{
+	m_draw = std::move(handler);
+}
+
+
+//-------------------------------------------------
 //  preload - perform expensive loading upfront
 //  for all components
 //-------------------------------------------------
@@ -1648,6 +1666,25 @@ void layout_element::preload()
 {
 	for (component::ptr const &curcomp : m_complist)
 		curcomp->preload(machine());
+}
+
+
+//-------------------------------------------------
+//  prepare - perform additional tasks before
+//  drawing a frame
+//-------------------------------------------------
+
+void layout_element::prepare()
+{
+	if (m_invalidated)
+	{
+		m_invalidated = false;
+		for (texture &tex : m_elemtex)
+		{
+			machine().render().texture_free(tex.m_texture);
+			tex.m_texture = nullptr;
+		}
+	}
 }
 
 
@@ -1667,6 +1704,10 @@ void layout_element::element_scale(bitmap_argb32 &dest, bitmap_argb32 &source, c
 		if ((elemtex.m_state & curcomp->statemask()) == curcomp->stateval())
 			curcomp->draw(elemtex.m_element->machine(), dest, elemtex.m_state);
 	}
+
+	// if there's a callback for additional drawing, invoke it
+	if (!elemtex.m_element->m_draw.isnull())
+		elemtex.m_element->m_draw(elemtex.m_state, dest);
 }
 
 
@@ -1748,10 +1789,10 @@ private:
 			{
 				u8 const *const src(reinterpret_cast<u8 const *>(dst));
 				rgb_t const d(
-						u8((float(src[3]) * c.a) + 0.5),
-						u8((float(src[0]) * c.r) + 0.5),
-						u8((float(src[1]) * c.g) + 0.5),
-						u8((float(src[2]) * c.b) + 0.5));
+						u8((float(src[3]) * c.a) + 0.5F),
+						u8((float(src[0]) * c.r) + 0.5F),
+						u8((float(src[1]) * c.g) + 0.5F),
+						u8((float(src[2]) * c.b) + 0.5F));
 				*dst = d;
 				havealpha = havealpha || (d.a() < 255U);
 			}
@@ -2027,17 +2068,12 @@ private:
 			return;
 		}
 		svgbuf[len] = '\0';
-		for (char *ptr = svgbuf.get(); len; )
+		size_t actual;
+		std::tie(filerr, actual) = read(file, svgbuf.get(), len);
+		if (filerr || (actual < len))
 		{
-			size_t read;
-			filerr = file.read(ptr, size_t(len), read);
-			if (filerr || !read)
-			{
-				osd_printf_warning("Error reading component image '%s'\n", m_imagefile);
-				return;
-			}
-			ptr += read;
-			len -= read;
+			osd_printf_warning("Error reading component image '%s'\n", m_imagefile);
+			return;
 		}
 		parse_svg(svgbuf.get());
 	}
@@ -2110,7 +2146,7 @@ protected:
 			for (u32 y = bounds.top(); y <= bounds.bottom(); ++y)
 				std::fill_n(&dest.pix(y, bounds.left()), width, f);
 		}
-		else if (c.a)
+		else
 		{
 			// compute premultiplied color
 			u32 const a(c.a * 255.0F);
@@ -2118,6 +2154,9 @@ protected:
 			u32 const g(u32(c.g * (255.0F * 255.0F)) * a);
 			u32 const b(u32(c.b * (255.0F * 255.0F)) * a);
 			u32 const inva(255 - a);
+
+			if (!a)
+				return;
 
 			// we're translucent, add in the destination pixel contribution
 			for (u32 y = bounds.top(); y <= bounds.bottom(); ++y)
@@ -2152,6 +2191,7 @@ public:
 		u32 const g(c.g * (255.0F * 255.0F) * a);
 		u32 const b(c.b * (255.0F * 255.0F) * a);
 		u32 const inva(255 - a);
+
 		if (!a)
 			return;
 
@@ -2261,17 +2301,13 @@ public:
 					if ((x >= minfill) && (x <= maxfill))
 					{
 						if (255 <= a)
-						{
 							dst = std::fill_n(dst, maxfill - x + 1, f);
-							x = maxfill;
-						}
 						else
-						{
 							while (x++ <= maxfill)
 								alpha_blend(*dst++, a, r, g, b, inva);
-							--x;
-						}
+
 						--dst;
+						x = maxfill;
 					}
 					else
 					{
@@ -2373,17 +2409,13 @@ public:
 					if ((x >= minfill) && (x <= maxfill))
 					{
 						if (255 <= a)
-						{
 							dst = std::fill_n(dst, maxfill - x + 1, f);
-							x = maxfill;
-						}
 						else
-						{
 							while (x++ <= maxfill)
 								alpha_blend(*dst++, a, r, g, b, inva);
-							--x;
-						}
+
 						--dst;
+						x = maxfill;
 					}
 					else
 					{
@@ -2449,7 +2481,7 @@ protected:
 	// overrides
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
-		auto font = machine.render().font_alloc("default");
+		auto font = machine.render().font_alloc(machine.options().artwork_font());
 		draw_text(*font, dest, bounds, m_string, m_textalign, color(state));
 	}
 
@@ -3030,7 +3062,7 @@ protected:
 
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
-		auto font = machine.render().font_alloc("default");
+		auto font = machine.render().font_alloc(machine.options().artwork_font());
 		draw_text(*font, dest, bounds, string_format("%0*d", m_digits, state), m_textalign, color(state));
 	}
 
@@ -3039,404 +3071,6 @@ private:
 	int const   m_digits;       // number of digits for simple counters
 	int const   m_textalign;    // text alignment to box
 	int const   m_maxstate;
-};
-
-
-// fruit machine reel
-class layout_element::reel_component : public component
-{
-	static constexpr unsigned MAX_BITMAPS = 32;
-
-public:
-	// construction/destruction
-	reel_component(environment &env, util::xml::data_node const &compnode)
-		: component(env, compnode)
-		, m_searchpath(env.search_path() ? env.search_path() : "")
-		, m_dirname(env.directory_name() ? env.directory_name() : "")
-	{
-		//osd_printf_warning("Warning: layout file contains deprecated reel component\n");
-
-		std::string_view symbollist = env.get_attribute_string(compnode, "symbollist", "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
-
-		// split out position names from string and figure out our number of symbols
-		m_numstops = 0;
-		for (std::string_view::size_type location = symbollist.find(','); std::string_view::npos != location; location = symbollist.find(','))
-		{
-			m_stopnames[m_numstops] = symbollist.substr(0, location);
-			symbollist.remove_prefix(location + 1);
-			m_numstops++;
-		}
-		m_stopnames[m_numstops++] = symbollist;
-
-		for (int i = 0; i < m_numstops; i++)
-		{
-			std::string::size_type const location = m_stopnames[i].find(':');
-			if (location != std::string::npos)
-			{
-				m_imagefile[i] = m_stopnames[i].substr(location + 1);
-				m_stopnames[i].erase(location);
-			}
-		}
-
-		m_stateoffset = env.get_attribute_int(compnode, "stateoffset", 0);
-		m_numsymbolsvisible = env.get_attribute_int(compnode, "numsymbolsvisible", 3);
-		m_reelreversed = env.get_attribute_int(compnode, "reelreversed", 0);
-		m_beltreel = env.get_attribute_int(compnode, "beltreel", 0);
-	}
-
-	// overrides
-	virtual void preload(running_machine &machine) override
-	{
-		for (int i = 0; i < m_numstops; i++)
-		{
-			if (!m_imagefile[i].empty() && !m_bitmap[i].valid())
-				load_reel_bitmap(i);
-		}
-
-	}
-
-protected:
-	virtual int maxstate() const override { return 65535; }
-
-	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
-	{
-		if (m_beltreel)
-		{
-			draw_beltreel(machine, dest, bounds, state);
-			return;
-		}
-
-		// state is a normalized value between 0 and 65536 so that we don't need to worry about how many motor steps here or in the .lay, only the number of symbols
-		const int max_state_used = 0x10000;
-
-		// shift the reels a bit based on this param, allows fine tuning
-		int use_state = (state + m_stateoffset) % max_state_used;
-
-		// compute premultiplied color
-		render_color const c(color(state));
-		u32 const r = c.r * 255.0f;
-		u32 const g = c.g * 255.0f;
-		u32 const b = c.b * 255.0f;
-		u32 const a = c.a * 255.0f;
-
-		int curry = 0;
-		int num_shown = m_numsymbolsvisible;
-
-		int ourheight = bounds.height();
-
-		auto font = machine.render().font_alloc("default");
-		for (int fruit = 0;fruit<m_numstops;fruit++)
-		{
-			int basey;
-
-			if (m_reelreversed)
-			{
-				basey = bounds.top() + ((use_state)*(ourheight/num_shown)/(max_state_used/m_numstops)) + curry;
-			}
-			else
-			{
-				basey = bounds.top() - ((use_state)*(ourheight/num_shown)/(max_state_used/m_numstops)) + curry;
-			}
-
-			// wrap around...
-			if (basey < bounds.top())
-				basey += ((max_state_used)*(ourheight/num_shown)/(max_state_used/m_numstops));
-			if (basey > bounds.bottom())
-				basey -= ((max_state_used)*(ourheight/num_shown)/(max_state_used/m_numstops));
-
-			int endpos = basey+ourheight/num_shown;
-
-			// only render the symbol / text if it's actually in view because the code is SLOW
-			if ((endpos >= bounds.top()) && (basey <= bounds.bottom()))
-			{
-				if (!m_imagefile[fruit].empty() && !m_bitmap[fruit].valid())
-					load_reel_bitmap(fruit);
-
-				if (m_bitmap[fruit].valid()) // render gfx
-				{
-					bitmap_argb32 tempbitmap2(dest.width(), ourheight/num_shown);
-					render_resample_argb_bitmap_hq(tempbitmap2, m_bitmap[fruit], c);
-
-					for (int y = 0; y < ourheight/num_shown; y++)
-					{
-						int effy = basey + y;
-
-						if (effy >= bounds.top() && effy <= bounds.bottom())
-						{
-							u32 const *const src = &tempbitmap2.pix(y);
-							u32 *const d = &dest.pix(effy);
-							for (int x = 0; x < dest.width(); x++)
-							{
-								int effx = x;
-								if (effx >= bounds.left() && effx <= bounds.right())
-								{
-									u32 spix = rgb_t(src[x]).a();
-									if (spix != 0)
-									{
-										d[effx] = src[x];
-									}
-								}
-							}
-						}
-					}
-				}
-				else // render text (fallback)
-				{
-					// allocate a temporary bitmap
-					bitmap_argb32 tempbitmap(dest.width(), dest.height());
-
-					// get the width of the string
-					float aspect = 1.0f;
-					s32 width;
-
-					while (1)
-					{
-						width = font->string_width(ourheight / num_shown, aspect, m_stopnames[fruit]);
-						if (width < bounds.width())
-							break;
-						aspect *= 0.9f;
-					}
-
-					s32 curx = bounds.left() + (bounds.width() - width) / 2;
-
-					// loop over characters
-					std::string_view s = m_stopnames[fruit];
-					while (!s.empty())
-					{
-						char32_t schar;
-						int scharcount = uchar_from_utf8(&schar, s);
-
-						if (scharcount == -1)
-							break;
-
-						// get the font bitmap
-						rectangle chbounds;
-						font->get_scaled_bitmap_and_bounds(tempbitmap, ourheight/num_shown, aspect, schar, chbounds);
-
-						// copy the data into the target
-						for (int y = 0; y < chbounds.height(); y++)
-						{
-							int effy = basey + y;
-
-							if (effy >= bounds.top() && effy <= bounds.bottom())
-							{
-								u32 const *const src = &tempbitmap.pix(y);
-								u32 *const d = &dest.pix(effy);
-								for (int x = 0; x < chbounds.width(); x++)
-								{
-									int effx = curx + x + chbounds.left();
-									if (effx >= bounds.left() && effx <= bounds.right())
-									{
-										u32 spix = rgb_t(src[x]).a();
-										if (spix != 0)
-										{
-											rgb_t dpix = d[effx];
-											u32 ta = (a * (spix + 1)) >> 8;
-											u32 tr = (r * ta + dpix.r() * (0x100 - ta)) >> 8;
-											u32 tg = (g * ta + dpix.g() * (0x100 - ta)) >> 8;
-											u32 tb = (b * ta + dpix.b() * (0x100 - ta)) >> 8;
-											d[effx] = rgb_t(tr, tg, tb);
-										}
-									}
-								}
-							}
-						}
-
-						// advance in the X direction
-						curx += font->char_width(ourheight/num_shown, aspect, schar);
-						s.remove_prefix(scharcount);
-					}
-				}
-			}
-
-			curry += ourheight/num_shown;
-		}
-
-		// free the temporary bitmap and font
-	}
-
-private:
-	// internal helpers
-	void draw_beltreel(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state)
-	{
-		const int max_state_used = 0x10000;
-
-		// shift the reels a bit based on this param, allows fine tuning
-		int use_state = (state + m_stateoffset) % max_state_used;
-
-		// compute premultiplied color
-		render_color const c(color(state));
-		u32 const r = c.r * 255.0f;
-		u32 const g = c.g * 255.0f;
-		u32 const b = c.b * 255.0f;
-		u32 const a = c.a * 255.0f;
-
-		int currx = 0;
-		int num_shown = m_numsymbolsvisible;
-
-		int ourwidth = bounds.width();
-
-		auto font = machine.render().font_alloc("default");
-		for (int fruit = 0;fruit<m_numstops;fruit++)
-		{
-			int basex;
-			if (m_reelreversed==1)
-			{
-				basex = bounds.min_x + ((use_state)*(ourwidth/num_shown)/(max_state_used/m_numstops)) + currx;
-			}
-			else
-			{
-				basex = bounds.min_x - ((use_state)*(ourwidth/num_shown)/(max_state_used/m_numstops)) + currx;
-			}
-
-			// wrap around...
-			if (basex < bounds.left())
-				basex += ((max_state_used)*(ourwidth/num_shown)/(max_state_used/m_numstops));
-			if (basex > bounds.right())
-				basex -= ((max_state_used)*(ourwidth/num_shown)/(max_state_used/m_numstops));
-
-			int endpos = basex+(ourwidth/num_shown);
-
-			// only render the symbol / text if it's actually in view because the code is SLOW
-			if ((endpos >= bounds.left()) && (basex <= bounds.right()))
-			{
-				if (!m_imagefile[fruit].empty() && !m_bitmap[fruit].valid())
-					load_reel_bitmap(fruit);
-
-				if (m_bitmap[fruit].valid()) // render gfx
-				{
-					bitmap_argb32 tempbitmap2(ourwidth/num_shown, dest.height());
-					render_resample_argb_bitmap_hq(tempbitmap2, m_bitmap[fruit], c);
-
-					for (int y = 0; y < dest.height(); y++)
-					{
-						int effy = y;
-
-						if (effy >= bounds.top() && effy <= bounds.bottom())
-						{
-							u32 const *const src = &tempbitmap2.pix(y);
-							u32 *const d = &dest.pix(effy);
-							for (int x = 0; x < ourwidth/num_shown; x++)
-							{
-								int effx = basex + x;
-								if (effx >= bounds.left() && effx <= bounds.right())
-								{
-									u32 spix = rgb_t(src[x]).a();
-									if (spix != 0)
-									{
-										d[effx] = src[x];
-									}
-								}
-							}
-						}
-
-					}
-				}
-				else // render text (fallback)
-				{
-					// get the width of the string
-					float aspect = 1.0f;
-					s32 width;
-					while (1)
-					{
-						width = font->string_width(dest.height(), aspect, m_stopnames[fruit]);
-						if (width < bounds.width())
-							break;
-						aspect *= 0.9f;
-					}
-
-					s32 curx = bounds.left();
-
-					// allocate a temporary bitmap
-					bitmap_argb32 tempbitmap(dest.width(), dest.height());
-
-					// loop over characters
-					std::string_view s = m_stopnames[fruit];
-					while (!s.empty())
-					{
-						char32_t schar;
-						int scharcount = uchar_from_utf8(&schar, s);
-
-						if (scharcount == -1)
-							break;
-
-						// get the font bitmap
-						rectangle chbounds;
-						font->get_scaled_bitmap_and_bounds(tempbitmap, dest.height(), aspect, schar, chbounds);
-
-						// copy the data into the target
-						for (int y = 0; y < chbounds.height(); y++)
-						{
-							int effy = y;
-
-							if (effy >= bounds.top() && effy <= bounds.bottom())
-							{
-								u32 const *const src = &tempbitmap.pix(y);
-								u32 *const d = &dest.pix(effy);
-								for (int x = 0; x < chbounds.width(); x++)
-								{
-									int effx = basex + curx + x;
-									if (effx >= bounds.left() && effx <= bounds.right())
-									{
-										u32 spix = rgb_t(src[x]).a();
-										if (spix != 0)
-										{
-											rgb_t dpix = d[effx];
-											u32 ta = (a * (spix + 1)) >> 8;
-											u32 tr = (r * ta + dpix.r() * (0x100 - ta)) >> 8;
-											u32 tg = (g * ta + dpix.g() * (0x100 - ta)) >> 8;
-											u32 tb = (b * ta + dpix.b() * (0x100 - ta)) >> 8;
-											d[effx] = rgb_t(tr, tg, tb);
-										}
-									}
-								}
-							}
-						}
-
-						// advance in the X direction
-						curx += font->char_width(dest.height(), aspect, schar);
-						s.remove_prefix(scharcount);
-					}
-				}
-			}
-
-			currx += ourwidth/num_shown;
-		}
-
-		// free the temporary bitmap and font
-	}
-
-	void load_reel_bitmap(int number)
-	{
-		emu_file file(m_searchpath.empty() ? m_dirname : m_searchpath, OPEN_FLAG_READ);
-		std::string filename;
-		if (!m_searchpath.empty())
-			filename = m_dirname;
-		util::path_append(filename, m_imagefile[number]);
-
-		// load the basic bitmap
-		if (!file.open(filename))
-			render_load_png(m_bitmap[number], file);
-
-		// if we can't load the bitmap just use text rendering
-		if (!m_bitmap[number].valid())
-			m_imagefile[number].clear();
-
-	}
-
-	// internal state
-	bitmap_argb32       m_bitmap[MAX_BITMAPS];      // source bitmap for images
-	std::string         m_searchpath;               // asset search path (for lazy loading)
-	std::string         m_dirname;                  // directory name of image file (for lazy loading)
-	std::string         m_imagefile[MAX_BITMAPS];   // name of the image file (for lazy loading)
-
-	// basically made up of multiple text strings / gfx
-	int                 m_numstops;
-	std::string         m_stopnames[MAX_BITMAPS];
-	int                 m_stateoffset;
-	int                 m_reelreversed;
-	int                 m_numsymbolsvisible;
-	int                 m_beltreel;
 };
 
 
@@ -3480,7 +3114,7 @@ layout_element::texture::texture(texture &&that) : texture()
 
 layout_element::texture::~texture()
 {
-	if (m_element != nullptr)
+	if (m_element)
 		m_element->machine().render().texture_free(m_texture);
 }
 
@@ -3682,26 +3316,18 @@ void layout_element::component::draw_text(
 		int align,
 		const render_color &color)
 {
-	// compute premultiplied color
-	u32 const r(color.r * 255.0f);
-	u32 const g(color.g * 255.0f);
-	u32 const b(color.b * 255.0f);
-	u32 const a(color.a * 255.0f);
-
 	// get the width of the string
-	float aspect = 1.0f;
-	s32 width;
-
-	while (1)
+	s32 width = font.string_width(bounds.height(), 1.0f, str);
+	float aspect = 1.0;
+	if ((align == 3) || (width > bounds.width()))
 	{
-		width = font.string_width(bounds.height(), aspect, str);
-		if (width < bounds.width())
-			break;
-		aspect *= 0.9f;
+		if (width != 0)
+			aspect = float(bounds.width()) / float(width);
+		width = bounds.width();
 	}
 
 	// get alignment
-	s32 curx;
+	float curx;
 	switch (align)
 	{
 		// left
@@ -3711,12 +3337,17 @@ void layout_element::component::draw_text(
 
 		// right
 		case 2:
-			curx = bounds.right() - width;
+			curx = bounds.left() + bounds.width() - width;
+			break;
+
+		// stretch (aligned both left & right)
+		case 3:
+			curx = bounds.left();
 			break;
 
 		// default to center
 		default:
-			curx = bounds.left() + (bounds.width() - width) / 2;
+			curx = bounds.left() + (bounds.width() - width) / 2.0f;
 			break;
 	}
 
@@ -3746,18 +3377,13 @@ void layout_element::component::draw_text(
 				u32 *const d = &dest.pix(effy);
 				for (int x = 0; x < chbounds.width(); x++)
 				{
-					int effx = curx + x + chbounds.left();
+					int effx = int(curx) + x + chbounds.left();
 					if (effx >= bounds.left() && effx <= bounds.right())
 					{
 						u32 spix = rgb_t(src[x]).a();
 						if (spix != 0)
 						{
-							rgb_t dpix = d[effx];
-							u32 ta = (a * (spix + 1)) >> 8;
-							u32 tr = (r * ta + dpix.r() * (0x100 - ta)) >> 8;
-							u32 tg = (g * ta + dpix.g() * (0x100 - ta)) >> 8;
-							u32 tb = (b * ta + dpix.b() * (0x100 - ta)) >> 8;
-							d[effx] = rgb_t(tr, tg, tb);
+							alpha_blend(d[effx], color, spix / 255.0);
 						}
 					}
 				}
@@ -3846,7 +3472,7 @@ void layout_element::component::draw_segment_diagonal_1(bitmap_argb32 &dest, int
 {
 	// compute parameters
 	width *= 1.5;
-	float ratio = (maxy - miny - width) / (float)(maxx - minx);
+	float ratio = (maxy - miny - width) / float(maxx - minx);
 
 	// draw line
 	for (int x = minx; x < maxx; x++)
@@ -3871,7 +3497,7 @@ void layout_element::component::draw_segment_diagonal_2(bitmap_argb32 &dest, int
 {
 	// compute parameters
 	width *= 1.5;
-	float ratio = (maxy - miny - width) / (float)(maxx - minx);
+	float ratio = (maxy - miny - width) / float(maxx - minx);
 
 	// draw line
 	for (int x = minx; x < maxx; x++)
@@ -3895,14 +3521,14 @@ void layout_element::component::draw_segment_decimal(bitmap_argb32 &dest, int mi
 {
 	// compute parameters
 	width /= 2;
-	float ooradius2 = 1.0f / (float)(width * width);
+	float ooradius2 = 1.0f / float(width * width);
 
 	// iterate over y
 	for (u32 y = 0; y <= width; y++)
 	{
 		u32 *const d0 = &dest.pix(midy - y);
 		u32 *const d1 = &dest.pix(midy + y);
-		float xval = width * sqrt(1.0f - (float)(y * y) * ooradius2);
+		float xval = width * sqrt(1.0f - float(y * y) * ooradius2);
 		s32 left, right;
 
 		// compute left/right coordinates
@@ -3924,7 +3550,7 @@ void layout_element::component::draw_segment_comma(bitmap_argb32 &dest, int minx
 {
 	// compute parameters
 	width *= 1.5;
-	float ratio = (maxy - miny - width) / (float)(maxx - minx);
+	float ratio = (maxy - miny - width) / float(maxx - minx);
 
 	// draw line
 	for (int x = minx; x < maxx; x++)
@@ -3976,9 +3602,20 @@ layout_view::layout_view(
 	: m_effaspect(1.0f)
 	, m_name(make_name(env, viewnode))
 	, m_unqualified_name(env.get_attribute_string(viewnode, "name"))
+	, m_elemmap(elemmap)
 	, m_defvismask(0U)
 	, m_has_art(false)
+	, m_show_ptr(false)
+	, m_ptr_time_out(true) // FIXME: add attribute for this
+	, m_exp_show_ptr(-1)
 {
+	// check for explicit pointer display setting
+	if (viewnode.get_attribute_string_ptr("showpointers"))
+	{
+		m_show_ptr = env.get_attribute_bool(viewnode, "showpointers", false);
+		m_exp_show_ptr = m_show_ptr ? 1 : 0;
+	}
+
 	// parse the layout
 	m_expbounds.x0 = m_expbounds.y0 = m_expbounds.x1 = m_expbounds.y1 = 0;
 	view_environment local(env, m_name.c_str());
@@ -4026,7 +3663,7 @@ layout_view::layout_view(
 	}
 	if (!layers.marquees.empty())
 	{
-		m_vistoggles.emplace_back("Backdrops", mask);
+		m_vistoggles.emplace_back("Marquees", mask);
 		for (item &marquee : layers.marquees)
 			marquee.m_visibility_mask = mask;
 		m_defvismask |= mask;
@@ -4122,6 +3759,21 @@ bool layout_view::has_visible_screen(screen_device const &screen) const
 
 
 //-------------------------------------------------
+//  prepare_items - perform additional tasks
+//  before rendering a frame
+//-------------------------------------------------
+
+void layout_view::prepare_items()
+{
+	if (!m_prepare_items.isnull())
+		m_prepare_items();
+
+	for (auto &[name, element] : m_elemmap)
+		element.prepare();
+}
+
+
+//-------------------------------------------------
 //  recompute - recompute the bounds and aspect
 //  ratio of a view and all of its contained items
 //-------------------------------------------------
@@ -4141,6 +3793,7 @@ void layout_view::recompute(u32 visibility_mask, bool zoom_to_screen)
 	// loop over items and filter by visibility mask
 	bool first = true;
 	bool scrfirst = true;
+	bool haveinput = false;
 	for (item &curitem : m_items)
 	{
 		if ((visibility_mask & curitem.visibility_mask()) == curitem.visibility_mask())
@@ -4172,8 +3825,14 @@ void layout_view::recompute(u32 visibility_mask, bool zoom_to_screen)
 			// accumulate interactive elements
 			if (!curitem.clickthrough() || curitem.has_input())
 				m_interactive_items.emplace_back(curitem);
+			if (curitem.has_input())
+				haveinput = true;
 		}
 	}
+
+	// if show pointers isn't explicitly, update it based on visible items
+	if (0 > m_exp_show_ptr)
+		m_show_ptr = haveinput;
 
 	// if we have an explicit bounds, override it
 	if (m_expbounds.x1 > m_expbounds.x0)
@@ -4214,6 +3873,7 @@ void layout_view::recompute(u32 visibility_mask, bool zoom_to_screen)
 	// sort edges of interactive items
 	LOGMASKED(LOG_INTERACTIVE_ITEMS, "Recalculated view '%s' with %u interactive items\n",
 			name(), m_interactive_items.size());
+	std::reverse(m_interactive_items.begin(), m_interactive_items.end());
 	m_interactive_edges_x.reserve(m_interactive_items.size() * 2);
 	m_interactive_edges_y.reserve(m_interactive_items.size() * 2);
 	for (unsigned i = 0; m_interactive_items.size() > i; ++i)
@@ -4241,6 +3901,29 @@ void layout_view::recompute(u32 visibility_mask, bool zoom_to_screen)
 	// additional actions typically supplied by script
 	if (!m_recomputed.isnull())
 		m_recomputed();
+}
+
+
+//-------------------------------------------------
+//  set_show_pointers - set whether pointers
+//  should be displayed
+//-------------------------------------------------
+
+void layout_view::set_show_pointers(bool value) noexcept
+{
+	m_show_ptr = value;
+	m_exp_show_ptr = value ? 1 : 0;
+}
+
+
+//-------------------------------------------------
+//  set_pointers_time_out - set whether pointers
+//  should be hidden after inactivity
+//-------------------------------------------------
+
+void layout_view::set_hide_inactive_pointers(bool value) noexcept
+{
+	m_ptr_time_out = value;
 }
 
 
@@ -4278,6 +3961,50 @@ void layout_view::set_recomputed_callback(recomputed_delegate &&handler)
 
 
 //-------------------------------------------------
+//  set_pointer_updated_callback - set handler
+//  called for pointer input
+//-------------------------------------------------
+
+void layout_view::set_pointer_updated_callback(pointer_updated_delegate &&handler)
+{
+	m_pointer_updated = std::move(handler);
+}
+
+
+//-------------------------------------------------
+//  set_pointer_left_callback - set handler for
+//  pointer leaving normally
+//-------------------------------------------------
+
+void layout_view::set_pointer_left_callback(pointer_left_delegate &&handler)
+{
+	m_pointer_left = std::move(handler);
+}
+
+
+//-------------------------------------------------
+//  set_pointer_aborted_callback - set handler for
+//  pointer leaving abnormally
+//-------------------------------------------------
+
+void layout_view::set_pointer_aborted_callback(pointer_left_delegate &&handler)
+{
+	m_pointer_aborted = std::move(handler);
+}
+
+
+//-------------------------------------------------
+//  set_forget_pointers_callback - set handler for
+//  abandoning pointer input
+//-------------------------------------------------
+
+void layout_view::set_forget_pointers_callback(forget_pointers_delegate &&handler)
+{
+	m_forget_pointers = std::move(handler);
+}
+
+
+//-------------------------------------------------
 //  preload - perform expensive loading upfront
 //  for visible elements
 //-------------------------------------------------
@@ -4299,10 +4026,10 @@ void layout_view::preload()
 //  resolve_tags - resolve tags
 //-------------------------------------------------
 
-void layout_view::resolve_tags()
+void layout_view::resolve_tags(device_t &device)
 {
 	for (item &curitem : items())
-		curitem.resolve_tags();
+		curitem.resolve_tags(device);
 }
 
 
@@ -4358,36 +4085,36 @@ void layout_view::add_items(
 		}
 		else if (!strcmp(itemnode->get_name(), "backdrop"))
 		{
-			//if (layers.backdrops.empty())
-				//osd_printf_warning("Warning: layout view '%s' contains deprecated backdrop element\n", name());
+			if (layers.backdrops.empty())
+				osd_printf_warning("Warning: layout view '%s' contains deprecated backdrop element\n", name());
 			layers.backdrops.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "overlay"))
 		{
-			//if (layers.overlays.empty())
-				//osd_printf_warning("Warning: layout view '%s' contains deprecated overlay element\n", name());
+			if (layers.overlays.empty())
+				osd_printf_warning("Warning: layout view '%s' contains deprecated overlay element\n", name());
 			layers.overlays.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "bezel"))
 		{
-			//if (layers.bezels.empty())
-				//osd_printf_warning("Warning: layout view '%s' contains deprecated bezel element\n", name());
+			if (layers.bezels.empty())
+				osd_printf_warning("Warning: layout view '%s' contains deprecated bezel element\n", name());
 			layers.bezels.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "cpanel"))
 		{
-			//if (layers.cpanels.empty())
-				//osd_printf_warning("Warning: layout view '%s' contains deprecated cpanel element\n", name());
+			if (layers.cpanels.empty())
+				osd_printf_warning("Warning: layout view '%s' contains deprecated cpanel element\n", name());
 			layers.cpanels.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "marquee"))
 		{
-			//if (layers.marquees.empty())
-				//osd_printf_warning("Warning: layout view '%s' contains deprecated marquee element\n", name());
+			if (layers.marquees.empty())
+				osd_printf_warning("Warning: layout view '%s' contains deprecated marquee element\n", name());
 			layers.marquees.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
@@ -4509,10 +4236,10 @@ layout_view_item::layout_view_item(
 		layout_group::transform const &trans,
 		render_color const &color)
 	: m_element(find_element(env, itemnode, elemmap))
-	, m_output(env.device(), std::string(env.get_attribute_string(itemnode, "name")))
-	, m_animoutput(env.device(), make_child_output_tag(env, itemnode, "animate"))
-	, m_scrollxoutput(env.device(), make_child_output_tag(env, itemnode, "xscroll"))
-	, m_scrollyoutput(env.device(), make_child_output_tag(env, itemnode, "yscroll"))
+	, m_output()
+	, m_animoutput()
+	, m_scrollxoutput()
+	, m_scrollyoutput()
 	, m_animinput_port(nullptr)
 	, m_scrollxinput_port(nullptr)
 	, m_scrollyinput_port(nullptr)
@@ -4549,11 +4276,11 @@ layout_view_item::layout_view_item(
 	, m_scrollxinput_tag(make_child_input_tag(env, itemnode, "xscroll"))
 	, m_scrollyinput_tag(make_child_input_tag(env, itemnode, "yscroll"))
 	, m_rawbounds(make_bounds(env, itemnode, trans))
-	, m_have_output(!env.get_attribute_string(itemnode, "name").empty())
+	, m_output_name(env.get_attribute_string(itemnode, "name"))
+	, m_animoutput_name(make_child_output_tag(env, itemnode, "animate"))
+	, m_scrollxoutput_name(make_child_output_tag(env, itemnode, "xscroll"))
+	, m_scrollyoutput_name(make_child_output_tag(env, itemnode, "yscroll"))
 	, m_input_raw(env.get_attribute_bool(itemnode, "inputraw", 0))
-	, m_have_animoutput(!make_child_output_tag(env, itemnode, "animate").empty())
-	, m_have_scrollxoutput(!make_child_output_tag(env, itemnode, "xscroll").empty())
-	, m_have_scrollyoutput(!make_child_output_tag(env, itemnode, "yscroll").empty())
 	, m_has_clickthrough(!env.get_attribute_string(itemnode, "clickthrough").empty())
 {
 	// fetch common data
@@ -4720,23 +4447,23 @@ void layout_view_item::set_scroll_pos_y_callback(scroll_pos_delegate &&handler)
 //  resolve_tags - resolve tags, if any are set
 //-------------------------------------------------
 
-void layout_view_item::resolve_tags()
+void layout_view_item::resolve_tags(device_t &device)
 {
 	// resolve element state output and set default value
-	if (m_have_output)
+	if (!m_output_name.empty())
 	{
-		m_output.resolve();
-		if (m_element)
-			m_output = m_element->default_state();
+		m_output = output_proxy(device, m_output_name);
+		if (!m_output.exists() && m_element)
+			m_output.set(m_element->default_state());
 	}
 
 	// resolve animation state and scroll outputs
-	if (m_have_animoutput)
-		m_animoutput.resolve();
-	if (m_have_scrollxoutput)
-		m_scrollxoutput.resolve();
-	if (m_have_scrollyoutput)
-		m_scrollyoutput.resolve();
+	if (!m_animoutput_name.empty())
+		m_animoutput = output_proxy(device, m_animoutput_name);
+	if (!m_scrollxoutput_name.empty())
+		m_scrollxoutput = output_proxy(device, m_scrollxoutput_name);
+	if (!m_scrollyoutput_name.empty())
+		m_scrollyoutput = output_proxy(device, m_scrollyoutput_name);
 
 	// resolve animation state and scroll inputs
 	if (!m_animinput_tag.empty())
@@ -4788,7 +4515,7 @@ void layout_view_item::resolve_tags()
 
 layout_view_item::state_delegate layout_view_item::default_get_elem_state()
 {
-	if (m_have_output)
+	if (!m_output_name.empty())
 		return state_delegate(&layout_view_item::get_output, this);
 	else if (!m_input_port)
 		return state_delegate(&layout_view_item::get_state, this);
@@ -4808,7 +4535,7 @@ layout_view_item::state_delegate layout_view_item::default_get_elem_state()
 
 layout_view_item::state_delegate layout_view_item::default_get_anim_state()
 {
-	if (m_have_animoutput)
+	if (!m_animoutput_name.empty())
 		return state_delegate(&layout_view_item::get_anim_output, this);
 	else if (m_animinput_port)
 		return state_delegate(&layout_view_item::get_anim_input, this);
@@ -4870,7 +4597,7 @@ layout_view_item::scroll_size_delegate layout_view_item::default_get_scroll_size
 
 layout_view_item::scroll_pos_delegate layout_view_item::default_get_scroll_pos_x()
 {
-	if (m_have_scrollxoutput)
+	if (!m_scrollxoutput_name.empty())
 		return scroll_pos_delegate(m_scrollwrapx ? &layout_view_item::get_scrollx_output<true> : &layout_view_item::get_scrollx_output<false>, this);
 	else if (m_scrollxinput_port)
 		return scroll_pos_delegate(m_scrollwrapx ? &layout_view_item::get_scrollx_input<true> : &layout_view_item::get_scrollx_input<false>, this);
@@ -4886,7 +4613,7 @@ layout_view_item::scroll_pos_delegate layout_view_item::default_get_scroll_pos_x
 
 layout_view_item::scroll_pos_delegate layout_view_item::default_get_scroll_pos_y()
 {
-	if (m_have_scrollyoutput)
+	if (!m_scrollyoutput_name.empty())
 		return scroll_pos_delegate(m_scrollwrapy ? &layout_view_item::get_scrolly_output<true> : &layout_view_item::get_scrolly_output<false>, this);
 	else if (m_scrollyinput_port)
 		return scroll_pos_delegate(m_scrollwrapy ? &layout_view_item::get_scrolly_input<true> : &layout_view_item::get_scrolly_input<false>, this);
@@ -4911,8 +4638,8 @@ int layout_view_item::get_state() const
 
 int layout_view_item::get_output() const
 {
-	assert(m_have_output);
-	return int(s32(m_output));
+	assert(!m_output_name.empty());
+	return int(m_output.get());
 }
 
 
@@ -4958,8 +4685,8 @@ int layout_view_item::get_input_field_conditional() const
 
 int layout_view_item::get_anim_output() const
 {
-	assert(m_have_animoutput);
-	return int(unsigned((u32(s32(m_animoutput) & m_animmask) >> m_animshift)));
+	assert(!m_animoutput_name.empty());
+	return int(unsigned((u32(m_animoutput.get() & m_animmask) >> m_animshift)));
 }
 
 
@@ -5025,8 +4752,8 @@ float layout_view_item::get_scrollposy() const
 template <bool Wrap>
 float layout_view_item::get_scrollx_output() const
 {
-	assert(m_have_scrollxoutput);
-	u32 const unscaled(((u32(s32(m_scrollxoutput)) & m_scrollxmask) >> m_scrollxshift) - m_scrollxmin);
+	assert(!m_scrollxoutput_name.empty());
+	u32 const unscaled(((u32(m_scrollxoutput.get()) & m_scrollxmask) >> m_scrollxshift) - m_scrollxmin);
 	float const range(std::make_signed_t<ioport_value>(m_scrollxmax - m_scrollxmin) + (!Wrap ? 0 : (m_scrollxmin < m_scrollxmax) ? 1 : -1));
 	return float(s32(unscaled)) / range;
 }
@@ -5055,8 +4782,8 @@ float layout_view_item::get_scrollx_input() const
 template <bool Wrap>
 float layout_view_item::get_scrolly_output() const
 {
-	assert(m_have_scrollyoutput);
-	u32 const unscaled(((u32(s32(m_scrollyoutput)) & m_scrollymask) >> m_scrollyshift) - m_scrollymin);
+	assert(!m_scrollyoutput_name.empty());
+	u32 const unscaled(((u32(m_scrollyoutput.get()) & m_scrollymask) >> m_scrollyshift) - m_scrollymin);
 	float const range(std::make_signed_t<ioport_value>(m_scrollymax - m_scrollymin) + (!Wrap ? 0 : (m_scrollymin < m_scrollymax) ? 1 : -1));
 	return float(s32(unscaled)) / range;
 }
@@ -5234,26 +4961,9 @@ layout_file::layout_file(
 		if (version != LAYOUT_VERSION)
 			throw layout_syntax_error(util::string_format("unsupported version %d", version));
 
-		// parse all the parameters, elements and groups
+		// parse all the parameters, elements, groups and views
 		group_map groupmap;
 		add_elements(env, *mamelayoutnode, groupmap, false, true);
-
-		// parse all the views
-		for (util::xml::data_node const *viewnode = mamelayoutnode->get_child("view"); viewnode != nullptr; viewnode = viewnode->get_next_sibling("view"))
-		{
-			// the trouble with allowing errors to propagate here is that it wreaks havoc with screenless systems that use a terminal by default
-			// e.g. intlc44 and intlc440 have a terminal on the TTY port by default and have a view with the front panel with the terminal screen
-			// however, they have a second view with just the front panel which is very useful if you're using e.g. -tty null_modem with a socket
-			// if the error is allowed to propagate, the entire layout is dropped so you can't select the useful view
-			try
-			{
-				m_viewlist.emplace_back(env, *viewnode, m_elemmap, groupmap);
-			}
-			catch (layout_reference_error const &err)
-			{
-				osd_printf_warning("Error instantiating layout view %s: %s\n", env.get_attribute_string(*viewnode, "name"), err.what());
-			}
-		}
 
 		// load the content of the first script node
 		if (!m_viewlist.empty())
@@ -5287,7 +4997,7 @@ layout_file::~layout_file()
 void layout_file::resolve_tags()
 {
 	for (layout_view &view : views())
-		view.resolve_tags();
+		view.resolve_tags(m_device);
 
 	if (!m_resolve_tags.isnull())
 		m_resolve_tags();
@@ -5349,7 +5059,22 @@ void layout_file::add_elements(
 				local.increment_parameters();
 			}
 		}
-		else if (repeat || (strcmp(childnode->get_name(), "view") && strcmp(childnode->get_name(), "script")))
+		else if (!repeat && !strcmp(childnode->get_name(), "view"))
+		{
+			// the trouble with allowing errors to propagate here is that it wreaks havoc with screenless systems that use a terminal by default
+			// e.g. intlc44 and intlc440 have a terminal on the TTY port by default and have a view with the front panel with the terminal screen
+			// however, they have a second view with just the front panel which is very useful if you're using e.g. -tty null_modem with a socket
+			// if the error is allowed to propagate, the entire layout is dropped so you can't select the useful view
+			try
+			{
+				m_viewlist.emplace_back(env, *childnode, m_elemmap, groupmap);
+			}
+			catch (layout_reference_error const &err)
+			{
+				osd_printf_warning("Error instantiating layout view %s: %s\n", env.get_attribute_string(*childnode, "name"), err.what());
+			}
+		}
+		else if (repeat || strcmp(childnode->get_name(), "script"))
 		{
 			throw layout_syntax_error(util::string_format("unknown layout item %s", childnode->get_name()));
 		}

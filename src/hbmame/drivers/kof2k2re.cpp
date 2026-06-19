@@ -219,7 +219,7 @@ void kof2k2re_hbmame::audio2_command_w(u8 data)
 	m2_soundlatch->write(data);
 	m2_nmi_pending = true;
 	audio2_check_nmi();
-	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+	machine().scheduler().perfect_quantum(attotime::from_usec(50));
 }
 
 u8 kof2k2re_hbmame::audio2_command_r()
@@ -258,7 +258,7 @@ void kof2k2re_hbmame::audio3_command_w(u8 data)
 	m3_soundlatch->write(data);
 	m3_nmi_pending = true;
 	audio3_check_nmi();
-	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+	machine().scheduler().perfect_quantum(attotime::from_usec(50));
 }
 
 u8 kof2k2re_hbmame::audio3_command_r()
@@ -292,7 +292,7 @@ void kof2k2re_hbmame::audio4_command_w(u8 data)
 	m4_soundlatch->write(data);
 	m4_nmi_pending = true;
 	audio4_check_nmi();
-	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
+	machine().scheduler().perfect_quantum(attotime::from_usec(50));
 }
 
 u16 kof2k2re_hbmame::audio4_result_r()

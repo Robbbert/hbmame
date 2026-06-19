@@ -82,7 +82,7 @@ emu::detail::device_registrar const registered_device_types;
 //  from the provided config
 //-------------------------------------------------
 
-device_t::device_t(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock)
+device_t::device_t(const machine_config &mconfig, device_type type, std::string_view tag, device_t *owner, u32 clock)
 	: m_type(type)
 	, m_owner(owner)
 	, m_next(nullptr)
@@ -106,10 +106,19 @@ device_t::device_t(const machine_config &mconfig, device_type type, const char *
 	, m_started(false)
 	, m_auto_finder_list(nullptr)
 {
-	if (owner != nullptr)
-		m_tag.assign((owner->owner() == nullptr) ? "" : owner->tag()).append(":").append(tag);
+	if (owner)
+	{
+		if (owner->owner())
+			m_tag = owner->tag();
+		else
+			m_tag.clear();
+		m_tag += ":";
+		m_tag += tag;
+	}
 	else
-		m_tag.assign(":");
+	{
+		m_tag = ":";
+	}
 	set_clock(clock);
 }
 
@@ -224,7 +233,7 @@ void device_t::add_machine_configuration(machine_config &config)
 	assert(&config == &m_machine_config);
 	machine_config::token const tok(config.begin_configuration(*this));
 	device_add_mconfig(config);
-	for (finder_base *autodev = m_auto_finder_list; autodev != nullptr; autodev = autodev->next())
+	for (auto *autodev = m_auto_finder_list; autodev; autodev = autodev->next())
 		autodev->end_configuration();
 }
 
@@ -321,11 +330,7 @@ void device_t::config_complete()
 
 void device_t::validity_check(validity_checker &valid) const
 {
-	// validate callbacks
-	for (devcb_base const *callback : m_callbacks)
-		callback->validity_check(valid);
-
-	// validate via the interfaces
+	// validate mixins
 	for (device_interface &intf : interfaces())
 		intf.interface_validity_check(valid);
 
@@ -372,7 +377,7 @@ void device_t::set_unscaled_clock(u32 clock, bool sync_on_new_clock_domain)
 		return;
 
 	m_unscaled_clock = clock;
-	m_clock = m_unscaled_clock * m_clock_scale;
+	m_clock = m_unscaled_clock * m_clock_scale + 0.5;
 	m_attoseconds_per_clock = (m_clock == 0) ? 0 : HZ_TO_ATTOSECONDS(m_clock);
 
 	// recalculate all derived clocks
@@ -397,7 +402,7 @@ void device_t::set_clock_scale(double clockscale)
 		return;
 
 	m_clock_scale = clockscale;
-	m_clock = m_unscaled_clock * m_clock_scale;
+	m_clock = m_unscaled_clock * m_clock_scale + 0.5;
 	m_attoseconds_per_clock = (m_clock == 0) ? 0 : HZ_TO_ATTOSECONDS(m_clock);
 
 	// recalculate all derived clocks
@@ -478,26 +483,10 @@ void device_t::set_machine(running_machine &machine)
 bool device_t::findit(validity_checker *valid) const
 {
 	bool allfound = true;
-	for (finder_base *autodev = m_auto_finder_list; autodev != nullptr; autodev = autodev->next())
+	for (auto *autodev = m_auto_finder_list; autodev; autodev = autodev->next())
 	{
-		if (valid)
-		{
-			// sanity checking
-			char const *const tag = autodev->finder_tag();
-			if (!tag)
-			{
-				osd_printf_error("Finder tag is null!\n");
-				allfound = false;
-				continue;
-			}
-			if (tag[0] == '^' && tag[1] == ':')
-			{
-				osd_printf_error("Malformed finder tag: %s\n", tag);
-				allfound = false;
-				continue;
-			}
-		}
-		allfound &= autodev->findit(valid);
+		if (!autodev->findit(valid))
+			allfound = false;
 	}
 	return allfound;
 }
@@ -564,11 +553,10 @@ void device_t::start()
 	// complain if nothing was registered by the device
 	state_registrations = machine().save().registration_count() - state_registrations;
 	device_execute_interface *exec;
-	device_sound_interface *sound;
-	if (state_registrations == 0 && (interface(exec) || interface(sound)) && type() != SPEAKER)
+	if ((state_registrations == 0) && interface(exec))
 	{
 		logerror("Device did not register any state to save!\n");
-		if ((machine().system().flags & MACHINE_SUPPORTS_SAVE) != 0)
+		if (!(type().emulation_flags() & flags::SAVE_UNSUPPORTED))
 			fatalerror("Device '%s' did not register any state to save!\n", tag());
 	}
 
@@ -666,7 +654,7 @@ void device_t::pre_save()
 void device_t::post_load()
 {
 	// recompute clock-related parameters if something changed
-	u32 const scaled_clock = m_unscaled_clock * m_clock_scale;
+	u32 const scaled_clock = m_unscaled_clock * m_clock_scale + 0.5;
 	if (m_clock != scaled_clock)
 	{
 		m_clock = scaled_clock;
@@ -1006,18 +994,9 @@ void device_t::subdevice_list::remove(device_t &device)
 //  list of stuff to find after we go live
 //-------------------------------------------------
 
-finder_base *device_t::register_auto_finder(finder_base &autodev)
+device_resolver_base *device_t::register_auto_finder(device_resolver_base &autodev)
 {
-	// add to this list
-	finder_base *old = m_auto_finder_list;
-	m_auto_finder_list = &autodev;
-	return old;
-}
-
-
-void device_t::register_callback(devcb_base &callback)
-{
-	m_callbacks.emplace_back(&callback);
+	return std::exchange(m_auto_finder_list, &autodev);
 }
 
 
@@ -1030,9 +1009,9 @@ void device_t::register_callback(devcb_base &callback)
 //-------------------------------------------------
 
 device_interface::device_interface(device_t &device, const char *type)
-	: m_interface_next(nullptr),
-		m_device(device),
-		m_type(type)
+	: m_interface_next(nullptr)
+	, m_device(device)
+	, m_type(type)
 {
 	device_interface **tailptr;
 	for (tailptr = &device.interfaces().m_head; *tailptr != nullptr; tailptr = &(*tailptr)->m_interface_next) { }

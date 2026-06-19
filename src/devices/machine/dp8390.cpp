@@ -25,7 +25,7 @@ dp8390_device::dp8390_device(const machine_config &mconfig, device_type type, co
 	, m_variant(variant)
 	, m_irq_cb(*this)
 	, m_breq_cb(*this)
-	, m_mem_read_cb(*this)
+	, m_mem_read_cb(*this, 0)
 	, m_mem_write_cb(*this)
 	, m_reset(0)
 	, m_rdma_active(0)
@@ -33,10 +33,6 @@ dp8390_device::dp8390_device(const machine_config &mconfig, device_type type, co
 }
 
 void dp8390_device::device_start() {
-	m_irq_cb.resolve_safe();
-	m_breq_cb.resolve_safe();
-	m_mem_read_cb.resolve_safe(0);
-	m_mem_write_cb.resolve_safe();
 }
 
 void dp8390_device::stop() {
@@ -64,6 +60,8 @@ void dp8390_device::check_dma_complete() {
 	m_regs.isr |= 0x40;
 	check_irq();
 	m_rdma_active = 0;
+	// Required by pc98_cbus:lgy98 DOS driver init
+	m_regs.cr |= 0x20;
 }
 
 void dp8390_device::do_tx() {
@@ -130,12 +128,23 @@ void dp8390_device::recv(uint8_t *buf, int len) {
 	high16 = (m_regs.dcr & 4)?m_regs.rsar<<16:0;
 	if(buf[0] & 1) {
 		if(!memcmp((const char *)buf, "\xff\xff\xff\xff\xff\xff", 6)) {
+			// broadcast
 			if(!(m_regs.rcr & 4)) return;
-		} else if (memcmp((const char *)buf, "\x09\x00\x07\xff\xff\xff", 6) != 0) { // not AppleTalk broadcast
-			return; // multicast
+		} else {
+			// multicast
+			if(!(m_regs.rcr & 8)) return;
+			unsigned const crc = util::crc32_creator::simple(buf, 6) >> 26;
+			if(!BIT(m_regs.mar[crc >> 3], crc & 7)) return;
 		}
 		m_regs.rsr = 0x20;
-	} else m_regs.rsr = 0;
+	} else if(m_regs.rcr & 0x10) {
+		// promiscuous
+		m_regs.rsr = 0;
+	} else {
+		// physical
+		if(memcmp(m_regs.par, buf, 6)) return;
+		m_regs.rsr = 0;
+	}
 	len &= 0xffff;
 
 	for(i = 0; i < len; i++) {
@@ -171,7 +180,7 @@ void dp8390_device::recv_cb(uint8_t *buf, int len) {
 	if(!LOOPBACK) recv(buf, len);
 }
 
-WRITE_LINE_MEMBER(dp8390_device::dp8390_reset) {
+void dp8390_device::dp8390_reset(int state) {
 	if(!state) device_reset();
 }
 
@@ -407,7 +416,6 @@ void dp8390_device::cs_write(offs_t offset, uint8_t data) {
 		break;
 	case 0x0c:
 		m_regs.rcr = data;
-		set_promisc((data & 0x10)?true:false);
 		break;
 	case 0x0d:
 		m_regs.tcr = data;
@@ -426,7 +434,7 @@ void dp8390_device::cs_write(offs_t offset, uint8_t data) {
 	case 0x45:
 	case 0x46:
 		m_regs.par[(offset & 0x7)-1] = data;
-		set_mac((const char *)m_regs.par);
+		set_mac(m_regs.par);
 		break;
 	case 0x47:
 		m_regs.curr = data;

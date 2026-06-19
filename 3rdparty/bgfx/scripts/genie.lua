@@ -1,6 +1,6 @@
 --
--- Copyright 2010-2021 Branimir Karadzic. All rights reserved.
--- License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
+-- Copyright 2010-2022 Branimir Karadzic. All rights reserved.
+-- License: https://github.com/bkaradzic/bgfx/blob/master/LICENSE
 --
 
 MODULE_DIR = path.getabsolute("../")
@@ -18,11 +18,6 @@ newoption {
 newoption {
 	trigger = "with-glfw",
 	description = "Enable GLFW entry.",
-}
-
-newoption {
-	trigger = "with-wayland",
-	description = "Use Wayland backend.",
 }
 
 newoption {
@@ -84,6 +79,9 @@ newaction {
 
 			local csgen = require "bindings-bf"
 			csgen.write(csgen.gen(), "../bindings/bf/bgfx.bf")
+
+			local ziggen = require "bindings-zig"
+			ziggen.write(ziggen.gen(), "../bindings/zig/bgfx.zig")
 		end
 
 		os.exit()
@@ -97,14 +95,19 @@ newaction {
 
 		local f = io.popen("git rev-list --count HEAD")
 		local rev = string.match(f:read("*a"), ".*%S")
+
+		local codegen = require "codegen"
+		local idl = codegen.idl "bgfx.idl"
+		print("1." .. idl._version .. "." .. rev)
+
 		f:close()
 		f = io.popen("git log --format=format:%H -1")
 		local sha1 = f:read("*a")
 		f:close()
 		io.output(path.join(MODULE_DIR, "src/version.h"))
 		io.write("/*\n")
-		io.write(" * Copyright 2011-2021 Branimir Karadzic. All rights reserved.\n")
-		io.write(" * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause\n")
+		io.write(" * Copyright 2011-2022 Branimir Karadzic. All rights reserved.\n")
+		io.write(" * License: https://github.com/bkaradzic/bgfx/blob/master/LICENSE\n")
 		io.write(" */\n")
 		io.write("\n")
 		io.write("/*\n")
@@ -196,14 +199,10 @@ end
 function copyLib()
 end
 
-if _OPTIONS["with-wayland"] then
-	defines { "WL_EGL_PLATFORM=1" }
-end
-
 if _OPTIONS["with-sdl"] then
 	if os.is("windows") then
 		if not os.getenv("SDL2_DIR") then
-			print("Set SDL2_DIR enviroment variable.")
+			print("Set SDL2_DIR environment variable.")
 		end
 	end
 end
@@ -220,7 +219,6 @@ function exampleProjectDefaults()
 	debugdir (path.join(BGFX_DIR, "examples/runtime"))
 
 	includedirs {
-		path.join(BX_DIR,   "include"),
 		path.join(BIMG_DIR, "include"),
 		path.join(BGFX_DIR, "include"),
 		path.join(BGFX_DIR, "3rdparty"),
@@ -237,8 +235,9 @@ function exampleProjectDefaults()
 		"bgfx",
 		"bimg_decode",
 		"bimg",
-		"bx",
 	}
+
+	using_bx()
 
 	if _OPTIONS["with-webgpu"] then
 		usesWebGPU()
@@ -247,13 +246,6 @@ function exampleProjectDefaults()
 	if _OPTIONS["with-sdl"] then
 		defines { "ENTRY_CONFIG_USE_SDL=1" }
 		links   { "SDL2" }
-
-		configuration { "linux or freebsd" }
-			if _OPTIONS["with-wayland"]  then
-				links {
-					"wayland-egl",
-				}
-			end
 
 		configuration { "osx*" }
 			libdirs { "$(SDL2_DIR)/lib" }
@@ -265,25 +257,9 @@ function exampleProjectDefaults()
 		defines { "ENTRY_CONFIG_USE_GLFW=1" }
 		links   { "glfw3" }
 
-		configuration { "linux or freebsd" }
-			if _OPTIONS["with-wayland"] then
-				links {
-					"wayland-egl",
-				}
-			else
-				links {
-					"Xrandr",
-					"Xinerama",
-					"Xi",
-					"Xxf86vm",
-					"Xcursor",
-				}
-			end
-
 		configuration { "osx*" }
 			linkoptions {
 				"-framework CoreVideo",
-				"-framework IOKit",
 			}
 
 		configuration {}
@@ -306,6 +282,7 @@ function exampleProjectDefaults()
 	configuration { "mingw*" }
 		targetextension ".exe"
 		links {
+			"comdlg32",
 			"gdi32",
 			"psapi",
 		}
@@ -404,8 +381,9 @@ function exampleProjectDefaults()
 	configuration { "osx*" }
 		linkoptions {
 			"-framework Cocoa",
-			"-framework QuartzCore",
+			"-framework IOKit",
 			"-framework OpenGL",
+			"-framework QuartzCore",
 			"-weak_framework Metal",
 		}
 
@@ -414,9 +392,10 @@ function exampleProjectDefaults()
 		linkoptions {
 			"-framework CoreFoundation",
 			"-framework Foundation",
+			"-framework IOKit",
 			"-framework OpenGLES",
-			"-framework UIKit",
 			"-framework QuartzCore",
+			"-framework UIKit",
 			"-weak_framework Metal",
 		}
 
@@ -430,14 +409,6 @@ function exampleProjectDefaults()
 		kind "WindowedApp"
 		files {
 			path.join(BGFX_DIR, "examples/runtime/tvOS-Info.plist"),
-		}
-
-
-	configuration { "qnx*" }
-		targetextension ""
-		links {
-			"EGL",
-			"GLESv2",
 		}
 
 	configuration {}
@@ -500,9 +471,11 @@ function exampleProject(_combined, ...)
 
 end
 
-dofile "bgfx.lua"
-
 group "libs"
+dofile(path.join(BX_DIR,   "scripts/bx.lua"))
+dofile(path.join(BIMG_DIR, "scripts/bimg.lua"))
+dofile(path.join(BIMG_DIR, "scripts/bimg_decode.lua"))
+dofile "bgfx.lua"
 
 local function userdefines()
 	local defines = {}
@@ -520,11 +493,13 @@ BGFX_CONFIG = userdefines()
 
 bgfxProject("", "StaticLib", BGFX_CONFIG)
 
-dofile(path.join(BX_DIR,   "scripts/bx.lua"))
-dofile(path.join(BIMG_DIR, "scripts/bimg.lua"))
-dofile(path.join(BIMG_DIR, "scripts/bimg_decode.lua"))
+if _OPTIONS["with-shared-lib"] then
+	group "libs"
+	bgfxProject("-shared-lib", "SharedLib", BGFX_CONFIG)
+end
 
 if _OPTIONS["with-tools"] then
+	group "libs"
 	dofile(path.join(BIMG_DIR, "scripts/bimg_encode.lua"))
 end
 
@@ -584,22 +559,21 @@ or _OPTIONS["with-combined-examples"] then
 		, "43-denoise"
 		, "44-sss"
 		, "45-bokeh"
+		, "46-fsr"
+		, "47-pixelformats"
+		, "48-drawindirect"
+		, "49-hextile"
 		)
 
 	-- 17-drawstress requires multithreading, does not compile for singlethreaded wasm
---	if platform is not single-threaded then
+	if premake.gcc.namestyle == nil or not premake.gcc.namestyle == "Emscripten" then
 		exampleProject(false, "17-drawstress")
---	end
+	end
 
 	-- C99 source doesn't compile under WinRT settings
 	if not premake.vstudio.iswinrt() then
 		exampleProject(false, "25-c99")
 	end
-end
-
-if _OPTIONS["with-shared-lib"] then
-	group "libs"
-	bgfxProject("-shared-lib", "SharedLib", BGFX_CONFIG)
 end
 
 if _OPTIONS["with-tools"] then

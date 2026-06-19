@@ -75,7 +75,7 @@
 	item = [menu addItemWithTitle:@"Disable Breakpoint"
 						   action:@selector(debugToggleBreakpointEnable:)
 					keyEquivalent:[NSString stringWithFormat:@"%C", (short)NSF9FunctionKey]];
-	[item setKeyEquivalentModifierMask:NSShiftKeyMask];
+	[item setKeyEquivalentModifierMask:NSEventModifierFlagShift];
 
 	[menu addItem:[NSMenuItem separatorItem]];
 
@@ -163,7 +163,11 @@
 	for (auto &ptr : view->source_list())
 	{
 		debug_view_disasm_source const *const source = downcast<debug_view_disasm_source const *>(ptr.get());
-		if (&source->space() == space)
+		auto const [mintf, spacenum] = source->space();
+		assert(mintf);
+		assert(0 <= spacenum);
+		assert(mintf->has_space(spacenum));
+		if (&mintf->space(spacenum) == space)
 		{
 			if (view->source() != source)
 			{
@@ -214,7 +218,7 @@
 												 action:@selector(debugToggleBreakpointEnable:)
 										  keyEquivalent:[NSString stringWithFormat:@"%C", (short)NSF9FunctionKey]
 												atIndex:index++];
-	[disableItem setKeyEquivalentModifierMask:NSShiftKeyMask];
+	[disableItem setKeyEquivalentModifierMask:NSEventModifierFlagShift];
 
 	NSMenu      *runMenu = [[menu itemWithTitle:@"Run"] submenu];
 	NSMenuItem  *runItem;
@@ -274,14 +278,14 @@
 - (void)saveConfigurationToNode:(util::xml::data_node *)node {
 	[super saveConfigurationToNode:node];
 	debug_view_disasm *const dasmView = downcast<debug_view_disasm *>(view);
-	node->set_attribute_int("rightbar", dasmView->right_column());
+	node->set_attribute_int(osd::debugger::ATTR_WINDOW_DISASSEMBLY_RIGHT_COLUMN, dasmView->right_column());
 }
 
 
 - (void)restoreConfigurationFromNode:(util::xml::data_node const *)node {
 	[super restoreConfigurationFromNode:node];
 	debug_view_disasm *const dasmView = downcast<debug_view_disasm *>(view);
-	dasmView->set_right_column((disasm_right_column)node->get_attribute_int("rightbar", dasmView->right_column()));
+	dasmView->set_right_column((disasm_right_column)node->get_attribute_int(osd::debugger::ATTR_WINDOW_DISASSEMBLY_RIGHT_COLUMN, dasmView->right_column()));
 }
 
 @end

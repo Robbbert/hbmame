@@ -183,9 +183,9 @@ public:
 		return screen;
 	}
 
-	virtual void io_map(address_map &map);
-	virtual void char_map(address_map &map);
-	virtual void page_map(address_map &map);
+	virtual void io_map(address_map &map) ATTR_COLD;
+	virtual void char_map(address_map &map) ATTR_COLD;
+	virtual void page_map(address_map &map) ATTR_COLD;
 
 	void out3_w(uint8_t data);
 	void out4_w(offs_t offset);
@@ -204,18 +204,18 @@ public:
 
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
-	void cdp1869(address_map &map);
+	void cdp1869(address_map &map) ATTR_COLD;
 protected:
 	// device-level overrides
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual void device_start() override;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual void device_start() override ATTR_COLD;
 	virtual void device_post_load() override;
 
 	// device_memory_interface overrides
 	virtual space_config_vector memory_space_config() const override;
 
 	// device_sound_interface callbacks
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 
 	TIMER_CALLBACK_MEMBER(prd_update);
 
@@ -266,7 +266,7 @@ private:
 	uint16_t m_hma;                   // home memory address
 
 	// sound state
-	stream_buffer::sample_t m_signal; // current signal
+	sound_stream::sample_t m_signal; // current signal
 	int m_incr;                     // initial wave state
 	int m_toneoff;                  // tone off
 	int m_wnoff;                    // white noise off

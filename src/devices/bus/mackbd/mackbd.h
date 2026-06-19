@@ -35,10 +35,7 @@ public:
 	mac_keyboard_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: mac_keyboard_port_device(mconfig, tag, owner, 0U)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	mac_keyboard_port_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock = 0U);
 	virtual ~mac_keyboard_port_device() override;
@@ -46,11 +43,10 @@ public:
 	auto clock_cb() { return m_clock_cb.bind(); }
 	auto data_cb() { return m_data_cb.bind(); }
 
-	DECLARE_WRITE_LINE_MEMBER(data_w);
+	void data_w(int state);
 
 protected:
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	devcb_write_line m_clock_cb;
@@ -76,10 +72,10 @@ protected:
 
 	virtual void interface_validity_check(validity_checker &valid) const override;
 
-	DECLARE_WRITE_LINE_MEMBER(write_clock) { if (m_host) m_host->m_clock_cb(state); }
-	DECLARE_WRITE_LINE_MEMBER(write_data) { if (m_host) m_host->m_data_cb(state); }
+	void write_clock(int state) { if (m_host) m_host->m_clock_cb(state); }
+	void write_data(int state) { if (m_host) m_host->m_data_cb(state); }
 
-	virtual DECLARE_WRITE_LINE_MEMBER(data_w) = 0;
+	virtual void data_w(int state) = 0;
 
 private:
 	mac_keyboard_port_device *const m_host;

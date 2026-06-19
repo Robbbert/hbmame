@@ -2,7 +2,7 @@
 // copyright-holders:Vas Crabb
 /***************************************************************************
 
-    m6500_1.h
+    m6500_1.cpp
 
     MOS Technology 6500/1, original NMOS variant with onboard peripherals:
     * 6502 CPU
@@ -12,10 +12,10 @@
     * Sixteen-bit programmable counter/latch
 
     The onboad clock generator has mask options for an external crystal
-    (2MHz to 6MHz) an external TTL-compatible clock with a 300Ω pull-up
+    (2MHz to 6MHz), an external TTL-compatible clock with a 300Ω pull-up
     resistor (2MHz to 6MHz), or an RC oscillator with an external 47kΩ
     resistor and internal capacitor (nominally 2MHz).  The clock is
-    divided by two to generate the two-phase CPU code clock.
+    divided by two to generate the two-phase CPU core clock.
 
     There is no on-board power-on reset generator.  The /RES pin must be
     held low (asserted) for at least eight phase 2 clock cycles after
@@ -45,7 +45,7 @@
     on the CNTR pin in event counter mode is half the phase 2 clock
     rate.  This suggests that an internal flag is set when a rasing edge
     is detected on CNTR and reset when the counter is synchronously
-    decremented.  This is not emulated - for simplicity the counter is
+    decremented.  This is not emulated - for simplicity, the counter is
     asynchronously decremented on detecting a rising edge on CNTR.
 
     The CNTR pin has an active low driver and internal passive pull-up.
@@ -59,19 +59,21 @@
     is unknown what other differences these devices have.
 
     TODO:
-    - For some reason most if not all Amiga MCU programs accesses arbitrary
-      zero page 0x90-0xff with a back-to-back cmp($00, x) opcode at
-      PC=c06-c08 with the actual result discarded. X can be any value in
-      the 0x90-0xff range, depending on the last user keypress row source
-      e.g. 0xdf-0xe0 for 'A', 0xef-0xf0 for 'Q', 0xfb-0xfc for function
-      keys.
-      This can be extremely verbose in the logging facility so we currently
-      nop it out for the time being.
+    - For some reason most if not all Amiga MCU programs access
+      arbitrary zero page 0x90-0xff with a back-to-back cmp($00, x)
+      opcode at PC=c06-c08 with the actual result discarded.  X can be
+      any value in the 0x90-0xff range, depending on the last user
+      keypress row source e.g. 0xdf-0xe0 for 'A', 0xef-0xf0 for 'Q',
+      0xfb-0xfc for function keys.
+      This can be extremely verbose in the logging facility so we nop it
+      out for the time being.
 
 ***************************************************************************/
 
 #include "emu.h"
 #include "m6500_1.h"
+
+#include "m6502mcu.ipp"
 
 
 namespace {
@@ -92,8 +94,8 @@ DEFINE_DEVICE_TYPE(M6500_1, m6500_1_device, "m6500_1", "MOS Technology 6500/1");
 
 
 m6500_1_device::m6500_1_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock)
-	: m6502_mcu_device(mconfig, M6500_1, tag, owner, clock)
-	, m_port_in_cb{ *this }
+	: m6502_mcu_device_base<m6502_device>(mconfig, M6500_1, tag, owner, clock)
+	, m_port_in_cb{ *this, 0xffU }
 	, m_port_out_cb{ *this }
 	, m_cntr_out_cb{ *this }
 	, m_cr{ 0x00U }
@@ -109,7 +111,7 @@ m6500_1_device::m6500_1_device(machine_config const &mconfig, char const *tag, d
 	, m_uc{ 0U }
 	, m_lc{ 0U }
 {
-	program_config.m_internal_map = address_map_constructor(FUNC(m6500_1_device::memory_map), this);
+	m_program_config.m_internal_map = address_map_constructor(FUNC(m6500_1_device::memory_map), this);
 }
 
 
@@ -134,24 +136,15 @@ void m6500_1_device::pd_w(u8 data)
 }
 
 
-WRITE_LINE_MEMBER(m6500_1_device::cntr_w)
+void m6500_1_device::cntr_w(int state)
 {
 	machine().scheduler().synchronize(timer_expired_delegate(FUNC(m6500_1_device::set_cntr_in), this), state);
 }
 
 
-void m6500_1_device::device_resolve_objects()
-{
-	m6502_mcu_device::device_resolve_objects();
-
-	m_port_in_cb.resolve_all();
-	m_port_out_cb.resolve_all_safe();
-	m_cntr_out_cb.resolve_safe();
-}
-
 void m6500_1_device::device_start()
 {
-	m6502_mcu_device::device_start();
+	m6502_mcu_device_base<m6502_device>::device_start();
 
 	m_counter_base = 0U;
 
@@ -173,9 +166,9 @@ void m6500_1_device::device_start()
 
 void m6500_1_device::device_reset()
 {
-	m6502_mcu_device::device_reset();
+	m6502_mcu_device_base<m6502_device>::device_reset();
 
-	SP = 0x003fU;
+	m_SP = 0x003fU;
 
 	internal_update();
 
@@ -238,7 +231,7 @@ void m6500_1_device::state_import(device_state_entry const &entry)
 		break;
 
 	default:
-		m6502_mcu_device::state_import(entry);
+		m6502_mcu_device_base<m6502_device>::state_import(entry);
 	}
 }
 
@@ -269,7 +262,7 @@ void m6500_1_device::state_export(device_state_entry const &entry)
 		break;
 
 	default:
-		m6502_mcu_device::state_export(entry);
+		m6502_mcu_device_base<m6502_device>::state_export(entry);
 	}
 }
 
@@ -306,7 +299,7 @@ void m6500_1_device::update_irq()
 
 u8 m6500_1_device::read_port(offs_t offset)
 {
-	if (!machine().side_effects_disabled() && m_port_in_cb[offset])
+	if (!machine().side_effects_disabled() && !m_port_in_cb[offset].isunset())
 	{
 		u8 const prev(m_port_in[offset]);
 		m_port_in[offset] = m_port_in_cb[offset]();
@@ -332,7 +325,7 @@ void m6500_1_device::write_port(offs_t offset, u8 data)
 
 	if (!offset)
 	{
-		if (!machine().side_effects_disabled() && m_port_in_cb[0])
+		if (!machine().side_effects_disabled() && !m_port_in_cb[0].isunset())
 			m_port_in[0] = m_port_in_cb[0]();
 		u8 const effective(m_port_in[0] & data);
 		u8 const diff(prev ^ effective);
@@ -353,7 +346,7 @@ void m6500_1_device::clear_edge(offs_t offset, u8 data)
 template <unsigned Port> TIMER_CALLBACK_MEMBER(m6500_1_device::set_port_in)
 {
 	u8 const prev(m_port_in[Port]);
-	m_port_in[Port] = m_port_in_cb[Port] ? m_port_in_cb[Port]() : u8(u32(param));
+	m_port_in[Port] = !m_port_in_cb[Port].isunset() ? m_port_in_cb[Port]() : u8(u32(param));
 
 	if (!Port)
 	{

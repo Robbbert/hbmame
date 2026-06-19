@@ -30,8 +30,6 @@ void msm5232_device::device_start()
 	int rate = clock()/CLOCK_RATE_DIVIDER;
 	int voicenum;
 
-	m_gate_handler_cb.resolve();
-
 	init(clock(), rate);
 
 	m_stream = stream_alloc(0, 11, rate);
@@ -110,7 +108,7 @@ void msm5232_device::device_reset()
 
 void msm5232_device::device_stop()
 {
-	#ifdef SAVE_SAMPLE
+#ifdef SAVE_SAMPLE
 	fclose(sample[8]);
 #endif
 #ifdef SAVE_SEPARATE_CHANNELS
@@ -127,22 +125,22 @@ void msm5232_device::device_stop()
 
 void msm5232_device::set_capacitors(double cap1, double cap2, double cap3, double cap4, double cap5, double cap6, double cap7, double cap8)
 {
-	m_external_capacity[0] = cap1;
-	m_external_capacity[1] = cap2;
-	m_external_capacity[2] = cap3;
-	m_external_capacity[3] = cap4;
-	m_external_capacity[4] = cap5;
-	m_external_capacity[5] = cap6;
-	m_external_capacity[6] = cap7;
-	m_external_capacity[7] = cap8;
+	m_external_capacitance[0] = cap1;
+	m_external_capacitance[1] = cap2;
+	m_external_capacitance[2] = cap3;
+	m_external_capacitance[3] = cap4;
+	m_external_capacitance[4] = cap5;
+	m_external_capacitance[5] = cap6;
+	m_external_capacitance[6] = cap7;
+	m_external_capacitance[7] = cap8;
 }
 
-/* Default chip clock is 2119040 Hz */
-/* At this clock chip generates exactly 440.0 Hz signal on 8' output when pitch data=0x21 */
+// Default chip clock is 2119040 Hz
+// At this clock chip generates exactly 440.0 Hz signal on 8' output when pitch data=0x21
 
 
-/* ROM table to convert from pitch data into data for programmable counter and binary counter */
-/* Chip has 88x12bits ROM   (addressing (in hex) from 0x00 to 0x57) */
+// ROM table to convert from pitch data into data for programmable counter and binary counter
+// Chip has 88x12bits ROM   (addressing (in hex) from 0x00 to 0x57)
 #define ROM(counter,bindiv) (counter|(bindiv<<9))
 
 static const uint16_t MSM5232_ROM[88]={
@@ -199,87 +197,63 @@ static FILE *sample[9];
 
 
 /*
- * resistance values are guesswork, default capacity is mentioned in the datasheets
+ * Resistance values are guesswork, default capacitance is mentioned in the datasheets
  *
- * charges external capacitor (default is 0.39uF) via R51
- * in approx. 5*1400 * 0.39e-6
+ * Two errors in the datasheet, one probable, one certain
+ * - it mentions 0.39uF caps, but most boards have 1uF caps and expect datasheet timings
  *
- * external capacitor is discharged through R52
- * in approx. 5*28750 * 0.39e-6
+ * - the 330ms timing of decay2 has been measured to be 250ms (which
+ *   also matches the duty cycle information for the rest of the table)
+ *
+ * In both cases it ends up with smaller resistor values, which are
+ * easier to do on-die.
+ *
+ * The timings are for a 90% charge/discharge of the external
+ * capacitor through three possible resistors, one for attack, two for
+ * decay.
+ *
+ * Expected timings are 2ms, 40ms and 250ms respectively with a 1uF
+ * capacitor.
+ *
+ * exp(-t/(r*c)) = (100% - 90%) => r = -r/(log(0.1)*c)
+ *
+ *   2ms ->    870 ohms
+ *  40ms ->  17400 ohms
+ * 250ms -> 101000 ohms
  */
 
 
-#define R51 1400    /* charge resistance */
-#define R52 28750   /* discharge resistance */
-
-#if 0
-/*
-    C24 = external capacity
-
-    osd_printf_debug("Time constant T=R*C =%f sec.\n",R51*C24);
-    osd_printf_debug("Cap fully charged after 5T=%f sec (sample=%f). Level=%f\n",(R51*C24)*5,(R51*C24)*5*sample_rate , VMAX*0.99326 );
-    osd_printf_debug("Cap charged after 5T=%f sec (sample=%f). Level=%20.16f\n",(R51*C24)*5,(R51*C24)*5*sample_rate ,
-           VMAX*(1.0-pow(2.718,-0.0748/(R51*C24))) );
-*/
-#endif
-
-
+static constexpr double R51 =    870;    // attack resistance
+static constexpr double R52 =  17400;    // decay 1 resistance
+static constexpr double R53 = 101000;    // decay 2 resistance
 
 
 void msm5232_device::init_tables()
 {
-	int i;
-	double scale;
+	// sample rate = chip clock !!!  But :
+	// highest possible frequency is chipclock/13/16 (pitch data=0x57)
+	// at 2MHz : 2000000/13/16 = 9615 Hz
 
-	/* sample rate = chip clock !!!  But : */
-	/* highest possible frequency is chipclock/13/16 (pitch data=0x57) */
-	/* at 2MHz : 2000000/13/16 = 9615 Hz */
+	m_UpdateStep = int(double(1 << STEP_SH) * double(m_rate) / double(m_chip_clock));
+	//logerror("clock=%i Hz rate=%i Hz, UpdateStep=%i\n", m_chip_clock, m_rate, m_UpdateStep);
 
-	i = ((double)(1<<STEP_SH) * (double)m_rate) / (double)m_chip_clock;
-	m_UpdateStep = i;
-	/* logerror("clock=%i Hz rate=%i Hz, UpdateStep=%i\n",
-	        m_chip_clock, m_rate, m_UpdateStep); */
+	double const scale = double(m_chip_clock) / double(m_rate);
+	m_noise_step = ((1 << STEP_SH) / 128.0) * scale; // step of the rng reg in 16.16 format
+	//logerror("noise step=%8x\n", m_noise_step);
 
-	scale = ((double)m_chip_clock) / (double)m_rate;
-	m_noise_step = ((1<<STEP_SH)/128.0) * scale; /* step of the rng reg in 16.16 format */
-	/* logerror("noise step=%8x\n", m_noise_step); */
-
-#if 0
-{
-	/* rate tables (in milliseconds) */
-	static const int ATBL[8] = { 2,4,8,16, 32,64, 32,64};
-	static const int DTBL[16]= { 40,80,160,320, 640,1280, 640,1280,
-							333,500,1000,2000, 4000,8000, 4000,8000};
-	for (i=0; i<8; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		double clockscale = (double)m_chip_clock / 2119040.0;
-		double time = (ATBL[i] / 1000.0) / clockscale;  /* attack time in seconds */
-		m_ar_tbl[i] = 0.50 * ( (1.0/time) / (double)m_rate );
-		/* logerror("ATBL[%i] = %20.16f time = %f s\n",i, m_ar_tbl[i], time); */
+		double const clockscale = double(m_chip_clock) / 2119040.0;
+		int const rcp_duty_cycle = 1 << ((i & 4) ? (i & ~2) : i); // bit 1 is ignored if bit 2 is set
+		m_ar_tbl[i] = (rcp_duty_cycle / clockscale) * R51;
 	}
 
-	for (i=0; i<16; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		double clockscale = (double)m_chip_clock / 2119040.0;
-		double time = (DTBL[i] / 1000.0) / clockscale;  /* decay time in seconds */
-		m_dr_tbl[i] = 0.50 * ( (1.0/time) / (double)m_rate );
-		/* logerror("DTBL[%i] = %20.16f time = %f s\n",i, m_dr_tbl[i], time); */
-	}
-}
-#endif
-
-
-	for (i=0; i<8; i++)
-	{
-		double clockscale = (double)m_chip_clock / 2119040.0;
-		m_ar_tbl[i]   = ((1<<i) / clockscale) * (double)R51;
-	}
-
-	for (i=0; i<8; i++)
-	{
-		double clockscale = (double)m_chip_clock / 2119040.0;
-		m_dr_tbl[i]   = (     (1<<i) / clockscale) * (double)R52;
-		m_dr_tbl[i+8] = (6.25*(1<<i) / clockscale) * (double)R52;
+		double const clockscale = double(m_chip_clock) / 2119040.0;
+		int const rcp_duty_cycle = 1 << ((i & 4) ? (i & ~2) : i); // bit 1 is ignored if bit 2 is set
+		m_dr_tbl[i] = (rcp_duty_cycle / clockscale) * R52;
+		m_dr_tbl[i + 8] = (rcp_duty_cycle / clockscale) * R53;
 	}
 
 
@@ -301,9 +275,9 @@ void msm5232_device::init_tables()
 
 void msm5232_device::init_voice(int i)
 {
-	m_voi[i].ar_rate= m_ar_tbl[0] * m_external_capacity[i];
-	m_voi[i].dr_rate= m_dr_tbl[0] * m_external_capacity[i];
-	m_voi[i].rr_rate= m_dr_tbl[0] * m_external_capacity[i]; /* this is constant value */
+	m_voi[i].ar_rate= m_ar_tbl[0] * m_external_capacitance[i];
+	m_voi[i].dr_rate= m_dr_tbl[0] * m_external_capacitance[i];
+	m_voi[i].rr_rate= m_dr_tbl[0] * m_external_capacitance[i]; /* this is constant value */
 	m_voi[i].eg_sect= -1;
 	m_voi[i].eg     = 0.0;
 	m_voi[i].eg_arm = 0;
@@ -315,7 +289,7 @@ void msm5232_device::gate_update()
 {
 	int new_state = (m_control2 & 0x20) ? m_voi[7].GF : 0;
 
-	if (m_gate != new_state && !m_gate_handler_cb.isnull())
+	if (m_gate != new_state)
 	{
 		m_gate = new_state;
 		m_gate_handler_cb(new_state);
@@ -344,19 +318,19 @@ void msm5232_device::write(offs_t offset, uint8_t data)
 	if (offset > 0x0d)
 		return;
 
-	m_stream->update ();
+	m_stream->update();
 
 	if (offset < 0x08) /* pitch */
 	{
-		int ch = offset&7;
+		const int ch = offset & 7;
 
-		m_voi[ch].GF = ((data&0x80)>>7);
+		m_voi[ch].GF = BIT(data, 7);
 		if (ch == 7)
 			gate_update();
 
-		if(data&0x80)
+		if (data & 0x80)
 		{
-			if(data >= 0xd8)
+			if (data >= 0xd8)
 			{
 				/*if ((data&0x7f) != 0x5f) logerror("MSM5232: WRONG PITCH CODE = %2x\n",data&0x7f);*/
 				m_voi[ch].mode = 1;     /* noise mode */
@@ -364,30 +338,29 @@ void msm5232_device::write(offs_t offset, uint8_t data)
 			}
 			else
 			{
-				if ( m_voi[ch].pitch != (data&0x7f) )
+				if (m_voi[ch].pitch != (data & 0x7f))
 				{
 					int n;
-					uint16_t pg;
 
-					m_voi[ch].pitch = data&0x7f;
+					m_voi[ch].pitch = data & 0x7f;
 
-					pg = MSM5232_ROM[ data&0x7f ];
+					const uint32_t pg = MSM5232_ROM[data & 0x7f];
 
 					m_voi[ch].TG_count_period = (pg & 0x1ff) * m_UpdateStep / 2;
 
-					n = (pg>>9) & 7;    /* n = bit number for 16' output */
+					n = (pg >> 9) & 7;  /* n = bit number for 16' output */
 					m_voi[ch].TG_out16 = 1<<n;
 										/* for 8' it is bit n-1 (bit 0 if n-1<0) */
 										/* for 4' it is bit n-2 (bit 0 if n-2<0) */
 										/* for 2' it is bit n-3 (bit 0 if n-3<0) */
-					n = (n>0)? n-1: 0;
-					m_voi[ch].TG_out8  = 1<<n;
+					n = (n > 0) ? (n - 1) : 0;
+					m_voi[ch].TG_out8  = 1 << n;
 
-					n = (n>0)? n-1: 0;
-					m_voi[ch].TG_out4  = 1<<n;
+					n = (n > 0) ? (n - 1) : 0;
+					m_voi[ch].TG_out4  = 1 << n;
 
-					n = (n>0)? n-1: 0;
-					m_voi[ch].TG_out2  = 1<<n;
+					n = (n > 0) ? (n - 1) : 0;
+					m_voi[ch].TG_out2  = 1 << n;
 				}
 				m_voi[ch].mode = 0;     /* tone mode */
 				m_voi[ch].eg_sect = 0;  /* Key On */
@@ -395,35 +368,34 @@ void msm5232_device::write(offs_t offset, uint8_t data)
 		}
 		else
 		{
-			if ( !m_voi[ch].eg_arm )    /* arm = 0 */
+			if (!m_voi[ch].eg_arm)      /* arm = 0 */
 				m_voi[ch].eg_sect = 2;  /* Key Off -> go to release */
-			else                            /* arm = 1 */
+			else                        /* arm = 1 */
 				m_voi[ch].eg_sect = 1;  /* Key Off -> go to decay */
 		}
 	}
 	else
 	{
-		int i;
 		switch(offset)
 		{
 		case 0x08:  /* group1 attack */
-			for (i=0; i<4; i++)
-				m_voi[i].ar_rate   = m_ar_tbl[data&0x7] * m_external_capacity[i];
+			for (int i = 0; i < 4; i++)
+				m_voi[i].ar_rate   = m_ar_tbl[data & 0x7] * m_external_capacitance[i];
 			break;
 
 		case 0x09:  /* group2 attack */
-			for (i=0; i<4; i++)
-				m_voi[i+4].ar_rate = m_ar_tbl[data&0x7] * m_external_capacity[i+4];
+			for (int i = 0; i < 4; i++)
+				m_voi[i + 4].ar_rate = m_ar_tbl[data & 0x7] * m_external_capacitance[i+4];
 			break;
 
 		case 0x0a:  /* group1 decay */
-			for (i=0; i<4; i++)
-				m_voi[i].dr_rate   = m_dr_tbl[data&0xf] * m_external_capacity[i];
+			for (int i = 0; i < 4; i++)
+				m_voi[i].dr_rate   = m_dr_tbl[data & 0xf] * m_external_capacitance[i];
 			break;
 
 		case 0x0b:  /* group2 decay */
-			for (i=0; i<4; i++)
-				m_voi[i+4].dr_rate = m_dr_tbl[data&0xf] * m_external_capacity[i+4];
+			for (int i = 0; i < 4; i++)
+				m_voi[i + 4].dr_rate = m_dr_tbl[data & 0xf] * m_external_capacitance[i + 4];
 			break;
 
 		case 0x0c:  /* group1 control */
@@ -436,17 +408,17 @@ void msm5232_device::write(offs_t offset, uint8_t data)
 
 			m_control1 = data;
 
-			for (i=0; i<4; i++)
+			for (int i = 0; i < 4; i++)
 			{
-				if ( (data&0x10) && (m_voi[i].eg_sect == 1) )
+				if ((data & 0x10) && (m_voi[i].eg_sect == 1))
 					m_voi[i].eg_sect = 0;
-				m_voi[i].eg_arm = data&0x10;
+				m_voi[i].eg_arm = data & 0x10;
 			}
 
-			m_EN_out16[0] = (data&1) ? ~0:0;
-			m_EN_out8[0]  = (data&2) ? ~0:0;
-			m_EN_out4[0]  = (data&4) ? ~0:0;
-			m_EN_out2[0]  = (data&8) ? ~0:0;
+			m_EN_out16[0] = (data & 1) ? ~0 : 0;
+			m_EN_out8[0]  = (data & 2) ? ~0 : 0;
+			m_EN_out4[0]  = (data & 4) ? ~0 : 0;
+			m_EN_out2[0]  = (data & 8) ? ~0 : 0;
 
 			break;
 
@@ -461,11 +433,11 @@ void msm5232_device::write(offs_t offset, uint8_t data)
 			m_control2 = data;
 			gate_update();
 
-			for (i=0; i<4; i++)
+			for (int i = 0; i < 4; i++)
 			{
-				if ( (data&0x10) && (m_voi[i+4].eg_sect == 1) )
-					m_voi[i+4].eg_sect = 0;
-				m_voi[i+4].eg_arm = data&0x10;
+				if ((data & 0x10) && (m_voi[i + 4].eg_sect == 1))
+					m_voi[i + 4].eg_sect = 0;
+				m_voi[i + 4].eg_arm = data & 0x10;
 			}
 
 			m_EN_out16[1] = (data&1) ? ~0:0;
@@ -736,31 +708,18 @@ void msm5232_device::set_clock(int clock)
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void msm5232_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void msm5232_device::sound_stream_update(sound_stream &stream)
 {
-	auto &buf1 = outputs[0];
-	auto &buf2 = outputs[1];
-	auto &buf3 = outputs[2];
-	auto &buf4 = outputs[3];
-	auto &buf5 = outputs[4];
-	auto &buf6 = outputs[5];
-	auto &buf7 = outputs[6];
-	auto &buf8 = outputs[7];
-	auto &bufsolo1 = outputs[8];
-	auto &bufsolo2 = outputs[9];
-	auto &bufnoise = outputs[10];
-	int i;
-
-	for (i=0; i<buf1.samples(); i++)
+	for (int i=0; i<stream.samples(); i++)
 	{
 		/* calculate all voices' envelopes */
 		EG_voices_advance();
 
 		TG_group_advance(0);   /* calculate tones group 1 */
-		buf1.put_int(i, o2, 32768);
-		buf2.put_int(i, o4, 32768);
-		buf3.put_int(i, o8, 32768);
-		buf4.put_int(i, o16, 32768);
+		stream.put_int(0, i, o2, 32768);
+		stream.put_int(1, i, o4, 32768);
+		stream.put_int(2, i, o8, 32768);
+		stream.put_int(3, i, o16, 32768);
 
 		SAVE_SINGLE_CHANNEL(0,o2)
 		SAVE_SINGLE_CHANNEL(1,o4)
@@ -768,13 +727,13 @@ void msm5232_device::sound_stream_update(sound_stream &stream, std::vector<read_
 		SAVE_SINGLE_CHANNEL(3,o16)
 
 		TG_group_advance(1);   /* calculate tones group 2 */
-		buf5.put_int(i, o2, 32768);
-		buf6.put_int(i, o4, 32768);
-		buf7.put_int(i, o8, 32768);
-		buf8.put_int(i, o16, 32768);
+		stream.put_int(4, i, o2, 32768);
+		stream.put_int(5, i, o4, 32768);
+		stream.put_int(6, i, o8, 32768);
+		stream.put_int(7, i, o16, 32768);
 
-		bufsolo1.put_int(i, solo8, 32768);
-		bufsolo2.put_int(i, solo16, 32768);
+		stream.put_int(8, i, solo8, 32768);
+		stream.put_int(9, i, solo16, 32768);
 
 		SAVE_SINGLE_CHANNEL(4,o2)
 		SAVE_SINGLE_CHANNEL(5,o4)
@@ -802,6 +761,6 @@ void msm5232_device::sound_stream_update(sound_stream &stream, std::vector<read_
 			}
 		}
 
-		bufnoise.put(i, (m_noise_rng & (1<<16)) ? 1.0 : 0.0);
+		stream.put(10, i, (m_noise_rng & (1<<16)) ? 1.0 : 0.0);
 	}
 }

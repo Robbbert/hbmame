@@ -4,25 +4,30 @@
  * netdev_module.h
  *
  */
+#ifndef MAME_OSD_NETDEV_NETDEV_MODULE_H
+#define MAME_OSD_NETDEV_NETDEV_MODULE_H
 
-#ifndef NETDEV_MODULE_H_
-#define NETDEV_MODULE_H_
+#pragma once
 
-#include "osdepend.h"
-#include "modules/osdmodule.h"
+#include "interface/nethandler.h"
+
+#include <memory>
+#include <vector>
+
 
 //============================================================
 //  CONSTANTS
 //============================================================
 
-#define OSD_NETDEV_PROVIDER   "netdevprovider"
+#define OSD_NETDEV_PROVIDER   "networkprovider"
 
 class netdev_module
 {
 public:
-	virtual ~netdev_module() { }
-	// no specific routines below ... may change
+	virtual ~netdev_module() = default;
+
+	virtual std::unique_ptr<osd::network_device> open_device(int id, osd::network_handler &handler) = 0;
+	virtual std::vector<osd::network_device_info> list_devices() = 0;
 };
 
-
-#endif /* NETDEV_MODULE_H_ */
+#endif // MAME_OSD_NETDEV_NETDEV_MODULE_H

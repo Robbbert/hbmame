@@ -18,13 +18,13 @@ public:
 	{
 	}
 
-	virtual DECLARE_WRITE_LINE_MEMBER( input_txd ) override { m_ie15->rs232_conn_rxd_w(state); }
+	virtual void input_txd(int state) override { m_ie15->rs232_conn_rxd_w(state); }
 
 protected:
 	virtual void device_start() override { }
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
-	virtual ioport_constructor device_input_ports() const override;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+	virtual ioport_constructor device_input_ports() const override ATTR_COLD;
 
 private:
 	required_device<ie15_device> m_ie15;
@@ -33,7 +33,7 @@ private:
 
 void ie15_terminal_device::device_add_mconfig(machine_config &config)
 {
-	IE15(config, m_ie15, 0);
+	IE15(config, m_ie15);
 
 	m_ie15->rs232_conn_txd_handler().set(FUNC(ie15_terminal_device::output_rxd));
 	//m_ie15->rs232_conn_rts_handler().set(FUNC(ie15_terminal_device::route_term_rts));

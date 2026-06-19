@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/centiped.cpp"
+#include "../mame/atari/centiped.cpp"
 
 ROM_START( astropd2 )
 	ROM_REGION( 0x10000, "maincpu", 0 )

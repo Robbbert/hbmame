@@ -1,8 +1,8 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/konamigx.cpp"
+#include "../mame/konami/konamigx.cpp"
 
-// Every game here must be added to the table at about line 3939 in src/mame/drivers/konamigx.cpp
+// Every game here must be added to the table at about line 4046 in src/mame/konami/konamigx.cpp
 
  /*************
  Dragoon Might

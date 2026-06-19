@@ -91,8 +91,8 @@
    22      0V - Zero volts.
 
 **********************************************************************/
-#ifndef MAME_BUS_ELECTRON_CARTSLOT_H
-#define MAME_BUS_ELECTRON_CARTSLOT_H
+#ifndef MAME_BUS_ELECTRON_CART_SLOT_H
+#define MAME_BUS_ELECTRON_CART_SLOT_H
 
 #pragma once
 
@@ -124,10 +124,7 @@ public:
 	electron_cartslot_device(machine_config const &mconfig, char const *tag, device_t *owner, uint32_t clock, T &&slot_options, const char *default_option)
 		: electron_cartslot_device(mconfig, tag, owner, clock)
 	{
-		option_reset();
-		slot_options(*this);
-		set_default_option(default_option);
-		set_fixed(false);
+		set_options(std::forward<T>(slot_options), default_option, false);
 	}
 
 	electron_cartslot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -136,8 +133,8 @@ public:
 	auto irq_handler() { return m_irq_handler.bind(); }
 	auto nmi_handler() { return m_nmi_handler.bind(); }
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 	virtual void call_unload() override;
 
 	virtual bool is_writeable() const noexcept override { return true; }
@@ -145,7 +142,7 @@ public:
 	virtual const char *image_interface() const noexcept override { return "electron_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "rom,bin"; }
 
-	// slot interface overrides
+	// device_image_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 	// reading and writing
@@ -154,14 +151,14 @@ public:
 
 	virtual bool present() { return is_loaded() || loaded_through_softlist(); }
 
-	DECLARE_WRITE_LINE_MEMBER(irq_w) { m_irq_handler(state); }
-	DECLARE_WRITE_LINE_MEMBER(nmi_w) { m_nmi_handler(state); }
+	void irq_w(int state) { m_irq_handler(state); }
+	void nmi_w(int state) { m_nmi_handler(state); }
 
 protected:
 	electron_cartslot_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	device_electron_cart_interface *m_cart;
 
@@ -206,10 +203,9 @@ protected:
 };
 
 
-// device type definition
+// device type declaration
 DECLARE_DEVICE_TYPE(ELECTRON_CARTSLOT, electron_cartslot_device)
 
 void electron_cart(device_slot_interface &device);
 
-
-#endif // MAME_BUS_ELECTRON_CARTSLOT_H
+#endif // MAME_BUS_ELECTRON_CART_SLOT_H

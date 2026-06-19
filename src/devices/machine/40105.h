@@ -35,7 +35,7 @@ class cmos_40105_device :  public device_t
 {
 public:
 	// construction/destruction
-	cmos_40105_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+	cmos_40105_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
 	auto in_ready_cb() { return m_write_dir.bind(); }
 	auto out_ready_cb() { return m_write_dor.bind(); }
@@ -44,16 +44,16 @@ public:
 	u8 read();
 	void write(u8 data);
 
-	DECLARE_WRITE_LINE_MEMBER( si_w );
-	DECLARE_WRITE_LINE_MEMBER( so_w );
+	void si_w(int state);
+	void so_w(int state);
 
-	DECLARE_READ_LINE_MEMBER( dir_r );
-	DECLARE_READ_LINE_MEMBER( dor_r );
+	int dir_r();
+	int dor_r();
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	// private helpers

@@ -18,7 +18,6 @@
 #include "emu.h"
 #include "pcat101.h"
 
-#define LOG_GENERAL (1U << 0)
 #define LOG_RXTX    (1U << 1)
 
 //#define VERBOSE (LOG_GENERAL|LOG_RXTX)
@@ -248,13 +247,10 @@ void ibm_pc_at_101_keyboard_device::device_start()
 
 	save_item(NAME(m_porta));
 	save_item(NAME(m_portc));
-
-	m_leds.resolve();
 }
 
 void ibm_pc_at_101_keyboard_device::device_reset()
 {
-	m_mcu->reset();
 }
 
 void ibm_pc_at_101_keyboard_device::data_write(int state)

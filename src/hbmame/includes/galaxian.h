@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/includes/galaxian.h"
+#include "../mame/galaxian/galaxian.h"
 
 class galaxian_hbmame : public galaxian_state
 {

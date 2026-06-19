@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/snesb.cpp"
+#include "../mame/nintendo/snesb.cpp"
 
 /*******************
  Sonic Blast Man 2

@@ -38,7 +38,7 @@ class hp9845_io_slot_device : public device_t,
 {
 public:
 	// construction/destruction
-	hp9845_io_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	hp9845_io_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 	virtual ~hp9845_io_slot_device();
 
 	// Callback setups
@@ -51,13 +51,13 @@ public:
 	auto dmar() { return m_dmar_cb_func.bind(); }
 
 	// irq/sts/flg/dmar signal handlers for card devices
-	DECLARE_WRITE_LINE_MEMBER(irq_w);
-	DECLARE_WRITE_LINE_MEMBER(sts_w);
-	DECLARE_WRITE_LINE_MEMBER(flg_w);
-	DECLARE_WRITE_LINE_MEMBER(irq_nextsc_w);
-	DECLARE_WRITE_LINE_MEMBER(sts_nextsc_w);
-	DECLARE_WRITE_LINE_MEMBER(flg_nextsc_w);
-	DECLARE_WRITE_LINE_MEMBER(dmar_w);
+	void irq_w(int state);
+	void sts_w(int state);
+	void flg_w(int state);
+	void irq_nextsc_w(int state);
+	void sts_nextsc_w(int state);
+	void flg_nextsc_w(int state);
+	void dmar_w(int state);
 
 	// getter for r/w handlers
 	// return value is SC (negative if no card is attached to slot)
@@ -67,7 +67,7 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	devcb_write_line m_irq_cb_func;
@@ -103,13 +103,13 @@ protected:
 	required_ioport m_select_code_port;
 
 	// card device handling
-	DECLARE_WRITE_LINE_MEMBER(irq_w);
-	DECLARE_WRITE_LINE_MEMBER(sts_w);
-	DECLARE_WRITE_LINE_MEMBER(flg_w);
-	DECLARE_WRITE_LINE_MEMBER(irq_nextsc_w);
-	DECLARE_WRITE_LINE_MEMBER(sts_nextsc_w);
-	DECLARE_WRITE_LINE_MEMBER(flg_nextsc_w);
-	DECLARE_WRITE_LINE_MEMBER(dmar_w);
+	void irq_w(int state);
+	void sts_w(int state);
+	void flg_w(int state);
+	void irq_nextsc_w(int state);
+	void sts_nextsc_w(int state);
+	void flg_nextsc_w(int state);
+	void dmar_w(int state);
 };
 
 // device type definition

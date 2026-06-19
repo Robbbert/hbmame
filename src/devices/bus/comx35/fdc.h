@@ -6,13 +6,12 @@
 
 **********************************************************************/
 
-#ifndef MAME_BUS_COMX35_FD_H
-#define MAME_BUS_COMX35_FD_H
+#ifndef MAME_BUS_COMX35_FDC_H
+#define MAME_BUS_COMX35_FDC_H
 
 #pragma once
 
 #include "exp.h"
-#include "formats/comx35_dsk.h"
 #include "imagedev/floppy.h"
 #include "machine/wd_fdc.h"
 
@@ -33,12 +32,12 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 	// optional information overrides
-	virtual const tiny_rom_entry *device_rom_region() const override;
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 
 	// device_comx_expansion_card_interface overrides
 	virtual int comx_ef4_r() override;
@@ -66,5 +65,4 @@ private:
 // device type definition
 DECLARE_DEVICE_TYPE(COMX_FD, comx_fd_device)
 
-
-#endif // MAME_BUS_COMX35_FD_H
+#endif // MAME_BUS_COMX35_FDC_H

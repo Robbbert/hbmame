@@ -1,8 +1,8 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/includes/galaga.h"
+#include "../mame/namco/galaga.h"
 #include "sound/samples.h"
-#include "machine/namco06.h"
+#include "../mame/namco/namco06.h"
 
 class galaga_hbmame : public galaga_state
 {

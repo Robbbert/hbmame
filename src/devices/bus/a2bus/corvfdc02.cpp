@@ -118,6 +118,11 @@ void a2bus_corvfdc02_device::device_reset()
 	m_timer->adjust(attotime::never);
 }
 
+void a2bus_corvfdc02_device::reset_from_bus()
+{
+	m_fdc->reset();
+}
+
 TIMER_CALLBACK_MEMBER(a2bus_corvfdc02_device::tc_tick)
 {
 	m_fdc->tc_w(true);
@@ -243,7 +248,7 @@ uint8_t a2bus_corvfdc02_device::read_cnxx(uint8_t offset)
 	return m_rom[offset & 0x1f];
 }
 
-WRITE_LINE_MEMBER(a2bus_corvfdc02_device::intrq_w)
+void a2bus_corvfdc02_device::intrq_w(int state)
 {
 	if (state)
 	{
@@ -260,7 +265,7 @@ WRITE_LINE_MEMBER(a2bus_corvfdc02_device::intrq_w)
 	}
 }
 
-WRITE_LINE_MEMBER(a2bus_corvfdc02_device::drq_w)
+void a2bus_corvfdc02_device::drq_w(int state)
 {
 	if (state)
 	{

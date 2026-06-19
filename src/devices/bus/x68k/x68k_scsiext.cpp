@@ -11,9 +11,8 @@
 #include "emu.h"
 #include "x68k_scsiext.h"
 
-#include "bus/scsi/scsi.h"
-#include "bus/scsi/scsihd.h"
-#include "machine/mb89352.h"
+#include "bus/nscsi/hd.h"
+#include "machine/mb87030.h"
 
 
 //**************************************************************************
@@ -36,41 +35,52 @@ const tiny_rom_entry *x68k_scsiext_device::device_rom_region() const
 	return ROM_NAME( x68k_cz6bs1 );
 }
 
+static void scsi_devices(device_slot_interface &device)
+{
+	device.option_add("harddisk", NSCSI_HARDDISK);
+}
+
 // device machine config
 void x68k_scsiext_device::device_add_mconfig(machine_config &config)
 {
-	SCSI_PORT(config, m_scsibus);
-	m_scsibus->set_slot_device(1, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_0));
-	m_scsibus->set_slot_device(2, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_1));
-	m_scsibus->set_slot_device(3, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_2));
-	m_scsibus->set_slot_device(4, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_3));
-	m_scsibus->set_slot_device(5, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_4));
-	m_scsibus->set_slot_device(6, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_5));
-	m_scsibus->set_slot_device(7, "harddisk", SCSIHD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_6));
-
-	MB89352A(config, m_spc);
-	m_spc->set_scsi_port(m_scsibus);
-	m_spc->irq_cb().set(FUNC(x68k_scsiext_device::irq_w));
-	m_spc->drq_cb().set(FUNC(x68k_scsiext_device::drq_w));
+	auto &scsi(NSCSI_BUS(config, "scsi"));
+	NSCSI_CONNECTOR(config, "scsi:0", scsi_devices, "harddisk");
+	NSCSI_CONNECTOR(config, "scsi:1", scsi_devices, nullptr);
+	NSCSI_CONNECTOR(config, "scsi:2", scsi_devices, nullptr);
+	NSCSI_CONNECTOR(config, "scsi:3", scsi_devices, nullptr);
+	NSCSI_CONNECTOR(config, "scsi:4", scsi_devices, nullptr);
+	NSCSI_CONNECTOR(config, "scsi:5", scsi_devices, nullptr);
+	NSCSI_CONNECTOR(config, "scsi:6", scsi_devices, nullptr);
+	MB89352(config, m_spc, 10'000'000 / 2); // 10MHz clock from bus
+	scsi.set_external_device(7, m_spc);
+	m_spc->out_irq_callback().set(DEVICE_SELF, FUNC(x68k_scsiext_device::irq_w));
+	m_spc->out_dreq_callback().set(DEVICE_SELF, FUNC(x68k_scsiext_device::drq_w));
 }
 
 x68k_scsiext_device::x68k_scsiext_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, X68K_SCSIEXT, tag, owner, clock)
 	, device_x68k_expansion_card_interface(mconfig, *this)
-	, m_slot(nullptr),
-	m_scsibus(*this, "scsi"),
-	m_spc(*this, "mb89352")
+	, m_slot(nullptr)
+	, m_spc(*this, "spc")
+	, m_rom(*this, "scsiexrom")
+	, m_drq(false)
 {
 }
 
 void x68k_scsiext_device::device_start()
 {
-	uint8_t *ROM = machine().root_device().memregion(subtag("scsiexrom").c_str())->base();
+	save_item(NAME(m_drq));
 
 	m_slot = dynamic_cast<x68k_expansion_slot_device *>(owner());
-	m_slot->space().install_rom(0xea0020,0xea1fff,ROM);
+
+	m_slot->space().install_rom(0xea0020,0xea1fff, m_rom.target());
 	m_slot->space().unmap_write(0xea0020,0xea1fff);
-	m_slot->space().install_readwrite_handler(0xea0000,0xea001f, read8sm_delegate(*this, FUNC(x68k_scsiext_device::register_r)), write8sm_delegate(*this, FUNC(x68k_scsiext_device::register_w)), 0x00ff00ff);
+	m_slot->space().install_device(0xea0000, 0xea001f, *m_spc, &mb89352_device::map, 0x00ff00ff);
+
+	// replace data register handlers with DMA-aware glue
+	m_slot->space().install_readwrite_handler(0xea0015, 0xea0015,
+		emu::rw_delegate(*this, FUNC(x68k_scsiext_device::data_r)),
+		emu::rw_delegate(*this, FUNC(x68k_scsiext_device::data_w)));
 }
 
 void x68k_scsiext_device::device_reset()
@@ -79,7 +89,8 @@ void x68k_scsiext_device::device_reset()
 
 void x68k_scsiext_device::irq_w(int state)
 {
-	m_slot->irq2_w(state);  // correct?  Or perhaps selectable?
+	// TODO: jumper-configurable IRQ2/IRQ4
+	m_slot->irq2_w(state);
 }
 
 uint8_t x68k_scsiext_device::iack2()
@@ -89,15 +100,36 @@ uint8_t x68k_scsiext_device::iack2()
 
 void x68k_scsiext_device::drq_w(int state)
 {
-	// TODO
+	m_drq = bool(state);
 }
 
-uint8_t x68k_scsiext_device::register_r(offs_t offset)
+u8 x68k_scsiext_device::data_r()
 {
-	return m_spc->mb89352_r(offset);
+	// check for DMA cycle
+	if (m_slot->exown() && !machine().side_effects_disabled())
+	{
+		// negate #DTACK if not requesting a DMA transfer
+		if (!m_drq)
+			m_slot->dtack_w(1);
+
+		return m_spc->dma_r();
+	}
+	else
+		return m_spc->dreg_r();
+
 }
 
-void x68k_scsiext_device::register_w(offs_t offset, uint8_t data)
+void x68k_scsiext_device::data_w(u8 data)
 {
-	m_spc->mb89352_w(offset,data);
+	// check for DMA cycle
+	if (m_slot->exown())
+	{
+		// negate #DTACK if not requesting a DMA transfer
+		if (!m_drq)
+			m_slot->dtack_w(1);
+		else
+			m_spc->dma_w(data);
+	}
+	else
+		m_spc->dreg_w(data);
 }

@@ -20,7 +20,7 @@ at 1. And X indicates ram couldn't be reliably tested.
 */
 
 
-#include "../mame/drivers/cinemat.cpp"
+#include "../mame/cinematronics/cinemat.cpp"
 
 namespace {
 
@@ -115,7 +115,7 @@ static INPUT_PORTS_START( warrior4j )
 	PORT_DIPUNUSED_DIPLOC( 0x10, IP_ACTIVE_HIGH, "SW1:!5" )
 	PORT_DIPUNUSED_DIPLOC( 0x20, IP_ACTIVE_HIGH, "SW1:!6" )
 	PORT_DIPUNUSED_DIPLOC( 0x40, IP_ACTIVE_HIGH, "SW1:!7" )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, cinemat_state,coin_inserted, 0)
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, FUNC(cinemat_state::coin_inserted), 0)
 INPUT_PORTS_END
 
 ROM_START( warrior4j1 )

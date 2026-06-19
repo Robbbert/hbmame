@@ -16,7 +16,7 @@
 #include "machine/nscsi_bus.h"
 
 
-class ncr53c7xx_device : public nscsi_device, public nscsi_slot_card_interface, public device_execute_interface
+class ncr53c7xx_device : public device_t, public nscsi_device_interface, public device_execute_interface
 {
 public:
 	// construction/destruction
@@ -33,8 +33,8 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 	virtual void execute_run() override;
 
 	TIMER_CALLBACK_MEMBER(step_timer);

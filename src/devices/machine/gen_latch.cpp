@@ -9,8 +9,9 @@
 #include "emu.h"
 #include "gen_latch.h"
 
-#define LOG_WARN (1U << 0)
-#define VERBOSE (LOG_WARN)
+#define LOG_LOSTVALUE (1U << 1)
+
+//#define VERBOSE (LOG_LOSTVALUE)
 
 #include "logmacro.h"
 
@@ -45,7 +46,6 @@ generic_latch_base_device::generic_latch_base_device(const machine_config &mconf
 
 void generic_latch_base_device::device_start()
 {
-	m_data_pending_cb.resolve_safe();
 	save_item(NAME(m_latch_written));
 
 	// synchronization is needed since other devices may not be initialized yet
@@ -67,7 +67,7 @@ void generic_latch_base_device::init_callback(s32 param)
 
 void generic_latch_base_device::device_reset()
 {
-	m_latch_written = false;
+	set_latch_written(false);
 }
 
 //-------------------------------------------------
@@ -75,7 +75,7 @@ void generic_latch_base_device::device_reset()
 //  to be read
 //-------------------------------------------------
 
-READ_LINE_MEMBER(generic_latch_base_device::pending_r)
+int generic_latch_base_device::pending_r()
 {
 	return m_latch_written ? 1 : 0;
 }
@@ -138,12 +138,12 @@ void generic_latch_8_device::clear_w(u8 data)
 	m_latched_value = 0x00;
 }
 
-WRITE_LINE_MEMBER( generic_latch_8_device::preset )
+void generic_latch_8_device::preset(int state)
 {
 	m_latched_value = 0xff;
 }
 
-WRITE_LINE_MEMBER( generic_latch_8_device::clear )
+void generic_latch_8_device::clear(int state)
 {
 	m_latched_value = 0x00;
 }
@@ -159,7 +159,7 @@ void generic_latch_8_device::sync_callback(s32 param)
 
 	// if the latch has been written and the value is changed, log a warning
 	if (is_latch_written() && m_latched_value != value)
-		LOGMASKED(LOG_WARN, "Warning: latch written before being read. Previous: %02x, new: %02x\n", m_latched_value, value);
+		LOGMASKED(LOG_LOSTVALUE, "Latch written before being read, value lost. Previous: %02x, new: %02x\n", m_latched_value, value);
 
 	// store the new value and mark it not read
 	m_latched_value = value;
@@ -209,12 +209,12 @@ void generic_latch_16_device::clear_w(u16 data)
 	m_latched_value = 0x0000;
 }
 
-WRITE_LINE_MEMBER( generic_latch_16_device::preset )
+void generic_latch_16_device::preset(int state)
 {
 	m_latched_value = 0xffff;
 }
 
-WRITE_LINE_MEMBER( generic_latch_16_device::clear )
+void generic_latch_16_device::clear(int state)
 {
 	m_latched_value = 0x0000;
 }
@@ -230,7 +230,7 @@ void generic_latch_16_device::sync_callback(s32 param)
 
 	// if the latch has been written and the value is changed, log a warning
 	if (is_latch_written() && m_latched_value != value)
-		LOGMASKED(LOG_WARN, "Warning: latch written before being read. Previous: %02x, new: %02x\n", m_latched_value, value);
+		LOGMASKED(LOG_LOSTVALUE, "Latch written before being read, value lost. Previous: %02x, new: %02x\n", m_latched_value, value);
 
 	// store the new value and mark it not read
 	m_latched_value = value;

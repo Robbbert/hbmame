@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/stv.cpp"
+#include "../mame/sega/stv.cpp"
 
 /***********
  Golden Axe
@@ -40,7 +40,7 @@ ROM_START( groovef01 )
 ROM_END
 
 /***********
- Golden Axe
+ Suiko Enbu
 ************/
 
 ROM_START( suikoenb01 )

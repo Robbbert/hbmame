@@ -69,7 +69,7 @@ lh5801_cpu_device::lh5801_cpu_device(const machine_config &mconfig, const char *
 	: cpu_device(mconfig, LH5801, tag, owner, clock)
 	, m_program_config("program", ENDIANNESS_LITTLE, 8, 16, 0)
 	, m_io_config("io", ENDIANNESS_LITTLE, 8, 16, 0)
-	, m_in_func(*this)
+	, m_in_func(*this, 0)
 {
 }
 
@@ -91,8 +91,6 @@ void lh5801_cpu_device::device_start()
 	space(AS_PROGRAM).cache(m_cache);
 	space(AS_PROGRAM).specific(m_program);
 	space(AS_IO).specific(m_io);
-
-	m_in_func.resolve_safe(0);
 
 	m_s.w.l = 0;
 	m_p.w.l = 0;
@@ -218,7 +216,10 @@ void lh5801_cpu_device::execute_run()
 		check_irq();
 
 		if (m_idle)
+		{
+			debugger_wait_hook();
 			m_icount = 0;
+		}
 		else
 		{
 			m_oldpc = P;

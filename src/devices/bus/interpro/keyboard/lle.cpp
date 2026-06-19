@@ -148,7 +148,6 @@
 #include "speaker.h"
 #include "machine/keyboard.ipp"
 
-#define LOG_GENERAL (1U << 0)
 #define LOG_RXTX    (1U << 1)
 #define LOG_PORT    (1U << 2)
 
@@ -447,13 +446,11 @@ void lle_device_base::device_add_mconfig(machine_config &config)
 	ADDRESS_MAP_BANK(config, m_ext).set_map(&lle_device_base::ext_map).set_options(ENDIANNESS_NATIVE, 8, 12, 0x100);
 
 	SPEAKER(config, "keyboard").front_center();
-	SPEAKER_SOUND(config, m_speaker, 0).add_route(ALL_OUTPUTS, "keyboard", 0.25);
+	SPEAKER_SOUND(config, m_speaker).add_route(ALL_OUTPUTS, "keyboard", 0.25);
 }
 
 void lle_device_base::device_start()
 {
-	m_leds.resolve();
-
 	save_item(NAME(m_txd));
 	save_item(NAME(m_p1));
 	save_item(NAME(m_p2));
@@ -487,7 +484,7 @@ void lle_device_base::ext_map(address_map &map)
 				}, "write");
 }
 
-READ_LINE_MEMBER(lle_device_base::t0_r)
+int lle_device_base::t0_r()
 {
 	if ((VERBOSE & LOG_RXTX) && (m_mcu->pc() == 0x8e) && m_txd)
 	{
@@ -502,7 +499,7 @@ READ_LINE_MEMBER(lle_device_base::t0_r)
 	return !m_txd;
 }
 
-READ_LINE_MEMBER(lle_device_base::t1_r)
+int lle_device_base::t1_r()
 {
 	return BIT(m_lower[m_count >> 3]->read(), m_count & 0x7) ? ASSERT_LINE : CLEAR_LINE;
 }

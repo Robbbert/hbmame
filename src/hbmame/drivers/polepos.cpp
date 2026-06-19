@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/polepos.cpp"
+#include "../mame/namco/polepos.cpp"
 
 
 ROM_START( mmadness )
@@ -8,7 +8,7 @@ ROM_START( mmadness )
 	ROM_LOAD( "tr9b.bin",   0x0000, 0x2000, CRC(538bd0cb) SHA1(36a0628ce735c76e5db83d195af3a9bed5155c60) )
 	ROM_LOAD( "tr10.bin",   0x2000, 0x1000, CRC(7174bcb7) SHA1(460326a6cea201db2df813013c95562a222ea95d) )
 
-	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_REGION( 0x10000, "sub1", 0 )
 	ROM_LOAD16_BYTE( "tr1b.bin",  0x0001, 0x2000, CRC(127f0750) SHA1(97ae6c6f8086187c7cdb8bff5fec94914791890b) )
 	ROM_LOAD16_BYTE( "tr2b.bin",  0x0000, 0x2000, CRC(6bd4ff6b) SHA1(cf992de39a8cf7804961a8e6773fc4f7feb1878b) )
 
@@ -16,17 +16,17 @@ ROM_START( mmadness )
 	ROM_LOAD16_BYTE( "tr5b.bin",  0x0001, 0x2000, CRC(4e5f7b9c) SHA1(d26b1f24dd9ef00388987890bc5b95d4db403815) )
 	ROM_LOAD16_BYTE( "tr6b.bin",  0x0000, 0x2000, CRC(b3641d0c) SHA1(38ce172b2e38895749cbd3cc1c0e2c0fe8be744a) )
 
-	ROM_REGION( 0x01000, "gfx1", 0 )
+	ROM_REGION( 0x01000, "chars", 0 )
 	ROM_LOAD( "tr28.t",       0x0000, 0x1000, CRC(6d322e8d) SHA1(520a7d93bf6816ad2985855772310f388bcc7f7e) )
 
-	ROM_REGION( 0x01000, "gfx2", 0 )
+	ROM_REGION( 0x01000, "tiles", 0 )
 	ROM_LOAD( "tr29.t",       0x0000, 0x1000, CRC(d6ffa1bb) SHA1(63e17bdee08be4c30a5c4144328c124e4d654e97) )
 
-	ROM_REGION( 0x04000, "gfx3", 0 )
+	ROM_REGION( 0x04000, "sprites", 0 )
 	ROM_LOAD( "tr25.t",       0x0000, 0x2000, CRC(eff6859c) SHA1(555bc184c5be8fb51293180094cd4ecf82601318) )
 	ROM_LOAD( "tr26.t",       0x2000, 0x2000, CRC(9a0869e9) SHA1(61b90ab5d4efae78f655e6398cef6864b09ae915) )
 
-	ROM_REGION( 0x10000, "gfx4", 0 )
+	ROM_REGION( 0x10000, "bigsprites", 0 )
 	ROM_LOAD( "tr17.t",       0x0000, 0x2000, CRC(11c068b5) SHA1(202f976380b1c80c73937f950ef3d9b849291440) )
 	ROM_LOAD( "tr19.t",       0x2000, 0x2000, CRC(52a6ed10) SHA1(41a6334182e0dab3abd999795dc72ebe18a99c8a) )
 	ROM_LOAD( "tr21.t",       0x4000, 0x2000, CRC(facfe34f) SHA1(c132a7a8469e2c3b0299a4d55e0e1203fde3dba1) )
@@ -34,12 +34,12 @@ ROM_START( mmadness )
 	ROM_LOAD( "tr20.t",       0xa000, 0x2000, CRC(304a2524) SHA1(1c97164124774249cff40ce8d6eed3dd2c26e07c) )
 	ROM_LOAD( "tr22.t",       0xc000, 0x2000, CRC(f84b2711) SHA1(0bc034fc6c92b56b2ec95e69be01cd84fe8b719f) )
 
-	ROM_REGION( 0x5000, "gfx5", 0 )
+	ROM_REGION( 0x5000, "road", 0 )
 	ROM_LOAD( "tr30.bin",     0x0000, 0x2000, CRC(ee6b3315) SHA1(9cc26c6d3604c0f60d716f86e67e9d9c0487f87d) )
 	ROM_LOAD( "tr31.bin",     0x2000, 0x2000, CRC(6d1e7042) SHA1(90113ff0c93ed86d95067290088705bb5e6608d1) )
 	ROM_LOAD( "tr32.bin",     0x4000, 0x1000, CRC(4e97f101) SHA1(f377d053821c74aee93ebcd30a4d43e6156f3cfe) )
 
-	ROM_REGION( 0x1000, "gfx6", 0 )
+	ROM_REGION( 0x1000, "scalelut", 0 )
 	ROM_LOAD( "tr27.bin",     0x0000, 0x1000, CRC(a61bff15) SHA1(f7a59970831cdaaa7bf59c2221a38e4746c54244) )
 
 	ROM_REGION( 0x4000, "engine", 0 )

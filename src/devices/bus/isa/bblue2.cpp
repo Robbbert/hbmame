@@ -146,10 +146,10 @@ static INPUT_PORTS_START( babyblue2 )
 	PORT_DIPNAME(0x40, 0x40, "RAM Bank I" )  PORT_DIPLOCATION( "SW3:1" )
 	PORT_DIPSETTING( 0x00, "Enabled" )
 	PORT_DIPSETTING( 0x40, "Disabled" )
-	PORT_DIPNAME(0x20, 0x40, "RAM Bank II" )  PORT_DIPLOCATION( "SW3:2" )
+	PORT_DIPNAME(0x20, 0x20, "RAM Bank II" )  PORT_DIPLOCATION( "SW3:2" )
 	PORT_DIPSETTING( 0x00, "Enabled" )
 	PORT_DIPSETTING( 0x20, "Disabled" )
-	PORT_DIPNAME(0x10, 0x40, "RAM Bank III" )  PORT_DIPLOCATION( "SW3:3" )
+	PORT_DIPNAME(0x10, 0x10, "RAM Bank III" )  PORT_DIPLOCATION( "SW3:3" )
 	PORT_DIPSETTING( 0x00, "Enabled" )
 	PORT_DIPSETTING( 0x10, "Disabled" )
 
@@ -244,7 +244,7 @@ void isa8_babyblue2_device::z80_control_w(offs_t offset, uint8_t data)
 	}
 }
 
-WRITE_LINE_MEMBER(isa8_babyblue2_device::lpt_irq)
+void isa8_babyblue2_device::lpt_irq(int state)
 {
 	if(m_h2->read() & 0x01)
 		m_isa->irq5_w(state);

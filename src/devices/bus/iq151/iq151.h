@@ -91,10 +91,7 @@ public:
 	iq151cart_slot_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: iq151cart_slot_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 
 	iq151cart_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
@@ -108,14 +105,14 @@ public:
 	auto out_irq4_callback() { return m_out_irq4_cb.bind(); }
 	auto out_drq_callback() { return m_out_drq_cb.bind(); }
 
-	// image-level overrides
-	virtual image_init_result call_load() override;
+	// device_image_interface implementation
+	virtual std::pair<std::error_condition, std::string> call_load() override;
 
 	virtual bool is_reset_on_load() const noexcept override { return true; }
 	virtual const char *image_interface() const noexcept override { return "iq151_cart"; }
 	virtual const char *file_extensions() const noexcept override { return "bin,rom"; }
 
-	// slot interface overrides
+	// device_slot_interface implementation
 	virtual std::string get_default_card_software(get_default_card_software_hook &hook) const override;
 
 	// reading and writing
@@ -126,8 +123,8 @@ public:
 	virtual void video_update(bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 protected:
-	// device-level overrides
-	virtual void device_start() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
 
 	devcb_write_line                m_out_irq0_cb;
 	devcb_write_line                m_out_irq1_cb;

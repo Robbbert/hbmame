@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/ddenlovr.cpp"
+#include "../mame/dynax/ddenlovr.cpp"
 
 /***************************
  Mahjong The Dai Chuuka Ken

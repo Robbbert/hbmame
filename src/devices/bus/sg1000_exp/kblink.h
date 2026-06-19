@@ -9,8 +9,8 @@ is supported by the game F-16 Fighting Falcon for its 2 players mode.
 
 **********************************************************************/
 
-#ifndef MAME_BUS_SG1000_EXP_SK1100_KBLINK_H
-#define MAME_BUS_SG1000_EXP_SK1100_KBLINK_H
+#ifndef MAME_BUS_SG1000_EXP_KBLINK_H
+#define MAME_BUS_SG1000_EXP_KBLINK_H
 
 #pragma once
 
@@ -35,17 +35,17 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
 
 	// device_sk1100_link_cable_interface overrides
-	virtual DECLARE_WRITE_LINE_MEMBER( input_data ) override { m_data = state; set_data_transfer(); }
-	virtual DECLARE_WRITE_LINE_MEMBER( input_reset ) override { m_reset = state; set_data_transfer(); }
-	virtual DECLARE_WRITE_LINE_MEMBER( input_feed ) override { m_feed = state; set_data_transfer(); }
+	virtual void input_data(int state) override { m_data = state; set_data_transfer(); }
+	virtual void input_reset(int state) override { m_reset = state; set_data_transfer(); }
+	virtual void input_feed(int state) override { m_feed = state; set_data_transfer(); }
 
-	virtual DECLARE_READ_LINE_MEMBER( output_fault ) override { set_data_read(); return m_fault; }
-	virtual DECLARE_READ_LINE_MEMBER( output_busy ) override { set_data_read(); return m_busy; }
+	virtual int output_fault() override { set_data_read(); return m_fault; }
+	virtual int output_busy() override { set_data_read(); return m_busy; }
 
 	TIMER_CALLBACK_MEMBER(update_queue);
 	TIMER_CALLBACK_MEMBER(send_tick);
@@ -81,4 +81,4 @@ private:
 DECLARE_DEVICE_TYPE(SK1100_LINK_CABLE, sk1100_link_cable_device)
 
 
-#endif // MAME_BUS_SG1000_EXP_SK1100_KBLINK_H
+#endif // MAME_BUS_SG1000_EXP_KBLINK_H

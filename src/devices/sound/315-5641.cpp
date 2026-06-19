@@ -13,13 +13,10 @@ sega_315_5641_pcm_device::sega_315_5641_pcm_device(const machine_config &mconfig
 	, m_fifo_read(0)
 	, m_fifo_write(0)
 {
-	m_md = 0;   // enforce "slave" mode
 }
 
 void sega_315_5641_pcm_device::device_start()
 {
-	m_fifocallback.resolve_safe();
-
 	upd7759_device::device_start();
 
 	save_item(NAME(m_fifo_data), 0x40);

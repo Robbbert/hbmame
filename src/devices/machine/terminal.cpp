@@ -1,7 +1,8 @@
 // license:BSD-3-Clause
 // copyright-holders:Miodrag Milanovic
 #include "emu.h"
-#include "machine/terminal.h"
+#include "terminal.h"
+
 #include "screen.h"
 #include "speaker.h"
 
@@ -335,7 +336,7 @@ void generic_terminal_device::device_add_mconfig(machine_config &config)
 	screen.set_visarea(0, generic_terminal_device::TERMINAL_WIDTH*8-1, 0, generic_terminal_device::TERMINAL_HEIGHT*10-1);
 	screen.set_screen_update(FUNC(generic_terminal_device::update));
 
-	generic_keyboard_device &keyboard(GENERIC_KEYBOARD(config, KEYBOARD_TAG, 0));
+	generic_keyboard_device &keyboard(GENERIC_KEYBOARD(config, KEYBOARD_TAG));
 	keyboard.set_keyboard_callback(FUNC(generic_terminal_device::kbd_put));
 
 	SPEAKER(config, "bell").front_center();
@@ -347,7 +348,7 @@ void generic_terminal_device::device_start()
 {
 	m_buffer = std::make_unique<uint8_t []>(m_width * m_height);
 	m_bell_timer = timer_alloc(FUNC(generic_terminal_device::bell_off), this);
-	m_keyboard_cb.resolve();
+	m_keyboard_cb.resolve_safe();
 	save_pointer(NAME(m_buffer), m_width * m_height);
 	save_item(NAME(m_x_pos));
 	save_item(NAME(m_framecnt));

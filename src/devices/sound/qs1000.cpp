@@ -127,7 +127,9 @@
 #include "qs1000.h"
 
 
-#define LOGGING_ENABLED     0
+//#define VERBOSE 1
+//#define LOG_OUTPUT_FUNC osd_printf_info
+#include "logmacro.h"
 
 
 // device type definition
@@ -143,7 +145,7 @@ void qs1000_device::qs1000_prg_map(address_map &map)
 }
 
 
-void qs1000_device::qs1000_io_map(address_map &map)
+void qs1000_device::qs1000_data_map(address_map &map)
 {
 	map(0x0000, 0x00ff).ram();
 	map(0x0200, 0x0211).w(FUNC(qs1000_device::wave_w));
@@ -153,7 +155,7 @@ void qs1000_device::qs1000_io_map(address_map &map)
 // ROM definition for the QS1000 internal program ROM
 ROM_START( qs1000 )
 	ROM_REGION( 0x10000, "cpu", 0 )
-	ROM_LOAD_OPTIONAL( "qs1000.bin", 0x0000, 0x10000, NO_DUMP )
+	ROM_LOAD( "qs1000.bin", 0x0000, 0x10000, NO_DUMP )
 ROM_END
 
 
@@ -164,20 +166,19 @@ ROM_END
 //-------------------------------------------------
 //  qs1000_device - constructor
 //-------------------------------------------------
-qs1000_device::qs1000_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, QS1000, tag, owner, clock),
-		device_sound_interface(mconfig, *this),
-		device_rom_interface(mconfig, *this),
-		m_external_rom(false),
-		m_in_p1_cb(*this),
-		m_in_p2_cb(*this),
-		m_in_p3_cb(*this),
-		m_out_p1_cb(*this),
-		m_out_p2_cb(*this),
-		m_out_p3_cb(*this),
-		//m_serial_w_cb(*this),
-		m_stream(nullptr),
-		m_cpu(*this, "cpu")
+qs1000_device::qs1000_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	device_t(mconfig, QS1000, tag, owner, clock),
+	device_sound_interface(mconfig, *this),
+	device_rom_interface(mconfig, *this),
+	m_external_rom(false),
+	m_in_p1_cb(*this, 0),
+	m_in_p2_cb(*this, 0),
+	m_in_p3_cb(*this, 0),
+	m_out_p1_cb(*this),
+	m_out_p2_cb(*this),
+	m_out_p3_cb(*this),
+	m_stream(nullptr),
+	m_cpu(*this, "cpu")
 {
 }
 
@@ -200,22 +201,22 @@ void qs1000_device::device_add_mconfig(machine_config &config)
 {
 	I8052(config, m_cpu, DERIVED_CLOCK(1, 1));
 	m_cpu->set_addrmap(AS_PROGRAM, &qs1000_device::qs1000_prg_map);
-	m_cpu->set_addrmap(AS_IO, &qs1000_device::qs1000_io_map);
+	m_cpu->set_addrmap(AS_DATA, &qs1000_device::qs1000_data_map);
 	m_cpu->port_in_cb<1>().set(FUNC(qs1000_device::p1_r));
 	m_cpu->port_out_cb<1>().set(FUNC(qs1000_device::p1_w));
 	m_cpu->port_in_cb<2>().set(FUNC(qs1000_device::p2_r));
 	m_cpu->port_out_cb<2>().set(FUNC(qs1000_device::p2_w));
 	m_cpu->port_in_cb<3>().set(FUNC(qs1000_device::p3_r));
 	m_cpu->port_out_cb<3>().set(FUNC(qs1000_device::p3_w));
-	m_cpu->serial_rx_cb().set(FUNC(qs1000_device::data_to_i8052));
 }
 
 
 //-------------------------------------------------
-//  rom_bank_updated - the rom bank has changed
+//  rom_bank_pre_change - refresh the stream if the
+//  ROM banking changes
 //-------------------------------------------------
 
-void qs1000_device::rom_bank_updated()
+void qs1000_device::rom_bank_pre_change()
 {
 	m_stream->update();
 }
@@ -231,18 +232,6 @@ void qs1000_device::device_start()
 	// gives reasonable results
 	m_stream = stream_alloc(0, 2, clock() / 32);
 
-	// Resolve CPU port callbacks
-	m_in_p1_cb.resolve_safe(0);
-	m_in_p2_cb.resolve_safe(0);
-	m_in_p3_cb.resolve_safe(0);
-
-	m_out_p1_cb.resolve_safe();
-	m_out_p2_cb.resolve_safe();
-	m_out_p3_cb.resolve_safe();
-
-	//m_serial_w_cb.resolve_safe();
-
-	save_item(NAME(m_serial_data_in));
 	save_item(NAME(m_wave_regs));
 
 	for (int i = 0; i < QS1000_CHANNELS; i++)
@@ -267,35 +256,12 @@ void qs1000_device::device_start()
 
 
 //-------------------------------------------------
-//  serial_in - send data to the chip
-//-------------------------------------------------
-void qs1000_device::serial_in(uint8_t data)
-{
-	m_serial_data_in = data;
-
-	// Signal to the CPU that data is available
-	m_cpu->set_input_line(MCS51_RX_LINE, ASSERT_LINE);
-	m_cpu->set_input_line(MCS51_RX_LINE, CLEAR_LINE);
-}
-
-
-//-------------------------------------------------
 //  set_irq - interrupt the internal CPU
 //-------------------------------------------------
 void qs1000_device::set_irq(int state)
 {
 	// Signal to the CPU that data is available
 	m_cpu->set_input_line(MCS51_INT1_LINE, state ? ASSERT_LINE : CLEAR_LINE);
-}
-
-
-//-------------------------------------------------
-//  data_to_i8052 - called by the 8052 core to
-//  receive serial data
-//-------------------------------------------------
-uint8_t qs1000_device::data_to_i8052()
-{
-	return m_serial_data_in;
 }
 
 
@@ -393,8 +359,7 @@ void qs1000_device::wave_w(offs_t offset, uint8_t data)
 {
 	m_stream->update();
 
-	if (LOGGING_ENABLED)
-		printf("QS1000 W[%x] %x\n", 0x200 + offset, data);
+	LOG("QS1000 W[%x] %x\n", 0x200 + offset, data);
 
 	switch (offset)
 	{
@@ -459,12 +424,8 @@ void qs1000_device::wave_w(offs_t offset, uint8_t data)
 //-------------------------------------------------
 //  sound_stream_update -
 //-------------------------------------------------
-void qs1000_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void qs1000_device::sound_stream_update(sound_stream &stream)
 {
-	// Rset the output stream
-	outputs[0].fill(0);
-	outputs[1].fill(0);
-
 	// Iterate over voices and accumulate sample data
 	for (auto & chan : m_channels)
 	{
@@ -476,7 +437,7 @@ void qs1000_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 		{
 			if (chan.m_flags & QS1000_ADPCM)
 			{
-				for (int samp = 0; samp < outputs[0].samples(); samp++)
+				for (int samp = 0; samp < stream.samples(); samp++)
 				{
 					if (chan.m_addr >= chan.m_loop_end)
 					{
@@ -520,13 +481,13 @@ void qs1000_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 					chan.m_addr = (chan.m_addr + (chan.m_acc >> 18)) & QS1000_ADDRESS_MASK;
 					chan.m_acc &= ((1 << 18) - 1);
 
-					outputs[0].add_int(samp, result * 4 * lvol * vol, 32768 << 12);
-					outputs[1].add_int(samp, result * 4 * rvol * vol, 32768 << 12);
+					stream.add_int(0, samp, result * 4 * lvol * vol, 32768 << 12);
+					stream.add_int(1, samp, result * 4 * rvol * vol, 32768 << 12);
 				}
 			}
 			else
 			{
-				for (int samp = 0; samp < outputs[0].samples(); samp++)
+				for (int samp = 0; samp < stream.samples(); samp++)
 				{
 					if (chan.m_addr >= chan.m_loop_end)
 					{
@@ -549,8 +510,8 @@ void qs1000_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 					chan.m_addr = (chan.m_addr + (chan.m_acc >> 18)) & QS1000_ADDRESS_MASK;
 					chan.m_acc &= ((1 << 18) - 1);
 
-					outputs[0].add_int(samp, result * lvol * vol, 32768 << 12);
-					outputs[1].add_int(samp, result * rvol * vol, 32768 << 12);
+					stream.add_int(0, samp, result * lvol * vol, 32768 << 12);
+					stream.add_int(1, samp, result * rvol * vol, 32768 << 12);
 				}
 			}
 		}
@@ -567,8 +528,7 @@ void qs1000_device::start_voice(int ch)
 	uint16_t word1 = (read_byte(table_addr + 2) << 8) | read_byte(table_addr + 3);
 	uint16_t base = (read_byte(table_addr + 4) << 8) | read_byte(table_addr + 5);
 
-	if (LOGGING_ENABLED)
-		printf("[%.6x] Freq:%.4x  ????:%.4x  Addr:%.4x\n", table_addr, freq, word1, base);
+	LOG("[%.6x] Freq:%.4x  ????:%.4x  Addr:%.4x\n", table_addr, freq, word1, base);
 
 	// See Raccoon World and Wyvern Wings nullptr sound
 	if (freq == 0)
@@ -602,7 +562,7 @@ void qs1000_device::start_voice(int ch)
 
 	uint8_t byte8 = read_byte(base + 8);
 
-	if (LOGGING_ENABLED)
+	if (VERBOSE & LOG_GENERAL)
 	{
 		uint8_t byte9 = read_byte(base + 9);
 		uint8_t byte10 = read_byte(base + 10);
@@ -612,7 +572,7 @@ void qs1000_device::start_voice(int ch)
 		uint8_t byte14 = read_byte(base + 14);
 		uint8_t byte15 = read_byte(base + 15);
 
-		printf("[%.6x] Sample Start:%.6x  Loop Start:%.6x  Loop End:%.6x  Params: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x\n", base, start_addr, loop_start, loop_end, byte8, byte9, byte10, byte11, byte12, byte13, byte14, byte15);
+		LOG("[%.6x] Sample Start:%.6x  Loop Start:%.6x  Loop End:%.6x  Params: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x\n", base, start_addr, loop_start, loop_end, byte8, byte9, byte10, byte11, byte12, byte13, byte14, byte15);
 	}
 
 	m_channels[ch].m_acc = 0;

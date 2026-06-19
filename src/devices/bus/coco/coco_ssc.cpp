@@ -40,8 +40,8 @@
 
 #include "speaker.h"
 
-#define LOG_INTERFACE   (1U <<  1)
-#define LOG_INTERNAL    (1U <<  2)
+#define LOG_INTERFACE   (1U << 1)
+#define LOG_INTERNAL    (1U << 2)
 #define VERBOSE (0)
 // #define VERBOSE (LOG_INTERFACE)
 // #define VERBOSE (LOG_INTERFACE|LOG_INTERNAL)
@@ -88,9 +88,9 @@ namespace
 		coco_ssc_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
 		// optional information overrides
-		virtual const tiny_rom_entry *device_rom_region() const override;
-		virtual void device_add_mconfig(machine_config &config) override;
-		virtual void device_reset() override;
+		virtual const tiny_rom_entry *device_rom_region() const override ATTR_COLD;
+		virtual void device_add_mconfig(machine_config &config) override ATTR_COLD;
+		virtual void device_reset() override ATTR_COLD;
 
 		u8 ssc_port_a_r();
 		void ssc_port_b_w(u8 data);
@@ -101,7 +101,7 @@ namespace
 
 	protected:
 		// device-level overrides
-		virtual void device_start() override;
+		virtual void device_start() override ATTR_COLD;
 		u8 ff7d_read(offs_t offset);
 		void ff7d_write(offs_t offset, u8 data);
 		virtual void set_sound_enable(bool sound_enable) override;
@@ -132,10 +132,10 @@ namespace
 
 	protected:
 		// device-level overrides
-		virtual void device_start() override;
+		virtual void device_start() override ATTR_COLD;
 
 		// sound stream update overrides
-		virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+		virtual void sound_stream_update(sound_stream &stream) override;
 
 		// Power of 2
 		static constexpr int BUFFER_SIZE = 4;
@@ -499,21 +499,18 @@ void cocossc_sac_device::device_start()
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void cocossc_sac_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+void cocossc_sac_device::sound_stream_update(sound_stream &stream)
 {
-	auto &src = inputs[0];
-	auto &dst = outputs[0];
-
-	int count = dst.samples();
+	int count = stream.samples();
 	m_rms[m_index] = 0;
 
 	if( count > 0 )
 	{
 		for( int sampindex = 0; sampindex < count; sampindex++ )
 		{
-			auto source_sample = src.get(sampindex);
+			auto source_sample = stream.get(0, sampindex);
 			m_rms[m_index] += source_sample * source_sample;
-			dst.put(sampindex, source_sample);
+			stream.put(0, sampindex, source_sample);
 		}
 
 		m_rms[m_index] = m_rms[m_index] / count;

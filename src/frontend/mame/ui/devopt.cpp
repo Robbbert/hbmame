@@ -14,6 +14,12 @@
 #include "ui/ui.h"
 #include "romload.h"
 #include "screen.h"
+#include "speaker.h"
+
+#include "util/unicode.h"
+
+#include <locale>
+#include <sstream>
 
 
 namespace ui {
@@ -25,10 +31,10 @@ namespace ui {
 
 menu_device_config::menu_device_config(
 		mame_ui_manager &mui,
-		render_container &container,
+		render_target &target,
 		device_slot_interface *slot,
 		device_slot_interface::slot_option const *option)
-	: menu_textbox(mui, container)
+	: menu_textbox(mui, target)
 	, m_option(option)
 	, m_mounted(machine().root_device().subdevice(slot->device().subtag(option->name())) != nullptr)
 {
@@ -44,14 +50,23 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 	if (!layout || (layout->width() != width))
 	{
 		rgb_t const color = ui().colors().text_color();
-		layout.emplace(ui().create_layout(container(), width));
+		layout.emplace(create_layout(width));
 
 		machine_config &mconfig(const_cast<machine_config &>(machine().config()));
 		machine_config::token const tok(mconfig.begin_configuration(mconfig.root_device()));
-		device_t *const dev = mconfig.device_add(m_option->name(), m_option->devtype(), 0);
+		device_t *const dev = mconfig.device_add(std::string(m_option->name()).c_str(), m_option->devtype(), 0); // TODO: support string_view tags
 		for (device_t &d : device_enumerator(*dev))
+		{
 			if (!d.configured())
 				d.config_complete();
+		}
+
+		// get decimal separator
+		std::string point;
+		{
+			wchar_t const s(std::use_facet<std::numpunct<wchar_t> >(std::locale()).decimal_point());
+			point = utf8_from_wstring(std::wstring_view(&s, 1));
+		}
 
 		layout->add_text(
 				util::string_format(
@@ -86,22 +101,23 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 							count++;
 				}
 
+				// determine clock frequency
 				std::string hz(std::to_string(clock));
 				int d = (clock >= 1'000'000'000) ? 9 : (clock >= 1'000'000) ? 6 : (clock >= 1000) ? 3 : 0;
 				if (d > 0)
 				{
 					size_t dpos = hz.length() - d;
-					hz.insert(dpos, ".");
+					hz.insert(dpos, point);
 					size_t last = hz.find_last_not_of('0');
 					hz = hz.substr(0, last + (last != dpos ? 1 : 0));
 				}
 
-				// if more than one, prepend a #x in front of the CPU name and display clock
+				// if more than one, prepend a #x in front of the CPU name, also display clock if it has one
 				layout->add_text(
 						util::string_format(
 							(count > 1)
-								? ((clock != 0) ? "  %1$d" UTF8_MULTIPLY "%2$s %3$s" UTF8_NBSP "%4$s\n" : "  %1$d" UTF8_MULTIPLY "%2$s\n")
-								: ((clock != 0) ? "  %2$s %3$s" UTF8_NBSP "%4$s\n" : "  %2$s\n"),
+								? ((clock != 0) ? u8"  %1$d×%2$s %3$s\u00a0%4$s\n" : u8"  %1$d×%2$s\n")
+								: ((clock != 0) ? u8"  %2$s %3$s\u00a0%4$s\n" : u8"  %2$s\n"),
 							count, name, hz,
 							(d == 9) ? _("GHz") : (d == 6) ? _("MHz") : (d == 3) ? _("kHz") : _("Hz")),
 						color);
@@ -127,7 +143,7 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 					if (valid)
 					{
 						size_t dpos = hz.length() - 6;
-						hz.insert(dpos, ".");
+						hz.insert(dpos, point);
 						size_t last = hz.find_last_not_of('0');
 						hz = hz.substr(0, last + (last != dpos ? 1 : 0));
 					}
@@ -136,8 +152,8 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 					layout->add_text(
 							util::string_format(
 								(screen.orientation() & ORIENTATION_SWAP_XY)
-									? _("  Screen '%1$s': %2$d \xC3\x97 %3$d (V) %4$s\xC2\xA0Hz\n")
-									: _("  Screen '%1$s': %2$d \xC3\x97 %3$d (H) %4$s\xC2\xA0Hz\n"),
+									? _(u8"  Screen '%1$s': %2$d × %3$d (V) %4$s\u00a0Hz\n")
+									: _(u8"  Screen '%1$s': %2$d × %3$d (H) %4$s\u00a0Hz\n"),
 								screen.tag(),
 								visarea.width(),
 								visarea.height(),
@@ -155,38 +171,68 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 			std::unordered_set<std::string> soundtags;
 			for (device_sound_interface &sound : snditer)
 			{
-				if (!sound.issound() || !soundtags.insert(sound.device().tag()).second)
+				if (!soundtags.insert(sound.device().tag()).second)
 					continue;
+
+				// number of speaker (or microphone) channels (0 when not applicable)
+				int io_channels = 0;
+				if (sound_io_device *speaker = dynamic_cast<sound_io_device *>(&sound.device()))
+					io_channels = speaker->channels();
 
 				// count how many identical sound chips we have
 				int count = 1;
 				for (device_sound_interface &scan : snditer)
 				{
 					if (sound.device().type() == scan.device().type() && sound.device().clock() == scan.device().clock())
+					{
+						// speakers are only identical if they have the same number of channels
+						if (sound_io_device *speaker = dynamic_cast<sound_io_device *>(&scan.device()); speaker && io_channels)
+							if (io_channels != speaker->channels())
+								continue;
+
 						if (soundtags.insert(scan.device().tag()).second)
 							count++;
+					}
 				}
 
+				// determine clock frequency
 				const u32 clock = sound.device().clock();
 				std::string hz(std::to_string(clock));
 				int d = (clock >= 1'000'000'000) ? 9 : (clock >= 1'000'000) ? 6 : (clock >= 1000) ? 3 : 0;
 				if (d > 0)
 				{
 					size_t dpos = hz.length() - d;
-					hz.insert(dpos, ".");
+					hz.insert(dpos, point);
 					size_t last = hz.find_last_not_of('0');
 					hz = hz.substr(0, last + (last != dpos ? 1 : 0));
 				}
 
-				// if more than one, prepend a #x in front of the name and display clock
+				// if more than one, prepend a #x in front of the name, also display clock if it has one
 				layout->add_text(
 						util::string_format(
 							(count > 1)
-								? ((clock != 0) ? "  %1$d" UTF8_MULTIPLY "%2$s %3$s" UTF8_NBSP "%4$s\n" : "  %1$d" UTF8_MULTIPLY "%2$s\n")
-								: ((clock != 0) ? "  %2$s %3$s" UTF8_NBSP "%4$s\n" : "  %2$s\n"),
+								? ((clock != 0) ? u8"  %1$d×%2$s %3$s\u00a0%4$s" : u8"  %1$d×%2$s")
+								: ((clock != 0) ? u8"  %2$s %3$s\u00a0%4$s" : u8"  %2$s"),
 							count, sound.device().name(), hz,
 							(d == 9) ? _("GHz") : (d == 6) ? _("MHz") : (d == 3) ? _("kHz") : _("Hz")),
 						color);
+
+				// append basic speaker information
+				switch (io_channels)
+				{
+				case 0:
+					layout->add_text("\n", color);
+					break;
+				case 1:
+					layout->add_text(_(" (Mono)\n"), color);
+					break;
+				case 2:
+					layout->add_text(_(" (Stereo)\n"), color);
+					break;
+				default:
+					layout->add_text(util::string_format(_(u8" (%d\u00a0channels)\n"), io_channels), color);
+					break;
+				}
 			}
 		}
 
@@ -224,11 +270,13 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 
 		int input = 0, input_mj = 0, input_hana = 0, input_gamble = 0, input_analog = 0, input_adjust = 0;
 		int input_keypad = 0, input_keyboard = 0, dips = 0, confs = 0;
-		std::string errors;
 		std::ostringstream dips_opt, confs_opt;
 		ioport_list portlist;
-		for (device_t &iptdev : device_enumerator(*dev))
-			portlist.append(iptdev, errors);
+		{
+			std::ostringstream errors;
+			for (device_t &iptdev : device_enumerator(*dev))
+				portlist.append(iptdev, errors);
+		}
 
 		// check if the device adds inputs to the system
 		for (auto &port : portlist)
@@ -347,20 +395,14 @@ void menu_device_config::populate_text(std::optional<text_layout> &layout, float
 				+ input + input_mj + input_hana + input_gamble + input_analog + input_adjust + input_keypad + input_keyboard) == 0)
 			layout->add_text(_("[None]\n"), color);
 
-		mconfig.device_remove(m_option->name());
+		mconfig.device_remove(std::string(m_option->name()).c_str()); // TODO: support string_view tags
 		lines = layout->lines();
 	}
 	width = layout->actual_width();
 }
 
-void menu_device_config::populate(float &customtop, float &custombottom)
+void menu_device_config::populate()
 {
-}
-
-void menu_device_config::handle(event const *ev)
-{
-	if (ev)
-		handle_key(ev->iptkey);
 }
 
 } // namespace ui

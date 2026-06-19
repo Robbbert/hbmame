@@ -2,7 +2,7 @@
 // copyright-holders:Aaron Giles, Vas Crabb
 //============================================================
 //
-//  disasmwininfo.c - Win32 debug window handling
+//  disasmwininfo.cpp - Win32 debug window handling
 //
 //============================================================
 
@@ -12,14 +12,19 @@
 #include "debugviewinfo.h"
 #include "disasmviewinfo.h"
 #include "uimetrics.h"
+
+#include "util/xmlfile.h"
+
 #include "winutf8.h"
 
 
+namespace osd::debugger::win {
+
 disasmwin_info::disasmwin_info(debugger_windows_interface &debugger) :
-	disasmbasewin_info(debugger, false, "Disassembly", nullptr),
+	disasmbasewin_info(debugger, false, 0, "Disassembly", nullptr),
 	m_combownd(nullptr)
 {
-	if ((window() == nullptr) || (m_views[0] == nullptr))
+	if (!window() || !m_views[expression_view_index()])
 		return;
 
 	// set up the view to track the initial expression
@@ -28,17 +33,17 @@ disasmwin_info::disasmwin_info(debugger_windows_interface &debugger) :
 	editwnd_select_all();
 
 	// create a combo box
-	m_combownd = m_views[0]->create_source_combobox(window(), (LONG_PTR)this);
+	m_combownd = m_views[expression_view_index()]->create_source_combobox(window(), (LONG_PTR)this);
 
 	// set the caption
 	update_caption();
 
 	// recompute the children once to get the maxwidth
-	disasmwin_info::recompute_children();
+	recompute_children();
 
 	// position the window and recompute children again
-	SetWindowPos(window(), HWND_TOP, 100, 100, maxwidth(), 200, SWP_SHOWWINDOW);
-	disasmwin_info::recompute_children();
+	debugger.stagger_window(window(), maxwidth(), (metrics().debug_font_ascent() * 16) + metrics().hscroll_height());
+	recompute_children();
 
 	// mark the edit box as the default focus and set it
 	editwin_info::set_default_focus();
@@ -50,14 +55,21 @@ disasmwin_info::~disasmwin_info()
 }
 
 
+void disasmwin_info::update_dpi()
+{
+	disasmbasewin_info::update_dpi();
+	m_views[0]->recompute_source_combobox(m_combownd);
+}
+
+
 void disasmwin_info::recompute_children()
 {
 	// compute a client rect
 	RECT bounds;
 	bounds.top = bounds.left = 0;
-	bounds.right = m_views[0]->prefwidth() + (2 * EDGE_WIDTH);
-	bounds.bottom = 200;
-	AdjustWindowRectEx(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX);
+	bounds.right = m_views[expression_view_index()]->prefwidth() + (2 * EDGE_WIDTH);
+	bounds.bottom = (metrics().debug_font_ascent() * 16) + metrics().hscroll_height();
+	AdjustWindowRectExForDpi(&bounds, DEBUG_WINDOW_STYLE, FALSE, DEBUG_WINDOW_STYLE_EX, metrics().dpi());
 
 	// clamp the min/max size
 	set_maxwidth(bounds.right - bounds.left);
@@ -88,7 +100,7 @@ void disasmwin_info::recompute_children()
 	dasmrect.right = parent.right - EDGE_WIDTH;
 
 	// set the bounds of things
-	m_views[0]->set_bounds(dasmrect);
+	m_views[expression_view_index()]->set_bounds(dasmrect);
 	set_editwnd_bounds(editrect);
 	smart_set_window_bounds(m_combownd, window(), comborect);
 }
@@ -104,7 +116,7 @@ bool disasmwin_info::handle_command(WPARAM wparam, LPARAM lparam)
 			int const sel = SendMessage((HWND)lparam, CB_GETCURSEL, 0, 0);
 			if (sel != CB_ERR)
 			{
-				m_views[0]->set_source_index(sel);
+				m_views[expression_view_index()]->set_source_index(sel);
 				update_caption();
 
 				// reset the focus
@@ -129,7 +141,7 @@ void disasmwin_info::draw_contents(HDC dc)
 void disasmwin_info::process_string(const std::string &string)
 {
 	// set the string to the disasm view
-	downcast<disasmview_info *>(m_views[0].get())->set_expression(string);
+	downcast<disasmview_info *>(m_views[expression_view_index()].get())->set_expression(string);
 
 	// select everything in the edit text box
 	editwnd_select_all();
@@ -141,5 +153,39 @@ void disasmwin_info::process_string(const std::string &string)
 
 void disasmwin_info::update_caption()
 {
-	win_set_window_text_utf8(window(), std::string("Disassembly: ").append(m_views[0]->source_name()).c_str());
+	win_set_window_text_utf8(window(), std::string("Disassembly: ").append(m_views[expression_view_index()]->source_name()).c_str());
 }
+
+
+void disasmwin_info::restore_configuration_from_node(util::xml::data_node const &node)
+{
+	m_views[expression_view_index()]->set_source_index(
+		node.get_attribute_int(ATTR_WINDOW_DISASSEMBLY_CPU, m_views[expression_view_index()]->source_index()));
+	int const cursource = m_views[expression_view_index()]->source_index();
+	if (0 <= cursource)
+		SendMessage(m_combownd, CB_SETCURSEL, cursource, 0);
+	update_caption();
+
+	util::xml::data_node const *const expr = node.get_child(NODE_WINDOW_EXPRESSION);
+	if (expr && expr->get_value())
+	{
+		set_editwnd_text(expr->get_value());
+		process_string(expr->get_value());
+	}
+
+	disasmbasewin_info::restore_configuration_from_node(node);
+}
+
+
+void disasmwin_info::save_configuration_to_node(util::xml::data_node &node)
+{
+	disasmbasewin_info::save_configuration_to_node(node);
+
+	node.set_attribute_int(ATTR_WINDOW_TYPE, WINDOW_TYPE_DISASSEMBLY_VIEWER);
+	node.set_attribute_int(ATTR_WINDOW_DISASSEMBLY_CPU, m_views[expression_view_index()]->source_index());
+	node.add_child(
+		NODE_WINDOW_EXPRESSION,
+		downcast<disasmview_info *>(m_views[expression_view_index()].get())->expression());
+}
+
+} // namespace osd::debugger::win

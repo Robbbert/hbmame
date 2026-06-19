@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/rohga.cpp"
+#include "../mame/dataeast/rohga.cpp"
 
 /*****************
  Schmeiser Robo
@@ -14,17 +14,17 @@ ROM_START( schmeisr01 ) //Description: Press 'Start' to select Celberus
 	ROM_REGION(0x10000, "audiocpu", 0 )
 	ROM_LOAD( "sr013.18p",  0x00000,  0x10000,  CRC(4ac00cbb) SHA1(cbc21e13978ae5e8940c8c22932dc424605c0ba4) )
 
-	ROM_REGION( 0x040000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x040000, "chars", ROMREGION_ERASE00 )
 
-	ROM_REGION( 0x100000, "gfx2", 0 )
+	ROM_REGION( 0x100000, "tiles1", 0 )
 	ROM_LOAD( "sr002-74.9a",  0x000000, 0x080000,  CRC(97e15c7b) SHA1(8697115d4b5ed94a1392034060821d3e354bceb0) )
 	ROM_LOAD( "sr003-74.11a", 0x080000, 0x080000,  CRC(ea367971) SHA1(365c27bdef4daa01e926fbcf11ce622186133106) )
 
-	ROM_REGION( 0x200000, "gfx3", 0 )
+	ROM_REGION( 0x200000, "tiles2", 0 )
 	ROM_LOAD( "sr007.17d",  0x000000, 0x100000,  CRC(886f80c7) SHA1(c06efc1ce7f51d4e503267e63dc9f762d55ad528) )
 	ROM_LOAD( "sr008.18d",  0x100000, 0x100000,  CRC(a74cbc90) SHA1(1aabfec7cd64e7097aa55f0ddc5a2c9e1e25618a) )
 
-	ROM_REGION( 0x400000, "gfx4", 0 )
+	ROM_REGION( 0x400000, "sprites1", 0 )
 	ROM_LOAD( "sr004.19a", 0x000000, 0x100000,  CRC(e25434a1) SHA1(136ebb36e9b6caeac885423e8f365008ddcea778) )
 	ROM_LOAD( "sr005.20a", 0x100000, 0x100000,  CRC(1630033b) SHA1(e2a5fd7f8839db9d5b41d3cada598a6c07a97368) )
 	ROM_LOAD( "sr009.19d", 0x200000, 0x100000,  CRC(7b9d982f) SHA1(55d89ee68ceaf3ca8059177721b6c9a16103b1b4) )

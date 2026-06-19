@@ -39,6 +39,12 @@ public:
 	auto p1_out_cb() { return m_p1_out.bind(); }
 	auto p2_out_cb() { return m_p2_out.bind(); }
 
+	auto dma0_read_cb() { return m_dma_read[0].bind(); }
+	auto dma1_read_cb() { return m_dma_read[1].bind(); }
+
+	auto dma0_write_cb() { return m_dma_write[0].bind(); }
+	auto dma1_write_cb() { return m_dma_write[1].bind(); }
+
 	TIMER_CALLBACK_MEMBER(v25_timer_callback);
 
 protected:
@@ -46,8 +52,8 @@ protected:
 	v25_common_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, bool is_16bit, uint8_t prefetch_size, uint8_t prefetch_cycles, uint32_t chip_type);
 
 	// device-level overrides
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 	virtual void device_post_load() override { notify_clock_changed(); }
 
 	// device_execute_interface overrides
@@ -55,7 +61,6 @@ protected:
 	virtual uint64_t execute_cycles_to_clocks(uint64_t cycles) const noexcept override { return cycles * m_PCK; }
 	virtual uint32_t execute_min_cycles() const noexcept override { return 1; }
 	virtual uint32_t execute_max_cycles() const noexcept override { return 80; }
-	virtual uint32_t execute_input_lines() const noexcept override { return 1; }
 	virtual uint32_t execute_default_irq_vector(int inputnum) const noexcept override { return 0xff; }
 	virtual bool execute_input_edge_triggered(int inputnum) const noexcept override { return inputnum == INPUT_LINE_NMI || (inputnum >= NEC_INPUT_LINE_INTP0 && inputnum <= NEC_INPUT_LINE_INTP2); }
 	virtual void execute_run() override;
@@ -63,6 +68,7 @@ protected:
 
 	// device_memory_interface overrides
 	virtual space_config_vector memory_space_config() const override;
+	virtual bool memory_translate(int spacenum, int intention, offs_t &address, address_space *&target_space) override;
 
 	// device_state_interface overrides
 	virtual void state_string_export(const device_state_entry &entry, std::string &str) const override;
@@ -86,6 +92,7 @@ private:
 
 	uint16_t  m_ip;
 	uint16_t  m_prev_ip;
+	uint16_t  m_rep_ip;
 
 	/* PSW flags */
 	int32_t   m_SignVal;
@@ -112,21 +119,34 @@ private:
 	uint8_t   m_intm;
 	uint8_t   m_no_interrupt;
 	uint8_t   m_halted;
+	uint32_t  m_rep_params;
 
-	/* timer related */
+	// timer related
 	uint16_t  m_TM0, m_MD0, m_TM1, m_MD1;
 	uint8_t   m_TMC0, m_TMC1;
 	emu_timer *m_timers[4];
 
-	/* system control */
-	uint8_t   m_RAMEN, m_TB, m_PCK; /* PRC register */
+	// serial interface related
+	uint8_t   m_scm[2];
+	uint8_t   m_scc[2];
+	uint8_t   m_brg[2];
+	uint8_t   m_sce[2];
+
+	// DMA related
+	uint8_t   m_dmac[2];
+	uint8_t   m_dmam[2];
+	int8_t    m_dma_channel;
+	int8_t    m_last_dma_channel;
+
+	// system control
+	uint8_t   m_RAMEN, m_TB, m_PCK; // PRC register
 	uint8_t   m_RFM;
 	uint16_t  m_WTC;
 	uint32_t  m_IDB;
 
 	address_space *m_program;
 	std::function<u8 (offs_t address)> m_dr8;
-	address_space *m_data;
+	memory_access<9, 1, 0, ENDIANNESS_LITTLE>::specific m_data;
 	address_space *m_io;
 	int     m_icount;
 
@@ -140,9 +160,13 @@ private:
 	devcb_write8 m_p1_out;
 	devcb_write8 m_p2_out;
 
+	devcb_read16::array<2> m_dma_read;
+	devcb_write16::array<2> m_dma_write;
+
+	int32_t   m_cur_cycles;
 	uint8_t   m_prefetch_size;
-	uint8_t   m_prefetch_cycles;
-	int8_t    m_prefetch_count;
+	int32_t   m_prefetch_cycles;
+	int32_t   m_prefetch_count;
 	uint8_t   m_prefetch_reset;
 	uint32_t  m_chip_type;
 
@@ -163,7 +187,7 @@ private:
 	static const nec_eahandler s_GetEA[192];
 
 	inline void prefetch();
-	void do_prefetch(int previous_ICount);
+	void do_prefetch();
 	inline uint8_t fetch();
 	inline uint16_t fetchword();
 	inline uint8_t fetchop();
@@ -171,8 +195,9 @@ private:
 	void nec_bankswitch(unsigned bank_num);
 	void nec_trap();
 	void external_int();
+	void dma_process();
 
-	void ida_sfr_map(address_map &map);
+	void ida_sfr_map(address_map &map) ATTR_COLD;
 	uint8_t read_irqcontrol(int /*INTSOURCES*/ source, uint8_t priority);
 	void write_irqcontrol(int /*INTSOURCES*/ source, uint8_t d);
 	uint8_t p0_r();
@@ -203,6 +228,13 @@ private:
 	void srms0_w(uint8_t d);
 	uint8_t stms0_r();
 	void stms0_w(uint8_t d);
+	uint8_t scm0_r();
+	void scm0_w(uint8_t d);
+	uint8_t scc0_r();
+	void scc0_w(uint8_t d);
+	uint8_t brg0_r();
+	void brg0_w(uint8_t d);
+	uint8_t sce0_r();
 	uint8_t seic0_r();
 	void seic0_w(uint8_t d);
 	uint8_t sric0_r();
@@ -213,6 +245,13 @@ private:
 	void srms1_w(uint8_t d);
 	uint8_t stms1_r();
 	void stms1_w(uint8_t d);
+	uint8_t scm1_r();
+	void scm1_w(uint8_t d);
+	uint8_t scc1_r();
+	void scc1_w(uint8_t d);
+	uint8_t brg1_r();
+	void brg1_w(uint8_t d);
+	uint8_t sce1_r();
 	uint8_t seic1_r();
 	void seic1_w(uint8_t d);
 	uint8_t sric1_r();
@@ -237,6 +276,18 @@ private:
 	void tmic1_w(uint8_t d);
 	uint8_t tmic2_r();
 	void tmic2_w(uint8_t d);
+	uint8_t dmac0_r();
+	void dmac0_w(uint8_t d);
+	uint8_t dmam0_r();
+	void dmam0_w(uint8_t d);
+	uint8_t dmac1_r();
+	void dmac1_w(uint8_t d);
+	uint8_t dmam1_r();
+	void dmam1_w(uint8_t d);
+	uint8_t dic0_r();
+	void dic0_w(uint8_t d);
+	uint8_t dic1_r();
+	void dic1_w(uint8_t d);
 	uint8_t rfm_r();
 	void rfm_w(uint8_t d);
 	uint16_t wtc_r();
@@ -255,6 +306,13 @@ private:
 	uint16_t v25_read_word(unsigned a);
 	void v25_write_byte(unsigned a, uint8_t d);
 	void v25_write_word(unsigned a, uint16_t d);
+
+	uint8_t start_rep();
+	void cont_rep();
+	void do_repnc(uint8_t next);
+	void do_repc(uint8_t next);
+	void do_repne(uint8_t next);
+	void do_repe(uint8_t next);
 
 	void i_add_br8();
 	void i_add_wr16();

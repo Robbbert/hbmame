@@ -12,7 +12,7 @@ class namco_163_sound_device : public device_t,
 public:
 	namco_163_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
-	DECLARE_WRITE_LINE_MEMBER(disable_w);
+	void disable_w(int state);
 
 	void addr_w(u8 data);
 	void data_w(u8 data);
@@ -20,7 +20,7 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 	virtual void device_clock_changed() override;
 
 	// global sound parameters
@@ -34,7 +34,7 @@ protected:
 	// internals
 	inline s8 get_sample(u16 addr);
 
-	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
+	virtual void sound_stream_update(sound_stream &stream) override;
 };
 
 DECLARE_DEVICE_TYPE(NAMCO_163, namco_163_sound_device)

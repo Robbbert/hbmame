@@ -13,16 +13,18 @@
 template<int HighBits, int Width, int AddrShift> class handler_entry_write_dispatch : public handler_entry_write<Width, AddrShift>
 {
 public:
-	using uX = typename emu::detail::handler_entry_size<Width>::uX;
+	using uX = emu::detail::handler_entry_size_t<Width>;
 	using mapping = typename handler_entry_write<Width, AddrShift>::mapping;
 
 	handler_entry_write_dispatch(address_space *space, const handler_entry::range &init, handler_entry_write<Width, AddrShift> *handler);
-	handler_entry_write_dispatch(address_space *space, memory_view &view);
+	handler_entry_write_dispatch(address_space *space, memory_view &view, offs_t addrstart, offs_t addrend);
 	handler_entry_write_dispatch(handler_entry_write_dispatch<HighBits, Width, AddrShift> *src);
 	~handler_entry_write_dispatch();
 
 	void write(offs_t offset, uX data, uX mem_mask) const override;
+	void write_interruptible(offs_t offset, uX data, uX mem_mask) const override;
 	u16 write_flags(offs_t offset, uX data, uX mem_mask) const override;
+	u16 lookup_flags(offs_t offset, uX mem_mask) const override;
 	void *get_ptr(offs_t offset) const override;
 	void lookup(offs_t address, offs_t &start, offs_t &end, handler_entry_write<Width, AddrShift> *&handler) const override;
 
@@ -89,6 +91,8 @@ private:
 
 	handler_entry_write<Width, AddrShift> **m_u_dispatch;
 	handler_entry::range *m_u_ranges;
+
+	handler_entry::range m_global_range;
 
 	void populate_nomirror_subdispatch(offs_t entry, offs_t start, offs_t end, offs_t ostart, offs_t oend, handler_entry_write<Width, AddrShift> *handler);
 	void populate_mirror_subdispatch(offs_t entry, offs_t start, offs_t end, offs_t ostart, offs_t oend, offs_t mirror, handler_entry_write<Width, AddrShift> *handler);

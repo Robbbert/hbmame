@@ -1,19 +1,22 @@
 ﻿What's new in HBMAME
 ====================
 
-2026-0x-xx 0.245.33
+2026-06-19 0.288.2
 
 
 
 New Games
 ---------------------------------
+- [blueandr]            Blue and Red Fight the Robots v1.6
 - [csw2]                Crossed Swords 2 (full CD music)
 - [fr2s03]              Idol Mahjong Final Romance 2 (with music)
+- [hyxevious]           Hyper Xevious
 - [irrmaze01]           Irritating Maze (standard joystick)
 - [kof2001s52]          Kof2001 (All Boss Plus, 2026-04-09)
 - [kof97s646]           Kof'97 (Anniversary Edition, v2.3.0625)
 - [msmatsuri]           Mushihime-Sama Matsuri (Japan, 2011-05-23 CAVEMATSURI VER1.5)
 - [sf2prime]            Street Fighter II': Prime (v0.76)
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.32)
 
 
 

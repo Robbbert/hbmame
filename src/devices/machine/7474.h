@@ -39,8 +39,8 @@
 
 *****************************************************************************/
 
-#ifndef MAME_MACHINE_TTL7474_H
-#define MAME_MACHINE_TTL7474_H
+#ifndef MAME_MACHINE_7474_H
+#define MAME_MACHINE_7474_H
 
 #pragma once
 
@@ -55,25 +55,24 @@ class ttl7474_device : public device_t
 {
 public:
 	// construction/destruction
-	ttl7474_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ttl7474_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	// static configuration helpers
 	auto output_cb() { return m_output_func.bind(); }
 	auto comp_output_cb() { return m_comp_output_func.bind(); }
 
 	// public interfaces
-	DECLARE_WRITE_LINE_MEMBER( clear_w );
-	DECLARE_WRITE_LINE_MEMBER( preset_w );
-	DECLARE_WRITE_LINE_MEMBER( clock_w );
-	DECLARE_WRITE_LINE_MEMBER( d_w );
-	DECLARE_READ_LINE_MEMBER( output_r );
-	DECLARE_READ_LINE_MEMBER( output_comp_r );    // NOT strictly the same as !output_r()
+	void clear_w(int state);
+	void preset_w(int state);
+	void clock_w(int state);
+	void d_w(int state);
+	int output_r();
+	int output_comp_r();    // NOT strictly the same as !output_r()
 
 protected:
-	// device-level overrides
-	virtual void device_resolve_objects() override;
-	virtual void device_start() override;
-	virtual void device_reset() override;
+	// device_t implementation
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
 
 private:
 	// callbacks
@@ -103,4 +102,4 @@ private:
 // device type definition
 DECLARE_DEVICE_TYPE(TTL7474, ttl7474_device)
 
-#endif // MAME_MACHINE_TTL7474_H
+#endif // MAME_MACHINE_7474_H

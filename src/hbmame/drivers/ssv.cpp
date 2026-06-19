@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/ssv.cpp"
+#include "../mame/seta/ssv.cpp"
 
 /***************
  Survival Arts
@@ -11,7 +11,7 @@ ROM_START( survarts01 )
 	ROM_LOAD16_BYTE( "prl-r6_s01.u4", 0x000000, 0x080000, CRC(9daf2473) SHA1(f2375ba98f84373c00109e55841dab2c582d0ba6) )
 	ROM_LOAD16_BYTE( "prh-r5_s01.u3", 0x000001, 0x080000, CRC(5d0d1f56) SHA1(a46a8eaf07db5200219b954ffc954759328cbadb) )
 
-	ROM_REGION( 0x1800000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x1800000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD( "si001-01.u27", 0x0000000, 0x200000, CRC(8b38fbab) SHA1(c4a67b24b33d4eef7b0f885bd69cae6c67bd3981) )
 	ROM_LOAD( "si001-04.u26", 0x0200000, 0x200000, CRC(34248b54) SHA1(077198f8de1622b71c580e34d5ad1b6bf3229fe9) )
 	ROM_LOAD( "si001-07.u25", 0x0400000, 0x200000, CRC(497d6151) SHA1(a9860c75943c0fd2991660ce2a9505edc6c2fa46) )

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/trackfld.cpp"
+#include "../mame/konami/trackfld.cpp"
 
 ROM_START( athens04 )
 	ROM_REGION( 0x10000, "maincpu", 0 )

@@ -2,8 +2,6 @@
 // copyright-holders:Aaron Giles
 /***************************************************************************
 
-    eepromser.h
-
     Serial EEPROM devices.
 
 ***************************************************************************/
@@ -29,6 +27,7 @@ public:
 	// inline configuration helpers
 	void enable_streaming(bool enable) { m_streaming_enabled = enable; }
 	void enable_output_on_falling_clock(bool enable) { m_output_on_falling_clock_enabled = enable; }
+	void set_do_tristate(bool value) { m_do_tristate = value; }
 	auto do_callback() { return m_do_cb.bind(); }
 
 protected:
@@ -36,7 +35,7 @@ protected:
 	eeprom_serial_base_device(const machine_config &mconfig, device_type devtype, const char *tag, device_t *owner, eeprom_serial_streaming enable_streaming);
 
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	// read interfaces differ between implementations
 
@@ -92,11 +91,11 @@ protected:
 	virtual void parse_command_and_address() = 0;
 	virtual void execute_command();
 
-
 	// configuration state
 	uint8_t         m_command_address_bits;     // number of address bits in a command
 	bool            m_streaming_enabled;        // true if streaming is enabled
 	bool            m_output_on_falling_clock_enabled;  // true if the output pin is updated on the falling edge of the clock
+	bool            m_do_tristate;              // tri-state value of DO line
 	devcb_write_line m_do_cb;                   // callback to push state of DO line
 
 	// runtime state
@@ -122,12 +121,12 @@ class eeprom_serial_93cxx_device : public eeprom_serial_base_device
 {
 public:
 	// read handlers
-	DECLARE_READ_LINE_MEMBER(do_read);  // combined DO+READY/BUSY
+	int do_read();  // combined DO+READY/BUSY
 
 	// write handlers
-	DECLARE_WRITE_LINE_MEMBER(cs_write);        // CS signal (active high)
-	DECLARE_WRITE_LINE_MEMBER(clk_write);       // CLK signal (active high)
-	DECLARE_WRITE_LINE_MEMBER(di_write);        // DI
+	void cs_write(int state);        // CS signal (active high)
+	void clk_write(int state);       // CLK signal (active high)
+	void di_write(int state);        // DI
 
 protected:
 	// construction/destruction
@@ -154,13 +153,13 @@ class eeprom_serial_er5911_device : public eeprom_serial_base_device
 {
 public:
 	// read handlers
-	DECLARE_READ_LINE_MEMBER(do_read);          // DO
-	DECLARE_READ_LINE_MEMBER(ready_read);       // READY/BUSY only
+	int do_read();          // DO
+	int ready_read();       // READY/BUSY only
 
 	// write handlers
-	DECLARE_WRITE_LINE_MEMBER(cs_write);        // CS signal (active high)
-	DECLARE_WRITE_LINE_MEMBER(clk_write);       // CLK signal (active high)
-	DECLARE_WRITE_LINE_MEMBER(di_write);        // DI
+	void cs_write(int state);        // CS signal (active high)
+	void clk_write(int state);       // CLK signal (active high)
+	void di_write(int state);        // DI
 
 protected:
 	// construction/destruction
@@ -175,16 +174,16 @@ protected:
 
 class eeprom_serial_x24c44_device : public eeprom_serial_base_device
 {
-		//async recall not implemented
-		//async store not implemented
+	//async recall not implemented
+	//async store not implemented
 public:
 	// read handlers
-	DECLARE_READ_LINE_MEMBER(do_read);          // DO
+	int do_read();          // DO
 
 	// write handlers
-	DECLARE_WRITE_LINE_MEMBER(cs_write);        // CS signal (active high)
-	DECLARE_WRITE_LINE_MEMBER(clk_write);       // CLK signal (active high)
-	DECLARE_WRITE_LINE_MEMBER(di_write);        // DI
+	void cs_write(int state);        // CS signal (active high)
+	void clk_write(int state);       // CLK signal (active high)
+	void di_write(int state);        // DI
 
 protected:
 	// construction/destruction
@@ -197,7 +196,7 @@ protected:
 	void execute_command() override;
 	void copy_ram_to_eeprom();
 	void copy_eeprom_to_ram();
-	void device_start() override;
+	void device_start() override ATTR_COLD;
 	uint8_t m_ram_length;
 	uint16_t m_ram_data[16];
 	uint16_t m_reading;

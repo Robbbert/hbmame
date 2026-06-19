@@ -38,7 +38,7 @@ class crt9212_device : public device_t
 {
 public:
 	// construction/destruction
-	crt9212_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	crt9212_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void set_wen2(int state) { m_wen2 = state; }
 	auto dout() { return m_write_dout.bind(); }
@@ -57,7 +57,7 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 private:
 	static constexpr int RAM_SIZE  = 135;

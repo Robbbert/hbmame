@@ -29,12 +29,11 @@ public:
 protected:
 	virtual void device_add_mconfig(machine_config &config) override
 	{
-		SPEAKER(config, "outl").front_left();
-		SPEAKER(config, "outr").front_right();
+		SPEAKER(config, "out", 2).front();
 
-		SPEAKER_SOUND(config, m_left_speaker, 0).add_route(ALL_OUTPUTS, "outl", 0.50);
+		SPEAKER_SOUND(config, m_left_speaker).add_route(ALL_OUTPUTS, "out", 0.50, 0);
 
-		SPEAKER_SOUND(config, m_right_speaker, 0).add_route(ALL_OUTPUTS, "outr", 0.50);
+		SPEAKER_SOUND(config, m_right_speaker).add_route(ALL_OUTPUTS, "out", 0.50, 1);
 	}
 
 	virtual void device_start() override
@@ -42,12 +41,12 @@ protected:
 	}
 
 
-	virtual DECLARE_WRITE_LINE_MEMBER(input_tip) override
+	virtual void input_tip(int state) override
 	{
 		m_left_speaker->level_w(state);
 	}
 
-	virtual DECLARE_WRITE_LINE_MEMBER(input_ring) override
+	virtual void input_ring(int state) override
 	{
 		m_right_speaker->level_w(state);
 	}
@@ -79,7 +78,7 @@ protected:
 	{
 		SPEAKER(config, "mono").front_center();
 
-		SPEAKER_SOUND(config, m_speaker, 0).add_route(ALL_OUTPUTS, "mono", 0.50);
+		SPEAKER_SOUND(config, m_speaker).add_route(ALL_OUTPUTS, "mono", 0.50);
 	}
 
 	virtual void device_start() override
@@ -91,13 +90,13 @@ protected:
 	}
 
 
-	virtual DECLARE_WRITE_LINE_MEMBER(input_tip) override
+	virtual void input_tip(int state) override
 	{
 		m_tip_state = bool(state);
 		m_speaker->level_w((m_tip_state || m_ring_state) ? 1 : 0);
 	}
 
-	virtual DECLARE_WRITE_LINE_MEMBER(input_ring) override
+	virtual void input_ring(int state) override
 	{
 		m_ring_state = bool(state);
 		m_speaker->level_w((m_tip_state || m_ring_state) ? 1 : 0);

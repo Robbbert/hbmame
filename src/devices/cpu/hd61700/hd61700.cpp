@@ -110,11 +110,11 @@ hd61700_cpu_device::hd61700_cpu_device(const machine_config &mconfig, const char
 	, m_pc(0)
 	, m_flags(0)
 	, m_lcd_ctrl_cb(*this)
-	, m_lcd_read_cb(*this)
+	, m_lcd_read_cb(*this, 0xff)
 	, m_lcd_write_cb(*this)
-	, m_kb_read_cb(*this)
+	, m_kb_read_cb(*this, 0xff)
 	, m_kb_write_cb(*this)
-	, m_port_read_cb(*this)
+	, m_port_read_cb(*this, 0xff)
 	, m_port_write_cb(*this)
 {
 }
@@ -137,14 +137,6 @@ void hd61700_cpu_device::device_start()
 
 	m_sec_timer = timer_alloc(FUNC(hd61700_cpu_device::second_tick), this);
 	m_sec_timer->adjust(attotime::from_seconds(1), 0, attotime::from_seconds(1));
-
-	m_lcd_ctrl_cb.resolve_safe();
-	m_lcd_read_cb.resolve_safe(0xff);
-	m_lcd_write_cb.resolve_safe();
-	m_kb_read_cb.resolve_safe(0xff);
-	m_kb_write_cb.resolve_safe();
-	m_port_read_cb.resolve_safe(0xff);
-	m_port_write_cb.resolve_safe();
 
 	// save state
 	save_item(NAME(m_ppc));
@@ -304,6 +296,7 @@ bool hd61700_cpu_device::check_irqs()
 	{
 		if (BIT(REG_IB, i) && !BIT(m_irq_status, i))
 		{
+			standard_irq_callback(i, m_pc);
 			m_irq_status |= (1 << i);
 			push(REG_SS, (uint8_t)(m_pc >> 8));
 			push(REG_SS, (uint8_t)m_pc);
@@ -327,18 +320,18 @@ void hd61700_cpu_device::execute_run()
 {
 	do
 	{
-		m_ppc = m_curpc;
-
-		debugger_instruction_hook(m_curpc);
-
 		// verify that CPU is not in sleep
 		if (m_state & CPU_SLP)
 		{
+			debugger_wait_hook();
 			m_icount -= 6;
 		}
 		else
 		{
 			check_irqs();
+
+			m_ppc = m_curpc;
+			debugger_instruction_hook(m_curpc);
 
 			// instruction fetch
 			uint8_t op = read_op();

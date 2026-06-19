@@ -21,7 +21,7 @@ DEFINE_DEVICE_TYPE(SPG28X,     spg28x_device,     "spg28x", "SPG280-series Syste
 
 spg2xx_device::spg2xx_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, uint16_t sprite_limit, address_map_constructor internal) :
 	unsp_device(mconfig, type, tag, owner, clock, internal),
-	device_mixer_interface(mconfig, *this, 2),
+	device_mixer_interface(mconfig, *this),
 	m_spg_audio(*this, "spgaudio"),
 	m_spg_io(*this, "spgio"),
 	m_spg_sysdma(*this, "spgsysdma"),
@@ -30,14 +30,14 @@ spg2xx_device::spg2xx_device(const machine_config &mconfig, device_type type, co
 	m_porta_out(*this),
 	m_portb_out(*this),
 	m_portc_out(*this),
-	m_porta_in(*this),
-	m_portb_in(*this),
-	m_portc_in(*this),
-	m_adc_in(*this),
-	m_guny_in(*this),
-	m_gunx_in(*this),
+	m_porta_in(*this, 0),
+	m_portb_in(*this, 0),
+	m_portc_in(*this, 0),
+	m_adc_in(*this, 0x0fff),
+	m_guny_in(*this, 0),
+	m_gunx_in(*this, 0),
 	m_i2c_w(*this),
-	m_i2c_r(*this),
+	m_i2c_r(*this, 0),
 	m_uart_tx(*this),
 	m_spi_tx(*this),
 	m_chip_sel(*this),
@@ -86,21 +86,6 @@ void spg2xx_device::device_start()
 {
 	unsp_device::device_start();
 
-	m_porta_out.resolve_safe();
-	m_portb_out.resolve_safe();
-	m_portc_out.resolve_safe();
-	m_porta_in.resolve_safe(0);
-	m_portb_in.resolve_safe(0);
-	m_portc_in.resolve_safe(0);
-	m_adc_in.resolve_all_safe(0x0fff);
-	m_guny_in.resolve_safe(0);
-	m_gunx_in.resolve_safe(0);
-	m_i2c_w.resolve_safe();
-	m_i2c_r.resolve_safe(0);
-	m_uart_tx.resolve_safe();
-	m_spi_tx.resolve_safe();
-	m_chip_sel.resolve_safe();
-
 	save_item(NAME(m_sprite_limit));
 	save_item(NAME(m_pal_flag));
 	save_item(NAME(m_fiq_vector));
@@ -117,7 +102,7 @@ void spg2xx_device::fiq_vector_w(uint8_t data)
 	m_fiq_vector = data;
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::videoirq_w)
+void spg2xx_device::videoirq_w(int state)
 {
 	if (m_fiq_vector == 0)
 	{
@@ -129,37 +114,37 @@ WRITE_LINE_MEMBER(spg2xx_device::videoirq_w)
 	}
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::timerirq_w)
+void spg2xx_device::timerirq_w(int state)
 {
 	set_state_unsynced(UNSP_IRQ2_LINE, state);
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::uartirq_w)
+void spg2xx_device::uartirq_w(int state)
 {
 	set_state_unsynced(UNSP_IRQ3_LINE, state);
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::audioirq_w)
+void spg2xx_device::audioirq_w(int state)
 {
 	set_state_unsynced(UNSP_IRQ4_LINE, state);
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::audiochirq_w)
+void spg2xx_device::audiochirq_w(int state)
 {
 	set_state_unsynced(UNSP_FIQ_LINE, state);
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::extirq_w)
+void spg2xx_device::extirq_w(int state)
 {
 	set_state_unsynced(UNSP_IRQ5_LINE, state);
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::ffreq1_w)
+void spg2xx_device::ffreq1_w(int state)
 {
 	set_state_unsynced(UNSP_IRQ6_LINE, state);
 }
 
-WRITE_LINE_MEMBER(spg2xx_device::ffreq2_w)
+void spg2xx_device::ffreq2_w(int state)
 {
 	set_state_unsynced(UNSP_IRQ7_LINE, state);
 }
@@ -208,8 +193,8 @@ void spg24x_device::device_add_mconfig(machine_config &config)
 	m_spg_audio->channel_irq_callback().set(FUNC(spg24x_device::audiochirq_w));
 	m_spg_audio->space_read_callback().set(FUNC(spg24x_device::space_r));
 
-	m_spg_audio->add_route(0, *this, 1.0, AUTO_ALLOC_INPUT, 0);
-	m_spg_audio->add_route(1, *this, 1.0, AUTO_ALLOC_INPUT, 1);
+	m_spg_audio->add_route(0, *this, 1.0, 0);
+	m_spg_audio->add_route(1, *this, 1.0, 1);
 
 	SPG24X_IO(config, m_spg_io, DERIVED_CLOCK(1, 1), DEVICE_SELF, m_screen);
 

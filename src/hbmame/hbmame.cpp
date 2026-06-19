@@ -9,6 +9,7 @@
 ****************************************************************************/
 
 #include "emu.h"
+#include "main.h"
 
 #define APPNAME             "HBMAME"
 #define APPNAME_LOWER       "hbmame"

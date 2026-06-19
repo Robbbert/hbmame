@@ -307,7 +307,7 @@ public:
 	DECLARE_VIDEO_START(cps);
 	DECLARE_MACHINE_START(sf2m1);
 	u32 screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
+	void screen_vblank_cps1(int state);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
 	void cpu_space_map(address_map &map);

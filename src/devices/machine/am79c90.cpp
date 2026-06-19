@@ -5,12 +5,13 @@
  * AMD Am7990 Local Area Network Controller for Ethernet (LANCE) and Am79C90
  * CMOS Local Area Network Controller for Ethernet (C-LANCE).
  *
+ * Usually supported by the Am7992B Serial Interface Adapter, which generates TCLK by dividing its crystal oscillator input by 2.
+ *
  * Sources:
+ *  - Am7990 Local Area Network Controller for Ethernet (LANCE), Publication #05698, Rev. C, June 1990, Advanced Micro Devices
+ *  - Am79C90 CMOS Local Area Network Controller for Ethernet (C-LANCE), Publication #17881, Rev. C, January 1998, Advanced Micro Devices
  *
- *  http://bitsavers.org/components/amd/Am7990/Am7990.pdf
- *  http://bitsavers.org/components/amd/Am7990/Am79c90.pdf
- *
- * TODO
+ * TODO:
  *   - external loopback
  *   - hp9k/3xx diagnostic failures
  *
@@ -44,7 +45,8 @@
 #include "emu.h"
 #include "am79c90.h"
 
-#define LOG_GENERAL (1U << 0)
+#include "multibyte.h"
+
 #define LOG_REG     (1U << 1)
 #define LOG_INIT    (1U << 2)
 #define LOG_RXTX    (1U << 3)
@@ -61,8 +63,9 @@ am7990_device_base::am7990_device_base(const machine_config &mconfig, device_typ
 	: device_t(mconfig, type, tag, owner, clock)
 	, device_network_interface(mconfig, *this, 10)
 	, m_intr_out_cb(*this)
-	, m_dma_in_cb(*this)
+	, m_dma_in_cb(*this, 0)
 	, m_dma_out_cb(*this)
+	, m_interrupt(nullptr)
 	, m_transmit_poll(nullptr)
 	, m_intr_out_state(1)
 {
@@ -83,10 +86,7 @@ constexpr attotime am7990_device_base::TX_POLL_PERIOD;
 
 void am7990_device_base::device_start()
 {
-	m_intr_out_cb.resolve_safe();
-	m_dma_in_cb.resolve_safe(0);
-	m_dma_out_cb.resolve_safe();
-
+	m_interrupt = timer_alloc(FUNC(am7990_device_base::interrupt), this);
 	m_transmit_poll = timer_alloc(FUNC(am7990_device_base::transmit_poll), this);
 	m_transmit_poll->adjust(TX_POLL_PERIOD, 0, TX_POLL_PERIOD);
 
@@ -126,16 +126,23 @@ void am7990_device_base::device_reset()
 	update_interrupts();
 }
 
-void am7990_device_base::update_interrupts()
+void am7990_device_base::interrupt(s32 param)
 {
-	if (m_csr[0] & CSR0_INTR)
+	m_intr_out_cb(param);
+}
+
+void am7990_device_base::update_interrupts(attotime const delay)
+{
+	if (m_csr[0] & CSR0_INEA)
 	{
-		// assert intr if interrupts are enabled and not asserted
-		if ((m_csr[0] & CSR0_INEA) && m_intr_out_state)
+		// update intr
+		if (bool(m_csr[0] & CSR0_INTR) == m_intr_out_state)
 		{
 			m_intr_out_state = !m_intr_out_state;
-			m_intr_out_cb(m_intr_out_state);
-			LOG("interrupt asserted\n");
+			m_interrupt->adjust(delay, m_intr_out_state);
+
+			if (!m_intr_out_state)
+				LOG("interrupt asserted\n");
 		}
 	}
 	else
@@ -144,7 +151,7 @@ void am7990_device_base::update_interrupts()
 		if (!m_intr_out_state)
 		{
 			m_intr_out_state = !m_intr_out_state;
-			m_intr_out_cb(m_intr_out_state);
+			m_interrupt->adjust(delay, m_intr_out_state);
 		}
 	}
 }
@@ -185,7 +192,8 @@ int am7990_device_base::receive(u8 *buf, int length)
 		return -1;
 
 	LOGMASKED(LOG_RXTX, "receive packet length %d\n", length);
-	dump_bytes(buf, length);
+	if (VERBOSE & LOG_PACKETS)
+		log_bytes(buf, length);
 
 	// check we have a buffer
 	u32 ring_address = (m_rx_ring_base + (m_rx_ring_pos << 3)) & RING_ADDR_MASK;
@@ -289,7 +297,7 @@ void am7990_device_base::recv_complete_cb(int result)
 			LOGMASKED(LOG_RXTX, "receive complete rmd1 0x%04x rmd3 %d\n", m_rx_md[1], result & RMD3_MCNT);
 
 			m_dma_out_cb(ring_address | 2, m_rx_md[1]);
-			m_dma_out_cb(ring_address | 6, result & RMD3_MCNT);
+			m_dma_out_cb(ring_address | 6, (m_rx_md[1] & RMD1_ERR) ? 0 : (result & RMD3_MCNT));
 
 			// advance the ring
 			m_rx_ring_pos = (m_rx_ring_pos + 1) & m_rx_ring_mask;
@@ -442,14 +450,13 @@ void am7990_device_base::transmit()
 		u32 const crc = util::crc32_creator::simple(buf, length);
 
 		// insert the fcs
-		buf[length++] = crc >> 0;
-		buf[length++] = crc >> 8;
-		buf[length++] = crc >> 16;
-		buf[length++] = crc >> 24;
+		put_u32le(&buf[length], crc);
+		length += 4;
 	}
 
 	LOGMASKED(LOG_RXTX, "transmit sending packet length %d\n", length);
-	dump_bytes(buf, length);
+	if (VERBOSE & LOG_PACKETS)
+		log_bytes(buf, length);
 
 	// handle loopback
 	if (m_mode & MODE_LOOP)
@@ -546,6 +553,8 @@ void am7990_device_base::regs_w(offs_t offset, u16 data)
 	{
 		LOGMASKED(LOG_REG, "regs_w csr%d data 0x%04x (%s)\n", m_rap, data, machine().describe_context());
 
+		attotime delay = attotime::zero;
+
 		switch (m_rap)
 		{
 		case 0: // Control/Status
@@ -574,7 +583,17 @@ void am7990_device_base::regs_w(offs_t offset, u16 data)
 			if ((data & CSR0_INIT) && !(m_csr[0] & CSR0_INIT))
 			{
 				if (m_csr[0] & CSR0_STOP)
+				{
 					initialize();
+
+					/*
+					 * Initialization reads 12 words from the bus using single
+					 * word DMA transfers. Allow 2 cycles for bus acquisition
+					 * and release, plus 6 cycles for each single word DMA
+					 * transfer.
+					 */
+					delay = attotime::from_ticks((1 + 6 + 1) * 12, clock());
+				}
 				else
 					m_csr[0] |= m_idon ? CSR0_IDON : CSR0_INIT;
 			}
@@ -652,7 +671,7 @@ void am7990_device_base::regs_w(offs_t offset, u16 data)
 			else
 				m_csr[0] &= ~CSR0_INTR;
 
-			update_interrupts();
+			update_interrupts(delay);
 			break;
 
 		case 1: // Least significant 15 bits of the Initialization Block
@@ -694,15 +713,10 @@ void am7990_device_base::initialize()
 
 	m_mode = init_block[0];
 
-	set_promisc(m_mode & MODE_PROM);
-
-	m_physical_addr[0] = init_block[1];
-	m_physical_addr[1] = init_block[1] >> 8;
-	m_physical_addr[2] = init_block[2];
-	m_physical_addr[3] = init_block[2] >> 8;
-	m_physical_addr[4] = init_block[3];
-	m_physical_addr[5] = init_block[3] >> 8;
-	set_mac((char *)m_physical_addr);
+	put_u16le(&m_physical_addr[0], init_block[1]);
+	put_u16le(&m_physical_addr[2], init_block[2]);
+	put_u16le(&m_physical_addr[4], init_block[3]);
+	set_mac(m_physical_addr);
 
 	m_logical_addr_filter = (u64(init_block[7]) << 48) | (u64(init_block[6]) << 32) | (u32(init_block[5]) << 16) | init_block[4];
 
@@ -749,15 +763,9 @@ void am7990_device_base::dma_in(u32 address, u8 *buf, int length)
 		u16 const word = m_dma_in_cb(address);
 
 		if (m_csr[3] & CSR3_BSWP)
-		{
-			buf[0] = word >> 8;
-			buf[1] = word & 0xff;
-		}
+			put_u16be(&buf[0], word);
 		else
-		{
-			buf[0] = word & 0xff;
-			buf[1] = word >> 8;
-		}
+			put_u16le(&buf[0], word);
 
 		buf += 2;
 		address += 2;
@@ -798,7 +806,7 @@ void am7990_device_base::dma_out(u32 address, u8 *buf, int length)
 	// word loop
 	while (length > 1)
 	{
-		u16 const word = (m_csr[3] & CSR3_BSWP) ? (buf[0] << 8) | buf[1] : (buf[1] << 8) | buf[0];
+		u16 const word = (m_csr[3] & CSR3_BSWP) ? get_u16be(&buf[0]) : get_u16le(&buf[0]);
 
 		m_dma_out_cb(address, word);
 
@@ -818,22 +826,6 @@ void am7990_device_base::dma_out(u32 address, u8 *buf, int length)
 		buf++;
 		address++;
 		length--;
-	}
-}
-
-void am7990_device_base::dump_bytes(u8 *buf, int length)
-{
-	if (VERBOSE & LOG_PACKETS)
-	{
-		// pad with zeros to 8-byte boundary
-		for (int i = 0; i < 8 - (length % 8); i++)
-			buf[length + i] = 0;
-
-		// dump length / 8 (rounded up) groups of 8 bytes
-		for (int i = 0; i < (length + 7) / 8; i++)
-			LOGMASKED(LOG_PACKETS, "%02x %02x %02x %02x %02x %02x %02x %02x\n",
-				buf[i * 8 + 0], buf[i * 8 + 1], buf[i * 8 + 2], buf[i * 8 + 3],
-				buf[i * 8 + 4], buf[i * 8 + 5], buf[i * 8 + 6], buf[i * 8 + 7]);
 	}
 }
 

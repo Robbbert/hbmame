@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/taito_f3.cpp"
+#include "../mame/taito/taito_f3.cpp"
 
 /*******************
  Cleopatra Fortune

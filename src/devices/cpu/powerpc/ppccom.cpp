@@ -10,8 +10,14 @@
 
 #include "emu.h"
 #include "ppccom.h"
+
 #include "ppcfe.h"
 #include "ppc_dasm.h"
+
+#include "emuopts.h"
+
+#include "endianness.h"
+
 
 /***************************************************************************
     DEBUGGING
@@ -165,33 +171,33 @@ static const uint8_t fcmp_cr_table_source[32] =
 	/* ...V. */ 0x4,
 	/* ...VC */ 0x8,
 	/* ..Z.. */ 0x2,
-	/* ..Z.C */ 0xa,
+	/* ..Z.C */ 0x2,
 	/* ..ZV. */ 0x2,
-	/* ..ZVC */ 0xa,
+	/* ..ZVC */ 0x2,
 	/* .S... */ 0x4,
 	/* .S..C */ 0x8,
 	/* .S.V. */ 0x4,
 	/* .S.VC */ 0x8,
 	/* .SZ.. */ 0x2,
-	/* .SZ.C */ 0xa,
+	/* .SZ.C */ 0x2,
 	/* .SZV. */ 0x2,
-	/* .SZVC */ 0xa,
-	/* U.... */ 0x5,
-	/* U...C */ 0x9,
-	/* U..V. */ 0x5,
-	/* U..VC */ 0x9,
-	/* U.Z.. */ 0x3,
-	/* U.Z.C */ 0xb,
-	/* U.ZV. */ 0x3,
-	/* U.ZVC */ 0xb,
-	/* US... */ 0x5,
-	/* US..C */ 0x9,
-	/* US.V. */ 0x5,
-	/* US.VC */ 0x9,
-	/* USZ.. */ 0x3,
-	/* USZ.C */ 0xb,
-	/* USZV. */ 0x3,
-	/* USZVC */ 0xb
+	/* .SZVC */ 0x2,
+	/* U.... */ 0x1,
+	/* U...C */ 0x1,
+	/* U..V. */ 0x1,
+	/* U..VC */ 0x1,
+	/* U.Z.. */ 0x1,
+	/* U.Z.C */ 0x1,
+	/* U.ZV. */ 0x1,
+	/* U.ZVC */ 0x1,
+	/* US... */ 0x1,
+	/* US..C */ 0x1,
+	/* US.V. */ 0x1,
+	/* US.VC */ 0x1,
+	/* USZ.. */ 0x1,
+	/* USZ.C */ 0x1,
+	/* USZV. */ 0x1,
+	/* USZVC */ 0x1
 };
 
 
@@ -205,6 +211,8 @@ DEFINE_DEVICE_TYPE(MPC8240,   mpc8240_device,   "mpc8240",    "IBM PowerPC MPC82
 DEFINE_DEVICE_TYPE(PPC403GA,  ppc403ga_device,  "ppc403ga",   "IBM PowerPC 403GA")
 DEFINE_DEVICE_TYPE(PPC403GCX, ppc403gcx_device, "ppc403gcx",  "IBM PowerPC 403GCX")
 DEFINE_DEVICE_TYPE(PPC405GP,  ppc405gp_device,  "ppc405gp",   "IBM PowerPC 405GP")
+DEFINE_DEVICE_TYPE(PPC740,    ppc740_device,    "ppc740",     "IBM PowerPC 740")
+DEFINE_DEVICE_TYPE(PPC750,    ppc750_device,    "ppc750",     "IBM PowerPC 750")
 
 
 ppc_device::ppc_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, int address_bits, int data_bits, powerpc_flavor flavor, uint32_t cap, uint32_t tb_divisor, address_map_constructor internal_map)
@@ -212,6 +220,7 @@ ppc_device::ppc_device(const machine_config &mconfig, device_type type, const ch
 	, device_vtlb_interface(mconfig, *this, AS_PROGRAM)
 	, m_program_config("program", ENDIANNESS_BIG, data_bits, address_bits, 0, internal_map)
 	, c_bus_frequency(0)
+	, c_serial_clock(0)
 	, m_core(nullptr)
 	, m_bus_freq_multiplier(1)
 	, m_flavor(flavor)
@@ -278,12 +287,28 @@ mpc8240_device::mpc8240_device(const machine_config &mconfig, const char *tag, d
 }
 
 ppc601_device::ppc601_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: ppc_device(mconfig, PPC601, tag, owner, clock, 32, 64, PPC_MODEL_601, PPCCAP_OEA | PPCCAP_VEA | PPCCAP_FPU | PPCCAP_MISALIGNED | PPCCAP_MFIOC | PPCCAP_601BAT, 0/* no TB */, address_map_constructor())
+	: ppc_device(mconfig, PPC601, tag, owner, clock, 32, 64, PPC_MODEL_601, PPCCAP_OEA | PPCCAP_VEA | PPCCAP_FPU | PPCCAP_MISALIGNED | PPCCAP_MFIOC | PPCCAP_601BAT | PPCCAP_LEGACY_POWER, 0 /* no TB */, address_map_constructor())
 {
+}
+
+std::unique_ptr<util::disasm_interface> ppc601_device::create_disassembler()
+{
+	// 601 has both POWER and PowerPC instructions
+	return std::make_unique<powerpc_disassembler>((powerpc_disassembler::implementation)(powerpc_disassembler::I_POWER|powerpc_disassembler::I_POWERPC));
 }
 
 ppc604_device::ppc604_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: ppc_device(mconfig, PPC604, tag, owner, clock, 32, 64, PPC_MODEL_604, PPCCAP_OEA | PPCCAP_VEA | PPCCAP_FPU | PPCCAP_MISALIGNED | PPCCAP_604_MMU, 4, address_map_constructor())
+{
+}
+
+ppc740_device::ppc740_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: ppc_device(mconfig, PPC740, tag, owner, clock, 32, 64, PPC_MODEL_740, PPCCAP_OEA | PPCCAP_VEA | PPCCAP_FPU | PPCCAP_MISALIGNED | PPCCAP_604_MMU | PPCCAP_750_TLB , 4, address_map_constructor())
+{
+}
+
+ppc750_device::ppc750_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: ppc_device(mconfig, PPC750, tag, owner, clock, 32, 64, PPC_MODEL_750, PPCCAP_OEA | PPCCAP_VEA | PPCCAP_FPU | PPCCAP_MISALIGNED | PPCCAP_604_MMU | PPCCAP_750_TLB, 4, address_map_constructor())
 {
 }
 
@@ -333,9 +358,9 @@ device_memory_interface::space_config_vector ppc_device::memory_space_config() c
 static inline bool page_access_allowed(int transtype, uint8_t key, uint8_t protbits)
 {
 	if (key == 0)
-		return (transtype == TRANSLATE_WRITE) ? (protbits != 3) : true;
+		return (transtype == device_memory_interface::TR_WRITE) ? (protbits != 3) : true;
 	else
-		return (transtype == TRANSLATE_WRITE) ? (protbits == 2) : (protbits != 0);
+		return (transtype == device_memory_interface::TR_WRITE) ? (protbits == 2) : (protbits != 0);
 }
 
 
@@ -492,8 +517,7 @@ static inline int is_qnan_double(double x)
 {
 	uint64_t xi = *(uint64_t*)&x;
 	return( ((xi & DOUBLE_EXP) == DOUBLE_EXP) &&
-			((xi & 0x0007fffffffffffU) == 0x000000000000000U) &&
-			((xi & 0x000800000000000U) == 0x000800000000000U) );
+			((xi & 0x0008000000000000U) == 0x0008000000000000U) );
 }
 
 
@@ -578,7 +602,8 @@ static inline int sign_double(double x)
 void ppc_device::device_start()
 {
 	/* allocate the core from the near cache */
-	m_core = (internal_ppc_state *)m_cache.alloc_near(sizeof(internal_ppc_state));
+	m_cache.allocate_cache(mconfig().options().drc_rwx());
+	m_core = m_cache.alloc_near<internal_ppc_state>();
 	memset(m_core, 0, sizeof(internal_ppc_state));
 
 	m_entry = nullptr;
@@ -701,7 +726,7 @@ void ppc_device::device_start()
 	m_sebr = 0;
 	m_ser = 0;
 
-	memset(&m_spu, 0, sizeof(m_spu));
+	m_spu.clear();
 	m_pit_reload = 0;
 	m_irqstate = 0;
 	memset(m_buffered_dma_rate, 0, sizeof(m_buffered_dma_rate));
@@ -709,6 +734,7 @@ void ppc_device::device_start()
 	m_cpu_clock = 0;
 	m_tb_zero_cycles = 0;
 	m_dec_zero_cycles = 0;
+	m_rtc_zero_cycles = 0;
 
 	m_arg1 = 0;
 	m_fastram_select = 0;
@@ -717,6 +743,8 @@ void ppc_device::device_start()
 	memset(m_hotspot, 0, sizeof(m_hotspot));
 
 	m_debugger_temp = 0;
+
+	m_serial_clock = 0;
 
 	m_cache_line_size = 32;
 	m_cpu_clock = clock();
@@ -751,6 +779,10 @@ void ppc_device::device_start()
 	m_dcr_write_func.set(nullptr);
 
 	m_tb_divisor = (m_tb_divisor * clock() + m_system_clock / 2 - 1) / m_system_clock;
+
+	m_serial_clock = c_serial_clock != 0 ? c_serial_clock : 3'686'400; // TODO: get rid of this hard-coded magic number
+	if (m_serial_clock > m_system_clock / 2)
+		fatalerror("%s: PPC: serial clock (%d) must not be more than half of the system clock (%d)\n", tag(), m_serial_clock, m_system_clock);
 
 	/* allocate a timer for the compare interrupt */
 	if ((m_cap & PPCCAP_OEA) && (m_tb_divisor))
@@ -813,6 +845,11 @@ void ppc_device::device_start()
 	state_add(PPC_PC,    "PC", m_core->pc).formatstr("%08X");
 	state_add(PPC_MSR,   "MSR", m_core->msr).formatstr("%08X");
 	state_add(PPC_CR,    "CR", m_debugger_temp).callimport().callexport().formatstr("%08X");
+	// If the legacy POWER instructions exist, that implies MQ is used and should be shown
+	if (m_cap & PPCCAP_LEGACY_POWER)
+	{
+		state_add(PPC_MQ,    "MQ", m_core->spr[SPR601_MQ]).formatstr("%08X");
+	}
 	state_add(PPC_LR,    "LR", m_core->spr[SPR_LR]).formatstr("%08X");
 	state_add(PPC_CTR,   "CTR", m_core->spr[SPR_CTR]).formatstr("%08X");
 	state_add(PPC_XER,   "XER", m_debugger_temp).callimport().callexport().formatstr("%08X");
@@ -857,15 +894,15 @@ void ppc_device::device_start()
 	for (int regnum = 0; regnum < 32; regnum++)
 	{
 		char buf[10];
-		sprintf(buf, "r%d", regnum);
+		snprintf(buf, 10, "r%d", regnum);
 		m_drcuml->symbol_add(&m_core->r[regnum], sizeof(m_core->r[regnum]), buf);
-		sprintf(buf, "fpr%d", regnum);
+		snprintf(buf, 10, "fpr%d", regnum);
 		m_drcuml->symbol_add(&m_core->f[regnum], sizeof(m_core->f[regnum]), buf);
 	}
 	for (int regnum = 0; regnum < 8; regnum++)
 	{
 		char buf[10];
-		sprintf(buf, "cr%d", regnum);
+		snprintf(buf, 10, "cr%d", regnum);
 		m_drcuml->symbol_add(&m_core->cr[regnum], sizeof(m_core->cr[regnum]), buf);
 	}
 	m_drcuml->symbol_add(&m_core->xerso, sizeof(m_core->xerso), "xerso");
@@ -929,6 +966,65 @@ void ppc_device::device_start()
 			m_fdregmap[30] = uml::F7;
 		if (beinfo.direct_fregs > 8)
 			m_fdregmap[31] = uml::F8;
+	}
+
+	try
+	{
+		/* generate the entry point and out-of-cycles handlers */
+		static_generate_entry_point();
+		static_generate_nocode_handler();
+		static_generate_out_of_cycles();
+		static_generate_tlb_mismatch();
+		if (m_cap & PPCCAP_603_MMU)
+			static_generate_swap_tgpr();
+
+		/* append exception handlers for various types */
+		static_generate_exception(EXCEPTION_RESET,     true,  "exception_reset");
+		static_generate_exception(EXCEPTION_MACHCHECK, true,  "exception_machine_check");
+		static_generate_exception(EXCEPTION_DSI,       true,  "exception_dsi");
+		static_generate_exception(EXCEPTION_ISI,       true,  "exception_isi");
+		static_generate_exception(EXCEPTION_EI,        true,  "exception_ei");
+		static_generate_exception(EXCEPTION_EI,        false, "exception_ei_norecover");
+		static_generate_exception(EXCEPTION_ALIGN,     true,  "exception_align");
+		static_generate_exception(EXCEPTION_PROGRAM,   true,  "exception_program");
+		static_generate_exception(EXCEPTION_NOFPU,     true,  "exception_fpu_unavailable");
+		static_generate_exception(EXCEPTION_DECREMENT, true,  "exception_decrementer");
+		static_generate_exception(EXCEPTION_SYSCALL,   true,  "exception_syscall");
+		static_generate_exception(EXCEPTION_TRACE,     true,  "exception_trace");
+		static_generate_exception(EXCEPTION_FPASSIST,  true,  "exception_floating_point_assist");
+		if (m_cap & PPCCAP_603_MMU)
+		{
+			static_generate_exception(EXCEPTION_ITLBMISS,  true,  "exception_itlb_miss");
+			static_generate_exception(EXCEPTION_DTLBMISSL, true,  "exception_dtlb_miss_load");
+			static_generate_exception(EXCEPTION_DTLBMISSS, true,  "exception_dtlb_miss_store");
+		}
+
+		/* add subroutines for memory accesses */
+		for (int mode = 0; mode < 8; mode++)
+		{
+			static_generate_memory_accessor(mode, 1, false, false, "read8",       m_read8[mode],       nullptr);
+			static_generate_memory_accessor(mode, 1, true,  false, "write8",      m_write8[mode],      nullptr);
+			static_generate_memory_accessor(mode, 2, false, true,  "read16mask",  m_read16mask[mode],  nullptr);
+			static_generate_memory_accessor(mode, 2, false, false, "read16",      m_read16[mode],      m_read16mask[mode]);
+			static_generate_memory_accessor(mode, 2, true,  true,  "write16mask", m_write16mask[mode], nullptr);
+			static_generate_memory_accessor(mode, 2, true,  false, "write16",     m_write16[mode],     m_write16mask[mode]);
+			static_generate_memory_accessor(mode, 4, false, true,  "read32mask",  m_read32mask[mode],  nullptr);
+			static_generate_memory_accessor(mode, 4, false, false, "read32align", m_read32align[mode], nullptr);
+			static_generate_memory_accessor(mode, 4, false, false, "read32",      m_read32[mode],      m_read32mask[mode]);
+			static_generate_memory_accessor(mode, 4, true,  true,  "write32mask", m_write32mask[mode], nullptr);
+			static_generate_memory_accessor(mode, 4, true,  false, "write32align",m_write32align[mode],nullptr);
+			static_generate_memory_accessor(mode, 4, true,  false, "write32",     m_write32[mode],     m_write32mask[mode]);
+			static_generate_memory_accessor(mode, 8, false, true,  "read64mask",  m_read64mask[mode],  nullptr);
+			static_generate_memory_accessor(mode, 8, false, false, "read64",      m_read64[mode],      m_read64mask[mode]);
+			static_generate_memory_accessor(mode, 8, true,  true,  "write64mask", m_write64mask[mode], nullptr);
+			static_generate_memory_accessor(mode, 8, true,  false, "write64",     m_write64[mode],     m_write64mask[mode]);
+			static_generate_lsw_entries(mode);
+			static_generate_stsw_entries(mode);
+		}
+	}
+	catch (drcuml_block::abort_compilation &)
+	{
+		fatalerror("Error generating PPC static handlers\n");
 	}
 
 	/* mark the cache dirty so it is updated on next execute */
@@ -1201,7 +1297,7 @@ void ppc_device::device_reset()
 
 std::unique_ptr<util::disasm_interface> ppc_device::create_disassembler()
 {
-	return std::make_unique<powerpc_disassembler>();
+	return std::make_unique<powerpc_disassembler>(powerpc_disassembler::I_POWERPC);
 }
 
 
@@ -1230,10 +1326,10 @@ void ppc_device::ppccom_dcstore_callback()
     filling
 -------------------------------------------------*/
 
-uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &address)
+uint32_t ppc_device::ppccom_translate_address_internal(int intention, bool debug, offs_t &address)
 {
-	int transpriv = ((intention & TRANSLATE_USER_MASK) == 0);   // 1 for supervisor, 0 for user
-	int transtype = intention & TRANSLATE_TYPE_MASK;
+	int transpriv = ((intention & TR_USER) == 0);   // 1 for supervisor, 0 for user
+	int transtype = intention & TR_TYPE;
 	offs_t hash, hashbase, hashmask;
 	int batbase, batnum, hashnum;
 	uint32_t segreg;
@@ -1246,7 +1342,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 			fatalerror("MMU enabled but not supported!\n");
 
 		/* only check if PE is enabled */
-		if (transtype == TRANSLATE_WRITE && (m_core->msr & MSR4XX_PE))
+		if (transtype == TR_WRITE && (m_core->msr & MSR4XX_PE))
 		{
 			/* are we within one of the protection ranges? */
 			int inrange1 = ((address >> 12) >= (m_core->spr[SPR4XX_PBL1] >> 12) && (address >> 12) < (m_core->spr[SPR4XX_PBU1] >> 12));
@@ -1265,7 +1361,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 		return 0x001;
 
 	/* also no translation necessary if translation is disabled */
-	if ((transtype == TRANSLATE_FETCH && (m_core->msr & MSROEA_IR) == 0) || (transtype != TRANSLATE_FETCH && (m_core->msr & MSROEA_DR) == 0))
+	if ((transtype == TR_FETCH && (m_core->msr & MSROEA_IR) == 0) || (transtype != TR_FETCH && (m_core->msr & MSROEA_DR) == 0))
 		return 0x001;
 
 	/* first scan the appropriate BAT */
@@ -1275,9 +1371,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 		{
 			uint32_t upper = m_core->spr[SPROEA_IBAT0U + 2*batnum + 0];
 			uint32_t lower = m_core->spr[SPROEA_IBAT0U + 2*batnum + 1];
-			int privbit = ((intention & TRANSLATE_USER_MASK) == 0) ? 3 : 2;
-
-//            printf("bat %d upper = %08x privbit %d\n", batnum, upper, privbit);
+			int privbit = ((intention & TR_USER) == 0) ? 3 : 2;
 
 			// is this pair valid?
 			if (lower & 0x40)
@@ -1292,7 +1386,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 					/* verify protection; if we fail, return false and indicate a protection violation */
 					if (!page_access_allowed(transtype, key, upper & 3))
 					{
-						return DSISR_PROTECTED | ((transtype == TRANSLATE_WRITE) ? DSISR_STORE : 0);
+						return DSISR_PROTECTED | ((transtype == TR_WRITE) ? DSISR_STORE : 0);
 					}
 
 					/* otherwise we're good */
@@ -1305,7 +1399,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 	}
 	else
 	{
-		batbase = (transtype == TRANSLATE_FETCH) ? SPROEA_IBAT0U : SPROEA_DBAT0U;
+		batbase = (transtype == TR_FETCH) ? SPROEA_IBAT0U : SPROEA_DBAT0U;
 
 		for (batnum = 0; batnum < 4; batnum++)
 		{
@@ -1324,7 +1418,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 					/* verify protection; if we fail, return false and indicate a protection violation */
 					if (!page_access_allowed(transtype, 1, lower & 3))
 					{
-						return DSISR_PROTECTED | ((transtype == TRANSLATE_WRITE) ? DSISR_STORE : 0);
+						return DSISR_PROTECTED | ((transtype == TR_WRITE) ? DSISR_STORE : 0);
 					}
 
 					/* otherwise we're good */
@@ -1346,13 +1440,13 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 
 	/* look up the segment register */
 	segreg = m_core->sr[address >> 28];
-	if (transtype == TRANSLATE_FETCH && (segreg & 0x10000000))
-		return DSISR_PROTECTED | ((transtype == TRANSLATE_WRITE) ? DSISR_STORE : 0);
+	if (transtype == TR_FETCH && (segreg & 0x10000000))
+		return DSISR_PROTECTED | ((transtype == TR_WRITE) ? DSISR_STORE : 0);
 
 	/* check for memory-forced I/O */
 	if (m_cap & PPCCAP_MFIOC)
 	{
-		if ((transtype != TRANSLATE_FETCH) && ((segreg & 0x87f00000) == 0x87f00000))
+		if ((transtype != TR_FETCH) && ((segreg & 0x87f00000) == 0x87f00000))
 		{
 			address = ((segreg & 0xf)<<28) | (address & 0x0fffffff);
 			return 1;
@@ -1375,12 +1469,12 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 		m_core->mmu603_cmp = 0x80000000 | ((segreg & 0xffffff) << 7) | (0 << 6) | ((address >> 22) & 0x3f);
 		m_core->mmu603_hash[0] = hashbase | ((hash << 6) & hashmask);
 		m_core->mmu603_hash[1] = hashbase | ((~hash << 6) & hashmask);
-		if ((entry & (VTLB_FLAG_FIXED | VTLB_FLAG_VALID)) == (VTLB_FLAG_FIXED | VTLB_FLAG_VALID))
+		if ((entry & (FLAG_FIXED | FLAG_VALID)) == (FLAG_FIXED | FLAG_VALID))
 		{
 			address = (entry & 0xfffff000) | (address & 0x00000fff);
 			return 0x001;
 		}
-		return DSISR_NOT_FOUND | ((transtype == TRANSLATE_WRITE) ? DSISR_STORE : 0);
+		return DSISR_NOT_FOUND | ((transtype == TR_WRITE) ? DSISR_STORE : 0);
 	}
 
 	/* loop twice over hashes */
@@ -1403,13 +1497,13 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 
 					/* verify protection; if we fail, return false and indicate a protection violation */
 					if (!page_access_allowed(transtype, (segreg >> (29 + transpriv)) & 1, pteglower & 3))
-						return DSISR_PROTECTED | ((transtype == TRANSLATE_WRITE) ? DSISR_STORE : 0);
+						return DSISR_PROTECTED | ((transtype == TR_WRITE) ? DSISR_STORE : 0);
 
 					/* update page table bits */
-					if (!(intention & TRANSLATE_DEBUG_MASK))
+					if (!debug)
 					{
 						pteglower |= 0x100;
-						if (transtype == TRANSLATE_WRITE)
+						if (transtype == TR_WRITE)
 							pteglower |= 0x080;
 						ptegptr[BYTE_XOR_BE(ptenum * 2 + 1)] = pteglower;
 					}
@@ -1425,7 +1519,7 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
 	}
 
 	/* we failed to find any match: not found */
-	return DSISR_NOT_FOUND | ((transtype == TRANSLATE_WRITE) ? DSISR_STORE : 0);
+	return DSISR_NOT_FOUND | ((transtype == TR_WRITE) ? DSISR_STORE : 0);
 }
 
 
@@ -1434,14 +1528,16 @@ uint32_t ppc_device::ppccom_translate_address_internal(int intention, offs_t &ad
     from logical to physical
 -------------------------------------------------*/
 
-bool ppc_device::memory_translate(int spacenum, int intention, offs_t &address)
+bool ppc_device::memory_translate(int spacenum, int intention, offs_t &address, address_space *&target_space)
 {
+	target_space = &space(spacenum);
+
 	/* only applies to the program address space */
 	if (spacenum != AS_PROGRAM)
 		return true;
 
 	/* translation is successful if the internal routine returns 0 or 1 */
-	return (ppccom_translate_address_internal(intention, address) <= 1);
+	return (ppccom_translate_address_internal(intention, true, address) <= 1);
 }
 
 
@@ -1451,7 +1547,10 @@ bool ppc_device::memory_translate(int spacenum, int intention, offs_t &address)
 
 void ppc_device::ppccom_tlb_fill()
 {
-	vtlb_fill(m_core->param0, m_core->param1);
+	offs_t address = m_core->param0;
+	if(ppccom_translate_address_internal(m_core->param1, false, address) > 1)
+		return;
+	vtlb_fill(m_core->param0, address, m_core->param1);
 }
 
 
@@ -1478,18 +1577,11 @@ void ppc_device::ppccom_tlb_flush()
 
 void ppc_device::ppccom_get_dsisr()
 {
-	int intent = 0;
+	int intent = (m_core->param1 & 1) ? TR_WRITE : TR_READ;
 
-	if (m_core->param1 & 1)
-	{
-		intent = TRANSLATE_WRITE;
-	}
-	else
-	{
-		intent = TRANSLATE_READ;
-	}
-
-	m_core->param1 = ppccom_translate_address_internal(intent, m_core->param0);
+	offs_t address = m_core->param0;
+	m_core->param1 = ppccom_translate_address_internal(intent, false, address);
+	m_core->param0 = address;
 }
 
 /*-------------------------------------------------
@@ -1529,17 +1621,15 @@ void ppc_device::ppccom_execute_tlbl()
 	if (m_flavor == PPC_MODEL_602) // TODO
 		return;
 
-	/* determine entry number; we use machine().rand() for associativity */
+	// determine entry number; we use machine().rand() for associativity
 	entrynum = ((address >> 12) & 0x1f) | (machine().rand() & 0x20) | (isitlb ? 0x40 : 0);
 
-	/* determine the flags */
-	flags = VTLB_FLAG_VALID | VTLB_READ_ALLOWED | VTLB_FETCH_ALLOWED;
+	// Determine the access flags, for both supervisor and user modes.
+	flags = FLAG_VALID | READ_ALLOWED | FETCH_ALLOWED | USER_READ_ALLOWED | USER_FETCH_ALLOWED;
 	if (m_core->spr[SPR603_RPA] & 0x80)
-		flags |= VTLB_WRITE_ALLOWED;
-	if (isitlb)
-		flags |= VTLB_FETCH_ALLOWED;
+		flags |= WRITE_ALLOWED | USER_WRITE_ALLOWED;
 
-	/* load the entry */
+	// load the entry
 	vtlb_load(entrynum, 1, address, (m_core->spr[SPR603_RPA] & 0xfffff000) | flags);
 }
 
@@ -1606,6 +1696,29 @@ void ppc_device::ppccom_execute_mfspr()
 			/* decrementer */
 			case SPROEA_DEC:
 				m_core->param1 = get_decrementer();
+				return;
+		}
+	}
+
+	/* handle 601 specific SPRs (POWER holdovers) */
+	if (m_flavor == PPC_MODEL_601)
+	{
+		switch (m_core->param0)
+		{
+			case SPR601_PWRDEC:
+				m_core->param1 = get_decrementer();
+				return;
+
+			case SPR601_RTCUR_PWR:
+				m_core->param1 = (total_cycles() - m_rtc_zero_cycles) / clock();
+				return;
+
+			case SPR601_RTCLR_PWR:
+				{
+					// get fractional seconds and convert to nanoseconds
+					const uint64_t remainder = (total_cycles() - m_rtc_zero_cycles) % clock();
+					m_core->param1 = (remainder * 1'000'000'000ULL) / clock();
+				}
 				return;
 		}
 	}
@@ -1750,6 +1863,21 @@ void ppc_device::ppccom_execute_mtspr()
 			case SPROEA_DEC:
 				set_decrementer(m_core->param1);
 				return;
+		}
+	}
+
+	/* handle 601 specific POWER-holdover SPRs */
+	if (m_flavor == PPC_MODEL_601)
+	{
+		switch (m_core->param0)
+		{
+			case SPR601_MQ:
+				m_core->spr[m_core->param0] = m_core->param1;
+				return;
+
+			case SPR601_RTCUW_PWR:
+				m_rtc_zero_cycles = total_cycles();
+				break;
 		}
 	}
 
@@ -2684,13 +2812,13 @@ void ppc_device::ppc4xx_spu_timer_reset()
 	/* if we're enabled, reset at the current baud rate */
 	if (enabled)
 	{
-		attotime clockperiod = attotime::from_hz((m_dcr[DCR4XX_IOCR] & 0x02) ? 3686400 : 33333333);
+		attotime clockperiod = attotime::from_hz((m_dcr[DCR4XX_IOCR] & 0x02) ? m_serial_clock : m_system_clock);
 		int divisor = ((m_spu.regs[SPU4XX_BAUD_DIVISOR_H] * 256 + m_spu.regs[SPU4XX_BAUD_DIVISOR_L]) & 0xfff) + 1;
 		int bpc = 7 + ((m_spu.regs[SPU4XX_CONTROL] & 8) >> 3) + 1 + (m_spu.regs[SPU4XX_CONTROL] & 1);
 		attotime charperiod = clockperiod * (divisor * 16 * bpc);
 		m_spu.timer->adjust(charperiod, 0, charperiod);
 		if (PRINTF_SPU)
-			printf("ppc4xx_spu_timer_reset: baud rate = %.0f\n", charperiod.as_hz() * bpc);
+			osd_printf_debug("ppc4xx_spu_timer_reset: baud rate = %.0f\n", charperiod.as_hz() * bpc);
 	}
 
 	/* otherwise, disable the timer */
@@ -2789,7 +2917,7 @@ uint8_t ppc4xx_device::ppc4xx_spu_r(offs_t offset)
 			break;
 	}
 	if (PRINTF_SPU)
-		printf("spu_r(%d) = %02X\n", offset, result);
+		osd_printf_debug("spu_r(%d) = %02X\n", offset, result);
 	return result;
 }
 
@@ -2803,7 +2931,7 @@ void ppc4xx_device::ppc4xx_spu_w(offs_t offset, uint8_t data)
 	uint8_t oldstate, newstate;
 
 	if (PRINTF_SPU)
-		printf("spu_w(%d) = %02X\n", offset, data);
+		osd_printf_debug("spu_w(%d) = %02X\n", offset, data);
 	switch (offset)
 	{
 		/* clear error bits */

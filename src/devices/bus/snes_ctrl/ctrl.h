@@ -54,10 +54,7 @@ public:
 	snes_control_port_device(machine_config const &mconfig, char const *tag, device_t *owner, T &&opts, char const *dflt)
 		: snes_control_port_device(mconfig, tag, owner, 0)
 	{
-		option_reset();
-		opts(*this);
-		set_default_option(dflt);
-		set_fixed(false);
+		set_options(std::forward<T>(opts), dflt, false);
 	}
 	snes_control_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 	virtual ~snes_control_port_device();
@@ -71,12 +68,12 @@ public:
 	void write_strobe(uint8_t data);
 	void port_poll();
 
-	bool onscreen_cb(int16_t x, int16_t y) { return m_onscreen_cb.isnull() ? true : m_onscreen_cb(x, y); }
-	void gunlatch_cb(int16_t x, int16_t y) { if (!m_gunlatch_cb.isnull()) m_gunlatch_cb(x, y); }
+	bool onscreen_cb(int16_t x, int16_t y) { return m_onscreen_cb(x, y); }
+	void gunlatch_cb(int16_t x, int16_t y) { m_gunlatch_cb(x, y); }
 
 protected:
 	// device-level overrides
-	virtual void device_start() override;
+	virtual void device_start() override ATTR_COLD;
 
 	onscreen_delegate m_onscreen_cb;
 	gunlatch_delegate m_gunlatch_cb;

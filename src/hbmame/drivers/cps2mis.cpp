@@ -1027,7 +1027,7 @@ ROM_END
  /******************
  Alien vs. Predator
 *********************/
-ROM_START( avsps01 ) //avspu3p, avspp
+ROM_START( avsp01 ) //avspu3p, avspp
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c52s01.p1", 0x000000, 0x80000, CRC(2f3dfdd3) SHA1(730a6d70a6cb44a6c60f500d9312c1b8c31d0f4b) )
 	ROM_LOAD16_WORD_SWAP( "c52s01.p2", 0x080000, 0x80000, CRC(04229fd7) SHA1(65a5719697c7c1cb46c330c69559666f2bf6e16f) )
@@ -1056,7 +1056,7 @@ ROM_START( avsps01 ) //avspu3p, avspp
 	ROM_LOAD( "avspu.key",    0x00, 0x14, CRC(4e68e346) SHA1(60d5a12c77d07efc01f48968f4a12c59bf6b629e) )
 ROM_END
 
-ROM_START( avsps02 ) //avspu3p, avspu3pp
+ROM_START( avsp02 ) //avspu3p, avspu3pp
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c52s02.p1", 0x000000, 0x80000, CRC(bb0f1eba) SHA1(08b13b0044b3ed2d0293799422eebfb3e531e276) )
 	ROM_LOAD16_WORD_SWAP( "c52s02.p2", 0x080000, 0x80000, CRC(78106911) SHA1(2b47d9c99f36de5a8028708e6e17ba278d38b155) )
@@ -1085,7 +1085,7 @@ ROM_START( avsps02 ) //avspu3p, avspu3pp
 	ROM_LOAD( "avspu.key",    0x00, 0x14, CRC(4e68e346) SHA1(60d5a12c77d07efc01f48968f4a12c59bf6b629e) )
 ROM_END
 
-ROM_START( avsps03 ) //avspdp
+ROM_START( avsp03 ) //avspdp
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c52s03.p1", 0x000000, 0x80000, CRC(e76657b7) SHA1(e488710f196489f3706c696d0f008ae63c3ff358) )
 	ROM_LOAD16_WORD_SWAP( "c52s03.p2", 0x080000, 0x80000, CRC(8799b67f) SHA1(fe755897231b21ac8e47f1e5bc0ca73ae91e433a) )
@@ -1111,7 +1111,7 @@ ROM_START( avsps03 ) //avspdp
 	ROM_LOAD16_WORD_SWAP( "c52.q2",   0x200000, 0x200000, CRC(f4110d49) SHA1(f27538776cc1ba8213f19f98728ed8c02508d3ac) )
 ROM_END
 
-ROM_START( avsps04 ) //avspdp
+ROM_START( avsp04 ) //avspdp
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c52s04.p1", 0x000000, 0x80000, CRC(02a03d8d) SHA1(9c3d25231ca51a6b6559329958ce0cdb71a9720e) )
 	ROM_LOAD16_WORD_SWAP( "c52s03.p2", 0x080000, 0x80000, CRC(8799b67f) SHA1(fe755897231b21ac8e47f1e5bc0ca73ae91e433a) )
@@ -1137,7 +1137,7 @@ ROM_START( avsps04 ) //avspdp
 	ROM_LOAD16_WORD_SWAP( "c52.q2",   0x200000, 0x200000, CRC(f4110d49) SHA1(f27538776cc1ba8213f19f98728ed8c02508d3ac) )
 ROM_END
 
-ROM_START( avsps05 ) //avsph
+ROM_START( avsp05 ) //avsph
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c52s05.p1", 0x000000, 0x80000, CRC(5bf9a02d) SHA1(9fd0d2260cd3d7e7ac0d363f8a2cac376742c6fd) )
 	ROM_LOAD16_WORD_SWAP( "c52s05.p2", 0x080000, 0x80000, CRC(7eb392f7) SHA1(fbe0e40b060a5b64b4ee529f25d2c01c4dace5e0) )
@@ -1166,7 +1166,7 @@ ROM_START( avsps05 ) //avsph
 	ROM_LOAD( "avsph.key",    0x00, 0x14, CRC(cae7b680) SHA1(b5f7c90c6c258ee9d0943028298bc8a0fcba63fb) )
 ROM_END
 
-ROM_START( avsps06 )
+ROM_START( avsp06 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c52d.p1", 0x000000, 0x80000, CRC(66aa8aad) SHA1(eb1928393d0dd4cc1a96c00324508f83f36a7622) )
 	ROM_LOAD16_WORD_SWAP( "c52d.p2", 0x080000, 0x80000, CRC(579306c2) SHA1(cabee3fdb624e681013a5a57d2a37339b96518fb) )
@@ -2053,7 +2053,7 @@ ROM_END
  /****************************
  19XX The War Against Destiny
 *******************************/
-ROM_START( 19xxs01 )
+ROM_START( 19xx01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c62s01.p1", 0x000000, 0x80000, CRC(03a35085) SHA1(224fab94df8691a8e68a6ff30a57497350624bc0) )
 	ROM_LOAD16_WORD_SWAP( "c62u.p2", 0x080000, 0x80000, CRC(3111ab7f) SHA1(8bbce20ae7ba47949f4939b2f35014fb6decd283) )
@@ -2083,7 +2083,7 @@ ROM_START( 19xxs01 )
 	ROM_LOAD( "19xxu.key",     0x00, 0x14, CRC(77e67ba1) SHA1(8c995bd00941ffe0145cb80e4f105ef8ef0a0001) )
 ROM_END
 
-ROM_START( 19xxs02 ) //19xxjr1c
+ROM_START( 19xx02 ) //19xxjr1c
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c62s02.p1", 0x000000, 0x80000, CRC(36aa1a2f) SHA1(8946961f5eeb19d7b75cd814fa6776703e0d5cc4) )
 	ROM_LOAD16_WORD_SWAP( "c62s02.p2", 0x080000, 0x80000, CRC(936d2b48) SHA1(7620baea050122da16a5500b4a293efda55a4116) )
@@ -6966,19 +6966,19 @@ ROM_END
 GAME( 2000, mpangj01,   mpang,    dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Razoola", "Mighty! Pang (001011J, Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 
 // 19XX The War Against Destiny
-GAME( 1996, 19xxs01,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "DDJ", "19XX: The War Against Destiny (951207U, Ex Super Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, 19xxs02,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "hack", "19XX: The War Against Destiny (951207, Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, 19xx01,     19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "DDJ", "19XX: The War Against Destiny (951207U, Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, 19xx02,     19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "hack", "19XX: The War Against Destiny (951207, Chinese)", MACHINE_SUPPORTS_SAVE )
 // 1944 The Loop Master
 GAME( 2000, 1944s01,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "DDJ", "1944: The Loop Master (000620U, Strongest Fire Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, 1944s02,    1944,     dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Razoola", "1944: The Loop Master (000620U, Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, 1944s03,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "Qxs8", "1944: The Loop Master (000620U, Fire Power Plus, 2011-12-31)", MACHINE_SUPPORTS_SAVE )
 // Alien vs. Predator
-GAME( 2017, avsps01,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, 1 Vs 3 Plus, 2017-12-30)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, avsps02,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, Enhanced Edition, 2018-02-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps03,    avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps04,    avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps05,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520H, Modified Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, avsps06,    avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Razoola", "Alien vs. Predator (940520U, Phoenix edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, avsp01,     avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, 1 Vs 3 Plus, 2017-12-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, avsp02,     avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, Enhanced Edition, 2018-02-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsp03,     avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsp04,     avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsp05,     avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520H, Modified Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, avsp06,     avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Razoola", "Alien vs. Predator (940520U, Phoenix edition)", MACHINE_SUPPORTS_SAVE )
 // Armored Warriors
 GAME( 2020, armwars01,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-05-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, armwars02,  armwar,   cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )

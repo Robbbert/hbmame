@@ -8,7 +8,7 @@
  *                                Version 3.32
  *
  * A portable Motorola M680x0 processor emulation engine.
- * Copyright Karl Stenerud.  All rights reserved.
+ * Copyright Karl Stenerud.
  *
  */
 
@@ -193,8 +193,7 @@ std::string m68k_disassembler::get_ea_mode_str(u16 instruction, u32 size)
 		{
 		/* program counter with displacement */
 			u16 temp_value = read_imm_16();
-			return util::string_format("(%s,PC) ; ($%x)", make_signed_hex_str_16(temp_value),
-									   (make_int_16(temp_value) + m_cpu_pc-2) & 0xffffffff);
+			return util::string_format("($%x,PC)", (make_int_16(temp_value) + m_cpu_pc-2) & 0xffffffff);
 		}
 		case 0x3b:
 		{
@@ -893,7 +892,7 @@ std::string m68k_disassembler::d68020_cas_8()
 	if(limit.first)
 		return limit.second;
 	u16 extension = read_imm_16();
-	return util::string_format("cas.b   D%d, D%d, %s; (2+)", extension&7, (extension>>8)&7, get_ea_mode_str_8(m_cpu_ir));
+	return util::string_format("cas.b   D%d, D%d, %s; (2+)", extension&7, (extension>>6)&7, get_ea_mode_str_8(m_cpu_ir));
 }
 
 std::string m68k_disassembler::d68020_cas_16()
@@ -902,7 +901,7 @@ std::string m68k_disassembler::d68020_cas_16()
 	if(limit.first)
 		return limit.second;
 	u16 extension = read_imm_16();
-	return util::string_format("cas.w   D%d, D%d, %s; (2+)", extension&7, (extension>>8)&7, get_ea_mode_str_16(m_cpu_ir));
+	return util::string_format("cas.w   D%d, D%d, %s; (2+)", extension&7, (extension>>6)&7, get_ea_mode_str_16(m_cpu_ir));
 }
 
 std::string m68k_disassembler::d68020_cas_32()
@@ -911,7 +910,7 @@ std::string m68k_disassembler::d68020_cas_32()
 	if(limit.first)
 		return limit.second;
 	u16 extension = read_imm_16();
-	return util::string_format("cas.l   D%d, D%d, %s; (2+)", extension&7, (extension>>8)&7, get_ea_mode_str_32(m_cpu_ir));
+	return util::string_format("cas.l   D%d, D%d, %s; (2+)", extension&7, (extension>>6)&7, get_ea_mode_str_32(m_cpu_ir));
 }
 
 std::string m68k_disassembler::d68020_cas2_16()
@@ -1515,7 +1514,7 @@ std::string m68k_disassembler::d68040_fpu()
 			switch ((w2>>10)&7)
 			{
 				case 3:     // packed decimal w/fixed k-factor
-					return util::string_format("fmove%s   FP%d, %s {#%d}", float_data_format[(w2>>10)&7], dst_reg, get_ea_mode_str_32(m_cpu_ir), sext_7bit_int(w2&0x7f));
+					return util::string_format("fmove%s   FP%d, %s {#%d}", float_data_format[(w2>>10)&7], dst_reg, get_ea_mode_str_32(m_cpu_ir), util::sext(w2&0x7f, 7));
 
 				case 7:     // packed decimal w/dynamic k-factor (register)
 					return util::string_format("fmove%s   FP%d, %s {D%d}", float_data_format[(w2>>10)&7], dst_reg, get_ea_mode_str_32(m_cpu_ir), (w2>>4)&7);
@@ -1603,6 +1602,11 @@ std::string m68k_disassembler::d68040_fpu()
 		}
 	}
 	return util::string_format("FPU (?) ");
+}
+
+std::string m68k_disassembler::dcoldfire_halt()
+{
+	return std::string("halt");
 }
 
 std::string m68k_disassembler::d68000_jmp()
@@ -2343,11 +2347,6 @@ std::string m68k_disassembler::d68000_nop()
 	return util::string_format("nop");
 }
 
-std::string m68k_disassembler::d68000_nophb()
-{
-	return util::string_format("nophb");
-}
-
 std::string m68k_disassembler::d68000_not_8()
 {
 	return util::string_format("not.b   %s", get_ea_mode_str_8(m_cpu_ir));
@@ -2622,12 +2621,6 @@ std::string m68k_disassembler::d68000_rts()
 {
 	m_flags = STEP_OUT;
 	return util::string_format("rts");
-}
-
-std::string m68k_disassembler::d68000_rtshb()
-{
-	m_flags = STEP_OUT;
-	return util::string_format("rtshb");
 }
 
 std::string m68k_disassembler::d68000_sbcd_rr()
@@ -3294,6 +3287,7 @@ const m68k_disassembler::opcode_struct m68k_disassembler::m_opcode_info[] =
 	{&m68k_disassembler::d68000_ext_16       , 0xfff8, 0x4880, 0x000},
 	{&m68k_disassembler::d68000_ext_32       , 0xfff8, 0x48c0, 0x000},
 	{&m68k_disassembler::d68040_fpu          , 0xffc0, 0xf200, 0x000},
+	{&m68k_disassembler::dcoldfire_halt      , 0xffff, 0x4ac8, 0x000},
 	{&m68k_disassembler::d68000_illegal      , 0xffff, 0x4afc, 0x000},
 	{&m68k_disassembler::d68000_jmp          , 0xffc0, 0x4ec0, 0x27b},
 	{&m68k_disassembler::d68000_jsr          , 0xffc0, 0x4e80, 0x27b},
@@ -3356,7 +3350,6 @@ const m68k_disassembler::opcode_struct m68k_disassembler::m_opcode_info[] =
 	{&m68k_disassembler::d68000_negx_16      , 0xffc0, 0x4040, 0xbf8},
 	{&m68k_disassembler::d68000_negx_32      , 0xffc0, 0x4080, 0xbf8},
 	{&m68k_disassembler::d68000_nop          , 0xffff, 0x4e71, 0x000},
-	{&m68k_disassembler::d68000_nophb        , 0xffff, 0x4e7d, 0x000},
 	{&m68k_disassembler::d68000_not_8        , 0xffc0, 0x4600, 0xbf8},
 	{&m68k_disassembler::d68000_not_16       , 0xffc0, 0x4640, 0xbf8},
 	{&m68k_disassembler::d68000_not_32       , 0xffc0, 0x4680, 0xbf8},
@@ -3409,7 +3402,6 @@ const m68k_disassembler::opcode_struct m68k_disassembler::m_opcode_info[] =
 	{&m68k_disassembler::d68020_rtm          , 0xfff0, 0x06c0, 0x000},
 	{&m68k_disassembler::d68000_rtr          , 0xffff, 0x4e77, 0x000},
 	{&m68k_disassembler::d68000_rts          , 0xffff, 0x4e75, 0x000},
-	{&m68k_disassembler::d68000_rtshb        , 0xffff, 0x4e7c, 0x000},
 	{&m68k_disassembler::d68000_sbcd_rr      , 0xf1f8, 0x8100, 0x000},
 	{&m68k_disassembler::d68000_sbcd_mm      , 0xf1f8, 0x8108, 0x000},
 	{&m68k_disassembler::d68000_scc          , 0xf0c0, 0x50c0, 0xbf8},

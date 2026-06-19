@@ -30,15 +30,15 @@ void bbc_m2000_device::device_add_mconfig(machine_config &config)
 {
 	INPUT_MERGER_ANY_HIGH(config, m_irqs).output_handler().set(DEVICE_SELF_OWNER, FUNC(bbc_1mhzbus_slot_device::irq_w));
 
-	ACIA6850(config, m_acia1, 0);
+	ACIA6850(config, m_acia1);
 	m_acia1->txd_handler().set("mdout1", FUNC(midi_port_device::write_txd));
 	m_acia1->irq_handler().set(m_irqs, FUNC(input_merger_device::in_w<0>));
 
-	ACIA6850(config, m_acia2, 0);
+	ACIA6850(config, m_acia2);
 	m_acia2->txd_handler().set("mdout2", FUNC(midi_port_device::write_txd));
 	m_acia2->irq_handler().set(m_irqs, FUNC(input_merger_device::in_w<1>));
 
-	ACIA6850(config, m_acia3, 0);
+	ACIA6850(config, m_acia3);
 	m_acia3->txd_handler().set("mdout3", FUNC(midi_port_device::write_txd));
 	m_acia3->irq_handler().set(m_irqs, FUNC(input_merger_device::in_w<2>));
 
@@ -155,7 +155,7 @@ void bbc_m2000_device::jim_w(offs_t offset, uint8_t data)
 	m_1mhzbus->jim_w(offset, data);
 }
 
-WRITE_LINE_MEMBER(bbc_m2000_device::write_acia_clock)
+void bbc_m2000_device::write_acia_clock(int state)
 {
 	m_acia1->write_txc(state);
 	m_acia1->write_rxc(state);
