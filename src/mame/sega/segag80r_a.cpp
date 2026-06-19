@@ -1,0 +1,373 @@
+// license:BSD-3-Clause
+// copyright-holders:Aaron Giles
+/***************************************************************************
+
+    Sega G-80 raster hardware
+
+    Across these games, there's a mixture of discrete sound circuitry,
+    speech boards, ADPCM samples, and a TMS3617 music chip.
+
+***************************************************************************/
+
+#include "emu.h"
+#include "segag80r_a.h"
+
+#include "sound/dac.h"
+
+#include "speaker.h"
+
+DEFINE_DEVICE_TYPE(SEGA005, sega005_sound_device, "sega005_sound", "Sega 005 Custom Sound")
+DEFINE_DEVICE_TYPE(MONSTERB_SOUND, monsterb_sound_device, "monsterb_sound", "Monster Bash Sound Board")
+
+/*************************************
+ *
+ *  Constants
+ *
+ *************************************/
+
+#define SEGA005_555_TIMER_FREQ      (1.44 / ((15000 + 2 * 4700) * 1.5e-6))
+#define SEGA005_COUNTER_FREQ        (100000)    /* unknown, just a guess */
+
+sega005_sound_device::sega005_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: device_t(mconfig, SEGA005, tag, owner, clock)
+	, device_sound_interface(mconfig, *this)
+	, m_sound_region(*this, finder_base::DUMMY_TAG)
+	, m_proms_region(*this, finder_base::DUMMY_TAG)
+	, m_sound_timer(nullptr)
+	, m_stream(nullptr)
+	, m_sound_addr(0)
+	, m_sound_data(0)
+	, m_square_state(0)
+	, m_square_count(0)
+	, m_pb_state(0)
+{
+}
+
+//-------------------------------------------------
+//  device_start - device-specific startup
+//-------------------------------------------------
+
+void sega005_sound_device::device_start()
+{
+	// create the stream
+	m_stream = stream_alloc(0, 1, SEGA005_COUNTER_FREQ);
+
+	// create a timer for the 555
+	m_sound_timer = timer_alloc(FUNC(sega005_sound_device::auto_timer), this);
+
+	// register for save states
+	save_item(NAME(m_sound_addr));
+	save_item(NAME(m_sound_data));
+	save_item(NAME(m_square_state));
+	save_item(NAME(m_square_count));
+	save_item(NAME(m_pb_state));
+
+	// set the initial sound data
+	m_sound_data = 0x00;
+	update_sound_data();
+}
+
+//-------------------------------------------------
+//  sound_stream_update - handle a stream update
+//-------------------------------------------------
+
+void sega005_sound_device::sound_stream_update(sound_stream &stream)
+{
+	/* no implementation yet */
+	for (int i = 0; i < stream.samples(); i++)
+	{
+		if (!(m_pb_state & 0x10) && (++m_square_count & 0xff) == 0)
+		{
+			m_square_count = m_proms_region[m_sound_data & 0x1f];
+
+			/* hack - the RC should filter this out */
+			if (m_square_count != 0xff)
+				m_square_state += 2;
+		}
+
+		stream.put(0, i, (m_square_state & 2) ? 1.0 : 0.0);
+	}
+}
+
+
+void sega005_sound_device::b_w(uint8_t data)
+{
+	/*
+	       D6: manual timer clock (0->1)
+	       D5: 0 = manual timer, 1 = auto timer
+	       D4: 1 = hold/reset address counter to 0
+	    D3-D0: upper 4 bits of ROM address
+	*/
+	uint8_t diff = data ^ m_pb_state;
+	m_pb_state = data;
+
+	//logerror("sound[%d] = %02X\n", 1, data);
+
+	// force a stream update
+	m_stream->update();
+
+	// ROM address
+	m_sound_addr = (uint16_t(data & 0x0f) << 7) | (m_sound_addr & 0x7f);
+
+	// reset both sound address and square wave counters
+	if (data & 0x10)
+	{
+		m_sound_addr &= 0x780;
+		m_square_state = 0;
+	}
+
+	// manual clock
+	if ((diff & 0x40) && (data & 0x40) && !(data & 0x20) && !(data & 0x10))
+		m_sound_addr = (m_sound_addr & 0x780) | ((m_sound_addr + 1) & 0x07f);
+
+	// update the sound data
+	update_sound_data();
+}
+
+
+
+
+
+/*************************************
+ *
+ *  005 custom sound generation
+ *
+ *************************************/
+
+
+
+TIMER_CALLBACK_MEMBER( sega005_sound_device::auto_timer )
+{
+	// force an update then clock the sound address if not held in reset
+	m_stream->update();
+	if ((m_pb_state & 0x20) && !(m_pb_state & 0x10))
+	{
+		m_sound_addr = (m_sound_addr & 0x780) | ((m_sound_addr + 1) & 0x07f);
+		update_sound_data();
+	}
+}
+
+
+inline void sega005_sound_device::update_sound_data()
+{
+	uint8_t newval = m_sound_region[m_sound_addr];
+	uint8_t diff = newval ^ m_sound_data;
+
+	//logerror("  [%03X] = %02X\n", m_sound_addr, newval);
+
+	// latch the new value
+	m_sound_data = newval;
+
+	// if bit 5 goes high, we reset the timer
+	if ((diff & 0x20) && !(newval & 0x20))
+	{
+		//logerror("Stopping timer\n");
+		m_sound_timer->adjust(attotime::never);
+	}
+
+	// if bit 5 goes low, we start the timer again
+	if ((diff & 0x20) && (newval & 0x20))
+	{
+		//logerror("Starting timer\n");
+		m_sound_timer->adjust(attotime::from_hz(SEGA005_555_TIMER_FREQ), 0, attotime::from_hz(SEGA005_555_TIMER_FREQ));
+	}
+}
+
+
+
+/*************************************
+ *
+ *  Monster Bash sound hardware
+ *
+ *************************************/
+
+/*
+    Monster Bash
+
+    The Sound Board is a fairly complex mixture of different components.
+    An 8255A-5 controls the interface to/from the sound board.
+    Port A connects to a TMS3617 (basic music synthesizer) circuit.
+    Port B connects to two sounds generated by discrete circuitry.
+    Port C connects to a NEC7751 (8048 CPU derivative) to control four "samples".
+*/
+
+static const char *const monsterb_sample_names[] =
+{
+	"*monsterb",
+	"zap",
+	"jumpdown",
+	nullptr
+};
+
+monsterb_sound_device::monsterb_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: device_t(mconfig, MONSTERB_SOUND, tag, owner, clock)
+	, m_audiocpu(*this, "audiocpu")
+	, m_audiocpu_region(*this, "upd7751")
+	, m_music(*this, "music")
+	, m_samples(*this, "samples")
+	, m_i8243(*this, "i8243")
+{
+}
+
+void monsterb_sound_device::device_start()
+{
+	save_item(NAME(m_upd7751_command));
+	save_item(NAME(m_upd7751_busy));
+	save_item(NAME(m_sound_state));
+	save_item(NAME(m_sound_addr));
+}
+
+
+/*************************************
+ *
+ *  TMS3617 access
+ *
+ *************************************/
+
+void monsterb_sound_device::sound_a_w(uint8_t data)
+{
+	/* Lower four data lines get decoded into 13 control lines */
+	m_music->tms36xx_note_w(0, data & 15);
+
+	/* Top four data lines address an 82S123 ROM that enables/disables voices */
+	int enable_val = machine().root_device().memregion("prom")->base()[(data & 0xF0) >> 4];
+	m_music->tms3617_enable_w(enable_val >> 2);
+}
+
+
+
+/*************************************
+ *
+ *  Discrete sound triggers
+ *
+ *************************************/
+
+void monsterb_sound_device::sound_b_w(uint8_t data)
+{
+	uint8_t diff = data ^ m_sound_state[1];
+	m_sound_state[1] = data;
+
+	/* SHOT: channel 0 */
+	if ((diff & 0x01) && !(data & 0x01)) m_samples->start(0, 0);
+
+	/* DIVE: channel 1 */
+	if ((diff & 0x02) && !(data & 0x02)) m_samples->start(1, 1);
+
+	/* TODO: D7 on Port B might affect TMS3617 output (mute?) */
+}
+
+
+
+/*************************************
+ *
+ *  D7751 connections
+ *
+ *************************************/
+
+uint8_t monsterb_sound_device::upd7751_status_r()
+{
+	return m_upd7751_busy << 4;
+}
+
+
+void monsterb_sound_device::upd7751_command_w(uint8_t data)
+{
+	/*
+	    Z80 7751 control port
+
+	    D0-D2 = connected to 7751 port C
+	    D3    = /INT line
+	*/
+	m_upd7751_command = data & 0x07;
+	m_audiocpu->set_input_line(0, ((data & 0x08) == 0) ? ASSERT_LINE : CLEAR_LINE);
+	machine().scheduler().perfect_quantum(attotime::from_usec(100));
+}
+
+
+template<int Shift>
+void monsterb_sound_device::upd7751_rom_addr_w(uint8_t data)
+{
+	// P4 - address lines 0-3
+	// P5 - address lines 4-7
+	// P5 - address lines 8-11
+	m_sound_addr = (m_sound_addr & ~(0x00f << Shift)) | ((data & 0x0f) << Shift);
+}
+
+
+void monsterb_sound_device::upd7751_rom_select_w(uint8_t data)
+{
+	// P7 - ROM selects
+	m_sound_addr &= 0xfff;
+
+	int numroms = m_audiocpu_region->bytes() / 0x1000;
+	if (!(data & 0x01) && numroms >= 1) m_sound_addr |= 0x0000;
+	if (!(data & 0x02) && numroms >= 2) m_sound_addr |= 0x1000;
+	if (!(data & 0x04) && numroms >= 3) m_sound_addr |= 0x2000;
+	if (!(data & 0x08) && numroms >= 4) m_sound_addr |= 0x3000;
+}
+
+
+uint8_t monsterb_sound_device::upd7751_rom_r()
+{
+	/* read from BUS */
+	return m_audiocpu_region->base()[m_sound_addr];
+}
+
+
+uint8_t monsterb_sound_device::upd7751_command_r()
+{
+	/* read from P2 - 8255's PC0-2 connects to 7751's S0-2 (P24-P26 on an 8048) */
+	/* bit 0x80 is an alternate way to control the sample on/off; doesn't appear to be used */
+	return 0x80 | ((m_upd7751_command & 0x07) << 4);
+}
+
+
+void monsterb_sound_device::upd7751_p2_w(uint8_t data)
+{
+	/* write to P2; low 4 bits go to 8243 */
+	m_i8243->p2_w(data & 0x0f);
+
+	/* output of bit $80 indicates we are ready (1) or busy (0) */
+	/* no other outputs are used */
+	m_upd7751_busy = data >> 7;
+}
+
+
+
+/*************************************
+ *
+ *  Machine driver
+ *
+ *************************************/
+
+void monsterb_sound_device::device_add_mconfig(machine_config &config)
+{
+	/* basic machine hardware */
+	UPD7751(config, m_audiocpu, 6000000);
+	m_audiocpu->t1_in_cb().set_constant(0); // labelled as "TEST", connected to ground
+	m_audiocpu->p2_in_cb().set(FUNC(monsterb_sound_device::upd7751_command_r));
+	m_audiocpu->bus_in_cb().set(FUNC(monsterb_sound_device::upd7751_rom_r));
+	m_audiocpu->p1_out_cb().set("dac", FUNC(dac_byte_interface::data_w));
+	m_audiocpu->p2_out_cb().set(FUNC(monsterb_sound_device::upd7751_p2_w));
+	m_audiocpu->prog_out_cb().set(m_i8243, FUNC(i8243_device::prog_w));
+
+	I8243(config, m_i8243);
+	m_i8243->p4_out_cb().set(FUNC(monsterb_sound_device::upd7751_rom_addr_w<0>));
+	m_i8243->p5_out_cb().set(FUNC(monsterb_sound_device::upd7751_rom_addr_w<4>));
+	m_i8243->p6_out_cb().set(FUNC(monsterb_sound_device::upd7751_rom_addr_w<8>));
+	m_i8243->p7_out_cb().set(FUNC(monsterb_sound_device::upd7751_rom_select_w));
+
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(2);
+	m_samples->set_samples_names(monsterb_sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "speaker", 0.25);
+
+	TMS36XX(config, m_music, 247);
+	m_music->set_subtype(tms36xx_device::subtype::TMS3617);
+	m_music->set_decays(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
+	m_music->add_route(ALL_OUTPUTS, "speaker", 0.5);
+
+	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.5); // 50K (R91-97)/100K (R98-106) ladder network
+
+	SPEAKER(config, "speaker").front_center();
+}

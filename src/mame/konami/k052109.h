@@ -1,0 +1,113 @@
+// license:BSD-3-Clause
+// copyright-holders:Fabio Priuli,Acho A. Tang, R. Belmont
+#ifndef MAME_KONAMI_K052109_H
+#define MAME_KONAMI_K052109_H
+
+#pragma once
+
+#include "tilemap.h"
+
+#define K052109_CB_MEMBER(_name)   void _name(int layer, int bank, int &code, int &color, int &flags, int &priority)
+
+
+class k052109_device : public device_t, public device_gfx_interface, public device_video_interface
+{
+	static const gfx_layout charlayout;
+	static const gfx_layout charlayout_ram;
+	DECLARE_GFXDECODE_MEMBER(gfxinfo);
+	DECLARE_GFXDECODE_MEMBER(gfxinfo_ram);
+
+public:
+	using tile_delegate = device_delegate<void (int layer, int bank, int &code, int &color, int &flags, int &priority)>;
+
+	k052109_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+	~k052109_device() {}
+
+	// configuration
+	auto irq_handler() { return m_irq_handler.bind(); }
+	//auto firq_handler() { return m_firq_handler.bind(); } // unused
+	auto nmi_handler() { return m_nmi_handler.bind(); }
+
+	/*
+	The tile callback is passed:
+	- layer number (0 = FIX, 1 = A, 2 = B)
+	- bank (range 0-3, output of the pins CAB1 and CAB2)
+	- code (range 00-FF, output of the pins VC3-VC10)
+	NOTE: code is in the range 0000-FFFF for X-Men, which uses extra RAM
+	- color (range 00-FF, output of the pins COL0-COL7)
+	The callback must put:
+	- in code the resulting tile number
+	- in color the resulting color index
+	- if necessary, put flags and/or priority for the TileMap code in the tile_info
+	structure (e.g. TILE_FLIPX). Note that TILE_FLIPY is handled internally by the
+	chip so it must not be set by the callback.
+	*/
+
+	template <typename... T> void set_tile_callback(T &&... args) { m_k052109_cb.set(std::forward<T>(args)...); }
+	void set_char_ram(bool ram) { set_info(ram ? gfxinfo_ram : gfxinfo); }
+
+	// public interface
+	u8 read(offs_t offset);
+	void write(offs_t offset, u8 data);
+
+	void set_rmrd_line(int state) { m_rmrd_line = state; }
+	int get_rmrd_line() { return m_rmrd_line; }
+	void update_scroll();
+	void tilemap_draw(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int tmap_num, u32 flags = 0, u8 priority = 0, u8 priority_mask = 0xff);
+	void mark_tilemap_dirty(u8 tmap_num);
+
+protected:
+	// device-level overrides
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_reset() override ATTR_COLD;
+	virtual void device_post_load() override { tileflip_reset(); }
+
+private:
+	// internal state
+	std::unique_ptr<u8[]> m_ram;
+	u8    *m_videoram_F;
+	u8    *m_videoram_A;
+	u8    *m_videoram_B;
+	u8    *m_videoram2_F;
+	u8    *m_videoram2_A;
+	u8    *m_videoram2_B;
+	u8    *m_colorram_F;
+	u8    *m_colorram_A;
+	u8    *m_colorram_B;
+
+	tilemap_t  *m_tilemap[3];
+	u8         m_tileflip_enable;
+	u8         m_charrombank[4];
+	u8         m_charrombank_2[4];
+	u8         m_has_extra_video_ram;
+	s32        m_rmrd_line;
+	u8         m_irq_control;
+	u8         m_romsubbank, m_scrollctrl, m_addrmap;
+
+	optional_region_ptr<u8> m_char_rom;
+
+	tile_delegate m_k052109_cb;
+
+	devcb_write_line m_irq_handler;
+	devcb_write_line m_firq_handler;
+	devcb_write_line m_nmi_handler;
+
+	emu_timer *m_firq_scanline;
+	emu_timer *m_nmi_scanline;
+
+	TILE_GET_INFO_MEMBER(get_tile_info0);
+	TILE_GET_INFO_MEMBER(get_tile_info1);
+	TILE_GET_INFO_MEMBER(get_tile_info2);
+	TILE_BLITTER_MEMBER(tile_blitter);
+
+	void get_tile_info(tile_data &tileinfo, int tile_index, int layer, u8 *cram, u8 *vram1, u8 *vram2);
+	void tileflip_reset();
+
+	void vblank_callback(screen_device &screen, bool state);
+	TIMER_CALLBACK_MEMBER(firq_scanline);
+	TIMER_CALLBACK_MEMBER(nmi_scanline);
+};
+
+DECLARE_DEVICE_TYPE(K052109, k052109_device)
+
+#endif // MAME_KONAMI_K052109_H

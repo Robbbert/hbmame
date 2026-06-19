@@ -1,0 +1,2973 @@
+// license:BSD-3-Clause
+// copyright-holders:David Haywood, Angelo Salese
+/***************************************************************************
+
+    Preliminary driver for XaviX TV PNP console and childs (Let's! Play TV Classic)
+
+    CPU is an M6502 derivative with added opcodes for far-call handling
+
+    Notes from http://www.videogameconsolelibrary.com/pg00-xavix.htm#page=reviews (thanks Guru!)
+    (** this isn't entirely accurate, XaviX Tennis appears to be Super Xavix, see other notes in driver)
+
+    XaviXPORT arrived on the scene with 3 game titles (XaviX Tennis, XaviX Bowling and XaviX Baseball) using their
+    original XaviX Multiprocessor.  This proprietary chip is reported to contain an 8-bit high speed central processing
+    unit (6502) at 21 MHz, picture processor, sound processor, DMA controller, 1K bytes high speed RAM, universal timer,
+    AD/Converter and I/O device control.  Each cartridge comes with a wireless peripheral to be used with the game (Baseball Bat,
+    Tennis Racquet, etc.) that requires "AA" batteries.  The XaviXPORT system retailed for $79.99 USD with the cartridges
+    retailing for $49.99 USD.
+
+    The following year at CES 2005, SSD COMPANY LIMITED introduced two new XaviXPORT titles (XaviX Golf and XaviX Bass Fishing) each
+    containing the upgraded "Super XaviX".  This new chip is said to sport a 16-bit high central processing unit (65816) at 43 MHz.
+    SSD COMPANY LIMITED is already working on their next chip called "XaviX II" that is said to be a 32-bit RISC processor
+    with 3D capabilities.
+
+    Notes:
+
+    To access service mode in Monster Truck hold Horn and Nitro on startup
+
+    There are multiple revisions of the CPU hardware, the SSD 2000 / SSD 2002 chips definitely add more opcodes
+    (thanks to Sean Riddle for this table)
+
+    preliminary list of XaviX software based on various sources (some likely still missing)
+
+    not dumped:
+
+    year        name                                                                                            PCB ID      ROM width       TSOP pads   ROM size        SEEPROM             die markings            extra components / notes
+
+    2006      Let's!TVプレイ ふしぎ星のふたご姫Gyu! ドレスチェンジでキュートにダンス / バンダイ / 日本   Let's!TV Play Gyu, the Twin Princess of the Mysterious Planet! Dance cutely with a dress change / Bandai / Japan
+              Jala Jaland /atlus/Japan (arcade version)                                                       -           -               -           -               -                   -                       -
+    2004      Printer for TV computer /EPOCH/Japan                                                            -           -               -           -               -                   -                       -
+              Wildest computer robot "Daigander" (Korean version) /TAKARA/Korea                               -           -               -           -               -                   -                       -
+    2001      Ping-pong(Chinese version) /Tenpon/China                                                        -           -               -           -               -                   -                       -
+              Baseball Korean version /SONOKONG/Korea                                                         -           -               -           -               -                   -                       -
+    1999      ABC Jungle Fun Hippo VTech/HK (USA and UK versions only, FR is dumped)                          -           -               -           -               -                   -                       -
+
+
+    XaviX Tennis and XaviX Baseball are the simplest: just the CPU, x16 ROM and 24C08 SEEPROM.  Bowling and Boxing also have 4 IR LEDs and a 32x32 sensor.
+    XaviX Fishing has ROM, 24C08 and a 24-pin daughterboard with a Nordic nRF24E1 2.4GHz 8051-based SoC.
+    All the rest of the carts include an S35390 I2C clock chip with crystal and battery backup, and have two x16 ROM chips, using a 5-pin single-gate inverter to create complementary /OE signals.
+    J-MAT, Fitness Exercise, Fitness Challenge and Bike Concept have a 24CS64 SEEPROM.  Bike Concept also has two 74HC14s.
+    Fitness Dance has an Atmel H93864C (maybe SEEPROM?) a Microchip DSPIC 33FJ12GP202 and two JRC 2740 dual op amps.
+    Music and Circuit has a 24CS64, two UTC324 quad op amps, a 74HC14, a 74HCT04, and an 8-pin SOIC labeled 61545, which is likely an M61545 dual electronic volume control.
+
+    It looks like the sensors (cameras) are from ETOMS
+    They are all 32x32 arrays except Fitness Play, which is 64x64.  Most of the PCBs are marked CIS.
+    Bowling and Boxing look identical.
+    LOTR and SW look identical
+    DQ looks similar to LOTR
+    Real Swing Golf (different driver) and Fitness Play look different from all the others.
+
+    The sensor dies for Bowling, Boxing, Star Wars and DQ are labeled CU5501A.
+    LOTR is CU5501
+    Real Swing Golf is CU5502
+    Fitness Play is S-5300A SLH2039H and does not have ETOMS on it.
+    The Fitness Play main PCB has an extra glob next to the ribbon cable to the camera.
+    Most of the camera PCBs connect to the main PCB with an 18-20 wire ribbon cable.
+
+    Real Swing Golf just has 6 wires, Its camera PCB is the only one with a ceramic resonator
+    Maybe the CU5502 chip offloads some processing from the CPU?
+
+
+
+    NOTES:
+
+    Play TV Monster Truck runs off an entirely different codebase to everything else, presumably coded by the developer from scratch rather than using code supplied by SSD Company LTD
+    Play TV Rescue Heroes fails to display any kind of XaviX logo or SSD Copyright, it is the only XaviX based game so far to not show these details anywhere in the game.
+
+
+
+***************************************************************************/
+
+#include "emu.h"
+#include "xavix.h"
+#include "softlist_dev.h"
+
+
+/* rad_madf has callf #$8f3f21 in various places, and expects to jump to code in ROM, it is unclear how things map in this case, as presumably
+   the CPU 0 page memory and stack are still at 0 but ROM must be in the 3xxx range (game hasn't got far enough to call this yet to help either)
+
+   the maximum romsize appears to be 0x800000 so presumably the high bit being set has some additional meaning
+
+   for now treat it as a swapped arrangement vs. the reads from the lower range, except where page 0 ram would map, it's also possible that
+   vram etc. is completely unavailable if executing from these addresses, there isn't much evidence at the moment
+
+   note, many DMA operations and tile bank redirects etc. have the high bit set too, so that could be significant if it defines how it accesses
+   memory in those cases too
+
+   this can't be correct, it breaks monster truck which expects ROM at 8000 even in the >0x800000 region, maybe code + data mappings need
+   to be kept separate, with >0x800000 showing both ROM banks for code, but still having the zero page area etc. for data?
+
+   The code at 00EA84 in Ping Pong stores 8e to the data bank, reads 16 bit pointer from from 0000 + y (expecting it to come from zero page ram - value 3081)
+   then reads data from 3081, pushes it to stack (which is expected to work) then sets data bank back to 00 (writes to ff, expecting it to work) then pulls
+   the value written and puts it in RAM.  Is stack actually still memory mapped at this point, or do stack operations always go to stack regardless?
+   Do reads return databank/codebank/stack, or only zero page? is zero page visibility maybe even conditional on how it gets used?
+
+   in namcons1 the code at 00F3F2 has data bank set to 0x84 and expects to read from ROM using lda ($0a), y where the content of 0x0a is 0000
+   this means that 0a and 0b must be read as zero page, but the actual pointer read from is ROM, bypassing zero page entirely, I currently have a separate
+   address space called by that single opcode to handle this, it might need expanding to any other opcodes that aren't using zero page directly tho
+   possible stack is similar?
+
+
+*/
+
+// this is only used for opcode / oprand reads, data memory addressing is handled in core, doing the opcode / oprand addressing in core causes disassembly issues when running from lowbus space (ram, interrupts on most games)
+void xavix_state::xavix_map(address_map &map)
+{
+	map(0x000000, 0x7fffff).r(FUNC(xavix_state::opcodes_000000_r));
+	map(0x800000, 0xffffff).r(FUNC(xavix_state::opcodes_800000_r));
+
+	map(0x000000, 0x003fff).w(FUNC(xavix_state::debug_mem_w));
+
+}
+
+// this is used by data reads / writes after some processing in the core to decide if data reads can see lowbus, zeropage, stack, bank registers etc. and only falls through to here on a true external bus access
+void xavix_state::xavix_extbus_map(address_map &map)
+{
+	map(0x000000, 0x7fffff).rom().region("bios", 0x00000);
+}
+
+void xavix_cart_state::xavix_extbus_map(address_map &map)
+{
+	map(0x000000, 0x5fffff).rw(FUNC(xavix_cart_state::cart_r), FUNC(xavix_cart_state::cart_w));
+	map(0x600000, 0x7fffff).rom().region("bios", 0x600000);
+}
+
+void xavix_state::xavix_4mb_extbus_map(address_map &map)
+{
+	map(0x000000, 0x3fffff).mirror(0x400000).rom().region("bios", 0x00000);
+}
+
+void xavix_state::xavix_2mb_extbus_map(address_map &map)
+{
+	map(0x000000, 0x1fffff).mirror(0x600000).rom().region("bios", 0x00000);
+}
+
+void xavix_state::xavix_1mb_extbus_map(address_map &map)
+{
+	map(0x000000, 0x0fffff).mirror(0x700000).rom().region("bios", 0x00000);
+}
+
+void xavix_state::mainram_w(offs_t offset, uint8_t data)
+{
+	m_mainram[offset] = data;
+/*
+// trying to debug anpanmdx title screen issue
+    if ((offset == 0x3d) && (data == 0x77))
+        logerror("%s: writing 0x77 to 0x3d\n", machine().describe_context());
+    if ((offset == 0x98) && (data == 0x77))
+        logerror("%s: writing 0x77 to 0x98\n", machine().describe_context());
+    if ((offset == 0x3f2) && (data == 0x77))
+        logerror("%s: writing 0x77 to 0x3f2\n", machine().describe_context());
+// but the unwanted? value of 0x77 is explicitly set by the code at 1c61c
+*/
+}
+
+
+void xavix_state::xavix_lowbus_map(address_map &map)
+{
+	map(0x0000, 0x3fff).ram().w(FUNC(xavix_state::mainram_w)).share("mainram");
+
+	// Memory Emulator / Text Array
+	map(0x4000, 0x4fff).rw(FUNC(xavix_state::xavix_memoryemu_txarray_r), FUNC(xavix_state::xavix_memoryemu_txarray_w));
+
+	// Sprite RAM (aka Fragment RAM)
+	map(0x6000, 0x67ff).ram().w(FUNC(xavix_state::spriteram_w)).share("fragment_sprite");
+
+	// Palette RAM
+	map(0x6800, 0x68ff).ram().w(FUNC(xavix_state::palram_sh_w)).share("palram_sh");
+	map(0x6900, 0x69ff).ram().w(FUNC(xavix_state::palram_l_w)).share("palram_l");
+
+	// Segment RAM
+	map(0x6a00, 0x6a1f).ram().share("segment_regs"); // test mode, pass flag 0x20
+
+	// Tilemap 1 Registers
+	map(0x6fc8, 0x6fcf).rw(FUNC(xavix_state::tmap1_regs_r), FUNC(xavix_state::tmap1_regs_w));
+
+	// Tilemap 2 Registers
+	map(0x6fd0, 0x6fd7).rw(FUNC(xavix_state::tmap2_regs_r), FUNC(xavix_state::tmap2_regs_w));
+
+	// Sprite Registers
+	map(0x6fd8, 0x6fd8).rw(FUNC(xavix_state::spriteregs_r), FUNC(xavix_state::spriteregs_w));
+
+	// Sprite DMA
+	map(0x6fe0, 0x6fe0).rw(FUNC(xavix_state::spritefragment_dma_status_r), FUNC(xavix_state::spritefragment_dma_trg_w)); // after writing to 6fe1/6fe2 and 6fe5/6fe6 rad_mtrk writes 0x43/0x44 here then polls on 0x40   (see function call at c273) write values are hardcoded, similar code at 18401
+	map(0x6fe1, 0x6fe2).w(FUNC(xavix_state::spritefragment_dma_params_1_w));
+	map(0x6fe5, 0x6fe6).w(FUNC(xavix_state::spritefragment_dma_params_2_w));
+
+	// Arena Registers (controls visible window + more?)
+	map(0x6fe8, 0x6fe8).rw(FUNC(xavix_state::arena_start_r), FUNC(xavix_state::arena_start_w)); // r/w tested
+	map(0x6fe9, 0x6fe9).rw(FUNC(xavix_state::arena_end_r), FUNC(xavix_state::arena_end_w)); // r/w tested
+	map(0x6fea, 0x6fea).rw(FUNC(xavix_state::arena_control_r), FUNC(xavix_state::arena_control_w));
+
+	// Colour Mixing / Enabling Registers
+	map(0x6ff0, 0x6ff0).ram().w(FUNC(xavix_state::colmix_sh_w)).share("colmix_sh"); // effect colour?
+	map(0x6ff1, 0x6ff1).ram().w(FUNC(xavix_state::colmix_l_w)).share("colmix_l");
+	map(0x6ff2, 0x6ff2).ram().w(FUNC(xavix_state::colmix_6ff2_w)).share("colmix_ctrl"); // set to 07 after clearing above things in interrupt 0
+
+	// Display Control Register / Status Flags
+	map(0x6ff8, 0x6ff8).rw(FUNC(xavix_state::dispctrl_6ff8_r), FUNC(xavix_state::dispctrl_6ff8_w)); // always seems to be a read/store or read/modify/store
+	map(0x6ff9, 0x6ff9).r(FUNC(xavix_state::pal_ntsc_r));
+	map(0x6ffa, 0x6ffa).ram().w(FUNC(xavix_state::dispctrl_posirq_x_w)).share("posirq_x");
+	map(0x6ffb, 0x6ffb).ram().w(FUNC(xavix_state::dispctrl_posirq_y_w)).share("posirq_y"); // increases / decreases when you jump in snowboard (snowboard, used to blank ground)
+
+	// Lightgun / pen 1 control
+	map(0x6ffc, 0x6fff).r(FUNC(xavix_state::lightgun_r));
+
+	// Sound RAM (tested by Gun Gun Revolution, games don't write here, so it's probably just RAM the sound hardware makes use of directly when mixing)
+	map(0x7400, 0x757f).ram();
+
+	// Sound Control
+	map(0x75f0, 0x75f1).rw(FUNC(xavix_state::sound_voice_startstop_r), FUNC(xavix_state::sound_voice_startstop_w));
+	map(0x75f2, 0x75f3).rw(FUNC(xavix_state::sound_voice_updateenv_r), FUNC(xavix_state::sound_voice_updateenv_w));
+	map(0x75f4, 0x75f5).r(FUNC(xavix_state::sound_voice_status_r));
+	map(0x75f6, 0x75f6).rw(FUNC(xavix_state::sound_volume_r), FUNC(xavix_state::sound_volume_w));
+	map(0x75f7, 0x75f7).rw(FUNC(xavix_state::sound_regbase_r), FUNC(xavix_state::sound_regbase_w));
+	map(0x75f8, 0x75f8).rw(FUNC(xavix_state::sound_cyclerate_r), FUNC(xavix_state::sound_cyclerate_w));
+	map(0x75f9, 0x75f9).rw(FUNC(xavix_state::sound_mixer_r), FUNC(xavix_state::sound_mixer_w));
+	map(0x75fa, 0x75fa).rw(FUNC(xavix_state::sound_tp0_r), FUNC(xavix_state::sound_tp0_w));
+	map(0x75fb, 0x75fb).rw(FUNC(xavix_state::sound_tp1_r), FUNC(xavix_state::sound_tp1_w));
+	map(0x75fc, 0x75fc).rw(FUNC(xavix_state::sound_tp2_r), FUNC(xavix_state::sound_tp2_w));
+	map(0x75fd, 0x75fd).rw(FUNC(xavix_state::sound_tp3_r), FUNC(xavix_state::sound_tp3_w));
+	map(0x75fe, 0x75fe).rw(FUNC(xavix_state::sound_irq_status_r), FUNC(xavix_state::sound_irq_status_w));
+	map(0x75ff, 0x75ff).rw(FUNC(xavix_state::sound_dac_control_r), FUNC(xavix_state::sound_dac_control_w));
+
+	// Slot Registers
+	map(0x7810, 0x7810).w(FUNC(xavix_state::slotreg_7810_w)); // startup
+
+	// External Bus Interface control
+	map(0x7900, 0x7902).rw(FUNC(xavix_state::extintrf_790x_r), FUNC(xavix_state::extintrf_790x_w));
+
+	// DMA Controller
+	map(0x7980, 0x7980).rw(FUNC(xavix_state::rom_dmastat_r), FUNC(xavix_state::rom_dmatrg_w));
+	map(0x7981, 0x7983).ram().w(FUNC(xavix_state::rom_dmasrc_w)).share("rom_dma_src");
+	map(0x7984, 0x7985).ram().w(FUNC(xavix_state::rom_dmadst_w)).share("rom_dma_dst");
+	map(0x7986, 0x7987).ram().w(FUNC(xavix_state::rom_dmalen_w)).share("rom_dma_len");
+
+	// IO Ports
+	map(0x7a00, 0x7a00).rw(FUNC(xavix_state::io0_data_r), FUNC(xavix_state::io0_data_w));
+	map(0x7a01, 0x7a01).rw(FUNC(xavix_state::io1_data_r), FUNC(xavix_state::io1_data_w));
+	map(0x7a02, 0x7a02).rw(FUNC(xavix_state::io0_direction_r), FUNC(xavix_state::io0_direction_w));
+	map(0x7a03, 0x7a03).rw(FUNC(xavix_state::io1_direction_r), FUNC(xavix_state::io1_direction_w));
+
+	// IO Event Interrupt control
+	map(0x7a80, 0x7a80).rw(FUNC(xavix_state::ioevent_enable_r), FUNC(xavix_state::ioevent_enable_w));
+	map(0x7a81, 0x7a81).rw(FUNC(xavix_state::ioevent_irqstate_r), FUNC(xavix_state::ioevent_irqack_w));
+
+	// Mouse / Trackball?
+	map(0x7b00, 0x7b00).rw("anport", FUNC(xavix_anport_device::mouse_7b00_r), FUNC(xavix_anport_device::mouse_7b00_w));
+	map(0x7b01, 0x7b01).rw("anport", FUNC(xavix_anport_device::mouse_7b01_r), FUNC(xavix_anport_device::mouse_7b01_w));
+	map(0x7b10, 0x7b10).rw("anport", FUNC(xavix_anport_device::mouse_7b10_r), FUNC(xavix_anport_device::mouse_7b10_w));
+	map(0x7b11, 0x7b11).rw("anport", FUNC(xavix_anport_device::mouse_7b11_r), FUNC(xavix_anport_device::mouse_7b11_w));
+
+	// Lightgun / pen 2 control
+	//map(0x7b18, 0x7b1b)
+
+	// ADC registers
+	map(0x7b80, 0x7b80).rw("adc", FUNC(xavix_adc_device::adc_7b80_r), FUNC(xavix_adc_device::adc_7b80_w)); // rad_snow (not often)
+	map(0x7b81, 0x7b81).rw("adc", FUNC(xavix_adc_device::adc_7b81_r), FUNC(xavix_adc_device::adc_7b81_w)); // written (often, m_trck, analog related?)
+
+	// Sleep control
+	//map(0x7b82, 0x7b83)
+
+	// Timer control
+	map(0x7c00, 0x7c00).rw(FUNC(xavix_state::timer_status_r), FUNC(xavix_state::timer_control_w));
+	map(0x7c01, 0x7c01).rw(FUNC(xavix_state::timer_baseval_r), FUNC(xavix_state::timer_baseval_w)); // r/w tested
+	map(0x7c02, 0x7c02).rw(FUNC(xavix_state::timer_freq_r), FUNC(xavix_state::timer_freq_w));
+	map(0x7c03, 0x7c03).r(FUNC(xavix_state::timer_curval_r));
+
+	// Barrel Shifter registers
+	map(0x7ff0, 0x7ff1).rw("math", FUNC(xavix_math_device::barrel_r), FUNC(xavix_math_device::barrel_w));
+
+	// Multiply / Divide registers
+	map(0x7ff2, 0x7ff4).rw("math", FUNC(xavix_math_device::mult_param_r), FUNC(xavix_math_device::mult_param_w));
+	map(0x7ff5, 0x7ff6).rw("math", FUNC(xavix_math_device::mult_r), FUNC(xavix_math_device::mult_w));
+
+	// CPU Vector registers
+	map(0x7ff9, 0x7ff9).w(FUNC(xavix_state::vector_enable_w)); // enables / disables the custom vectors
+	map(0x7ffa, 0x7ffa).rw(FUNC(xavix_state::nmi_vector_lo_r), FUNC(xavix_state::nmi_vector_lo_w)); // an IRQ vector (nmi?) - popira needs to read it back if you pause on one of the seeprom carts
+	map(0x7ffb, 0x7ffb).rw(FUNC(xavix_state::nmi_vector_hi_r), FUNC(xavix_state::nmi_vector_hi_w));
+	map(0x7ffc, 0x7ffc).rw(FUNC(xavix_state::irq_source_r), FUNC(xavix_state::irq_source_w));
+	// map(0x7ffd, 0x7ffd) some of the Nostalgia games read here, why?
+	map(0x7ffe, 0x7ffe).rw(FUNC(xavix_state::irq_vector_lo_r),FUNC(xavix_state::irq_vector_lo_w)); // an IRQ vector (irq?) - rad_opus needs to read this back!
+	map(0x7fff, 0x7fff).rw(FUNC(xavix_state::irq_vector_hi_r),FUNC(xavix_state::irq_vector_hi_w));
+}
+
+void superxavix_state::superxavix_lowbus_map(address_map &map)
+{
+	xavix_lowbus_map(map);
+
+	// bitmap layer palette
+	map(0x6c00, 0x6cff).ram().w(FUNC(superxavix_state::bmp_palram_sh_w)).share("bmp_palram_sh");
+	map(0x6d00, 0x6dff).ram().w(FUNC(superxavix_state::bmp_palram_l_w)).share("bmp_palram_l");
+
+	map(0x6a40, 0x6a7f).ram().w(FUNC(superxavix_state::ext_segment_regs_w)).share("ext_segment_regs"); // 16x32 extended segment regs
+
+	 // bitmap plotter(!) (with auto-inc?) - used by super pc tv units
+	map(0x6f60, 0x6f60).w(FUNC(superxavix_state::superxavix_plt_flush_w)); // writes here to flush plotter FIFO
+	map(0x6f62, 0x6f62).w(FUNC(superxavix_state::superxavix_plt_dat_w)); // writes plotter data here
+	map(0x6f63, 0x6f63).r(FUNC(superxavix_state::superxavix_plt_dat_r));
+	map(0x6f64, 0x6f67).rw(FUNC(superxavix_state::superxavix_plt_loc_r), FUNC(superxavix_state::superxavix_plt_loc_w)).share("sx_plt_loc");
+
+	map(0x6f78, 0x6f78).rw(FUNC(superxavix_state::superxavix_chr_pal_index_r), FUNC(superxavix_state::superxavix_chr_pal_index_w)); // SgdPalChrIdx
+	map(0x6f79, 0x6f79).rw(FUNC(superxavix_state::superxavix_chr_pal_hue_r), FUNC(superxavix_state::superxavix_chr_pal_hue_w)); // SgdPalChrHue
+	map(0x6f7a, 0x6f7a).rw(FUNC(superxavix_state::superxavix_chr_pal_saturation_r), FUNC(superxavix_state::superxavix_chr_pal_saturation_w)); // SgdPalChrSat
+	map(0x6f7b, 0x6f7b).rw(FUNC(superxavix_state::superxavix_chr_pal_lightness_r), FUNC(superxavix_state::superxavix_chr_pal_lightness_w)); // SgdPalChrLgt
+
+	map(0x6f7c, 0x6f7c).rw(FUNC(superxavix_state::superxavix_bitmap_pal_index_r), FUNC(superxavix_state::superxavix_bitmap_pal_index_w)); // SgdPalBmpAdr
+	map(0x6f7d, 0x6f7d).rw(FUNC(superxavix_state::superxavix_bitmap_pal_hue_r), FUNC(superxavix_state::superxavix_bitmap_pal_hue_w)); // SgdPalBmpHue
+	map(0x6f7e, 0x6f7e).rw(FUNC(superxavix_state::superxavix_bitmap_pal_saturation_r), FUNC(superxavix_state::superxavix_bitmap_pal_saturation_w)); // SgdPalBmpSat
+	map(0x6f7f, 0x6f7f).rw(FUNC(superxavix_state::superxavix_bitmap_pal_lightness_r), FUNC(superxavix_state::superxavix_bitmap_pal_lightness_w)); // SgdPalBmpLgt
+
+	map(0x6f80, 0x6f99).rw(FUNC(superxavix_state::superxavix_crtc_1_r), FUNC(superxavix_state::superxavix_crtc_1_w)).share("sx_crtc_1"); // Super XaviX CRTC?
+	map(0x6fa0, 0x6fa7).rw(FUNC(superxavix_state::superxavix_crtc_2_r), FUNC(superxavix_state::superxavix_crtc_2_w)).share("sx_crtc_2"); // maybe more CRTC regs?
+
+	map(0x6fb0, 0x6fc7).rw(FUNC(superxavix_state::bitmap_params_r), FUNC(superxavix_state::bitmap_params_w)).share("bmp_base");
+
+	// extended external bus stuff (possible banking control?)
+	map(0x7909, 0x7909).w(FUNC(superxavix_state::extended_extbus_reg0_w));
+	map(0x790b, 0x790b).w(FUNC(superxavix_state::extended_extbus_reg1_w));
+	map(0x790d, 0x790d).w(FUNC(superxavix_state::extended_extbus_reg2_w));
+
+	map(0x7a10, 0x7a12).rw("xavix2002io", FUNC(xavix2002_io_device::pio_dir_r), FUNC(xavix2002_io_device::pio_dir_w));
+	map(0x7a20, 0x7a22).rw("xavix2002io", FUNC(xavix2002_io_device::pio_out_r), FUNC(xavix2002_io_device::pio_out_w));
+	map(0x7a30, 0x7a32).r("xavix2002io", FUNC(xavix2002_io_device::pio_in_r));
+
+
+
+	map(0x7ffd, 0x7ffd).nopw(); // looks like a watchdog?
+}
+
+
+
+static INPUT_PORTS_START( xavix )
+	PORT_START("IN0")
+	PORT_DIPNAME( 0x01, 0x00, "IN0" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+
+	PORT_START("IN1")
+	PORT_DIPNAME( 0x01, 0x00, "IN1" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+
+	PORT_START("AN0")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN1")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN2")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN3")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN4")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN5")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN6")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("AN7")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("MOUSE0X")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("MOUSE0Y")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("MOUSE1X")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_START("MOUSE1Y")
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("REGION") // PAL/NTSC flag
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( xavix_an )
+	PORT_INCLUDE(xavix)
+
+	// test inputs, not real!
+	PORT_MODIFY("AN0") // 00
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN1") // 01
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL2 ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN2") // 02
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL3 ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN3") // 03
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN4") // 10
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL2 ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN5") // 11
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL3 ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN6") // 12
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+	PORT_MODIFY("AN7") // 13
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL2 ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( xavix_i2c )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("i2cmem", FUNC(i2cmem_device::read_sda))
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( epo_mj )
+	PORT_INCLUDE(xavix)
+
+	// there are not 15 buttons, there are 7 plus the dial, this is for figuring out the inputs
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Back")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Select") // forward through menus
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON5 )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON7 )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON8 )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON9 )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("i2cmem", FUNC(i2cmem_device::read_sda))
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON10 )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON11 )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON12 )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON13 )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON14 )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON15 )
+
+	PORT_START("DIAL")
+	PORT_BIT( 0xff, 0x00, IPT_AD_STICK_X ) PORT_SENSITIVITY(16) PORT_KEYDELTA(16) PORT_REVERSE PORT_PLAYER(1)
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( epo_mms )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Pad 1 - Pink")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pad 2 - Orange")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Pad 3 - Purple")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pad 4 - Green")
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( ban_krrj )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Pad 1 - X")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pad 2 - Left / Red")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Pad 3 - Right / Green")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pad 4 - O")
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tak_hamr )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1) PORT_NAME("Player 1 - Green (Left)")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(1) PORT_NAME("Player 1 - Yellow (Middle)")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(1) PORT_NAME("Player 1 - Red (Right)")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2) PORT_NAME("Player 2 - Green (Left)")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(2) PORT_NAME("Player 2 - Yellow (Middle)")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(2) PORT_NAME("Player 2 - Red (Right)")
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tomshoot )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
+
+	PORT_START("GUN1_0")
+	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_X ) PORT_CROSSHAIR(X, 1.0, 0.0, 0) PORT_SENSITIVITY(35) PORT_KEYDELTA(15) PORT_PLAYER(1)
+
+	PORT_START("GUN1_1")
+	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_Y ) PORT_CROSSHAIR(Y, 1.0, 0.0, 0) PORT_SENSITIVITY(35) PORT_KEYDELTA(15) PORT_PLAYER(1)
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( gungunrv )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN ) // needed to boot
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tomcpin )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1) PORT_NAME("P1 Right Flipper")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(1) PORT_NAME("P1 Left Flipper")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(1) PORT_NAME("P1 Launch Ball")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_PLAYER(1) PORT_NAME("P1 Nudge")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2) PORT_NAME("P2 Right Flipper")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(2) PORT_NAME("P2 Left Flipper")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(2) PORT_NAME("P2 Launch Ball")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_PLAYER(2) PORT_NAME("P2 Nudge")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( tomplc )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Doors / Right")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Wipers / Back")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Headlights / Left")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Horn / Select")
+
+	// this is the up/down handle on the left (pull towards player to increase power)
+	PORT_BIT( 0x30, 0x00, IPT_POSITIONAL_V ) PORT_POSITIONS(3) PORT_SENSITIVITY(10) PORT_KEYDELTA(1) PORT_CENTERDELTA(0) PORT_FULL_TURN_COUNT(3) PORT_NAME("Power")
+
+	PORT_MODIFY("IN1")
+	// this is the rotary lever (move anti-clockwise to the right to apply brakes)
+	PORT_BIT( 0x03, 0x00, IPT_POSITIONAL ) PORT_POSITIONS(3) PORT_SENSITIVITY(10) PORT_KEYDELTA(1) PORT_CENTERDELTA(0) PORT_FULL_TURN_COUNT(3) PORT_NAME("Brake")
+
+	// are you expected to say something when this is held? game makes a crackle and doesn't act like you said anything
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Speak")
+
+	PORT_MODIFY("AN0")
+	// all bits in this port seem to be the microphone input, the game just needs to register a large enough value when the button is pressed
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Microphone In")
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tomthr )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	// not an actual joystick, this is a forward / backwards level, and a digital wheel
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_NAME("Move Forwards")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_NAME("Move Backwards")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_NAME("Steer Left") // steering is digital?
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_NAME("Steer Right")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Horn / Select")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Ignition Key")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Map")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Wipers")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Headlights")
+
+	PORT_MODIFY("AN0")
+	// all bits in this port seem to be the microphone input, the game just needs to register a large enough value when the button is pressed
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Microphone In")
+
+	PORT_MODIFY("AN5")
+	// read during attract demo
+
+	PORT_MODIFY("AN7")
+	// battery status?
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( ltv_tam )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("MOUSE0X")
+	PORT_BIT( 0xff, 0x00, IPT_AD_STICK_X ) PORT_SENSITIVITY(25) PORT_KEYDELTA(32) PORT_REVERSE PORT_PLAYER(1)
+	PORT_MODIFY("MOUSE0Y")
+	PORT_BIT( 0xff, 0x00, IPT_AD_STICK_Y ) PORT_SENSITIVITY(25) PORT_KEYDELTA(32) PORT_PLAYER(1)
+	PORT_MODIFY("MOUSE1X")
+	PORT_BIT( 0xff, 0x00, IPT_AD_STICK_X ) PORT_SENSITIVITY(25) PORT_KEYDELTA(32) PORT_REVERSE PORT_PLAYER(2)
+	PORT_MODIFY("MOUSE1Y")
+	PORT_BIT( 0xff, 0x00, IPT_AD_STICK_Y ) PORT_SENSITIVITY(25) PORT_KEYDELTA(32) PORT_PLAYER(2)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1)
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( tom_tvho )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("MOUSE0X")
+	PORT_BIT( 0xff, 0x01, IPT_AD_STICK_X ) PORT_MINMAX(0x01, 0xfe) PORT_SENSITIVITY(7) PORT_KEYDELTA(35) PORT_REVERSE PORT_PLAYER(1)
+	PORT_MODIFY("MOUSE0Y")
+	PORT_BIT( 0xff, 0x01, IPT_AD_STICK_Y ) PORT_MINMAX(0x01, 0xfe) PORT_SENSITIVITY(7) PORT_KEYDELTA(35) PORT_PLAYER(1)
+	PORT_MODIFY("MOUSE1X")
+	PORT_BIT( 0xff, 0x01, IPT_AD_STICK_X ) PORT_MINMAX(0x01, 0xfe) PORT_SENSITIVITY(7) PORT_KEYDELTA(35) PORT_REVERSE PORT_PLAYER(2)
+	PORT_MODIFY("MOUSE1Y")
+	PORT_BIT( 0xff, 0x01, IPT_AD_STICK_Y ) PORT_MINMAX(0x01, 0xfe) PORT_SENSITIVITY(7) PORT_KEYDELTA(35) PORT_PLAYER(2)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1)
+INPUT_PORTS_END
+
+// left + right drums together = select / forward (needed on initial screen).  left drum = left in menus   right drum  = right in menus
+// analog reading depends heavily on timers, they're too fast right now so drum hits are too hard and register multiple times
+static INPUT_PORTS_START( taikodp )
+	PORT_INCLUDE(xavix_an)
+
+	PORT_MODIFY("AN0") // 00  (read by one type of function, handled in timer interrupt at 0x1d92 in RAM)
+#if 0 // should be more correct, but causes multiple hits to register
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+#else
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_IMPULSE(1)
+	PORT_BIT( 0x7f, IP_ACTIVE_HIGH, IPT_UNUSED )
+#endif
+
+	PORT_MODIFY("AN1") // 01  (read by identical function to 00 but with different addresses, handled in timer interrupt at 0x1dbd in RAM)
+#if 0 // should be more correct, but causes multiple hits to register
+	PORT_BIT( 0xff, 0x00, IPT_PEDAL2 ) PORT_SENSITIVITY(100) PORT_KEYDELTA(20)
+#else
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_IMPULSE(1)
+	PORT_BIT( 0x7f, IP_ACTIVE_HIGH, IPT_UNUSED )
+#endif
+
+	PORT_MODIFY("AN5") // 11  (read by different function, handled in timer interrupt at 0x1de8) (battery status related?)
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_MODIFY("AN7") // 13  (read by identical function to 11 but with different addresses, handled in timer interrupt at 0x1e09 in RAM) (battery status related?)
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	// not read
+	PORT_MODIFY("AN2") // 02
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_MODIFY("AN3") // 03
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_MODIFY("AN4") // 10
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_MODIFY("AN6") // 12
+	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("i2cmem", FUNC(i2cmem_device::read_sda))
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( jpopira )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Pad 1")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pad 2")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Pad 3")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pad 4")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("i2cmem", FUNC(i2cmem_device::read_sda))
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+
+
+/* Test mode lists the following
+
+  LED (on power button?)
+  Throttle Low
+  Throttle High
+  Reverse
+  NO2
+  Steering Left (4 positions)
+  Steering Right (4 positions)
+  Horn
+
+*/
+
+int xavix_mtrk_state::mtrk_wheel_r()
+{
+	return m_wheel->read_direction();
+}
+
+
+static INPUT_PORTS_START( rad_mtrk )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Nitro")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Throttle High")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Throttle Low")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Reverse / Back")
+
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM )  PORT_READ_LINE_MEMBER(FUNC(xavix_mtrk_state::mtrk_wheel_r))
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Horn")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_mtrkp )
+	PORT_INCLUDE(rad_mtrk)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_opus )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0") // comments show how inputs labeled on PCB
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Pad 1 <") // PI00
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pad 2")   // PI01
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Pad 3")   // PI02
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pad 4 >") // PI03
+
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Pause") // PI05
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Menu Select") // PI06
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Start / Bomb") // PI07
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_opusp )
+	PORT_INCLUDE(rad_opus)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_hnt )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Menu Next")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Menu Previous")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Menu Select")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pause / Menu")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Fire Gun")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Safety") PORT_TOGGLE
+
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_crdn )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON2 )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_crdnp )
+	PORT_INCLUDE(rad_crdn)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_box )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	// 6 types of punch and some navigation controls?
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Left Jan")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Left Hook")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Left Uppercut")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Left Jab")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Left Hook")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Left Uppercut")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON7 )  PORT_NAME("Block")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN ) // needs to be high to pass warning screen?
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_boxp )
+	PORT_INCLUDE(rad_box)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_bass ) // also an analog reel
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Menu") // pressing this ingame currently crashes it if read from sound_irqstatus_r is incorrect?
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Select")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Forward") // used to navigate menus
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Back")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) // definitely the dpad, see map screen
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( ekara )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_DIPNAME( 0x80, 0x00, "Alternate Input Mapping" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_ekara_state::ekara_multi0_r))
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_ekara_state::ekara_multi1_r))
+
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+
+	PORT_START("EXTRA0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON3 )       PORT_NAME("Echo")       PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON4 )       PORT_NAME("Effects")    PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_NAME("Key Down")   PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )   PORT_NAME("Key Up")     PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 )       PORT_NAME("Select")     PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 )       PORT_NAME("Cancel")     PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON7 )       PORT_NAME("Tempo Down") PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON8 )       PORT_NAME("Tempo Up")   PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON5 )       PORT_NAME("BGM Down")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 )       PORT_NAME("BGM Up")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON7 )       PORT_NAME("Tempo Down") PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON8 )       PORT_NAME("Tempo Up")   PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_NAME("Key Down")   PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )   PORT_NAME("Key Up")     PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+
+	PORT_START("EXTRA1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 )       PORT_NAME("Select")     PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 )       PORT_NAME("Cancel")     PORT_CONDITION("IN0", 0x80, EQUALS, 0x00)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON3 )       PORT_NAME("Echo")       PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON4 )       PORT_NAME("Effects")    PORT_CONDITION("IN0", 0x80, EQUALS, 0x80)
+	PORT_BIT( 0x3c, IP_ACTIVE_HIGH, IPT_UNUSED )
+	// no 40/80 due to multiplexer code
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( hikara )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_hikara_state::ekara_multi0_r))
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_hikara_state::ekara_multi1_r))
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_hikara_state::ekara_multi2_r))
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_hikara_state::ekara_multi3_r))
+
+	PORT_START("EXTRA0")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Select")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_NAME("Key Down")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_NAME("Key Up")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON10 ) PORT_NAME("Brightness Up")
+
+	PORT_START("EXTRA1")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("BGM Down")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON9 ) PORT_NAME("Brightness Down")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("BGM Up")
+
+	PORT_START("EXTRA2")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Cancel")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON8 ) PORT_NAME("Tempo Up")
+
+	PORT_START("EXTRA3")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON7 ) PORT_NAME("Tempo Down")
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( ddrfammt )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P1 Up Arrow") PORT_PLAYER(1) // these can't be treated as a joystick as opposing directions are often required
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P1 Down Arrow") PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("P1 Left Arrow") PORT_PLAYER(1)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("P1 Right Arrow") PORT_PLAYER(1)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P2 Up Arrow") PORT_PLAYER(2)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P2 Down Arrow") PORT_PLAYER(2)
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("P2 Left Arrow") PORT_PLAYER(2)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("P2 Right Arrow") PORT_PLAYER(2)
+
+	PORT_MODIFY("IN1") // once connected the game won't see it as disconnected until you turn off.  I'm guessing this is a signal, not a button?
+	PORT_CONFNAME( 0x02,  0x00, "2nd Mat Connected" )
+	PORT_CONFSETTING(     0x00, DEF_STR( No ) )
+	PORT_CONFSETTING(     0x02, DEF_STR( Yes ) )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( popira )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Pad 1") PORT_PLAYER(1)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pad 2") PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Pad 3") PORT_PLAYER(1)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pad 4") PORT_PLAYER(1)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Select Previous") PORT_PLAYER(1)
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Select Next") PORT_PLAYER(1)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Start") PORT_PLAYER(1)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED ) // halts execution and enables a memory viewer if used with cartridge gc0001 (debug leftover?)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( popira2 ) // player 2 buttons have heavy latency, probably due to incorrect timer emulation, hence NOT WORKING flag right now
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P1 Pad 1") PORT_PLAYER(1)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P1 Pad 2") PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("P1 Pad 3") PORT_PLAYER(1)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("P1 Pad 4") PORT_PLAYER(1)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Select Previous") PORT_PLAYER(1)
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Select Next") PORT_PLAYER(1)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Start") PORT_PLAYER(1)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x07, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_popira2_cart_state::i2c_r))
+	PORT_BIT( 0x30, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	// main input processing code is at 028059, which ends with setting a timer (028079) to read analog ports and get these buttons that way.  main timer handler is at 00eb77, which reads ports via the ADC.  $c3 where ports are stored is also checked at 00e6f4
+	PORT_START("P2")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P2 Pad 1") PORT_PLAYER(2)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P2 Pad 2") PORT_PLAYER(2)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("P2 Pad 3") PORT_PLAYER(2)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("P2 Pad 4") PORT_PLAYER(2)
+INPUT_PORTS_END
+
+
+
+static INPUT_PORTS_START( rad_bassp )
+	PORT_INCLUDE(rad_bass)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( rad_snow )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_NAME("Foward / Go")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_NAME("Enter / Select")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_snowp )
+	PORT_INCLUDE(rad_snow)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_bdp )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Purple / Up")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Red / Down")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Blue / Back")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pink / Select")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_ping )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Select?")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pause?")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_SERVICE ) // resets? not a real button?
+
+	PORT_MODIFY("IN1") // are these for the 2nd player?
+	//PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Pause?")
+	//PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	//PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	//PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_SERVICE ) // resets? not a real button?
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_pingp )
+	PORT_INCLUDE(rad_ping)
+
+	PORT_MODIFY("REGION") // PAL/NTSC flag
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_CUSTOM )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( nostalgia )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0") // mappings based on Dragon Buster button list
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON4 ) // Fire4
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON3 ) // Fire3
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNKNOWN ) // not a button? (but can be used to pass prompts?)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON5 ) // Pause / Add Coins, marked 'Credit' (but not a coin slot)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON2 ) // Fire2
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) // Fire1
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tak_geig )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_PLAYER(1)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_PLAYER(1)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_PLAYER(1)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(1)
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(1) // pause
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(2)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_PLAYER(2)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_PLAYER(2)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2)
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(2) // pause
+
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tak_wdg )
+	PORT_INCLUDE(xavix)
+
+	// there is unemulated IR connectivity with other devices that isn't emulated, might rely on some of the unused bits here
+	// could also just be that the other robots change the state of another port somewhere in order to be detected
+
+	// test mode code suggesting IR is at 0eb771 (part of it requires opposing directions to be held as this is not a joystick)
+
+	// To access test mode (do this on a fresh boot, not after an F3 reset or it will hang after the red screen):
+	// first it checks bits 0x01 in port IN1 and expects them to be 0 (this doesn't seem to be connected to anything normally?)
+	// then reads port IN0, masks with 0xf7 and expects only LEFT & RIGHT to he held together
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1) // shoot (robot form) / whistle (train form)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(1) // charge shot (robot form) maybe should be a toggle if it represents an arm position?
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Combine") PORT_TOGGLE // if you toggle it in the robot game it pauses, no effect in train game
+	// 0x08 not used?
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_PLAYER(1) PORT_16WAY // robot form only?
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_PLAYER(1) PORT_16WAY // robot form only?
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_PLAYER(1) PORT_16WAY
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(1) PORT_16WAY
+
+	PORT_MODIFY("IN1")
+	// these must all be flipped to one state or the other to transform (not sure the best way to handle this)
+	// pre-rendered animations will play for each transform, and any running game mode will exit when you start this process
+
+	// 0x01 doesn't trigger any animation, is not used by game, and isn't listed in test mode, but it must be 'off' (returning 0) to access the test mode in the first place (debug pin maybe)
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("Transformation Head State") PORT_TOGGLE
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("Transformation Body State") PORT_TOGGLE
+	// 0x08 doesn't trigger any animation, not used?
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("Transformation Arm 1 State") PORT_TOGGLE
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON7 ) PORT_NAME("Transformation Arm 2 State") PORT_TOGGLE
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF )
+	// 0x80 not used?
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tak_comt )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN ) // needed to boot, might read inputs through this bit
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tak_gin )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_bb )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Menu Select")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Reset?") // might not be a real button
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Pause")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Menu Previous")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Menu Next")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+// to access hidden test mode reset while holding Button1 and Button2 (works every other reset)
+// to cycle through modes use Button 1 until you get to the input test
+static INPUT_PORTS_START( rad_bb2 )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("X")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("O")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+
+
+static INPUT_PORTS_START( rad_fb )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_PLAYER(1)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(1)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_PLAYER(2)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_PLAYER(2)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+
+
+static INPUT_PORTS_START( rad_rh )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0") // hold Right+Button 3 when resetting for a version number
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Skip") // skips level, cheat or real input?
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Forward")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Back")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( epo_epp )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) // select
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) // back
+	// 04/08 not used for buttons?
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( rad_jcon )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Horn / Start") // selects game
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Cancel / Back")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Lever Up") // for rock crushing game etc.
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Lever Down")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_NAME("Handle Up") // for crane fishing game etc.
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_NAME("Handle Down")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_NAME("Wheel Right") // for menu, crane construction etc.
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_NAME("Wheel Left")
+
+	PORT_MODIFY("IN1")
+	// Oddly the game instructions you to 'press the lever to go' but the manual makes it clear this ignition key is used
+	// This is usually the soft power switch input, could Radica have modified this compared to the Japanese original and not given it the correct speech?
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Ignition Key") // moves vehicle forward between parts in digger, pave the road
+INPUT_PORTS_END
+
+// there is also a rumble output, likely mapped to one of the port bits
+static INPUT_PORTS_START( epo_guru )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) // used in the 'from behind' game at least
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+
+	PORT_MODIFY("MOUSE1X")
+//  PORT_BIT( 0xff, 0x80, IPT_AD_STICK_X ) PORT_SENSITIVITY(6) PORT_KEYDELTA(16) PORT_PLAYER(1) PORT_MINMAX(0x44,0xbc)
+	PORT_BIT( 0x1f, 0x10, IPT_AD_STICK_X ) PORT_SENSITIVITY(6) PORT_KEYDELTA(16) PORT_PLAYER(1) // PORT_MINMAX(0x44,0xbc)
+
+	/*
+	 (0x20 is subtracted from value returned in read handler)
+
+	 main game
+	 00 still
+	 01 - 3c right
+	 3d - 78 left  - 78 is a nice slow left but invalid for the sub game
+	 79 - 7f right
+	 80 - 87 left
+	 88 - c3 right
+	 c4 - ff left
+
+	 sub game (break-out)
+	 00 still
+	 01 - 3f right
+	 40 - 7f left
+	 80 still
+	 81 - bf right
+	 c0 - ff left
+
+	 so valid range seems to be c4-ff (left), 00 (still), 01-3c (right) even if this means the slowest speed going left is faster than the slowest speed going right
+	 maybe actual range is 5 bits either way?
+	 4 bits either way seems to work best in practice
+
+	 */
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( epo_efdx )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) // select
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) // back
+	// 04/08 not used for buttons?
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( epo_tfp2 )
+	PORT_INCLUDE(xavix_i2c)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Player 1 Left / Red") PORT_PLAYER(1)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Player 1 Right / Blue") PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Player 1 Start / Orange")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Player 2 Left / Green") PORT_PLAYER(2)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Player 2 Right / Pink") PORT_PLAYER(2)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START2 ) PORT_NAME("Player 2 Start / Blue")
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( epo_tp2p )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Player 1 Left") PORT_PLAYER(1)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Player 1 Right") PORT_PLAYER(1)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Player 1 Start")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Player 2 Left") PORT_PLAYER(2)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Player 2 Right") PORT_PLAYER(2)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START2 ) PORT_NAME("Player 2 Start")
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( tvpc_tom )
+	PORT_INCLUDE(xavix_i2c)
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( has_wamg )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN ) // waits for this after fading out title, what is it?
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( evio )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(FUNC(xavix_evio_cart_state::i2c_r))
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( daig )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( gcslottv ) // TODO: proper button names
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_SLOT_STOP1 )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_SLOT_STOP2 )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_SLOT_STOP3 )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Make Selection / Pause Menu")
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Next Option / Spin / Replay")
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_GAMBLE_BET ) // inserting a medal bets automatically, use this to bet from current credits
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_COIN1 ) // insert medal / coin (there is a physical coin slot on toy for the medals) auto bets if bet possible, otherwise adds to credits
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( jarajal )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_DIPNAME( 0x01, 0x00, "IN0" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+
+
+	PORT_MODIFY("IN1")
+	PORT_DIPNAME( 0x01, 0x00, "IN1" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( multiplt )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	// TODO: steering inputs appear to use multiple bits
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON3 ) // DOWN
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) // UP
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Horn")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 )
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON5 )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON6 ) // holding this keeps wheel in center
+
+	PORT_MODIFY("IN1")
+	PORT_DIPNAME( 0x02, 0x02, "Output Mode" )
+	PORT_DIPSETTING(    0x00, "Audio Only")
+	PORT_DIPSETTING(    0x02, "TV Output")
+INPUT_PORTS_END
+
+
+
+static INPUT_PORTS_START( tcarnavi )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Accelerate")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("Brake")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("Siren / Transform?") // turns you into a police car?
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Reverse")
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("Key")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON10 ) PORT_NAME("Dashboard Power?") PORT_TOGGLE
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_NAME("Steer Left") // steering is digital?
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_NAME("Steer Right")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON8 ) PORT_NAME("Lights")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON7 ) PORT_NAME("Horn")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON6 ) PORT_NAME("Wipers")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON9 ) PORT_NAME("Menu")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_NAME("Power Switch") // pressing this will turn the game off.
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( epo_quiz )
+	PORT_INCLUDE(xavix)
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(1) PORT_NAME("P1 A / 1 / Red / Down")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(1) PORT_NAME("P1 B / 2 / Blue / Select")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(1) PORT_NAME("P1 C / 3 / Yellow / Left")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_PLAYER(1) PORT_NAME("P1 D / 4 / Green / Right")
+
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2) PORT_NAME("P2 A / 1 / Red / Down")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(2) PORT_NAME("P2 B / 2 / Blue / Select")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(2) PORT_NAME("P2 C / 3 / Yellow / Left")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_PLAYER(2) PORT_NAME("P2 D / 4 / Green / Right")
+
+	PORT_MODIFY("IN1")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(3) PORT_NAME("P3 A / 1 / Red / Down")
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(3) PORT_NAME("P3 B / 2 / Blue / Select")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(3) PORT_NAME("P3 C / 3 / Yellow / Left")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_PLAYER(3) PORT_NAME("P3 D / 4 / Green / Right")
+
+	PORT_MODIFY("AN0")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(4) PORT_NAME("P4 A / 1 / Red / Down")
+	PORT_MODIFY("AN6")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_PLAYER(4) PORT_NAME("P4 B / 2 / Blue / Select")
+	PORT_MODIFY("AN1")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_PLAYER(4) PORT_NAME("P4 C / 3 / Yellow / Left")
+	PORT_MODIFY("AN4")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_PLAYER(4) PORT_NAME("P4 D / 4 / Green / Right")
+
+	//PORT_MODIFY("AN7")
+	//PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_BUTTON8 ) // battery status
+
+INPUT_PORTS_END
+
+/* correct, 4bpp gfxs */
+static const gfx_layout char16layout =
+{
+	16,16,
+	RGN_FRAC(1,1),
+	4,
+	{ STEP4(0,1) },
+	{ 1*4,0*4,3*4,2*4,5*4,4*4,7*4,6*4, 9*4,8*4,11*4,10*4,13*4,12*4,15*4,14*4 },
+	{ STEP16(0,4*16) },
+	16*16*4
+};
+
+
+static const gfx_layout char_16x16x2_layout =
+{
+	16,16,
+	RGN_FRAC(1,1),
+	2,
+	{ 0,1 },
+	{ 6,4,2,0,14,12,10,8,22,20,18,16,30,28,26,24 },
+	{ STEP16(0,16*2) },
+	16*16*2
+};
+
+static const gfx_layout charlayout8bpp =
+{
+	8,8,
+	RGN_FRAC(1,1),
+	8,
+	{ STEP8(0,1) },
+	{ STEP8(0,8) },
+	{ STEP8(0,8*8) },
+	8*8*8
+};
+
+static const gfx_layout char16layout8bpp =
+{
+	16,16,
+	RGN_FRAC(1,1),
+	8,
+	{ STEP8(0,1) },
+	{ STEP16(0,8) },
+	{ STEP16(0,16*8) },
+	16*16*8
+};
+
+static GFXDECODE_START( gfx_xavix )
+	GFXDECODE_ENTRY( "bios", 0, char_16x16x2_layout, 0, 64 )
+	GFXDECODE_ENTRY( "bios", 0, gfx_8x8x4_packed_lsb, 0, 16 )
+	GFXDECODE_ENTRY( "bios", 0, char16layout, 0, 16 )
+	GFXDECODE_ENTRY( "bios", 0, charlayout8bpp, 0, 1 )
+	GFXDECODE_ENTRY( "bios", 0, char16layout8bpp, 0, 1 )
+GFXDECODE_END
+
+void xavix_state::set_xavix_cpumaps(machine_config &config)
+{
+	m_maincpu->set_addrmap(AS_PROGRAM, &xavix_state::xavix_map);
+	m_maincpu->set_addrmap(5, &xavix_state::xavix_lowbus_map);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_extbus_map);
+	m_maincpu->set_vblank_int("screen", FUNC(xavix_state::interrupt));
+	m_maincpu->set_vector_callback(FUNC(xavix_state::get_vectors));
+}
+
+void xavix_state::xavix(machine_config &config)
+{
+	/* basic machine hardware */
+	XAVIX(config, m_maincpu, MAIN_CLOCK);
+	set_xavix_cpumaps(config);
+
+	TIMER(config, "scantimer").configure_scanline(FUNC(xavix_state::scanline_cb), "screen", 0, 1);
+
+	XAVIX_ADC(config, m_adc);
+	m_adc->read_0_callback().set_ioport("AN0");
+	m_adc->read_1_callback().set_ioport("AN1");
+	m_adc->read_2_callback().set_ioport("AN2");
+	m_adc->read_3_callback().set_ioport("AN3");
+	m_adc->read_4_callback().set_ioport("AN4");
+	m_adc->read_5_callback().set_ioport("AN5");
+	m_adc->read_6_callback().set_ioport("AN6");
+	m_adc->read_7_callback().set_ioport("AN7");
+
+	XAVIX_ANPORT(config, m_anport);
+	m_anport->read_0_callback().set(FUNC(xavix_state::anport0_r));
+	m_anport->read_1_callback().set(FUNC(xavix_state::anport1_r));
+	m_anport->read_2_callback().set(FUNC(xavix_state::anport2_r));
+	m_anport->read_3_callback().set(FUNC(xavix_state::anport3_r));
+
+	XAVIX_MATH(config, m_math);
+
+	/* video hardware */
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_refresh_hz(60);
+	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(2500));
+	m_screen->set_screen_update(FUNC(xavix_state::screen_update));
+	m_screen->set_size(32*8, 32*8);
+	m_screen->set_visarea(0*8, 32*8-1, 2*8, 30*8-1);
+	//m_screen->set_video_attributes(VIDEO_UPDATE_SCANLINE);
+
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_xavix);
+
+	PALETTE(config, m_palette, palette_device::BLACK, 256);
+
+	/* sound hardware */
+
+	//SPEAKER(config, "mono").front_center();
+	SPEAKER(config, "speaker", 2).front();
+
+	XAVIX_SOUND(config, m_sound, MAIN_CLOCK);
+	m_sound->read_regs_callback().set(FUNC(xavix_state::sound_regram_read_cb));
+	m_sound->read_samples_callback().set(FUNC(xavix_state::sample_read));
+	m_sound->write_regs_callback().set(FUNC(xavix_state::sound_regram_write_cb));
+	//m_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_sound->add_route(0, "speaker", 1.0, 0);
+	m_sound->add_route(1, "speaker", 1.0, 1);
+}
+
+void xavix_state::xavix_4mb(machine_config &config)
+{
+	xavix(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_4mb_extbus_map);
+}
+
+void xavix_state::xavix_2mb(machine_config &config)
+{
+	xavix(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_2mb_extbus_map);
+}
+
+void xavix_state::xavix_1mb(machine_config &config)
+{
+	xavix(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_1mb_extbus_map);
+}
+
+
+void xavix_guru_state::xavix_guru(machine_config &config)
+{
+	xavix_4mb_nv(config);
+
+	m_anport->read_2_callback().set(FUNC(xavix_guru_state::guru_anport2_r));
+}
+
+
+void xavix_i2c_state::xavix_i2c_24c02(machine_config &config)
+{
+	xavix(config);
+
+	I2C_24C02(config, "i2cmem");
+}
+
+void xavix_i2c_state::xavix_i2c_24c02_4mb(machine_config &config)
+{
+	xavix_i2c_24c02(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_4mb_extbus_map);
+}
+
+void xavix_i2c_state::xavix_i2c_24c02_2mb(machine_config &config)
+{
+	xavix_i2c_24c02(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_2mb_extbus_map);
+}
+
+void xavix_i2c_state::xavix_i2c_24c02_43mhz(machine_config &config)
+{
+	xavix_i2c_24c02_4mb(config);
+
+	// tomplc crashes when you start the game at regular clock speeds
+	// this could indicate that it's actually one of the newer chips
+	// even if extra opcodes are not being used.
+	m_maincpu->set_clock(MAIN_CLOCK * 2);
+}
+
+void xavix_state::xavix_43mhz(machine_config &config)
+{
+	xavix_4mb(config);
+
+	// tomthr crashes when you start the game at regular clock speeds
+	// this could indicate that it's actually one of the newer chips
+	// even if extra opcodes are not being used.
+	m_maincpu->set_clock(MAIN_CLOCK * 2);
+}
+
+
+
+void xavix_i2c_state::xavix_i2c_24lc04(machine_config &config)
+{
+	xavix(config);
+
+	I2C_24C04(config, "i2cmem"); // 24LC04 on Nostalgia games, 24C04 on others
+}
+
+void xavix_i2c_state::xavix_i2c_24lc04_4mb(machine_config &config)
+{
+	xavix_i2c_24lc04(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_4mb_extbus_map);
+}
+
+void xavix_i2c_state::xavix_i2c_24lc04_2mb(machine_config &config)
+{
+	xavix_i2c_24lc04(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_2mb_extbus_map);
+}
+
+void xavix_i2c_state::xavix_i2c_24lc04_1mb(machine_config &config)
+{
+	xavix_i2c_24lc04(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_1mb_extbus_map);
+}
+
+
+void xavix_i2c_ltv_tam_state::xavix_i2c_24lc04_tam(machine_config &config)
+{
+	xavix_i2c_24lc04_4mb(config);
+
+	m_anport->read_0_callback().set(FUNC(xavix_i2c_ltv_tam_state::tam_anport0_r));
+	m_anport->read_1_callback().set(FUNC(xavix_i2c_ltv_tam_state::tam_anport1_r));
+	m_anport->read_2_callback().set(FUNC(xavix_i2c_ltv_tam_state::tam_anport2_r));
+	m_anport->read_3_callback().set(FUNC(xavix_i2c_ltv_tam_state::tam_anport3_r));
+}
+
+
+void xavix_tom_tvho_state::xavix_tom_tvho(machine_config &config)
+{
+	xavix_2mb(config);
+
+	m_anport->read_0_callback().set(FUNC(xavix_tom_tvho_state::tvho_anport0_r));
+	m_anport->read_1_callback().set(FUNC(xavix_tom_tvho_state::tvho_anport1_r));
+	m_anport->read_2_callback().set(FUNC(xavix_tom_tvho_state::tvho_anport2_r));
+	m_anport->read_3_callback().set(FUNC(xavix_tom_tvho_state::tvho_anport3_r));
+}
+
+void xavix_i2c_mj_state::xavix_i2c_24lc02_mj(machine_config &config)
+{
+	xavix_i2c_24c02(config);
+
+	m_maincpu->set_addrmap(6, &xavix_i2c_mj_state::xavix_2mb_extbus_map);
+
+	m_anport->read_0_callback().set(FUNC(xavix_i2c_mj_state::mj_anport0_r));
+}
+
+void xavix_i2c_state::xavix_i2c_24c08(machine_config &config)
+{
+	xavix(config);
+
+	I2C_24C08(config, "i2cmem");
+}
+
+void xavix_i2c_state::xavix_i2c_24c08_4mb(machine_config &config)
+{
+	xavix_i2c_24c08(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_4mb_extbus_map);
+}
+
+void xavix_i2c_state::xavix_i2c_24c16(machine_config& config)
+{
+	xavix(config);
+
+	I2C_24C16(config, "i2cmem");
+}
+
+void xavix_i2c_state::xavix_i2c_24c16_4mb(machine_config& config)
+{
+	xavix_i2c_24c16(config);
+	m_maincpu->set_addrmap(6, &xavix_i2c_state::xavix_4mb_extbus_map);
+}
+
+
+void xavix_state::xavixp(machine_config &config)
+{
+	// other clocks should change too!
+	xavix(config);
+	m_screen->set_refresh_hz(50);
+}
+
+void xavix_state::xavixp_4mb(machine_config &config)
+{
+	xavixp(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_4mb_extbus_map);
+}
+
+void xavix_state::xavixp_2mb(machine_config &config)
+{
+	xavixp(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_2mb_extbus_map);
+}
+
+void xavix_state::xavixp_1mb(machine_config &config)
+{
+	xavixp(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_1mb_extbus_map);
+}
+
+void xavix_state::xavix_nv(machine_config &config)
+{
+	xavix(config);
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+}
+
+void xavix_state::xavix_1mb_nv(machine_config &config)
+{
+	xavix_nv(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_1mb_extbus_map);
+}
+
+void xavix_state::xavix_2mb_nv(machine_config &config)
+{
+	xavix_nv(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_2mb_extbus_map);
+}
+
+void xavix_state::xavix_4mb_nv(machine_config &config)
+{
+	xavix_nv(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_4mb_extbus_map);
+}
+
+void xavix_state::xavixp_nv(machine_config &config)
+{
+	xavixp(config);
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+}
+
+void xavix_state::xavixp_1mb_nv(machine_config &config)
+{
+	xavixp_nv(config);
+	m_maincpu->set_addrmap(6, &xavix_state::xavix_1mb_extbus_map);
+}
+
+
+
+void xavix_mtrk_state::xavix_mtrk(machine_config &config)
+{
+	xavix_4mb(config);
+
+	XAVIX_MTRK_WHEEL(config, m_wheel);
+	m_wheel->event_out_cb().set(FUNC(xavix_state::ioevent_trg08));
+}
+
+void xavix_mtrk_state::xavix_mtrkp(machine_config &config)
+{
+	xavix_mtrk(config);
+
+	m_screen->set_refresh_hz(50);
+}
+
+void xavix_madfb_state::xavix_madfb(machine_config &config)
+{
+	xavix_4mb(config);
+
+	XAVIX_MADFB_BALL(config, m_ball);
+	m_ball->event_out_cb().set(FUNC(xavix_state::ioevent_trg01));
+}
+
+
+void xavix_cart_state::xavix_cart(machine_config &config)
+{
+	xavix(config);
+
+	EKARA_CART_SLOT(config, m_cartslot, ekara_cart, nullptr);
+}
+
+void xavix_i2c_cart_state::xavix_i2c_taiko(machine_config &config)
+{
+	xavix_cart(config);
+
+	I2C_24C02(config, "i2cmem"); // 24LC02
+
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("TAIKO");
+}
+
+void xavix_i2c_cart_state::xavix_i2c_jpopira(machine_config &config)
+{
+	xavix_cart(config);
+
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
+
+	I2C_24C02(config, "i2cmem"); // 24LC02
+
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("JPOPIRA");
+}
+
+void xavix_cart_state::xavix_cart_evio(machine_config &config)
+{
+	xavix_cart(config);
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+
+	SOFTWARE_LIST(config, "cart_list_evio").set_original("evio");
+}
+
+void xavix_cart_state::xavix_cart_daig(machine_config &config)
+{
+	xavix_cart(config);
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+
+	SOFTWARE_LIST(config, "cart_list_daig").set_original("takara_daigunder_dx_cart");
+}
+
+void xavix_cart_gcslottv_state::xavix_extbus_map(address_map &map)
+{
+	map(0x000000, 0x7fffff).rw(FUNC(xavix_cart_gcslottv_state::cart_r), FUNC(xavix_cart_gcslottv_state::cart_w));
+}
+
+void xavix_cart_gcslottv_state::xavix_cart_gcslottv(machine_config &config)
+{
+	xavix_cart(config);
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+
+	SOFTWARE_LIST(config, "cart_list_gcslottv").set_original("gcslottv");
+}
+
+
+void xavix_cart_state::xavix_cart_ekara(machine_config &config)
+{
+	xavix_cart(config);
+
+	/* software lists */
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("EKARA");
+}
+
+void xavix_cart_state::xavix_cart_isinger(machine_config &config)
+{
+	xavix_cart(config);
+
+	/* software lists */
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("ISINGER");
+}
+
+void xavix_hikara_state::machine_reset()
+{
+	xavix_ekara_state::machine_reset();
+
+	if (!memregion("cartslot:cart:rom"))
+		return;
+
+	// rather crude hack to patch a failing check found in the cartridge ROMS
+	// TODO: remove this!
+	u8* ROM = memregion("cartslot:cart:rom")->base();
+	size_t len = memregion("cartslot:cart:rom")->bytes();
+
+	int foundcount = 0;
+	int firstfound = 0;
+	for (int i = 0; i < len - 7; i++)
+	{
+		int matchcount = 0;
+
+		for (int j = 0; j < 5; j++)
+		{
+			constexpr u8 searchfor[5] = { 0x29, 0x80, 0xd0, 0x14, 0xad };
+
+			if (ROM[i + j] == searchfor[j])
+				matchcount++;
+		}
+
+		if (matchcount == 5)
+		{
+			if (foundcount == 0)
+				firstfound = i;
+			foundcount++;
+		}
+	}
+
+	if ((foundcount == 3) || (foundcount == 1))
+	{
+		ROM[firstfound + 2] = 0xf0;
+		ROM[firstfound + 7] = 0xd0;
+	}
+}
+
+void xavix_hikara_state::xavix_cart_hikara(machine_config &config)
+{
+	xavix_cart(config);
+
+	// The songs seem too slow at regular clock.  It is speculated that the later
+	// CPU types run at ~43Mhz, so maybe this is really a XaviX 2000/2003 type chip
+	// with a higher clock, even if no extra opcodes are used.
+	m_maincpu->set_clock(MAIN_CLOCK * 2);
+
+	/* software lists */
+	SOFTWARE_LIST(config, "cart_list").set_original("hikara");
+}
+
+void xavix_cart_state::xavix_cart_popira(machine_config &config)
+{
+	xavix_cart(config);
+
+	// is a battery / power source required to store NVRAM in the CPU?  Popira definitely needs NVRAM storing on power-of
+	// XaviX Tennis won't boot if you do (but that could be an unrelated SEEPROM issue?) & DDR Family Mat gets stuck in 2 Player mode with no obvious way of changing back
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+
+	/* software lists */
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("POPIRA");
+}
+
+void xavix_cart_state::xavix_cart_popirak(machine_config &config)
+{
+	xavix_cart(config);
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("POPIRA_KOREA");
+}
+
+// see code at 028060, using table from 00eb6d for conversion
+uint8_t xavix_popira2_cart_state::popira2_adc0_r()
+{
+	uint8_t p2 = m_p2->read() & 0x03;
+	switch (p2)
+	{
+	case 0x00: return 0xa0;
+	case 0x01: return 0x60;
+	case 0x02: return 0x10;
+	case 0x03: return 0x00;
+	}
+
+	return 0x00;
+}
+
+uint8_t xavix_popira2_cart_state::popira2_adc1_r()
+{
+	uint8_t p2 = (m_p2->read() >> 2) & 0x03;
+	switch (p2)
+	{
+	case 0x00: return 0xa0;
+	case 0x01: return 0x60;
+	case 0x02: return 0x10;
+	case 0x03: return 0x00;
+	}
+
+	return 0x00;
+}
+
+void xavix_popira2_cart_state::xavix_cart_popira2(machine_config &config)
+{
+	xavix_cart_popira(config);
+
+	m_adc->read_0_callback().set(FUNC(xavix_popira2_cart_state::popira2_adc0_r));
+	m_adc->read_1_callback().set(FUNC(xavix_popira2_cart_state::popira2_adc1_r));
+}
+
+void xavix_cart_state::xavix_cart_ddrfammt(machine_config &config)
+{
+	xavix_cart(config);
+
+	/* software lists */
+	SOFTWARE_LIST(config, "cart_list").set_original("ekara_cart").set_filter("FAMMAT");
+}
+
+
+
+void xavix_state::init_xavix()
+{
+	m_rgnlen = memregion("bios")->bytes();
+	m_rgn = memregion("bios")->base();
+}
+
+void xavix_state::init_xavix_slowenv()
+{
+	init_xavix();
+	m_default_audio_tempo_override = 0x40;
+}
+
+/***************************************************************************
+
+  Game driver(s)
+
+***************************************************************************/
+
+ROM_START( taitons1 )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "taitonostalgia1.u3", 0x000000, 0x200000, CRC(25bd8c67) SHA1(a109cd2da6aa4596e3ca3abd1afce2d0001a473f) )
+ROM_END
+
+ROM_START( taitons2 )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "taitonostalgia2.bin", 0x000000, 0x200000, CRC(d7dbd93d) SHA1(ad96f80d317e7fd64682a1fe406c5ee9dd5eabf9) )
+ROM_END
+
+ROM_START( namcons1 )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "namconostalgia1.bin", 0x000000, 0x100000, CRC(9bcccccd) SHA1(cf8fe6de76fbd23974f999299db6f558f79c8f22) )
+ROM_END
+
+ROM_START( namcons2 )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "nostalgia.bin", 0x000000, 0x100000, CRC(03f7f755) SHA1(bdf1b10ab0104ed580951b0c428c4e93e7373afe) )
+ROM_END
+
+ROM_START( rad_box )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("boxing.bin", 0x000000, 0x200000, CRC(5cd40714) SHA1(165260228c029a9502ca0598c84c24fd9bdeaebe) )
+ROM_END
+
+ROM_START( rad_boxp )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("boxing.bin", 0x000000, 0x200000, CRC(5cd40714) SHA1(165260228c029a9502ca0598c84c24fd9bdeaebe) )
+ROM_END
+
+ROM_START( rad_bass )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("bassfishin.bin", 0x000000, 0x100000, CRC(b54eb1c5) SHA1(084faa9349369f2b8846950765f9c8f758db3e9e) )
+ROM_END
+
+ROM_START( rad_bassp )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("bassfishin.bin", 0x000000, 0x100000, CRC(b54eb1c5) SHA1(084faa9349369f2b8846950765f9c8f758db3e9e) )
+ROM_END
+
+ROM_START( rad_opus )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("opus.bin", 0x000000, 0x100000, CRC(f84c11c5) SHA1(6e34129d0ca9c52b7c342fc94860629d81705523) )
+ROM_END
+
+ROM_START( rad_opusp )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("opus.bin", 0x000000, 0x100000, CRC(f84c11c5) SHA1(6e34129d0ca9c52b7c342fc94860629d81705523) )
+ROM_END
+
+ROM_START( rad_opusa )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("opus_alt.bin", 0x000000, 0x100000, CRC(509df402) SHA1(c5b863670eac8498ddda9dfde91387634cf7aa9f) )
+ROM_END
+
+ROM_START( rad_hnt )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("huntin1.bin", 0x000000, 0x100000, CRC(e51e250f) SHA1(d72199096d466cd344bb243ef1228e0df9501d00) )
+ROM_END
+
+ROM_START( rad_hnt2 )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("huntin2.bin", 0x000000, 0x200000, CRC(fb6846df) SHA1(267632790ed42eba7ef1517b86b024799a78839d) )
+ROM_END
+
+
+ROM_START( rad_snow )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("snoblu.bin", 0x000000, 0x100000, CRC(593e40b3) SHA1(03483ac39eddd7746470fb60018e704382b0da59) )
+ROM_END
+
+ROM_START( rad_snowp )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("snoblu.bin", 0x000000, 0x100000, CRC(593e40b3) SHA1(03483ac39eddd7746470fb60018e704382b0da59) )
+ROM_END
+
+
+ROM_START( rad_ping )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "pingpong.bin", 0x000000, 0x100000, CRC(629f7f47) SHA1(2bb19fd202f1e6c319d2f7d18adbfed8a7669235) )
+ROM_END
+
+ROM_START( rad_pingp )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "pingpong.bin", 0x000000, 0x100000, CRC(629f7f47) SHA1(2bb19fd202f1e6c319d2f7d18adbfed8a7669235) )
+ROM_END
+
+ROM_START( rad_crdn )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "cardnight.bin", 0x000000, 0x100000, CRC(d19eba08) SHA1(cedb9fe785f2a559f518a1d8ecf80d500ddc63c7) )
+ROM_END
+
+ROM_START( rad_crdnp )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "cardnight.bin", 0x000000, 0x100000, CRC(d19eba08) SHA1(cedb9fe785f2a559f518a1d8ecf80d500ddc63c7) )
+ROM_END
+
+ROM_START( rad_bb )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "radicabaseball.bin", 0x000000, 0x100000, CRC(3fa6f490) SHA1(0772156a67a22d06f5ffd6d1a77f6dc867d0a6d2) )
+ROM_END
+
+ROM_START( rad_bb2 )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "baseball2.bin", 0x000000, 0x200000, CRC(bdbf6202) SHA1(18d5cc2d77cbb734629a7a5b6e0f419d21beedbd) )
+ROM_END
+
+ROM_START( rad_mtrk )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "monstertruck.bin", 0x000000, 0x400000, CRC(dccda0a7) SHA1(7953cf29643672f8367639555b797c20bb533eab) )
+ROM_END
+
+ROM_START( rad_mtrkp ) // rom was dumped from NTSC unit, assuming to be the same
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "monstertruck.bin", 0x000000, 0x400000, CRC(dccda0a7) SHA1(7953cf29643672f8367639555b797c20bb533eab) )
+ROM_END
+
+ROM_START( rad_ssx )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("snowssx.bin", 0x000000, 0x400000, CRC(108e19a6) SHA1(3dfb18efb6331b96a53138a5ba29dae9cd966e90) )
+ROM_END
+
+ROM_START( rad_ssxp )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("snowssx.bin", 0x000000, 0x400000, CRC(108e19a6) SHA1(3dfb18efb6331b96a53138a5ba29dae9cd966e90) )
+ROM_END
+
+ROM_START( rad_sbw )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("snowbwhite.bin", 0x000000, 0x400000, CRC(640c1473) SHA1(d37d1484a5b14735b35afbca305dad7d178b08a2) )
+ROM_END
+
+ROM_START( rad_bdp )
+	ROM_REGION(0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("barbiepad.bin", 0x000000, 0x200000, CRC(48731512) SHA1(377d4e1c98cafcd9d5e1ee27943289d250a6e7a9) )
+ROM_END
+
+ROM_START( rad_madf )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("madden.bin", 0x000000, 0x400000, CRC(e972fdcf) SHA1(52001316254880755da959c3441d232fd2c72c7a) )
+ROM_END
+
+ROM_START( rad_fb )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("rfootball.bin", 0x000000, 0x400000, CRC(025e0cb4) SHA1(60ce363de236d5119d078e346ad5d2ae50dbc7e1) )
+ROM_END
+
+ROM_START( epo_fish )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("fish.bin", 0x000000, 0x200000, CRC(72392caf) SHA1(16a65c79ff7e3b5f5f514a024bd652412ed38b74) )
+ROM_END
+
+ROM_START( epo_efdx )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitefishing.bin", 0x000000, 0x400000, CRC(9c85b261) SHA1(6a363faed2ec89c5176e46554a98ca1e20132579) )
+ROM_END
+
+ROM_START( epo_esdx )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("baseballdx.bin", 0x000000, 0x400000, CRC(fe2e832e) SHA1(e6343f5e5f52316538d918d0d67c15764aa40f65) )
+ROM_END
+
+ROM_START( epo_stad )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitestadium.bin", 0x000000, 0x200000, CRC(b58035b9) SHA1(1382a9e42ff932e7ec2186b210917bcf5c571b86) )
+ROM_END
+
+ROM_START( epo_esht ) // ESTJ-MAIN REV:0 PCB
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("tigers.u3", 0x000000, 0x400000, CRC(51a17ef3) SHA1(864190e91775716218be3ac0699570844d67d3e7) )
+ROM_END
+
+ROM_START( epo_epp )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitepingpong.bin", 0x000000, 0x100000, CRC(1fdb9cbd) SHA1(8ed0c1f6d2708ab6e79f0b9553e587c6446e8338) )
+ROM_END
+
+ROM_START( epo_epps )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitepingpong_special.bin", 0x000000, 0x100000, CRC(d59c4b44) SHA1(5a48b9046a1d1beb10972fc1d41d6d63fe829465) )
+ROM_END
+
+ROM_START( epo_eppk )
+	ROM_REGION( 0x100000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("sonokongpingpong.bin", 0x000000, 0x100000, CRC(ea81ced6) SHA1(ef8961d3670148501a478c17cd09f5088e32ad41) )
+ROM_END
+
+ROM_START( epo_epp2 )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitepingpong2.u3", 0x000000, 0x200000, CRC(4b70012a) SHA1(4dd80472067027be5a416ec953f4ed6e7df5fc25) )
+ROM_END
+
+ROM_START( epo_epp3 )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitepingpong3.bin", 0x000000, 0x200000, CRC(a2ee8bff) SHA1(6e16dbaac9680e1f311c08e3f573d0cf8708b446))
+ROM_END
+
+ROM_START( epo_mj ) // MARJ MAIN-11A
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("marj.u4", 0x000000, 0x200000, CRC(4e496424) SHA1(9661130ad8315082bd211b3817e5830b576907a8) )
+ROM_END
+
+ROM_START( rad_socr )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("soccer.u5", 0x000000, 0x100000, CRC(0564a766) SHA1(bded4f2e0d059731164c35de7df62ef411402901) )
+	ROM_LOAD("soccer.u4", 0x400000, 0x200000, CRC(e0e2c488) SHA1(907511d945dec51782af268a94b372dfeb7517c5) )
+ROM_END
+
+ROM_START( epo_strk )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitestriker.u5", 0x000000, 0x100000, CRC(fa3f95fd) SHA1(d3bc7f2f321b81a7783887b29218bf711c0d5518) )
+	ROM_LOAD("excitestriker.u4", 0x400000, 0x200000, CRC(0f37ca15) SHA1(b35aaf7f5adddba57c898538f157146bb4d1f9b4) )
+ROM_END
+
+ROM_START( epo_strkp )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("excitestriker_uk.u5", 0x000000, 0x100000, CRC(201e150e) SHA1(f11405a4b7349e4bdfeb04110b1b6f67e0b63f64) )
+	ROM_LOAD("excitestriker_uk.u4", 0x400000, 0x200000, CRC(efd648aa) SHA1(59358b9a9df27dadc33ed4c3da9083f739b68340) )
+ROM_END
+
+ROM_START( rad_jcon )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("jrconstr_u5.bin", 0x000000, 0x200000, CRC(306699d2) SHA1(121b04bb598d4531db53e497be9270449bb8ffe4) )
+	ROM_LOAD("jrconstr_u4.bin", 0x400000, 0x100000, CRC(4cfb6193) SHA1(0f56dfc91db3cc066836daf37ff46f9ff5ec5f94) )
+ROM_END
+
+ROM_START( tak_town )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("rom.u5", 0x000000, 0x200000, CRC(46587e78) SHA1(f163492139087f7aaeea6448b652f58afcb4dd5c) )
+	ROM_LOAD("rom.u4", 0x400000, 0x100000, CRC(642e7e6a) SHA1(d8ff88ad20a60d2eb702dd353f307aa3fcfbbdd5) )
+ROM_END
+
+ROM_START( epo_guru )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("gururinworld.bin", 0x000000, 0x400000, CRC(e5ae4523) SHA1(0e39ef8f94203d34e49422081667805f50a339a1) )
+ROM_END
+
+ROM_START( epo_dmon ) // Doraemon has a phototransistor, microphone and 24LC02, PCB says XaviX 2002
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("doraemon.bin", 0x000000, 0x400000, CRC(d8f5412f) SHA1(11a4c017ed400f7aa585be744d9693efe734c192) )
+ROM_END
+
+ROM_START( rad_rh )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("rescueheroes.bin", 0x000000, 0x200000, CRC(38c391a7) SHA1(120334d4ce89d98438c2a35bf7e53af5096cc878) )
+ROM_END
+
+ROM_START( has_wamg )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "minigolf.bin", 0x000000, 0x400000, CRC(35cee2ad) SHA1(c7344e8ba336bc329638485ea571cd731ebf7649) )
+ROM_END
+
+ROM_START( ltv_tam )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("letstvtamagotchi.bin", 0x000000, 0x400000, CRC(e3723272) SHA1(e72e128a7a24afb96baafe5f13e13a0d74db4033) )
+ROM_END
+
+ROM_START( epo_crok )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("sgm3244.u2", 0x000000, 0x400000, CRC(a801779b) SHA1(e6e4235dc7c7db3073737b10ba4bc5b00deca2c3) )
+ROM_END
+
+ROM_START( epo_mms )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("mmnj-main-4.u4", 0x000000, 0x400000, CRC(22f14ca2) SHA1(122e735eb7c54a22de16f65cd43d2cae788e0102) )
+ROM_END
+
+ROM_START( tak_zuba ) // CHBJ MAIN REV:01
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("chbj.u2", 0x000000, 0x400000, CRC(6d60c8d2) SHA1(ba687fc95503223dd484ed9533dcb097ecfea00d) )
+ROM_END
+
+ROM_START( epo_mmsp )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("mm1j main-00.u1", 0x000000, 0x400000, CRC(65b40a27) SHA1(8f88973122277fe8f31bacb3a070609fde062946) )
+ROM_END
+
+ROM_START( ban_krrj ) // KRRJ MAIN PCB 01
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("krrj.u2", 0x000000, 0x400000, CRC(16f0fe78) SHA1(2b18cf6336e5adc64d4db0914788c159e60d91a2) )
+ROM_END
+
+ROM_START( tak_geig )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("geigeki.bin", 0x000000, 0x400000, CRC(bd0c3576) SHA1(06f614dbec0225ce4ed866b98450912986d72faf) )
+ROM_END
+
+ROM_START( tak_wdg )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("wdgrobot.bin", 0x000000, 0x200000, CRC(7ffc6386) SHA1(e33de5f8e6686e4160d1b90d59167418e87f5a47) )
+ROM_END
+
+ROM_START( tom_tvho ) // ET105 REV 0.0
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("tvhockey.u4", 0x000000, 0x200000, CRC(9cd72ae2) SHA1(0530851123b607ddb85f9513405ce97c493f5fd6) )
+ROM_END
+
+ROM_START( tak_comt )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("comet.u3", 0x000000, 0x200000, CRC(407c5566) SHA1(41d73c34af8cc3d07a34fcac0bc1856442c94200) )
+ROM_END
+
+ROM_START( jarajal )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("takaraslots.bin", 0x000000, 0x200000, CRC(afae0b72) SHA1(b1c5d80a8dc8466982efd79d54cd82a58f0ff997) )
+ROM_END
+
+ROM_START( tomshoot )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("airgun.u4", 0x000000, 0x200000, CRC(3e4f7b65) SHA1(4e1660d4952c498e250526c2c3f027253e1fcbe1) )
+ROM_END
+
+ROM_START( tcarnavi )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("navi.bin", 0x000000, 0x400000, CRC(f4e693fb) SHA1(be37b35f1e1e661e10187253c2c3aa9858a90812) )
+ROM_END
+
+ROM_START( tomcpin )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("championpinball.bin", 0x000000, 0x400000, CRC(24f6d753) SHA1(3d3b39692bef8156da9e350b456c4e2f0af74484) )
+ROM_END
+
+ROM_START( tomplc )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("imaplayrailconductor.bin", 0x000000, 0x400000, CRC(b775d0ed) SHA1(33142509b11bbe45b0b9222232033dd64ef01ff2) )
+ROM_END
+
+ROM_START( tomthr ) // THRJ MAIN PCB   REV 0.6
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("thrj.u4", 0x000000, 0x400000, CRC(a7e8dc74) SHA1(676b2a905b757356c6c1dfe3f10148484caa44c5) )
+ROM_END
+
+ROM_START( gungunad )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	// some lines were swapped going into the die, but it is unclear if they're swapped back inside it
+	ROM_LOAD("gga.bin", 0x000000, 0x40000, CRC(5252b6bb) SHA1(8a9f920e4bccabbd337f37a838af574e2b16746f) )
+	ROM_CONTINUE(0x080000,0x040000)
+	ROM_CONTINUE(0x040000,0x040000)
+	ROM_CONTINUE(0x0c0000,0x040000)
+
+	ROM_CONTINUE(0x100000,0x040000)
+	ROM_CONTINUE(0x180000,0x040000)
+	ROM_CONTINUE(0x140000,0x040000)
+	ROM_CONTINUE(0x1c0000,0x040000)
+ROM_END
+
+
+ROM_START( gungunrv )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("gungunrevolution.u1", 0x000000, 0x400000, CRC(4e34f624) SHA1(7acdd0991df78ecffd156381817ed4f85f6aef09) )
+ROM_END
+
+ROM_START( bistro )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD("bistro.u2", 0x000000, 0x200000, CRC(40865e05) SHA1(597a615c61f29c6f6e7ce997a229175cb151242f) )
+ROM_END
+
+/*
+    The e-kara cartridges require the BIOS rom to map into 2nd external bus space as they fetch palette data from
+    it etc.
+*/
+
+ROM_START( ekara )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekara.bin", 0x600000, 0x100000, CRC(9b27c4a2) SHA1(d75dda7434933135d2f7e353840a9384e9a0d586) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( ekaraa )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekara2.bin", 0x600000, 0x100000, CRC(3c92d48d) SHA1(450fbe53826cdb87ec797f84b9757987afcc1ec5) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( ekaraj )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekarajapan.bin", 0x600000, 0x100000, CRC(e459e43b) SHA1(58b7f36a81571a2df5e812c118fdf68812a05abc) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( ekaraphs )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekaraheadset.bin", 0x600000, 0x200000, CRC(dd9b3cd7) SHA1(baaf35d56fa45b6f995b8466331bb30f0035f734) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( ekarag )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekaragermany.bin", 0x600000, 0x200000, CRC(644f06b0) SHA1(433e65a6ea029b67ee62b4b3de52ff3504cfdf16) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( ekaras )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekaraspanish.bin", 0x600000, 0x200000, CRC(77925ab0) SHA1(402053e22e371c5f5e8069a4bf3b33841e742375) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( isinger )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "kr_isinger.bin", 0x600000, 0x100000, CRC(6ad588fe) SHA1(879da069ca8c126232a1b2dfcce25c8615540e48) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( epitch )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekarajapan.bin", 0x600000, 0x100000, CRC(e459e43b) SHA1(58b7f36a81571a2df5e812c118fdf68812a05abc) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( ekaramix )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	// also has a MX87L100C 28-pin chip in the unit, possibly the USB controller.  Part of the ROM contains a FAT filesystem that could possibly appear as a USB drive on the PC?
+	ROM_LOAD( "ekaramix.bin", 0x600000, 0x200000, CRC(ee71576e) SHA1(26f8c9edcbbed77e86a1cb5a0b91c92a16fef433) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( hikara )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "hikara.u3", 0x000000, 0x100000, CRC(6b91102a) SHA1(684dcfeaa8ac2888da2055617603494ce5fed93c) )
+	ROM_RELOAD(0x600000, 0x100000)
+	ROM_FILL(0xed19, 1, 0xf0) // temp, bypass unknown boot check
+	ROM_FILL(0xed1e, 1, 0xd0)
+ROM_END
+
+ROM_START( ddrfammt )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "ekara_ddr_ha010_81947.bin", 0x600000, 0x200000, CRC(737d5d1a) SHA1(a1043047056dd27bca69767ee2044461ec549465) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( popira )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "popira.bin", 0x600000, 0x100000, CRC(71d20afc) SHA1(fb2ae023fc8a188c79b2d6550f737e06c05e12da) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( popirak )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "kr_main.u2", 0x600000, 0x100000, CRC(785d8e21) SHA1(7877ac33b57bdd8ceac6bda3b0006a3274ad4dce) )
+	ROM_RELOAD(0x000000, 0x100000)
+ROM_END
+
+ROM_START( popira2 )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "popira2.bin", 0x600000, 0x200000, CRC(6acd8be0) SHA1(8b6c812d37e2dc2f2531b0e47d84ad8485729dc5) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( taikodp )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "taikodepopira.bin", 0x600000, 0x200000, CRC(037a8472) SHA1(03cae465965935fc084fb906f8f5de7679f42dd1) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+ROM_START( jpopira )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "jumpingpopira.bin", 0x600000, 0x200000, CRC(a7bedbd2) SHA1(d62d4ca660c8df14891217fb7b7a2b4a931ff35f) )
+	ROM_RELOAD(0x000000, 0x200000)
+
+	ROM_REGION( 0x100, "i2cmem", ROMREGION_ERASE00 ) // maybe we can remove this eventually, but for now it won't init without a reset between
+	ROM_LOAD( "i2cmem.bin", 0x000, 0x100, CRC(70a05af1) SHA1(e8f4ab51445777fe459f9ff09333f548c4e3507c) )
+ROM_END
+
+ROM_START( evio )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "evio.bin", 0x600000, 0x200000, CRC(ee22c764) SHA1(f2b7e213eb78065a63ef484a619bcfc61299e30e))
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+// 爆闘宣言ダイガンダー
+ROM_START( tak_daig )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "robottransformer_unit.bin", 0x600000, 0x200000, CRC(02deddaa) SHA1(7d7b54684f8b0b92daf02738560779c7df627b91) )
+	ROM_RELOAD(0x000000, 0x200000)
+ROM_END
+
+// ASKJ MAIN-09 PCB
+ROM_START( epo_quiz )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "quizmaster.u1", 0x000000, 0x400000, CRC(e91868b8) SHA1(0128603d755731dafe328b142292dc6e5fe00d78) )
+ROM_END
+
+
+// ガチンコ勝負！ パチスロTV
+ROM_START( gcslottv )
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "sammyslotunit.bin", 0x000000, 0x200000, CRC(2ba6f3ab) SHA1(1c7fc0c85d817db1550d40c0258f424770e0bd81) )
+ROM_END
+
+ROM_START( epo_tfp2 )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "funpark2.u1", 0x000000, 0x400000, CRC(97ad5183) SHA1(77310b42d0a015838a1cef4eb5e74cc8335284d1) )
+ROM_END
+
+ROM_START( epo_tp2s ) // TF2J MAIN_01 REV:05
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "tf2j.u3", 0x000000, 0x400000, CRC(db2f124c) SHA1(fd60d4560ed53c63f95cf70a7d1ef13d1ecd1f42) )
+ROM_END
+
+ROM_START( epo_tp2p ) // TF3J MAIN PCB 01
+	ROM_REGION( 0x800000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "grandslam.u3", 0x000000, 0x800000, CRC(d458ee01) SHA1(dd1a85d822121c46f89ca013fa56c482ab411c6e) )
+ROM_END
+
+ROM_START( epo_tenn )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD( "excitetennis.u4", 0x000000, 0x100000, CRC(10b0e1dd) SHA1(ba438201434f2b51792b119a3e3d07cc3e53b89a) )
+	ROM_LOAD( "excitetennis.u2", 0x400000, 0x200000, CRC(6c2cdc90) SHA1(3c5b391e5e7b4a9a73038ef619df564143724437) )
+ROM_END
+
+ROM_START( epo_hamd )
+	ROM_REGION(0x800000, "bios", ROMREGION_ERASE00)
+	ROM_LOAD( "hamster.u2", 0x000000, 0x100000, CRC(6c2d9d98) SHA1(89a8e6d236ea3dadb882e3ecf12e41bd50222710) )
+	ROM_LOAD( "hamster.u3", 0x400000, 0x200000, CRC(e437c8d0) SHA1(f57c54a73ed38826f4b98610a0aa1f15cf95614d) )
+ROM_END
+
+ROM_START( tvpc_tom )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "tvpc_thomas.u1", 0x000000, 0x400000, CRC(507f334e) SHA1(d66efd13f166fcd2a66133dc981c8a67b2a26d5f) )
+ROM_END
+
+ROM_START( tvpc_dor )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "tvpc_doreamon.u3", 0x000000, 0x400000, CRC(6f2edbb2) SHA1(98fa86f85e00aa40e7a585ff0bc930cb5ca88362) )
+ROM_END
+
+ROM_START( tvpc_ham )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "hpcj.u3", 0x000000, 0x400000, CRC(76e8c854) SHA1(5998c03292a16107d0d7ae00f77677582680f323) )
+ROM_END
+
+ROM_START( tvpc_hk )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "kpcj.u2", 0x000000, 0x400000, CRC(87fc2f73) SHA1(29a284b907abec175d4289d290490af17a2a963f) )
+ROM_END
+
+ROM_START( epo_mail )
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "mailcot.u3", 0x000000, 0x400000, CRC(87f13ce7) SHA1(97326257210df411ac8b47e8513bb0da7b02dbde) )
+
+	// has a HT24LC16 in the main unit
+
+	// the cartridges also contain a HT24LC16 for data transfer between units (no other ROM though)
+ROM_END
+
+
+ROM_START( tak_gin )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "snowboard.bin", 0x000000, 0x200000, CRC(79fdeae3) SHA1(ab08790e95cdccf3541ecbddb87ebf0dedb3718b) )
+ROM_END
+
+ROM_START( tak_hamr ) // HAMJ MAIN on PCB
+	ROM_REGION( 0x400000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "hamj.u4", 0x000000, 0x400000, CRC(2f4f5270) SHA1(dfb75f0d20247cf1c886840149c7cf91780ae1b9) )
+ROM_END
+
+ROM_START( tak_beyb )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "beyblade.u2", 0x000000, 0x200000, CRC(bcf6b3a7) SHA1(1c80f1241138b9d7816f1e5285ff8f3c61739c95) )
+ROM_END
+
+ROM_START( tak_beyu )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "beybladeus.u2", 0x000000, 0x200000, CRC(f72eb949) SHA1(20ef0411610d490d07a0924ba111ddfadcbaf407) )
+ROM_END
+
+ROM_START( hippofr )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "54-6447-010.u3", 0x000000, 0x200000, CRC(1fb15364) SHA1(ff2bb54f7d6ccd3c83e722599c6f2b213bf35df8) )
+ROM_END
+
+ROM_START( multiplt )
+	ROM_REGION( 0x200000, "bios", ROMREGION_ERASE00 )
+	ROM_LOAD( "2en1multipilotefr.u2", 0x000000, 0x200000, CRC(77f2ebf6) SHA1(0181bc7d3b6ea5a4a247ffe02fee2cb4942c1623) )
+ROM_END
+
+/* XaviX hardware titles (1st Generation)
+
+    These use
+    SSD 98 PL7351-181
+    SSD 98 PA7351-107
+    SSD 97 PA7270-107
+    type CPUs
+
+    only new opcodes are callf and retf?
+
+*/
+
+// product code 80-32705.
+// Some sites say 1997, but 1999 is what SSD had listed, and seems more fitting.
+// Also exists as
+// 80-32703 Hippo's Alphabet Adventure (UK)
+// 80-32700 ABC Jungle Fun (US?)
+CONS( 1999, hippofr,  0,          0,  xavix_2mb, xavix,xavix_state,      init_xavix,    "VTech",             "2 en 1 Hippo: et la formidable aventure des lettres (France)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND ) // needs keyboard emulating
+
+CONS( 1999?, multiplt, 0,         0,  xavix_2mb, multiplt,xavix_state,      init_xavix,    "VTech",             "2 en 1 Multi'Pilote (France)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// Let's!TVプレイCLASSIC タイトーノスタルジア1
+CONS( 2006, taitons1,  0,          0,  xavix_i2c_24lc04_2mb, nostalgia,xavix_i2c_state,      init_xavix,    "Bandai / SSD Company LTD / Taito",             "Let's! TV Play Classic - Taito Nostalgia 1 (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// Let's!TVプレイCLASSIC タイトーノスタルジア2
+CONS( 2006, taitons2,  0,          0,  xavix_i2c_24lc04_2mb, nostalgia,xavix_i2c_state,      init_xavix,    "Bandai / SSD Company LTD / Taito",             "Let's! TV Play Classic - Taito Nostalgia 2 (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// Let's!TVプレイCLASSIC ナムコノスタルジア1
+CONS( 2006, namcons1,  0,          0,  xavix_i2c_24lc04_1mb, nostalgia,xavix_i2c_state,      init_xavix,    "Bandai / SSD Company LTD / Namco",             "Let's! TV Play Classic - Namco Nostalgia 1 (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// Let's!TVプレイCLASSIC ナムコノスタルジア2
+CONS( 2006, namcons2,  0,          0,  xavix_i2c_24lc04_1mb, nostalgia,xavix_i2c_state,      init_xavix,    "Bandai / SSD Company LTD / Namco",             "Let's! TV Play Classic - Namco Nostalgia 2 (Japan)", MACHINE_IMPERFECT_SOUND )
+
+CONS( 2000, rad_ping,  0,          0,  xavix_1mb,        rad_ping, xavix_state,          init_xavix,    "Radica / SSD Company LTD / Simmer Technology", "Play TV Ping Pong (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND ) // "Simmer Technology" is also known as "Hummer Technology Co., Ltd"
+CONS( 2000, rad_pingp, rad_ping,   0,  xavixp_1mb,       rad_pingp,xavix_state,          init_xavix,    "Radica / SSD Company LTD / Simmer Technology", "ConnecTV Table Tennis (PAL)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// this set reads the region byte and will show either 'RADICA: Play TV Opus' or 'RADICA: ConnecTV Opus' as the title
+CONS( 2000, rad_opus,  0,          0,  xavix_1mb_nv,     rad_opus, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Opus (NTSC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND ) // there is a missing 'TV Static' noise effect when menus appear (box shows 'Play TV' ingame just shows 'Radica:Plug & Play')
+CONS( 2000, rad_opusp, rad_opus,   0,  xavixp_1mb_nv,    rad_opusp,xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "ConnecTV Opus (PAL)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+// the set below does NOT read the PAL/NTSC flag, and will only display 'RADICA: Plug & Play Opus' as the title
+// older release, or region where the Play TV / ConnecTV trademarks weren't used?
+CONS( 2000, rad_opusa, rad_opus,   0,  xavixp_1mb_nv,    rad_opus, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Plug & Play Opus (NTSC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+
+CONS( 2000, rad_hnt,   0,          0,  xavix_1mb_nv,     rad_hnt,  xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Buckmasters Huntin' (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND ) // need to map gun (box shows 'Play TV' ingame just shows 'Plug & Play')
+
+CONS( 2003, rad_hnt2,  0,          0,  xavix_2mb_nv,     rad_hnt,  xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Buckmasters Huntin' 2 (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND ) // need to map gun, crashes on pause
+
+CONS( 2003, rad_mtrk,  0,          0,  xavix_mtrk,       rad_mtrk, xavix_mtrk_state,     init_xavix,    "Radica / SSD Company LTD",                     "Play TV Monster Truck (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+CONS( 2003, rad_mtrkp, rad_mtrk,   0,  xavix_mtrkp,      rad_mtrkp,xavix_mtrk_state,     init_xavix,    "Radica / SSD Company LTD",                     "ConnecTV Monster Truck (PAL)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+CONS( 200?, rad_box,   0,          0,  xavix_2mb,        rad_box,  xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Boxin' (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+CONS( 200?, rad_boxp,  rad_box,    0,  xavixp_2mb,       rad_boxp, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "ConnecTV Boxin' (PAL)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+CONS( 200?, rad_crdn,  0,          0,  xavix_1mb,        rad_crdn, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Card Night (NTSC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+CONS( 200?, rad_crdnp, rad_crdn,   0,  xavixp_1mb,       rad_crdnp,xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "ConnecTV Card Night (PAL)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+
+CONS( 2000, rad_bb,    0,          0,  xavix_1mb,        rad_bb,   xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Baseball (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND ) // Play TV branding used on box, not ingame
+
+CONS( 2001, rad_bass,  0,          0,  xavix_1mb,        rad_bass, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Bass Fishin' (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+CONS( 2001, rad_bassp, rad_bass,   0,  xavixp_1mb,       rad_bassp,xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "ConnecTV Bass Fishin' (PAL)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// there is another 'Snowboarder' with a white coloured board, it appears to be a newer game closer to 'SSX Snowboarder' but without the SSX license.
+CONS( 2001, rad_snow,  0,          0,  xavix_1mb_nv,     rad_snow, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Snowboarder (Blue) (NTSC)", MACHINE_IMPERFECT_SOUND )
+CONS( 2001, rad_snowp, rad_snow,   0,  xavixp_1mb_nv,    rad_snowp,xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "ConnecTV Snowboarder (Blue) (PAL)", MACHINE_IMPERFECT_SOUND )
+
+CONS( 2003, rad_madf,  0,          0,  xavix_madfb,      rad_fb,   xavix_madfb_state,    init_xavix,    "Radica / Electronic Arts / SSD Company LTD",  "EA Sports Madden Football (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND ) // no Play TV branding, USA only release?
+
+CONS( 200?, rad_fb,    0,          0,  xavix_madfb,      rad_fb,   xavix_madfb_state,    init_xavix,    "Radica / SSD Company LTD",                     "Play TV Football (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND ) // USA only release? doesn't change logo for PAL.
+
+CONS( 200?, rad_rh,    0,          0,  xavix_2mb,        rad_rh,   xavix_state,          init_xavix,    "Radica / Fisher-Price / SSD Company LTD",      "Play TV Rescue Heroes (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+CONS( 2004, rad_ssx,   0,          0,  xavix_4mb,        rad_snow, xavix_state,          init_xavix,    "Radica / Electronic Arts / SSD Company LTD",  "Play TV SSX Snowboarder (NTSC)", MACHINE_IMPERFECT_SOUND )
+CONS( 2004, rad_ssxp,  rad_ssx,    0,  xavixp_4mb,       rad_snowp,xavix_state,          init_xavix,    "Radica / Electronic Arts / SSD Company LTD",  "ConnecTV SSX Snowboarder (PAL)", MACHINE_IMPERFECT_SOUND )
+
+// basically a reissue of SSX but without the license
+CONS( 2006, rad_sbw,   0,          0,  xavix_4mb,        rad_snow, xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Snowboarder (White) (NTSC)", MACHINE_IMPERFECT_SOUND )
+// doesn't exist with ConnecTV branding?
+
+CONS( 2002, rad_bdp,   0,          0,  xavix_2mb,        rad_bdp,  xavix_state,          init_xavix,    "Radica / Mattel / SSD Company LTD",            "Barbie Dance Party", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+
+// ゴール決めるぜ！ エキサイトストライカー
+CONS( 2001, epo_strk,  0,          0,  xavix,            epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Goal Kimeruze! Excite Striker (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+CONS( 2002, epo_strkp, epo_strk,   0,  xavixp,           epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Let's Play Excite Striker (UK)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+CONS( 2002, rad_socr,  epo_strk,   0,  xavix,            epo_epp,  xavix_state,          init_xavix,    "Radica / Epoch / SSD Company LTD",             "Play TV Soccer", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// まちをつくろう 工事のくるま５
+CONS( 2001, tak_town,  0,          0,  xavix,            rad_jcon, xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Machi o Tsukurou: Kouji no Kuruma 5 (Japan)", MACHINE_IMPERFECT_SOUND )
+// this is roughly based on tak_town above
+CONS( 2002, rad_jcon,  tak_town,   0,  xavix,            rad_jcon, xavix_state,          init_xavix,    "Radica / Takara / SSD Company LTD",            "Play TV Jr. Construction", MACHINE_IMPERFECT_SOUND )
+
+// ホームラン打とうぜ! エキサイトスタジアム
+CONS( 2000, epo_stad,  0,          0,  xavix_2mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Home Run Datouze! Excite Stadium (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+// this seems to be based off the epo_stad code, but heavily modified
+CONS( 2002, rad_bb2,   0,          0,  xavix_2mb,        rad_bb2,  xavix_state,          init_xavix,    "Radica / SSD Company LTD",                     "Play TV Baseball 2 (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND ) // contains string "Radica RBB2 V1.0"
+
+// 勝負しようぜ！ エキサイトスタジアムDX
+CONS( 2002, epo_esdx,  0,          0,  xavix_4mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Shoubu Shiyouze! Excite Stadium DX (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 阪神タイガース エキサイトスタジアムＤＸ
+CONS( 2003, epo_esht,  0,          0,  xavix_4mb_nv,     epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Hanshin Tigers Excite Stadium DX (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// interrupt issues after the title screen cause it to hang
+// エースきめるぜ！エキサイトテニス
+CONS( 2002, epo_tenn,  0,          0,  xavix,            epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Ace Kimeruze! Excite Tennis (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ハムちゃんず大集合 ダンスするのだ！走るのだ！
+CONS( 2001, epo_hamd,  0,          0,  xavix,            xavix,    xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Ham-chans Dai Shuugou Dance Surunoda! Hashirunoda! (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 卓球やろうぜ！ エキサイトピンポン
+CONS( 2000, epo_epp,   0,          0,  xavix_1mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Takkyuu Yarouze! Excite Ping Pong (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+CONS( 2000, epo_eppk,  epo_epp,    0,  xavix_1mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD / Sonokong",           "Real Ping Pong (Korea)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// しゃもじdeピンポン
+// This special version of Excite Ping Pong was a competition prize, not a retail product.  The competition was sponsored by ミツカン (Mizkan)
+CONS( 2001, epo_epps,  0,          0,  xavix_1mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / Mizkan / SSD Company LTD",             "Shamoji de Ping Pong (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 卓球やろうぜ！ エキサイトピンポン2
+CONS( 2003, epo_epp2,   0,         0,  xavix_2mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Takkyuu Yarouze! Excite Ping Pong 2 (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 愛ちゃんに挑戦！エキサイトピンポン
+CONS( 2006, epo_epp3,   0,         0,  xavix_2mb,        epo_epp,  xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Ai-chan ni Chousen! Excite Ping Pong (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// TV麻雀 昇段対局～4人打ち
+CONS( 2003, epo_mj,     0,         0,  xavix_i2c_24lc02_mj,  epo_mj,   xavix_i2c_mj_state,   init_xavix,    "Epoch / SSD Company LTD",                      "TV Mahjong Shoudan Taikyoku - 4-nin Uchi (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ブラックバス釣ろうぜ！ エキサイトフィッシング
+CONS( 2001, epo_fish,  0,          0,  xavix_2mb,        xavix,    xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "Black Bass Tsurouze! Excite Fishing (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 大モノ釣ろうぜ！ エキサイトフィッシングＤＸ
+CONS( 2003, epo_efdx,  0,          0,  xavix_i2c_24c08_4mb,epo_efdx, xavix_i2c_state,      init_xavix,    "Epoch / SSD Company LTD",                      "Dai Mono Tsurouze! Excite Fishing DX (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ぐるりんワールド
+CONS( 2005, epo_guru,  0,          0,  xavix_guru,       epo_guru, xavix_guru_state,     init_xavix,    "Epoch / SSD Company LTD",                      "Gururin World (Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+
+// ドラえもん こえでドカン！わくわくくうきほう！！
+CONS( 2002, epo_dmon, 0,           0,  xavix_i2c_24c02_4mb,  xavix_i2c,xavix_i2c_state,      init_xavix,    "Epoch / SSD Company LTD",                      "Doraemon Wakuwaku Kuukihou (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND ) // full / proper title?
+
+// コロッケ！いただ禁貨！バンカーバトル!!
+CONS( 2003, epo_crok,  0,          0,  xavix_i2c_24lc04_4mb, xavix_i2c,xavix_i2c_state,      init_xavix,    "Epoch / SSD Company LTD",                      "Croket! Itada Kinka! Banker Battle!! (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ミニモニ。ステージ！ダンスだぴょん！
+CONS( 2002, epo_mms,   0,          0,  xavix_i2c_24c02_4mb,  epo_mms,  xavix_i2c_state,      init_xavix,    "Epoch / SSD Company LTD",                      "mini-moni Stage! Dance Dapyon! (Japan)",  MACHINE_IMPERFECT_SOUND )
+
+// ズバズバブレード
+CONS( 2002, tak_zuba,  0,          0,  xavix_i2c_24c02_4mb,  xavix_i2c,xavix_i2c_state,      init_xavix,    "Takara / SSD Company LTD",                     "Zuba Zuba Blade (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ミニモニ。ステージ！ダンスだぴょん！ぷらすっ
+CONS( 2003, epo_mmsp,  0,          0,  xavix_i2c_24c02_4mb,  epo_mms,  xavix_i2c_state,      init_xavix,    "Epoch / SSD Company LTD",                      "mini-moni Stage! Dance Dapyon! Plus (Japan)",  MACHINE_IMPERFECT_SOUND )
+
+// Let's!TVプレイ ケロロ軍曹 ケロロ小隊大パニック！ドタバタ大決戦であります
+CONS( 2006, ban_krrj,  0,          0,  xavix_4mb,        ban_krrj, xavix_state,          init_xavix,    "Bandai / SSD Company LTD",                      "Let's! TV Play Keroro Shoutai Dai Panic! Dotabata Daikessen de Arimasu (Japan)",  MACHINE_IMPERFECT_SOUND )
+
+// オールスター感謝祭　超豪華！クイズ決定版～赤坂５丁目体感スタジオ～
+CONS( 2004, epo_quiz,  0,          0,  xavix_4mb,        epo_quiz, xavix_state,          init_xavix,    "Epoch / SSD Company LTD",                      "All-Star Kansha-sai Chou Gouka! Quiz Kettieban: Akasaka 5-choume Taikan Studio (Japan)", MACHINE_IMPERFECT_SOUND )
+
+CONS( 2005, has_wamg,  0,          0,  xavix_4mb,        has_wamg, xavix_state,          init_xavix,    "Hasbro / Milton Bradley / SSD Company LTD",    "TV Wild Adventure Mini Golf (NTSC)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// GEIGEKI ゴーゴーシューティング
+CONS( 2002, tak_geig,  0,          0,  xavix_4mb_nv,     tak_geig, xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Geigeki Go Go Shooting (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// some unemulated connectivity features to add other robots into the game
+CONS( 2001, tak_wdg,   0,          0,  xavix_2mb_nv,     tak_wdg,  xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Webdiver DX W-05 Gladion (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// TVホッケー
+// playable but could do with better deadzome handling on the controls at least
+// the trackball functionality works well in the menus, but not the games
+CONS( 2001, tom_tvho,  0,          0,  xavix_tom_tvho,   tom_tvho, xavix_tom_tvho_state, init_xavix,    "Tomy / SSD Company LTD",                       "TV Hockey (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// コメットさん☆ラブリンバトン
+CONS( 2001, tak_comt,  0,          0,  xavix_2mb_nv,     tak_comt,  xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Comet-san Lovelin Baton (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 爆進スノボ ギンギンボーダーズ
+CONS( 2001, tak_gin,   0,          0,  xavix_2mb,        tak_gin,  xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Bakushin Sno-Bo - Gingin Boarders (Japan)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS )
+
+// ぽこぽこハンマーズ
+CONS( 2002, tak_hamr,  0,          0,  xavix_i2c_24c02_4mb,  tak_hamr, xavix_i2c_state,      init_xavix,    "Takara / SSD Company LTD",                     "Poko Poko Hammers (Japan)", MACHINE_IMPERFECT_SOUND )
+
+CONS( 2003, tak_beyu,  0,          0,  xavix_2mb,        xavix,    xavix_state,          init_xavix,    "Takara / Hasbro / SSD Company LTD",            "Beyblade Arcade Challenge 5-in-1 (US)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+//ベイブレード　アルティメットシューター
+CONS( 2002, tak_beyb,  tak_beyu,   0,  xavix_2mb,        xavix,    xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Beyblade Ultimate Shooter (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// was also distributed by Atlus as an arcade cabinet in 2005, ROM almost certainly different (this one will auto-power off after inactivity, an arcade wouldn't do that)
+// ジャラジャランド
+CONS( 2003, jarajal,   0,          0,  xavix_2mb_nv,     jarajal,  xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Jyarajyaland (Japan, PlugIt! version)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// 近代撃ちまくりバラエティ 射的王(シャテキング)
+CONS( 2002, tomshoot, 0,           0,  xavix_i2c_24c02_2mb,  tomshoot,xavix_i2c_tomshoot_state,  init_xavix,    "Tomy / SSD Company LTD",                   "Kindai Uchimakuri Variety Shateking (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// トミカ カーナビドライブ / トミー
+CONS( 2003, tcarnavi,  0,          0,  xavix_4mb_nv,     tcarnavi, xavix_state,          init_xavix,    "Tomy / SSD Company LTD",                       "Tomica Carnavi Drive (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// 痛快！娯楽活劇 ちゃんぴよんピンボール
+CONS( 2003, tomcpin,   0,          0,  xavix_i2c_24c08_4mb,  tomcpin,  xavix_i2c_state,  init_xavix,    "Tomy / SSD Company LTD",                       "Tsuukai! Goraku Katsugeki - Champiyon Pinball (Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+
+// 日本一周 僕はプラレール運転士
+CONS( 2004, tomplc,    0,          0,  xavix_i2c_24c02_43mhz,tomplc,xavix_i2c_state,     init_xavix,    "Tomy / SSD Company LTD",                       "Nihon Isshuu - Boku wa Plarail Untenshi (Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+
+// テレビで遊び隊 ハイパーレスキュー ぼくは救助隊！
+// the demos in attract mode end instantly as if a button was being held, but not sure where it's read
+CONS( 2006, tomthr,    0,          0,  xavix_43mhz,      tomthr,   xavix_state,          init_xavix,    "Takara Tomy / SSD Company LTD",                "Asobitai Hyper Rescue - Boku wa Kyuujotai! (Japan)", MACHINE_IMPERFECT_SOUND )
+
+// ガンガンアドベンチャー
+CONS( 2001, gungunad,  0,          0,  xavix_2mb_nv,     xavix,    xavix_state,          init_xavix,    "Takara / SSD Company LTD",                     "Gun Gun Adventure (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ガンガンレボリューション
+CONS( 2004, gungunrv,  0,          0,  xavix_i2c_24lc04_4mb, gungunrv, xavix_i2c_state,      init_xavix,    "Takara / SSD Company LTD",                     "Gun Gun Revolution (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+// ビストロキッズ ぼくもわたしもコックさん！
+CONS( 2001, bistro,    0,          0,  xavix_2mb,        xavix,    xavix_state,          init_xavix,    "Sega Toys / SSD Company LTD",                  "Bistro Kids: Boku mo Watashi mo Kok-san! (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+
+/* Music titles: Emulation note:
+   Timers might not be 100%, PAL stuff uses different ways to do timing.
+*/
+CONS( 2000, ekara,    0,           0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD / Hasbro",            "e-kara (US?, NTSC, set 1)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ ) // shows "Please insert a cartridge before turn it on" without cart
+CONS( 2000, ekaraa,   ekara,       0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD / Hasbro",            "e-kara (US?, NTSC, set 2)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ ) // shows "Please insert a cartridge before turning on e-kara" without cart
+CONS( 2000, ekaraj,   ekara,       0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD",                     "e-kara (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ ) // shows Japanese message without cart
+CONS( 2002, ekarag,   ekara,       0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD",                     "e-kara (Europe, includes 3 songs)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ ) // found in Germany and UK, could just be a Europe-wide model, NOT a headset model, but still has 3 songs.
+CONS( 2002, ekaras,   ekara,       0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD / newgent",           "e-kara (Spain, includes 3 songs)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ )
+// the Korean i-singer release from Sonokong has a unique bios and different data resources, meaning carts are not fully compatible between it and e-kara
+CONS( 2000, isinger,  ekara,       0,  xavix_cart_isinger, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Sonokong / SSD Company LTD",                   "i-Singer (Korea)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ )
+
+// the 'e-kara pro headset' has 3 songs built in for the US release.  The Japanese release of this appears to be called 'e-kara H.S.' and it is unclear if it also has built in songs.  The Canadian box says 'cartridge contains' instead of 'songs included' but is likely a printing error.
+CONS( 2002, ekaraphs, ekara,       0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD",                     "e-kara Pro Headset (US, includes 3 songs)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ )
+
+// epitch (at least the pichi pichi pitch mermaid starter pack) uses the same internal rom as the Japanese ekara, but has less buttons, so some features aren't available (some games also seem to expect to read it with a different layout eg 'a7' cart, but 'a5' cart doesn't, so must be a way to enable that mode, or bug in code?)
+CONS( 2003, epitch,   0,           0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD",                     "e-pitch (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ ) // shows Japanese message without cart
+
+// e-kara mix was another unit that allowed you to connect to a PC, unlike e-kara web it also functions as a regular device
+CONS( 200?, ekaramix, 0,           0,  xavix_cart_ekara, ekara,    xavix_ekara_state,    init_xavix_slowenv,    "Takara / SSD Company LTD",                     "e-kara Mix (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ )
+
+// ダンスダンスレボリューション　ふぁみマット
+CONS( 2001, ddrfammt, 0,           0,  xavix_cart_ddrfammt,ddrfammt, xavix_cart_state,   init_xavix,    "Takara / Konami / SSD Company LTD",            "Dance Dance Revolution Family Mat (Japan)", MACHINE_IMPERFECT_SOUND/*|MACHINE_IS_BIOS_ROOT*/ )
+
+// ポピラ
+CONS( 2000, popira,   0,           0,  xavix_cart_popira,popira,   xavix_cart_state,     init_xavix,    "Takara / SSD Company LTD",                     "Popira (Japan)", MACHINE_IMPERFECT_SOUND/*|MACHINE_IS_BIOS_ROOT*/ ) // The original Popira is a single yellow unit
+// the Korean release is not properly compatible with the usual Popira carts, although some of the Korean i-singer range are compatible
+CONS( 2001, popirak,  popira,      0,  xavix_cart_popirak,popira,   xavix_cart_state,     init_xavix,    "Sonokong / SSD Company LTD",                   "PoPiRa - Finger Sports (Korea)", MACHINE_IMPERFECT_SOUND/*|MACHINE_IS_BIOS_ROOT*/ )
+
+// ポピラ2
+CONS( 2002, popira2,  0,           0,  xavix_cart_popira2,popira2,  xavix_popira2_cart_state, init_xavix,    "Takara / SSD Company LTD",                 "Popira 2 (Japan)", MACHINE_IMPERFECT_SOUND/*|MACHINE_IS_BIOS_ROOT*/ ) // Popira 2 is a set of 2 blue & green linked units (2nd unit is just a controller, no CPU or TV out)
+
+// たいこでポピラ
+CONS( 2003, taikodp,  0,           0,  xavix_i2c_taiko,  taikodp,  xavix_i2c_cart_state, init_xavix,    "Takara / SSD Company LTD",                     "Taiko de Popira (Japan)", MACHINE_IMPERFECT_SOUND /*|MACHINE_IS_BIOS_ROOT*/ ) // inputs? are the drums analog?
+
+// ジャンピンポピラ
+CONS( 2004, jpopira,  0,           0,  xavix_i2c_jpopira,jpopira,  xavix_i2c_cart_state, init_xavix,    "Takara / SSD Company LTD",                     "Jumping Popira (Japan)", MACHINE_IMPERFECT_SOUND /*|MACHINE_IS_BIOS_ROOT*/ )
+
+// evio
+CONS( 2003, evio,     0,           0,  xavix_cart_evio,  evio,     xavix_evio_cart_state,init_xavix,    "Tomy / SSD Company LTD",                       "Evio (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*|MACHINE_IS_BIOS_ROOT*/ ) // inputs? it's a violin controller
+
+
+// 2 ROM expansion cartridges were available for this, in the form of other robots (the heads acts as cartridges) see takara_daigunder_dx_cart.xml
+// a number of other robots were also available, but those act as controllers and don't plug into the ROM slot (presumably the signal sent is used to determine the character)
+CONS( 2002, tak_daig, 0,           0,  xavix_cart_daig,  daig,     xavix_daig_cart_state,init_xavix,    "Takara / SSD Company LTD",                     "Bakutou Sengen Daigunder DX (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*|MACHINE_IS_BIOS_ROOT*/ ) // inputs? maybe IO interrupt?
+
+CONS( 2002, gcslottv, 0,           0,  xavix_cart_gcslottv,  gcslottv,     xavix_cart_gcslottv_state,     init_xavix,    "Takara / Sammy / DCT / SSD Company LTD",       "Gachinko Shoubu! PachisloTV (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*|MACHINE_IS_BIOS_ROOT*/ )
+
+// Let’s!TVプレイ 超にんきスポット!ころがしほーだい たまごっちりぞーと   (Let's! TV Play Chou Ninki Spot! Korogashi-Houdai Tamagotchi Resort) (only on the Japanese list? http://test.shinsedai.co.jp/english/products/Applied/list.html )   This also allows you to use an IR reciever to import a Tamagotchi from compatible games
+CONS( 2006, ltv_tam,  0,           0,  xavix_i2c_24lc04_tam,  ltv_tam,xavix_i2c_ltv_tam_state,      init_xavix,    "Bandai / SSD Company LTD",                      "Let's! TV Play Chou Ninki Spot! Korogashi-Houdai Tamagotchi Resort (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+
+CONS( 2008, hikara,   0,           0,  xavix_cart_hikara, hikara,    xavix_hikara_state,    init_xavix_slowenv,    "Takara Tomy / SSD Company LTD",            "Hi-kara (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND /*| MACHINE_IS_BIOS_ROOT*/ )
+
+// 東京フレンドパーク2
+CONS( 2003, epo_tfp2,  0,          0,  xavix_i2c_24c08_4mb,  epo_tfp2, xavix_i2c_state, init_xavix, "Epoch / SSD Company LTD", "Tokyo Friend Park II (Japan)", MACHINE_IMPERFECT_SOUND) // uses in24lc08b
+
+// 東京フレンドパーク2スペシャル
+CONS( 2005, epo_tp2s,  0,          0,  xavix_4mb,        epo_tp2p, xavix_state,     init_xavix, "Epoch / SSD Company LTD", "Tokyo Friend Park II Special! (Japan)", MACHINE_IMPERFECT_SOUND)
+
+// 東京フレンドパークⅡ パーフェクト!めざせ!グランドスラム‼︎
+CONS( 2007, epo_tp2p,  0,          0,  xavix,            epo_tp2p, xavix_state,     init_xavix, "Epoch / SSD Company LTD", "Tokyo Friend Park II Perfect! Mezase! Grand Slam!! (Japan)", MACHINE_IMPERFECT_SOUND)
+
+// きかんしゃトーマス テレビパソコン
+CONS( 2005, tvpc_tom,  0,          0,  xavix_i2c_24c16_4mb,  tvpc_tom, xavix_i2c_state, init_xavix, "Epoch / SSD Company LTD", "TV-PC Thomas & Friends (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND)
+// ドラえもん テレビパソコン
+CONS( 2003, tvpc_dor,  0,          0,  xavix_i2c_24c16_4mb,  tvpc_tom, xavix_i2c_state, init_xavix, "Epoch / SSD Company LTD", "TV-PC Doraemon (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND)
+// とっとこハム太郎 テレビパソコン
+CONS( 2003, tvpc_ham,  0,          0,  xavix_i2c_24c16_4mb,  tvpc_tom, xavix_i2c_state, init_xavix, "Epoch / SSD Company LTD", "TV-PC Tottoko Hamutaro (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND)
+
+CONS( 2004, tvpc_hk,   0,          0,  xavix_i2c_24c16_4mb,  tvpc_tom, xavix_i2c_state, init_xavix, "Epoch / SSD Company LTD", "TV-PC Hello Kitty (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND)
+
+// TVメールPC mail*cot メルコット
+// has a 74HC541D (maybe keyboard related?)
+CONS( 2004, epo_mail,  0,          0,  xavix_i2c_24c16_4mb,  tvpc_tom, xavix_i2c_state, init_xavix, "Epoch / SSD Company LTD", "TV Mail PC mail*cot (Japan)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND)

@@ -1,0 +1,651 @@
+// license:BSD-3-Clause
+// copyright-holders:Sergey Svishchev
+/***************************************************************************
+
+    drivers/gridcomp.cpp
+
+    Driver file for GRiD Compass series
+
+    US patent 4,571,456 describes model 1101:
+
+    - 15 MHz XTAL, produces
+        - 5 MHz system clock for CPU, FPU, OSP
+        - 7.5 MHz pixel clock
+    - Intel 8086 - CPU
+    - Intel 8087 - FPU
+    - Intel 80130 - Operating System Processor, equivalent of:
+        - 8259 PIC
+        - 8254 PIT
+    - Texas Instruments TMS9914 GPIB controller
+    - Intel 7220 Bubble Memory Controller
+        - 7110 Magnetic Bubble Memory modules and support chips
+    - X2210D - EAROM for machine ID
+    - MM58174AN - Real-Time Clock
+    - (custom DMA logic)
+    - Intel 8741 - keyboard MCU
+    - Intel 8274 - UART
+    - Intel 8255 - modem interface
+        - 2x DAC0832LCN - DAC
+        - MK5089N - DTMF generator
+        - ...
+
+    high-resolution motherboard photo (enough to read chip numbers): http://deltacxx.insomnia247.nl/gridcompass/motherboard.jpg
+
+    differences between models:
+    - Compass 110x do not have GRiDROM slots.
+    - Compass II (112x, 113x) have 4 of them.
+    - Compass II 113x have 512x256 screen size
+    - Compass 11x9 have 512K ram
+    - Compass II have DMA addresses different from Compass 110x
+
+    to do:
+
+    - EAROM (X2210D)
+    - modem (incl. DTMF generator)
+    - proper serial port connection (incl. PAL 16R4 300135-02)
+    - keyboard MCU emulation
+    - proper custom DMA logic timing
+    - loading ROMs for Compass II
+    - proper 2101 and 2102 emulation
+
+    missing dumps:
+
+    - dumps from 1100, 1107, 1121, 1131, 1137
+    - GRiDROM's
+
+    to boot GRID-OS:
+    - convert GRIDOS.IMD to IMG format
+    - create zero-filled 384K bubble memory image and attach it as -memcard
+    - attach floppy with `-ieee_grid grid2102 -flop GRIDOS.IMG`
+    - use grid1101 with 'ccos' ROM
+
+***************************************************************************/
+
+#include "emu.h"
+
+#include "gridkeyb.h"
+#include "gridrom.h"
+
+#include "bus/ieee488/ieee488.h"
+#include "bus/rs232/hlemouse.h"
+#include "bus/rs232/printer.h"
+#include "bus/rs232/rs232.h"
+#include "cpu/i86/i86.h"
+#include "machine/i7110.h"
+#include "machine/i80130.h"
+#include "machine/i8087.h"
+#include "machine/i8255.h"
+#include "machine/mm58174.h"
+#include "machine/ram.h"
+#include "machine/tms9914.h"
+#include "machine/z80sio.h"
+#include "sound/dac.h"
+
+#include "emupal.h"
+#include "screen.h"
+#include "speaker.h"
+
+#define LOG_KEYBOARD  (1U << 1)
+#define LOG_DEBUG     (1U << 2)
+
+#define VERBOSE (LOG_GENERAL)
+//#define LOG_OUTPUT_FUNC osd_printf_info
+#include "logmacro.h"
+
+#define LOGKBD(...) LOGMASKED(LOG_KEYBOARD, __VA_ARGS__)
+#define LOGDBG(...) LOGMASKED(LOG_DEBUG, __VA_ARGS__)
+
+
+namespace {
+
+#define I80130_TAG      "osp"
+
+class gridcomp_state : public driver_device
+{
+public:
+	gridcomp_state(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+		, m_maincpu(*this, "maincpu")
+		, m_osp(*this, I80130_TAG)
+		, m_rtc(*this, "rtc")
+		, m_modem(*this, "modem")
+		, m_uart8274(*this, "uart8274")
+		, m_dac(*this, "dac0832")
+		, m_ram(*this, RAM_TAG)
+		, m_tms9914(*this, "hpib")
+		, m_test_rom(*this, "test_rom")
+		, m_bmc(*this, "bmc")
+		, m_app_roms(*this, "app_rom%u", 0U)
+	{ }
+
+	static constexpr feature_type unemulated_features() { return feature::WAN; }
+
+	void grid1129(machine_config &config) ATTR_COLD;
+	void grid1131(machine_config &config) ATTR_COLD;
+	void grid1121(machine_config &config) ATTR_COLD;
+	void grid1139(machine_config &config) ATTR_COLD;
+	void grid1109(machine_config &config) ATTR_COLD;
+	void grid1101(machine_config &config) ATTR_COLD;
+
+protected:
+	virtual void machine_start() override ATTR_COLD;
+	virtual void machine_reset() override ATTR_COLD;
+
+private:
+	required_device<i8086_cpu_device> m_maincpu;
+	required_device<i80130_device> m_osp;
+	required_device<mm58174_device> m_rtc;
+	required_device<i8255_device> m_modem;
+	optional_device<i8274_device> m_uart8274;
+	required_device<dac0832_device> m_dac;
+	required_device<ram_device> m_ram;
+	required_device<tms9914_device> m_tms9914;
+	required_device<gridrom_socket_device> m_test_rom;
+	required_device<i7220_1_device> m_bmc;
+	optional_device_array<gridrom_socket_device, 4> m_app_roms;
+
+	bool m_kbd_ready = false;
+	uint16_t m_kbd_data = 0;
+
+	uint16_t *m_videoram = nullptr;
+
+	IRQ_CALLBACK_MEMBER(irq_callback);
+
+	void bubble_irq_w(int state);
+	void bubble_drq_w(int state);
+
+	bool m_drq;
+	bool m_irq;
+
+	uint16_t grid_9ff0_r(offs_t offset);
+	uint16_t grid_keyb_r(offs_t offset);
+	uint8_t grid_modem_r(offs_t offset);
+	void grid_keyb_w(offs_t offset, uint16_t data);
+	void grid_modem_w(offs_t offset, uint8_t data);
+
+	void grid_sound_w(offs_t offset, uint8_t data);
+
+	void grid_dma_w(offs_t offset, uint8_t data);
+	uint8_t grid_dma_r(offs_t offset);
+
+	template <int Width>
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
+	void kbd_put(u16 data);
+
+	void grid1101_io(address_map &map) ATTR_COLD;
+	void grid1101_map(address_map &map) ATTR_COLD;
+	void grid1121_map(address_map &map) ATTR_COLD;
+};
+
+
+static void rs232_devices(device_slot_interface &device)
+{
+	device.option_add("microsoft_mouse", MSFT_HLE_SERIAL_MOUSE);
+	device.option_add("logitech_mouse", LOGITECH_HLE_SERIAL_MOUSE);
+	/*
+	    FIXME:
+	    The GRiDPaint documentation states that this mouse should work.
+	    But for some reason, the laptop does not recognize it.
+
+	    device.option_add("msystems_mouse", MSYSTEMS_HLE_SERIAL_MOUSE);
+	*/
+
+	device.option_add("printer", SERIAL_PRINTER);
+}
+
+
+[[maybe_unused]] uint16_t gridcomp_state::grid_9ff0_r(offs_t offset)
+{
+	uint16_t data = 0;
+
+	switch (offset)
+	{
+	case 0:
+		data = 0xbb66;
+		break;
+	}
+
+	LOGDBG("9FF0: %02x == %02x\n", 0x9ff00 + (offset << 1), data);
+
+	return data;
+}
+
+uint16_t gridcomp_state::grid_keyb_r(offs_t offset)
+{
+	uint16_t data = 0;
+
+	switch (offset)
+	{
+	case 0:
+		data = m_kbd_data;
+		m_kbd_data = 0xff;
+		m_kbd_ready = false;
+		m_osp->ir4_w(CLEAR_LINE);
+		break;
+
+	case 1:
+		data = m_kbd_ready ? 2 : 0;
+		break;
+	}
+
+	LOGKBD("%02x == %02x\n", 0xdffc0 + (offset << 1), data);
+
+	return data;
+}
+
+void gridcomp_state::grid_keyb_w(offs_t offset, uint16_t data)
+{
+	LOGKBD("%02x <- %02x\n", 0xdffc0 + (offset << 1), data);
+}
+
+void gridcomp_state::kbd_put(u16 data)
+{
+	m_kbd_data = data;
+	m_kbd_ready = true;
+	m_osp->ir4_w(ASSERT_LINE);
+}
+
+
+// reject all commands
+uint8_t gridcomp_state::grid_modem_r(offs_t offset)
+{
+	uint8_t data = 0;
+	LOG("MDM %02x == %02x\n", 0xdfec0 + (offset << 1), data);
+
+	return data;
+}
+
+void gridcomp_state::grid_modem_w(offs_t offset, uint8_t data)
+{
+	LOG("MDM %02x <- %02x\n", 0xdfec0 + (offset << 1), data);
+}
+
+void gridcomp_state::grid_sound_w(offs_t offset, uint8_t data)
+{
+	if (offset & 0b0001)
+	{
+		LOG("VOLUME DAC <- %02x\n", data);
+		// Not supported.
+	}
+
+	// GRiD makes sounds when writing to dfe4:2 or dfe4:4.
+	if (offset & 0b0110)
+	{
+		LOG("SOUND DAC <- %02x\n", data);
+		m_dac->write(data);
+	}
+}
+
+void gridcomp_state::grid_dma_w(offs_t offset, uint8_t data)
+{
+	m_tms9914->write(7, data);
+	// LOG("DMA %02x <- %02x\n", offset, data);
+}
+
+uint8_t gridcomp_state::grid_dma_r(offs_t offset)
+{
+	int ret = m_tms9914->read(7);
+	// LOG("DMA %02x == %02x\n", offset, ret);
+	return ret;
+}
+
+template <int Width>
+uint32_t gridcomp_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+{
+	for (int y = cliprect.top(); y <= cliprect.bottom(); y++)
+	{
+		uint16_t *p = &bitmap.pix(y);
+
+		int const offset = y * (Width / 16);
+
+		for (int x = offset; x < offset + Width / 16; x++)
+		{
+			uint16_t const gfx = m_videoram[x];
+
+			for (int i = 15; i >= 0; i--)
+			{
+				*p++ = BIT(gfx, i);
+			}
+		}
+	}
+
+	return 0;
+}
+
+void gridcomp_state::machine_start()
+{
+	address_space &program = m_maincpu->space(AS_PROGRAM);
+
+	program.install_ram(0, m_ram->size() - 1, m_ram->pointer());
+
+	m_videoram = (uint16_t *)m_maincpu->space(AS_PROGRAM).get_write_ptr(0x400);
+}
+
+void gridcomp_state::machine_reset()
+{
+	m_kbd_ready = false;
+	m_irq = false;
+	m_drq = false;
+}
+
+IRQ_CALLBACK_MEMBER(gridcomp_state::irq_callback)
+{
+	return m_osp->inta_r();
+}
+
+void gridcomp_state::bubble_irq_w(int state)
+{
+	m_irq = state != 0;
+	m_osp->ir1_w(m_irq || m_drq);
+}
+
+void gridcomp_state::bubble_drq_w(int state)
+{
+	m_drq = state != 0;
+	m_osp->ir1_w(m_irq || m_drq);
+}
+
+void gridcomp_state::grid1101_map(address_map &map)
+{
+	map.unmap_value_high();
+	map(0xc0000, 0xcffff).r(m_test_rom, FUNC(gridrom_socket_device::read));
+	map(0xdfe40, 0xdfe4f).w(FUNC(gridcomp_state::grid_sound_w));  // modem controller??
+	map(0xdfe80, 0xdfe83).rw(m_bmc, FUNC(i7220_1_device::read), FUNC(i7220_1_device::write)).umask16(0x00ff);
+	map(0xdfea0, 0xdfeaf).unmaprw(); // ??
+	map(0xdfec0, 0xdfecf).rw(FUNC(gridcomp_state::grid_modem_r), FUNC(gridcomp_state::grid_modem_w)).umask16(0x00ff); // incl. DTMF generator
+	map(0xdff00, 0xdff1f).rw(m_uart8274, FUNC(i8274_device::cd_ba_r), FUNC(i8274_device::cd_ba_w)).umask16(0x00ff);
+	map(0xdff40, 0xdff5f).rw(m_rtc, FUNC(mm58174_device::read), FUNC(mm58174_device::write)).umask16(0xff00);
+	map(0xdff80, 0xdff8f).rw("hpib", FUNC(tms9914_device::read), FUNC(tms9914_device::write)).umask16(0x00ff);
+	map(0xdffc0, 0xdffcf).rw(FUNC(gridcomp_state::grid_keyb_r), FUNC(gridcomp_state::grid_keyb_w)); // Intel 8741 MCU
+	map(0xe0000, 0xeffff).rw(FUNC(gridcomp_state::grid_dma_r), FUNC(gridcomp_state::grid_dma_w)); // DMA
+	map(0xfc000, 0xfffff).rom().region("user1", 0);
+}
+
+void gridcomp_state::grid1121_map(address_map &map)
+{
+	map.unmap_value_high();
+	map(0x90000, 0x97fff).unmaprw(); // ?? ROM slot
+	map(0x9ff00, 0x9ff0f).unmaprw(); // .r(FUNC(gridcomp_state::grid_9ff0_r)); // ?? ROM?
+	map(0xc0000, 0xcffff).r(m_test_rom, FUNC(gridrom_socket_device::read));
+	map(0xdfa00, 0xdfdff).rw(FUNC(gridcomp_state::grid_dma_r), FUNC(gridcomp_state::grid_dma_w)); // DMA
+	map(0xdfe00, 0xdfe1f).unmaprw(); // ??
+	map(0xdfe40, 0xdfe4f).w(FUNC(gridcomp_state::grid_sound_w));  // modem controller??
+	map(0xdfe80, 0xdfe83).rw(m_bmc, FUNC(i7220_1_device::read), FUNC(i7220_1_device::write)).umask16(0x00ff);
+	map(0xdfea0, 0xdfeaf).unmaprw(); // ??
+	map(0xdfec0, 0xdfecf).rw(FUNC(gridcomp_state::grid_modem_r), FUNC(gridcomp_state::grid_modem_w)).umask16(0x00ff); // incl. DTMF generator
+	map(0xdff00, 0xdff1f).rw(m_uart8274, FUNC(i8274_device::cd_ba_r), FUNC(i8274_device::cd_ba_w)).umask16(0x00ff);
+	map(0xdff40, 0xdff5f).rw(m_rtc, FUNC(mm58174_device::read), FUNC(mm58174_device::write)).umask16(0xff00);
+	map(0xdff80, 0xdff8f).rw("hpib", FUNC(tms9914_device::read), FUNC(tms9914_device::write)).umask16(0x00ff);
+	map(0xdffc0, 0xdffcf).rw(FUNC(gridcomp_state::grid_keyb_r), FUNC(gridcomp_state::grid_keyb_w)); // Intel 8741 MCU
+	map(0xfc000, 0xfffff).rom().region("user1", 0);
+}
+
+void gridcomp_state::grid1101_io(address_map &map)
+{
+	map(0x0000, 0x000f).m(m_osp, FUNC(i80130_device::io_map));
+}
+
+static INPUT_PORTS_START( gridcomp )
+INPUT_PORTS_END
+
+/*
+ * IRQ0 serial
+ * IRQ1 bubble
+ * IRQ2 modem
+ * IRQ3 system tick || vert sync
+ * IRQ4 keyboard
+ * IRQ5 gpib
+ * IRQ6 8087
+ * IRQ7 ring
+ */
+void gridcomp_state::grid1101(machine_config &config)
+{
+	I8086(config, m_maincpu, XTAL(15'000'000) / 3);
+	m_maincpu->set_addrmap(AS_PROGRAM, &gridcomp_state::grid1101_map);
+	m_maincpu->set_addrmap(AS_IO, &gridcomp_state::grid1101_io);
+	m_maincpu->set_irq_acknowledge_callback(FUNC(gridcomp_state::irq_callback));
+	m_maincpu->esc_opcode_handler().set("i8087", FUNC(i8087_device::insn_w));
+	m_maincpu->esc_data_handler().set("i8087", FUNC(i8087_device::addr_w));
+
+	i8087_device &i8087(I8087(config, "i8087", XTAL(15'000'000) / 3));
+	i8087.set_space_86(m_maincpu, AS_PROGRAM);
+	i8087.busy().set_inputline(m_maincpu, INPUT_LINE_TEST);
+
+	I80130(config, m_osp, XTAL(15'000'000)/3);
+	m_osp->irq().set_inputline("maincpu", 0);
+	m_osp->baud().set(m_uart8274, FUNC(i8274_device::rxca_w));
+	m_osp->baud().append(m_uart8274, FUNC(i8274_device::txca_w));
+
+	MM58174(config, m_rtc, 32.768_kHz_XTAL);
+
+	SPEAKER(config, "speaker").front_center();
+	DAC0832(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 1.0);
+
+	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_LCD)); // actually a kind of EL display
+	screen.set_color(rgb_t::amber());
+	screen.set_screen_update(FUNC(gridcomp_state::screen_update<320>));
+	screen.set_raw(XTAL(15'000'000)/2, 424, 0, 320, 262, 0, 240); // XXX 66 Hz refresh
+	screen.screen_vblank().set(m_osp, FUNC(i80130_device::ir3_w));
+	screen.set_palette("palette");
+
+	PALETTE(config, "palette", palette_device::MONOCHROME);
+
+	grid_keyboard_device &keyboard(GRID_KEYBOARD(config, "keyboard"));
+	keyboard.set_keyboard_callback(FUNC(gridcomp_state::kbd_put));
+
+	I7220_1(config, m_bmc, XTAL(4'000'000));
+	m_bmc->irq_callback().set(FUNC(gridcomp_state::bubble_irq_w));
+	m_bmc->drq_callback().set(FUNC(gridcomp_state::bubble_drq_w));
+
+	ibubble_device& mbm0(IBUBBLE(config, "mbm0", XTAL(4'000'000)));
+	ibubble_device& mbm1(IBUBBLE(config, "mbm1", XTAL(4'000'000)));
+	ibubble_device& mbm2(IBUBBLE(config, "mbm2", XTAL(4'000'000)));
+
+	m_bmc->field_rotate_callback().set(mbm0, FUNC(ibubble_device::field_rotate));
+	m_bmc->field_rotate_callback().append(mbm1, FUNC(ibubble_device::field_rotate));
+	m_bmc->field_rotate_callback().append(mbm2, FUNC(ibubble_device::field_rotate));
+
+	m_bmc->select_w_callback().set(mbm0, FUNC(ibubble_device::select_w));
+	mbm0.select_w_callback().set(mbm1, FUNC(ibubble_device::select_w));
+	mbm1.select_w_callback().set(mbm2, FUNC(ibubble_device::select_w));
+
+	m_bmc->cmd_w_callback().set(mbm0, FUNC(ibubble_device::cmd_w));
+	m_bmc->cmd_w_callback().append(mbm1, FUNC(ibubble_device::cmd_w));
+	m_bmc->cmd_w_callback().append(mbm2, FUNC(ibubble_device::cmd_w));
+
+	m_bmc->dio_w_callback().set(mbm0, FUNC(ibubble_device::dio_w));
+	mbm0.dio_w_callback().set(mbm1, FUNC(ibubble_device::dio_w));
+	mbm1.dio_w_callback().set(mbm2, FUNC(ibubble_device::dio_w));
+
+	m_bmc->dio_r_callback().set(mbm0, FUNC(ibubble_device::dio_r));
+	mbm0.dio_r_callback().set(mbm1, FUNC(ibubble_device::dio_r));
+	mbm1.dio_r_callback().set(mbm2, FUNC(ibubble_device::dio_r));
+
+	m_bmc->status_r_callback().set(mbm0, FUNC(ibubble_device::status_r));
+	mbm0.status_r_callback().set(mbm1, FUNC(ibubble_device::status_r));
+	mbm1.status_r_callback().set(mbm2, FUNC(ibubble_device::status_r));
+
+	m_bmc->shiftclk_callback().set(mbm0, FUNC(ibubble_device::shiftclk));
+	m_bmc->shiftclk_callback().append(mbm1, FUNC(ibubble_device::shiftclk));
+	m_bmc->shiftclk_callback().append(mbm2, FUNC(ibubble_device::shiftclk));
+
+	m_bmc->bubble_replicate_callback().set(mbm0, FUNC(ibubble_device::bubble_replicate));
+	m_bmc->bubble_replicate_callback().append(mbm1, FUNC(ibubble_device::bubble_replicate));
+	m_bmc->bubble_replicate_callback().append(mbm2, FUNC(ibubble_device::bubble_replicate));
+
+	m_bmc->bootloop_replicate_callback().set(mbm0, FUNC(ibubble_device::bootloop_replicate));
+	m_bmc->bootloop_replicate_callback().append(mbm1, FUNC(ibubble_device::bootloop_replicate));
+	m_bmc->bootloop_replicate_callback().append(mbm2, FUNC(ibubble_device::bootloop_replicate));
+
+	m_bmc->bubble_swap_callback().set(mbm0, FUNC(ibubble_device::bubble_swap));
+	m_bmc->bubble_swap_callback().append(mbm1, FUNC(ibubble_device::bubble_swap));
+	m_bmc->bubble_swap_callback().append(mbm2, FUNC(ibubble_device::bubble_swap));
+
+	m_bmc->bootloop_swap_callback().set(mbm0, FUNC(ibubble_device::bootloop_swap));
+	m_bmc->bootloop_swap_callback().append(mbm1, FUNC(ibubble_device::bootloop_swap));
+	m_bmc->bootloop_swap_callback().append(mbm2, FUNC(ibubble_device::bootloop_swap));
+
+	m_bmc->errflg_r_callback().set(mbm0, FUNC(ibubble_device::errflg_r));
+	mbm0.errflg_r_callback().set(mbm1, FUNC(ibubble_device::errflg_r));
+	mbm1.errflg_r_callback().set(mbm2, FUNC(ibubble_device::errflg_r));
+
+	tms9914_device &hpib(TMS9914(config, m_tms9914, XTAL(4'000'000)));
+	hpib.int_write_cb().set(I80130_TAG, FUNC(i80130_device::ir5_w));
+	hpib.dio_read_cb().set(IEEE488_TAG, FUNC(ieee488_device::dio_r));
+	hpib.dio_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_dio_w));
+	hpib.eoi_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_eoi_w));
+	hpib.dav_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_dav_w));
+	hpib.nrfd_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_nrfd_w));
+	hpib.ndac_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_ndac_w));
+	hpib.ifc_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_ifc_w));
+	hpib.srq_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_srq_w));
+	hpib.atn_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_atn_w));
+	hpib.ren_write_cb().set(IEEE488_TAG, FUNC(ieee488_device::host_ren_w));
+
+	ieee488_device &ieee(IEEE488(config, IEEE488_TAG));
+	ieee.eoi_callback().set("hpib", FUNC(tms9914_device::eoi_w));
+	ieee.dav_callback().set("hpib", FUNC(tms9914_device::dav_w));
+	ieee.nrfd_callback().set("hpib", FUNC(tms9914_device::nrfd_w));
+	ieee.ndac_callback().set("hpib", FUNC(tms9914_device::ndac_w));
+	ieee.ifc_callback().set("hpib", FUNC(tms9914_device::ifc_w));
+	ieee.srq_callback().set("hpib", FUNC(tms9914_device::srq_w));
+	ieee.atn_callback().set("hpib", FUNC(tms9914_device::atn_w));
+	ieee.ren_callback().set("hpib", FUNC(tms9914_device::ren_w));
+	IEEE488_SLOT(config, "ieee_grid", 0, grid_ieee488_devices, nullptr);
+	IEEE488_SLOT(config, "ieee_grid2", 0, grid_ieee488_devices, nullptr);
+	IEEE488_SLOT(config, "ieee_grid3", 0, grid_ieee488_devices, nullptr);
+	IEEE488_SLOT(config, "ieee_grid4", 0, grid_ieee488_devices, nullptr);
+	IEEE488_SLOT(config, "ieee_rem", 0, remote488_devices, nullptr);
+
+	I8274(config, m_uart8274, XTAL(4'032'000));
+	m_uart8274->out_txda_callback().set("rs232_port", FUNC(rs232_port_device::write_txd));
+	m_uart8274->out_dtra_callback().set("rs232_port", FUNC(rs232_port_device::write_dtr));
+	m_uart8274->out_rtsa_callback().set("rs232_port", FUNC(rs232_port_device::write_rts));
+	m_uart8274->out_int_callback().set(I80130_TAG, FUNC(i80130_device::ir0_w));
+
+	rs232_port_device &rs232_port(RS232_PORT(config, "rs232_port", rs232_devices, nullptr));
+	rs232_port.rxd_handler().set(m_uart8274, FUNC(i8274_device::rxa_w));
+	rs232_port.dcd_handler().set(m_uart8274, FUNC(i8274_device::dcda_w));
+	rs232_port.cts_handler().set(m_uart8274, FUNC(i8274_device::ctsa_w));
+
+	I8255(config, "modem");
+
+	RAM(config, m_ram).set_default_size("256K").set_default_value(0);
+
+	// It is unknown how much address space is allocated for the test ROM on real Compass.
+	// Based on the assumption that the test ROM should be no larger than 64KB (C000:0 to CFFF:F),
+	// the image size limitation is identical to the allocated space.
+	GRIDROM_SOCKET(config, m_test_rom, gridrom_slot, "test_rom");
+	m_test_rom->set_image_names("test-rom", "test-rom");
+	m_test_rom->set_acceptable_sizes({64*1024});
+}
+
+void gridcomp_state::grid1109(machine_config &config)
+{
+	grid1101(config);
+	m_ram->set_default_size("512K");
+}
+
+void gridcomp_state::grid1121(machine_config &config)
+{
+	grid1101(config);
+	// m_maincpu->set_clock(XTAL(24'000'000) / 3); // XXX
+	m_maincpu->set_addrmap(AS_PROGRAM, &gridcomp_state::grid1121_map);
+
+	for (int i = 0; i < 4; i++)
+	{
+		GRIDROM_SOCKET(config, m_app_roms[i], gridrom_slot, "app_rom");
+		m_app_roms[i]->set_image_names("app-rom", "app-rom");
+		m_app_roms[i]->set_acceptable_sizes({32*1024, 64*1024, 128*1024});
+	}
+}
+
+void gridcomp_state::grid1129(machine_config &config)
+{
+	grid1121(config);
+	m_ram->set_default_size("512K");
+}
+
+void gridcomp_state::grid1131(machine_config &config)
+{
+	grid1121(config);
+	subdevice<screen_device>("screen")->set_screen_update(FUNC(gridcomp_state::screen_update<512>));
+	subdevice<screen_device>("screen")->set_raw(XTAL(15'000'000)/2, 720, 0, 512, 262, 0, 256);
+}
+
+void gridcomp_state::grid1139(machine_config &config)
+{
+	grid1131(config);
+	m_ram->set_default_size("512K");
+}
+
+
+ROM_START( grid1101 )
+	ROM_REGION16_LE(0x10000, "user1", 0)
+
+	ROM_SYSTEM_BIOS(0, "1101.rev4", "CCPROM 1101 revision 4")
+	ROMX_LOAD("1101even.rev4.bin", 0x0000, 0x2000, CRC(051b11e5) SHA1(73fb510c114f7fcbe1e616bb20cd97cb2c062e62), ROM_SKIP(1) | ROM_BIOS(0))
+	ROMX_LOAD("1101odd.rev4.bin", 0x0001, 0x2000, CRC(898d7ce2) SHA1(3e2c0deff5234b0b69cc407cf9858648a3e687b9), ROM_SKIP(1) | ROM_BIOS(0))
+
+	ROM_SYSTEM_BIOS(1, "1101.rev3", "CCPROM 1101 revision 3")
+	ROMX_LOAD("1101even.rev3.bin", 0x0000, 0x2000, CRC(bd7a385a) SHA1(924d5a04e5a5f57cd86849a47de50cb00d0fef40), ROM_SKIP(1) | ROM_BIOS(1))
+	ROMX_LOAD("1101odd.rev3.bin", 0x0001, 0x2000, CRC(751c893e) SHA1(28212f6180de0c8dabcea95f0580eaf9b1db48a3), ROM_SKIP(1) | ROM_BIOS(1))
+ROM_END
+
+ROM_START( grid1109 )
+	ROM_REGION16_LE(0x10000, "user1", 0)
+
+	ROM_SYSTEM_BIOS(0, "1109", "CCPROM 1109")
+	ROMX_LOAD("1109even.ccprom.bin", 0x0000, 0x2000, CRC(2545092e) SHA1(bafa84b59d4bd010db296c41063ea6b50431722c), ROM_SKIP(1) | ROM_BIOS(0))
+	ROMX_LOAD("1109odd.ccprom.bin", 0x0001, 0x2000, CRC(315d90b6) SHA1(e9447d615200942319ddf955644b1209025be867), ROM_SKIP(1) | ROM_BIOS(0))
+ROM_END
+
+ROM_START( grid1121 )
+	ROM_REGION16_LE(0x10000, "user1", 0)
+
+	ROM_SYSTEM_BIOS(0, "1121", "CCPROM 1121")
+	ROMX_LOAD("1121even.ccprom.bin", 0x0000, 0x2000, NO_DUMP, ROM_SKIP(1) | ROM_BIOS(0))
+	ROMX_LOAD("1121odd.ccprom.bin", 0x0001, 0x2000, NO_DUMP, ROM_SKIP(1) | ROM_BIOS(0))
+ROM_END
+
+ROM_START( grid1129 )
+	ROM_REGION16_LE(0x10000, "user1", 0)
+
+	ROM_SYSTEM_BIOS(0, "1129", "CCPROM 1129")
+	ROMX_LOAD("1129even.ccprom.bin", 0x0000, 0x2000, CRC(0ede3636) SHA1(9bc2dadec3ee2b78cbe7d79e70d033c60527ba8d), ROM_SKIP(1) | ROM_BIOS(0))
+	ROMX_LOAD("1129odd.ccprom.bin", 0x0001, 0x2000, CRC(07b29b05) SHA1(e6b1726e39b6f83b082b1a86ee9b0491e95b45d0), ROM_SKIP(1) | ROM_BIOS(0))
+ROM_END
+
+ROM_START( grid1131 )
+	ROM_REGION16_LE(0x10000, "user1", 0)
+
+	ROM_SYSTEM_BIOS(0, "1131", "CCPROM 1131")
+	ROMX_LOAD("1131even.ccprom.bin", 0x0000, 0x2000, NO_DUMP, ROM_SKIP(1) | ROM_BIOS(0))
+	ROMX_LOAD("1131odd.ccprom.bin", 0x0001, 0x2000, NO_DUMP, ROM_SKIP(1) | ROM_BIOS(0))
+ROM_END
+
+ROM_START( grid1139 )
+	ROM_REGION16_LE(0x10000, "user1", 0)
+
+	ROM_SYSTEM_BIOS(0, "1139", "CCPROM 1139")
+	ROMX_LOAD("1139even.ccprom.bin", 0x0000, 0x2000, CRC(67071849) SHA1(782239c155fa5821f8dbd2607cee9152d175e90e), ROM_SKIP(1) | ROM_BIOS(0))
+	ROMX_LOAD("1139odd.ccprom.bin", 0x0001, 0x2000, CRC(13ed4bf0) SHA1(f7087f86dbbc911bee985125bccd2417e0374e8e), ROM_SKIP(1) | ROM_BIOS(0))
+ROM_END
+
+} // anonymous namespace
+
+
+/***************************************************************************
+
+  Game driver(s)
+
+***************************************************************************/
+
+//    YEAR  NAME      PARENT    COMPAT  MACHINE   INPUT     CLASS           INIT        COMPANY           FULLNAME           FLAGS
+COMP( 1982, grid1101, 0,        0,      grid1101, gridcomp, gridcomp_state, empty_init, "GRiD Computers", "Compass 1101",    MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_CONTROLS )
+COMP( 1982, grid1109, grid1101, 0,      grid1109, gridcomp, gridcomp_state, empty_init, "GRiD Computers", "Compass 1109",    MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_CONTROLS | MACHINE_NOT_WORKING )
+COMP( 1984, grid1121, 0,        0,      grid1121, gridcomp, gridcomp_state, empty_init, "GRiD Computers", "Compass II 1121", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_CONTROLS | MACHINE_NOT_WORKING )
+COMP( 1984, grid1129, grid1121, 0,      grid1129, gridcomp, gridcomp_state, empty_init, "GRiD Computers", "Compass II 1129", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_CONTROLS )
+COMP( 1984, grid1131, grid1121, 0,      grid1131, gridcomp, gridcomp_state, empty_init, "GRiD Computers", "Compass II 1131", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_CONTROLS | MACHINE_NOT_WORKING )
+COMP( 1984, grid1139, grid1121, 0,      grid1139, gridcomp, gridcomp_state, empty_init, "GRiD Computers", "Compass II 1139", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_CONTROLS )

@@ -1,0 +1,149 @@
+// license:BSD-3-Clause
+// copyright-holders:David Haywood, Phil Stroffolino, Bryan McPhail
+
+#ifndef MAME_SHARED_NAMCO_C355SPR_H
+#define MAME_SHARED_NAMCO_C355SPR_H
+
+#pragma once
+
+#include "screen.h"
+
+class namco_c355spr_device : public device_t, public device_gfx_interface, public device_video_interface
+{
+public:
+	using c355_obj_code2tile_delegate = device_delegate<int (int)>;
+	using c355_obj_entry_attr_delegate = device_delegate<u16(int, u8)>;
+	using c355_obj_entry_attr_which_delegate = device_delegate<u16(int, u8)>;
+	using c355_obj_entry_delegate = device_delegate<u16(int)>;
+	using c355_obj_entry_which_delegate = device_delegate<u16(int)>;
+	using c355_priority_delegate = device_delegate<int(int)>;
+	using c355_mix_delegate = device_delegate<bool (u16 &dest, u8 &destpri, u16 colbase, u16 src, int srcpri, int pri)>;
+
+	// construction/destruction
+	namco_c355spr_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
+
+	void set_transparent_pen(u8 transpen) { m_transpen = transpen; }
+	void set_color_base(u16 base) { m_colbase = base; }
+	void set_scroll_offsets(int x, int y) { m_scrolloffs[0] = x; m_scrolloffs[1] = y; }
+	//void set_ram_words(u32 size) { m_ramsize = size; }
+	void set_buffer(int buffer) { m_buffer = buffer; }
+	void set_external_prifill(bool external) { m_external_prifill = external; }
+	void set_alt_precision(bool alt_precision) { m_alt_precision = alt_precision; }
+	void set_colors(int colors) { m_colors = colors; }
+	void set_granularity(int granularity) { m_granularity = granularity; }
+
+	// the Namco code currently requires us to allocate memory in the device, the Data East hookup uses access callbacks
+	void set_device_allocates_spriteram(bool allocate_memory) { m_device_allocates_spriteram = allocate_memory;  }
+
+	template <typename... T> void set_tile_callback(T &&... args) { m_code2tile.set(std::forward<T>(args)...); }
+	template <typename... T> void set_priority_callback(T &&... args) { m_pri_cb.set(std::forward<T>(args)...); }
+	template <typename... T> void set_mix_callback(T &&... args) { m_mix_cb.set(std::forward<T>(args)...); }
+	template <typename... T> void set_read_spritetile(T &&... args) { m_read_spritetile.set(std::forward<T>(args)...); }
+	template <typename... T> void set_read_spriteformat(T &&... args) { m_read_spriteformat.set(std::forward<T>(args)...); }
+	template <typename... T> void set_read_spritetable(T &&... args) { m_read_spritetable.set(std::forward<T>(args)...); }
+	template <typename... T> void set_read_cliptable(T &&... args) { m_read_cliptable.set(std::forward<T>(args)...); }
+	template <typename... T> void set_read_spritelist(T &&... args) { m_read_spritelist.set(std::forward<T>(args)...); }
+
+	u16 spriteram_r(offs_t offset);
+	void spriteram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 position_r(offs_t offset);
+	void position_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void vblank(int state);
+
+	void draw(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int pri = 0);
+	void draw(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect, int pri = 0);
+
+	void build_sprite_list_and_render_sprites(const rectangle cliprect);
+
+	void render_sprites(const rectangle cliprect);
+
+	void clear_screen_bitmap() { m_screenbitmap.fill(0xffff); }
+	void clear_screen_bitmap(const rectangle cliprect) { m_screenbitmap.fill(0xffff, cliprect); }
+	bitmap_ind16 &screen_bitmap() { return m_screenbitmap; }
+
+protected:
+	namco_c355spr_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock = 0);
+
+	// device-level overrides
+	virtual void device_start() override ATTR_COLD;
+	virtual void device_stop() override ATTR_COLD;
+
+	c355_obj_code2tile_delegate m_code2tile;
+	c355_priority_delegate m_pri_cb;
+	c355_mix_delegate m_mix_cb;
+	c355_obj_entry_delegate m_read_spritetile;
+	c355_obj_entry_attr_delegate m_read_spriteformat;
+	c355_obj_entry_attr_which_delegate m_read_spritetable;
+	c355_obj_entry_attr_delegate m_read_cliptable;
+	c355_obj_entry_which_delegate m_read_spritelist;
+
+	u16 read_spritetile(int entry);
+	u16 read_spriteformat(int entry, u8 attr);
+	u16 read_spritetable(int entry, u8 attr);
+	u16 read_cliptable(int entry, u8 attr);
+	u16 read_spritelist(int entry);
+
+	int default_priority(int pal_pri) { return ((pal_pri >> 4) & 0xf); }
+	bool default_mix(u16 &dest, u8 &destpri, u16 colbase, u16 src, int srcpri, int pri);
+
+	// decoding info
+	DECLARE_GFXDECODE_MEMBER(gfxinfo);
+
+	// general
+	void zdrawgfxzoom(
+		bitmap_ind16 &dest_bmp, const rectangle &clip, gfx_element *gfx,
+		u32 code, u32 color,
+		bool flipx, bool flipy,
+		int sx, int sy,
+		int scalex, int scaley,
+		u8 prival,
+		int sprite_screen_width, int sprite_screen_height);
+
+	struct c355_sprite
+	{
+		bool disable;
+		int size;
+		rectangle clip;
+		int offset;
+		int color;
+		bool flipx,flipy;
+		int tile[16*16];
+		int x[16*16],y[16*16];
+		int zoomx[16*16],zoomy[16*16];
+		int pri;
+	};
+
+	std::unique_ptr<c355_sprite []> m_spritelist;
+	const c355_sprite *m_sprite_end{};
+	u16 m_position[4];
+	std::unique_ptr<u16 []> m_spriteram[2];
+	bitmap_ind16 m_renderbitmap;
+	bitmap_ind16 m_screenbitmap;
+
+	void build_sprite_list();
+
+private:
+	void copybitmap(screen_device &screen, bitmap_ind16 &dest_bmp, const rectangle &clip, int pri = 0);
+	void copybitmap(screen_device &screen, bitmap_rgb32 &dest_bmp, const rectangle &clip, int pri = 0);
+
+	// C355 Motion Object internals
+	void get_single_sprite(u16 which, c355_sprite *sprite_ptr);
+	template<class BitmapClass> void draw_sprites(screen_device &screen, BitmapClass &bitmap, const rectangle &cliprect, int pri = 0);
+
+	int m_scrolloffs[2];
+	//u32 m_ramsize;
+	int m_buffer;
+	bool m_external_prifill;
+	bool m_alt_precision;
+
+	u8 m_transpen;
+	u16 m_colbase;
+	int m_colors;
+	int m_granularity;
+	bool m_device_allocates_spriteram;
+};
+
+// device type definition
+DECLARE_DEVICE_TYPE(NAMCO_C355SPR, namco_c355spr_device)
+
+#endif // MAME_SHARED_NAMCO_C355SPR_H

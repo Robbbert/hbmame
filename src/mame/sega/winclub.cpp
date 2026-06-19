@@ -1,0 +1,141 @@
+// license:BSD-3-Clause
+// copyright-holders:
+
+/*
+Winner's Club - Mighty 8 Liner
+
+Many games in the series.
+
+Winner's Wheel - Magical Spot (2005)
+https://www.youtube.com/watch?v=k3REoIx7m-I
+
+Hardware manufactured by Sammy
+Following description if for Magical Spot
+
+main PCB (Sammy AM3AEE-02):
+2x big Sammy customs with no other markings (1 believed to be an SH-4 core)
+1x L14.318 XTAL
+1x CY37256VP150 CPLD
+2x 5212325FBPB60 128Mb SDRAMs
+2x 48lC8M16A2 128Mb SDRAMs
+1x TC554001 SRAM
+1x TC58FVM6T2A flash memory (empty in one dump, possibly code gets uploaded from the PCMCIA card?)
+1x YMZ770C-F
+
+I/O PCB (Sammy AM3AEG-02):
+1x TPD2005F High-Side Power Switch Array (8 Channels) for Motors, Solenoids, and Lamp Drivers
+1x TPD2007F Low-Side Power Switch Array (8 Channels) for Motors, Solenoids, and Lamp Drivers
+2x TD62084AF 8 Channel Darlington Sink Driver
+many capacitors, resistors, etc
+
+PCMCIA card sticker on the back: WWM2010-023.001 EA0-U-00146-1T (16MB) (TC58FVT641 x 2)
+PCMCIA PCB (Sammy AM3AEJ-01):
+2x TC58FVM6T2A flash memories
+1x CY37032VP44-100AC CPLD (CY37064VP44 silkscreened on PCB but actually the former)
+1x BR24C01FV-W
+*/
+
+#include "emu.h"
+
+#include "cpu/sh/sh4.h"
+#include "sound/ymz770.h"
+
+#include "emupal.h"
+#include "screen.h"
+#include "speaker.h"
+
+
+namespace {
+
+class winclub_state : public driver_device
+{
+public:
+	winclub_state(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+	{
+	}
+
+	void winclub(machine_config &config) ATTR_COLD;
+
+private:
+	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+
+	void prg_map(address_map &map) ATTR_COLD;
+};
+
+uint32_t winclub_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+{
+	return 0;
+}
+
+void winclub_state::prg_map(address_map &map)
+{
+	map(0x00000000, 0x007fffff).rom();
+}
+
+static INPUT_PORTS_START( winclub ) // no dips on PCB
+	PORT_START("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+INPUT_PORTS_END
+
+
+void winclub_state::winclub(machine_config &config)
+{
+	// basic machine hardware
+	sh4_device &maincpu(SH4(config, "maincpu", 14'318'000)); // TODO: SH-4 based custom, unknown type and clock
+	maincpu.set_addrmap(AS_PROGRAM, &winclub_state::prg_map);
+	// maincpu.set_vblank_int("screen", FUNC(winclub_state::irq2_line_hold));
+
+	// all wrong
+	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	screen.set_refresh_hz(60);
+	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
+	screen.set_size(64*8, 32*8);
+	screen.set_visarea_full();
+	screen.set_screen_update(FUNC(winclub_state::screen_update));
+
+	// sound hardware
+	SPEAKER(config, "speaker", 2).front();
+
+	ymz770_device &ymz770(YMZ770(config, "ymz", 16'384'000)); // internal clock?
+	ymz770.add_route(0, "speaker", 1.0, 0);
+	ymz770.add_route(1, "speaker", 1.0, 1);
+}
+
+
+ROM_START( wwmspot )
+	ROM_REGION64_LE( 0x1000000, "maincpu", 0 )
+	ROM_LOAD( "tc58fvm6t2a.u4", 0x000000, 0x800000, CRC(f94e24b2) SHA1(4f6d4ba05da935cd6bd2323bd5950029caad436f) )
+	ROM_LOAD( "tc58fvm6t2a.u3", 0x800000, 0x800000, CRC(3e115847) SHA1(09990946220c8f177200531e610a60488247c0a0) )
+
+	ROM_REGION( 0x800000, "ymz", 0 ) // is this uploaded?
+	ROM_LOAD( "tc58fvm6t2a.u41", 0x000000, 0x800000, CRC(1ad2bc45) SHA1(5fde1cce603e6566d20da811c9c8bcccb044d4ae) ) // empty. Code uploaded from PCMCIA? Or not used?
+
+	ROM_REGION( 0x80, "pcmcia_eeprom", 0 )
+	ROM_LOAD( "br24c01a.u2", 0x00, 0x80, CRC(222d9eec) SHA1(24a1cc415b0786695247caaca012bc51dda5349a) )
+ROM_END
+
+ROM_START( wcwroses )
+	ROM_REGION64_LE( 0x1000000, "maincpu", 0 )
+	ROM_LOAD( "tc58fvm6t2a.u4", 0x000000, 0x800000, CRC(d8eb488a) SHA1(d3714040667e3020fccd64ecae4277e6a519e25c) )
+	ROM_LOAD( "tc58fvm6t2a.u3", 0x800000, 0x800000, CRC(3d631fcb) SHA1(85346a04f04eb5ea6a15f5ced65acb5e427fc4e5) )
+
+	ROM_REGION( 0x800000, "ymz", 0 )
+	ROM_LOAD( "tc58fvt641.u41", 0x000000, 0x800000, CRC(b5384b56) SHA1(d5d93d6bf2ccee51a4f7ecff90b21966b8af6c20) ) // 1xxxxxxxxxxxxxxxxxxxxxx = 0xFF
+
+	ROM_REGION( 0x100, "pcmcia_eeprom", 0 )
+	ROM_LOAD( "m24c02w.u2", 0x00, 0x100, CRC(6230ae48) SHA1(c37c9ac6550323e6878481aa3e9932ae21b93f8a) )
+ROM_END
+
+} // anonymous namespace
+
+
+GAME( 2005, wwmspot,  0, winclub, winclub, winclub_state, empty_init, ROT0, "Sega",  "Winner's Wheel - Magical Spot", MACHINE_NO_SOUND | MACHINE_NOT_WORKING ) // year taken from instructions on cabinet (see YouTube video)
+GAME( 2004, wcwroses, 0, winclub, winclub, winclub_state, empty_init, ROT0, "Sammy", "Winner's Club - Wild Roses",    MACHINE_NO_SOUND | MACHINE_NOT_WORKING )

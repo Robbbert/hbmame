@@ -1,0 +1,74 @@
+// license:BSD-3-Clause
+// copyright-holders:David Haywood
+#ifndef MAME_TVGAMES_GENERALPLUS_GPL16250_H
+#define MAME_TVGAMES_GENERALPLUS_GPL16250_H
+
+#pragma once
+
+#include "bus/generic/carts.h"
+#include "bus/generic/slot.h"
+#include "machine/generalplus_gpl1625x_soc.h"
+
+#include "screen.h"
+#include "speaker.h"
+
+
+
+class gcm394_game_state : public driver_device, public device_memory_interface
+{
+public:
+	gcm394_game_state(const machine_config &mconfig, device_type type, const char *tag) :
+		driver_device(mconfig, type, tag),
+		device_memory_interface(mconfig, *this),
+		m_maincpu(*this, "maincpu"),
+		m_screen(*this, "screen"),
+		m_io(*this, "IN%u", 0U),
+		m_romregion(*this, "maincpu"),
+		m_full_mem_config("external", ENDIANNESS_BIG, 16, 32, -1)
+	{
+	}
+
+	void base(machine_config &config) ATTR_COLD;
+
+	void cs_map_base(address_map &map) ATTR_COLD;
+
+	virtual u16 cs0_r(offs_t offset);
+	virtual void cs0_w(offs_t offset, u16 data);
+	virtual u16 cs1_r(offs_t offset);
+	virtual void cs1_w(offs_t offset, u16 data);
+	virtual u16 cs2_r(offs_t offset);
+	virtual void cs2_w(offs_t offset, u16 data);
+	virtual u16 cs3_r(offs_t offset);
+	virtual void cs3_w(offs_t offset, u16 data);
+	virtual u16 cs4_r(offs_t offset);
+	virtual void cs4_w(offs_t offset, u16 data);
+
+	void cs_callback(u16 cs0, u16 cs1, u16 cs2, u16 cs3, u16 cs4);
+
+protected:
+	virtual void machine_start() override ATTR_COLD;
+	virtual void machine_reset() override ATTR_COLD;
+
+	virtual space_config_vector memory_space_config() const override ATTR_COLD;
+
+	virtual u16 porta_r();
+	virtual u16 portb_r();
+	virtual u16 portc_r();
+	virtual void porta_w(u16 data);
+
+	virtual u16 read_external_space(offs_t offset) { return m_memory.read_word(offset); }
+	virtual void write_external_space(offs_t offset, u16 data) { m_memory.write_word(offset, data); }
+
+	memory_access<32, 1, -1, ENDIANNESS_BIG>::specific m_memory;
+
+	required_device<sunplus_gcm394_base_device> m_maincpu;
+	required_device<screen_device> m_screen;
+
+	required_ioport_array<3> m_io;
+
+	optional_region_ptr<u16> m_romregion;
+
+	const address_space_config m_full_mem_config;
+};
+
+#endif // MAME_TVGAMES_GENERALPLUS_GPL16250_H

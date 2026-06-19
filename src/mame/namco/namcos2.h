@@ -1,0 +1,380 @@
+// license:BSD-3-Clause
+// copyright-holders:K.Wilkins
+/***************************************************************************
+
+  namcos2.h
+
+  Common functions & declarations for the Namco System 2 driver
+
+***************************************************************************/
+#ifndef MAME_NAMCO_NAMCOS2_H
+#define MAME_NAMCO_NAMCOS2_H
+
+#pragma once
+
+#include "namco_c45road.h"
+#include "namco_c116.h"
+#include "namco_c123tmap.h"
+#include "namco_c139.h"
+#include "namco_c148.h"
+#include "namco_c169roz.h"
+#include "namco65.h"
+#include "namco68.h"
+#include "namcos2_sprite.h"
+#include "namcos2_roz.h"
+
+#include "namco_c355spr.h"
+
+#include "machine/timer.h"
+#include "sound/c140.h"
+
+#include "screen.h"
+
+/*********************************************/
+/* IF GAME SPECIFIC HACKS ARE REQUIRED THEN  */
+/* USE THE m_gametype MEMBER TO FIND         */
+/* OUT WHAT GAME IS RUNNING                  */
+/*********************************************/
+
+// base class
+class namcos2_base_state : public driver_device
+{
+protected:
+	namcos2_base_state(const machine_config &mconfig, device_type type, const char *tag) :
+		driver_device(mconfig, type, tag),
+		m_maincpu(*this, "maincpu"),
+		m_slave(*this, "slave"),
+		m_audiocpu(*this, "audiocpu"),
+		m_c65(*this, "c65mcu"),
+		m_c68(*this, "c68mcu"),
+		m_c140(*this, "c140"),
+		m_c116(*this, "c116"),
+		m_c123tmap(*this, "c123tmap"),
+		m_master_intc(*this, "master_intc"),
+		m_slave_intc(*this, "slave_intc"),
+		m_nvram(*this, "nvram", 0x2000, ENDIANNESS_BIG),
+		m_sci(*this, "sci"),
+		m_c169roz(*this, "c169roz"),
+		m_c45_road(*this, "c45_road"),
+		m_screen(*this, "screen"),
+		m_audiobank(*this, "audiobank"),
+		m_c140_region(*this, "c140"),
+		m_dpram(*this, "dpram"),
+		m_gametype(0),
+		m_update_to_line_before_posirq(false)
+	{ }
+
+	void configure_c116_standard(machine_config &config) ATTR_COLD;
+	void configure_c148_standard(machine_config &config) ATTR_COLD;
+	void configure_c65_standard(machine_config &config) ATTR_COLD;
+	void configure_c68_standard(machine_config &config) ATTR_COLD;
+	void configure_c123tmap_standard(machine_config &config) ATTR_COLD;
+	void configure_c169roz_standard(machine_config &config) ATTR_COLD;
+	void configure_c45road_standard(machine_config &config) ATTR_COLD;
+	void configure_common_standard(machine_config &config) ATTR_COLD;
+
+	virtual void machine_start() override ATTR_COLD;
+	virtual void machine_reset() override ATTR_COLD;
+
+	enum
+	{
+		/* Namco System 2 */
+		NAMCOS2_ASSAULT = 1,
+		NAMCOS2_ASSAULT_JP,
+		NAMCOS2_ASSAULT_PLUS,
+		NAMCOS2_BUBBLE_TROUBLE,
+		NAMCOS2_BURNING_FORCE,
+		NAMCOS2_COSMO_GANG,
+		NAMCOS2_COSMO_GANG_US,
+		NAMCOS2_DIRT_FOX,
+		NAMCOS2_DIRT_FOX_JP,
+		NAMCOS2_DRAGON_SABER,
+		NAMCOS2_FINAL_LAP,
+		NAMCOS2_FINAL_LAP_2,
+		NAMCOS2_FINAL_LAP_3,
+		NAMCOS2_FINEST_HOUR,
+		NAMCOS2_FOUR_TRAX,
+		NAMCOS2_GOLLY_GHOST,
+		NAMCOS2_LUCKY_AND_WILD,
+		NAMCOS2_MARVEL_LAND,
+		NAMCOS2_METAL_HAWK,
+		NAMCOS2_MIRAI_NINJA,
+		NAMCOS2_ORDYNE,
+		NAMCOS2_PHELIOS,
+		NAMCOS2_ROLLING_THUNDER_2,
+		NAMCOS2_STEEL_GUNNER,
+		NAMCOS2_STEEL_GUNNER_2,
+		NAMCOS2_SUPER_WSTADIUM,
+		NAMCOS2_SUPER_WSTADIUM_92,
+		NAMCOS2_SUPER_WSTADIUM_92T,
+		NAMCOS2_SUPER_WSTADIUM_93,
+		NAMCOS2_SUZUKA_8_HOURS,
+		NAMCOS2_SUZUKA_8_HOURS_2,
+		NAMCOS2_VALKYRIE,
+		NAMCOS2_KYUUKAI_DOUCHUUKI,
+	};
+
+	required_device<cpu_device> m_maincpu;
+	required_device<cpu_device> m_slave;
+	required_device<cpu_device> m_audiocpu;
+	optional_device<namcoc65_device> m_c65;
+	optional_device<namcoc68_device> m_c68;
+	required_device<c140_device> m_c140;
+	required_device<namco_c116_device> m_c116;
+	required_device<namco_c123tmap_device> m_c123tmap;
+	required_device<namco_c148_device> m_master_intc;
+	required_device<namco_c148_device> m_slave_intc;
+	memory_share_creator<u8> m_nvram;
+	required_device<namco_c139_device> m_sci;
+	optional_device<namco_c169roz_device> m_c169roz;
+	optional_device<namco_c45_road_device> m_c45_road;
+	required_device<screen_device> m_screen;
+	required_memory_bank m_audiobank;
+	required_region_ptr<u16> m_c140_region;
+
+	required_shared_ptr<u8> m_dpram; /* 2Kx8 */
+
+	int m_gametype = 0;
+	bool m_update_to_line_before_posirq = false;
+
+	bool m_sendval = false;
+
+	u16 dpram_word_r(offs_t offset);
+	virtual void dpram_word_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u8 dpram_byte_r(offs_t offset);
+	void dpram_byte_w(offs_t offset, u8 data);
+
+	void nvram_w(offs_t offset, u8 data) { m_nvram[offset] = data; }
+	u8 nvram_r(offs_t offset) { return m_nvram[offset]; }
+
+	u16 c140_rom_r(offs_t offset);
+	void sound_bankselect_w(u8 data);
+
+	void sound_reset_w(u8 data);
+	void system_reset_w(u8 data);
+	void reset_all_subcpus(int state);
+
+	u8 c116_r(offs_t offset);
+
+	void apply_clip(rectangle &clip, const rectangle &cliprect);
+
+	int get_pos_irq_scanline() { return (m_c116->get_reg(5) - 32) & 0xff; }
+	TIMER_DEVICE_CALLBACK_MEMBER(screen_scanline);
+
+	u16 namcos2_68k_key_r(offs_t offset);
+	void namcos2_68k_key_w(offs_t offset, u16 data);
+
+	void TilemapCB(u16 code, int &tile, int &mask);
+
+	void c140_default_am(address_map &map) ATTR_COLD;
+	void master_common_am(address_map &map) ATTR_COLD;
+
+	void namcos2_68k_default_cpu_board_am(address_map &map) ATTR_COLD;
+	void slave_common_am(address_map &map) ATTR_COLD;
+	void sound_default_am(address_map &map) ATTR_COLD;
+};
+
+// with namcos2_sprite
+class metlhawk_state : public namcos2_base_state
+{
+public:
+	metlhawk_state(const machine_config &mconfig, device_type type, const char *tag) :
+		namcos2_base_state(mconfig, type, tag),
+		m_ns2sprite(*this, "s2sprite"),
+		m_spriteram(*this, "spriteram")
+	{ }
+
+	void metlhawk(machine_config &config) ATTR_COLD;
+
+	void init_metlhawk() ATTR_COLD;
+
+protected:
+	required_device<namcos2_sprite_device> m_ns2sprite;
+	required_shared_ptr<u16> m_spriteram;
+	u16 m_gfx_ctrl = 0;
+
+	virtual u32 sprite_pri_callback_ns2(u32 pri);
+	bool sprite_mix_callback_ns2(u16 &dest, u8 &destpri, u16 colbase, u16 src, u32 primask);
+	u32 screen_update_metlhawk(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
+	u16 gfx_ctrl_r();
+	void gfx_ctrl_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+
+	void RozCB_metlhawk(u16 code, int &tile, int &mask, int which);
+
+	void common_metlhawk_am(address_map &map) ATTR_COLD;
+	void master_metlhawk_am(address_map &map) ATTR_COLD;
+
+	void slave_metlhawk_am(address_map &map) ATTR_COLD;
+};
+
+// above with different sprite RAM format, optional protection
+class finallap_state : public metlhawk_state
+{
+public:
+	finallap_state(const machine_config &mconfig, device_type type, const char *tag) :
+		metlhawk_state(mconfig, type, tag)
+	{ }
+
+	void finallap_noio(machine_config &config) ATTR_COLD;
+	void base_fl(machine_config &config) ATTR_COLD;
+	void finallap(machine_config &config) ATTR_COLD;
+	void finallap_c68(machine_config &config) ATTR_COLD;
+	void finalap2(machine_config &config) ATTR_COLD;
+	void finalap3(machine_config &config) ATTR_COLD;
+
+	void init_finallap() ATTR_COLD;
+	void init_finalap2() ATTR_COLD;
+	void init_finalap3() ATTR_COLD;
+	void init_finalap3bl() ATTR_COLD;
+	void init_fourtrax() ATTR_COLD;
+
+protected:
+	void configure_namcos2_sprite_standard(machine_config &config) ATTR_COLD;
+
+	virtual void video_start() override ATTR_COLD;
+
+	u8 m_finallap_prot_count = 0;
+
+	u32 screen_update_finallap(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
+	void create_shadow_table();
+
+	u16 finallap_prot_r(offs_t offset); // finalap2, finalap3
+	u16 finalap3bl_prot_r(); // finalap3bl
+
+	void TilemapCB_finalap2(u16 code, int &tile, int &mask);
+
+	void common_finallap_am(address_map &map) ATTR_COLD;
+	void master_finallap_am(address_map &map) ATTR_COLD;
+
+	void slave_finallap_am(address_map &map) ATTR_COLD;
+};
+
+// above with ROZ layer
+class namcos2_state : public finallap_state
+{
+public:
+	namcos2_state(const machine_config &mconfig, device_type type, const char *tag) :
+		finallap_state(mconfig, type, tag),
+		m_ns2roz(*this, "s2roz")
+	{ }
+
+	void assaultp(machine_config &config) ATTR_COLD;
+	void base2(machine_config &config) ATTR_COLD;
+	void base3(machine_config &config) ATTR_COLD;
+	void base_noio(machine_config &config) ATTR_COLD;
+	void base(machine_config &config) ATTR_COLD;
+	void base_c68(machine_config &config) ATTR_COLD;
+
+	void init_cosmogng() ATTR_COLD;
+	void init_kyukaidk() ATTR_COLD;
+	void init_burnforc() ATTR_COLD;
+	void init_rthun2j() ATTR_COLD;
+	void init_sws() ATTR_COLD;
+	void init_finehour() ATTR_COLD;
+	void init_dirtfoxj() ATTR_COLD;
+	void init_sws92() ATTR_COLD;
+	void init_dsaber() ATTR_COLD;
+	void init_assault() ATTR_COLD;
+	void init_mirninja() ATTR_COLD;
+	void init_valkyrie() ATTR_COLD;
+	void init_assaultj() ATTR_COLD;
+	void init_dsaberj() ATTR_COLD;
+	void init_phelios() ATTR_COLD;
+	void init_sws93() ATTR_COLD;
+	void init_metlhawk() ATTR_COLD;
+	void init_sws92g() ATTR_COLD;
+	void init_assaultp() ATTR_COLD;
+	void init_ordyne() ATTR_COLD;
+	void init_marvland() ATTR_COLD;
+	void init_rthun2() ATTR_COLD;
+
+protected:
+	void configure_namcos2_roz_standard(machine_config &config) ATTR_COLD;
+
+	virtual u32 sprite_pri_callback_ns2(u32 pri) override;
+
+private:
+	required_device<namcos2_roz_device> m_ns2roz;
+
+	u32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
+	void common_default_am(address_map &map) ATTR_COLD;
+	void master_default_am(address_map &map) ATTR_COLD;
+
+	void slave_default_am(address_map &map) ATTR_COLD;
+};
+
+// with C355 sprite
+class sgunner_state : public namcos2_base_state
+{
+public:
+	sgunner_state(const machine_config &mconfig, device_type type, const char *tag) :
+		namcos2_base_state(mconfig, type, tag),
+		m_c355spr(*this, "c355spr")
+	{ }
+
+	void sgunner2(machine_config &config) ATTR_COLD;
+	void suzuka8h(machine_config &config) ATTR_COLD;
+	void luckywld(machine_config &config) ATTR_COLD;
+	void sgunner(machine_config &config) ATTR_COLD;
+
+	void init_sgunner2() ATTR_COLD;
+	void init_suzuk8h2() ATTR_COLD;
+	void init_luckywld() ATTR_COLD;
+	void init_suzuka8h() ATTR_COLD;
+
+protected:
+	required_device<namco_c355spr_device> m_c355spr;
+
+	void configure_c355spr_standard(machine_config &config) ATTR_COLD;
+
+	bool sprite_mix_callback_c355(u16 &dest, u8 &destpri, u16 colbase, u16 src, int srcpri, int pri);
+	u32 screen_update_luckywld(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	u32 screen_update_sgunner(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
+	void RozCB_luckywld(u16 code, int &tile, int &mask, int which);
+
+	void common_suzuka8h_am(address_map &map) ATTR_COLD;
+	void common_suzuka8h_roz_am(address_map &map) ATTR_COLD;
+	void common_luckywld_roz_am(address_map &map) ATTR_COLD;
+	void common_sgunner_am(address_map &map) ATTR_COLD;
+	void master_suzuka8h_am(address_map &map) ATTR_COLD;
+	void master_luckywld_am(address_map &map) ATTR_COLD;
+	void master_sgunner_am(address_map &map) ATTR_COLD;
+
+	void slave_suzuka8h_am(address_map &map) ATTR_COLD;
+	void slave_luckywld_am(address_map &map) ATTR_COLD;
+	void slave_sgunner_am(address_map &map) ATTR_COLD;
+};
+
+// with diorama
+class gollygho_state : public namcos2_state
+{
+public:
+	gollygho_state(const machine_config &mconfig, device_type type, const char *tag) :
+		namcos2_state(mconfig, type, tag),
+		m_out_digit(*this, "digit%u", 0U),
+		m_out_diorama(*this, "diorama%u", 0U),
+		m_out_gun_recoil(*this, "gun_recoil%u", 0U)
+	{ }
+
+	void init_bubbletr() ATTR_COLD;
+	void init_gollygho() ATTR_COLD;
+
+protected:
+	virtual void dpram_word_w(offs_t offset, u16 data, u16 mem_mask = ~0) override;
+
+private:
+	output_finder<8> m_out_digit;
+	output_finder<6> m_out_diorama;
+	output_finder<2> m_out_gun_recoil;
+};
+
+
+/**************************************************************/
+/* Non-shared memory custom IO device - IRQ/Inputs/Outputs   */
+/**************************************************************/
+
+#endif // MAME_NAMCO_NAMCOS2_H
