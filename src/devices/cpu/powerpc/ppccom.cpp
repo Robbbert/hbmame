@@ -1,5 +1,9 @@
 // license:BSD-3-Clause
+<<<<<<< HEAD
 // copyright-holders:Aaron Giles
+=======
+// copyright-holders:Aaron Giles, R. Belmont
+>>>>>>> upstream/master
 /***************************************************************************
 
     ppccom.c
@@ -18,6 +22,8 @@
 
 #include "endianness.h"
 
+#include <bit>
+
 
 /***************************************************************************
     DEBUGGING
@@ -32,10 +38,17 @@
     CONSTANTS
 ***************************************************************************/
 
+<<<<<<< HEAD
 #define DOUBLE_SIGN     (0x8000000000000000U)
 #define DOUBLE_EXP      (0x7ff0000000000000U)
 #define DOUBLE_FRAC     (0x000fffffffffffffU)
 #define DOUBLE_ZERO     (0)
+=======
+static constexpr uint64_t DOUBLE_SIGN = 0x8000000000000000U;
+static constexpr uint64_t DOUBLE_EXP  = 0x7ff0000000000000U;
+static constexpr uint64_t DOUBLE_FRAC = 0x000fffffffffffffU;
+static constexpr uint64_t DOUBLE_ZERO = 0;
+>>>>>>> upstream/master
 
 
 
@@ -215,7 +228,16 @@ DEFINE_DEVICE_TYPE(PPC740,    ppc740_device,    "ppc740",     "IBM PowerPC 740")
 DEFINE_DEVICE_TYPE(PPC750,    ppc750_device,    "ppc750",     "IBM PowerPC 750")
 
 
+<<<<<<< HEAD
 ppc_device::ppc_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, int address_bits, int data_bits, powerpc_flavor flavor, uint32_t cap, uint32_t tb_divisor, address_map_constructor internal_map)
+=======
+ppc_device::ppc_device(
+		const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock,
+		int address_bits, int data_bits,
+		powerpc_flavor flavor, uint32_t cap, uint32_t tb_divisor,
+		address_map_constructor internal_map,
+		uint32_t reservation_size)
+>>>>>>> upstream/master
 	: cpu_device(mconfig, type, tag, owner, clock)
 	, device_vtlb_interface(mconfig, *this, AS_PROGRAM)
 	, m_program_config("program", ENDIANNESS_BIG, data_bits, address_bits, 0, internal_map)
@@ -236,8 +258,14 @@ ppc_device::ppc_device(const machine_config &mconfig, device_type type, const ch
 	, m_drcuml(nullptr)
 	, m_drcfe(nullptr)
 	, m_drcoptions(0)
+<<<<<<< HEAD
+=======
+	, m_reservation_mask(~uint32_t(reservation_size - 1))
+>>>>>>> upstream/master
 	, m_dasm(powerpc_disassembler())
 {
+	assert(std::has_single_bit(reservation_size));
+
 	m_program_config.m_logaddr_width = 32;
 	m_program_config.m_page_shift = POWERPC_MIN_PAGE_SHIFT;
 

@@ -616,7 +616,6 @@ INT_PTR CALLBACK AddCustomFileDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPA
 {
 	static LPTREEFOLDER default_selection = NULL;
 	static int driver_index = 0;
-	BOOL res = 0;
 
 	switch (Msg)
 	{
@@ -685,14 +684,14 @@ INT_PTR CALLBACK AddCustomFileDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPA
 #endif
 							hti_child = TreeView_InsertItem(GetDlgItem(hDlg,IDC_CUSTOM_TREE),&tvis);
 							if (folders[jj] == default_selection)
-								res = TreeView_SelectItem(GetDlgItem(hDlg,IDC_CUSTOM_TREE),hti_child);
+								(void)TreeView_SelectItem(GetDlgItem(hDlg,IDC_CUSTOM_TREE),hti_child);
 						}
 					}
 
 					/*TreeView_Expand(GetDlgItem(hDlg,IDC_CUSTOM_TREE),hti,TVE_EXPAND);*/
 					if (first_entry || folders[i] == default_selection)
 					{
-						res = TreeView_SelectItem(GetDlgItem(hDlg,IDC_CUSTOM_TREE),hti);
+						(void)TreeView_SelectItem(GetDlgItem(hDlg,IDC_CUSTOM_TREE),hti);
 						first_entry = false;
 					}
 				}
@@ -701,7 +700,6 @@ INT_PTR CALLBACK AddCustomFileDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPA
 
 		win_set_window_text_utf8(GetDlgItem(hDlg,IDC_CUSTOMFILE_GAME), ModifyThe(driver_list::driver(driver_index).type.fullname()));
 
-		res++;
 		return true;
 	}
 	case WM_COMMAND:

@@ -58,7 +58,11 @@ INPUT_PORTS_END
 
 void tama_4u_state::tama4u(machine_config &config)
 {
+<<<<<<< HEAD
 	S1C33209(config, m_maincpu, 10'000'000); // unknown model and clock
+=======
+	S1C33E07(config, m_maincpu, 10'000'000); // unknown clock
+>>>>>>> upstream/master
 	m_maincpu->set_addrmap(AS_PROGRAM, &tama_4u_state::mem_map);
 
 	// wrong, just so it's clear this has a screen

@@ -345,7 +345,7 @@ private:
 void outrunm_state::sound_map_banked(address_map &map) {
 	map.unmap_value_high();
 	map(0x0000,0xefff).m(m_soundbank,FUNC(address_map_bank_device::amap8));
-	map(0xf000,0xf0ff).mirror(0x0700).rw("pcm",FUNC(segapcm_device::read),FUNC(segapcm_device::write));
+	map(0xf000,0xf0ff).mirror(0x0700).m("pcm",FUNC(sega_315_5218_device::map));
 	map(0xf800,0xffff).ram();
 }
 

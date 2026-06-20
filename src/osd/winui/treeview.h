@@ -27,7 +27,7 @@ typedef struct
 	void        (*m_pfnCreateFolders)(int parent_index); 	// Constructor for special folders
 	BOOL        (*m_pfnQuery)(uint32_t nDriver);			  	// Query function
 	BOOL        m_bExpectedResult;					   	// Expected query result
-	OPTIONS_TYPE m_opttype = OPTIONS_MAX;                                // Has an ini file (vector.ini, etc)
+	OPTIONS_TYPE m_opttype;                                // Has an ini file (vector.ini, etc)
 } FOLDERDATA, *LPFOLDERDATA;
 
 typedef const FOLDERDATA *LPCFOLDERDATA;
