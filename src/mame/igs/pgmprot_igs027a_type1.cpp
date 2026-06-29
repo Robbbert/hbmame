@@ -332,6 +332,15 @@ void pgm_arm_type1_state::init_kovshp()
 	arm7_type1_latch_init();
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x4f0008, 0x4f0009, read16smo_delegate(*this, FUNC(pgm_arm_type1_state::kovsh_fake_region_r)));
 	m_maincpu->space(AS_PROGRAM).install_write_handler(0x500000, 0x500005, write16sm_delegate(*this, FUNC(pgm_arm_type1_state::kovshp_asic27a_write_word)));
+
+	// restore music in hacks
+	u8 *src = memregion("prot")->base();
+	for (u32 i = 0x2ce8; i < 0x2e48; i += 8) // fix z80 data offsets (offset - 0x09e000)
+	{
+		u16 d = (src[i+4] << 8) + src[i+7] - 0x09e0;
+		src[i+4] = d >> 8;
+		src[i+7] = d & 0xff;
+	}
 }
 
 
@@ -344,6 +353,15 @@ void pgm_arm_type1_state::init_kovshxas()
 	arm7_type1_latch_init();
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x4f0008, 0x4f0009, read16smo_delegate(*this, FUNC(pgm_arm_type1_state::kovsh_fake_region_r)));
 	m_maincpu->space(AS_PROGRAM).install_write_handler(0x500000, 0x500005, write16sm_delegate(*this, FUNC(pgm_arm_type1_state::kovshp_asic27a_write_word)));
+
+	// restore music in hacks
+	u8 *src = memregion("prot")->base();
+	for (u32 i = 0x2ce8; i < 0x2e48; i += 8) // fix z80 data offsets (offset - 0x09e000)
+	{
+		u16 d = (src[i+4] << 8) + src[i+7] - 0x09e0;
+		src[i+4] = d >> 8;
+		src[i+7] = d & 0xff;
+	}
 }
 
 void pgm_arm_type1_state::pgm_decode_kovlsqh2_tiles()
