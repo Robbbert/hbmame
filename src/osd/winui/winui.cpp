@@ -824,8 +824,8 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	// set some startup options
 	//global_opts.set_value(OPTION_PLUGINDATAPATH, GetEmuPath(), OPTION_PRIORITY_HIGH);
 	global_opts.set_value(OPTION_LANGUAGE, GetLanguageUI(), OPTION_PRIORITY_HIGH);
-	global_opts.set_value(OPTION_PLUGINS, GetEnablePlugins(), OPTION_PRIORITY_HIGH);
-	global_opts.set_value(OPTION_PLUGIN, GetPlugins(), OPTION_PRIORITY_HIGH);
+	//global_opts.set_value(OPTION_PLUGINS, GetEnablePlugins(), OPTION_PRIORITY_HIGH);
+	//global_opts.set_value(OPTION_PLUGIN, GetPlugins(), OPTION_PRIORITY_HIGH);
 	global_opts.set_value(OPTION_SYSTEMNAME, name, OPTION_PRIORITY_HIGH);
 
 	// set any specified play options

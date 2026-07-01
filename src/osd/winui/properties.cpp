@@ -110,6 +110,7 @@ b) Exit the dialog.
 #include "emu_opts.h"
 #include "resource.h"
 #include "dijoystick.h"     /* For DIJoystick availability. */
+#include "mui_plug.h"
 #include "mui_util.h"
 #include "datamap.h"
 #include "help.h"
@@ -204,6 +205,7 @@ bool m_swpath_changed = 0;
 #define MAX_SCREENS 4
 #endif
 
+#define MAX_PLUGINS 32
 windows_options m_CurrentOpts;
 static datamap *properties_datamap;
 
@@ -215,7 +217,9 @@ static OPTIONS_TYPE g_nPropertyMode = OPTIONS_GAME;
 static BOOL  g_bAutoAspect[MAX_SCREENS+1] = {false, false, false, false, false}; // state of tick on keep-aspect checkbox on "Screen" pane, per screen
 static BOOL  g_bAutoSnapSize = false;
 static HICON g_hIcon = NULL;
-std::vector<string> plugin_names(32);
+std::vector<string> plugin_names(MAX_PLUGINS);  // All possible plugins
+std::string plugin_chosen; // Plugins in the string list
+
 
 /* Property sheets */
 
@@ -1215,11 +1219,11 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 				changed = ResetLUAScript(hDlg);
 				break;
 
-			case IDC_SELECT_PLUGIN:
+			case IDC_PLUGIN_SELECT:
 				changed = SelectPlugins(hDlg);
 				break;
 
-			case IDC_RESET_PLUGIN:
+			case IDC_PLUGIN_RESET:
 				changed = ResetPlugins(hDlg);
 				break;
 
@@ -1317,6 +1321,14 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 					//if (NULL == m_CurrentOpts)
 					//return true;
 				//}
+
+				// Process plugins, stop stupid compile error
+				{
+					std::string plugin, noplugin;
+					std::tie(plugin, noplugin) = mui_plugin_options().split_into_lists(m_CurrentOpts, g_nGame, plugin_chosen);
+					emu_set_value(m_CurrentOpts, OPTION_PLUGIN, plugin);
+					emu_set_value(m_CurrentOpts, OPTION_NO_PLUGIN, noplugin);
+				}
 
 				// Read the datamap
 				UpdateOptions(hDlg, properties_datamap, m_CurrentOpts);
@@ -1702,11 +1714,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 	if (hCtrl)
 	{
 		c = emu_get_value(o, OPTION_JOYSTICK_MAP);
-
-		if (c.empty())
-			win_set_window_text_utf8(hCtrl, "Default");
-		else
-			win_set_window_text_utf8(hCtrl, c.c_str());
+		win_set_window_text_utf8(hCtrl, c.empty() ? "Default" : c.c_str());
 	}
 
 	hCtrl = GetDlgItem(hWnd, IDC_LUASCRIPT);
@@ -1732,16 +1740,47 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		}
 	}
 
-	hCtrl = GetDlgItem(hWnd, IDC_PLUGIN);
+	std::string cc;
+	hCtrl = GetDlgItem(hWnd, IDC_PLUGIN_LIST);    // The string list editbox of enabled plugins
 
 	if (hCtrl)
 	{
-		c = emu_get_value(o, OPTION_PLUGIN);
+		std::tie(c, cc) = mui_plugin_options().get_lists(o);
+		plugin_chosen = c;
+		win_set_window_text_utf8(hCtrl, c.empty() ? "None" : c.c_str());
+	}
 
-		if (c.empty())
-			win_set_window_text_utf8(hCtrl, "None");
-		else
-			win_set_window_text_utf8(hCtrl, c.c_str());
+	hCtrl = GetDlgItem(hWnd, IDC_PLUGIN_SELECT);   // The dropdown list of existing plugins
+
+	if (hCtrl)
+	{
+		(void)ComboBox_ResetContent(hCtrl);
+		const char* cclist = cc.c_str();
+		char buffer[sizeof(cclist)+1];
+		char *token = NULL;
+		TCHAR* t_s = NULL;
+		int count = 0;
+		strcpy(buffer, cclist);
+		token = strtok(buffer, ",");
+
+		if (token != NULL)
+		{
+			while (token != NULL)
+			{
+				if (count < MAX_PLUGINS)
+					plugin_names[count] = token;
+				else
+					printf("Properties.cpp: MAX_PLUGINS < %d\n",count);
+
+				t_s = ui_wstring_from_utf8(token);
+				if( t_s )
+					if (ComboBox_InsertString(hCtrl, count++, win_tstring_strdup(t_s)) == CB_ERR)
+						return;
+				token = strtok(NULL, ",");
+			}
+		}
+		if (t_s)
+			free(t_s);
 	}
 
 	hCtrl = GetDlgItem(hWnd, IDC_BGFX_CHAINS);
@@ -1749,11 +1788,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 	if (hCtrl)
 	{
 		c = emu_get_value(o, OSDOPTION_BGFX_SCREEN_CHAINS);
-
-		if (c.empty())
-			win_set_window_text_utf8(hCtrl, "Default");
-		else
-			win_set_window_text_utf8(hCtrl, c.c_str());
+		win_set_window_text_utf8(hCtrl, c.empty() ? "Default" : c.c_str());
 	}
 
 	/* snapshot size */
@@ -2461,8 +2496,8 @@ static void BuildDataMap(void)
 	datamap_add(properties_datamap, IDC_LUASCRIPT,				DM_STRING,	OPTION_AUTOBOOT_SCRIPT);
 	datamap_add(properties_datamap, IDC_BOOTDELAY,				DM_INT,		OPTION_AUTOBOOT_DELAY);
 	datamap_add(properties_datamap, IDC_BOOTDELAYDISP,			DM_INT,		OPTION_AUTOBOOT_DELAY);
-	datamap_add(properties_datamap, IDC_PLUGINS,				DM_BOOL,	OPTION_PLUGINS);
-	datamap_add(properties_datamap, IDC_PLUGIN,					DM_STRING,	OPTION_PLUGIN);
+	datamap_add(properties_datamap, IDC_PLUGIN_ENABLE,			DM_BOOL,	OPTION_PLUGINS);
+	datamap_add(properties_datamap, IDC_PLUGIN_LIST,			DM_STRING,	OPTION_PLUGIN);
 	datamap_add(properties_datamap, IDC_NVRAM_SAVE,				DM_BOOL,	OPTION_NVRAM_SAVE);
 	datamap_add(properties_datamap, IDC_REWIND,					DM_BOOL,	OPTION_REWIND);
 	//datamap_add(properties_datamap, IDC_DRC_CORE,				DM_BOOL,	OPTION_DRC);
@@ -3090,45 +3125,11 @@ static void InitializeLanguageUI(HWND hWnd)
 
 static void InitializePluginsUI(HWND hWnd)
 {
-	HWND hCtrl = GetDlgItem(hWnd, IDC_SELECT_PLUGIN);
-
-	if (hCtrl)
-	{
-		string t1 = dir_get_value(11);
-		const char* t2 = t1.c_str();
-		osd::directory::ptr directory = osd::directory::open(t2);
-
-		if (directory == nullptr)
-			return;
-
-		TCHAR* t_s;
-		int count = 0;
-
-		for (const osd::directory::entry *entry = directory->read(); entry; entry = directory->read())
-		{
-			if (entry->type == osd::directory::entry::entry_type::DIR)
-			{
-				string name = entry->name;
-
-				if (!(name == "." || name == ".." || name == "json"))
-				{
-					plugin_names[count] = name;
-					const char* label = name.c_str();
-					t_s = ui_wstring_from_utf8(label);
-					label = 0;
-					if( !t_s )
-						return;
-					if (ComboBox_InsertString(hCtrl, count++, win_tstring_strdup(t_s)) == CB_ERR)
-						return;
-					free(t_s);
-				}
-			}
-		}
-		directory.reset();
-	}
-
+	HWND hCtrl = GetDlgItem(hWnd, IDC_PLUGIN_SELECT);
 	ComboBox_SetCurSel(hCtrl, -1);
 	ComboBox_SetCueBannerText(hCtrl, TEXT("Select a plugin"));
+	std::string plugin_all;  // dummy placeholder
+	std::tie(plugin_chosen, plugin_all) = mui_plugin_options().get_lists(m_CurrentOpts);
 }
 
 static void InitializeGLSLFilterUI(HWND hWnd)
@@ -3346,8 +3347,7 @@ static bool ResetLUAScript(HWND hWnd)
 static bool SelectPlugins(HWND hWnd)
 {
 	bool changed = false;
-	bool already_enabled = false;
-	HWND hcontrol = GetDlgItem(hWnd, IDC_SELECT_PLUGIN);
+	HWND hcontrol = GetDlgItem(hWnd, IDC_PLUGIN_SELECT);
 	if (!hcontrol)
 		return changed;
 
@@ -3356,67 +3356,37 @@ static bool SelectPlugins(HWND hWnd)
 		return changed;
 
 	const char *new_value = plugin_names[index].c_str();
-	string t1 = emu_get_value(m_CurrentOpts, OPTION_PLUGIN);
-	const char* value = t1.c_str();
 
-	char *token = NULL;
-	char buffer[990];  // hold all plugins
-	char plugins[24][32]; // number of possible plugins, max length of name
-	int num_plugins = 0;
+	// see if plugin already chosen
+	std::size_t found = plugin_chosen.find(new_value);
 
-	strcpy(buffer, value);
-	token = strtok(buffer, ",");
-
-	if (token == NULL)
+	// if already there remove it, otherwise add it
+	if (found == std::string::npos)
 	{
-		strcpy(plugins[num_plugins], buffer);
+		// not found - add it
+		if (plugin_chosen.empty())
+			plugin_chosen = new_value;
+		else
+			plugin_chosen = plugin_chosen + "," + new_value;
 	}
 	else
 	{
-		while (token != NULL)
-		{
-			strcpy(plugins[num_plugins], token);
-			num_plugins++;
-			token = strtok(NULL, ",");
-		}
+		// already there, remove it and the next comma
+		plugin_chosen.erase(found, strlen(new_value)+1);
 	}
 
-	if (strcmp(value, "") == 0)
-	{
-		emu_set_value(m_CurrentOpts, OPTION_PLUGIN, new_value);
-		win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), new_value);
-		changed = true;
-		ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_SELECT_PLUGIN), -1);
-		return changed;	
-	}
-
-	for (u8 i = 0; i < num_plugins; i++)
-	{
-		if (strcmp(new_value, plugins[i]) == 0)
-		{
-			already_enabled = true;
-			break;
-		}
-	}
-
-	if (!already_enabled)
-	{
-		char new_option[256];
-		snprintf(new_option, std::size(new_option), "%s,%s", value, new_value);
-		emu_set_value(m_CurrentOpts, OPTION_PLUGIN, new_option);
-		win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), new_option);
-		changed = true;
-	}
-
-	ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_SELECT_PLUGIN), -1);
+	win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN_LIST),
+		plugin_chosen.empty() ? "None" : plugin_chosen.c_str());
+	changed = true;
+	ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_PLUGIN_SELECT), -1);
 	return changed;
 }
 
 static bool ResetPlugins(HWND hWnd)
 {
-	emu_set_value(m_CurrentOpts, OPTION_PLUGIN, "");
-	win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), "None");
-	ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_SELECT_PLUGIN), -1);
+	plugin_chosen.clear();
+	win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN_LIST), "None");
+	ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_PLUGIN_SELECT), -1);
 	return true;
 }
 
