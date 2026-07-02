@@ -211,8 +211,8 @@ private:
 	struct {
 		//bool rbusy;
 		u8 wss;
-		u8 patr[2];
-		u8 rop[2];
+		u8 patr[4];
+		u8 rop[4];
 	} m_singleplane;
 
 	struct {
@@ -268,6 +268,8 @@ private:
 		u16 ofy;
 		u16 fbw;
 		u16 fbl;
+		u32 layer_base;
+		u32 layer_mask;
 	};
 
 	void draw_indexed_gfx_1bpp(bitmap_rgb32 &bitmap, const rectangle &cliprect, const layer_params_t &param, u8 pal_base, u8 which);
@@ -276,7 +278,7 @@ private:
 	void draw_direct_gfx_rgb565(bitmap_rgb32 &bitmap, const rectangle &cliprect, const layer_params_t &param, u8 which);
 
 	void draw_packed_gfx_4bpp(bitmap_rgb32 &bitmap, const rectangle &cliprect, const layer_params_t &param, u8 pal_base, u8 which);
-	void draw_packed_gfx_5bpp(bitmap_rgb32 &bitmap, const rectangle &cliprect, const layer_params_t &param, u8 pal_base, u8 which);
+	void draw_packed_gfx_5bpp(bitmap_rgb32 &bitmap, const rectangle &cliprect, const layer_params_t &param, u8 which);
 
 	uint32_t calc_kanji_rom_addr(uint8_t jis1, uint8_t jis2, int x, int y);
 	void draw_text(bitmap_rgb32 &bitmap, const rectangle &cliprect);
