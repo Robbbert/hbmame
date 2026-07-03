@@ -1323,9 +1323,17 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 				//}
 
 				// Process plugins, stop stupid compile error
+				// Vector.ini etc are always blanked out, not saved.
 				{
 					std::string plugin, noplugin;
-					std::tie(plugin, noplugin) = mui_plugin_options().split_into_lists(m_CurrentOpts, g_nGame, plugin_chosen);
+					if (g_nGame < 0)
+					{
+						if (g_nPropertyMode == OPTIONS_GLOBAL)
+							std::tie(plugin, noplugin) = mui_plugin_options().split_into_lists(m_CurrentOpts, -1, plugin_chosen);
+					}
+					else
+						std::tie(plugin, noplugin) = mui_plugin_options().split_into_lists(m_CurrentOpts, g_nGame, plugin_chosen);
+
 					emu_set_value(m_CurrentOpts, OPTION_PLUGIN, plugin);
 					emu_set_value(m_CurrentOpts, OPTION_NO_PLUGIN, noplugin);
 				}
