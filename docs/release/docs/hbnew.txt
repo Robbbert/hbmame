@@ -11,6 +11,22 @@ New Games
 
 
 
+2026-07-03 0.288.3
+
+
+
+New Games
+---------------------------------
+- [dinos281]            Cadillacs and Dinosaurs (Readjusted v1.1)
+- [dinos282]            Cadillacs and Dinosaurs (Readjusted v1.2)
+- [dinos283]            Cadillacs and Dinosaurs (Readjusted v1.4)
+- [samsho2s21]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
+- [samsho2s22]          Samurai Shodown II (Perfect v2.9, 2026-06-29)
+- [sfiii3ns15]          Street Fighter III 3rd Strike: Fight for the Future (4rd Strike 2011-07-17)
+
+
+
+
 2026-06-19 0.288.2
 
 

@@ -487,7 +487,7 @@ ROM_START( sfz3mix31 ) // 0.31
 	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(395edce2) SHA1(0f6a4be84ed1e1a13319a480b41c1f35b36f35fc) ) // 11m
 ROM_END
 
-ROM_START( sfz3mix ) // 0.31
+ROM_START( sfz3mix ) // 0.32
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x600000, CRC(7a968da6) SHA1(5656ff21d6b23f8eab21e9d7e222461ceefed69e) ) // 03
 
