@@ -367,6 +367,7 @@ public:
 	virtual int execute(uml::code_handle &entry) override;
 	virtual void generate(drcuml_block &block, const uml::instruction *instlist, uint32_t numinst) override;
 	virtual bool hash_exists(uint32_t mode, uint32_t pc) const noexcept override;
+	virtual void hash_invalidate_range(uint32_t pcstart, uint32_t pcend) noexcept override;
 	virtual void get_info(drcbe_info &info) const noexcept override;
 
 private:
@@ -440,7 +441,7 @@ const uint32_t drcbe_c::s_condition_map[] =
 
 drcbe_c::drcbe_c(drcuml_state &drcuml, device_t &device, drc_cache &cache, uint32_t flags, int modes, int addrbits, int ignorebits) :
 	drcbe_interface(drcuml, cache, device),
-	m_hash(cache, modes, addrbits, ignorebits),
+	m_hash(cache, modes, addrbits, ignorebits, drcuml.max_sequence_length()),
 	m_map(cache, 0xaaaaaaaa55555555),
 	m_fixup_delegate(&drcbe_c::fixup_label, this)
 {
@@ -694,6 +695,17 @@ void drcbe_c::generate(drcuml_block &block, const instruction *instlist, uint32_
 bool drcbe_c::hash_exists(uint32_t mode, uint32_t pc) const noexcept
 {
 	return m_hash.code_exists(mode, pc);
+}
+
+
+//-------------------------------------------------
+//  hash_invalidate_range - invalidate all hash
+//  entries in the given PC range
+//-------------------------------------------------
+
+void drcbe_c::hash_invalidate_range(uint32_t pcstart, uint32_t pcend) noexcept
+{
+	m_hash.invalidate_range(pcstart, pcend);
 }
 
 
