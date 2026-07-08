@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// copyright-holders:David Haywood, ElSemi
+// license:GPL_2.0
+// copyright-holders:Robbbert, David Haywood, ElSemi
 
 #include "emu.h"
 
@@ -11,9 +11,9 @@
 #include "machine/v3021.h"
 #include "sound/ics2115.h"
 #include "emupal.h"
-#include "tilemap.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 class pgm_hb : public driver_device
 {
@@ -37,9 +37,9 @@ public:
 		m_irq4_disabled = 0;
 	}
 
-	void pgm_basic_init(bool set_bank = true);
+	void init_pgm();
+
 	void pgm(machine_config &config);
-	void pgmbase(machine_config &config);
 
 protected:
 	virtual void machine_reset() override;
@@ -129,19 +129,6 @@ private:
 	void pgm_z80_io(address_map &map);
 	void pgm_z80_mem(address_map &map);
 };
-
-
-/******************************************************************************
- Sprites
-
- these are fairly complex to render due to the data format, unless you
- pre-decode the data you have to draw pixels in the order they're decoded from
- the ROM which becomes quite complex with flipped and zoomed cases
-******************************************************************************/
-
-// nothing pri is 0
-// bg pri is 2
-// sprite already here is 1 / 3
 
 static constexpr bool get_flipy(u8 flip) { return BIT(flip, 1); }
 static constexpr bool get_flipx(u8 flip) { return BIT(flip, 0); }
@@ -608,6 +595,31 @@ void pgm_hb::draw_sprites(bitmap_ind16& spritebitmap, const rectangle &cliprect,
 	}
 }
 
+/*
+        Sprite list format (10 bytes per sprites, 256 entries)
+
+    Offset Bits
+           fedcba98 76543210
+    00     x------- -------- Horizontal Zoom/Shrink mode select
+           -xxxx--- -------- Horizontal Zoom/Shrink table select
+           -----xxx xxxxxxxx X position (11 bit signed)
+
+    02     x------- -------- Vertical Zoom/Shrink mode select
+           -xxxx--- -------- Vertical Zoom/Shrink table select
+           -----xxx xxxxxxxx Y position (10 bit signed)
+
+    04     -x------ -------- Flip Y
+           --x----- -------- Flip X
+           ---xxxxx -------- Palette select (32 color each)
+           -------- x------- Priority (Over(0) or Under(1) background)
+           -------- -xxxxxxx Sprite mask ROM address MSB
+    06     xxxxxxxx xxxxxxxx Sprite mask ROM address LSB
+
+    08     x------- -------- Another sprite width bit?
+           -xxxxxx- -------- Sprite width (16 pixel each)
+           -------x xxxxxxxx Sprite height (1 pixel each)
+
+*/
 void pgm_hb::get_sprites()
 {
 	m_sprite_ptr_pre = m_spritelist.get();
@@ -857,20 +869,25 @@ void pgm_hb::pgm_z80_io(address_map &map)
 void pgm_hb::pgm_base_mem(address_map &map)
 {
 	map(0x700006, 0x700007).nopw(); // Watchdog?
+
 	map(0x800000, 0x81ffff).ram().mirror(0x0e0000).share("sram"); /* Main Ram */
+
 	map(0x900000, 0x907fff).mirror(0x0f8000).rw(FUNC(pgm_hb::videoram_r), FUNC(pgm_hb::videoram_w)).share("videoram"); /* IGS023 VIDEO CHIP */
 	map(0xa00000, 0xa011ff).ram().w(m_palette, FUNC(palette_device::write16)).share("palette");
 	map(0xb00000, 0xb0ffff).ram().share("videoregs"); /* Video Regs inc. Zoom Table */
+
 	map(0xc00003, 0xc00003).r(m_soundlatch, FUNC(generic_latch_8_device::read)).w(FUNC(pgm_hb::m68k_l1_w));
 	map(0xc00005, 0xc00005).rw("soundlatch2", FUNC(generic_latch_8_device::read), FUNC(generic_latch_8_device::write));
 	map(0xc00007, 0xc00007).rw("rtc", FUNC(v3021_device::read), FUNC(v3021_device::write));
 	map(0xc00008, 0xc00009).w(FUNC(pgm_hb::z80_reset_w));
 	map(0xc0000a, 0xc0000b).w(FUNC(pgm_hb::z80_ctrl_w));
 	map(0xc0000d, 0xc0000d).rw(m_soundlatch3, FUNC(generic_latch_8_device::read), FUNC(generic_latch_8_device::write));
+
 	map(0xc08000, 0xc08001).portr("P1P2");
 	map(0xc08002, 0xc08003).portr("P3P4");
 	map(0xc08004, 0xc08005).portr("Service");
 	map(0xc08006, 0xc08007).portr("DSW").w(FUNC(pgm_hb::coin_counter_w));
+
 	map(0xc10000, 0xc1ffff).rw(FUNC(pgm_hb::z80_ram_r), FUNC(pgm_hb::z80_ram_w)); /* Z80 Program */
 }
 
@@ -891,7 +908,7 @@ void pgm_hb::pgm_basic_mem(address_map &map)
 
 /* enough for 4 players, the basic dips mapped are listed in the test mode */
 
-INPUT_PORTS_START( pgm )
+INPUT_PORTS_START( pgm_hb )
 	PORT_START("P1P2")
 	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_START1 )
 	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_PLAYER(1)
@@ -999,12 +1016,11 @@ GFXDECODE_END
 
 /*** Machine Driver **********************************************************/
 
-/* most games require IRQ4 for inputs to work, Puzzli 2 is explicit about not wanting it tho
-   what is the source? */
 TIMER_DEVICE_CALLBACK_MEMBER(pgm_hb::interrupt)
 {
 	int scanline = param;
 
+//  vblank end interrupt
 	if (scanline == 0)
 		if (!m_irq4_disabled) m_maincpu->set_input_line(4, HOLD_LINE);
 }
@@ -1014,7 +1030,7 @@ void pgm_hb::machine_reset()
 	m_soundcpu->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
 }
 
-void pgm_hb::pgmbase(machine_config &config)
+void pgm_hb::pgm(machine_config &config)
 {
 	/* basic machine hardware */
 	M68000(config, m_maincpu, 20_MHz_XTAL); /* 20 mhz! verified on real board */
@@ -1051,11 +1067,15 @@ void pgm_hb::pgmbase(machine_config &config)
 	m_ics->add_route(ALL_OUTPUTS, "mono", 2.0); // HBMAME - wind the volume up to 11
 }
 
-void pgm_hb::pgm(machine_config &config)
+void pgm_hb::init_pgm()
 {
-	pgmbase(config);
-}
+	u8 *ROM = memregion("maincpu")->base();
+	membank("bank1")->set_base(&ROM[0x100000]);
 
+	m_bg_videoram = &m_videoram[0];
+	m_tx_videoram = &m_videoram[0x4000/2];
+	m_rowscrollram = &m_videoram[0x7000/2];
+}
 
 /*** Rom Loading *************************************************************/
 
@@ -1073,64 +1093,7 @@ void pgm_hb::pgm(machine_config &config)
 	ROM_LOAD( "pgm_m01s.rom", 0x000000, 0x200000, CRC(45ae7159) SHA1(d3ed3ff3464557fd0df6b069b2e431528b0ebfa8) )
 #define PGM_VIDEO_BIOS \
 	ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
-/* The Bios - NOT A GAME */
-ROM_START( pgm_hb )
-	ROM_REGION( 0x600000, "maincpu", 0 ) /* 68000 Code */
-	PGM_68K_BIOS
 
-	ROM_REGION( 0x280000, "tiles", 0 ) /* 8x8 Text Layer Tiles */
-	PGM_VIDEO_BIOS
-
-	ROM_REGION( 0x200000, "ics", 0 ) /* Samples - (8 bit mono 11025Hz) - */
-	PGM_AUDIO_BIOS
-
-	ROM_REGION16_LE( 0x1000000, "sprcol", ROMREGION_ERASEFF ) /* Sprite Colour Data */
-	ROM_REGION16_LE( 0x1000000, "sprmask", ROMREGION_ERASEFF ) /* Sprite Masks + Colour Indexes */
-ROM_END
-
-
-// license:GPL_2.0
-// copyright-holders:Robbbert
-/*
-Local numbering scheme: I made this up as a convenience - it is NOT OFFICIAL
-
-
-Number    Date         Have Hacks?    Name
----------------------------------------------------------------------------------------------------------------
-P101      1997         No             Dragon World 2
-P102      1997-04      Yes            Oriental Legend
-P103      1998         No             China Dragon 3
-P104      1998         No             China Dragon 3 EX
-P105      1998         Yes            The Killing Blade
-P106      1998         Yes            Oriental Legend Special
-P107      1999         Yes            Knights of Valour
-P108      1999         Yes            Knights of Valour Plus
-P109      1999         Yes            Knights of Valour Superheroes
-P110      1999         No             Photo Y2K
-P111      1999         No             Puzzle Star
-P112      1999         No             Puzzli 2
-P113      2000         No             Dragon World 3 Special
-P114      2000         Yes            Knights of Valour 2
-P115      2001-05-21   No             Bee Storm: DoDonPachi 2
-P116      2001         No             Dragon World: Pretty Chance
-P117      2001         No             Dragon World 2001
-P118      2001         Yes            Knights of Valour 2 Plus: Nine Dragons
-P119      2001-04      Yes            Martial Masters
-P120      2001         No             Photo Y2K 2
-P121      2001         No             Puzzli 2 Super
-P122      2002-06      No             Demon Front
-P123      2002-10-25   No             DoDonPachi Dai-Ou-Jou
-P124      2002         No             DoDonPachi DaiOuJou Black Label
-P125      2003-01-28   Yes            Ketsui: Kizuna Jigoku Tachi
-P126      2003-10-15   No             ESP Galuda
-P127      2003         Yes            The Gladiator
-P128      2003         No             Happy 6-in-1
-P129      2004         Yes            Knights of Valour Superheroes Plus
-P130      2004         No             Oriental Legend Special Plus
-P131      2004         No             Shiny 3-in-1
-P132      2005         No             The Killing Blade Plus
-P133      2005         No             Spectral vs Generation
-*/
 /**********
  Homebrew
 ***********/
@@ -1194,10 +1157,9 @@ ROM_START( pgmfrog )
 	ROM_LOAD( "pgmfrog.m1",          0x400000, 0x200000, CRC(05e2f761) SHA1(c93d94a8f11c41b019fcf9b6a90645416fd2c75b) )
 ROM_END
 
-/*    YEAR  NAME      PARENT    MACHINE      INPUT     CLASS     INIT          MONITOR COMPANY     FULLNAME FLAGS */
-GAME( 1997, pgm_hb,   0,        pgm,         pgm,      pgm_hb,   empty_init,    ROT0,   "IGS", "PGM (Polygame Master) System BIOS", MACHINE_IS_BIOS_ROOT )
+/*    YEAR  NAME     PARENT   MACHINE  INPUT  CLASS     INIT     MONITOR COMPANY                 FULLNAME FLAGS */
 // Homebrew
-GAME( 2006, pgemeni,  pgm_hb,   pgm,         pgm,      pgm_hb,   empty_init,    ROT0,   "Blastar", "P-Gemeni (2006-01-23)", MACHINE_SUPPORTS_SAVE ) // has no sound
-GAME( 2005, pgmdemo,  pgm_hb,   pgm,         pgm,      pgm_hb,   empty_init,    ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
-GAME( 2006, pgmfrog,  pgm_hb,   pgm,         pgm,      pgm_hb,   empty_init,    ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, pgemeni, pgm,  pgm,   pgm_hb,   pgm_hb,   init_pgm,   ROT0,   "Blastar", "P-Gemeni (2006-01-23)", MACHINE_SUPPORTS_SAVE ) // has no sound
+GAME( 2005, pgmdemo, pgm,  pgm,   pgm_hb,   pgm_hb,   init_pgm,   ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
+GAME( 2006, pgmfrog, pgm,  pgm,   pgm_hb,   pgm_hb,   init_pgm,   ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
 

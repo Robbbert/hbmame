@@ -1002,6 +1002,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/vamphalf.cpp",
 	MAME_DIR .. "src/mame/misc/vamphalf_prot.cpp",
 	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
+	MAME_DIR .. "src/hbmame/drivers/pgm_hb.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "devices")

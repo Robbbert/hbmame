@@ -7411,11 +7411,35 @@ pacpen
 pengopop
 vecpengo                               // T-Bone hack of Pengo
 
-@source:iq_pgm.cpp
+@source:pgm.cpp
+// PARENTS
+pgm
+ket
+killbld
+kovplus
+kov
+kov2
+kov2p
+kovsh
+kovshp
+olds
+oldsplus
+orlegend
+martmast
+theglad
+// HACKS
+ketarr		// trap15 hack
+ketarr10	// trap15 hack
+ketarr15	// trap15 hack
+ketarr151	// trap15 hack
+ketarrf		// trap15 hack
+ketarrs15	// trap15 hack
+ketarrs151	// trap15 hack
+//ket01       //black screen, roms missing
 // HOMEBREW
 pgmcabal
 pgmsnake
-// HACKS
+// MORE HACKS
 killbld01
 killbld02
 killbld03
@@ -8087,36 +8111,11 @@ theglad06
 theglad07
 theglad08
 
-@source:pgm.cpp
-// PARENTS
-pgm
-ket
-killbld
-kovplus
-kov
-kov2
-kov2p
-kovsh
-kovshp
-olds
-oldsplus
-orlegend
-martmast
-theglad
-// HOMEBREW
-///pgm_hb
-///pgemeni		/* HB Blastar */
-///pgmdemo		/* HB Charles Doty */
-///pgmfrog		/* HB Rastersoft */
-// HACKS
-ketarr		// trap15 hack
-ketarr10	// trap15 hack
-ketarr15	// trap15 hack
-ketarr151	// trap15 hack
-ketarrf		// trap15 hack
-ketarrs15	// trap15 hack
-ketarrs151	// trap15 hack
-//ket01       //black screen, roms missing
+@source:pgm_hb.cpp
+// These use "pgm" from the real pgm driver, as its roms are the same
+pgemeni		// HB Blastar
+pgmdemo		// HB Charles Doty
+pgmfrog		// HB Rastersoft
 
 @source:phoenix.cpp
 phoenix                                //parent
