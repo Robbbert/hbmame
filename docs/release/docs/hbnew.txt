@@ -22,6 +22,7 @@ New Games
 - [dinos283]            Cadillacs and Dinosaurs (Readjusted v1.4)
 - [samsho2s21]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
 - [samsho2s22]          Samurai Shodown II (Perfect v2.9, 2026-06-29)
+- [sf2prime]            Street Fighter II': Prime (v0.77)
 - [sfiii3ns15]          Street Fighter III 3rd Strike: Fight for the Future (4rd Strike 2011-07-17)
 
 
