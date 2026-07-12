@@ -369,6 +369,35 @@ ROM_START( dinohx )
 ROM_END
 
 
+ROM_START( dinore10 ) // v1.0, removed 2026-07-03
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c25s281.p1", 0x000000, 0x200000, CRC(530b7e43) SHA1(96245becd599f8453b0b1c38bd987e99d7fec6b5) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c25.c01",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) )
+	ROM_LOAD64_WORD( "c25.c03",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) )
+	ROM_LOAD64_WORD( "c25.c05",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) )
+	ROM_LOAD64_WORD( "c25.c07",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) )
+	ROM_LOAD64_WORD( "c25.c17",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) )
+	ROM_LOAD64_WORD( "c25.c19",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) )
+	ROM_LOAD64_WORD( "c25.c21",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) )
+	ROM_LOAD64_WORD( "c25.c23", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c25.m1",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "c25.q1",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "c25.q2",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "c25.q3",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(6cf0c283) SHA1(9da83b20665b565acb7e127a8e78adbcb6629175) )
+ROM_END
+
+
 ROM_START( dinos38 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c25s38.p1",  0x000000, 0x80000, CRC(23238387) SHA1(46a5a13a4d65d0c6936fb8de1493471853cc9aa3) )
@@ -1256,6 +1285,7 @@ GAME( 2020, dinos253,      dino,     qsound,     dino,     cps_state, init_dino,
 GAME( 2020, dinos270,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Rockywall, Zhyxxxx", "Cadillacs and Dinosaurs (Ares Edition 2020-07-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dinos273,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Rockywall, Zhyxxxx", "Cadillacs and Dinosaurs (Ares Edition 2020-08-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dinos276,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Rockywall, Zhyxxxx", "Cadillacs and Dinosaurs (God of War Edition japanese 2020-08-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, dinore10,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "GameHackFan", "Cadillacs and Dinosaurs (Readjusted v1.0)", MACHINE_SUPPORTS_SAVE )
 
 
 // We don't support pic versions, even though they work just fine with normal sound setup
@@ -20255,6 +20285,37 @@ ROM_START( s1945peh ) // reboots in attract mode, removed 2022-09-09
 	ROM_LOAD16_BYTE( "254.c8", 0x3000001, 0x800000, CRC(66848c7d) SHA1(24d4ed627940a4cf8129761c1da15556e52e199c) )
 ROM_END
 GAME( 1999, s1945peh,      s1945p,   neogeo_noslot, neogeo, neogeo_state, init_s1945p,    ROT0, "KrysoFun", "Strikers 1945 Plus (Super Shot)", MACHINE_SUPPORTS_SAVE )
+
+
+ROM_START( samsho2pe20 ) // samsho2pe v2.0, removed 2026-07-03
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "063pe20.p1", 0x000000, 0x100000, CRC(7af0612c) SHA1(840a8447682293aff734def21fa8556b69511d9b) )
+	ROM_LOAD16_WORD_SWAP( "063pe20.p2", 0x100000, 0x100000, CRC(5fb8a564) SHA1(d83e6c8e3bc65597aa41434cb57a476a65eb7f6e) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063pe20.p3", 0x000000, 0x020000, CRC(74c7e103) SHA1(c833f5714be0c82b042301c11ee4fb45e96f1760) )
+
+	NEO_SFIX_128K( "063.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
+
+	NEO_BIOS_AUDIO_128K( "063.m1", CRC(56675098) SHA1(90429fc40d056d480d0e2bbefbc691d9fa260fc4) )
+
+	ROM_REGION( 0x700000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "063.v1", 0x000000, 0x200000, CRC(37703f91) SHA1(a373ebef4c33ba1d8340e826981a58769aada238) )
+	ROM_LOAD( "063.v2", 0x200000, 0x200000, CRC(0142bde8) SHA1(0be6c53acac44802bf70b6925452f70289a139d9) )
+	ROM_LOAD( "063.v3", 0x400000, 0x200000, CRC(d07fa5ca) SHA1(1da7f081f8b8fc86a91feacf900f573218d82676) )
+	ROM_LOAD( "063.v4", 0x600000, 0x100000, CRC(24aab4bb) SHA1(10ee4c5b3579865b93dcc1e4079963276aa700a6) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "063.c1", 0x000000, 0x200000, CRC(86cd307c) SHA1(0d04336f7c436d74638d8c1cd8651faf436a6bec) )
+	ROM_LOAD16_BYTE( "063.c2", 0x000001, 0x200000, CRC(cdfcc4ca) SHA1(179dc81432424d68cefedd20cc1c4b2a95deb891) )
+	ROM_LOAD16_BYTE( "063.c3", 0x400000, 0x200000, CRC(7a63ccc7) SHA1(49d97c543bc2860d493a353ab0d059088c6fbd21) )
+	ROM_LOAD16_BYTE( "063.c4", 0x400001, 0x200000, CRC(751025ce) SHA1(e1bbaa7cd67fd04e4aab7f7ea77f63ae1cbc90d0) )
+	ROM_LOAD16_BYTE( "063.c5", 0x800000, 0x200000, CRC(20d3a475) SHA1(28da44a136bd14c73c62c147c3f6e6bcfa1066de) )
+	ROM_LOAD16_BYTE( "063.c6", 0x800001, 0x200000, CRC(ae4c0a88) SHA1(cc8a7d11daa3821f83a6fd0942534706f939e576) )
+	ROM_LOAD16_BYTE( "063.c7", 0xc00000, 0x200000, CRC(2df3cbcf) SHA1(e54f9022359963711451c2025825b862d36c6975) )
+	ROM_LOAD16_BYTE( "063.c8", 0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
+ROM_END
+GAME( 2024, samsho2pe20, samsho2,  gsc,           neogeo, neogeo_state, init_neogeo,   ROT0, "Bear", "Samurai Shodown II (Perfect v2.0, 2024-05-01)", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( samsho3hb ) // stuck in a debug menu, removed 2022-09-10
