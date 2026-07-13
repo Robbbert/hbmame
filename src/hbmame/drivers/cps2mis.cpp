@@ -4475,6 +4475,40 @@ ROM_START( vsav2s03 )
 	ROM_LOAD( "vsav2.key",    0x00, 0x14, CRC(289028ce) SHA1(35779f0284dc15591493c8ec75ecda801148f3e0) )
 ROM_END
 
+ROM_START( vsav2s04 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c76s04.p1", 0x000000, 0x80000, CRC(a211712c) SHA1(3f5c2e997b2a25e8b5ece4ac9354a1cef1986821) )
+	ROM_LOAD16_WORD_SWAP( "c76s04.p2", 0x080000, 0x80000, CRC(974896f9) SHA1(42e715478c02fd70498834a9ea35c997dcf56efe) )
+	ROM_LOAD16_WORD_SWAP( "c76.p3", 0x100000, 0x80000, CRC(61979638) SHA1(4d5625a9a06926c1a42c8f6e3a4c943f17750ec2) )
+	ROM_LOAD16_WORD_SWAP( "c76.p4", 0x180000, 0x80000, CRC(f37c5bc2) SHA1(d8c1040a6ee6b9fc677a6a32b99bf02b6a707812) )
+	ROM_LOAD16_WORD_SWAP( "c76.p5", 0x200000, 0x80000, CRC(8f885809) SHA1(69dac07e1f483b6478f792d20a137d6a081fbea3) )
+	ROM_LOAD16_WORD_SWAP( "c76s04.p6", 0x280000, 0x80000, CRC(cb8b85c6) SHA1(aa7fee9409d5c4eec5ee7d2985d3871b3b853476) )
+	ROM_LOAD16_WORD_SWAP( "c76.p7", 0x300000, 0x80000, CRC(fac3c217) SHA1(0e9dd54e401e6d7c4fe81107ffd27e42ca810fcb) )
+	ROM_LOAD16_WORD_SWAP( "c76.p8", 0x380000, 0x80000, CRC(eb490213) SHA1(bf0416df66a33c7a4678ab4a047de334dfd3b31e) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c76.c1",   0x0000000, 0x400000, CRC(5c852f52) SHA1(528ce7fc9a0451e2e2d221dbf5e4a5796584e053) )
+	ROM_LOAD64_WORD( "c76.c2",   0x0000002, 0x400000, CRC(a20f58af) SHA1(e873ad3e0fc8a06a5029113faf991f5c1b765316) )
+	ROM_LOAD64_WORD( "c76.c3",   0x0000004, 0x400000, CRC(39db59ad) SHA1(da94f1529da82a6bf2129f51548412e1ab2b001a) )
+	ROM_LOAD64_WORD( "c76.c4",   0x0000006, 0x400000, CRC(00c763a7) SHA1(0ff528e12e255ebf699101ac71f05b1f6bef7165) )
+	ROM_LOAD64_WORD( "c76.c5",   0x1000000, 0x400000, CRC(cd09bd63) SHA1(e582b20a948ae54f52590496051688dbfae2bc9c) )
+	ROM_LOAD64_WORD( "c76.c6",   0x1000002, 0x400000, CRC(e0182c15) SHA1(a924d53ab39f4d85173bdb92a197dde2db0dc3f7) )
+	ROM_LOAD64_WORD( "c76.c7",   0x1000004, 0x400000, CRC(778dc4f6) SHA1(8d0cd1c387b4b6ac7f92bb2e5a25983856328cdc) )
+	ROM_LOAD64_WORD( "c76.c8",   0x1000006, 0x400000, CRC(605d9d1d) SHA1(99bc27557741527ca678d7b6307164bc04ebedc6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c76.m1",   0x00000, 0x08000, CRC(35190139) SHA1(07f8e53ea398461de5dcda9814dde7c09faf9f65) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c76.m2",   0x28000, 0x20000, CRC(c32dba09) SHA1(1fe337ff334fab79847f9677ba0e168e93daa1c8) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c76.q1",   0x000000, 0x400000, CRC(d67e47b7) SHA1(15a3f6779eccb10551ed94edf7e6e406a79b3de7) )
+	ROM_LOAD16_WORD_SWAP( "c76.q2",   0x400000, 0x400000, CRC(6d020a14) SHA1(e98f862fac1e357c90949768bb2646263d9981a0) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "vsav2.key",    0x00, 0x14, CRC(289028ce) SHA1(35779f0284dc15591493c8ec75ecda801148f3e0) )
+ROM_END
+
  /***************************************
  Marvel Vs. Capcom Clash of Super Heroes
 ******************************************/
@@ -7200,6 +7234,7 @@ GAME( 2015, suicide2,   suicide,  dead_cps2, cps2_2p2b, cps2_state, init_cps2, R
 GAME( 2008, vsav2s01,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Command Change, 2008-04-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, vsav2s02,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Infinite Power, 2008-07-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, vsav2s03,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blackheart", "Vampire Savior 2: The Lord of Vampire (970913J, Vampire Kingdom Study Order Simplification, 2009-04-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, vsav2s04,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Vampire Savior 2: The Lord of Vampire (970913J, English, 2026-07-10)", MACHINE_SUPPORTS_SAVE )
 // X-Men Children of the Atom
 GAME( 1994, xmcotas01,  xmcota,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "X-Men: Children of the Atom (941219J, Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, xmcotas02,  xmcota,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "X-Men: Children of the Atom (941219J, Enhanced Edition, 2013-01-09)", MACHINE_SUPPORTS_SAVE )
