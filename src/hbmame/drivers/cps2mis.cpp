@@ -4371,6 +4371,43 @@ ROM_START( pfghtj04 )
 ROM_END
 
  /************************************
+ Vampire Hunter 2 Darkstalkers Revenge
+***************************************/
+ROM_START( vhunt2s01 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c75s01.p1", 0x000000, 0x80000, CRC(1ce8d926) SHA1(9352d3a2d7180f39b93df794822bc4609e8c3951) )
+	ROM_LOAD16_WORD_SWAP( "c75s01.p2", 0x080000, 0x80000, CRC(6b232eae) SHA1(46562af80f9824cccd27a9efab948519eae1bc1b) )
+	ROM_LOAD16_WORD_SWAP( "c75.p3",  0x100000, 0x80000, CRC(de34f624) SHA1(60bbbd1765e76839b01c38765da2368c5188ec61) )
+	ROM_LOAD16_WORD_SWAP( "c75.p4",  0x180000, 0x80000, CRC(6a3b9897) SHA1(4f3b37004db8a3d3dde709b51c94c392615134b5) )
+	ROM_LOAD16_WORD_SWAP( "c75.p5",  0x200000, 0x80000, CRC(b021c029) SHA1(de4299197600608e83fe50775e3f352f5add844d) )
+	ROM_LOAD16_WORD_SWAP( "c75s01.p6", 0x280000, 0x80000, CRC(be9d8a6c) SHA1(5202c72df883ca41ec1abe8277bce9fc5b28eaaf) )
+	ROM_LOAD16_WORD_SWAP( "c75.p7",  0x300000, 0x80000, CRC(eaefce9c) SHA1(d842a824f0d0adc13a86f780084164c1273c45a4) )
+	ROM_LOAD16_WORD_SWAP( "c75.p8",  0x380000, 0x80000, CRC(11730952) SHA1(2966b80b99ab065614a6ddb546110f482b998e32) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c75.c1",   0x0000000, 0x400000, CRC(3b02ddaa) SHA1(a73b0554afbfc7ace41bdf8e6cafd4c1ef0b0a08) )
+	ROM_LOAD64_WORD( "c75.c2",   0x0000002, 0x400000, CRC(4e40de66) SHA1(e8b80eadffad6070aa04c8ab426311c44e7c5507) )
+	ROM_LOAD64_WORD( "c75.c3",   0x0000004, 0x400000, CRC(b31d00c9) SHA1(7e7be64690663f52d10c8946aabec4250c8a8740) )
+	ROM_LOAD64_WORD( "c75.c4",   0x0000006, 0x400000, CRC(149be3ab) SHA1(afc8e96e6aa3cf1db6dfd8075030a6c50b4419a9) )
+	ROM_LOAD64_WORD( "c75.c5",   0x1000000, 0x400000, CRC(cd09bd63) SHA1(e582b20a948ae54f52590496051688dbfae2bc9c) )
+	ROM_LOAD64_WORD( "c75.c6",   0x1000002, 0x400000, CRC(e0182c15) SHA1(a924d53ab39f4d85173bdb92a197dde2db0dc3f7) )
+	ROM_LOAD64_WORD( "c75.c7",   0x1000004, 0x400000, CRC(778dc4f6) SHA1(8d0cd1c387b4b6ac7f92bb2e5a25983856328cdc) )
+	ROM_LOAD64_WORD( "c75.c8",   0x1000006, 0x400000, CRC(605d9d1d) SHA1(99bc27557741527ca678d7b6307164bc04ebedc6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c75.m1",  0x00000, 0x08000, CRC(67b9f779) SHA1(3994c65f888004b56ea9f478b1feaa81e306347e) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c75.m2",  0x28000, 0x20000, CRC(aaf15fcb) SHA1(6f61daa162c835165a8aabaf1d0ea8816fbfbd40) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c75.q1",  0x000000, 0x400000, CRC(38922efd) SHA1(8cfb36bdce3a524d0a81fec12ca0cba82222fa30) )
+	ROM_LOAD16_WORD_SWAP( "c75.q2",  0x400000, 0x400000, CRC(6e2430af) SHA1(b475faf943bec4171ba0130f287e1948743ca273) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "vhunt2.key",   0x00, 0x14, CRC(61306b20) SHA1(f72cf44837f6d934dd6bc877c3c98db388e72a67) )
+ROM_END
+
+ /************************************
  Vampire Savior 2 The Lord of Vampire
 ***************************************/
 ROM_START( vsav2s01 )
@@ -7196,6 +7233,8 @@ GAME( 1996, spf2t01,    spf2t,    cps2,      cps2_2p2b, cps2_state, init_cps2, R
 // CPS-2 Suicide Tester (derived from spf2t)
 GAME( 2015, suicide,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, suicide2,   suicide,  dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "Razoola", "Suicide Test v2", MACHINE_SUPPORTS_SAVE )
+// Vampire Hunter 2 Darkstalkers Revenge
+GAME( 2026, vhunt2s01,  vhunt2,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors 2: Darkstalkers Revenge (970929J, English, 2026-07-10)", MACHINE_SUPPORTS_SAVE )
 // Vampire Savior 2 The Lord of Vampire
 GAME( 2008, vsav2s01,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Command Change, 2008-04-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, vsav2s02,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Infinite Power, 2008-07-28)", MACHINE_SUPPORTS_SAVE )
