@@ -717,6 +717,25 @@ ROM_START( zintrick06 ) // zintrckb v3
 	ROM_LOAD16_BYTE( "211.c2", 0x000001, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
 ROM_END
 
+ROM_START( zintrick07 ) // zintrckbp
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "211s07.p1", 0x000000, 0x100000, CRC(23074a8d) SHA1(38ceb4b532ff98edfacf7f8bb395ea265232c082) )
+
+	NEO_SFIX_128K( "211s02.s1", CRC(56d16afa) SHA1(6e1f960a781f5ef1f858c51507fe573bead8ea66) )
+
+	NEO_BIOS_AUDIO_128K( "211s07.m1", CRC(6d5b66cf) SHA1(950a7c2fbbcb911ca9e7ce4778d88d550ada86ce) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "211s07.v1", 0x000000, 0x400000, CRC(ca4c57e1) SHA1(6eab32da77d7f336ee00895f28e12312b7d33f29) )
+	ROM_LOAD( "211s07.v2", 0x400000, 0x400000, CRC(c4c82a19) SHA1(eb9c8e32755084993ce727fc86b610b55f52a13e) )
+	ROM_LOAD( "211s07.v3", 0x800000, 0x400000, CRC(b3fad4c1) SHA1(d149479ad2eb9e8d160bb30efabc327f5401bd13) )
+	ROM_LOAD( "211s07.v4", 0xc00000, 0x400000, CRC(4e77adac) SHA1(b494d17492e4e11fd35cda6ea04c160ff3fc66eb) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "211.c1", 0x000000, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
+	ROM_LOAD16_BYTE( "211.c2", 0x000001, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
+ROM_END
+
 
 // 300 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -4273,7 +4292,7 @@ ROM_END
 
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK", "ADK World", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, cbarrel,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
@@ -4290,7 +4309,8 @@ GAME( 1996, zintrick02,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2014, zintrick03,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, zintrick04,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, zintrick05,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, zintrick06,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, zintrick06,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks, old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, zintrick07,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2023, 68kng,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dekadence", "68k Inside intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
