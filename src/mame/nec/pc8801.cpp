@@ -606,29 +606,6 @@ void pc8801_state::flush_gvram_access()
 	m_gvram_bank->set_bank(m_vram_sel);
 }
 
-void pc8801_state::irq_level_w(uint8_t data)
-{
-	m_pic->b_sgs_w(~data);
-}
-
-/*
- * ---- -x-- /RXMF RXRDY irq mask
- * ---- --x- /VRMF VRTC irq mask
- * ---- ---x /RTMF Real-time clock irq mask
- *
- */
-void pc8801_state::irq_mask_w(uint8_t data)
-{
-	m_irq_state.enable &= ~7;
-	// mapping reversed to the correlated irq levels
-	m_irq_state.enable |= bitswap<3>(data & 7, 0, 1, 2);
-
-	check_irq(RXRDY_IRQ_LEVEL);
-	check_irq(VRTC_IRQ_LEVEL);
-	check_irq(CLOCK_IRQ_LEVEL);
-}
-
-
 uint8_t pc8801_state::window_bank_r()
 {
 	return m_window_offset_bank;
@@ -869,87 +846,10 @@ void pc8801_state::main_io(address_map &map)
  * PC-8801mkIISR overrides (ALU)
  */
 
-uint8_t pc8801mk2sr_state::alu_r(offs_t offset)
-{
-	uint8_t b, r, g;
-
-	// ignore for debugger, wouldn't make sense anyway
-	if (machine().side_effects_disabled())
-		return 0xff;
-
-	offset &= 0x3fff;
-
-	/* store data to ALU regs */
-	for(int i = 0; i < 3; i++)
-		m_alu_reg[i] = m_gvram[i*0x4000 + offset];
-
-	b = m_alu_reg[0];
-	r = m_alu_reg[1];
-	g = m_alu_reg[2];
-	if(!(m_alu_ctrl2 & 1)) { b^=0xff; }
-	if(!(m_alu_ctrl2 & 2)) { r^=0xff; }
-	if(!(m_alu_ctrl2 & 4)) { g^=0xff; }
-
-	return b & r & g;
-}
-
-void pc8801mk2sr_state::alu_w(offs_t offset, uint8_t data)
-{
-	int i;
-
-	offset &= 0x3fff;
-
-	// ALU write mode
-	switch(m_alu_ctrl2 & 0x30)
-	{
-		// logic operation
-		case 0x00:
-		{
-			uint8_t logic_op;
-
-			for(i = 0; i < 3; i++)
-			{
-				logic_op = (m_alu_ctrl1 & (0x11 << i)) >> i;
-
-				switch(logic_op)
-				{
-					case 0x00: { m_gvram[i*0x4000 + offset] &= ~data; } break;
-					case 0x01: { m_gvram[i*0x4000 + offset] |= data; } break;
-					case 0x10: { m_gvram[i*0x4000 + offset] ^= data; } break;
-					case 0x11: break; // NOP
-				}
-			}
-		}
-		break;
-
-		// restore data from ALU regs
-		case 0x10:
-		{
-			for(i = 0; i < 3; i++)
-				m_gvram[i*0x4000 + offset] = m_alu_reg[i];
-		}
-		break;
-
-		// swap ALU reg 1 into R GVRAM
-		case 0x20:
-			m_gvram[0x0000 + offset] = m_alu_reg[1];
-			break;
-
-		// swap ALU reg 0 into B GVRAM
-		case 0x30:
-			m_gvram[0x4000 + offset] = m_alu_reg[0];
-			break;
-	}
-}
-
-void pc8801mk2sr_state::alu_ctrl1_w(uint8_t data)
-{
-	m_alu_ctrl1 = data;
-}
-
 void pc8801mk2sr_state::alu_ctrl2_w(uint8_t data)
 {
-	m_alu_ctrl2 = data;
+	m_alu->ctrl2_w(data);
+	m_alu_gam = BIT(data, 7);
 	flush_gvram_access();
 }
 
@@ -957,7 +857,7 @@ void pc8801mk2sr_state::flush_gvram_access()
 {
 	if (BIT(m_misc_ctrl, 6))
 	{
-		if (BIT(m_alu_ctrl2, 7))
+		if (m_alu_gam)
 		{
 			m_alu_view.select(0);
 		}
@@ -980,13 +880,13 @@ void pc8801mk2sr_state::main_map(address_map &map)
 {
 	pc8801_state::main_map(map);
 	map(0xc000, 0xffff).view(m_alu_view);
-	m_alu_view[0](0xc000, 0xffff).rw(FUNC(pc8801mk2sr_state::alu_r), FUNC(pc8801mk2sr_state::alu_w));
+	m_alu_view[0](0xc000, 0xffff).rw(m_alu, FUNC(pc88_alu_device::alu_r), FUNC(pc88_alu_device::alu_w));
 }
 
 void pc8801mk2sr_state::main_io(address_map &map)
 {
 	pc8801_state::main_io(map);
-	map(0x34, 0x34).w(FUNC(pc8801mk2sr_state::alu_ctrl1_w));
+	map(0x34, 0x34).w(m_alu, FUNC(pc88_alu_device::ctrl1_w));
 	map(0x35, 0x35).w(FUNC(pc8801mk2sr_state::alu_ctrl2_w));
 
 	map(0x44, 0x45).rw(m_opn, FUNC(ym2203_device::read), FUNC(ym2203_device::write));
@@ -1052,7 +952,7 @@ void pc8801fh_state::main_io(address_map &map)
 		m_eeprom->cs_write(BIT(data, 2));
 	}));
 	m_setup_io_view[0](0x15, 0x15).lw8(NAME([this] (offs_t offset, u8 data) { m_setup_mem_view.disable(); m_setup_io_view.disable(); }));
-	map(0x34, 0x34).w(FUNC(pc8801fh_state::alu_ctrl1_w));
+	map(0x34, 0x34).w(m_alu, FUNC(pc88_alu_device::ctrl1_w));
 	map(0x35, 0x35).w(FUNC(pc8801fh_state::alu_ctrl2_w));
 
 	map(0x44, 0x47).rw(m_opna, FUNC(ym2608_device::read), FUNC(ym2608_device::write));
@@ -1383,10 +1283,6 @@ void pc8801_state::machine_start()
 	save_item(STRUCT_MEMBER(m_palram, r));
 	save_item(STRUCT_MEMBER(m_palram, g));
 	save_item(STRUCT_MEMBER(m_palram, b));
-	save_item(STRUCT_MEMBER(m_irq_state, enable));
-	save_item(STRUCT_MEMBER(m_irq_state, pending));
-	save_item(NAME(m_sound_irq_enable));
-	save_item(NAME(m_sound_irq_pending));
 }
 
 void pc8801_state::machine_reset()
@@ -1410,15 +1306,7 @@ void pc8801_state::machine_reset()
 
 	m_beeper->set_state(0);
 
-	// initialize irq section
-	{
-		m_pic->etlg_w(1);
-		m_pic->inte_w(1);
-		m_irq_state.pending = 0;
-		m_irq_state.enable = 0;
-		m_sound_irq_enable = false;
-		m_sound_irq_pending = false;
-	}
+	picu_reset();
 
 	{
 		m_extram_bank = 0;
@@ -1439,9 +1327,7 @@ void pc8801mk2sr_state::machine_start()
 {
 	pc8801_state::machine_start();
 
-	save_pointer(NAME(m_alu_reg), 3);
-	save_item(NAME(m_alu_ctrl1));
-	save_item(NAME(m_alu_ctrl2));
+	save_item(NAME(m_alu_gam));
 }
 
 void pc8801mk2sr_state::machine_reset()
@@ -1449,9 +1335,7 @@ void pc8801mk2sr_state::machine_reset()
 	pc8801_state::machine_reset();
 
 	// initialize ALU, assume disabled by default
-	for(int i = 0; i < 3; i++)
-		m_alu_reg[i] = 0x00;
-	m_alu_ctrl1 = m_alu_ctrl2 = 0;
+	m_alu_gam = 0;
 
 	m_alu_view.disable();
 }
@@ -1544,98 +1428,6 @@ void pc8801_state::txdata_callback(int state)
 	//m_cassette->output( (state) ? 1.0 : -1.0);
 }
 
-void pc8801_state::rxrdy_irq_w(int state)
-{
-	if (state)
-		assert_irq(RXRDY_IRQ_LEVEL);
-}
-
-/*
- * 0 RXRDY
- * 1 VRTC
- * 2 CLOCK
- * 3 INT3 (GSX-8800)
- * 4 INT4 (any OPN, external boards included with different irq mask at $aa)
- * 5 INT5
- * 6 FDCINT1
- * 7 FDCINT2
- *
- */
-IRQ_CALLBACK_MEMBER(pc8801_state::int_ack_cb)
-{
-	// TODO: schematics sports a μPB8212 too, with DI2-DI4 connected to 8214 A0-A2
-	// Seems just an intermediate bridge for translating raw levels to vectors
-	// with no access from outside world?
-	u8 level = m_pic->a_r();
-	m_pic->r_w(level, 1);
-
-	return (7 - level) * 2;
-}
-
-void pc8801_state::int4_irq_w(int state)
-{
-	bool irq_state = m_sound_irq_enable & state;
-
-	// remember current setting so that an enable reg variation will pick up
-	// particularly needed by Telenet games (xzr2, valis2)
-	// TODO: understand how exactly the external irq source works out (Sound Board II)
-	// has a separate irq mask for secondary OPNA but still sends INT4s,
-	// we separate the logic from the others since this exact function needs templatized array for enable and pending anyway
-	// (and won't otherwise work for xzr2 anyway).
-	m_pic->r_w(7 ^ INT4_IRQ_LEVEL, !irq_state);
-	m_sound_irq_pending = state;
-}
-
-// FIXME: convert to pure write-line-style member
-// Works with 0 -> 1 F/F transitions
-TIMER_DEVICE_CALLBACK_MEMBER(pc8801_state::clock_irq_w)
-{
-	// TODO: castlex sound notes in BGM loop are pretty erratic
-	// (uses clock irq instead of the dedicated INT4, started happening on last OPN rewrite, is it just missing some interpolation in the sound core?
-	assert_irq(CLOCK_IRQ_LEVEL);
-}
-
-void pc8801_state::check_irq(u8 level)
-{
-	u8 mask = 1 << level;
-
-	// megamit and babylon are particularly fussy if the VRTC irq isn't disabled when requested
-	// - megamit jumps to PC=0
-	// - babylon has just a ret coded in the VRTC irq, so accepting that will wreck the program flow and hang at title screen with no sound (because it expects INT4s)
-	if (!(m_irq_state.enable & mask))
-		m_pic->r_w(7 ^ level, 1);
-	else if (m_irq_state.enable & m_irq_state.pending & mask)
-		assert_irq(level);
-}
-
-void pc8801_state::assert_irq(u8 level)
-{
-	u8 mask = 1 << level;
-
-	if (mask & m_irq_state.enable)
-	{
-		m_irq_state.pending &= ~mask;
-		m_pic->r_w(7 ^ level, 0);
-	}
-	else
-		m_irq_state.pending |= mask;
-}
-
-void pc8801_state::vrtc_irq_w(int state)
-{
-//  bool irq_state = m_vrtc_irq_enable & state;
-	if (state)
-	{
-		assert_irq(VRTC_IRQ_LEVEL);
-	}
-}
-
-void pc8801_state::irq_w(int state)
-{
-	m_maincpu->set_input_line(0, state ? ASSERT_LINE : CLEAR_LINE);
-}
-
-
 void pc8801_state::pc8801(machine_config &config)
 {
 	Z80(config, m_maincpu, MASTER_CLOCK); // ~4 MHz, selectable to ~8 MHz on late models
@@ -1644,15 +1436,14 @@ void pc8801_state::pc8801(machine_config &config)
 	m_maincpu->set_irq_acknowledge_callback(FUNC(pc8801_state::int_ack_cb));
 
 	PC80S31(config, m_pc80s31, MASTER_CLOCK);
-//  config.set_perfect_quantum(m_maincpu);
 	// TODO: get rid of this
 	config.set_perfect_quantum("pc80s31:fdc_cpu");
 
 //  config.set_maximum_quantum(attotime::from_hz(MASTER_CLOCK/1024));
 
-	I8214(config, m_pic, MASTER_CLOCK);
-	m_pic->int_wr_callback().set(FUNC(pc8801_state::irq_w));
-	m_pic->set_int_dis_hack(true);
+	I8214(config, m_picu, MASTER_CLOCK);
+	m_picu->int_wr_callback().set_inputline(m_maincpu, 0);
+	m_picu->set_int_dis_hack(true);
 
 	UPD1990A(config, m_rtc);
 
@@ -1689,7 +1480,7 @@ void pc8801_state::pc8801(machine_config &config)
 	m_crtc->set_attribute_fetch_callback(FUNC(pc8801_state::attr_fetch));
 	m_crtc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq2_w));
 	m_crtc->rvv_wr_callback().set(FUNC(pc8801_state::crtc_reverse_w));
-//  Note: 3301 isn't actually connected to INT so its internal irq mask doesn't have any effect in PC88
+//  Note: 3301 isn't actually connected to INT so its internal irq mask doesn't have any effect in PC-88
 	m_crtc->vrtc_wr_callback().set(FUNC(pc8801_state::vrtc_irq_w));
 	m_crtc->set_screen(m_screen);
 
@@ -1726,9 +1517,9 @@ void pc8801_state::pc8801(machine_config &config)
 
 	PC8801_EXP_SLOT(config, m_exp, pc8801_exp_devices, nullptr);
 	m_exp->set_iospace(m_maincpu, AS_IO);
-	m_exp->int3_callback().set([this] (bool state) { m_pic->r_w(7 ^ INT3_IRQ_LEVEL, !state); });
-	m_exp->int4_callback().set([this] (bool state) { m_pic->r_w(7 ^ INT4_IRQ_LEVEL, !state); });
-	m_exp->int5_callback().set([this] (bool state) { m_pic->r_w(7 ^ INT5_IRQ_LEVEL, !state); });
+	m_exp->int3_callback().set([this] (bool state) { m_picu->r_w(7 ^ INT3_IRQ_LEVEL, !state); });
+	m_exp->int4_callback().set([this] (bool state) { m_picu->r_w(7 ^ INT4_IRQ_LEVEL, !state); });
+	m_exp->int5_callback().set([this] (bool state) { m_picu->r_w(7 ^ INT5_IRQ_LEVEL, !state); });
 
 	SOFTWARE_LIST(config, "tape_list").set_original("pc8801_cass");
 	SOFTWARE_LIST(config, "disk_n88_list").set_original("pc8801_flop");
@@ -1740,6 +1531,10 @@ void pc8801_state::pc8801(machine_config &config)
 void pc8801mk2sr_state::pc8801mk2sr(machine_config &config)
 {
 	pc8801(config);
+
+	PC88_ALU(config, m_alu, 0);
+	m_alu->gvram_read_cb().set([this] (offs_t offset) { return m_gvram[offset]; });
+	m_alu->gvram_write_cb().set([this] (offs_t offset, u8 data) { m_gvram[offset] = data; });
 
 	YM2203(config, m_opn, MASTER_CLOCK);
 	m_opn->irq_handler().set(FUNC(pc8801mk2sr_state::int4_irq_w));

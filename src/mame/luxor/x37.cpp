@@ -14,7 +14,6 @@
     TODO
 
     - tst.w 0xfffffc
-    - loadsys1 fails with syntax error
 
 */
 
@@ -105,6 +104,7 @@ private:
 	void program_map(address_map &map) ATTR_COLD;
 	void cpu_space_map(address_map &map) ATTR_COLD;
 
+	int get_fc() { if (m_dmac_own) return M68K_FC_SUPERVISOR_DATA; else return m_cpu->get_fc(); }
 	int get_task(offs_t offset);
 	offs_t get_ma(offs_t offset, bool &at0, bool &at1);
 	uint16_t mapper_r(offs_t offset);
@@ -120,11 +120,13 @@ private:
 	void cio_pc_w(uint8_t data);
 	u8 scc_irq_ack_r();
 	void sasi_int_w(int state) { m_sasi_int = state; }
+	void dmac_own_w(int state) { m_dmac_own = !state; }
 
 	void xdck_w(offs_t offset, uint16_t data, uint16_t mem_mask);
 
 	u8 m_cb = 0xff;
 	bool m_sasi_int = 1;
+	bool m_dmac_own = false;
 };
 
 void x37_state::program_map(address_map &map)
@@ -182,7 +184,7 @@ offs_t x37_state::get_ma(offs_t offset, bool &at0, bool &at1)
 	offs_t ma = ((pgd & 0xfff) << 11) | (logical & 0x7ff);
 
 	// TPT
-	int const fc = m_cpu->get_fc();
+	int const fc = get_fc();
 	if (BIT(fc, 2) && ((m_cb & 0xc0) == 0xc0)) {
 		if (!(logical & 0xc00000) || ((logical & 0xc00100) == 0xc00000)) {
 			ma = (logical & 0x380000) | (ma & 0x47ffff);
@@ -208,8 +210,9 @@ uint16_t x37_state::ram_r(offs_t offset, uint16_t mem_mask)
 
 		if (!machine().side_effects_disabled() && at1 && !at0) {
 			// AT1=1, AT0=0: no access
-			m_cpu->set_buserror_details(offset << 1, 1, m_cpu->get_fc(), true);
-			logerror("%s: Invalid RAM read at offset %06x (MA %06x, AT1=1, AT0=0)\n", machine().describe_context(), offset<<1, ma);
+			if (!m_dmac_own)
+				m_cpu->set_buserror_details(offset << 1, 1, m_cpu->get_fc(), true);
+			LOG("%s: Invalid RAM read at offset %06x (MA %06x, AT1=1, AT0=0)\n", machine().describe_context(), offset<<1, ma);
 		} else if (ma < 0x400000) {
 			if (ACCESSING_BITS_0_7)
 				data |= m_ram[ma & ~1];
@@ -230,8 +233,9 @@ void x37_state::ram_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 
 	if (!machine().side_effects_disabled() && !at0) {
 		// AT0=0: read-only (AT1=0) or no access (AT1=1)
-		m_cpu->set_buserror_details(offset << 1, 0, m_cpu->get_fc(), true);
-		logerror("%s: Invalid RAM write at offset %06x (MA %06x, AT1=%d, AT0=0)\n", machine().describe_context(), offset<<1, ma, at1);
+		if (!m_dmac_own)
+			m_cpu->set_buserror_details(offset << 1, 0, m_cpu->get_fc(), true);
+		LOG("%s: Invalid RAM write at offset %06x (MA %06x, AT1=%d, AT0=0)\n", machine().describe_context(), offset<<1, ma, at1);
 		return;
 	}
 
@@ -247,7 +251,7 @@ void x37_state::ram_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 
 int x37_state::get_task(offs_t offset)
 {
-	int const fc = m_cpu->get_fc();
+	int const fc = get_fc();
 
 	if (!BIT(fc, 2) || (BIT(fc, 2) && BIT(offset, 22)))
 		return (m_cb & 0x0f) ^ 0xf;
@@ -497,6 +501,7 @@ void x37_state::machine_start()
 
 	save_item(NAME(m_cb));
 	save_item(NAME(m_sasi_int));
+	save_item(NAME(m_dmac_own));
 }
 
 void x37_state::machine_reset()
@@ -520,6 +525,7 @@ void x37_state::x37(machine_config &config)
 	NS32081(config, m_fpu, XTAL(20'000'000)/2);
 
 	HD63450(config, m_dmac, XTAL(20'000'000)/2, m_cpu, AS_PROGRAM);
+	m_dmac->own().set(FUNC(x37_state::dmac_own_w));
 	m_dmac->set_burst_clocks(
 		attotime::from_nsec(120), // SASI
 		attotime::zero,
@@ -628,8 +634,8 @@ ROM_START( x37 )
 	ROM_REGION( 0x8000, MC68010_TAG, 0 )
 	ROM_LOAD( "x37.07o", 0x0000, 0x8000, CRC(d505e7e7) SHA1(a3ad839e47b1f71c394e5ce28bce199e5e4810d2) )
 
-	//ROM_REGION( 0x20, NMC9306_TAG, 0 )
-	//ROM_LOAD( "nmc9306.05k", 0x00, 0x20, CRC(233e90a6) SHA1(f7e35dc0f2be88a191a9c1ce037e35b91a7cf1c4) )
+	ROM_REGION( 0x20, NMC9306_TAG, 0 )
+	ROM_LOAD( "nmc9306.05k", 0x00, 0x20, CRC(2a7d409a) SHA1(1bf82daa877c65fae65ebff6181fb7ed5a874797) )
 
 	ROM_REGION( 0xa28, "plds", 0 )
 	//ROM_LOAD( "pat8000", 0x000, 0x104, NO_DUMP ) // Strobe decoder for X35 video adapter
@@ -648,4 +654,4 @@ ROM_END
 } // anonymous namespace
 
 
-COMP( 1985, x37, 0,      0,      x37, x37, x37_state, empty_init, "Luxor", "X37 (prototype)", MACHINE_NOT_WORKING )
+COMP( 1985, x37, 0,      0,      x37, x37, x37_state, empty_init, "Luxor", "X37 (prototype)", MACHINE_SUPPORTS_SAVE )

@@ -590,6 +590,11 @@ mpc2000xl
 @source:akai/mpc3000.cpp
 mpc3000
 
+@source:akai/s1000.cpp
+s1000
+s1000pb
+s1100
+
 @source:akai/s3000.cpp
 s2000
 s3000
@@ -18444,6 +18449,9 @@ tontonba
 cgenie
 cgenienz
 
+@source:eaca/genie3.cpp
+genie3de
+
 @source:edevices/diverboy.cpp
 diverboy
 tumblebed
@@ -21012,6 +21020,9 @@ ultim809
 
 @source:homebrew/uzebox.cpp
 uzebox
+
+@source:homebrew/we816.cpp
+we816
 
 @source:homebrew/z80clock.cpp
 z80clock
@@ -29933,8 +29944,8 @@ amspdwya
 
 @source:misc/amstarz80.cpp
 holddraw
-unkamst
-unkamsta
+holddrawa
+holddrawb
 
 @source:misc/amusco.cpp
 amusco
@@ -36125,6 +36136,7 @@ powerinsc
 powerinsj
 powerinspj
 powerinspu
+puzlwrld
 raphero
 rapheroa
 redfoxwp2
@@ -39833,6 +39845,7 @@ psion3a2_it
 psion3a2_ru
 psion3a2_us
 psion3c
+psion3c_de
 psion3mx
 psion3mx_fr
 psion3mx_nl
@@ -39846,6 +39859,7 @@ psion5mx
 psion5mx_fr
 psion5mxp
 psion5mxp_de
+psion618c
 revo
 revo_de
 revo_fr
@@ -44162,6 +44176,32 @@ sols5e
 @source:skeleton/squale.cpp
 squale
 
+@source:skeleton/st25.cpp
+alphar
+amarillo
+arenau
+avanti
+ballermn
+bgaction
+bigkick
+blizzard
+boosters
+colossos
+cttower
+galaktca
+jamaica
+macaor
+majesto
+matrixx
+mtclssic
+purpurr
+robin
+spasch
+stakeoff
+tango
+tobago
+xeno
+
 @source:skeleton/sterz80.cpp
 tongzi
 
@@ -44829,6 +44869,9 @@ t650c
 
 @source:sony/dfs500.cpp
 dfs500
+
+@source:sony/dpsd7.cpp
+dpsd7
 
 @source:sony/dpsv55.cpp
 dpsv55
@@ -47481,6 +47524,15 @@ tvbg3c
 tvbg6a
 tvbg6b
 
+@source:tvgames/bk139in1.cpp
+bk139in1
+dgun3944
+lxcymls
+lxcympp
+lxcymsm
+lxcyrace
+starbuck
+
 @source:tvgames/elan_eu3a05.cpp
 airblsjs
 bratzra
@@ -47528,7 +47580,10 @@ tomyeggb
 
 @source:tvgames/generalplus_gpl16250_mobigo.cpp
 mobigo
+mobigof
 mobigos
+
+@source:tvgames/generalplus_gpl16250_mobigo2.cpp
 mobigo2
 
 @source:tvgames/generalplus_gpl16250_nand.cpp
@@ -47595,19 +47650,12 @@ wrlshunt
 anpanbd
 anpaneng
 anpanm15
-bk139in1
 bkrankp
-dgun3944
 jspodred
-lxcymls
-lxcympp
-lxcymsm
-lxcyrace
 pokegac2
 pokegac2y
 pokegach
 prailpls
-starbuck
 vmastspi
 wildking
 
@@ -48764,6 +48812,7 @@ spinlbrku
 spinlbrkup
 svolly91
 turbofrc
+turbofrcj
 turbofrco
 turbofrcu
 turbofrcua
