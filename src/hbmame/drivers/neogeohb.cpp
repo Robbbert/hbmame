@@ -2247,7 +2247,7 @@ ROM_END
 
 // 497: Cabal (port by iq_132)
 // Bugs: A few minor graphics issues
-ROM_START( cabalng )
+ROM_START( cabaln )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "497.p1", 0x000000, 0x100000, CRC(49232965) SHA1(f13352d5b853ea832eb751da508c7878fb149c20) )
 
@@ -2264,9 +2264,26 @@ ROM_START( cabalng )
 	ROM_LOAD16_BYTE( "497.c2", 0x0000001, 0x100000, CRC(edf277f2) SHA1(aa287598a620f03794e143500ff842dfb4b64d9a) )
 ROM_END
 
-ROM_START( cabalng1 )
+ROM_START( cabaln01 ) // improvements by pierpa86
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "497a.p1", 0x000000, 0x100000, CRC(bb193926) SHA1(e87473aaaa8c7af56148e86a410672870fa63d00) )
+	ROM_LOAD16_WORD_SWAP( "497s01.p1", 0x000000, 0x100000, CRC(bb193926) SHA1(e87473aaaa8c7af56148e86a410672870fa63d00) )
+
+	NEO_SFIX_128K( "497.s1", CRC(45f0bc5e) SHA1(de2533e4981c7597a768b8839c737a37243d4bdb) )
+
+	NEO_BIOS_AUDIO_64K( "497.m1", CRC(efd97334) SHA1(139ef9da1fba0adcd4b41fbe6a2af0e094f33b05) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "497.v1", 0x000000, 0x100000, CRC(1a5bbc12) SHA1(3b4c74d943bd41189052313d41cd37b81e18ba25) )
+	ROM_LOAD( "497.v2", 0x100000, 0x100000, CRC(a2b9c011) SHA1(6019d3b7bf78c509394765f2e8bfd5c91645d5c4) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "497.c1", 0x0000000, 0x100000, CRC(9f5ea8bb) SHA1(dbe5ebe37d720bba20fc68a948298aa96a11dc85) )
+	ROM_LOAD16_BYTE( "497.c2", 0x0000001, 0x100000, CRC(edf277f2) SHA1(aa287598a620f03794e143500ff842dfb4b64d9a) )
+ROM_END
+
+ROM_START( cabaln02 ) // improvements by pierpa86
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "497s02.p1", 0x000000, 0x80000, CRC(95e6a761) SHA1(b58fb48ac96d9dd971277ac37218c5e00c4ba0bc) )
 
 	NEO_SFIX_128K( "497.s1", CRC(45f0bc5e) SHA1(de2533e4981c7597a768b8839c737a37243d4bdb) )
 
@@ -4292,9 +4309,9 @@ ROM_END
 
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, cbarrel,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, csw2,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (full CD music)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, csw2s01,      neogeo,   no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2 (failed CD conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
@@ -4329,8 +4346,9 @@ GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, blueandr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kaiju Wasp", "Blue and Red Fight the Robots v1.6", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, cabalng,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, cabalng1,     cabalng,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, cabaln,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, cabaln01,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cabaln02,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, chelnovn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq132", "Atomic Runner Chelnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)", MACHINE_SUPPORTS_SAVE )
