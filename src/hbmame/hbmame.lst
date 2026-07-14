@@ -7219,20 +7219,8 @@ samsh5sp38
 samsh5sp39
 
 @source:ngsengoku.cpp
-sengokucd
-sengoku3b
-sengoku3c
-sengoku3d
-sengoku3eb
-sengoku3eh
-sengoku3ha
-sengoku3k
-sengoku3kc
-sengoku3p
-sengoku3pl
-sengoku3s
-sengoku3ya
-sengoku3yk
+sengoku01
+sengoku2s01
 sengoku3s01
 sengoku3s02
 sengoku3s03
@@ -7248,6 +7236,19 @@ sengoku3s12
 sengoku3s13
 sengoku3s14
 sengoku3s15
+sengoku3s16
+sengoku3s17
+sengoku3s18
+sengoku3s19
+sengoku3s20
+sengoku3s21
+sengoku3s22
+sengoku3s23
+sengoku3s24
+sengoku3s25
+sengoku3s26
+sengoku3s27
+sengoku3s28
 
 @source:ngsvc.cpp
 svccpru
