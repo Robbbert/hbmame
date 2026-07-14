@@ -23,7 +23,6 @@ We want the MVS or AES roms for any game marked with * after the number.
 NUM YEAR COMPANY          TITLE
 ---.----.----------------.-------------------------------------------
 085*1997 SNK              Samurai Showdown R.P.G.
-091*1995 ADK              ADK World
 205*1995 SNK              NeoGeo CD Special
 229*1996 SNK              King of Fighters 96 CD Collection
 
@@ -65,7 +64,6 @@ NUM TITLES
 083 Bust-a-move / Puzzle Bobble
 085 Samurai Shodown RPG / Shinsetsu Samurai Spirits Bushidouretsuden
 087 Samurai Shodown III: Blades of Blood / Fighters Swords / Samurai Spirits: Zankurou MusouKen
-091 ADK World / ADK Special
 092 Far East of Eden: Kabuki Klash / Tengai Makyo Shinden
 094 Voltage Fighter Gowcaizer / Chojin Gakuen Gowcaizer
 095 Real Bout Fatal Fury / Real Bout Garou Densetsu
@@ -73,6 +71,7 @@ NUM TITLES
 097 Aero Fighters 3 / Sonic Wings 3
 200 Neo Turf Masters / Big Tournament Golf
 203 Master of Syougi / Shogi no Tatsujin
+204 ADK World / ADK Special
 208 Super Dodgeball / Kunio no Nekketsu Toukyuu Densetsu
 211 ZinTrick / Oshidashi Zentrix
 215 Super Sidekicks 4: The Ultimate 11 / SNK Football Championship / Tokuten Ou: Honou no Libero
@@ -593,6 +592,28 @@ ROM_START( fr2s03 ) // froman2bp
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "098.c1", 0x0000000, 0x400000, CRC(29148bf7) SHA1(75097fbe8877720afbcbe4dbe30bc600466d759f) )
 	ROM_LOAD16_BYTE( "098.c2", 0x0000001, 0x400000, CRC(226b1263) SHA1(dee6a4a0a727c1d8a6d298cb38ed1b9901992d5b) )
+ROM_END
+
+
+// 204 : ADK World (many "official" lists show game number 91, but it's 204 inside the files)
+ROM_START( adkw )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "204.p1", 0x100000, 0x100000, CRC(9d10383a) SHA1(4743d9c806004d242a5949a3f70e42711af54096) )
+	ROM_CONTINUE(0x000000, 0x100000)
+
+	NEO_SFIX_128K( "204.s1", CRC(219b6f40) SHA1(a771872489c8b6d4011e412362366d30ed363e22) )
+
+	NEO_BIOS_AUDIO_128K( "204.m1", CRC(a7bf83b2) SHA1(50e794135a2a6f02704b1e41635aa0923a5299c0) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "204.v1", 0x000000, 0x400000, CRC(a456c548) SHA1(89289c886b76ff5032d9132dca3c412c56642972) )
+	ROM_LOAD( "204.v2", 0x400000, 0x400000, CRC(0061e2ee) SHA1(67fbabc7f59978bace709fce83565fe792d85aa6) )
+	ROM_LOAD( "204.v3", 0x800000, 0x400000, CRC(62bb3457) SHA1(20f72ae57ad560a24d975e4eed918d43e431739f) )
+	ROM_LOAD( "204.v4", 0xc00000, 0x400000, CRC(212994c4) SHA1(051fd0d78a858101e8975a3be04e649e7bb24593) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "204.c1", 0x0000000, 0x800000, CRC(e72150ba) SHA1(1e15ad7ee5fa1ab9126f55c714e070ba9d8c9d89) )
+	ROM_LOAD16_BYTE( "204.c2", 0x0000001, 0x800000, CRC(5fab1784) SHA1(37e330c76744844a1257f219e8135a8fd308fd74) )
 ROM_END
 
 
@@ -4252,6 +4273,7 @@ ROM_END
 
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK", "ADK World", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, cbarrel,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )

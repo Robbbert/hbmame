@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [adkw]                ADK World
 - [dino281]             Cadillacs and Dinosaurs (Readjusted v1.1)
 - [dino282]             Cadillacs and Dinosaurs (Readjusted v1.2)
 - [dino283]             Cadillacs and Dinosaurs (Readjusted v1.4)
