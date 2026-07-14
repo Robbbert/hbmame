@@ -1014,7 +1014,6 @@ private:
 	void gfxbank_w(offs_t, uint8_t);
 	void rombank_w(offs_t, uint8_t);
 	uint16_t m_oldprom = 0xff;
-	uint8_t m_oldgfx = 0xff;
 	uint8_t m_rom_bank = 0;
 };
 
