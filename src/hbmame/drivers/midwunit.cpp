@@ -2343,6 +2343,55 @@ ROM_START( nbajam06 ) // ver 5.05 beta
 	ROM_LOAD32_BYTE( "nbajam06.u122",  0x0800003, 0x100000, CRC(ddf1bc38) SHA1(c181bf07a548005015a6d6d211d06ee5514cd1cb) )
 ROM_END
 
+/**************
+ NBA Hangtime
+***************/
+ROM_START( nbamht01 ) // nbamhtx
+	ROM_REGION16_LE( 0x800000, "dcs", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "l1.0_nba_hangtime_u_2_music_spch.u2", 0x000000, 0x100000, CRC(3f0b0d0a) SHA1(e3b8a264686ce7359d86e4926237d8cf17612991) )
+	ROM_LOAD16_BYTE( "l1.0_nba_hangtime_u_3_music_spch.u3", 0x200000, 0x100000, CRC(ec1db988) SHA1(1cf06d0b75f20ded7db648070e85c056043765bb) )
+	ROM_LOAD16_BYTE( "l1.0_nba_hangtime_u_4_music_spch.u4", 0x400000, 0x100000, CRC(c7f847a3) SHA1(c50175dffa3563ccd5792c59a6b44523f4014544) )
+	ROM_LOAD16_BYTE( "l1.0_nba_hangtime_u_5_music_spch.u5", 0x600000, 0x100000, CRC(ef19316a) SHA1(d41ae87ab45630a37c73684de42f7f6e0ed8f13b) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "nbamht01.u54", 0x00000, 0x80000, CRC(9fcf1f48) SHA1(ad10d0d890dfcad2c10bacbb24c2e1cc3f8b656d) )
+	ROM_LOAD16_BYTE( "nbamht01.u63", 0x00001, 0x80000, CRC(29530746) SHA1(99f1d4c83802f0cd7b9973c2f3b4f34adf242fcd) )
+
+	ROM_REGION( 0x2000000, "video", 0 )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_133_image_rom.u133", 0x0000000, 0x100000, CRC(3163feed) SHA1(eb7f128de306933929a0933e36e57760459cb0a1) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_132_image_rom.u132", 0x0000001, 0x100000, CRC(428eaf44) SHA1(2897efef4ab1653870b5bebb2762ea85549da03a) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_131_image_rom.u131", 0x0000002, 0x100000, CRC(5f7c5111) SHA1(14337f50b7b98254b54250af00f8a4a46bd7ee8d) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_130_image_rom.u130", 0x0000003, 0x100000, CRC(c7c0c514) SHA1(49788ff885996d9c5909c0ecebe06b6abd4298ed) )
+
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_129_image_rom.u129", 0x0400000, 0x100000, CRC(b3d0daa0) SHA1(302208c30f2b0c4aead8cf9201ae4c9501f7f952) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_128_image_rom.u128", 0x0400001, 0x100000, CRC(3704ee69) SHA1(e57846e96380af480fd6851c5359f88d432ac7cc) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_127_image_rom.u127", 0x0400002, 0x100000, CRC(4ea64d5a) SHA1(e7054c3946898ab0c5b4c27244c2eb6b24eaced7) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_126_image_rom.u126", 0x0400003, 0x100000, CRC(0c5c19b7) SHA1(802a05f53fcc2827960a63ef5c32a884fc96aaee) )
+
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_125_image_rom.u125", 0x0800000, 0x100000, CRC(46c43d67) SHA1(13a4d924fed51c2db7f750436b0b7c6ef03d36a5) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_124_image_rom.u124", 0x0800001, 0x100000, CRC(ed495156) SHA1(40f67fb2ccdd185b444f1127b1ec2fa4b493d7d6) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_123_image_rom.u123", 0x0800002, 0x100000, CRC(b48aa5da) SHA1(d8ee259a63dd7d997f2b99b73d0f11a277ba961d) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_122_image_rom.u122", 0x0800003, 0x100000, CRC(b18cd181) SHA1(d86eb5c81b10ba112ed989ab581683ccb669c3b5) )
+
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_121_image_rom.u121", 0x0c00000, 0x100000, CRC(5acb267a) SHA1(9c7e55991f795f0deae5f5cada3d5f49b7da578e) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_120_image_rom.u120", 0x0c00001, 0x100000, CRC(28e05f86) SHA1(ab642e7525b8fe55aab79597fcf84c4a8265463f) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_119_image_rom.u119", 0x0c00002, 0x100000, CRC(b4f604ea) SHA1(3997acfc856eead321e98584f7cb21953c95951a) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_118_image_rom.u118", 0x0c00003, 0x100000, CRC(a257b973) SHA1(31b4e3cf4e93be673d9b32dc85d7be0edcf6234c) )
+
+	ROM_LOAD32_BYTE( "nbamht01.u117", 0x1000000, 0x100000, CRC(6cf2e7b5) SHA1(6f76f663d48804daaece95decd5120d1d919e383) )
+	ROM_LOAD32_BYTE( "nbamht01.u116", 0x1000001, 0x100000, CRC(b19a5771) SHA1(a829ba6460df001139c1b20695c5a9ded725cbba) )
+	ROM_LOAD32_BYTE( "nbamht01.u115", 0x1000002, 0x100000, CRC(3a6dd372) SHA1(703635fc6e5e2fbf1137f45d26332315136f9ef5) )
+	ROM_LOAD32_BYTE( "nbamht01.u114", 0x1000003, 0x100000, CRC(23dbb571) SHA1(82598d728f89afdb788d3c80457bbfe293eccc3d) )
+
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_113_image_rom.u113", 0x1400000, 0x100000, CRC(d712a779) SHA1(ca0e25fbb570c28c9ac6674f35050152a9072a5b) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_112_image_rom.u112", 0x1400001, 0x100000, CRC(644e1bca) SHA1(447cc3b0a16aaff39b6cd095f1c255a91f235f7f) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_111_image_rom.u111", 0x1400002, 0x100000, CRC(10d3b768) SHA1(e22fcb02a17c78f963ee5d35a38a9ab14f3de450) )
+	ROM_LOAD32_BYTE( "l1.0_nba_hangtime_u_110_image_rom.u110", 0x1400003, 0x100000, CRC(8575aeb2) SHA1(883acfc45416ab6e1ab77fc897638f89286bea7e) )
+
+	ROM_REGION( 0x2000, "serial_security:pic", 0 )
+	ROM_LOAD( "459_nba_hang_time_u64.u64",  0x0000, 0x2000, CRC(0e642b39) SHA1(7e93a5bd0bd4a5fabf0612cdfdbfb400c6035ef7) )
+ROM_END
+
 /***************************************************
  Mortal Kombat (ported from midtunit)
 ****************************************************/
@@ -2481,6 +2530,8 @@ GAME( 2025, umk3wn,         umk3, wunit_picsim, mk3, midwunit_state, init_mk3, R
 GAME( 2020, wwfmania01, wwfmania, wunit_picsim, wwfmania, midwunit_state, init_wwfmania, ROT0, "hack", "WWF: Wrestlemania (Acid Clown Edition, SP2, 2020-12-02)", MACHINE_SUPPORTS_SAVE )
 // NBA JAM TE
 GAME( 2025, nbajam06, nbajamte, wunit_picsim, nbahangt, midwunit_state, empty_init, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.05, 2025-12-23)(Wolf h/w, preview)", MACHINE_SUPPORTS_SAVE )
+// NBA Hangtime
+GAME( 2026, nbamht01, nbahangt, wunit_picemu, nbahangt, midwunit_state, init_nbahangt, ROT0, "Midway", "NBA Maximum Hangtime (Custom Rebuild, 2026-07-02)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat
 GAME( 2026, mk08, mk, wunit_picsim, mk3, midwunit_state, empty_init, ROT0, "Asure", "Mortal Kombat (rev 5.1, 2026-02-06)(Wolf h/w, beta)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, mk09, mk, wunit_picsim, mk3, midwunit_state, empty_init, ROT0, "Asure", "Mortal Kombat (rev 5.5, 2026-03-16)(Wolf h/w, beta)", MACHINE_SUPPORTS_SAVE )
