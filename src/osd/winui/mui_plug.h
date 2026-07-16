@@ -33,6 +33,7 @@ public:
 	mui_plugin_options();
 
 	// public access
+	void init_plug(windows_options& o);
 	std::pair<std::string, std::string> get_lists(windows_options& o);
 	std::pair<std::string, std::string> split_into_lists(windows_options& o, int nGame, std::string chosen);
 

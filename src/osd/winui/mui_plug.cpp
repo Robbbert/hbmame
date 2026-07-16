@@ -18,7 +18,6 @@ Determine which plugins are valid, which ones are wanted and which ones are not 
 
 =================================================================================================== */
 #include "emu.h"
-#include "mui_plug.h"
 #include <windows.h>
 
 #include "fileio.h"
@@ -26,6 +25,9 @@ Determine which plugins are valid, which ones are wanted and which ones are not 
 #include "options.h"
 #include "path.h"
 #include "emuopts.h"
+
+#include "mui_plug.h"
+#include "emu_opts.h"
 
 #include <rapidjson/document.h>
 #include <rapidjson/error/en.h>
@@ -101,7 +103,7 @@ bool mui_plugin_options::load_plugin(const std::string &path)
 	else
 		return false;
 
-	// If "type" is missing reject plugin
+	// If "type" is missing, reject plugin
 	if (document["plugin"].HasMember("type"))
 	{
 		// Don't want type of "library"
@@ -255,7 +257,7 @@ std::pair<std::string, std::string>mui_plugin_options::get_lists(windows_options
 	}
 
 	// parse plugin.ini
-	emu_file file(o.ini_path(), OPEN_FLAG_READ);
+	emu_file file(GetIniDir(), OPEN_FLAG_READ);
 	if (!file.open("plugin.ini"))
 	{
 		try
@@ -337,7 +339,7 @@ std::pair<std::string, std::string>mui_plugin_options::split_into_lists(windows_
 	for (plugin &p : m_plugins)
 		p.m_start = false;
 
-	if (nGame < 0)
+	if (nGame == -1)
 	{
 		// Global - update plugin.ini, return empty lists
 
@@ -350,21 +352,22 @@ std::pair<std::string, std::string>mui_plugin_options::split_into_lists(windows_
 		}
 
 		// convert to ini format
-		std::string plugins(output_ini());
+		std::string pluglist(output_ini());
 
 		// write new plugin.ini
-		emu_file file(o.ini_path(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
+		emu_file file(GetIniDir(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 		if (file.open("plugin.ini"))
 			osd_printf_error("Unable to create plugin.ini, changes lost\n");
 		else
-			file.puts(plugins);
+			file.puts(pluglist);
 	}
 	else
+	if (nGame >= 0)
 	{
 		// per-game - compare string against plugin.ini, return delta
 
 		// parse plugin.ini
-		emu_file file(o.ini_path(), OPEN_FLAG_READ);
+		emu_file file(GetIniDir(), OPEN_FLAG_READ);
 		if (!file.open("plugin.ini"))
 		{
 			try
@@ -413,4 +416,36 @@ std::pair<std::string, std::string>mui_plugin_options::split_into_lists(windows_
 
 	return std::make_pair(ret1, ret2);
 }
+
+
+//-----------------------------------------------------
+//   If plugin.ini not exist, make a default one
+//-----------------------------------------------------
+
+void mui_plugin_options::init_plug(windows_options& o)
+{
+	m_plugins.clear();
+	std::string path;
+
+	// see if plugin.ini exist
+	emu_file file(GetIniDir(), OPEN_FLAG_READ | OPEN_FLAG_NO_PRELOAD);
+	if (file.open("plugin.ini"))
+	{
+		// find out what the defaults are
+		path_iterator iter(o.plugins_path());
+		while (iter.next(path))
+			scan_directory(path, true);
+
+		// convert results to ini format
+		std::string pluglist(output_ini());
+
+		// write new plugin.ini
+		emu_file file(GetIniDir(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
+		if (file.open("plugin.ini"))
+			osd_printf_error("Unable to create new plugin.ini\n");
+		else
+			file.puts(pluglist);
+	}
+}
+
 
