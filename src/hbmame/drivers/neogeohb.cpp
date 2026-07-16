@@ -210,6 +210,7 @@ NUM GAME YEAR COMPANY                 TITLE
 502 14A0 2023 Neo Byte Force          Cyborg Force (https://ozzyouzo.itch.io/cyborg-force)
 503 0722 2024 Pixelheart              Gladmort Demo
 503 0723 2024 Pixelheart              Gladmort Demo 2, Gladmort (full)
+503 029A 2026 Pixelheart              Gladmort Caravan Mode
 504 1337 2025 Hoffman                 Shinobi (Neo-Geo port)
 505 14A3 2025 La Casa De Ruivo        Double Dragon One demo/beta
 506 0283 2025 iq_132                  Karnov (Neo-Geo port)
@@ -2491,8 +2492,28 @@ ROM_START( gladmortd2 )
 	ROM_LOAD16_BYTE( "503d2.c2",   0x0000001, 0x1400000, CRC(1b927329) SHA1(4861da95ce6a9d0521bbeed3b4f06daa0750c15c) )
 ROM_END
 
+// 503 : Gladmort Caravan Mode by Pixelheart/ChipsOnSteroids
+ROM_START( gladmortcm )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "503cm.p1", 0x000000, 0x100000, CRC(2e6f89a1) SHA1(b7c917470884f8b405e5fd9877162a2b2a952fb5) )
 
-// Shinobi v1.0 (Neo-Geo port) by Hoffman
+	NEO_SFIX_128K( "503.s1", CRC(c96154b9) SHA1(c95251dc566d4649496b7785c8e4cddd0aa67d7f) )
+
+	NEO_BIOS_AUDIO_64K( "503.m1", CRC(fbccedbd) SHA1(61e7f745d24c4ec3598cbf3cefc603f7deb21497) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "503.v1",   0x000000, 0x400000, CRC(4c0efb20) SHA1(80424564a8cd19bbe7e3f8003129585174cc9367) )
+	ROM_LOAD( "503.v2",   0x400000, 0x400000, CRC(dbd083f5) SHA1(c76980473550fda0ece72fa87104ea79a6a8024e) )
+	ROM_LOAD( "503.v3",   0x800000, 0x400000, CRC(2f5c4eeb) SHA1(4ed687bde1d3b549581270e90832d90a46101df0) )
+	ROM_LOAD( "503.v4",   0xc00000, 0x400000, CRC(12e01947) SHA1(b8147e584712d77c47e97c7a4790807536a22a86) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "503cm.c1",   0x0000000, 0x1400000, CRC(f165c08e) SHA1(71792ee83037a1892317991e24578eb4846608b2) )
+	ROM_LOAD16_BYTE( "503cm.c2",   0x0000001, 0x1400000, CRC(47688aa8) SHA1(4295eaf0d085fc67fdc3e65cba2a0418c03c3016) )
+ROM_END
+
+
+// 504: Shinobi v1.0 (Neo-Geo port) by Hoffman
 ROM_START( shinobin )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "504.p1", 0x000000, 0x080000, CRC(3bf8e303) SHA1(84ed6ef7a2cddbc49341c3f7545b63b7d7ee67a0) )
@@ -2510,8 +2531,7 @@ ROM_START( shinobin )
 	ROM_LOAD16_BYTE( "504.c2",   0x000001, 0x080000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
 ROM_END
 
-
-// Shinobi v1.1 (Neo-Geo port) by Hoffman
+// 504: Shinobi v1.1 (Neo-Geo port) by Hoffman
 ROM_START( shinobin1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "504a.p1", 0x000000, 0x080000, CRC(05fd9434) SHA1(6169b376c5258723a52c08a35d2990dd1c2eb6aa) )
@@ -2529,8 +2549,7 @@ ROM_START( shinobin1 )
 	ROM_LOAD16_BYTE( "504.c2",   0x000001, 0x080000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
 ROM_END
 
-
-// Shinobi Test by Hoffman
+// 504: Shinobi Test by Hoffman
 ROM_START( shinobint )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "504t.p1", 0x000000, 0x080000, CRC(6ea08aef) SHA1(f1a9bbceb1caa56fe10ac046df07b7bf02b70900) )
@@ -2833,7 +2852,7 @@ ROM_START( grime )
 ROM_END
 
 
-// Halo Zero demo by Earok (https://earok.itch.io)
+// 518: Halo Zero demo by Earok (https://earok.itch.io)
 ROM_START( halozero )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "518.p1", 0x000000, 0x040000, CRC(472205ad) SHA1(9514c7975826b5f12607cc261e05904cb49007f3) )
@@ -2851,7 +2870,7 @@ ROM_START( halozero )
 ROM_END
 
 
-// Blue and Red Fight the Robots by Kaiju Wasp (https://kaijuwasp.itch.io)
+// 519: Blue and Red Fight the Robots by Kaiju Wasp (https://kaijuwasp.itch.io)
 ROM_START( blueandr )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "519.p1", 0x000000, 0x100000, CRC(6e4f71aa) SHA1(04f6be53c276fbdd98ddb2831e508314dd57bfdd) )
@@ -4377,6 +4396,7 @@ GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2023, galaxiann2,   galaxiann,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, gladmort,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart / ChipsOnSteroids", "Gladmort", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gladmortcm,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart / ChipsOnSteroids", "Gladmort (Caravan Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, gladmortd2,   gladmortd,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Hoffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
