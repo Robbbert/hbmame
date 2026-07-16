@@ -227,6 +227,7 @@ NUM GAME YEAR COMPANY                 TITLE
 517 0FFF 2019 Keith S                 Grime 68000
 518 5345 2025 Earok                   Halo Zero demo
 519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots
+520 5345 2026 DomKid                  Midnight Wanderers (Neo-Geo port) 2-level demo
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2889,6 +2890,24 @@ ROM_START( blueandr )
 ROM_END
 
 
+// 520: Midnight Wanderers 2-level demo by DomKid
+ROM_START( midnight )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "520.p1", 0x000000, 0x080000, CRC(92fdb042) SHA1(535c6568fab3fca2b4c64a95d24eb5d3d9162902) )
+
+	NEO_SFIX_128K( "520.s1", CRC(6f97ae2e) SHA1(c25b5dc98b7eb9759698fea7be69a9e4937b9ef4) )
+
+	NEO_BIOS_AUDIO_256K( "520.m1", CRC(64f774ea) SHA1(49df9ac5877dcb26f08c277027e484d0f89b51c7) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "520.v1", 0x000000, 0xa40000, CRC(f9506ce5) SHA1(0074040fbe6211fd9bd6dd13041c226fc24f7fc5) )
+
+	ROM_REGION( 0x1c0000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "520.c1", 0x000000, 0xe0000, CRC(d3a28f25) SHA1(69f6cd1c2e17df466096095d1fad0f4cfc4c0713) )
+	ROM_LOAD16_BYTE( "520.c2", 0x000001, 0xe0000, CRC(99a44023) SHA1(cae2ecc5a2d0742594a3cdf9462861e9c2f2c1eb) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -4423,6 +4442,7 @@ GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "DomKid", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, neo2048,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Nicole Branagan", "Neo 2048", MACHINE_SUPPORTS_SAVE )

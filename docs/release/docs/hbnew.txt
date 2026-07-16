@@ -13,6 +13,7 @@ New Games
 - [dino282]             Cadillacs and Dinosaurs (Readjusted v1.2)
 - [dino283]             Cadillacs and Dinosaurs (Readjusted v1.4)
 - [gladmortcm]          Gladmort (Caravan Mode)
+- [midnight]            Midnight Wanderers 2-level demo (Neo-Geo port)
 - [samsho2s21]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
 - [samsho2s22]          Samurai Shodown II (Perfect v2.9, 2026-06-29)
 - [sengoku2s01]         Sengoku 2 (Red Blood)
