@@ -19,6 +19,7 @@ New Games
 - [sengoku2s01]         Sengoku 2 (Red Blood)
 - [sf2prime]            Street Fighter II': Prime (v0.78)
 - [sfiii3ns15]          Street Fighter III 3rd Strike: Fight for the Future (4rd Strike 2011-07-17)
+- [xeviousn05]          Xevious (Neo-Geo port, gfx fix)
 - [zintrick07]          ZinTricK (Music tracks) improvements
 
 
