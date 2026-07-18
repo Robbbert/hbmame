@@ -15,8 +15,6 @@ TODO:
 - Port over pc88va SASI version in common C-Bus option;
 - Remove kludge for POR bit in a20_ctrl_w fn;
 \- Causes "SYSTEM SHUTDOWN"s on OS installs/reboots (soft reset the machine manually);
-- CMT support (-03/-13/-36 i/f or cbus only, supported by i86/V30 fully compatible machines
-  only);
 - DAC1BIT has a bit of clicking with start/end of samples, is it fixable or just a btanb?
 - Incomplete FDC inner semantics with the dual ports;
 \- floppy sounds never silences when drive is idle (disabled for the time being);
@@ -24,7 +22,7 @@ TODO:
 - Export mouse support to an actual PC9871 device;
 - GP-IB emulation, μPD7210;
 - Per-system dip-switches/configurations;
-- Disable EGC use where it's not mounted normally (test thru dbuster and hypbingo)
+- Disable EGC use where it's not mounted normally (testable thru dbuster and hypbingo)
 
 TODO (pc9801/pc9801f):
 - Move vanilla FDC 2HD/2DD to a separate (legacy?) bus, and split pc9801f (default: 2DD)
@@ -230,19 +228,19 @@ void pc9801_state::pc9801_common_io(address_map &map)
 void pc9801_state::cbus_overlay_io(address_map &map)
 {
 	map(0x91, 0x91).lrw8(
-		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x90 >> 1, 0xff00); }),
+		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x90 >> 1, 0xff00) >> 8; }),
 		NAME([this] (offs_t offset, u8 data) { m_cbus_root->io_w(0x90 >> 1, data << 8, 0xff00); })
 	);
 	map(0x93, 0x93).lrw8(
-		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x92 >> 1, 0xff00); }),
+		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x92 >> 1, 0xff00) >> 8; }),
 		NAME([this] (offs_t offset, u8 data) { m_cbus_root->io_w(0x92 >> 1, data << 8, 0xff00); })
 	);
 	map(0x95, 0x95).lrw8(
-		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x94 >> 1, 0xff00); }),
+		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x94 >> 1, 0xff00) >> 8; }),
 		NAME([this] (offs_t offset, u8 data) { m_cbus_root->io_w(0x94 >> 1, data << 8, 0xff00); })
 	);
 	map(0x97, 0x97).lrw8(
-		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x96 >> 1, 0xff00); }),
+		NAME([this] (offs_t offset) { return m_cbus_root->io_r(0x96 >> 1, 0xff00) >> 8; }),
 		NAME([this] (offs_t offset, u8 data) { m_cbus_root->io_w(0x96 >> 1, data << 8, 0xff00); })
 	);
 }
