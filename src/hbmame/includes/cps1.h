@@ -452,6 +452,8 @@ public:
 	void init_dinohb();
 	void init_punisherb();
 	void init_sf2rk();
+	void init_sk2a2();
+	void init_sk2f1();
 	void init_sf2h9();
 	void init_sf2h13();
 	void init_sk2h1();
@@ -460,7 +462,7 @@ public:
 	void init_sk2h21();
 	void init_sk2h22();
 	void init_sk2h31();
-	void init_sk2h35();
+	void init_sk2k9();
 	void init_pang3b4();
 	void varthb2_cps_a_w(offs_t offset, uint16_t data);
 	uint16_t pang3b4_prot_r();
