@@ -859,12 +859,12 @@ u8 pc6001mk2sr_state::hw_rev_r()
 	// bit 1 is active for pc6601sr (and shows the "PC6601SR World" screen in place of the "PC6001mkIISR World"),
 	// causes a direct jump to "video telopper" for pc6001mk2sr
 	// bit 0 is related to FDC irq status
-	return 0 | 1;
+	return 0 | m_fdc->get_irq();
 }
 
 u8 pc6601sr_state::hw_rev_r()
 {
-	return 2 | 1;
+	return 2 | m_fdc->get_irq();
 }
 
 void pc6001mk2sr_state::crt_mode_w(u8 data)
@@ -1173,13 +1173,14 @@ uint8_t pc6001_state::ppi_portc_r()
 inline void pc6001_state::cassette_motor_control(bool new_state)
 {
 	// 0 -> 1 transition: send PLAY tape cmd to i8049
-	if((!(m_sys_latch & 8)) && new_state == true) //PLAY tape cmd
+	if (!(m_sys_latch & 8) && new_state) //PLAY tape cmd
 	{
 		m_cas_motor = true;
 		//m_cassette->change_state(CASSETTE_MOTOR_ENABLED,CASSETTE_MASK_MOTOR);
 	}
+
 	// 1 -> 0 transition: send STOP tape cmd to i8049
-	if((m_sys_latch & 8) && new_state == false) //STOP tape cmd
+	if ((m_sys_latch & 8) && !new_state) //STOP tape cmd
 	{
 		m_cas_motor = false;
 		//m_cassette->change_state(CASSETTE_MOTOR_DISABLED,CASSETTE_MASK_MOTOR);
