@@ -26589,3 +26589,26 @@ ROM_START( hyxevious )
 	ROM_LOAD( "xvi-1.5n",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
+
+// Crossed Swords 2
+
+// Roms missing; not working at all
+ROM_START( csw2s01 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "054s01.p1", 0x000000, 0x100000, CRC(b6e8f765) SHA1(fac63109664b834b43240a6e93353173e129e6af) )
+
+	NEO_SFIX_128K( "054s01.s1", CRC(7ddb9c7e) SHA1(c7ca63f1ff9edb2f71d13cc14d6a426b85182228) )
+
+	NEO_BIOS_AUDIO_64K( "054s01.m1", CRC(c45e902b) SHA1(fa17a16077393f986b72f412ce91bded34558af0) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "054s01.v1", 0x00000, 0x80000, CRC(a12842f2) SHA1(6f6377ff54465c4c13e34f8cb4f333f4f15aed5c) )
+	ROM_LOAD( "054s01.v2", 0x80000, 0x80000, CRC(3b7feef0) SHA1(748db17fbd3bf8fc427ff57e0952f21dd2782e6b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 ) // c-roms not found yet, using crswd2bl roms for now
+	ROM_LOAD16_BYTE( "054.c1", 0x000000, 0x400000, CRC(8221b712) SHA1(7e68871f1bfc402ef27c8fa088c680cbd133f71a) )
+	ROM_LOAD16_BYTE( "054.c2", 0x000001, 0x400000, CRC(d6c6183d) SHA1(cc546ff063fae2c01c109fabcd5b2d29ec3299db) )
+ROM_END
+
+GAME( 1995, csw2s01,      neogeo,   no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2 (failed CD conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+

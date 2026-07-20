@@ -505,22 +505,24 @@ ROM_START( csw2 ) // crswd2blp
 	ROM_LOAD16_BYTE( "054.c2", 0x000001, 0x400000, CRC(d6c6183d) SHA1(cc546ff063fae2c01c109fabcd5b2d29ec3299db) )
 ROM_END
 
-// Roms missing; not working at all
-ROM_START( csw2s01 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "054s01.p1", 0x000000, 0x100000, CRC(b6e8f765) SHA1(fac63109664b834b43240a6e93353173e129e6af) )
+ROM_START( csw2s01 ) // crswd2blpx
+	ROM_REGION( 0x200000, "maincpu", ROMREGION_BE|ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "054s01.p1", 0x100000, 0x100000, CRC(3e77a96f) SHA1(3876f5e0fa6f6c0381586ce4a9761e09e11aa1cb) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "054s01.s1", CRC(7ddb9c7e) SHA1(c7ca63f1ff9edb2f71d13cc14d6a426b85182228) )
 
-	NEO_BIOS_AUDIO_64K( "054s01.m1", CRC(c45e902b) SHA1(fa17a16077393f986b72f412ce91bded34558af0) )
+	NEO_BIOS_AUDIO_128K( "054s01.m1", CRC(f8fda0dd) SHA1(097a63faede03ebe3f548cd8fbf4362c3897e31e) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "054s01.v1", 0x00000, 0x80000, CRC(a12842f2) SHA1(6f6377ff54465c4c13e34f8cb4f333f4f15aed5c) )
-	ROM_LOAD( "054s01.v2", 0x80000, 0x80000, CRC(3b7feef0) SHA1(748db17fbd3bf8fc427ff57e0952f21dd2782e6b) )
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "054s01.v1", 0x000000, 0x400000, CRC(e2592de1) SHA1(7f5c05a507ca4d2484834ef28378c302e0e11364) )
+	ROM_LOAD( "054s01.v2", 0x400000, 0x400000, CRC(a6c27244) SHA1(5feb37d7af1827a05740182d414ab71c3b385149) )
+	ROM_LOAD( "054s01.v3", 0x800000, 0x400000, CRC(de506a5b) SHA1(2151f6805bfe3e633f6196c2730451ed68db0f63) )
+	ROM_LOAD( "054s01.v4", 0xc00000, 0x400000, CRC(d3aa8645) SHA1(eac7afb8ce6003cf249e800d7d92d5f6b02fca25) )
 
-	ROM_REGION( 0x800000, "sprites", 0 ) // c-roms not found yet, using crswd2bl roms for now
-	ROM_LOAD16_BYTE( "054.c1", 0x000000, 0x400000, CRC(8221b712) SHA1(7e68871f1bfc402ef27c8fa088c680cbd133f71a) )
-	ROM_LOAD16_BYTE( "054.c2", 0x000001, 0x400000, CRC(d6c6183d) SHA1(cc546ff063fae2c01c109fabcd5b2d29ec3299db) )
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "054s01.c1", 0x000000, 0x400000, CRC(8404780c) SHA1(30a1e7249f01cd9dade96773ca17d584f5b4374d) )
+	ROM_LOAD16_BYTE( "054s01.c2", 0x000001, 0x400000, CRC(d8016890) SHA1(a3d38f9e6bbed588363c7bd598511570f9c392b5) )
 ROM_END
 
 
@@ -4369,7 +4371,7 @@ GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, cbarrel,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, csw2,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (full CD music)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, csw2s01,      neogeo,   no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2 (failed CD conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, csw2s01,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (update)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2s01,       fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2s02,       fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
