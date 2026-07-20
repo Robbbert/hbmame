@@ -367,16 +367,14 @@ files {
 	MAME_DIR .. "src/mame/dataeast/deco16ic.cpp", -- cninja
 	MAME_DIR .. "src/mame/dataeast/deco104.cpp",  -- cninja
 	MAME_DIR .. "src/mame/dataeast/deco146.cpp", -- cninja
+	MAME_DIR .. "src/mame/dataeast/deco156.cpp", -- cninja
 	MAME_DIR .. "src/mame/shared/decospr.cpp",  -- cninja
 	MAME_DIR .. "src/mame/dataeast/deco_irq.cpp",  -- cninja
 	MAME_DIR .. "src/mame/dataeast/decocrpt.cpp",  -- cninja
 	MAME_DIR .. "src/hbmame/drivers/deco_mlc.cpp",  -- mlc
 	MAME_DIR .. "src/mame/dataeast/deco_mlc_v.cpp",    -- mlc
-	MAME_DIR .. "src/mame/dataeast/deco156.cpp",   -- mlc
-	MAME_DIR .. "src/mame/dataeast/deco156.cpp",   -- mlc, deco32
-	MAME_DIR .. "src/mame/dataeast/deco156_m.cpp",   -- mlc, deco32
-	MAME_DIR .. "src/hbmame/drivers/deco32.cpp",
-	MAME_DIR .. "src/mame/dataeast/deco32_v.cpp",
+	MAME_DIR .. "src/hbmame/drivers/fghthist.cpp",
+	MAME_DIR .. "src/mame/dataeast/fghthist_v.cpp",
 	MAME_DIR .. "src/mame/shared/decobsmt.cpp", -- deco32
 	MAME_DIR .. "src/mame/dataeast/deco_ace.cpp", -- deco32
 	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
