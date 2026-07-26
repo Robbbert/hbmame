@@ -798,6 +798,8 @@ files {
 	MAME_DIR .. "src/mame/sega/saturn_v.cpp",
 	MAME_DIR .. "src/mame/sega/saturn_scu.cpp",
 	MAME_DIR .. "src/mame/sega/saturn_cd_hle.cpp",
+	MAME_DIR .. "src/mame/sega/saturn_dcc.cpp",
+	MAME_DIR .. "src/mame/sega/saturn_vdp2.cpp",
 	MAME_DIR .. "src/mame/sega/segabill.cpp",
 	MAME_DIR .. "src/mame/sega/smpc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/model1.cpp", -- from here, for model1
