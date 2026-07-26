@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [adkw]                ADK World
+- [blueandr]            Blue and Red Fight the Robots v1.7
 - [cabaln02]            Cabal (NeoGeo port) improvements
 - [dino281]             Cadillacs and Dinosaurs (Readjusted v1.1)
 - [dino282]             Cadillacs and Dinosaurs (Readjusted v1.2)
