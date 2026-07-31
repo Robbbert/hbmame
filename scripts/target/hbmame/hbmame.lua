@@ -598,6 +598,7 @@ files {
 	MAME_DIR .. "src/mame/namco/polepos_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/rallyx.cpp",
 	MAME_DIR .. "src/mame/namco/rallyx_v.cpp",
+	MAME_DIR .. "src/mame/namco/nl_rallyx.cpp",
 	MAME_DIR .. "src/mame/namco/namcoio.cpp",
 	MAME_DIR .. "src/mame/namco/namco06.cpp",
 	MAME_DIR .. "src/mame/namco/namco50.cpp",
