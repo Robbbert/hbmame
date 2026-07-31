@@ -60,7 +60,8 @@ private:
 	output_finder<> m_lamp;
 	output_finder<> m_strobe;
 	emu_timer *m_strobe_timer = nullptr;
-	u8 m_strobe_enable = 0;
+	uint8_t m_strobe_enable = 0;
+	bool m_sound_en = 0;
 };
 
 class spcenctr_state : public driver_device
@@ -849,24 +850,25 @@ static DISCRETE_SOUND_START(spcenctr_discrete)
 	DISCRETE_OUTPUT(NODE_91, 20000)
 DISCRETE_SOUND_END
 
-spcenctr_audio_device::spcenctr_audio_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock) :
-	device_t(mconfig, SPCENCTR_AUDIO, tag, owner, clock),
-	m_sn(*this, "snsnd"),
-	m_discrete(*this, "discrete"),
-	m_lamp(*this, "LAMP"),
-	m_strobe(*this, "STROBE"),
-	m_strobe_timer(nullptr),
-	m_strobe_enable(0U)
+spcenctr_audio_device::spcenctr_audio_device(machine_config const &mconfig, char const *tag, device_t *owner, u32 clock)
+	: device_t(mconfig, SPCENCTR_AUDIO, tag, owner, clock)
+	, m_sn(*this, "snsnd")
+	, m_discrete(*this, "discrete")
+	, m_lamp(*this, "LAMP")
+	, m_strobe(*this, "STROBE")
+	, m_strobe_timer(nullptr)
+	, m_strobe_enable(0U)
 {
 }
 
 void spcenctr_audio_device::p1_w(u8 data)
 {
-	machine().sound().system_mute(!BIT(data, 0));
+	m_sound_en = BIT(data, 0);
 
 	// D1 is marked as 'OPTIONAL SWITCH VIDEO FOR COCKTAIL', but it is never set by the software
 
-	m_discrete->write(SPCENCTR_CRASH_EN, BIT(data, 2));
+	if (m_sound_en)
+		m_discrete->write(SPCENCTR_CRASH_EN, BIT(data, 2));
 
 	// D3-D7 are not connected
 }
@@ -875,9 +877,11 @@ void spcenctr_audio_device::p2_w(u8 data)
 {
 	// set WIND SOUND FREQ(data & 0x0f)  0, if no wind
 
-	m_discrete->write(SPCENCTR_EXPLOSION_EN, BIT(data, 4));
-	m_discrete->write(SPCENCTR_PLAYER_SHOT_EN, BIT(data, 5));
-
+	if (m_sound_en)
+	{
+		m_discrete->write(SPCENCTR_EXPLOSION_EN, BIT(data, 4));
+		m_discrete->write(SPCENCTR_PLAYER_SHOT_EN, BIT(data, 5));
+	}
 	// D6 and D7 are not connected
 }
 
@@ -886,15 +890,20 @@ void spcenctr_audio_device::p3_w(u8 data)
 {
 	// if (data & 0x01)  enable SCREECH (hit the sides) sound
 
-	m_discrete->write(SPCENCTR_ENEMY_SHIP_SHOT_EN, BIT(data, 1));
+	if (m_sound_en)
+		m_discrete->write(SPCENCTR_ENEMY_SHIP_SHOT_EN, BIT(data, 1));
 
 	m_strobe_enable = BIT(data, 2);
 
 	m_lamp = BIT(data, 3);
 
-	m_discrete->write(SPCENCTR_BONUS_EN, BIT(data, 4));
+	if (m_sound_en)
+		m_discrete->write(SPCENCTR_BONUS_EN, BIT(data, 4));
 
-	m_sn->enable_w(BIT(data, 5));
+	if (m_sound_en)
+		m_sn->enable_w(BIT(data, 5));
+	else
+		m_sn->enable_w(1);
 
 	// D6 and D7 are not connected
 }
