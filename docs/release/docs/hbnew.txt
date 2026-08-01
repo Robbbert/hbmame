@@ -18,6 +18,7 @@ New Games
 - [dino282]             Cadillacs and Dinosaurs (Readjusted v1.2)
 - [dino283]             Cadillacs and Dinosaurs (Readjusted v1.4)
 - [gladmortcm]          Gladmort (Caravan Mode)
+- [hyxevious]           Hyper Xevious (2026-07-30)
 - [midnight]            Midnight Wanderers 2-level demo (Neo-Geo port)
 - [nbamht01]            NBA Maximum Hangtime (Custom Rebuild, 2026-07-02)
 - [samsho2s21]          Samurai Shodown II (Perfect v2.4, 2025-01-27)

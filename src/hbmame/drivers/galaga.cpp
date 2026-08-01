@@ -1217,14 +1217,14 @@ ROM_END
 
 ROM_START( hyxevious )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "hyxvi_1.3p",     0x0000, 0x1000, CRC(3083987b) SHA1(8dd09a93f960660721283d8cb69407ce1c6ae574) )
-	ROM_LOAD( "hyxvi_2.3m",     0x1000, 0x1000, CRC(dd07d018) SHA1(519775ed9145d2c8aa21cfff0c09697a30f06a8f) )
-	ROM_LOAD( "hyxvi_3.2m",     0x2000, 0x1000, CRC(79c0fb2f) SHA1(93ceb4a9594fd1151ad2f95e4c0c6a90b2d7bfee) )
-	ROM_LOAD( "hyxvi_4.2l",     0x3000, 0x1000, CRC(ec88d2bc) SHA1(3132df4bd626366fa4ee3cf3ee15575a2f62ed71) )
+	ROM_LOAD( "hyxvi_1.3p",     0x0000, 0x1000, CRC(08272d28) SHA1(4f9fab73fc5f0c0070459f592ea8f039514c23b4) )
+	ROM_LOAD( "hyxvi_2.3m",     0x1000, 0x1000, CRC(8c9f4685) SHA1(9c11150cce2f7c228110d9298011d8bbc0f8357c) )
+	ROM_LOAD( "hyxvi_3.2m",     0x2000, 0x1000, CRC(3088765b) SHA1(f8abbbacc4f0418c58b72094a44e2557b8a9275c) )
+	ROM_LOAD( "hyxvi_4.2l",     0x3000, 0x1000, CRC(c27a7ed4) SHA1(e240a3d37c7d07ad0b01c283819074ea3e9c0977) )
 
 	ROM_REGION( 0x10000, "sub", 0 )
-	ROM_LOAD( "hyxvi_5.3f",     0x0000, 0x1000, CRC(d921841a) SHA1(ff3431d63c15da8e035fd8386bfa96699d2e8a81) )
-	ROM_LOAD( "hyxvi_6.3j",     0x1000, 0x1000, CRC(c13e8374) SHA1(d43572b64e343c1724359fd296b1b1963b90899d) )
+	ROM_LOAD( "hyxvi_5.3f",     0x0000, 0x1000, CRC(ac6c050d) SHA1(f448ad969894e27d7314c68b20c777772ba34615) )
+	ROM_LOAD( "hyxvi_6.3j",     0x1000, 0x1000, CRC(e32de02d) SHA1(eb1aba1a8d46120177535c9848b9d183ccef94b5) )
 
 	ROM_REGION( 0x10000, "sub2", 0 )
 	ROM_LOAD( "xvi_7.2c",     0x0000, 0x1000, CRC(dd35cf1c) SHA1(f8d1f8e019d8198308443c2e7e815d0d04b23d14) )
@@ -1297,5 +1297,5 @@ GAME( 2002, xevioush,     xevious, xevious,  xevious,  xevious_state, init_xevio
 GAME( 2001, xeviousp,     xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "bootleg", "Xevious Plus! (Release 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, xviousah,     xevious, xevious,  xeviousa, xevious_state, init_xevious, ROT90, "Namco (Atari license)", "Xevious 2002 (Atari set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, sxevious01,   xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "hack", "Xevious Plus! (Release 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, hyxevious,    xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "Zeroco", "Hyper Xevious", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, hyxevious,    xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "Zeroco", "Hyper Xevious (2026-07-30)", MACHINE_SUPPORTS_SAVE )
 
