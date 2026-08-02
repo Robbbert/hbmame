@@ -23,9 +23,10 @@ New Games
 - [nbamht01]            NBA Maximum Hangtime (Custom Rebuild, 2026-07-02)
 - [samsho2s21]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
 - [samsho2s22]          Samurai Shodown II (Perfect v2.9, 2026-06-29)
-- [sengoku2s01]         Sengoku 2 (Red Blood)
+- [sengoku2s01]         Sengoku 2 (Red Blood, v1.14)
 - [sf2prime]            Street Fighter II': Prime (v0.79)
 - [sfiii3ns15]          Street Fighter III 3rd Strike: Fight for the Future (4rd Strike 2011-07-17)
+- [turfmast03]          Neo Turf Masters with Scotland course v1.10
 - [xeviousn05]          Xevious (Neo-Geo port, gfx fix)
 - [zintrick07]          ZinTricK (Music tracks) improvements
 

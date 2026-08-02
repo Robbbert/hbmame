@@ -26492,6 +26492,32 @@ GAME( 2026, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, R
 // ------------------------------------- DONKEY KONG --------------- These work, but are old versions -----------------
 
 
+// ------------------------------------- SENGOKU 2 -------------------------------------------
+
+ROM_START( sengoku2s01 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "040s01.p1", 0x000000, 0x100000, CRC(b26122f7) SHA1(e32e9a8a4321fb076d78788dea3b124d64b70085) )
+
+	NEO_SFIX_128K( "040.s1", CRC(cd9802a3) SHA1(f685d4638f4f68e7e3f101c0c39128454536721b) )
+
+	NEO_BIOS_AUDIO_128K( "040.m1", CRC(d4de4bca) SHA1(ecf604d06f01d40b04e285facef66a6ae2d35661) )
+
+	ROM_REGION( 0x300000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "040.v1", 0x000000, 0x200000, CRC(71cb4b5d) SHA1(56d9aca1d476c19c7d0f707176a8fed53e0189b7) )
+	ROM_LOAD( "040.v2", 0x200000, 0x100000, CRC(c5cece01) SHA1(923a3377dac1919e8c3d9ab316902250caa4785f) )
+
+	ROM_REGION( 0x600000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "040s01.c1", 0x000000, 0x100000, CRC(414b1c85) SHA1(f556141553ba12d4942c9f7a76cc67c701ae881a) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "040s01.c2", 0x000001, 0x100000, CRC(86b929ad) SHA1(f0abfcfc54d5ca1f9e7ade2b23e45d849d7263a0) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "040s01.c3", 0x200000, 0x080000, CRC(327e432f) SHA1(66855ab18c063dfc61ffa2bee4a1afcffd8b0767) )
+	ROM_LOAD16_BYTE( "040s01.c4", 0x200001, 0x080000, CRC(4c6d8667) SHA1(a48aceb7c17c39f3a343da430948b6e40d46dcea) )
+ROM_END
+
+GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood)", MACHINE_SUPPORTS_SAVE )
+
+
 // ------------------------------------- SONIC WINGS -----------------------------------------
 
 //Address error with many calls to wrong instruction at 6b6c. Once this was patched, the sound turned into a
@@ -26561,7 +26587,29 @@ ROM_START( turfmast02 ) // replace Australia with Scotland
 	ROM_LOAD16_BYTE( "200s02.c2", 0x000001, 0x400000, CRC(5f589076) SHA1(a43de326c1059ea101b23e933a02edcf77eb66ac) )
 ROM_END
 
+
+ROM_START( turfmast03 ) // replace Australia with Scotland
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "200s03.p1", 0x100000, 0x100000, CRC(c1c9751c) SHA1(83e0b26688499a8e06b9df868b9a830bd14051e6) )
+	ROM_CONTINUE( 0x000000, 0x100000)
+
+	NEO_SFIX_128K( "200.s1", CRC(9a5402b2) SHA1(ae1a0b5450869d61b2bb23671c744d3dda8769c4) )
+
+	NEO_BIOS_AUDIO_128K( "200s03.m1", CRC(932b54e8) SHA1(f8f6082366f5214c140c7435d45e62ea4c0502e5) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "200.v1", 0x000000, 0x200000, CRC(00fd48d2) SHA1(ddfee09328632e598fd51537b3ae8593219b2111) )
+	ROM_LOAD( "200s03.v2", 0x200000, 0x200000, CRC(8be97582) SHA1(db7c504c00503ed715e6c19d432f61d26128eebc) )
+	ROM_LOAD( "200.v3", 0x400000, 0x200000, CRC(7abca053) SHA1(e229bc0ea82a371d6ee8fd9fe442b0fd141d0a71) )
+	ROM_LOAD( "200s03.v4", 0x600000, 0x200000, CRC(e894954f) SHA1(438068d321c2ddee871f4bbf5aa07041320a05b6) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "200s03.c1", 0x000000, 0x400000, CRC(bb2a69a7) SHA1(cc886b2e07f2a6118928ecea446f4fb6690a28ce) )
+	ROM_LOAD16_BYTE( "200s03.c2", 0x000001, 0x400000, CRC(443e13c5) SHA1(d36926328405447ae8d93b4b4ac84215a1cd145f) )
+ROM_END
+
 GAME( 2026, turfmast02,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, turfmast03,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course v1.08", MACHINE_SUPPORTS_SAVE )
 
 //----------------------------- HYPER XEVIOUS ----------------------------------------------------
 

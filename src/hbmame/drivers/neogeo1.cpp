@@ -4722,7 +4722,7 @@ ROM_END
 
 ROM_START( turfmast03 ) // replace Australia with Scotland
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "200s03.p1", 0x100000, 0x100000, CRC(c1c9751c) SHA1(83e0b26688499a8e06b9df868b9a830bd14051e6) )
+	ROM_LOAD16_WORD_SWAP( "200s03.p1", 0x100000, 0x100000, CRC(c3d845ae) SHA1(5855f6b7d267fa4294824837eb2ad8bc6a31cc2f) )
 	ROM_CONTINUE( 0x000000, 0x100000)
 
 	NEO_SFIX_128K( "200.s1", CRC(9a5402b2) SHA1(ae1a0b5450869d61b2bb23671c744d3dda8769c4) )
@@ -5288,7 +5288,7 @@ GAME( 2007, tpgolf01,       tpgolf,   neogeo_noslot, neogeo,   neogeo_state, ini
 GAME( 1991, trally01,       trally,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "CD_conv", "Rally Chase (CD conversion)", MACHINE_SUPPORTS_SAVE )
 // Neo Turf Masters
 GAME( 2025, turfmast01,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "StiNKz", "Neo Turf Masters - Course and Pin Randomiser v0.1", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, turfmast03,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course v1.08", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, turfmast03,     turfmast, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Deric Miller", "Neo Turf Masters with Scotland course v1.10", MACHINE_SUPPORTS_SAVE )
 // Twinkle Star Sprites
 GAME( 1996, twinspri01,     twinspri, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Yumeji", "Twinkle Star Sprites (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 // Viewpoint
