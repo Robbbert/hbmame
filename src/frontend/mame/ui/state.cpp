@@ -242,7 +242,7 @@ bool menu_load_save_state_base::handle(event const *ev)
 	// process the event
 	if (INPUT_CODE_INVALID != m_slot_selected)
 	{
-		if (!machine().input().code_pressed(m_slot_selected))
+		//if (!machine().input().code_pressed(m_slot_selected))
 			stack_pop();
 		return false;
 	}

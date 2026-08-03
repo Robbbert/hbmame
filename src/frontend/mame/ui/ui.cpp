@@ -347,6 +347,11 @@ void mame_ui_manager::init()
 			configuration_manager::load_delegate(&mame_ui_manager::config_load_pointers, this),
 			configuration_manager::save_delegate(&mame_ui_manager::config_save_pointers, this));
 
+	// Register slider configuration for persistence
+	machine().configuration().config_register("sliders",
+			configuration_manager::load_delegate(&mame_ui_manager::sliders_load, this),
+			configuration_manager::save_delegate(&mame_ui_manager::sliders_save, this)); // Slider save
+
 	// create mouse bitmap
 	uint32_t *dst = &m_mouse_bitmap.pix(0);
 	memcpy(dst,mouse_bitmap,32*32*sizeof(uint32_t));
@@ -2047,7 +2052,7 @@ std::vector<ui::menu_item> mame_ui_manager::slider_init(running_machine &machine
 	}
 
 	// add speed and CPU overclocking (cheat only)
-	if (machine.options().cheat())
+	//if (machine.options().cheat())
 	{
 		slider_alloc(_("Global Speed"), 100, 1000, 10000, 10, std::bind(&mame_ui_manager::slider_speed, this, _1, _2));
 
@@ -2078,7 +2083,7 @@ std::vector<ui::menu_item> mame_ui_manager::slider_init(running_machine &machine
 		std::string screen_desc = machine_info().get_screen_desc(screen);
 
 		// add refresh rate tweaker
-		if (machine.options().cheat())
+		//if (machine.options().cheat())
 		{
 			std::string str = string_format(_("%1$s Refresh Rate"), screen_desc);
 			slider_alloc(std::move(str), -10000, 0, 10000, 100, std::bind(&mame_ui_manager::slider_refresh, this, std::ref(screen), _1, _2));
@@ -2164,6 +2169,9 @@ std::vector<ui::menu_item> mame_ui_manager::slider_init(running_machine &machine
 		item.set_text(slider->description);
 		items.emplace_back(std::move(item));
 	}
+
+	// Apply saved slider values
+	sliders_apply(); // Slider save
 
 	return items;
 }
@@ -2879,4 +2887,68 @@ void ui_colors::refresh(const ui_options &options)
 	m_mousedown_bg_color = options.mousedown_bg_color();
 	m_dipsw_color = options.dipsw_color();
 	m_slider_color = options.slider_color();
+}
+
+//-------------------------------------------------
+//  sliders_load - load slider values from config
+//-------------------------------------------------
+// Slider save
+void mame_ui_manager::sliders_load(config_type cfg_type, config_level cfg_level, util::xml::data_node const *parentnode)
+{
+	if (cfg_type != config_type::SYSTEM)
+		return;
+	if (parentnode == nullptr)
+		return;
+
+	for (util::xml::data_node const *slider_node = parentnode->get_child("slider"); 
+		 slider_node; slider_node = slider_node->get_next_sibling("slider"))
+	{
+		std::string desc = slider_node->get_attribute_string("desc", "");
+		int32_t saved_val = slider_node->get_attribute_int("value", 0);
+		slider_saved_alloc(std::move(desc), 0, saved_val, 0, 0, nullptr);
+	}
+}
+
+//-------------------------------------------------
+//  sliders_apply - apply saved slider values
+//-------------------------------------------------
+void mame_ui_manager::sliders_apply(void)
+{
+	for (auto &slider : m_sliders)
+	{
+		for (auto &slider_saved : m_sliders_saved)
+		{
+			if (!strcmp(slider->description.c_str(), slider_saved->description.c_str()))
+			{
+				std::string tempstring;
+				slider->update(&tempstring, slider_saved->defval);
+				break;
+			}
+		}
+	}
+}
+
+//-------------------------------------------------
+//  sliders_save - save slider values to config
+//-------------------------------------------------
+
+void mame_ui_manager::sliders_save(config_type cfg_type, util::xml::data_node *parentnode)
+{
+	if (cfg_type != config_type::SYSTEM)
+		return;
+
+	std::string tempstring;
+	for (auto &slider : m_sliders)
+	{
+		int32_t curval = slider->update(&tempstring, SLIDER_NOCHANGE);
+		if (curval != slider->defval)
+		{
+			util::xml::data_node *slider_node = parentnode->add_child("slider", nullptr);
+			if (slider_node)
+			{
+				slider_node->set_attribute("desc", slider->description.c_str());
+				slider_node->set_attribute_int("value", curval);
+			}
+		}
+	}
 }

@@ -1,8 +1,9 @@
 ﻿What's new in HBMAME
 ====================
 
-2026-08-xx 0.289.1
+2026-08-03 0.289.1
 
+- Added the saving of overclocking adjustments [BlackDeath]
 - Restored the PGM homebrew (pgmfrog, pgmdemo, pgemeni)
 - HBMAMEUI: Fixed the splash screen
 - HBMAMEUI: Improved plugins process
