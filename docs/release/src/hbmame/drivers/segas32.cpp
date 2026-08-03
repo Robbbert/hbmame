@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/segas32.cpp"
+#include "../mame/sega/segas32.cpp"
 
 ROM_START( brival01 )
 	ROM_REGION( 0x200000, "mainpcb:maincpu", 0 )
@@ -14,7 +14,7 @@ ROM_START( brival01 )
 	ROM_LOAD( "mpr-15626.ic34",    0x200000, 0x100000, CRC(83306d1e) SHA1(feb08902b51c0013d9417832cdf198e36cdfc28c) )
 	ROM_LOAD( "mpr-15625.ic24",    0x300000, 0x100000, CRC(3ce82932) SHA1(f2107bc2591f46a51c9f0d706933b1ae69db91f9) )
 
-	ROM_REGION( 0x400000, "mainpcb:gfx1", 0 )
+	ROM_REGION( 0x400000, "mainpcb:tiles", 0 )
 	ROM_LOAD16_BYTE( "mpr-15629.ic14", 0x000000, 0x200000, CRC(2c8dd96d) SHA1(4a42a30485c19eb4f4a9d518a3dff3ae11911d01) )
 	ROM_LOAD16_BYTE( "mpr-15628.ic5",  0x000001, 0x200000, CRC(58d4ca40) SHA1(b1633acc803bba7e8283a9663b49abeda662a74d) )
 
@@ -44,7 +44,7 @@ ROM_START( ga2s01 )
 
 	ROM_REGION( 0x10000, "mainpcb:mcu", ROMREGION_ERASEFF ) /* Protection CPU - no protection needed */
 
-	ROM_REGION( 0x400000, "mainpcb:gfx1", 0 )
+	ROM_REGION( 0x400000, "mainpcb:tiles", 0 )
 	ROM_LOAD16_BYTE( "mpr-14948.ic14", 0x000000, 0x200000, CRC(75050d4a) SHA1(51d6bc9935abcf30af438e69c2cf4e09f57a803f) )
 	ROM_LOAD16_BYTE( "mpr-14947.ic5",  0x000001, 0x200000, CRC(b53e62f4) SHA1(5aa0f198e6eb070b77b0d180d30c0228a9bc691e) )
 

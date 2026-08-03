@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/docastle.cpp"
+#include "../mame/universal/docastle.cpp"
 
 ROM_START( sdreturn )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -9,10 +9,10 @@ ROM_START( sdreturn )
 	ROM_LOAD( "2764.k1",      0x6000, 0x2000, CRC(b1195d3d) SHA1(095ad2ee1f53be3203830263cb0c9efbe4710c56) )
 	ROM_LOAD( "2764.n1",      0x8000, 0x2000, CRC(6a8160d1) SHA1(12101c351bf800319172c459b5e7c69cb5603806) )
 
-	ROM_REGION( 0x10000, "slave", 0 )
+	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "27128.p7",     0x0000, 0x4000, CRC(8b06d461) SHA1(2434478810c6301197997be76505f5fc6beba5d3) )
 
-	ROM_REGION( 0x10000, "cpu3", 0 )
+	ROM_REGION( 0x10000, "spritecpu", 0 )
 	ROM_LOAD( "bprom2.bin",   0x0000, 0x0200, CRC(2747ca77) SHA1(abc0ca05925974c4b852827605ee2f1caefb8524) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
@@ -28,5 +28,5 @@ ROM_START( sdreturn )
 	ROM_LOAD( "dorunrun.clr", 0x0000, 0x0100, CRC(d5bab5d5) SHA1(7a465fe30b6008793d33f6e07086c89111e1e407) )
 ROM_END
 
-GAME( 2002, sdreturn, dorunrun, dorunrun, dorunrun, docastle_state, empty_init, ROT0, "hack", "Sticky Do Returns", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, sdreturn, dorunrun, dorunrun, dorunrun, dorunrun_state, empty_init, ROT0, "hack", "Sticky Do Returns", MACHINE_SUPPORTS_SAVE )
 

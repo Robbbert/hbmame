@@ -34,8 +34,8 @@ namespace {
 //  ctor
 //-------------------------------------------------
 
-menu_about::menu_about(mame_ui_manager &mui, render_container &container)
-	: menu_textbox(mui, container)
+menu_about::menu_about(mame_ui_manager &mui, render_target &target)
+	: menu_textbox(mui, target)
 	, m_header{
 			util::string_format(
 #ifdef MAME_DEBUG
@@ -44,7 +44,7 @@ menu_about::menu_about(mame_ui_manager &mui, render_container &container)
 					_("about-header", "%1$s %2$s (%3$s%4$sP%5$s)"),
 #endif
 					emulator_info::get_appname(),
-					bare_build_version,
+					long_build_version,
 					(sizeof(int) == sizeof(void *)) ? "I" : "",
 					(sizeof(long) == sizeof(void *)) ? "L" : (sizeof(long long) == sizeof(void *)) ? "LL" : "",
 					sizeof(void *) * 8),
@@ -64,17 +64,30 @@ menu_about::~menu_about()
 
 
 //-------------------------------------------------
+//  recompute metrics
+//-------------------------------------------------
+
+void menu_about::recompute_metrics(uint32_t width, uint32_t height, float aspect)
+{
+	menu_textbox::recompute_metrics(width, height, aspect);
+
+	// make space for the title and revision
+	set_custom_space((line_height() * m_header.size()) + (tb_border() * 3.0F), 0.0F);
+}
+
+
+//-------------------------------------------------
 //  perform our special rendering
 //-------------------------------------------------
 
-void menu_about::custom_render(void *selectedref, float top, float bottom, float origx1, float origy1, float origx2, float origy2)
+void menu_about::custom_render(uint32_t flags, void *selectedref, float top, float bottom, float origx1, float origy1, float origx2, float origy2)
 {
 	// draw the title
 	draw_text_box(
 			std::begin(m_header), std::end(m_header),
-			origx1, origx2, origy1 - top, origy1 - ui().box_tb_border(),
+			origx1, origx2, origy1 - top, origy1 - tb_border(),
 			text_layout::text_justify::CENTER, text_layout::word_wrapping::TRUNCATE, false,
-			ui().colors().text_color(), UI_GREEN_COLOR, 1.0f);
+			ui().colors().text_color(), UI_GREEN_COLOR);
 }
 
 
@@ -87,7 +100,7 @@ void menu_about::populate_text(std::optional<text_layout> &layout, float &width,
 	if (!layout || (layout->width() != width))
 	{
 		rgb_t const color = ui().colors().text_color();
-		layout.emplace(ui().create_layout(container(), width));
+		layout.emplace(create_layout(width));
 		for (char const *const *line = copying_text; *line; ++line)
 		{
 			layout->add_text(*line, color);
@@ -103,21 +116,8 @@ void menu_about::populate_text(std::optional<text_layout> &layout, float &width,
 //  populate - populates the about modal
 //-------------------------------------------------
 
-void menu_about::populate(float &customtop, float &custombottom)
+void menu_about::populate()
 {
-	// make space for the title and revision
-	customtop = (ui().get_line_height() * m_header.size()) + (ui().box_tb_border() * 3.0f);
-}
-
-
-//-------------------------------------------------
-//  handle - manages inputs in the about modal
-//-------------------------------------------------
-
-void menu_about::handle(event const *ev)
-{
-	if (ev)
-		handle_key(ev->iptkey);
 }
 
 } // namespace ui

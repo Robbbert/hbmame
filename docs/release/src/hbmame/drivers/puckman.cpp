@@ -88,7 +88,7 @@
  *
  *************************************/
 
-WRITE_LINE_MEMBER(puckman_state::irq_mask_w)
+void puckman_state::irq_mask_w(int state)
 {
 	m_irq_mask = state;
 }
@@ -153,24 +153,24 @@ u8 puckman_state::in1_r()
  *
  *************************************/
 
-WRITE_LINE_MEMBER(puckman_state::led1_w)
+void puckman_state::led1_w(int state)
 {
 	//output().set_led_value(0, state);     // fix later
 }
 
-WRITE_LINE_MEMBER(puckman_state::led2_w)
+void puckman_state::led2_w(int state)
 {
 	//output().set_led_value(1, state);     // fix later
 }
 
 
-WRITE_LINE_MEMBER(puckman_state::coin_counter_w)
+void puckman_state::coin_counter_w(int state)
 {
 	machine().bookkeeping().coin_counter_w(0, state);
 }
 
 
-WRITE_LINE_MEMBER(puckman_state::coin_lockout_global_w)
+void puckman_state::coin_lockout_global_w(int state)
 {
 	machine().bookkeeping().coin_lockout_global_w(!state);
 }
@@ -196,7 +196,7 @@ void puckman_state::pacman_map(address_map &map) {
 	map(0x4c00,0x4fef).mirror(0x2000).ram();
 	map(0x4ff0,0x4fff).mirror(0x2000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x5080).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -214,7 +214,7 @@ void puckman_state::woodpek_map(address_map &map) {
 	map(0x4c00,0x4fef).mirror(0xa000).ram();
 	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(ls259_device::write_d0));
-	map(0x5040,0x505f).mirror(0x8000).w("namco",FUNC(namco_device::pacman_sound_w));
+	map(0x5040,0x505f).mirror(0x8000).w("namco",FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x5060,0x506f).mirror(0x8000).writeonly().share("spriteram2");
 	map(0x5070,0x5080).mirror(0x8000).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
@@ -299,7 +299,7 @@ INPUT_PORTS_START( mspacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, puckman_state, pacman_fake, 0)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, FUNC(puckman_state::pacman_fake), 0)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
@@ -360,7 +360,7 @@ INPUT_PORTS_START( pacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, puckman_state, pacman_fake, 0)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, FUNC(puckman_state::pacman_fake), 0)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
@@ -455,7 +455,7 @@ void puckman_state::pacman(machine_config &config)
 
 	LS259(config, m_mainlatch); // 74LS259 at 8K or 4099 at 7K
 	m_mainlatch->q_out_cb<0>().set(FUNC(puckman_state::irq_mask_w));
-	m_mainlatch->q_out_cb<1>().set("namco", FUNC(namco_device::sound_enable_w));
+	m_mainlatch->q_out_cb<1>().set("namco", FUNC(namco_wsg_device::sound_enable_w));
 	m_mainlatch->q_out_cb<3>().set(FUNC(puckman_state::flipscreen_w));
 	//m_mainlatch->q_out_cb<4>().set_output("led0");
 	//m_mainlatch->q_out_cb<5>().set_output("led1");
@@ -475,8 +475,7 @@ void puckman_state::pacman(machine_config &config)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	NAMCO(config, m_namco_sound, MASTER_CLOCK/6/32);
-	m_namco_sound->set_voices(3);
+	NAMCO_WSG(config, m_namco_sound, MASTER_CLOCK/6/32);
 	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
@@ -3066,30 +3065,6 @@ ROM_START( pacman25s54 )
 	ROM_REGION( 0x0120, "proms", 0 )
 	ROM_LOAD( "s54.7f",       0x0000, 0x0020, CRC(0b03add5) SHA1(4c39d6612df9b73bf7a3d18d84c63998b7ac838d) )
 	ROM_LOAD( "s54.4a",       0x0020, 0x0100, CRC(c0785fe6) SHA1(fcac92ba4ba8ad777a86c197b840552f6ccfd116) )
-
-	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
-	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
-ROM_END
-
-ROM_START( pacman25s55 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "pac25.6e",     0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
-	ROM_LOAD( "pac25.6f",     0x1000, 0x1000, CRC(c5ec2352) SHA1(86178b16dabb90005b132febc1a261651a73018d) )
-	ROM_LOAD( "pac25.6h",     0x2000, 0x1000, CRC(92cd89b9) SHA1(c3a0141480341c550a889b58692c8c90b322ee67) )
-	ROM_LOAD( "pac25.6j",     0x3000, 0x1000, CRC(f7193845) SHA1(6d190cf6e76520b8b8c97e6e3a817c4a142003ba) )
-	ROM_LOAD( "maps1.s55",    0x8000, 0x1000, CRC(a8167f3e) SHA1(60bdaffa1ef7b851fea39e8f4f7b3ff5b4d1745a) )
-	ROM_LOAD( "maps2.rom",    0x9000, 0x1000, CRC(7cdbd912) SHA1(b19868bd5da3163e03320e6de0428b22b8e02d80) )
-	ROM_LOAD( "maps3.rom",    0xa000, 0x1000, CRC(c626ea9c) SHA1(3cd3f20e002845937a43f323b685425c95881d9e) )
-	ROM_LOAD( "maps4.rom",    0xb000, 0x1000, CRC(f5ba954d) SHA1(eba18f9a7f6d50f167ed37bff0adec43f52b49a0) )
-
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "s13.5e",       0x0000, 0x1000, CRC(f8cdece3) SHA1(163a244c457a6a42b5226226dca3956c929ad905) )
-	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
-
-	ROM_REGION( 0x0120, "proms", 0 )
-	ROM_LOAD( "s55.7f",       0x0000, 0x0020, CRC(c78e5695) SHA1(dac7430ac599f250b5d19bacdb607b9823d4914b) )
-	ROM_LOAD( "s55.4a",       0x0020, 0x0100, CRC(8726b275) SHA1(a094bf980b96bc0a9dc3446d12795694eb12c5d1) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
 	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
@@ -6771,7 +6746,6 @@ GAME( 2021, pacman25s51, puckman,  woodpek,  pacman0,  puckman_state, empty_init
 GAME( 2021, pacman25s52, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - kaleidoscope", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s53, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - Minutes", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s54, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - Night Flower", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, pacman25s55, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s56, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - No Escape", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s57, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - Opposite", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s58, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - Pac Man + Tournament - Pig", MACHINE_SUPPORTS_SAVE )

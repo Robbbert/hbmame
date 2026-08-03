@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/rabbit.cpp"
+#include "../mame/metro/rabbit.cpp"
 
 /********
  Rabbit

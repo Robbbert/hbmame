@@ -307,7 +307,7 @@ public:
 	DECLARE_VIDEO_START(cps);
 	DECLARE_MACHINE_START(sf2m1);
 	u32 screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
+	void screen_vblank_cps1(int state);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
 	void cpu_space_map(address_map &map);
@@ -452,6 +452,8 @@ public:
 	void init_dinohb();
 	void init_punisherb();
 	void init_sf2rk();
+	void init_sk2a2();
+	void init_sk2f1();
 	void init_sf2h9();
 	void init_sf2h13();
 	void init_sk2h1();
@@ -460,7 +462,7 @@ public:
 	void init_sk2h21();
 	void init_sk2h22();
 	void init_sk2h31();
-	void init_sk2h35();
+	void init_sk2k9();
 	void init_pang3b4();
 	void varthb2_cps_a_w(offs_t offset, uint16_t data);
 	uint16_t pang3b4_prot_r();

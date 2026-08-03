@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/contra.cpp"
+#include "../mame/konami/contra.cpp"
 
 
 ROM_START( contraj01 ) //contrajc

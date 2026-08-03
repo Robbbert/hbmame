@@ -1,6 +1,5 @@
 @echo off
-@rem set MINGW64=C:\Mingw\11-2-0\mingw64
- set MINGW64=C:\Mingw\13-2\mingw64
+set MINGW64=C:\Mingw\13-2\mingw64
 set minpath=%MINGW64%\bin
 set oldpath=%Path%
 set Path=%minpath%;%oldpath%
@@ -11,5 +10,6 @@ set Path=%oldpath%
 set oldpath=
 if exist hbmame.exe %minpath%\strip -s hbmame.exe
 if exist hbmameui.exe %minpath%\strip -s hbmameui.exe
+if exist hbmameui64.exe %minpath%\strip -s hbmameui64.exe
 set minpath=
 

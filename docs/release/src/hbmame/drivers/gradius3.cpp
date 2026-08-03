@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/gradius3.cpp"
+#include "../mame/konami/gradius3.cpp"
 
 /***********
  Gradius III

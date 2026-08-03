@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/btime.cpp"
+#include "../mame/dataeast/btime.cpp"
 
 ROM_START( bnjr )
 	ROM_REGION( 2*0x10000, "maincpu", 0 )

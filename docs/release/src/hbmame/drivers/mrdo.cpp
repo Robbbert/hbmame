@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mrdo.cpp"
+#include "../mame/universal/mrdo.cpp"
 
 ROM_START( mrdigdo )
 	ROM_REGION( 0x10000, "maincpu", 0 ) // from mrdot

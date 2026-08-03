@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/sidepckt.cpp"
+#include "../mame/dataeast/sidepckt.cpp"
 
 
 ROM_START( sidepcktb2 )
@@ -11,12 +11,12 @@ ROM_START( sidepcktb2 )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "dh04.3h",     0x08000, 0x8000, CRC(d076e62e) SHA1(720ff1a6a58697b4a9c7c4f31c24a2cf8a04900a) )
 
-	ROM_REGION( 0x18000, "gfx1", 0 )
+	ROM_REGION( 0x18000, "chars", 0 )
 	ROM_LOAD( "dh07-e.13k",    0x00000, 0x8000, CRC(9d6f7969) SHA1(583852be0861a89c63ce09eb39146ec379b9e12d) )
 	ROM_LOAD( "dh06-e.13j",    0x08000, 0x8000, CRC(580e4e43) SHA1(de152a5d4fbc52d80e3eb9af17835ecb6258d45e) )
 	ROM_LOAD( "dh05-e.13h",    0x10000, 0x8000, CRC(05ab71d2) SHA1(6f06d1d1440a5fb05c01f712457d0bb167e93099) )
 
-	ROM_REGION( 0x18000, "gfx2", 0 )
+	ROM_REGION( 0x18000, "sprites", 0 )
 	ROM_LOAD( "dh01.14a",     0x00000, 0x8000, CRC(a2cdfbea) SHA1(0721e538e3306d616f11008f784cf21e679f330d) )
 	ROM_LOAD( "dh02.15a",     0x08000, 0x8000, CRC(eeb5c3e7) SHA1(57eda1cc29124e04fe5025a904634d8ca52c0f12) )
 	ROM_LOAD( "dh03.17a",     0x10000, 0x8000, CRC(8e18d21d) SHA1(74f0ddf1fcbed386332eba882b4136295b4f096d) )

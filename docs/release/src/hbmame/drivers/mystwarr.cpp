@@ -1,12 +1,12 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mystwarr.cpp"
+#include "../mame/konami/mystwarr.cpp"
 
  /*************
  Dragoon Might
 ****************/
 
-ROM_START( mtlchamps01 )
+ROM_START( mtlchamp01 )
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "234eab01_ps01.20f", 0x000000, 0x40000, CRC(7c3bb381) SHA1(a543dfac8180946cd1f6e24548185324665996ea) )
 	ROM_LOAD16_BYTE( "234eab02_ps01.20g", 0x000001, 0x40000, CRC(1b53e493) SHA1(a88f4c257e9b2be1d997052ee6cc191e4d66cda0) )
@@ -42,7 +42,7 @@ ROM_END
  Monster Maulers
 ****************/
 
-ROM_START( mmaulerss01 )
+ROM_START( mmaulers01 )
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "170eaa07_ps01.24m", 0x000000, 0x80000, CRC(0a14a7de) SHA1(5d74ca1b306901201d0fbf9b65dadc5c26082cd4) )
 	ROM_LOAD16_BYTE( "170eaa09_ps01.19l", 0x000001, 0x80000, CRC(45219214) SHA1(5cef21c1556b943d3fa122e882d641e0627e946e) )
@@ -86,7 +86,7 @@ ROM_END
  Metamorphic Force
 *******************/
 
-ROM_START( metamrphs01 ) //metamrph
+ROM_START( metamrph01 ) //metamrph
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "224eaa01s01.15h", 0x000001, 0x40000, CRC(8fc188bb) SHA1(c5a2b5c50505e82e89e280c92e5a08bf4d8e76f1) )
 	ROM_LOAD16_BYTE( "224eaa02s01.15f", 0x000000, 0x40000, CRC(ec7b34a0) SHA1(cf2d9c45cff3d05079b51628dad07f4b879ffaaf) )
@@ -121,7 +121,7 @@ ROM_END
  Violent Storm
 ****************/
 
-ROM_START( viostorms01 ) //viostormab
+ROM_START( viostorm01 ) //viostormab
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "168aab01_ps01.15h", 0x000001, 0x80000, CRC(a6e55e6e) SHA1(9068f7da102d200374106968c8939dfa874f7d08) )
 	ROM_LOAD16_BYTE( "168aab02_ps01.15f", 0x000000, 0x80000, CRC(f014f55b) SHA1(fae0a0974c46af316e49832ef70251010df025ac) )
@@ -150,7 +150,7 @@ ROM_START( viostorms01 ) //viostormab
 	ROM_LOAD( "viostormab.nv", 0x0000, 0x080, CRC(38ffce43) SHA1(f0666198562ae7c07c8f805088e882a10c79bcf3) )
 ROM_END
 
-ROM_START( viostorms02 ) //viostormeb
+ROM_START( viostorm02 ) //viostormeb
 	ROM_REGION( 0x200000, "maincpu", 0)
 	ROM_LOAD16_BYTE( "168eab01_ps02.15h", 0x000001, 0x80000, CRC(49a5f912) SHA1(55929e5fd7bb7aa55ccc829f91bb29c6d6eacf54) )
 	ROM_LOAD16_BYTE( "168eab02_ps02.15f", 0x000000, 0x80000, CRC(69f3c524) SHA1(23fd0d34a35cbad2f4020c8fa0fe75f498c386ed) )
@@ -179,7 +179,7 @@ ROM_START( viostorms02 ) //viostormeb
 	ROM_LOAD( "viostormeb.nv", 0x0000, 0x080, CRC(28b5fe49) SHA1(0ef51ae4b012a7d680543747fd4b6dd9dfb5f560) )
 ROM_END
 
-ROM_START( viostorms03 ) //viostormub
+ROM_START( viostorm03 ) //viostormub
 	ROM_REGION( 0x200000, "maincpu", 0)
 	ROM_LOAD16_BYTE( "168uab01_ps03.15h", 0x000001, 0x80000, CRC(45126fb4) SHA1(f1a1b769d2789d54b66de08cc70f926205559409) )
 	ROM_LOAD16_BYTE( "168uab02_ps03.15f", 0x000000, 0x80000, CRC(d4a738f0) SHA1(0e4bcc5d977710f894fa6f6fbb2ad2b2c58d8985) )
@@ -210,13 +210,13 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Martial Champion
-GAME( 1993, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)", 0 )
+GAME( 1993, mtlchamp01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)", 0 )
 // Monster Maulers
-GAME( 1993, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)", 0 )
+GAME( 1993, mmaulers01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)", 0 )
 // Metamorphic Force
-GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "hack", "Metamorphic Force (Version Enhanced, 2017-07-03)", 0 )
+GAME( 2018, metamrph01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "hack", "Metamorphic Force (Version Enhanced, 2017-07-03)", 0 )
 // Violent Storm
-GAME( 2018, viostorms01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-08-14)", 0 )
-GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-08-13)", 0 )
-GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-05-07)", 0 )
+GAME( 2018, viostorm01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-08-14)", 0 )
+GAME( 2018, viostorm02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-08-13)", 0 )
+GAME( 2018, viostorm03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-05-07)", 0 )
 

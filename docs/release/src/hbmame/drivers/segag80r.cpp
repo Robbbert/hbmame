@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/segag80r.cpp"
+#include "../mame/sega/segag80r.cpp"
 
 ROM_START( astrob2h ) // same as astrob2 except u2 and u4
 	ROM_REGION( 0xc000, "maincpu", 0 )

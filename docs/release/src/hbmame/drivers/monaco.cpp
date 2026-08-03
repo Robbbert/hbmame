@@ -2037,8 +2037,6 @@ u32 monaco_state::screen_update_monaco(screen_device &screen, bitmap_ind16 &bitm
 
 VIDEO_START_MEMBER( monaco_state, monaco )
 {
-	m_out_digit.resolve();
-
 	m_palette->set_pen_color( 0, 0x00,0x00,0x00 ); /* black (tire) */
 	m_palette->set_pen_color( 1, 0xff,0xff,0xff ); /* white (trim) */
 	/* computer car */

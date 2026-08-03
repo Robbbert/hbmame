@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/rallyx.cpp"
+#include "../mame/namco/rallyx.cpp"
 
 namespace {
 

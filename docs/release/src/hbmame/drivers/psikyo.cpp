@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/psikyo.cpp"
+#include "../mame/psikyo/psikyo.cpp"
 
 /********
  Gunbird
@@ -13,13 +13,13 @@ ROM_START( gunbird01 )  // gunbirdkp
 	ROM_REGION( 0x020000, "audiocpu", 0 )
 	ROM_LOAD( "3.u71",     0x00000, 0x20000, CRC(2168e4ba) SHA1(ca7ad6acb5f806ce2528e7b52c19e8cceecb8543) )
 
-	ROM_REGION( 0x700000, "gfx1", 0 )
+	ROM_REGION( 0x700000, "sprites", 0 )
 	ROM_LOAD16_WORD_SWAP( "s01.u14",  0x000000, 0x200000, CRC(e143090a) SHA1(545ba6fdfd9b94efeb798b06ba07e8a5b27f8608) )
 	ROM_LOAD16_WORD_SWAP( "u24.bin",  0x200000, 0x200000, CRC(5e3ffc9d) SHA1(c284eb9ef56c8e6261fe11f91a10c5c5a56c9803) )
 	ROM_LOAD16_WORD_SWAP( "s01.u15",  0x400000, 0x200000, CRC(e5f6bfb6) SHA1(87825cb74f139aa9a6affc4b236910968a410de7) )
 	ROM_LOAD16_WORD_SWAP( "s01.u25",  0x600000, 0x100000, CRC(cf571ff8) SHA1(0310bc422fde4ab7c4a760ed6dc0606f10ed009a) )
 
-	ROM_REGION( 0x200000, "gfx2", 0 )
+	ROM_REGION( 0x200000, "tiles", 0 )
 	ROM_LOAD16_WORD_SWAP( "u33.bin",  0x000000, 0x200000, CRC(54494e6b) SHA1(f5d090d2d34d908b56b53a246def194929eba990) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
@@ -47,12 +47,12 @@ ROM_START( tengai01 )  // hack of tengai
 	ROM_REGION( 0x001000, "mcu", 0 )
 	ROM_LOAD( "4-u59.bin", 0x00000, 0x01000, NO_DUMP )
 
-	ROM_REGION( 0x600000, "gfx1", 0 )
+	ROM_REGION( 0x600000, "sprites", 0 )
 	ROM_LOAD( "u20.bin",  0x000000, 0x200000, CRC(ed42ef73) SHA1(74693fcc83a2654ddb18fd513d528033863d6116) )
 	ROM_LOAD( "u22.bin",  0x200000, 0x200000, CRC(8d21caee) SHA1(2a68af8b2be2158dcb152c434e91a75871478d41) )
 	ROM_LOAD( "u21.bin",  0x400000, 0x200000, CRC(efe34eed) SHA1(7891495b443a5acc7b2f17fe694584f6cb0afacc) )
 
-	ROM_REGION( 0x400000, "gfx2", 0 )
+	ROM_REGION( 0x400000, "tiles", 0 )
 	ROM_LOAD( "u34.bin",  0x000000, 0x400000, CRC(2a2e2eeb) SHA1(f1d99353c0affc5c908985e6f2a5724e5223cccc) )
 
 	ROM_REGION( 0x400000, "ymf", 0 )
@@ -74,12 +74,12 @@ ROM_START( tengai02 )  // hack of tengaij (Sengoku Ace Episode II)
 	ROM_REGION( 0x001000, "mcu", 0 )
 	ROM_LOAD( "4-u59.bin", 0x00000, 0x01000, NO_DUMP )
 
-	ROM_REGION( 0x600000, "gfx1", 0 )
+	ROM_REGION( 0x600000, "sprites", 0 )
 	ROM_LOAD( "u20hc02.bin",  0x000000, 0x200000, CRC(f6ab6364) SHA1(9e75cbc0c9526f1d86999acfbcb726ba29ae9ab9) )
 	ROM_LOAD( "u22.bin",  0x200000, 0x200000, CRC(8d21caee) SHA1(2a68af8b2be2158dcb152c434e91a75871478d41) )
 	ROM_LOAD( "u21.bin",  0x400000, 0x200000, CRC(efe34eed) SHA1(7891495b443a5acc7b2f17fe694584f6cb0afacc) )
 
-	ROM_REGION( 0x400000, "gfx2", 0 )
+	ROM_REGION( 0x400000, "tiles", 0 )
 	ROM_LOAD( "s02.u34",  0x000000, 0x400000, CRC(1c712ec8) SHA1(0e6eac62d0c1127d486cd5b6ab964e2f05e5cddb) )
 
 	ROM_REGION( 0x400000, "ymf", 0 )
@@ -101,12 +101,12 @@ ROM_START( tengai03 )  // tengaik
 	ROM_REGION( 0x001000, "mcu", 0 )
 	ROM_LOAD( "4-u59.bin", 0x00000, 0x01000, NO_DUMP )
 
-	ROM_REGION( 0x600000, "gfx1", 0 )
+	ROM_REGION( 0x600000, "sprites", 0 )
 	ROM_LOAD( "s03.u20",  0x000000, 0x200000, CRC(0bdc0c2d) SHA1(78f62237ef64c94e549fdf7f87f448a9cec02e67) )
 	ROM_LOAD( "u22.bin",  0x200000, 0x200000, CRC(8d21caee) SHA1(2a68af8b2be2158dcb152c434e91a75871478d41) )
 	ROM_LOAD( "s03.u21",  0x400000, 0x200000, CRC(435669ca) SHA1(4eaf8531e750d5d4bea6b3f4eaa39f7267fe7206) )
 
-	ROM_REGION( 0x400000, "gfx2", 0 )
+	ROM_REGION( 0x400000, "tiles", 0 )
 	ROM_LOAD( "s03.u34",  0x000000, 0x400000, CRC(801fc802) SHA1(023c2d6515a91188791d923046365d6453c62808) )
 
 	ROM_REGION( 0x400000, "ymf", 0 )
@@ -121,7 +121,7 @@ ROM_END
 // Gunbird
 GAME( 1994, gunbird01,   gunbird,  gunbird,  gunbirdj, psikyo_state, init_gunbird,  ROT270, "hack",  "Gunbird (Korean hack)", MACHINE_SUPPORTS_SAVE )
 // Tengai
-GAME( 2009, tengai01,    tengai,   s1945,    tengai,   psikyo_state, init_tengai,   ROT0,   "Pipi899", "Tengai (Ex Super Version, 2009-10-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, tengai02,    tengai,   s1945,    tengaij,  psikyo_state, init_tengai,   ROT0,   "hack", "Tengai (Easy Type, 2019-03-08)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tengai03,    tengai,   s1945,    tengaij,  psikyo_state, init_tengai,   ROT0,   "hack", "Tengai (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tengai01,    tengai,   s1945,    tengai,   s1945_state, init_tengai,   ROT0,   "Pipi899", "Tengai (Ex Super Version, 2009-10-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, tengai02,    tengai,   s1945,    tengaij,  s1945_state, init_tengai,   ROT0,   "hack", "Tengai (Easy Type, 2019-03-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tengai03,    tengai,   s1945,    tengaij,  s1945_state, init_tengai,   ROT0,   "hack", "Tengai (Korean)", MACHINE_SUPPORTS_SAVE )
 

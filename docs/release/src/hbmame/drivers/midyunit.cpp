@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/midyunit.cpp"
+#include "../mame/williams/midyunit.cpp"
 
 ROM_START( mkla4d )
 	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
@@ -12,11 +12,11 @@ ROM_START( mkla4d )
 	ROM_LOAD ( "sl1_mortal_kombat_u13_sound_rom.u13", 0x80000, 0x40000, CRC(7b7ec3b6) SHA1(6eec1b90d4a4855f34a7ebfbf93f3358d5627db4) )
 	ROM_RELOAD(               0xc0000, 0x40000 )
 
-	ROM_REGION16_LE( 0x100000, "user1", 0 )
+	ROM_REGION16_LE( 0x100000, "maindata", 0 )
 	ROM_LOAD16_BYTE( "mkg-hacked-u105.la4",  0x00000, 0x80000, CRC(80d5618c) SHA1(9bdfddbc70b61c94c1871abac1de153b8b728761) )
 	ROM_LOAD16_BYTE(  "mkg-hacked-u89.la4",  0x00001, 0x80000, CRC(0478ae60) SHA1(186243cacc4d83070ef53b47f19668ca4c08474a) )
 
-	ROM_REGION( 0x800000, "gfx1", 0 )
+	ROM_REGION( 0x800000, "gfx", 0 )
 	ROM_LOAD ( "mkg-u111.rom",  0x000000, 0x80000, CRC(d17096c4) SHA1(01ef390a372c9d94adf138f9543ebb88b89f4c38) )
 	ROM_LOAD ( "mkg-u112.rom",  0x080000, 0x80000, CRC(993bc2e4) SHA1(7791edbec2b4b8971a3e790346dd7564ecf16d5c) )
 	ROM_LOAD ( "mkg-u113.rom",  0x100000, 0x80000, CRC(6fb91ede) SHA1(a3735b49f93b08c44fbc97e2b5aad394628fbe90) )
@@ -47,11 +47,11 @@ ROM_START( mkyawdim6 )
 	ROM_CONTINUE(       0xa0000, 0x20000 )
 	ROM_CONTINUE(       0xe0000, 0x20000 )
 
-	ROM_REGION16_LE( 0x100000, "user1", 0 )
+	ROM_REGION16_LE( 0x100000, "maindata", 0 )
 	ROM_LOAD16_BYTE( "6_4.u25",  0x00000, 0x80000, CRC(80f30208) SHA1(bb6d6565f11b81b797e10708c2dc3bb0352a54fe) )
 	ROM_LOAD16_BYTE( "6_5.u26",  0x00001, 0x80000, CRC(8a1de184) SHA1(1cec85fd589e7f36ad8622cbe96423a3398376ac) )
 
-	ROM_REGION( 0x800000, "gfx1", 0 )
+	ROM_REGION( 0x800000, "gfx", 0 )
 	ROM_LOAD ( "l1_mortal_kombat_game_rom_u-111.u111", 0x000000, 0x80000, CRC(d17096c4) SHA1(01ef390a372c9d94adf138f9543ebb88b89f4c38) )
 	ROM_LOAD ( "l1_mortal_kombat_game_rom_u-112.u112", 0x080000, 0x80000, CRC(993bc2e4) SHA1(7791edbec2b4b8971a3e790346dd7564ecf16d5c) )
 	ROM_LOAD ( "l1_mortal_kombat_game_rom_u-113.u113", 0x100000, 0x80000, CRC(6fb91ede) SHA1(a3735b49f93b08c44fbc97e2b5aad394628fbe90) )
@@ -68,13 +68,8 @@ ROM_START( mkyawdim6 )
 	ROM_LOAD ( "l1_mortal_kombat_game_rom_u-109.u109", 0x580000, 0x80000, CRC(cafc47bb) SHA1(8610af6e52f7089ff4acd850c53ab8b4119e4445) )
 ROM_END
 
-
-GAME( 1992, mkla4d,     mk, yunit_adpcm_6bit_fast, mkla4,    midyunit_state, init_mkyunit,  ROT0, "Midway", "Mortal Kombat (rev 4.0, 09/28/92 hack/Ver.Unknown)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, mkyawdim6,  mk, mkyawdim,              mkyawdim, midyunit_state, init_mkyawdim, ROT0, "bootleg (Yawdim)", "Mortal Kombat (Yawdim bootleg, set 6)", MACHINE_SUPPORTS_SAVE )
-
-
 ROM_START( y_test )
-	ROM_REGION( 0x90000, "cvsd:cpu", 0 )    /* sound CPU */
+	ROM_REGION( 0x90000, "cvsd:cpu", 0 )
 	ROM_LOAD ( "sl2_smash_tv_sound_rom_u4.u4",   0x10000, 0x10000, CRC(29d3f6c8) SHA1(8a90cdff54f59ddb7dba521504d880515a59df08) )
 	ROM_RELOAD(                                  0x20000, 0x10000 )
 	ROM_LOAD ( "sl2_smash_tv_sound_rom_u19.u19", 0x30000, 0x10000, CRC(ac5a402a) SHA1(c476018062126dc3936caa2c328de490737165ec) )
@@ -82,11 +77,11 @@ ROM_START( y_test )
 	ROM_LOAD ( "sl2_smash_tv_sound_rom_u20.u20", 0x50000, 0x10000, CRC(875c66d9) SHA1(51cdad62ec57e69bba6fcf14e59841ec628dec11) )
 	ROM_RELOAD(                                  0x60000, 0x10000 )
 
-	ROM_REGION16_LE( 0x100000, "user1", 0 ) /* 34010 code */
+	ROM_REGION16_LE( 0x100000, "maindata", 0 )
 	ROM_LOAD16_BYTE( "y_test.u105", 0xc0000, 0x20000, CRC(bd29a7d1) SHA1(211905c16874a23840652555757b9d2f2712facb) )
 	ROM_LOAD16_BYTE( "y_test.u89",   0xc0001, 0x20000, CRC(6db6e0cd) SHA1(3f4c7cd48d6606c03195ed9209f7cedbc9efd42d) )
 
-	ROM_REGION( 0x800000, "gfx1", 0 )
+	ROM_REGION( 0x800000, "gfx", 0 )
 	ROM_LOAD ( "la1_smash_tv_game_rom_u111.u111",  0x000000, 0x20000, CRC(72f0ba84) SHA1(2e925b3cdd3c8e14046b3948d82f0f3cde3c22c5) )
 	ROM_LOAD ( "la1_smash_tv_game_rom_u112.u112",  0x020000, 0x20000, CRC(436f0283) SHA1(ec33a8942c0fc326db885e08dad9346ec5a63360) )
 	ROM_LOAD ( "la1_smash_tv_game_rom_u113.u113",  0x040000, 0x20000, CRC(4a4b8110) SHA1(9f1881d1d2682764ab85aebd685d97eb8b4afe46) )
@@ -100,5 +95,7 @@ ROM_START( y_test )
 	ROM_LOAD ( "la1_smash_tv_game_rom_u108.u108",  0x440000, 0x20000, CRC(cb0a092f) SHA1(33cbb87b4be1eadb1f3624ef5e218e65109fa3eb) )
 ROM_END
 
-GAME( 1990, y_test,   smashtv,  yunit_cvsd_6bit_slow,    smashtv,  midyunit_state, init_smashtv,  ROT0, "Williams", "Midway Y-unit Test Rom v1.40", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mkla4d,     mk,   yunit_adpcm_6bit_fast, mkla4,    midyunit_adpcm_state, init_mkyunit,  ROT0, "Midway", "Mortal Kombat (rev 4.0, 09/28/92 hack/Ver.Unknown)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mkyawdim6,  mk,   mkyawdim,              mkyawdim, mkyawdim_state,       init_mkyawdim, ROT0, "bootleg (Yawdim)", "Mortal Kombat (Yawdim bootleg, set 6)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, y_test, smashtv,  yunit_cvsd_6bit_slow,  smashtv,  midyunit_cvsd_state,  init_smashtv,  ROT0, "Williams", "Midway Y-unit Test Rom v1.40", MACHINE_SUPPORTS_SAVE )
 

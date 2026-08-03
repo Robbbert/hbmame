@@ -11,13 +11,18 @@
 #include "emu.h"
 #include "validity.h"
 
-#include "corestr.h"
 #include "emuopts.h"
+#include "main.h"
 #include "romload.h"
+#include "speaker.h"
 #include "video/rgbutil.h"
+
+#include "corestr.h"
+#include "path.h"
 #include "unicode.h"
 
 #include <cctype>
+#include <sstream>
 #include <type_traits>
 #include <typeinfo>
 
@@ -47,12 +52,10 @@ using test_delegate = delegate<char (void const *&)>;
 //  type
 //-------------------------------------------------
 
-#if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION >= 7000)
 test_delegate make_diamond_class_delegate(char (diamond_inheritance::*func)(void const *&), diamond_inheritance *obj)
 {
 	return test_delegate(func, obj);
 }
-#endif // !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION >= 7000)
 
 
 //-------------------------------------------------
@@ -114,17 +117,6 @@ struct pure_virtual_base
 
 
 //-------------------------------------------------
-//  ioport_string_from_index - return an indexed
-//  string from the I/O port system
-//-------------------------------------------------
-
-inline char const *ioport_string_from_index(u32 index)
-{
-	return ioport_configurer::string_from_token(reinterpret_cast<char const *>(uintptr_t(index)));
-}
-
-
-//-------------------------------------------------
 //  random_u64
 //  random_s64
 //  random_u32
@@ -172,13 +164,6 @@ void validate_integer_semantics()
 	if (a32 >> 1 != -2) osd_printf_error("s32 right shift must be arithmetic\n");
 	if (a64 >> 1 != -2) osd_printf_error("s64 right shift must be arithmetic\n");
 
-	// check pointer size
-#ifdef PTR64
-	static_assert(sizeof(void *) == 8, "PTR64 flag enabled, but was compiled for 32-bit target\n");
-#else
-	static_assert(sizeof(void *) == 4, "PTR64 flag not enabled, but was compiled for 64-bit target\n");
-#endif
-
 	// TODO: check if this is actually working
 	// check endianness definition
 	u16 lsbtest = 0;
@@ -212,14 +197,14 @@ void validate_inlines()
 	u32 uremainder, expuremainder, bigu32 = 0xffffffff;
 
 	// use only non-zero, positive numbers
-	if (testu64a == 0) testu64a++;
-	if (testi64a == 0) testi64a++;
+	if (testu64a == 0) testu64a = testu64a + 1;
+	if (testi64a == 0) testi64a = testi64a + 1;
 	else if (testi64a < 0) testi64a = -testi64a;
-	if (testu32a == 0) testu32a++;
-	if (testu32b == 0) testu32b++;
-	if (testi32a == 0) testi32a++;
+	if (testu32a == 0) testu32a = testu32a + 1;
+	if (testu32b == 0) testu32b = testu32b + 1;
+	if (testi32a == 0) testi32a = testi32a + 1;
 	else if (testi32a < 0) testi32a = -testi32a;
-	if (testi32b == 0) testi32b++;
+	if (testi32b == 0) testi32b = testi32b + 1;
 	else if (testi32b < 0) testi32b = -testi32b;
 
 	resulti64 = mul_32x32(testi32a, testi32b);
@@ -253,9 +238,9 @@ void validate_inlines()
 		osd_printf_error("Error testing mulu_32x32_shift (%08X x %08X) >> 7 = %08X (expected %08X)\n", u32(testu32a), u32(testu32b), resultu32, expectedu32);
 
 	while (s64(testi32a) * s64(0x7fffffff) < testi64a)
-		testi64a /= 2;
+		testi64a = testi64a / 2;
 	while (u64(testu32a) * u64(bigu32) < testu64a)
-		testu64a /= 2;
+		testu64a = testu64a / 2;
 
 	resulti32 = div_64x32(testi64a, testi32a);
 	expectedi32 = testi64a / s64(testi32a);
@@ -290,9 +275,9 @@ void validate_inlines()
 		osd_printf_error("Error testing modu_64x32 (%16X / %08X) = %08X (expected %08X)\n", u64(testu64a), u32(testu32a), resultu32, expectedu32);
 
 	while (s64(testi32a) * s64(0x7fffffff) < (s32(testi64a) << 3))
-		testi64a /= 2;
+		testi64a = testi64a / 2;
 	while (u64(testu32a) * u64(0xffffffff) < (u32(testu64a) << 3))
-		testu64a /= 2;
+		testu64a = testu64a / 2;
 
 	resulti32 = div_32x32_shift(s32(testi64a), testi32a, 3);
 	expectedi32 = (s64(s32(testi64a)) << 3) / s64(testi32a);
@@ -307,17 +292,32 @@ void validate_inlines()
 	if (fabsf(recip_approx(100.0f) - 0.01f) > 0.0001f)
 		osd_printf_error("Error testing recip_approx\n");
 
-	for (int i = 0; i <= 32; i++)
+	u32 expected32 = testu32a << 1 | testu32a >> 31;
+	for (int i = -33; i <= 33; i++)
 	{
-		u32 t = i < 32 ? (1 << (31 - i) | testu32a >> i) : 0;
-		u8 resultu8 = count_leading_zeros_32(t);
-		if (resultu8 != i)
-			osd_printf_error("Error testing count_leading_zeros_32 %08x=%02x (expected %02x)\n", t, resultu8, i);
+		u32 resultu32r = rotr_32(testu32a, i);
+		u32 resultu32l = rotl_32(testu32a, -i);
 
-		t ^= 0xffffffff;
-		resultu8 = count_leading_ones_32(t);
-		if (resultu8 != i)
-			osd_printf_error("Error testing count_leading_ones_32 %08x=%02x (expected %02x)\n", t, resultu8, i);
+		if (resultu32r != expected32)
+			osd_printf_error("Error testing rotr_32 %08x, %d=%08x (expected %08x)\n", u32(testu32a), i, resultu32r, expected32);
+		if (resultu32l != expected32)
+			osd_printf_error("Error testing rotl_32 %08x, %d=%08x (expected %08x)\n", u32(testu32a), -i, resultu32l, expected32);
+
+		expected32 = (expected32 >> 1) | (expected32 << 31);
+	}
+
+	u64 expected64 = testu64a << 1 | testu64a >> 63;
+	for (int i = -65; i <= 65; i++)
+	{
+		u64 resultu64r = rotr_64(testu64a, i);
+		u64 resultu64l = rotl_64(testu64a, -i);
+
+		if (resultu64r != expected64)
+			osd_printf_error("Error testing rotr_64 %016x, %d=%016x (expected %016x)\n", u64(testu64a), i, resultu64r, expected64);
+		if (resultu64l != expected64)
+			osd_printf_error("Error testing rotl_64 %016x, %d=%016x (expected %016x)\n", u64(testu64a), -i, resultu64l, expected64);
+
+		expected64 = (expected64 >> 1) | (expected64 << 63);
 	}
 }
 
@@ -368,10 +368,10 @@ void validate_rgb()
 	volatile s32 expected_a, expected_r, expected_g, expected_b;
 	volatile s32 actual_a, actual_r, actual_g, actual_b;
 	volatile s32 imm;
-	rgbaint_t rgb, other;
+	rgbaint_t rgb;
 	rgb_t packed;
 	auto check_expected =
-			[&] (const char *desc)
+			[&expected_a, &expected_r, &expected_g, &expected_b, &rgb] (const char *desc)
 			{
 				const volatile s32 a = rgb.get_a32();
 				const volatile s32 r = rgb.get_r32();
@@ -416,13 +416,17 @@ void validate_rgb()
 	check_expected("rgbaint_t assignment");
 
 	// check piecewise set
-	rgb.set_a(expected_a = random_i32());
+	expected_a = random_i32();
+	rgb.set_a(expected_a);
 	check_expected("rgbaint_t::set_a");
-	rgb.set_r(expected_r = random_i32());
+	expected_r = random_i32();
+	rgb.set_r(expected_r);
 	check_expected("rgbaint_t::set_r");
-	rgb.set_g(expected_g = random_i32());
+	expected_g = random_i32();
+	rgb.set_g(expected_g);
 	check_expected("rgbaint_t::set_g");
-	rgb.set_b(expected_b = random_i32());
+	expected_b = random_i32();
+	rgb.set_b(expected_b);
 	check_expected("rgbaint_t::set_b");
 
 	// test merge_alpha
@@ -431,85 +435,113 @@ void validate_rgb()
 	check_expected("rgbaint_t::merge_alpha");
 
 	// test RGB addition (method)
-	expected_a += actual_a = random_i32();
-	expected_r += actual_r = random_i32();
-	expected_g += actual_g = random_i32();
-	expected_b += actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a + actual_a;
+	expected_r = expected_r + actual_r;
+	expected_g = expected_g + actual_g;
+	expected_b = expected_b + actual_b;
 	rgb.add(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::add");
 
 	// test RGB addition (operator)
-	expected_a += actual_a = random_i32();
-	expected_r += actual_r = random_i32();
-	expected_g += actual_g = random_i32();
-	expected_b += actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a + actual_a;
+	expected_r = expected_r + actual_r;
+	expected_g = expected_g + actual_g;
+	expected_b = expected_b + actual_b;
 	rgb += rgbaint_t(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::operator+=");
 
 	// test offset addition (method)
 	imm = random_i32();
-	expected_a += imm;
-	expected_r += imm;
-	expected_g += imm;
-	expected_b += imm;
+	expected_a = expected_a + imm;
+	expected_r = expected_r + imm;
+	expected_g = expected_g + imm;
+	expected_b = expected_b + imm;
 	rgb.add_imm(imm);
 	check_expected("rgbaint_t::add_imm");
 
 	// test offset addition (operator)
 	imm = random_i32();
-	expected_a += imm;
-	expected_r += imm;
-	expected_g += imm;
-	expected_b += imm;
+	expected_a = expected_a + imm;
+	expected_r = expected_r + imm;
+	expected_g = expected_g + imm;
+	expected_b = expected_b + imm;
 	rgb += imm;
 	check_expected("rgbaint_t::operator+=");
 
 	// test immediate RGB addition
-	expected_a += actual_a = random_i32();
-	expected_r += actual_r = random_i32();
-	expected_g += actual_g = random_i32();
-	expected_b += actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a + actual_a;
+	expected_r = expected_r + actual_r;
+	expected_g = expected_g + actual_g;
+	expected_b = expected_b + actual_b;
 	rgb.add_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::add_imm_rgba");
 
 	// test RGB subtraction (method)
-	expected_a -= actual_a = random_i32();
-	expected_r -= actual_r = random_i32();
-	expected_g -= actual_g = random_i32();
-	expected_b -= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a - actual_a;
+	expected_r = expected_r - actual_r;
+	expected_g = expected_g - actual_g;
+	expected_b = expected_b - actual_b;
 	rgb.sub(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::sub");
 
 	// test RGB subtraction (operator)
-	expected_a -= actual_a = random_i32();
-	expected_r -= actual_r = random_i32();
-	expected_g -= actual_g = random_i32();
-	expected_b -= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a - actual_a;
+	expected_r = expected_r - actual_r;
+	expected_g = expected_g - actual_g;
+	expected_b = expected_b - actual_b;
 	rgb -= rgbaint_t(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::operator-=");
 
 	// test offset subtraction
 	imm = random_i32();
-	expected_a -= imm;
-	expected_r -= imm;
-	expected_g -= imm;
-	expected_b -= imm;
+	expected_a = expected_a - imm;
+	expected_r = expected_r - imm;
+	expected_g = expected_g - imm;
+	expected_b = expected_b - imm;
 	rgb.sub_imm(imm);
 	check_expected("rgbaint_t::sub_imm");
 
 	// test immediate RGB subtraction
-	expected_a -= actual_a = random_i32();
-	expected_r -= actual_r = random_i32();
-	expected_g -= actual_g = random_i32();
-	expected_b -= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a - actual_a;
+	expected_r = expected_r - actual_r;
+	expected_g = expected_g - actual_g;
+	expected_b = expected_b - actual_b;
 	rgb.sub_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::sub_imm_rgba");
 
 	// test reversed RGB subtraction
-	expected_a = (actual_a = random_i32()) - expected_a;
-	expected_r = (actual_r = random_i32()) - expected_r;
-	expected_g = (actual_g = random_i32()) - expected_g;
-	expected_b = (actual_b = random_i32()) - expected_b;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a - expected_a;
+	expected_r = actual_r - expected_r;
+	expected_g = actual_g - expected_g;
+	expected_b = actual_b - expected_b;
 	rgb.subr(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::subr");
 
@@ -523,167 +555,215 @@ void validate_rgb()
 	check_expected("rgbaint_t::subr_imm");
 
 	// test reversed immediate RGB subtraction
-	expected_a = (actual_a = random_i32()) - expected_a;
-	expected_r = (actual_r = random_i32()) - expected_r;
-	expected_g = (actual_g = random_i32()) - expected_g;
-	expected_b = (actual_b = random_i32()) - expected_b;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a - expected_a;
+	expected_r = actual_r - expected_r;
+	expected_g = actual_g - expected_g;
+	expected_b = actual_b - expected_b;
 	rgb.subr_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::subr_imm_rgba");
 
 	// test RGB multiplication (method)
-	expected_a *= actual_a = random_i32();
-	expected_r *= actual_r = random_i32();
-	expected_g *= actual_g = random_i32();
-	expected_b *= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a * actual_a;
+	expected_r = expected_r * actual_r;
+	expected_g = expected_g * actual_g;
+	expected_b = expected_b * actual_b;
 	rgb.mul(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::mul");
 
 	// test RGB multiplication (operator)
-	expected_a *= actual_a = random_i32();
-	expected_r *= actual_r = random_i32();
-	expected_g *= actual_g = random_i32();
-	expected_b *= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a * actual_a;
+	expected_r = expected_r * actual_r;
+	expected_g = expected_g * actual_g;
+	expected_b = expected_b * actual_b;
 	rgb *= rgbaint_t(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::operator*=");
 
 	// test factor multiplication (method)
 	imm = random_i32();
-	expected_a *= imm;
-	expected_r *= imm;
-	expected_g *= imm;
-	expected_b *= imm;
+	expected_a = expected_a * imm;
+	expected_r = expected_r * imm;
+	expected_g = expected_g * imm;
+	expected_b = expected_b * imm;
 	rgb.mul_imm(imm);
 	check_expected("rgbaint_t::mul_imm");
 
 	// test factor multiplication (operator)
 	imm = random_i32();
-	expected_a *= imm;
-	expected_r *= imm;
-	expected_g *= imm;
-	expected_b *= imm;
+	expected_a = expected_a * imm;
+	expected_r = expected_r * imm;
+	expected_g = expected_g * imm;
+	expected_b = expected_b * imm;
 	rgb *= imm;
 	check_expected("rgbaint_t::operator*=");
 
 	// test immediate RGB multiplication
-	expected_a *= actual_a = random_i32();
-	expected_r *= actual_r = random_i32();
-	expected_g *= actual_g = random_i32();
-	expected_b *= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a * actual_a;
+	expected_r = expected_r * actual_r;
+	expected_g = expected_g * actual_g;
+	expected_b = expected_b * actual_b;
 	rgb.mul_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::mul_imm_rgba");
 
 	// test select alpha element multiplication
-	expected_a *= actual_a = random_i32();
-	expected_r *= actual_a;
-	expected_g *= actual_a;
-	expected_b *= actual_a;
+	actual_a = random_i32();
+	expected_a = expected_a * actual_a;
+	expected_r = expected_r * actual_a;
+	expected_g = expected_g * actual_a;
+	expected_b = expected_b * actual_a;
 	rgb.mul(rgbaint_t(actual_a, actual_r, actual_g, actual_b).select_alpha32());
 	check_expected("rgbaint_t::mul(select_alpha32)");
 
 	// test select red element multiplication
-	expected_a *= actual_r = random_i32();
-	expected_r *= actual_r;
-	expected_g *= actual_r;
-	expected_b *= actual_r;
+	actual_r = random_i32();
+	expected_a = expected_a * actual_r;
+	expected_r = expected_r * actual_r;
+	expected_g = expected_g * actual_r;
+	expected_b = expected_b * actual_r;
 	rgb.mul(rgbaint_t(actual_a, actual_r, actual_g, actual_b).select_red32());
 	check_expected("rgbaint_t::mul(select_red32)");
 
 	// test select green element multiplication
-	expected_a *= actual_g = random_i32();
-	expected_r *= actual_g;
-	expected_g *= actual_g;
-	expected_b *= actual_g;
+	actual_g = random_i32();
+	expected_a = expected_a * actual_g;
+	expected_r = expected_r * actual_g;
+	expected_g = expected_g * actual_g;
+	expected_b = expected_b * actual_g;
 	rgb.mul(rgbaint_t(actual_a, actual_r, actual_g, actual_b).select_green32());
 	check_expected("rgbaint_t::mul(select_green32)");
 
 	// test select blue element multiplication
-	expected_a *= actual_b = random_i32();
-	expected_r *= actual_b;
-	expected_g *= actual_b;
-	expected_b *= actual_b;
+	actual_b = random_i32();
+	expected_a = expected_a * actual_b;
+	expected_r = expected_r * actual_b;
+	expected_g = expected_g * actual_b;
+	expected_b = expected_b * actual_b;
 	rgb.mul(rgbaint_t(actual_a, actual_r, actual_g, actual_b).select_blue32());
 	check_expected("rgbaint_t::mul(select_blue32)");
 
 	// test RGB and not
-	expected_a &= ~(actual_a = random_i32());
-	expected_r &= ~(actual_r = random_i32());
-	expected_g &= ~(actual_g = random_i32());
-	expected_b &= ~(actual_b = random_i32());
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a & ~actual_a;
+	expected_r = expected_r & ~actual_r;
+	expected_g = expected_g & ~actual_g;
+	expected_b = expected_b & ~actual_b;
 	rgb.andnot_reg(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::andnot_reg");
 
 	// test RGB or
-	expected_a |= actual_a = random_i32();
-	expected_r |= actual_r = random_i32();
-	expected_g |= actual_g = random_i32();
-	expected_b |= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a | actual_a;
+	expected_r = expected_r | actual_r;
+	expected_g = expected_g | actual_g;
+	expected_b = expected_b | actual_b;
 	rgb.or_reg(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::or_reg");
 
 	// test RGB and
-	expected_a &= actual_a = random_i32();
-	expected_r &= actual_r = random_i32();
-	expected_g &= actual_g = random_i32();
-	expected_b &= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a & actual_a;
+	expected_r = expected_r & actual_r;
+	expected_g = expected_g & actual_g;
+	expected_b = expected_b & actual_b;
 	rgb.and_reg(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::and_reg");
 
 	// test RGB xor
-	expected_a ^= actual_a = random_i32();
-	expected_r ^= actual_r = random_i32();
-	expected_g ^= actual_g = random_i32();
-	expected_b ^= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a ^ actual_a;
+	expected_r = expected_r ^ actual_r;
+	expected_g = expected_g ^ actual_g;
+	expected_b = expected_b ^ actual_b;
 	rgb.xor_reg(rgbaint_t(actual_a, actual_r, actual_g, actual_b));
 	check_expected("rgbaint_t::xor_reg");
 
 	// test uniform or
 	imm = random_i32();
-	expected_a |= imm;
-	expected_r |= imm;
-	expected_g |= imm;
-	expected_b |= imm;
+	expected_a = expected_a | imm;
+	expected_r = expected_r | imm;
+	expected_g = expected_g | imm;
+	expected_b = expected_b | imm;
 	rgb.or_imm(imm);
 	check_expected("rgbaint_t::or_imm");
 
 	// test uniform and
 	imm = random_i32();
-	expected_a &= imm;
-	expected_r &= imm;
-	expected_g &= imm;
-	expected_b &= imm;
+	expected_a = expected_a & imm;
+	expected_r = expected_r & imm;
+	expected_g = expected_g & imm;
+	expected_b = expected_b & imm;
 	rgb.and_imm(imm);
 	check_expected("rgbaint_t::and_imm");
 
 	// test uniform xor
 	imm = random_i32();
-	expected_a ^= imm;
-	expected_r ^= imm;
-	expected_g ^= imm;
-	expected_b ^= imm;
+	expected_a = expected_a ^ imm;
+	expected_r = expected_r ^ imm;
+	expected_g = expected_g ^ imm;
+	expected_b = expected_b ^ imm;
 	rgb.xor_imm(imm);
 	check_expected("rgbaint_t::xor_imm");
 
 	// test immediate RGB or
-	expected_a |= actual_a = random_i32();
-	expected_r |= actual_r = random_i32();
-	expected_g |= actual_g = random_i32();
-	expected_b |= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a | actual_a;
+	expected_r = expected_r | actual_r;
+	expected_g = expected_g | actual_g;
+	expected_b = expected_b | actual_b;
 	rgb.or_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::or_imm_rgba");
 
 	// test immediate RGB and
-	expected_a &= actual_a = random_i32();
-	expected_r &= actual_r = random_i32();
-	expected_g &= actual_g = random_i32();
-	expected_b &= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a & actual_a;
+	expected_r = expected_r & actual_r;
+	expected_g = expected_g & actual_g;
+	expected_b = expected_b & actual_b;
 	rgb.and_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::and_imm_rgba");
 
 	// test immediate RGB xor
-	expected_a ^= actual_a = random_i32();
-	expected_r ^= actual_r = random_i32();
-	expected_g ^= actual_g = random_i32();
-	expected_b ^= actual_b = random_i32();
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = expected_a ^ actual_a;
+	expected_r = expected_r ^ actual_r;
+	expected_g = expected_g ^ actual_g;
+	expected_b = expected_b ^ actual_b;
 	rgb.xor_imm_rgba(actual_a, actual_r, actual_g, actual_b);
 	check_expected("rgbaint_t::xor_imm_rgba");
 
@@ -796,111 +876,250 @@ void validate_rgb()
 	check_expected("rgbaint_t::clamp_to_uint8");
 
 	// test shift left
-	expected_a = (actual_a = random_i32()) << 19;
-	expected_r = (actual_r = random_i32()) << 3;
-	expected_g = (actual_g = random_i32()) << 21;
-	expected_b = (actual_b = random_i32()) << 6;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a << 19;
+	expected_r = actual_r << 3;
+	expected_g = actual_g << 21;
+	expected_b = actual_b << 6;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.shl(rgbaint_t(19, 3, 21, 6));
 	check_expected("rgbaint_t::shl");
 
+	// test shift left out of range
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a & 0;
+	expected_r = actual_r & 0;
+	expected_g = actual_g & 0;
+	expected_b = actual_b & 0;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb.shl(rgbaint_t(-19, 32, -21, 38));
+	check_expected("rgbaint_t::shl");
+
 	// test shift left immediate
-	expected_a = (actual_a = random_i32()) << 7;
-	expected_r = (actual_r = random_i32()) << 7;
-	expected_g = (actual_g = random_i32()) << 7;
-	expected_b = (actual_b = random_i32()) << 7;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a << 7;
+	expected_r = actual_r << 7;
+	expected_g = actual_g << 7;
+	expected_b = actual_b << 7;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.shl_imm(7);
 	check_expected("rgbaint_t::shl_imm");
 
+	// test shift left immediate out of range
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a & 0;
+	expected_r = actual_r & 0;
+	expected_g = actual_g & 0;
+	expected_b = actual_b & 0;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb.shl_imm(32);
+	check_expected("rgbaint_t::shl_imm");
+
 	// test logical shift right
-	expected_a = s32(u32(actual_a = random_i32()) >> 8);
-	expected_r = s32(u32(actual_r = random_i32()) >> 18);
-	expected_g = s32(u32(actual_g = random_i32()) >> 26);
-	expected_b = s32(u32(actual_b = random_i32()) >> 4);
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = s32(u32(actual_a) >> 8);
+	expected_r = s32(u32(actual_r) >> 18);
+	expected_g = s32(u32(actual_g) >> 26);
+	expected_b = s32(u32(actual_b) >> 4);
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.shr(rgbaint_t(8, 18, 26, 4));
 	check_expected("rgbaint_t::shr");
 
 	// test logical shift right with opposite signs
-	expected_a = s32(u32(actual_a = -actual_a) >> 21);
-	expected_r = s32(u32(actual_r = -actual_r) >> 13);
-	expected_g = s32(u32(actual_g = -actual_g) >> 11);
-	expected_b = s32(u32(actual_b = -actual_b) >> 17);
+	actual_a = -actual_a;
+	actual_r = -actual_r;
+	actual_g = -actual_g;
+	actual_b = -actual_b;
+	expected_a = s32(u32(actual_a) >> 21);
+	expected_r = s32(u32(actual_r) >> 13);
+	expected_g = s32(u32(actual_g) >> 11);
+	expected_b = s32(u32(actual_b) >> 17);
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.shr(rgbaint_t(21, 13, 11, 17));
 	check_expected("rgbaint_t::shr");
 
+	// test logical shift right out of range
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a & 0;
+	expected_r = actual_r & 0;
+	expected_g = actual_g & 0;
+	expected_b = actual_b & 0;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb.shr(rgbaint_t(40, -18, -26, 32));
+	check_expected("rgbaint_t::shr");
+
 	// test logical shift right immediate
-	expected_a = s32(u32(actual_a = random_i32()) >> 5);
-	expected_r = s32(u32(actual_r = random_i32()) >> 5);
-	expected_g = s32(u32(actual_g = random_i32()) >> 5);
-	expected_b = s32(u32(actual_b = random_i32()) >> 5);
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = s32(u32(actual_a) >> 5);
+	expected_r = s32(u32(actual_r) >> 5);
+	expected_g = s32(u32(actual_g) >> 5);
+	expected_b = s32(u32(actual_b) >> 5);
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.shr_imm(5);
 	check_expected("rgbaint_t::shr_imm");
 
 	// test logical shift right immediate with opposite signs
-	expected_a = s32(u32(actual_a = -actual_a) >> 15);
-	expected_r = s32(u32(actual_r = -actual_r) >> 15);
-	expected_g = s32(u32(actual_g = -actual_g) >> 15);
-	expected_b = s32(u32(actual_b = -actual_b) >> 15);
+	actual_a = -actual_a;
+	actual_r = -actual_r;
+	actual_g = -actual_g;
+	actual_b = -actual_b;
+	expected_a = s32(u32(actual_a) >> 15);
+	expected_r = s32(u32(actual_r) >> 15);
+	expected_g = s32(u32(actual_g) >> 15);
+	expected_b = s32(u32(actual_b) >> 15);
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.shr_imm(15);
 	check_expected("rgbaint_t::shr_imm");
 
+	// test logical shift right immediate out of range
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a & 0;
+	expected_r = actual_r & 0;
+	expected_g = actual_g & 0;
+	expected_b = actual_b & 0;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb.shr_imm(35);
+	check_expected("rgbaint_t::shr_imm");
+
 	// test arithmetic shift right
-	expected_a = (actual_a = random_i32()) >> 16;
-	expected_r = (actual_r = random_i32()) >> 20;
-	expected_g = (actual_g = random_i32()) >> 14;
-	expected_b = (actual_b = random_i32()) >> 2;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a >> 16;
+	expected_r = actual_r >> 20;
+	expected_g = actual_g >> 14;
+	expected_b = actual_b >> 2;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.sra(rgbaint_t(16, 20, 14, 2));
 	check_expected("rgbaint_t::sra");
 
 	// test arithmetic shift right with opposite signs
-	expected_a = (actual_a = -actual_a) >> 1;
-	expected_r = (actual_r = -actual_r) >> 29;
-	expected_g = (actual_g = -actual_g) >> 10;
-	expected_b = (actual_b = -actual_b) >> 22;
+	actual_a = -actual_a;
+	actual_r = -actual_r;
+	actual_g = -actual_g;
+	actual_b = -actual_b;
+	expected_a = actual_a >> 1;
+	expected_r = actual_r >> 29;
+	expected_g = actual_g >> 10;
+	expected_b = actual_b >> 22;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.sra(rgbaint_t(1, 29, 10, 22));
 	check_expected("rgbaint_t::sra");
 
+	// test arithmetic shift right out of range
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a >> 31;
+	expected_r = actual_r >> 31;
+	expected_g = actual_g >> 31;
+	expected_b = actual_b >> 31;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb.sra(rgbaint_t(-16, -20, 46, 32));
+	check_expected("rgbaint_t::sra");
+
 	// test arithmetic shift right immediate (method)
-	expected_a = (actual_a = random_i32()) >> 12;
-	expected_r = (actual_r = random_i32()) >> 12;
-	expected_g = (actual_g = random_i32()) >> 12;
-	expected_b = (actual_b = random_i32()) >> 12;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a >> 12;
+	expected_r = actual_r >> 12;
+	expected_g = actual_g >> 12;
+	expected_b = actual_b >> 12;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.sra_imm(12);
 	check_expected("rgbaint_t::sra_imm");
 
 	// test arithmetic shift right immediate with opposite signs (method)
-	expected_a = (actual_a = -actual_a) >> 9;
-	expected_r = (actual_r = -actual_r) >> 9;
-	expected_g = (actual_g = -actual_g) >> 9;
-	expected_b = (actual_b = -actual_b) >> 9;
+	actual_a = -actual_a;
+	actual_r = -actual_r;
+	actual_g = -actual_g;
+	actual_b = -actual_b;
+	expected_a = actual_a >> 9;
+	expected_r = actual_r >> 9;
+	expected_g = actual_g >> 9;
+	expected_b = actual_b >> 9;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb.sra_imm(9);
 	check_expected("rgbaint_t::sra_imm");
 
+	// test arithmetic shift right immediate out of range (method)
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a >> 31;
+	expected_r = actual_r >> 31;
+	expected_g = actual_g >> 31;
+	expected_b = actual_b >> 31;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb.sra_imm(38);
+	check_expected("rgbaint_t::sra_imm");
+
 	// test arithmetic shift right immediate (operator)
-	expected_a = (actual_a = random_i32()) >> 7;
-	expected_r = (actual_r = random_i32()) >> 7;
-	expected_g = (actual_g = random_i32()) >> 7;
-	expected_b = (actual_b = random_i32()) >> 7;
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a >> 7;
+	expected_r = actual_r >> 7;
+	expected_g = actual_g >> 7;
+	expected_b = actual_b >> 7;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb >>= 7;
 	check_expected("rgbaint_t::operator>>=");
 
 	// test arithmetic shift right immediate with opposite signs (operator)
-	expected_a = (actual_a = -actual_a) >> 11;
-	expected_r = (actual_r = -actual_r) >> 11;
-	expected_g = (actual_g = -actual_g) >> 11;
-	expected_b = (actual_b = -actual_b) >> 11;
+	actual_a = -actual_a;
+	actual_r = -actual_r;
+	actual_g = -actual_g;
+	actual_b = -actual_b;
+	expected_a = actual_a >> 11;
+	expected_r = actual_r >> 11;
+	expected_g = actual_g >> 11;
+	expected_b = actual_b >> 11;
 	rgb.set(actual_a, actual_r, actual_g, actual_b);
 	rgb >>= 11;
+	check_expected("rgbaint_t::operator>>=");
+
+	// test arithmetic shift right immediate out of range (operator)
+	actual_a = random_i32();
+	actual_r = random_i32();
+	actual_g = random_i32();
+	actual_b = random_i32();
+	expected_a = actual_a >> 31;
+	expected_r = actual_r >> 31;
+	expected_g = actual_g >> 31;
+	expected_b = actual_b >> 31;
+	rgb.set(actual_a, actual_r, actual_g, actual_b);
+	rgb >>= 41;
 	check_expected("rgbaint_t::operator>>=");
 
 	// test RGB equality comparison
@@ -1190,22 +1409,25 @@ void validate_rgb()
 
 	// test bilinear_filter and bilinear_filter_rgbaint
 	// SSE implementation carries more internal precision between the bilinear stages
-#if defined(MAME_RGB_HIGH_PRECISION)
-	const int first_shift = 1;
-#else
-	const int first_shift = 8;
-#endif
+	auto const filter_expected =
+			[] (u8 x00, u8 x01, u8 x10, u8 x11, u8 u, u8 v)
+			{
+				const unsigned shift_inner = rgbaint_t::FILTER_SHIFT_INNER;
+				const unsigned shift_outer = rgbaint_t::FILTER_SHIFT_OUTER;
+
+				const unsigned upper = (((x00 * (256U - u)) >> shift_inner) + ((x01 * u) >> shift_inner)) >> shift_outer;
+				const unsigned lower = (((x10 * (256U - u)) >> shift_inner) + ((x11 * u) >> shift_inner)) >> shift_outer;
+				return u8(((upper * (256U - v)) + (lower * v)) >> (16 - shift_inner - shift_outer));
+			};
 	for (int index = 0; index < 1000; index++)
 	{
-		u8 u, v;
 		rgbaint_t rgb_point[4];
-		u32 top_row, bottom_row;
-
 		for (int i = 0; i < 4; i++)
 		{
 			rgb_point[i].set(random_u32());
 		}
 
+		u8 u, v;
 		switch (index)
 		{
 			case 0: u = 0; v = 0; break;
@@ -1220,21 +1442,10 @@ void validate_rgb()
 				break;
 		}
 
-		top_row = (rgb_point[0].get_a() * (256 - u) + rgb_point[1].get_a() * u) >> first_shift;
-		bottom_row = (rgb_point[2].get_a() * (256 - u) + rgb_point[3].get_a() * u) >> first_shift;
-		expected_a = (top_row * (256 - v) + bottom_row * v) >> (16 - first_shift);
-
-		top_row = (rgb_point[0].get_r() * (256 - u) + rgb_point[1].get_r() * u) >> first_shift;
-		bottom_row = (rgb_point[2].get_r() * (256 - u) + rgb_point[3].get_r() * u) >> first_shift;
-		expected_r = (top_row * (256 - v) + bottom_row * v) >> (16 - first_shift);
-
-		top_row = (rgb_point[0].get_g() * (256 - u) + rgb_point[1].get_g() * u) >> first_shift;
-		bottom_row = (rgb_point[2].get_g() * (256 - u) + rgb_point[3].get_g() * u) >> first_shift;
-		expected_g = (top_row * (256 - v) + bottom_row * v) >> (16 - first_shift);
-
-		top_row = (rgb_point[0].get_b() * (256 - u) + rgb_point[1].get_b() * u) >> first_shift;
-		bottom_row = (rgb_point[2].get_b() * (256 - u) + rgb_point[3].get_b() * u) >> first_shift;
-		expected_b = (top_row * (256 - v) + bottom_row * v) >> (16 - first_shift);
+		expected_a = filter_expected(rgb_point[0].get_a(), rgb_point[1].get_a(), rgb_point[2].get_a(), rgb_point[3].get_a(), u, v);
+		expected_r = filter_expected(rgb_point[0].get_r(), rgb_point[1].get_r(), rgb_point[2].get_r(), rgb_point[3].get_r(), u, v);
+		expected_g = filter_expected(rgb_point[0].get_g(), rgb_point[1].get_g(), rgb_point[2].get_g(), rgb_point[3].get_g(), u, v);
+		expected_b = filter_expected(rgb_point[0].get_b(), rgb_point[1].get_b(), rgb_point[2].get_b(), rgb_point[3].get_b(), u, v);
 
 		imm = rgbaint_t::bilinear_filter(rgb_point[0].to_rgba(), rgb_point[1].to_rgba(), rgb_point[2].to_rgba(), rgb_point[3].to_rgba(), u, v);
 		rgb.set(imm);
@@ -1393,7 +1604,6 @@ void validate_delegates_mfp()
 	if (&o != addr)
 		osd_printf_error("Error testing delegate this pointer adjustment for virtual member function through base class pointer %p -> %p (expected %p)\n", static_cast<void const *>(static_cast<base_b *>(&o)), addr, static_cast<void const *>(&o));
 
-#if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION >= 7000)
 	// test creating delegates for a forward-declared class
 	cb1 = make_diamond_class_delegate(&diamond_inheritance::get_derived_a, &d);
 	cb2 = make_diamond_class_delegate(&diamond_inheritance::get_derived_b, &d);
@@ -1423,7 +1633,6 @@ void validate_delegates_mfp()
 	if (static_cast<virtual_base *>(&d) != addr)
 		osd_printf_error("Error testing delegate this pointer adjustment for incomplete class %p -> %p (expected %p)\n", static_cast<void const *>(&d), addr, static_cast<void const *>(static_cast<virtual_base *>(&d)));
 #endif // defined(_MSC_VER) && !defined(__clang__)
-#endif // !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION >= 7000)
 }
 
 
@@ -1661,13 +1870,13 @@ void validate_delegates_functoid()
 //  strings
 //-------------------------------------------------
 
-inline int validity_checker::get_defstr_index(const char *string, bool suppress_error)
+inline input_string_index validity_checker::get_defstr_index(const char *string, bool suppress_error)
 {
 	// check for strings that should be DEF_STR
-	auto strindex = m_defstr_map.find(string);
-	if (!suppress_error && strindex != m_defstr_map.end() && string != ioport_string_from_index(strindex->second))
+	auto const strindex = m_defstr_map.find(string);
+	if (!suppress_error && (strindex != m_defstr_map.end()) && (string != ioport_configurer::string_from_token(strindex->second)))
 		osd_printf_error("Must use DEF_STR( %s )\n", string);
-	return (strindex != m_defstr_map.end()) ? strindex->second : 0;
+	return (strindex != m_defstr_map.end()) ? strindex->second : input_string_index(0);
 }
 
 
@@ -1680,8 +1889,8 @@ inline int validity_checker::get_defstr_index(const char *string, bool suppress_
 void validity_checker::validate_tag(const char *tag)
 {
 	// some common names that are now deprecated
-	//if (strcmp(tag, "main") == 0 || strcmp(tag, "audio") == 0 || strcmp(tag, "sound") == 0 || strcmp(tag, "left") == 0 || strcmp(tag, "right") == 0)
-		//osd_printf_error("Invalid generic tag '%s' used\n", tag);
+	if (strcmp(tag, "main") == 0 || strcmp(tag, "audio") == 0 || strcmp(tag, "sound") == 0 || strcmp(tag, "left") == 0 || strcmp(tag, "right") == 0)
+		osd_printf_error("Invalid generic tag '%s' used\n", tag);
 
 	// scan for invalid characters
 	static char const *const validchars = "abcdefghijklmnopqrstuvwxyz0123456789_.:^$";
@@ -1745,9 +1954,9 @@ validity_checker::validity_checker(emu_options &options, bool quick)
 	// pre-populate the defstr map with all the default strings
 	for (int strnum = 1; strnum < INPUT_STRING_COUNT; strnum++)
 	{
-		const char *string = ioport_string_from_index(strnum);
+		const char *string = ioport_configurer::string_from_token(input_string_index(strnum));
 		if (string != nullptr)
-			m_defstr_map.insert(std::make_pair(string, strnum));
+			m_defstr_map.emplace(string, input_string_index(strnum));
 	}
 }
 
@@ -1868,6 +2077,7 @@ void validity_checker::validate_begin()
 	m_defstr_map.clear();
 	m_region_map.clear();
 	m_ioport_set.clear();
+	m_slotcard_set.clear();
 
 	// reset internal state
 	m_errors = 0;
@@ -2044,7 +2254,7 @@ void validity_checker::validate_driver(device_t &root)
 	device_t::feature_type const imperfect(m_current_driver->type.imperfect_features());
 	if (!(m_current_driver->flags & (machine_flags::IS_BIOS_ROOT | machine_flags::NO_SOUND_HW)) && !(unemulated & device_t::feature::SOUND))
 	{
-		sound_interface_enumerator iter(root);
+		speaker_device_enumerator iter(root);
 		if (!iter.first())
 			osd_printf_error("Driver is missing MACHINE_NO_SOUND or MACHINE_NO_SOUND_HW flag\n");
 	}
@@ -2058,6 +2268,49 @@ void validity_checker::validate_driver(device_t &root)
 		osd_printf_error("Driver cannot have features that are both unemulated and imperfect (0x%08X)\n", util::underlying_value(unemulated & imperfect));
 	if ((m_current_driver->flags & machine_flags::NO_SOUND_HW) && ((unemulated | imperfect) & device_t::feature::SOUND))
 		osd_printf_error("Machine without sound hardware cannot have unemulated/imperfect sound\n");
+
+	// catch systems marked as supporting save states that contain devices that don't support save states
+	if (!(m_current_driver->type.emulation_flags() & device_t::flags::SAVE_UNSUPPORTED))
+	{
+		std::set<std::add_pointer_t<device_type> > nosave;
+		device_enumerator iter(root);
+		std::string_view cardtag;
+		for (auto &device : iter)
+		{
+			// ignore any children of a slot card
+			if (!cardtag.empty())
+			{
+				std::string_view tag(device.tag());
+				if ((tag.length() > cardtag.length()) && (tag.substr(0, cardtag.length()) == cardtag) && tag[cardtag.length()] == ':')
+					continue;
+				else
+					cardtag = std::string_view();
+			}
+
+			// check to see if this is a slot card
+			device_t *const parent(device.owner());
+			if (parent)
+			{
+				device_slot_interface *slot;
+				parent->interface(slot);
+				if (slot && (slot->get_card_device() == &device))
+				{
+					cardtag = device.tag();
+					continue;
+				}
+			}
+
+			if (device.type().emulation_flags() & device_t::flags::SAVE_UNSUPPORTED)
+				nosave.emplace(&device.type());
+		}
+		if (!nosave.empty())
+		{
+			std::ostringstream buf;
+			for (auto const &devtype : nosave)
+				util::stream_format(buf, "%s(%s) %s\n", core_filename_extract_base(devtype->source()), devtype->shortname(), devtype->fullname());
+			osd_printf_error("Machine is marked as supporting save states but uses devices that lack save state support:\n%s", std::move(buf).str());
+		}
+	}
 }
 
 
@@ -2079,7 +2332,6 @@ void validity_checker::validate_roms(device_t &root)
 		u32 current_length = 0;
 		int items_since_region = 1;
 		int last_bios = 0, max_bios = 0;
-		int total_files = 0;
 		std::unordered_map<std::string, int> bios_names;
 		std::unordered_map<std::string, std::string> bios_descs;
 		char const *defbios = nullptr;
@@ -2113,34 +2365,46 @@ void validity_checker::validate_roms(device_t &root)
 				current_length = ROMREGION_GETLENGTH(romp);
 				if (!m_region_map.emplace(fulltag, current_length).second)
 					osd_printf_error("Multiple ROM_REGIONs with the same tag '%s' defined\n", fulltag);
+				if (current_length == 0)
+					osd_printf_error("ROM region '%s' has zero length\n", fulltag);
 			}
 			else if (ROMENTRY_ISSYSTEM_BIOS(romp)) // If this is a system bios, make sure it is using the next available bios number
 			{
 				int const bios_flags = ROM_GETBIOSFLAGS(romp);
 				char const *const biosname = romp->name;
 				if (bios_flags != last_bios + 1)
-					osd_printf_error("Non-sequential BIOS %s (specified as %d, expected to be %d)\n", biosname, bios_flags - 1, last_bios);
+					osd_printf_error("Non-sequential BIOS %s (specified as %d, expected to be %d)\n", biosname ? biosname : "UNNAMED", bios_flags - 1, last_bios);
 				last_bios = bios_flags;
 
 				// validate the name
-				if (strlen(biosname) > 16)
-					osd_printf_error("BIOS name %s exceeds maximum 16 characters\n", biosname);
-				for (char const *s = biosname; *s; ++s)
+				if (!biosname || biosname[0] == 0)
+					osd_printf_error("BIOS %d is missing a name\n", bios_flags - 1);
+				else
 				{
-					if (((*s < '0') || (*s > '9')) && ((*s < 'a') || (*s > 'z')) && (*s != '.') && (*s != '_') && (*s != '-'))
+					if (strlen(biosname) > 16)
+						osd_printf_error("BIOS name %s exceeds maximum 16 characters\n", biosname);
+					for (char const *s = biosname; *s; ++s)
 					{
-						osd_printf_error("BIOS name %s contains invalid characters\n", biosname);
-						break;
+						if (((*s < '0') || (*s > '9')) && ((*s < 'a') || (*s > 'z')) && (*s != '.') && (*s != '_') && (*s != '-'))
+						{
+							osd_printf_error("BIOS name %s contains invalid characters\n", biosname);
+							break;
+						}
+					}
+
+					// check for duplicate names/descriptions
+					auto const nameins = bios_names.emplace(biosname, bios_flags);
+					if (!nameins.second)
+						osd_printf_error("Duplicate BIOS name %s specified (%d and %d)\n", biosname, nameins.first->second, bios_flags - 1);
+					if (!romp->hashdata || romp->hashdata[0] == 0)
+						osd_printf_error("BIOS %s has empty description\n", biosname);
+					else
+					{
+						auto const descins = bios_descs.emplace(romp->hashdata, biosname);
+						if (!descins.second)
+							osd_printf_error("BIOS %s has duplicate description '%s' (was %s)\n", biosname, romp->hashdata, descins.first->second);
 					}
 				}
-
-				// check for duplicate names/descriptions
-				auto const nameins = bios_names.emplace(biosname, bios_flags);
-				if (!nameins.second)
-					osd_printf_error("Duplicate BIOS name %s specified (%d and %d)\n", biosname, nameins.first->second, bios_flags - 1);
-				auto const descins = bios_descs.emplace(romp->hashdata, biosname);
-				if (!descins.second)
-					osd_printf_error("BIOS %s has duplicate description '%s' (was %s)\n", biosname, romp->hashdata, descins.first->second);
 			}
 			else if (ROMENTRY_ISDEFAULT_BIOS(romp)) // if this is a default BIOS setting, remember it so it to check at the end
 			{
@@ -2150,7 +2414,6 @@ void validity_checker::validate_roms(device_t &root)
 			{
 				// track the last filename we found
 				last_name = romp->name;
-				total_files++;
 				max_bios = std::max<int>(max_bios, ROM_GETBIOSFLAGS(romp));
 
 				// validate the name
@@ -2172,7 +2435,7 @@ void validity_checker::validate_roms(device_t &root)
 			}
 
 			// for any non-region ending entries, make sure they don't extend past the end
-			if (!ROMENTRY_ISREGIONEND(romp) && current_length > 0 && !ROMENTRY_ISIGNORE(romp)) // MESSUI
+			if (!ROMENTRY_ISREGIONEND(romp) && current_length > 0)
 			{
 				items_since_region++;
 				if (!ROMENTRY_ISIGNORE(romp) && (ROM_GETOFFSET(romp) + ROM_GETLENGTH(romp) > current_length))
@@ -2292,9 +2555,9 @@ void validity_checker::validate_analog_input_field(const ioport_field &field)
 
 void validity_checker::validate_dip_settings(const ioport_field &field)
 {
-	char const *const demo_sounds = ioport_string_from_index(INPUT_STRING_Demo_Sounds);
-	char const *const flipscreen = ioport_string_from_index(INPUT_STRING_Flip_Screen);
-	char const *const name = field.specific_name();
+	char const *const demo_sounds = ioport_configurer::string_from_token(INPUT_STRING_Demo_Sounds);
+	char const *const flipscreen = ioport_configurer::string_from_token(INPUT_STRING_Flip_Screen);
+	char const *const name = field.specific_name() ? field.specific_name() : "UNNAMED";
 	u8 coin_list[__input_string_coinage_end + 1 - __input_string_coinage_start] = { 0 };
 	bool coin_error = false;
 
@@ -2302,7 +2565,7 @@ void validity_checker::validate_dip_settings(const ioport_field &field)
 	for (auto setting = field.settings().begin(); field.settings().end() != setting; ++setting)
 	{
 		// note any coinage strings
-		int strindex = get_defstr_index(setting->name());
+		input_string_index const strindex = get_defstr_index(setting->name());
 		if (strindex >= __input_string_coinage_start && strindex <= __input_string_coinage_end)
 			coin_list[strindex - __input_string_coinage_start] = 1;
 
@@ -2323,7 +2586,7 @@ void validity_checker::validate_dip_settings(const ioport_field &field)
 		if (field.settings().end() != nextsetting)
 		{
 			// check for inverted off/on DIP switch order
-			int next_strindex = get_defstr_index(nextsetting->name(), true);
+			input_string_index next_strindex = get_defstr_index(nextsetting->name(), true);
 			if (strindex == INPUT_STRING_On && next_strindex == INPUT_STRING_Off)
 				osd_printf_error("%s option must have Off/On options in the order: Off, On\n", name);
 
@@ -2351,7 +2614,7 @@ void validity_checker::validate_dip_settings(const ioport_field &field)
 		output_via_delegate(OSD_OUTPUT_CHANNEL_ERROR, "   Note proper coin sort order should be:\n");
 		for (int entry = 0; entry < std::size(coin_list); entry++)
 			if (coin_list[entry])
-				output_via_delegate(OSD_OUTPUT_CHANNEL_ERROR, "      %s\n", ioport_string_from_index(__input_string_coinage_start + entry));
+				output_via_delegate(OSD_OUTPUT_CHANNEL_ERROR, "      %s\n", ioport_configurer::string_from_token(input_string_index(__input_string_coinage_start + entry)));
 	}
 }
 
@@ -2363,6 +2626,12 @@ void validity_checker::validate_dip_settings(const ioport_field &field)
 
 void validity_checker::validate_condition(const ioport_condition &condition, device_t &device)
 {
+	if (condition.tag() == nullptr)
+	{
+		osd_printf_error("Condition referencing null ioport tag\n");
+		return;
+	}
+
 	// resolve the tag, then find a matching port
 	if (m_ioport_set.find(device.subtag(condition.tag())) == m_ioport_set.end())
 		osd_printf_error("Condition referencing non-existent ioport tag '%s'\n", condition.tag());
@@ -2387,12 +2656,13 @@ void validity_checker::validate_inputs(device_t &root)
 
 		// allocate the input ports
 		ioport_list portlist;
-		std::string errorbuf;
-		portlist.append(device, errorbuf);
-
-		// report any errors during construction
-		if (!errorbuf.empty())
-			osd_printf_error("I/O port error during construction:\n%s\n", errorbuf);
+		{
+			// report any errors during construction
+			std::ostringstream errorbuf;
+			portlist.append(device, errorbuf);
+			if (errorbuf.tellp())
+				osd_printf_error("I/O port error during construction:\n%s\n", std::move(errorbuf).str());
+		}
 
 		// do a first pass over ports to add their names and find duplicates
 		for (auto &port : portlist)
@@ -2427,34 +2697,43 @@ void validity_checker::validate_inputs(device_t &root)
 				if (field.is_analog())
 					validate_analog_input_field(field);
 
-				// look for invalid (0) types which should be mapped to IPT_OTHER
-				if (field.type() == IPT_INVALID)
-					osd_printf_error("Field has an invalid type (0); use IPT_OTHER instead\n");
-
-				if (field.type() == IPT_SPECIAL)
-					osd_printf_error("Field has an invalid type IPT_SPECIAL\n");
-
-				// verify dip switches
-				if (field.type() == IPT_DIPSWITCH)
+				// checks based on field type
+				if ((field.type() > IPT_UI_FIRST) && (field.type() < IPT_UI_LAST))
 				{
-					// dip switch fields must have a specific name
+					osd_printf_error("Field has invalid UI control type\n");
+				}
+				else if (field.type() == IPT_INVALID)
+				{
+					osd_printf_error("Field has an invalid type (0); use IPT_OTHER instead\n");
+				}
+				else if (field.type() == IPT_SPECIAL)
+				{
+					osd_printf_error("Field has an invalid type IPT_SPECIAL\n");
+				}
+				else if (field.type() == IPT_DIPSWITCH)
+				{
+					// DIP switch fields must have a specific name
 					if (field.specific_name() == nullptr)
 						osd_printf_error("DIP switch has no specific name\n");
 
 					// verify the settings list
 					validate_dip_settings(field);
 				}
-
-				// verify config settings
-				if (field.type() == IPT_CONFIG)
+				else if (field.type() == IPT_CONFIG)
 				{
 					// config fields must have a specific name
 					if (field.specific_name() == nullptr)
 						osd_printf_error("Config switch has no specific name\n");
 				}
+				else if (field.type() == IPT_ADJUSTER)
+				{
+					// adjuster fields must have a specific name
+					if (field.specific_name() == nullptr)
+						osd_printf_error("Adjuster has no specific name\n");
+				}
 
 				// verify names
-				const char *name = field.specific_name();
+				char const *const name = field.specific_name();
 				if (name != nullptr)
 				{
 					// check for empty string
@@ -2489,8 +2768,8 @@ void validity_checker::validate_inputs(device_t &root)
 						{
 							osd_printf_error("Field '%s' has non-character U+%04X in PORT_CHAR(%d)\n",
 									name,
-									(unsigned)code,
-									(int)code);
+									uint32_t(code),
+									int32_t(code));
 						}
 					}
 				}
@@ -2498,6 +2777,34 @@ void validity_checker::validate_inputs(device_t &root)
 
 			// done with this port
 			m_current_ioport = nullptr;
+		}
+
+		// validate the default settings
+		const input_device_default *def = device.input_ports_defaults();
+		if (def != nullptr)
+		{
+			for ( ; def->tag; def++)
+			{
+				if (def->defvalue & ~def->mask)
+					osd_printf_error("Default value 0x%x for field of port '%s' lies outside mask 0x%x\n", def->defvalue, def->mask);
+
+				const auto it = portlist.find(device.subtag(def->tag));
+				if (portlist.end() == it)
+				{
+					osd_printf_error("Default specified for nonexistent port '%s'\n", def->tag);
+				}
+				else
+				{
+					const auto &fields = it->second->fields();
+					if (fields.end() == std::find_if(fields.begin(), fields.end(), [def] (const ioport_field &field) { return field.mask() == def->mask; }))
+					{
+						osd_printf_error(
+								"Default value specified for field with mask 0x%x in port '%s' but no corresponding field found\n",
+								def->mask,
+								def->tag);
+					}
+				}
+			}
 		}
 
 		// done with this device
@@ -2547,30 +2854,37 @@ void validity_checker::validate_devices(machine_config &config)
 				if (slot->default_option() != nullptr && option.first == slot->default_option())
 					continue;
 
+				// if we need to save time, instantiate and validate each slot card type at most once
+				if (m_quick && !m_slotcard_set.insert(option.second->devtype().shortname()).second)
+					continue;
+
 				m_checking_card = true;
 				device_t *card;
 				{
 					machine_config::token const tok(config.begin_configuration(slot->device()));
-					card = config.device_add(option.second->name(), option.second->devtype(), option.second->clock());
+					card = config.device_add(std::string(option.second->name()).c_str(), option.second->devtype(), option.second->clock()); // TODO: support string_view tags
 
 					const char *const def_bios = option.second->default_bios();
 					if (def_bios)
 						card->set_default_bios_tag(def_bios);
-					auto additions = option.second->machine_config();
+					auto const &additions = option.second->machine_config();
 					if (additions)
 						additions(card);
+					input_device_default const *input_def = option.second->input_device_defaults();
+					if (input_def)
+						card->set_input_default(input_def);
 				}
 
 				for (device_slot_interface &subslot : slot_interface_enumerator(*card))
 				{
-					if (subslot.fixed())
+					if (subslot.fixed() && subslot.default_option())
 					{
 						// TODO: make this self-contained so it can apply itself
-						device_slot_interface::slot_option const *suboption = subslot.option(subslot.default_option());
+						device_slot_interface::slot_option const *const suboption = subslot.option(subslot.default_option());
 						if (suboption)
 						{
 							machine_config::token const tok(config.begin_configuration(subslot.device()));
-							device_t *const sub_card = config.device_add(suboption->name(), suboption->devtype(), suboption->clock());
+							device_t *const sub_card = config.device_add(std::string(suboption->name()).c_str(), suboption->devtype(), suboption->clock()); // TODO: support string_view tags
 							const char *const sub_bios = suboption->default_bios();
 							if (sub_bios)
 								sub_card->set_default_bios_tag(sub_bios);
@@ -2584,6 +2898,7 @@ void validity_checker::validate_devices(machine_config &config)
 				for (device_t &card_dev : device_enumerator(*card))
 					card_dev.config_complete();
 				validate_roms(*card);
+				validate_inputs(*card);
 
 				for (device_t &card_dev : device_enumerator(*card))
 				{
@@ -2595,7 +2910,7 @@ void validity_checker::validate_devices(machine_config &config)
 				}
 
 				machine_config::token const tok(config.begin_configuration(slot->device()));
-				config.device_remove(option.second->name());
+				config.device_remove(std::string(option.second->name()).c_str()); // TODO: support string_view tags
 				m_checking_card = false;
 			}
 		}
@@ -2772,7 +3087,7 @@ void validity_checker::build_output_prefix(std::ostream &str) const
 //  error_output - error message output override
 //-------------------------------------------------
 
-void validity_checker::output_callback(osd_output_channel channel, const util::format_argument_pack<std::ostream> &args)
+void validity_checker::output_callback(osd_output_channel channel, const util::format_argument_pack<char> &args)
 {
 	std::ostringstream output;
 	switch (channel)

@@ -21,10 +21,10 @@ class galser_device : public device_t, public device_nvram_interface
 {
 public:
 	// I/O operations
-	DECLARE_WRITE_LINE_MEMBER( write_sda );
-	DECLARE_WRITE_LINE_MEMBER( write_scl );
-	DECLARE_WRITE_LINE_MEMBER( write_en );
-	DECLARE_READ_LINE_MEMBER( read_sda );
+	void write_sda(int);
+	void write_scl(int);
+	void write_en(int);
+	int read_sda();
 	galser_device( const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0 );
 
 protected:
@@ -42,7 +42,7 @@ protected:
 	optional_memory_region m_region;
 
 	// internal state
-	std::unique_ptr<uint8_t[]> m_data;
+	uint8_t m_data[0x200];
 	int m_data_size;
 	int m_scl;
 	int m_sdaw;

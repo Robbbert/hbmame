@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/sf.cpp"
+#include "../mame/capcom/sf.cpp"
 
 
 ROM_START( sfpp )

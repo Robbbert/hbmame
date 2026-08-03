@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/cave.cpp"
+#include "../mame/atlus/cave.cpp"
 
 //*************
 // DoDonPachi
@@ -64,7 +64,7 @@ ROM_END
 //*******************
 // Power Instinct 2
 //*******************
-ROM_START( pwrinst2h )
+ROM_START( pwrinst2s02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "pwrinst2h.u45", 0x000000, 0x80000, CRC(126af635) SHA1(83222ed11f4f8e7b8bb6b5bc78ff1ef59738124d) )
 	ROM_LOAD16_BYTE( "pwrinst2h.u44", 0x000001, 0x80000, CRC(e4eff14d) SHA1(d60de745c79e53a909905e0769a776d2e2d96a02) )
@@ -107,7 +107,7 @@ ROM_START( pwrinst2h )
 ROM_END
 
 
-ROM_START( pwrinst2z )
+ROM_START( pwrinst2s03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "pwrinst2z.u45", 0x000000, 0x80000, CRC(7b66ff4f) SHA1(ffbc2616197f1fd67dfbb9993018fe51fb12e623) )
 	ROM_IGNORE(0x3d4f47)
@@ -198,7 +198,7 @@ ROM_END
 //****************
 // Gaia Crusaders
 //****************
-ROM_START( gaias01 )
+ROM_START( gaia01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "prg1.127", 0x000000, 0x080000, CRC(47b904b2) SHA1(58b9b55f59cf00f70b690a0371096e86f4d723c2) )
 	ROM_LOAD16_BYTE( "prg2hc01.128", 0x000001, 0x080000, CRC(442b047d) SHA1(752f33b631e40ccbab7670501926144841f0b6cd) )
@@ -226,7 +226,7 @@ ROM_END
 //****************
 // Metamoqester
 //****************
-ROM_START( metmqstrs01 )
+ROM_START( metmqstr01 )
 	ROM_REGION( 0x280000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "bp947as01.u25", 0x000000, 0x80000, CRC(748cc514) SHA1(11d882e77a539407c314f087386e50d691a6bc0b) )
 	ROM_LOAD16_WORD_SWAP( "bp947a.u28", 0x100000, 0x80000, CRC(8c55decf) SHA1(76c6ce4c8e621273258d31ceb9ec4442fcf1a393) )
@@ -263,7 +263,7 @@ ROM_START( metmqstrs01 )
 ROM_END
 
 
-ROM_START( metmqstrs02 )
+ROM_START( metmqstr02 )
 	ROM_REGION( 0x280000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "bp947as02.u25", 0x000000, 0x80000, CRC(1b3f7a53) SHA1(36c23c33eb72a96af08ff104bb3463482c3651f9) )
 	ROM_LOAD16_WORD_SWAP( "bp947a.u28", 0x100000, 0x80000, CRC(8c55decf) SHA1(76c6ce4c8e621273258d31ceb9ec4442fcf1a393) )
@@ -300,7 +300,7 @@ ROM_START( metmqstrs02 )
 ROM_END
 
 
-ROM_START( metmqstrs03 )
+ROM_START( metmqstr03 )
 	ROM_REGION( 0x280000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "bp947as03.u25", 0x000000, 0x80000, CRC(43f82b88) SHA1(2240dbd899b3ada4f5e59878aae0c926d85d99ea) )
 	ROM_LOAD16_WORD_SWAP( "bp947a.u28", 0x100000, 0x80000, CRC(8c55decf) SHA1(76c6ce4c8e621273258d31ceb9ec4442fcf1a393) )
@@ -368,7 +368,7 @@ ROM_END
 //********************
 // Gouketsuji Gaiden
 //********************
-ROM_START( plegendsjs01 )
+ROM_START( plegends01 )
 	ROM_REGION( 0xA00000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "proghc01.u45", 0x000000, 0x454F5D, CRC(ab7d1e49) SHA1(2bab667194d69cbec20744fac693f3953cd28578) )
 	ROM_LOAD16_BYTE( "proghc01.u44", 0x000001, 0x454F49, CRC(bad17718) SHA1(f44413152dcbf07fd93e7447827679faeb0ee651) )
@@ -414,7 +414,7 @@ ROM_START( plegendsjs01 )
 ROM_END
 
 
-ROM_START( plegendsjs02 )
+ROM_START( plegends02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "prog.u45", 0x000000, 0x80000, CRC(94f53db2) SHA1(34c671f160cfcb7d46cc964731ff2b77dc0be928) )
 	ROM_LOAD16_BYTE( "proghc02.u44", 0x000001, 0x80000, CRC(735d8b37) SHA1(0db140a07f6b462a5916978166188e8678c10105) )
@@ -460,7 +460,7 @@ ROM_START( plegendsjs02 )
 ROM_END
 
 
-ROM_START( plegendsjs03 ) //plegendsjl
+ROM_START( plegends03 ) //plegendsjl
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "proghc03.u45", 0x000000, 0x80000, CRC(fd042fa5) SHA1(a3677d750d7baab56baf5e2f55a987fb99d8f3ac) )
 	ROM_LOAD16_BYTE( "proghc03.u44", 0x000001, 0x80000, CRC(72210eb7) SHA1(63dc4cd63bd308e2f6a95cea78c9ba5c45c2baf3) )
@@ -509,7 +509,7 @@ ROM_END
 //*****************************
 // Pretty Soldier Sailor Moon
 //*****************************
-ROM_START( sailormnh01 )   // Brutal version
+ROM_START( sailormn01 )   // Brutal version
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "h01.u45", 0x000000, 0x080000, CRC(b282dc5e) SHA1(117c0326b50a0e0986c9e1f0b84a3c0b21c95275) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -552,7 +552,7 @@ ROM_START( sailormnh01 )   // Brutal version
 ROM_END
 
 
-ROM_START( sailormnh02 )   // Real Threat
+ROM_START( sailormn02 )   // Real Threat
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "h02.u45", 0x000000, 0x080000, CRC(bff1a803) SHA1(6bf6006a3ed25274f6527f8643dc939e25678c06) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -594,7 +594,7 @@ ROM_START( sailormnh02 )   // Real Threat
 	ROM_LOAD16_WORD( "sailormn_europe.nv", 0x0000, 0x0080, CRC(59a7dc50) SHA1(6b116bdfbde42192b01678cb0b9bab0f2e56fd28) )
 ROM_END
 
-ROM_START( sailormnh03 )   // "Directors" Cut
+ROM_START( sailormn03 )   // "Directors" Cut
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "h03.u45", 0x000000, 0x080000, CRC(bc612b1b) SHA1(84fbbdeca2a81ab0ef5a7ffc8eaad7d8ec4a1f35) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -636,7 +636,7 @@ ROM_START( sailormnh03 )   // "Directors" Cut
 	ROM_LOAD16_WORD( "sailormn_europe.nv", 0x0000, 0x0080, CRC(59a7dc50) SHA1(6b116bdfbde42192b01678cb0b9bab0f2e56fd28) )
 ROM_END
 
-ROM_START( sailormnh04 )   // "Directors" Cut
+ROM_START( sailormn04 )   // "Directors" Cut
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "h04.u45", 0x000000, 0x080000, CRC(2ed54038) SHA1(bda38ea7488e99ef88105aa249d5ae8c42d0336c) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -678,7 +678,7 @@ ROM_START( sailormnh04 )   // "Directors" Cut
 	ROM_LOAD16_WORD( "sailormn_europe.nv", 0x0000, 0x0080, CRC(59a7dc50) SHA1(6b116bdfbde42192b01678cb0b9bab0f2e56fd28) )
 ROM_END
 
-ROM_START( sailormnh05 )   // Reign of Terror
+ROM_START( sailormn05 )   // Reign of Terror
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "h05.u45",  0x000000, 0x080000, CRC(daf0db76) SHA1(68e648f57219925f328575e9a513e67ca79a67df) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -720,7 +720,7 @@ ROM_START( sailormnh05 )   // Reign of Terror
 	ROM_LOAD16_WORD( "sailormn_europe.nv", 0x0000, 0x0080, CRC(59a7dc50) SHA1(6b116bdfbde42192b01678cb0b9bab0f2e56fd28) )
 ROM_END
 
-ROM_START( sailormnh06 )   // Fighting for Justice
+ROM_START( sailormn06 )   // Fighting for Justice
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "h06.u45",      0x000000, 0x100000, CRC(f11bd75a) SHA1(7d4843331d1f01596bf7b341a290417256cd23e6) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -762,7 +762,7 @@ ROM_START( sailormnh06 )   // Fighting for Justice
 	ROM_LOAD16_WORD( "sailormn_europe.nv", 0x0000, 0x0080, CRC(59a7dc50) SHA1(6b116bdfbde42192b01678cb0b9bab0f2e56fd28) )
 ROM_END
 
-ROM_START( sailormnts01 )
+ROM_START( sailormn07 )
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "s01.u45", 0x000000, 0x080000, CRC(0e7f4981) SHA1(45b35b59c1cacc146f64c3233f3bb788d98863f0) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -805,7 +805,7 @@ ROM_START( sailormnts01 )
 ROM_END
 
 
-ROM_START( sailormnts02 )
+ROM_START( sailormn08 )
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "s02.u45", 0x000000, 0x080000, CRC(5612a3c7) SHA1(c8be803904c03f932459dc6ffd6a56cacfbe2f10) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -848,7 +848,7 @@ ROM_START( sailormnts02 )
 ROM_END
 
 
-ROM_START( sailormnts03 ) //sailormnoh
+ROM_START( sailormn09 ) //sailormnoh
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "s03.u45", 0x000000, 0x080000, CRC(e77a6fbe) SHA1(0fd65be4585fac68c73dd0d1141ca3283d087523) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -891,7 +891,7 @@ ROM_START( sailormnts03 ) //sailormnoh
 ROM_END
 
 
-ROM_START( sailormnts04 ) //sailormn
+ROM_START( sailormn10 ) //sailormn
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "s04.u45", 0x000000, 0x080000, CRC(e2462006) SHA1(62b6600cdc7f849a2cc6281cff86a53288b9a7c7) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -934,7 +934,7 @@ ROM_START( sailormnts04 ) //sailormn
 ROM_END
 
 
-ROM_START( sailormnts05 ) //sailormnn
+ROM_START( sailormn11 ) //sailormnn
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "s05.u45", 0x000000, 0x080000, CRC(eaf9da46) SHA1(10b980d3b535c7e5b8d217984575a8223f1ebac2) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -977,7 +977,7 @@ ROM_START( sailormnts05 ) //sailormnn
 ROM_END
 
 
-ROM_START( sailormnts06 ) //sailormnoj
+ROM_START( sailormn12 ) //sailormnoj
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "s06.u45", 0x000000, 0x080000, CRC(7a6f5434) SHA1(83a935d357865030c2ff8b9a980bdacd00807c0e) )
 	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
@@ -1025,32 +1025,32 @@ ROM_END
 GAME( 2021, ddonpachjh,    ddonpach, ddonpach,   cave,     cave_state,     init_ddonpach,  ROT270,  "Olifante", "DoDonPachi (Japan, hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, ddonpachjd,    ddonpach, ddonpach,   cave,     cave_state,     init_ddonpach,  ROT270,  "Ekorz", "DoDonPachi (Japan, demo)", MACHINE_SUPPORTS_SAVE )
 // Gaia Crusaders
-GAME( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     init_gaia,      ROT0,    "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, gaia01,        gaia,     gaia,       gaia,     cave_state,     init_guwange,   ROT0,    "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE )
 // Metamoqester
-GAME( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "Aneue Bannzai",  "Metamoqester (Korean)",   MACHINE_SUPPORTS_SAVE )
-GAME( 1995, metmqstrs02,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Always Have Super Move)",   MACHINE_SUPPORTS_SAVE )
-GAME( 1995, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Easy Move)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstr01,    metmqstr, metmqstr,   metmqstr, cave_z80_state, init_metmqstr,  ROT0,    "Aneue Bannzai",  "Metamoqester (Korean)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstr02,    metmqstr, metmqstr,   metmqstr, cave_z80_state, init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Always Have Super Move)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstr03,    metmqstr, metmqstr,   metmqstr, cave_z80_state, init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Easy Move)",   MACHINE_SUPPORTS_SAVE )
 // Thunder Heroes
-GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_gaia,      ROT0,    "pipi899",  "Thunder Heroes (Select Characters, 2009-08-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_guwange,   ROT0,    "pipi899",  "Thunder Heroes (Select Characters, 2009-08-19)", MACHINE_SUPPORTS_SAVE )
 // Gouketsuji Gaiden
-GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack",  "Gouketsuji Gaiden (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "DDJ",   "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, plegendsjs03,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack",  "Gouketsuji Gaiden (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, plegends01,    plegends, pwrinst2,   metmqstr, cave_z80_state, init_pwrinst2,  ROT0,    "hack",  "Gouketsuji Gaiden (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, plegends02,    plegends, pwrinst2,   metmqstr, cave_z80_state, init_pwrinst2,  ROT0,    "DDJ",   "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, plegends03,    plegends, pwrinst2,   metmqstr, cave_z80_state, init_pwrinst2,  ROT0,    "hack",  "Gouketsuji Gaiden (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Power Instinct 2
-GAME( 2013, pwrinst2h,     pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "TT", "Power Instinct 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pwrinst2z,     pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack", "Power Instinct 2 (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2,  ROT0,    "hack",   "Power Instinct 2 (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, pwrinst2s02,   pwrinst2, pwrinst2,   metmqstr, cave_z80_state, init_pwrinst2,  ROT0,    "TT", "Power Instinct 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pwrinst2s03,   pwrinst2, pwrinst2,   metmqstr, cave_z80_state, init_pwrinst2,  ROT0,    "hack", "Power Instinct 2 (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_z80_state, init_pwrinst2,  ROT0,    "hack",   "Power Instinct 2 (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Pretty Soldier Sailor Moon
-GAME( 2021, sailormnh01,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Brutal Version) v0.2", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, sailormnh02,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Real Threat) v1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, sailormnh03,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Director's Cut) v1.2", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, sailormnh04,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Director's Cut) v1.4", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, sailormnh05,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Reign of Terror) v1.6", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, sailormnh06,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Fight for Justice) v1.6", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, sailormnts01,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "GOTVG", "Pretty Soldier Sailor Moon (Increases The Difficulty, 2018-04-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, sailormnts02,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "pipi899", "Pretty Soldier Sailor Moon (Enhanced Magic, 2009-02-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, sailormnts03,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enhanced Edition, 2019-12-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sailormnts04,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition, 2020-05-13)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sailormnts05,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition, 2020-05-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sailormnts06,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Rabbit Edition, 2020-09-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, sailormn01,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Brutal Version) v0.2", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, sailormn02,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Real Threat) v1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, sailormn03,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Director's Cut) v1.2", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, sailormn04,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Director's Cut) v1.4", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, sailormn05,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Reign of Terror) v1.6", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, sailormn06,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Fight for Justice) v1.6", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, sailormn07,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "GOTVG", "Pretty Soldier Sailor Moon (Increases The Difficulty, 2018-04-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, sailormn08,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "pipi899", "Pretty Soldier Sailor Moon (Enhanced Magic, 2009-02-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, sailormn09,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enhanced Edition, 2019-12-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sailormn10,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition, 2020-05-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sailormn11,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition, 2020-05-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sailormn12,    sailormn, sailormn,   cave,     cave_z80_state, init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Rabbit Edition, 2020-09-17)", MACHINE_SUPPORTS_SAVE )
 

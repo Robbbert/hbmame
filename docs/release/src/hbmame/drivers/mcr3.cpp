@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mcr3.cpp"
+#include "../mame/bally/mcr3.cpp"
 
 ROM_START( sargex )
 	ROM_REGION( 0x10000, "maincpu", 0 )

@@ -41,17 +41,17 @@ void ng_memcard_device::device_start()
     with the given index
 -------------------------------------------------*/
 
-image_init_result ng_memcard_device::call_load()
+std::pair<std::error_condition, std::string> ng_memcard_device::call_load()
 {
 	if(length() != 0x800)
-		return image_init_result::FAIL;
+		return std::make_pair(image_error::INVALIDLENGTH, "Unsupported memory card size (only 2K cards are supported)");
 
 	fseek(0, SEEK_SET);
 	size_t ret = fread(m_memcard_data, 0x800);
 	if(ret != 0x800)
-		return image_init_result::FAIL;
+		return std::make_pair(image_error::UNSPECIFIED, "Error reading file");
 
-	return image_init_result::PASS;
+	return std::make_pair(std::error_condition(), std::string());
 }
 
 void ng_memcard_device::call_unload()
@@ -60,15 +60,15 @@ void ng_memcard_device::call_unload()
 	fwrite(m_memcard_data, 0x800);
 }
 
-image_init_result ng_memcard_device::call_create(int format_type, util::option_resolution *format_options)
+std::pair<std::error_condition, std::string> ng_memcard_device::call_create(int format_type, util::option_resolution *format_options)
 {
 	memset(m_memcard_data, 0, 0x800);
 
 	size_t ret = fwrite(m_memcard_data, 0x800);
 	if(ret != 0x800)
-		return image_init_result::FAIL;
+		return std::make_pair(image_error::UNSPECIFIED, "Error writing file");
 
-	return image_init_result::PASS;
+	return std::make_pair(std::error_condition(), std::string());
 }
 
 

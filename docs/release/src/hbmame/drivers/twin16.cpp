@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/twin16.cpp"
+#include "../mame/konami/twin16.cpp"
 
 ROM_START( gradius2s01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
@@ -37,5 +37,5 @@ ROM_START( gradius2s01 )
 ROM_END
 
 
-GAME( 2008, gradius2s01, vulcan, twin16, gradius2, twin16_state, init_twin16, ROT0, "hack", "Gradius II - GOFER no Yabou (Ver xH, 2008-08-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, gradius2s01, vulcan, twin16, gradius2, twin16_state, empty_init, ROT0, "hack", "Gradius II - GOFER no Yabou (Ver xH, 2008-08-28)", MACHINE_SUPPORTS_SAVE )
 

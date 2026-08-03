@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/ertictac.cpp"
+#include "../mame/acorn/ertictac.cpp"
 
 // worked in 0.128, not now
 ROM_START( armdemo )

@@ -57,8 +57,6 @@ public:
 private:
 
 	bool m_flip_screen = false;
-	bool m_screen_red = false;
-	bool m_sound_enabled = false;
 	u8 m_port_1_last_extra = 0U;
 	u8 m_port_2_last_extra = 0U;
 	emu_timer   *m_interrupt_timer = nullptr;

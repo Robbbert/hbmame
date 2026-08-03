@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/wwfsstar.cpp"
+#include "../mame/technos/wwfsstar.cpp"
 
  /***************
  WWF Superstars
@@ -18,10 +18,10 @@ ROM_START( wwesstar )
 	ROM_LOAD( "24a9-0.46", 0x00000, 0x20000, CRC(703ff08f) SHA1(08c4d33208eb4c76c751a1a0fe16a817bdc30820) )
 	ROM_LOAD( "24j8-0.45", 0x20000, 0x20000, CRC(61138487) SHA1(6d5e3b12acdefb6923aa8ae0704f6c328f4747b3) )
 
-	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_REGION( 0x20000, "fgtiles", 0 )
 	ROM_LOAD( "24aa-0.58", 0x00000, 0x20000, CRC(a5bbcd62) SHA1(f910fbd82a7e3f6d4891a0cb72c695909ccfaf7a) )
 
-	ROM_REGION( 0x200000, "gfx2", 0 )
+	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD( "c951.114",   0x000000, 0x80000, CRC(9c69b057) SHA1(19fb23533564838b69477e3d32d609109826a8a7) )
 	ROM_LOAD( "24j4-0.115", 0x080000, 0x40000, CRC(7c7bc232) SHA1(03585109bd61bea1a3011885d9e97b8bea907a1c) )
 	ROM_LOAD( "24j5-0.116", 0x0c0000, 0x40000, CRC(c9dec5b0) SHA1(c1c47d614edb36e7a9a16668abf01a40007553b1) )
@@ -29,7 +29,7 @@ ROM_START( wwesstar )
 	ROM_LOAD( "24j2-0.118", 0x180000, 0x40000, CRC(f71ceb39) SHA1(fcee844bd023ac09b28e1712149aeb24c5d105db) )
 	ROM_LOAD( "24j3-0.119", 0x1c0000, 0x40000, CRC(099452e4) SHA1(3a5a57ee48a11e07e1ddd2ec8527e32e5b739dd6) )
 
-	ROM_REGION( 0x80000, "gfx3", 0 )
+	ROM_REGION( 0x80000, "bgtiles", 0 )
 	ROM_LOAD( "24j7-0.113", 0x00000, 0x40000, CRC(f7cbe865) SHA1(cd15e397381ccf1b3a28a41df8dcabf9e0a3d08f) )
 	ROM_LOAD( "24j6-0.112", 0x40000, 0x40000, CRC(454d165d) SHA1(16f174f34590c586f063e8985b3182c62679a920) )
 ROM_END

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mario.cpp"
+#include "../mame/nintendo/mario.cpp"
 
 ROM_START( cenmario )
 	ROM_REGION( 0x10000, "maincpu", 0 ) // cpu roms from marioj
@@ -9,9 +9,10 @@ ROM_START( cenmario )
 	ROM_LOAD( "tma1c-a1.7d",  0x4000, 0x2000, CRC(f8575f31) SHA1(710d0e72fcfce700ed2a22fb9c7c392cc76b250b) )
 	ROM_LOAD( "tma1c-a2.7c",  0xf000, 0x1000, CRC(a3c11e9e) SHA1(d0612b0f8c2ea4e798f551922a04a324f4ed5f3d) )
 
-	ROM_REGION( 0x1800, "audiocpu", ROMREGION_ERASE00 )
-	ROM_LOAD( "tma1-c-6k_e.6k", 0x1000, 0x0800, CRC(06b9ff85) SHA1(111a29bcb9cda0d935675fa26eca6b099a88427f) )
-	ROM_CONTINUE(             0x0800, 0x0800)
+	ROM_REGION( 0x0800, "audiocpu", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x1000, "soundrom", ROMREGION_ERASE00 )
+	ROM_LOAD( "tma1-c-6k_e.6k", 0x0000, 0x1000, CRC(06b9ff85) SHA1(111a29bcb9cda0d935675fa26eca6b099a88427f) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "cenmario.3f",  0x0000, 0x1000, CRC(27bcd321) SHA1(d8f1fc65dc17af2f80d67f3e2f3edabc79eba1b3) )

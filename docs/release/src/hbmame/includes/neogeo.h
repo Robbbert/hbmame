@@ -201,9 +201,9 @@ public:
 	void init_vliner();
 	void init_xs02();
 	void init_zupapa();
-	DECLARE_CUSTOM_INPUT_MEMBER(get_memcard_status);
-	DECLARE_CUSTOM_INPUT_MEMBER(get_audio_result);
-	DECLARE_CUSTOM_INPUT_MEMBER(kizuna4p_start_r);
+	ioport_value get_memcard_status();
+	ioport_value get_audio_result();
+	ioport_value kizuna4p_start_r();
 	DECLARE_INPUT_CHANGED_MEMBER(select_bios);
 
 	// public for kf2k2ps2re

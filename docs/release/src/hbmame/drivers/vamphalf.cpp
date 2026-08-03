@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/vamphalf.cpp"
+#include "../mame/misc/vamphalf.cpp"
 
 /*************
  Age Of Heroes

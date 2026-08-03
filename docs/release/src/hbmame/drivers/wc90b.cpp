@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/wc90b.cpp"
+#include "../mame/tecmo/wc90b.cpp"
 
 ROM_START( twcup90s01 ) //twcup90b3
 	ROM_REGION( 0x20000, "maincpu", 0 )
@@ -39,13 +39,6 @@ ROM_START( twcup90s01 ) //twcup90b3
 	ROM_LOAD( "149_a15",      0x050000, 0x10000, CRC(b2423962) SHA1(098bc06411cf3f9c7cf69933eba360fd059b5d3f) )
 	ROM_LOAD( "146_a12.bin",  0x060000, 0x10000, CRC(d5a60096) SHA1(a8e351a4b020b4fc2b2cb7d3f0fdfb43fc44d7d9) )
 	ROM_LOAD( "147_a13",      0x070000, 0x10000, CRC(5b16fd48) SHA1(b167d6a7da0c696cde39581822fc61d20756321c) )
-
-	ROM_REGION( 0x1000, "plds", 0 )
-	ROM_LOAD( "el_ic39_gal16v8_0.bin", 0x0000, 0x0117, NO_DUMP SHA1(894b345b395097acf6cf52ab8bc922099f97a85f) )
-	ROM_LOAD( "el_ic44_gal16v8_1.bin", 0x0200, 0x0117, NO_DUMP SHA1(fd41f55d857995fe87217dd9679c42760c241dc4) )
-	ROM_LOAD( "el_ic54_gal16v8_2.bin", 0x0400, 0x0117, NO_DUMP SHA1(f6d138fe42549219e11ee8524b05fe3c2b43f5d3) )
-	ROM_LOAD( "el_ic100_gal16v8_3.bin", 0x0600, 0x0117, NO_DUMP SHA1(515fcdf378e75ed078f54439fefce8807403bdd5) )
-	ROM_LOAD( "el_ic143_gal16v8_4.bin", 0x0800, 0x0117, NO_DUMP SHA1(fbe632437eac2418da7a3c3e947cfd36f6211407) )
 ROM_END
 
 ROM_START( twcup90s02 ) //twcup90b4
@@ -85,13 +78,6 @@ ROM_START( twcup90s02 ) //twcup90b4
 	ROM_LOAD( "149_a15",      0x050000, 0x10000, CRC(b2423962) SHA1(098bc06411cf3f9c7cf69933eba360fd059b5d3f) )
 	ROM_LOAD( "146_a12.bin",  0x060000, 0x10000, CRC(d5a60096) SHA1(a8e351a4b020b4fc2b2cb7d3f0fdfb43fc44d7d9) )
 	ROM_LOAD( "147_a13",      0x070000, 0x10000, CRC(5b16fd48) SHA1(b167d6a7da0c696cde39581822fc61d20756321c) )
-
-	ROM_REGION( 0x1000, "plds", 0 )
-	ROM_LOAD( "el_ic39_gal16v8_0.bin", 0x0000, 0x0117, NO_DUMP SHA1(894b345b395097acf6cf52ab8bc922099f97a85f) )
-	ROM_LOAD( "el_ic44_gal16v8_1.bin", 0x0200, 0x0117, NO_DUMP SHA1(fd41f55d857995fe87217dd9679c42760c241dc4) )
-	ROM_LOAD( "el_ic54_gal16v8_2.bin", 0x0400, 0x0117, NO_DUMP SHA1(f6d138fe42549219e11ee8524b05fe3c2b43f5d3) )
-	ROM_LOAD( "el_ic100_gal16v8_3.bin", 0x0600, 0x0117, NO_DUMP SHA1(515fcdf378e75ed078f54439fefce8807403bdd5) )
-	ROM_LOAD( "el_ic143_gal16v8_4.bin", 0x0800, 0x0117, NO_DUMP SHA1(fbe632437eac2418da7a3c3e947cfd36f6211407) )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */

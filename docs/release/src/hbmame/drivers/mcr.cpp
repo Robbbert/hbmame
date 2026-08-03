@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mcr.cpp"
+#include "../mame/bally/mcr.cpp"
 
 ROM_START( handiman ) // all roms from tron2 except gfx2
 	ROM_REGION( 0x10000, "maincpu", 0 )

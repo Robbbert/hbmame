@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/asuka.cpp"
+#include "../mame/taito/asuka.cpp"
 
 ROM_START( asuka01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )

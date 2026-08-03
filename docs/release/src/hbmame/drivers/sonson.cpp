@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/sonson.cpp"
+#include "../mame/capcom/sonson.cpp"
 
 ROM_START( sonson01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -11,11 +11,11 @@ ROM_START( sonson01 )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "ss_6.c11",     0xe000, 0x2000, CRC(1135c48a) SHA1(bfc10363fc42fb589088675a6e8e3d1668d8a6b8) )
 
-	ROM_REGION( 0x04000, "gfx1", 0 )
+	ROM_REGION( 0x04000, "chars", 0 )
 	ROM_LOAD( "ss01_7.b6",      0x00000, 0x2000, CRC(617bfd8d) SHA1(5e9053324729ada8f5f62bd1d140a06b44a50172) )
 	ROM_LOAD( "ss01_8.b5",      0x02000, 0x2000, CRC(144a6abb) SHA1(21b560e567ea1a31e848c7a51a8131f5e040f9fb) )
 
-	ROM_REGION( 0x0c000, "gfx2", 0 )
+	ROM_REGION( 0x0c000, "sprites", 0 )
 	ROM_LOAD( "ss01_9.m5",      0x00000, 0x2000, CRC(3f3be435) SHA1(3084f9d7473b0d2cf46c04846a696da84dea4ff1) )
 	ROM_LOAD( "ss01_10.m6",     0x02000, 0x2000, CRC(89ab9ddb) SHA1(31bc3e3eca70381f86368473b302380dc022a623) )
 	ROM_LOAD( "ss01_11.m3",     0x04000, 0x2000, CRC(d1f2858b) SHA1(ef8c848e5a4f8bcd8e4d019f988e5f45e2f01caf) )

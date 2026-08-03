@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/vsnes.cpp"
+#include "../mame/nintendo/vsnes.cpp"
 
 ROM_START( mrio2002 )
 	ROM_REGION( 0x8000, "prg", 0 )
@@ -146,11 +146,11 @@ ROM_START( mightybj01 )
 ROM_END
 
 
-GAME( 2002, mrio2002,    suprmrio,     vsnes,    suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
-GAME( 2025, mightybj01,  nvs_mightybj, mightybj, mightybj,  vsnes_state, init_vsnormal, ROT0, "Vag", "Mighty Bomb Jack (Greek)", 0 )
-GAME( 1986, suprsktr,    suprmrio,     vsnes,    suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
-GAME( 2002, drmario01,   drmario,      vsnes,    drmario,   vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
-GAME( 2019, drluigi,     drmario,      vsnes,    drmario,   vsnes_state, init_drmario,  ROT0, "Szemigi", "Dr. Luigi", 0 )
-GAME( 2020, frombelow,   suprmrio,     vsnes,    frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
-GAME( 2020, vs_urban,    0,            vsnes,    vs_urban,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
+GAME( 2002, mrio2002,    suprmrio,     vsnes,    suprmrio,  vs_uni_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
+GAME( 2025, mightybj01,  nvs_mightybj, mightybj, mightybj,  vs_uni_state, init_vsnormal, ROT0, "Vag", "Mighty Bomb Jack (Greek)", 0 )
+GAME( 1986, suprsktr,    suprmrio,     vsnes,    suprmrio,  vs_uni_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
+GAME( 2002, drmario01,   drmario,      vsnes,    drmario,   vs_uni_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
+GAME( 2019, drluigi,     drmario,      vsnes,    drmario,   vs_uni_state, init_drmario,  ROT0, "Szemigi", "Dr. Luigi", 0 )
+GAME( 2020, frombelow,   suprmrio,     vsnes,    frombelow, vs_uni_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
+GAME( 2020, vs_urban,    0,            vsnes,    vs_urban,  vs_uni_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
 

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/astrof.cpp"
+#include "../mame/dataeast/astrof.cpp"
 
 ROM_START( astrofbl )
 	ROM_REGION( 0x10000, "maincpu", 0 )

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/bublbobl.cpp"
+#include "../mame/taito/bublbobl.cpp"
 
 static INPUT_PORTS_START( bbaladar )
 	PORT_INCLUDE( boblbobl )
@@ -279,8 +279,8 @@ ROM_START( bublbobf )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "a78-07.46",    0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
 
-	ROM_REGION( 0x10000, "mcu", 0 )
-	ROM_LOAD( "a78-01.17",    0xf000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
+	ROM_REGION( 0x1000, "mcu", 0 )
+	ROM_LOAD( "a78-01.17",    0x0000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
 
 	ROM_REGION( 0x80000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "a78-09.12",    0x00000, 0x8000, CRC(20358c22) SHA1(2297af6c53d5807bf90a8e081075b8c72a994fc5) )
@@ -300,7 +300,7 @@ ROM_START( bublbobf )
 	ROM_LOAD( "a71-25.41",    0x0000, 0x0100, CRC(2d0f8545) SHA1(089c31e2f614145ef2743164f7b52ae35bc06808) )
 ROM_END
 
-ROM_START( bublbobls01 )
+ROM_START( bublbobl01 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bublbobf-06.51",    0x00000, 0x08000, CRC(9ced3d8f) SHA1(d445f218fca822e7083a9347abd4a4e049b6555b) )
 	ROM_LOAD( "a78-05-1hc01.52",    0x10000, 0x10000, CRC(b8f43b09) SHA1(96abd923e712078c70a452ba51513577cc0bdb08) )
@@ -311,8 +311,8 @@ ROM_START( bublbobls01 )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "a78-07.46",    0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
 
-	ROM_REGION( 0x10000, "mcu", 0 )
-	ROM_LOAD( "a78-01.17",    0xf000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
+	ROM_REGION( 0x1000, "mcu", 0 )
+	ROM_LOAD( "a78-01.17",    0x0000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
 
 	ROM_REGION( 0x80000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "a78-09.12",    0x00000, 0x8000, CRC(20358c22) SHA1(2297af6c53d5807bf90a8e081075b8c72a994fc5) )
@@ -343,8 +343,8 @@ ROM_START( bublboblu )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "a78-07.46",    0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
 
-	ROM_REGION( 0x10000, "mcu", 0 )
-	ROM_LOAD( "a78-01.17",    0xf000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
+	ROM_REGION( 0x1000, "mcu", 0 )
+	ROM_LOAD( "a78-01.17",    0x0000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
 
 	ROM_REGION( 0x80000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "a78-09.12",    0x00000, 0x8000, CRC(20358c22) SHA1(2297af6c53d5807bf90a8e081075b8c72a994fc5) )
@@ -375,8 +375,8 @@ ROM_START( bublboblu2 )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "a78-07.46",    0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
 
-	ROM_REGION( 0x10000, "mcu", 0 )
-	ROM_LOAD( "a78-01.17",    0xf000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
+	ROM_REGION( 0x1000, "mcu", 0 )
+	ROM_LOAD( "a78-01.17",    0x0000, 0x1000, CRC(b1bfb53d) SHA1(31b8f31acd3aa394acd80db362774749842e1285) )
 
 	ROM_REGION( 0x80000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "a78-09.12",    0x00000, 0x8000, CRC(20358c22) SHA1(2297af6c53d5807bf90a8e081075b8c72a994fc5) )
@@ -429,18 +429,18 @@ ROM_START( bub68705a )
 	ROM_LOAD( "a71-25.41",    0x0000, 0x0100, CRC(2d0f8545) SHA1(089c31e2f614145ef2743164f7b52ae35bc06808) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+/*    YEAR  NAME        PARENT    MACHINE     INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bubble Bobble
-GAME( 2007, bublbobls01,   bublbobl,        bublbobl, bublbobl,   bublbobl_state, init_common, ROT0, "S.Arkames", "Bubble Bobble (French, set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, init_common, ROT0, "Aladar", "Bubble Bobble (Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, sboblboblh, bublbobl, sboblboblh, boblbobl, bublbobl_hbmame, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Arkatrad", "Bubble Bobble (French, set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, bublboblu2, bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Penta Penguin", "Bubble Bobble (Ultra)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, bublbobl01, bublbobl, bublbobl,   bublbobl,   bublbobl_state,  init_common, ROT0, "S.Arkames", "Bubble Bobble (French, set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, bbaladar,   bublbobl, boblbobl,   bbaladar,   bublbobl_state,  init_common, ROT0, "Aladar", "Bubble Bobble (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bb2bmh,     bublbobl, bub68705,   bublbobl,   bub68705_state,  init_common, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bbhackv1,   bublbobl, bub68705,   bublbobl,   bub68705_state,  init_common, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux1,   bublbobl, boblbobl,   boblbobl,   bublbobl_state,  init_common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux2,   bublbobl, boblbobl,   boblbobl,   bublbobl_state,  init_common, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux3,   bublbobl, boblbobl,   boblbobl,   bublbobl_state,  init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, sboblboblh, bublbobl, sboblboblh, sboblboblb, bublbobl_hbmame, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, bublbobf,   bublbobl, bublbobl,   bublbobl,   bublbobl_state,  init_common, ROT0, "Arkatrad", "Bubble Bobble (French, set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, bublboblu,  bublbobl, bublbobl,   bublbobl,   bublbobl_state,  init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, bublboblu2, bublbobl, bublbobl,   bublbobl,   bublbobl_state,  init_common, ROT0, "Penta Penguin", "Bubble Bobble (Ultra)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, bub68705a,  bublbobl, bub68705,   bublbobl,   bub68705_state,  init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )
 

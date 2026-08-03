@@ -19,6 +19,7 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
+#include "main.h"
 #include "ui/info.h"
 #include "drivenum.h"
 #include "mui_opts.h"
@@ -346,14 +347,16 @@ UINT GetSavedFolderID(void)
 	return (UINT) settings.int_value(MUIOPTION_DEFAULT_FOLDER_ID);
 }
 
-void SetOverrideRedX(BOOL val)
+void SetOverrideRedX(uint8_t val)
 {
+	if (val > 2)
+		val = 0;
 	settings.setter(MUIOPTION_OVERRIDE_REDX, val);
 }
 
-BOOL GetOverrideRedX(void)
+uint8_t GetOverrideRedX()
 {
-	return settings.bool_value(MUIOPTION_OVERRIDE_REDX);
+	return settings.int_value(MUIOPTION_OVERRIDE_REDX);
 }
 
 static LPBITS GetShowFolderFlags(LPBITS bits)
@@ -1452,7 +1455,7 @@ DWORD GetFolderFlags(int folder_index)
 	LPTREEFOLDER lpFolder = GetFolder(folder_index);
 
 	if (lpFolder)
-		return lpFolder->m_dwFlags & F_MASK;
+		return lpFolder->m_dwFlags & FI_MASK;
 
 	return 0;
 }
@@ -1515,7 +1518,7 @@ void LoadFolderFlags(void)
 			string option_name = string(folder_name) + "_filters";
 
 			// get entry and decode it
-			lpFolder->m_dwFlags |= (settings.int_value(option_name.c_str()) & F_MASK);
+			lpFolder->m_dwFlags |= (settings.int_value(option_name.c_str()) & FI_MASK);
 		}
 	}
 }
@@ -1526,7 +1529,7 @@ void LoadFolderFlags(void)
 static void AddFolderFlags()
 {
 	LPTREEFOLDER lpFolder;
-	int num_entries = 0, numFolders = GetNumFolders();
+	int numFolders = GetNumFolders();
 
 	for (int i = 0; i < numFolders; i++)
 	{
@@ -1549,10 +1552,7 @@ static void AddFolderFlags()
 			string option_name = string(folder_name) + "_filters";
 
 			// store entry
-			settings.setter(option_name.c_str(), lpFolder->m_dwFlags & F_MASK);
-
-			// increment counter
-			num_entries++;
+			settings.setter(option_name.c_str(), lpFolder->m_dwFlags & FI_MASK);
 		}
 	}
 }

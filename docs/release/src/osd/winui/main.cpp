@@ -1,5 +1,4 @@
-// license:BSD-3-Clause
-// copyright-holders:Aaron Giles
+// For licensing and usage information, read docs/release/winui_license.txt
 //============================================================
 //
 //  main.cpp - Win32 main program

@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/volfied.cpp"
+#include "../mame/taito/volfied.cpp"
 
 ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_REGION( 0x100000, "maincpu", 0 )

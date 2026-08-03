@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/model2.cpp"
+#include "../mame/sega/model2.cpp"
 
 ROM_START( srallyp )
 	ROM_REGION( 0x200000, "maincpu", 0 )

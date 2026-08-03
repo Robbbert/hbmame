@@ -1,6 +1,6 @@
 // license:GPL-2.0+
 // copyright-holders:Robbbert
-#include "../mame/drivers/segaxbd.cpp"
+#include "../mame/sega/segaxbd.cpp"
 
 // These "should" work on any x-board game, as long as the FD1094 is replaced by a normal MC68000.
 ROM_START( aburtest )

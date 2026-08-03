@@ -30,8 +30,6 @@
  *      - HBMAME: Dropped support for messinfo.dat, sysinfo.dat, story.dat, marp.dat
  
 ***************************************************************************/
-// license:BSD-3-Clause
-// copyright-holders:Chris Kirmse, Mike Haaland, René Single, Mamesick, Robbbert
 
 #include <windows.h>
 #include <fstream>
@@ -74,9 +72,9 @@ HSOURCEINFO;
 // The order of these is the order they are displayed
 const HGAMEINFO m_gameInfo[MAX_HFILES] =
 {
-	{ "history.xml",  "\n**** :HISTORY: ****\n\n",          "<text>",   1 },
+	{ "gameinit.dat", "\n**** :GAMEINIT: ****\n\n",         "$mame",  0 },
+	{ "history.xml",  "\n**** :HISTORY: ****\n\n",          "<text>", 1 },
 	{ "mameinfo.dat", "\n**** :MAMEINFO: ****\n\n",         "$mame",  1 },
-	{ "gameinit.dat", "\n**** :GAMEINIT: ****\n\n",         "$mame",  1 },
 	{ "command.dat",  "\n**** :COMMANDS: ****\n\n",         "$cmd",   1 },
 };
 

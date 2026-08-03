@@ -197,7 +197,7 @@ static void UpdateDirectoryList(HWND hDlg)
 	HWND hCombo = GetDlgItem(hDlg, IDC_DIR_COMBO);
 
 	/* Remove previous */
-	BOOL b_res = ListView_DeleteAllItems(hList);
+	(void)ListView_DeleteAllItems(hList);
 
 	/* Update list */
 	LV_ITEM Item;
@@ -226,7 +226,6 @@ static void UpdateDirectoryList(HWND hDlg)
 	/* select first one */
 
 	ListView_SetItemState(hList, 0, LVIS_SELECTED, LVIS_SELECTED);
-	b_res++;
 }
 
 static void Directories_OnSelChange(HWND hDlg)
@@ -256,7 +255,6 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	TCHAR *token;
 	TCHAR buf[MAX_PATH * MAX_DIRS];
 	TCHAR* t_s = NULL;
-	HRESULT res = 0;
 
 	/* count how many dirinfos there are */
 	int nDirInfoCount = 0;
@@ -286,8 +284,7 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	LVCol.mask = LVCF_WIDTH;
 	LVCol.cx = rectClient.right - rectClient.left - GetSystemMetrics(SM_CXHSCROLL);
 
-	res = ListView_InsertColumn(GetDlgItem(hDlg, IDC_DIR_LIST), 0, &LVCol);
-	res++;
+	(void)ListView_InsertColumn(GetDlgItem(hDlg, IDC_DIR_LIST), 0, &LVCol);
 
 	/* Keep a temporary copy of the directory strings in g_pDirInfo. */
 	for (i = 0; i < nDirInfoCount; i++)

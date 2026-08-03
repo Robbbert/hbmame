@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/toki.cpp"
+#include "../mame/seibu/toki.cpp"
 
 
 ROM_START( toki01 )
@@ -14,18 +14,18 @@ ROM_START( toki01 )
 	ROM_LOAD( "8.m3",   0x00000, 0x02000, CRC(6c87c4c5) SHA1(d76822bcde3d42afae72a0945b6acbf3c6a1d955) )
 	ROM_LOAD( "7.m7",   0x10000, 0x10000, CRC(a67969c4) SHA1(99781fbb005b6ba4a19a9cc83c8b257a3b425fa6) )
 
-	ROM_REGION( 0x020000, "gfx1", 0 )
+	ROM_REGION( 0x020000, "chars", 0 )
 	ROM_LOAD( "s01_1.c5",   0x000000, 0x10000, CRC(6c15674d) SHA1(43f97522f14f83d1f5d353445fa127fadcdb7f17) )
 	ROM_LOAD( "s01_2.c3",   0x010000, 0x10000, CRC(72b52e63) SHA1(b6a9d887e9ba474cbb38021850e167f36d7b6ede) )
 
-	ROM_REGION( 0x100000, "gfx2", 0 )
+	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD( "s01_obj1.c20",   0x000000, 0x80000, CRC(9233d8bf) SHA1(63427b50231ca3ed1df78754f0bf682c765ce657) )
 	ROM_LOAD( "s01_obj2.c22",   0x080000, 0x80000, CRC(483cc50a) SHA1(08613b20c9477f761785e7de153b8f7855384f75) )
 
-	ROM_REGION( 0x080000, "gfx3", 0 )
+	ROM_REGION( 0x080000, "bgtiles", 0 )
 	ROM_LOAD( "toki_bk1.cd8",   0x000000, 0x80000, CRC(fdaa5f4b) SHA1(ea850361bc8274639e8433bd2a5307fd3a0c9a24) )
 
-	ROM_REGION( 0x080000, "gfx4", 0 )
+	ROM_REGION( 0x080000, "fgtiles", 0 )
 	ROM_LOAD( "s01_bk2.ef8",   0x000000, 0x80000, CRC(5a18182b) SHA1(178c254c44743597980ddd3d13eab18a8a8473b0) )
 
 	ROM_REGION( 0x40000, "oki", 0 )

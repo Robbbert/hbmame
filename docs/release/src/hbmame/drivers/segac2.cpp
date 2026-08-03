@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/segac2.cpp"
+#include "../mame/sega/segac2.cpp"
 
 /* http://frogfeast.rastersoft.net/SegaC2.html
     It appears from the source that the sound is going through a Z80 - but the C2 hardware doesn't have one...

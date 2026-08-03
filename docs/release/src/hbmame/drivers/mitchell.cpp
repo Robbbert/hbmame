@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mitchell.cpp"
+#include "../mame/capcom/mitchell.cpp"
 
 ROM_START( mitcdemo )
 	ROM_REGION( 0xa0000, "maincpu", 0 )
@@ -26,7 +26,7 @@ ROM_END
  Pang
 *******/
 
-ROM_START( pangbolds01 ) //pangbold3
+ROM_START( pang01 ) //pangbold3
 	ROM_REGION( 2*0x50000, "maincpu", 0 )
 	ROM_LOAD( "4_ps01.6l",  0x50000, 0x08000, CRC(f5e6e2fa) SHA1(7ec78f8e99d2fd90ad626ef5b1c36ef667842827) )
 	ROM_CONTINUE(      0x00000, 0x08000 )
@@ -52,5 +52,5 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 GAME( 1989, mitcdemo, 0, pang, pang, mitchell_state, init_pangb, ROT0, "Charles Doty", "Demo - Mitchell", MACHINE_SUPPORTS_SAVE )
 // Pang
-GAME( 1989, pangbolds01,    pang,     pang,       pang,     mitchell_state, init_pangb,      ROT0,   "bootleg",    "Pang (bootleg, set 7)[bootleg]", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, pang01,    pang,     pang,       pang,     mitchell_state, init_pangb,      ROT0,   "bootleg",    "Pang (bootleg, set 7)[bootleg]", MACHINE_SUPPORTS_SAVE )
 

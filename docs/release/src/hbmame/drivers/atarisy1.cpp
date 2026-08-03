@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/atarisy1.cpp"
+#include "../mame/atari/atarisy1.cpp"
 
 ROM_START( ataris1hw )
 	ROM_REGION( 0x88000, "maincpu", 0 )

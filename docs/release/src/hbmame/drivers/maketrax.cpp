@@ -1219,7 +1219,7 @@ void puckman_state::init_ponpoko()
 ROM_START( chuckie )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "chuckie.1",    0x0000, 0x1000, CRC(f2ba04fd) SHA1(30fd7256ac1706db94dfd0f7e7518b36197f4a32) )
-	ROM_LOAD( "chuckie.2",    0x1000, 0x1000, CRC(161510d3) SHA1(ad77509495a03466554f2388a9651a6183c16066) )
+	ROM_LOAD( "chuckie.2",    0x1000, 0x1000, CRC(80285be4) SHA1(66484c25e3fea517915a1b9facefb3c84acfd465) )
 	ROM_LOAD( "chuckie.3",    0x2000, 0x1000, CRC(5c594671) SHA1(598aa268b45a04e4dafbf7271278b06271b31e50) )
 	ROM_LOAD( "chuckie.4",    0x3000, 0x1000, CRC(25d4fc4f) SHA1(42f8424a8059248bb57e054e3bd129e995b94622) )
 

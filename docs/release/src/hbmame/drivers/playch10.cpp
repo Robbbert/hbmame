@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/playch10.cpp"
+#include "../mame/nintendo/playch10.cpp"
 
 ROM_START( pc_ark ) /* Arkanoid (1942) */
 	BIOS_CPU

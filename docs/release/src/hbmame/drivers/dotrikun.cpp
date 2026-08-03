@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/dotrikun.cpp"
+#include "../mame/sega/dotrikun.cpp"
 #include "speaker.h"
 #include "machine/nvram.h"
 #include "sound/beep.h"

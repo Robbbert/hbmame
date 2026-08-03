@@ -1,2 +1,4 @@
 @echo off
-hbmame -valid
+echo Validating...
+hbmame -validate 
+echo ...done.

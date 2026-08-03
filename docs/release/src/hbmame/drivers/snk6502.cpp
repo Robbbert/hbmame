@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/snk6502.cpp"
+#include "../mame/snk/snk6502.cpp"
 
 ROM_START( vantris )
 	ROM_REGION( 0x10000, "maincpu", 0 )

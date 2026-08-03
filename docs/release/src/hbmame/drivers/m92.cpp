@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/m92.cpp"
+#include "../mame/irem/m92.cpp"
 
 /****
  Hook

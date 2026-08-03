@@ -1,7 +1,7 @@
 @echo off
 if %1q==q goto help
 
-git tag -a tag245%1 -m "tag245%1"
+git tag -a tag%1 -m "tag%1"
 git push --tags
 goto end
 
@@ -12,7 +12,7 @@ echo Push new tag to github
 echo.
 echo Usage: t [release]
 echo.
-echo Example: t 29
+echo Example: t 284
 echo.
 :end
  

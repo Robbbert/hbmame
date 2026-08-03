@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/taito_f2.cpp"
+#include "../mame/taito/taito_f2.cpp"
 
 namespace {
 
@@ -49,9 +49,9 @@ void taitof2_hbmame::f2demo(machine_config &config)
 	ymsnd.add_route(1, "lspeaker", 1.0);
 	ymsnd.add_route(2, "rspeaker", 1.0);
 
-	tc0140syt_device &tc0140syt(TC0140SYT(config, "tc0140syt", 0));
-	tc0140syt.set_master_tag(m_maincpu);
-	tc0140syt.set_slave_tag(m_audiocpu);
+	tc0140syt_device &tc0140syt(TC0140SYT(config, "tc0140syt"));
+	tc0140syt.nmi_callback().set_inputline(m_audiocpu, INPUT_LINE_NMI);
+	tc0140syt.reset_callback().set_inputline(m_audiocpu, INPUT_LINE_RESET);
 
 	TC0220IOC(config, m_tc0220ioc, 0);
 	m_tc0220ioc->read_0_callback().set_ioport("DSWA");
@@ -333,19 +333,19 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE    INPUT       CLASS           INIT          MONITOR  COMPANY         FULLNAME  FLAGS */
 // Cameltry
-GAME( 1989, cameltry01,     cameltry, cameltry,  cameltryj,  taitof2_state,  init_cameltry, ROT0,   "hack",         "Cameltry (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, cameltry01,     cameltry, cameltry,  cameltryj,  cameltry_state,  empty_init,    ROT0,   "hack",         "Cameltry (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-GAME( 1992, deadconx01,     deadconx, deadconxj, deadconxj,  taitof2_state,  empty_init,    ROT0,   "hack",         "Dead Connection (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, deadconx01,     deadconx, deadconxj, deadconxj,  footchmp_state,  empty_init,    ROT0,   "hack",         "Dead Connection (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Demo
 GAME( 1990, f2demo,         0,        f2demo,    liquidk,    taitof2_hbmame, empty_init,    ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-GAME( 1989, dondokod01,     dondokod, dondokod,  dondokodj,  taitof2_state,  empty_init,    ROT0,   "hack",         "Don Doko Don (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, dondokod01,     dondokod, dondokod,  dondokodj,  dondokod_state,  empty_init,    ROT0,   "hack",         "Don Doko Don (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dino Rex
 GAME( 1992, dinorex01,      dinorex,  dinorex,   dinorex,    taitof2_state,  empty_init,    ROT0,   "DDJ",          "Dino Rex (Easy Move)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
 GAME( 1990, gunfront01,     gunfront, gunfront,  gunfrontj,  taitof2_state,  empty_init,    ROT270, "hack",         "Gun Frontier (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-GAME( 1989, megablst01,     megablst, megab,     megabj,     taitof2_state,  empty_init,    ROT0,   "hack",         "Mega Blast (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, megablst01,     megablst, megab,     megabj,     megablst_state,  empty_init,    ROT0,   "hack",         "Mega Blast (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
 GAME( 1990, mizubak01,      liquidk,  liquidk,   mizubaku,   taitof2_state,  empty_init,    ROT0,   "hack",         "Mizubaku Daibouken (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Runark

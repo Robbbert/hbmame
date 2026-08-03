@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/seta.cpp"
+#include "../mame/seta/seta.cpp"
 
 /*********************
  The FairyLand Story
@@ -137,5 +137,5 @@ GAME( 1992, blandia03,   blandia,   blandia,   blandia,   seta_state,     init_b
 // Mobile Suit Gundam
 GAME( 1993, msgundam01,  msgundam,  msgundam,  msgundam,  seta_state,     empty_init,     ROT0,   "DDJ",  "Mobile Suit Gundam (Easy Move)", 0 )
 // Rezon
-GAME( 1991, rezon01,     rezon,     rezon,     rezon,     seta_state,     init_rezon,     ROT0,   "hack", "Rezon (3 button version (Fixed Vaws, Rapid Fire)", 0 )
+GAME( 1991, rezon01,     rezon,     rezon,     rezon,     seta_state,     empty_init,     ROT0,   "hack", "Rezon (3 button version (Fixed Vaws, Rapid Fire)", 0 )
 

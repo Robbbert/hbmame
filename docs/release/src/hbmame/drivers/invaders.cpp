@@ -92,13 +92,13 @@ public:
 	void invadpt2(machine_config &config);
 
 	DECLARE_INPUT_CHANGED_MEMBER(direct_coin_count);
-	DECLARE_CUSTOM_INPUT_MEMBER(invaders_sw6_sw7_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(invaders_sw5_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(invaders_in0_control_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(invaders_in1_control_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(invaders_in2_control_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(invadpt2_in1_control_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(invadpt2_in2_control_r);
+	ioport_value invaders_sw6_sw7_r();
+	ioport_value invaders_sw5_r();
+	ioport_value invaders_in0_control_r();
+	ioport_value invaders_in1_control_r();
+	ioport_value invaders_in2_control_r();
+	ioport_value invadpt2_in1_control_r();
+	ioport_value invadpt2_in2_control_r();
 	IRQ_CALLBACK_MEMBER(interrupt_vector);
 
 protected:
@@ -109,7 +109,7 @@ protected:
 	void port03_w(uint8_t data);
 	void port05_w(uint8_t data);
 
-	DECLARE_WRITE_LINE_MEMBER(int_enable_w);
+	void int_enable_w(int);
 
 	uint32_t screen_update_mw8080bw(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_invaders(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -165,7 +165,7 @@ INPUT_CHANGED_MEMBER(invaders_state::direct_coin_count)
 	machine().bookkeeping().coin_counter_w(0, newval);
 }
 
-CUSTOM_INPUT_MEMBER(invaders_state::invaders_sw6_sw7_r)
+ioport_value invaders_state::invaders_sw6_sw7_r()
 {
 	// upright PCB : switches visible
 	// cocktail PCB: HI
@@ -177,7 +177,7 @@ CUSTOM_INPUT_MEMBER(invaders_state::invaders_sw6_sw7_r)
 }
 
 
-CUSTOM_INPUT_MEMBER(invaders_state::invaders_sw5_r)
+ioport_value invaders_state::invaders_sw5_r()
 {
 	// upright PCB : switch visible
 	// cocktail PCB: HI
@@ -189,7 +189,7 @@ CUSTOM_INPUT_MEMBER(invaders_state::invaders_sw5_r)
 }
 
 
-CUSTOM_INPUT_MEMBER(invaders_state::invaders_in0_control_r)
+ioport_value invaders_state::invaders_in0_control_r()
 {
 	// upright PCB : P1 controls
 	// cocktail PCB: HI
@@ -201,13 +201,13 @@ CUSTOM_INPUT_MEMBER(invaders_state::invaders_in0_control_r)
 }
 
 
-CUSTOM_INPUT_MEMBER(invaders_state::invaders_in1_control_r)
+ioport_value invaders_state::invaders_in1_control_r()
 {
 	return m_player_controls[0]->read();
 }
 
 
-CUSTOM_INPUT_MEMBER(invaders_state::invaders_in2_control_r)
+ioport_value invaders_state::invaders_in2_control_r()
 {
 	// upright PCB : P1 controls
 	// cocktail PCB: P2 controls
@@ -286,7 +286,7 @@ TIMER_CALLBACK_MEMBER(invaders_state::interrupt_trigger)
 	m_interrupt_timer->adjust(m_screen->time_until_pos(next_vpos));
 }
 
-WRITE_LINE_MEMBER(invaders_state::int_enable_w)
+void invaders_state::int_enable_w(int state)
 {
 	m_int_enable = state;
 }
@@ -539,17 +539,17 @@ static INPUT_PORTS_START( invaders )
 	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Unknown ) ) PORT_DIPLOCATION("SW:8")
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
-	PORT_BIT( 0x06, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_sw6_sw7_r)
+	PORT_BIT( 0x06, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_sw6_sw7_r))
 	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNUSED )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_in0_control_r)
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_sw5_r)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_in0_control_r))
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_sw5_r))
 
 	PORT_START("IN1")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW,  IPT_COIN1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, invaders_state, direct_coin_count, 0)
+	PORT_BIT( 0x01, IP_ACTIVE_LOW,  IPT_COIN1 ) PORT_CHANGED_MEMBER(DEVICE_SELF, FUNC(invaders_state::direct_coin_count), 0)
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START2 )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNUSED )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_in1_control_r)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_in1_control_r))
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN2")
@@ -562,7 +562,7 @@ static INPUT_PORTS_START( invaders )
 	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) ) PORT_DIPLOCATION("SW:2")
 	PORT_DIPSETTING(    0x08, "1000" )
 	PORT_DIPSETTING(    0x00, "1500" )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_in2_control_r)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_in2_control_r))
 	PORT_DIPNAME( 0x80, 0x00, "Display Coinage" ) PORT_DIPLOCATION("SW:1")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -721,7 +721,7 @@ static INPUT_PORTS_START( sicv_base )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START2 )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNUSED )    // tied high via 1k resistor on schematic (shared with IN0 bit 3)
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_in1_control_r)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_in1_control_r))
 	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNUSED )    // not connected (floating) on schematic
 
 	PORT_START("IN2")
@@ -734,7 +734,7 @@ static INPUT_PORTS_START( sicv_base )
 	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW1:4")
 	PORT_DIPSETTING(    0x08, "1000" )
 	PORT_DIPSETTING(    0x00, "1500" )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invaders_in2_control_r) // P2 controls gated by DIP switches on sicv
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invaders_in2_control_r)) // P2 controls gated by DIP switches on sicv
 	PORT_DIPNAME( 0x80, 0x00, "Coin Info" )             PORT_DIPLOCATION("SW1:8")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -755,12 +755,12 @@ INPUT_PORTS_END
 /*                                                     */
 /*******************************************************/
 
-CUSTOM_INPUT_MEMBER(invaders_state::invadpt2_in1_control_r)
+ioport_value invaders_state::invadpt2_in1_control_r()
 {
 	return m_player_controls[0]->read() | (m_player_controls[1]->read() & ~m_cabinet_type->read());
 }
 
-CUSTOM_INPUT_MEMBER(invaders_state::invadpt2_in2_control_r)
+ioport_value invaders_state::invadpt2_in2_control_r()
 {
 	return m_player_controls[1]->read() | (m_player_controls[0]->read() & ~m_cabinet_type->read());
 }
@@ -793,7 +793,7 @@ static INPUT_PORTS_START( invadpt2 )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START2 )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED ) // tied low on schematic
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invadpt2_in1_control_r)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invadpt2_in1_control_r))
 	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNUSED ) // tied high via 1k resistor on schematic (shared with IN0 bits 3/4/5/7, IN2 bit 2)
 
 	PORT_START("IN2")
@@ -805,7 +805,7 @@ static INPUT_PORTS_START( invadpt2 )
 	PORT_DIPNAME( 0x08, 0x00, "Preset Mode" )       PORT_DIPLOCATION("SW1:2") // in preset mode, 1P start increases score by 1000 to pre-set high score/name
 	PORT_DIPSETTING(    0x00, "Game Mode" )
 	PORT_DIPSETTING(    0x08, "Name Entry" )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(invaders_state, invadpt2_in2_control_r)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(invaders_state::invadpt2_in2_control_r))
 	PORT_DIPNAME( 0x80, 0x00, "Coin Info" )         PORT_DIPLOCATION("SW1:1")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )

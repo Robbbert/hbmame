@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/itech8.cpp"
+#include "../mame/itech/itech8.cpp"
 
 ROM_START( itecdemo )
 	ROM_REGION( 0x1c000, "maincpu", 0 )

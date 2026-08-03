@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/kikikai.cpp"
+#include "../mame/taito/kikikai.cpp"
 
  /***********
  KiKi KaiKai
@@ -15,8 +15,8 @@ ROM_START( kikikai01 )
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "a85-11.f6", 0x0000, 0x8000, CRC(cc3539db) SHA1(4239a40fdee65cba613e4b4ec54cf7899480e366) )
 
-	ROM_REGION( 0x800, "mcu", 0 )
-	ROM_LOAD( "a85-01.g8",    0x0000, 0x0800, NO_DUMP )
+	ROM_REGION( 0x1000, "mcu", 0 )
+	ROM_LOAD( "a85-01_jph1020p.h8", 0x0000, 0x1000, CRC(01771197) SHA1(84430a56c66ff2781fe1ff35d4f15b332cd0af37) )
 
 	ROM_REGION( 0x40000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "a85-15_s01.a1", 0x00000, 0x10000, CRC(966b8bd1) SHA1(77fa4215499ab65ea5c513a5b15b6613ac6cdb2b) )
@@ -32,5 +32,5 @@ ROM_END
 
 /*    YEAR  NAME         PARENT      MACHINE   INPUT     CLASS                       INIT      MONITOR COMPANY                 FULLNAME               FLAGS */
 // KiKi KaiKai
-GAME( 1986, kikikai01,  kikikai,    kikikai,  kikikai,  kikikai_simulation_state, empty_init, ROT90,   "hack",  "KiKi KaiKai (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, kikikai01,  kikikai,    kikikai,  kikikai,  kikikai_state, empty_init, ROT90,   "hack",  "KiKi KaiKai (Chinese)", MACHINE_SUPPORTS_SAVE )
 

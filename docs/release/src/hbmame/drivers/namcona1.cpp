@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/namcona1.cpp"
+#include "../mame/namco/namcona1.cpp"
 
 
 /**************

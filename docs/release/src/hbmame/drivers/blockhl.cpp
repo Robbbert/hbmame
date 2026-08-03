@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 
-#include "../mame/drivers/blockhl.cpp"
+#include "../mame/konami/blockhl.cpp"
 
 ROM_START( quarth01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )

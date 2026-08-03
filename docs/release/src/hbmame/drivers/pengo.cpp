@@ -31,10 +31,10 @@ public:
 	void init_penta();
 
 private:
-	DECLARE_WRITE_LINE_MEMBER(coin_counter_1_w);
-	DECLARE_WRITE_LINE_MEMBER(coin_counter_2_w);
-	DECLARE_WRITE_LINE_MEMBER(irq_mask_w);
-	DECLARE_WRITE_LINE_MEMBER(vblank_irq);
+	void coin_counter_1_w(int);
+	void coin_counter_2_w(int);
+	void irq_mask_w(int);
+	void vblank_irq(int);
 
 	void decode_penta(int end, int nodecend);
 
@@ -75,17 +75,17 @@ private:
  *
  *************************************/
 
-WRITE_LINE_MEMBER(pengo_state::coin_counter_1_w)
+void pengo_state::coin_counter_1_w(int state)
 {
 	machine().bookkeeping().coin_counter_w(0, state);
 }
 
-WRITE_LINE_MEMBER(pengo_state::coin_counter_2_w)
+void pengo_state::coin_counter_2_w(int state)
 {
 	machine().bookkeeping().coin_counter_w(1, state);
 }
 
-WRITE_LINE_MEMBER(pengo_state::irq_mask_w)
+void pengo_state::irq_mask_w(int state)
 {
 	m_irq_mask = state;
 }
@@ -97,7 +97,7 @@ void pengo_state::pengo_map(address_map &map)
 	map(0x8400, 0x87ff).ram().w(FUNC(pengo_state::pacman_colorram_w)).share("colorram");
 	map(0x8800, 0x8fef).ram().share("mainram");
 	map(0x8ff0, 0x8fff).ram().share("spriteram");
-	map(0x9000, 0x901f).w(m_namco_sound, FUNC(namco_device::pacman_sound_w));
+	map(0x9000, 0x901f).w(m_namco_sound, FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x9020, 0x902f).writeonly().share("spriteram2");
 	map(0x9000, 0x903f).portr("DSW1");
 	map(0x9040, 0x907f).portr("DSW0");
@@ -122,7 +122,7 @@ void pengo_state::jrpacmbl_map(address_map &map)
 	map(0x8000, 0x87ff).ram().w(FUNC(pengo_state::jrpacman_videoram_w)).share("videoram");
 	map(0x8800, 0x8fef).ram();
 	map(0x8ff0, 0x8fff).ram().share("spriteram");
-	map(0x9000, 0x901f).w(m_namco_sound, FUNC(namco_device::pacman_sound_w));
+	map(0x9000, 0x901f).w(m_namco_sound, FUNC(namco_wsg_device::pacman_sound_w));
 	map(0x9020, 0x902f).writeonly().share("spriteram2");
 	map(0x9030, 0x9030).w(FUNC(pengo_state::jrpacman_scroll_w));
 	map(0x9040, 0x904f).portr("DSW");
@@ -320,7 +320,7 @@ GFXDECODE_END
  *
  *************************************/
 
-WRITE_LINE_MEMBER(pengo_state::vblank_irq)
+void pengo_state::vblank_irq(int state)
 {
 	if (state && m_irq_mask)
 		m_maincpu->set_input_line(0, HOLD_LINE);
@@ -335,7 +335,7 @@ void pengo_state::pengo(machine_config &config)
 
 	LS259(config, m_latch); // U27
 	m_latch->q_out_cb<0>().set(FUNC(pengo_state::irq_mask_w));
-	m_latch->q_out_cb<1>().set("namco", FUNC(namco_device::sound_enable_w));
+	m_latch->q_out_cb<1>().set("namco", FUNC(namco_wsg_device::sound_enable_w));
 	m_latch->q_out_cb<2>().set(FUNC(pengo_state::pengo_palettebank_w));
 	m_latch->q_out_cb<3>().set(FUNC(pengo_state::flipscreen_w));
 	m_latch->q_out_cb<4>().set(FUNC(pengo_state::coin_counter_1_w));
@@ -360,8 +360,7 @@ void pengo_state::pengo(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	NAMCO(config, m_namco_sound, MASTER_CLOCK/6/32);
-	m_namco_sound->set_voices(3);
+	NAMCO_WSG(config, m_namco_sound, MASTER_CLOCK/6/32);
 	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
 }
 

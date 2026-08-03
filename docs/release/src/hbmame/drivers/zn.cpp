@@ -1,12 +1,12 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/zn.cpp"
+#include "../mame/sony/zn.cpp"
 
  /*****************
  Dead Or Alive ++
 ********************/
 ROM_START( doapp01 ) // 12 characters to choose from instead of 10
-	TPS_BIOS
+	TECMO_TPS_SYSTEM_BIOS
 
 	ROM_REGION32_LE( 0x02800000, "bankedroms", 0 )
 	ROM_LOAD16_BYTE( "doapp119.s01", 0x0000001, 0x100000, CRC(f3691595) SHA1(470ea8989229b6400cb7adac30939a2f635dccd9) )
@@ -24,7 +24,8 @@ ROM_END
 
 
 ROM_START( doapp02 )
-	TPS_BIOS
+	TECMO_TPS_SYSTEM_BIOS
+
 	ROM_REGION32_LE( 0x02800000, "bankedroms", 0 )
 	ROM_LOAD16_BYTE( "doapp119.bin", 0x0000001, 0x100000, CRC(bbe04cef) SHA1(f2dae4810ca78075fc3007a6001531a455235a2e) )
 	ROM_LOAD16_BYTE( "doapp120.s02", 0x0000000, 0x100000, CRC(cb236b2f) SHA1(b4e69abed13d9166ab0e329e2d1119fbea9e396c) )
@@ -44,7 +45,7 @@ ROM_END
  Street Fighter EX
 ********************/
 ROM_START( sfex01 )
-	CPZN1_BIOS
+	CAPCOM_ZN1_BIOS
 
 	ROM_REGION32_LE( 0x80000, "countryrom", 0 )
 	ROM_LOAD( "sfee_04a.2h", 0x0000000, 0x080000, CRC(092cfa2e) SHA1(8af38a3f4f89f661233995a672faf486e71b79bc) )
@@ -73,7 +74,7 @@ ROM_END
  Street Fighter EX2
 ********************/
 ROM_START( sfex2s01 )
-	CPZN2_BIOS
+	CAPCOM_ZN2_BIOS
 
 	ROM_REGION32_LE( 0x80000, "countryrom", 0 )
 	ROM_LOAD( "ex2u_04a.2h", 0x0000000, 0x080000, CRC(8dc5317f) SHA1(c35224caf70662a0e45a74cbead294a51f9b9e16) )
@@ -100,7 +101,7 @@ ROM_END
  Street Fighter EX2 Plus
 ***************************/
 ROM_START( sfex2p01 )
-	CPZN2_BIOS
+	CAPCOM_ZN2_BIOS
 
 	ROM_REGION32_LE( 0x80000, "countryrom", 0 )
 	ROM_LOAD( "x2pu_04.2h", 0x0000000, 0x080000, CRC(2938118c) SHA1(4bdeeb9aa3dd54ef44aa3fc73d78d65297b1ed25) )
@@ -129,7 +130,7 @@ ROM_END
  Street Fighter EX Plus
 ***************************/
 ROM_START( sfexp01 )
-	CPZN1_BIOS
+	CAPCOM_ZN1_BIOS
 
 	ROM_REGION32_LE( 0x80000, "countryrom", 0 )
 	ROM_LOAD( "sfpu_04a.2h", 0x0000000, 0x080000, CRC(4617adc2) SHA1(200307904349ad7e5d7d76d8c904b6b10424c7ef) )
@@ -156,14 +157,14 @@ ROM_END
 
 /*    YEAR  NAME          PARENT  MACHINE      INPUT     CLASS           INIT       MONITOR COMPANY      FULLNAME FLAGS */
 // Dead Or Alive ++
-GAME( 1998, doapp01,      doapp,  coh1002m,    zn,       tecmo_zn_state, empty_init, ROT0, "Yumeji", "Dead Or Alive ++ (Enable Hidden Characters)", 0 )
-GAME( 1998, doapp02,      doapp,  coh1002m,    zn,       tecmo_zn_state, empty_init, ROT0, "Yumeji", "Dead Or Alive ++ (Kasumi Sexy Hack)", 0 )
+GAME( 1998, doapp01,      doapp,  coh1002m,    zn2p,     tecmo_zn_state, empty_init, ROT0, "Yumeji", "Dead Or Alive ++ (Enable Hidden Characters)", 0 )
+GAME( 1998, doapp02,      doapp,  coh1002m,    zn2p,     tecmo_zn_state, empty_init, ROT0, "Yumeji", "Dead Or Alive ++ (Kasumi Sexy Hack)", 0 )
 // Street Fighter EX
-GAME( 1996, sfex01,       sfex,   coh1002c,    zn6b,     zn1_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX (Enable Hidden Characters)", 0 )
+GAME( 1996, sfex01,       sfex,   coh1002c,    capcom6b, capcom_zn_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX (Enable Hidden Characters)", 0 )
 // Street Fighter EX2
-GAME( 1998, sfex2s01,     sfex2,  coh3002c,    zn6b,     zn2_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX2 (Enable Hidden Characters)", 0 )
+GAME( 1998, sfex2s01,     sfex2,  coh3002c,    capcom6b, capcom_zn_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX2 (Enable Hidden Characters)", 0 )
 // Street Fighter EX2 Plus
-GAME( 1999, sfex2p01,     sfex2p, coh3002c,    zn6b,     zn2_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX2 Plus (Enable Hidden Characters)", 0 )
+GAME( 1999, sfex2p01,     sfex2p, coh3002c,    capcom6b, capcom_zn_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX2 Plus (Enable Hidden Characters)", 0 )
 // Street Fighter EX Plus
-GAME( 1997, sfexp01,      sfexp,  coh1002c,    zn6b,     zn1_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX Plus (Enable Hidden Characters)", 0 )
+GAME( 1997, sfexp01,      sfexp,  coh1002c,    capcom6b, capcom_zn_state,      empty_init, ROT0, "Yumeji", "Street Fighter EX Plus (Enable Hidden Characters)", 0 )
 

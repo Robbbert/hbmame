@@ -52,14 +52,14 @@ public:
 	void mhavocpe_lpc(machine_config &config); //HBMAME
 	void mhavocpe_adpcm(machine_config &config); //HBMAME
 
-	DECLARE_CUSTOM_INPUT_MEMBER(coin_service_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(coin_cabinet_l);
-	DECLARE_READ_LINE_MEMBER(gamma_rcvd_r);
-	DECLARE_READ_LINE_MEMBER(gamma_xmtd_r);
-	DECLARE_READ_LINE_MEMBER(gamma_tirdy_r);
-	DECLARE_READ_LINE_MEMBER(alpha_rcvd_r);
-	DECLARE_READ_LINE_MEMBER(alpha_xmtd_r);
-	DECLARE_READ_LINE_MEMBER(clock_r);
+	ioport_value coin_service_r();
+	ioport_value coin_cabinet_l();
+	int gamma_rcvd_r();
+	int gamma_xmtd_r();
+	int gamma_tirdy_r();
+	ioport_value alpha_rcvd_r();
+	ioport_value alpha_xmtd_r();
+	int clock_r();
 
 private:
 	uint8_t dual_pokey_r(offs_t offset);

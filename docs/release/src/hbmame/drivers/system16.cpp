@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/system16.cpp"
+#include "../mame/sega/system16.cpp"
 
 /*
     This demo doesn't have any sound programmed in.
@@ -50,7 +50,7 @@ ROM_START( sys16dem )
 	ROM_LOAD16_BYTE( "rom2dm.bin", 0x00000, 0x10000, CRC(671c5eac) SHA1(5fa7f8ba9d31a6c31a0b5a32c2cd869200032461) )
 	ROM_LOAD16_BYTE( "rom1dm.bin", 0x00001, 0x10000, CRC(6461ebd9) SHA1(16dc373408342560eb48e3c037a8f42636796560) )
 
-	ROM_REGION( 0x30000, "gfx1", 0 )
+	ROM_REGION( 0x30000, "tiles", 0 )
 	ROM_LOAD( "scr01dm.b9",  0x00000, 0x10000, CRC(2fdb9b09) SHA1(bec9ca842921695b06915825acfba076443a7e8b) )
 	ROM_LOAD( "scr02dm.b10", 0x10000, 0x10000, CRC(0e880750) SHA1(d6b7c84c00dfb3c1fcf966587f700f3ea3313b94) )
 	ROM_LOAD( "scr03dm.b11", 0x20000, 0x10000, CRC(3e76f2ba) SHA1(9177850b5d0b914a672af414e7e134e15d554fb8) )

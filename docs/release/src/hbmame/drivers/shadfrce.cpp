@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/shadfrce.cpp"
+#include "../mame/technos/shadfrce.cpp"
 
 /*************
  Shadow Force

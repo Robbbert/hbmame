@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/namcos2.cpp"
+#include "../mame/namco/namcos2.cpp"
 
 
 /********

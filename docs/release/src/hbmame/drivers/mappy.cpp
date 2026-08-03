@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/mappy.cpp"
+#include "../mame/namco/mappy.cpp"
 
 ROM_START( crackhea )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -11,12 +11,12 @@ ROM_START( crackhea )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "mp1_4.1k",     0xe000, 0x2000, CRC(8182dd5b) SHA1(f36b57f7f1e79f00b3f07afe1960bca5f5325ee2) )
 
-	ROM_REGION( 0x1000, "gfx1", ROMREGION_INVERT )
+	ROM_REGION( 0x1000, "tiles", ROMREGION_INVERT )
 	ROM_LOAD( "crackh3b.32",  0x0000, 0x1000, CRC(912ffa7e) SHA1(e2fc4992ef7214e62acdcda6605a1e27b2739cbf) )
 
-	ROM_REGION( 0x4000, "gfx2", 0 )
-	ROM_LOAD( "crackh3m.64",  0x0000, 0x2000, CRC(a263d078) SHA1(344fae10fab0f9646f5a2b39cac09faa9745ec9b) )
-	ROM_LOAD( "crackh3n.64",  0x2000, 0x2000, CRC(3758ceb2) SHA1(152ba5a14514c0c160886d5c9a1296dea7a298aa) )
+	ROM_REGION( 0x4000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "crackh3m.64",  0x0000, 0x2000, CRC(a263d078) SHA1(344fae10fab0f9646f5a2b39cac09faa9745ec9b) )
+	ROM_LOAD16_BYTE( "crackh3n.64",  0x0001, 0x2000, CRC(3758ceb2) SHA1(152ba5a14514c0c160886d5c9a1296dea7a298aa) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
 	ROM_LOAD( "mp1-5.5b",     0x0000, 0x0020, CRC(56531268) SHA1(2e356706c07f43eeb67783fb122bdc7fed1b3589) )
@@ -36,12 +36,12 @@ ROM_START( housepty )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "mp1_4.1k",     0xe000, 0x2000, CRC(8182dd5b) SHA1(f36b57f7f1e79f00b3f07afe1960bca5f5325ee2) )
 
-	ROM_REGION( 0x1000, "gfx1", ROMREGION_INVERT )
+	ROM_REGION( 0x1000, "tiles", ROMREGION_INVERT )
 	ROM_LOAD( "housep3b.32",  0x0000, 0x1000, CRC(8d565a7e) SHA1(b2730de5ea2d19ba1e2851c27a73c6b03225a479) )
 
-	ROM_REGION( 0x4000, "gfx2", 0 )
-	ROM_LOAD( "housep3m.64",  0x0000, 0x2000, CRC(23a3c108) SHA1(266e7ca7db5f7d481f99fd295b6bdb2da3b34b93) )
-	ROM_LOAD( "housep3n.64",  0x2000, 0x2000, CRC(c6822529) SHA1(1d8658a0e014d67b5b84f33cb19a9bdd8a88f623) )
+	ROM_REGION( 0x4000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "housep3m.64",  0x0000, 0x2000, CRC(23a3c108) SHA1(266e7ca7db5f7d481f99fd295b6bdb2da3b34b93) )
+	ROM_LOAD16_BYTE( "housep3n.64",  0x0001, 0x2000, CRC(c6822529) SHA1(1d8658a0e014d67b5b84f33cb19a9bdd8a88f623) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
 	ROM_LOAD( "mp1-5.5b",     0x0000, 0x0020, CRC(56531268) SHA1(2e356706c07f43eeb67783fb122bdc7fed1b3589) )
@@ -61,12 +61,12 @@ ROM_START( marpy )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "mp1_4.1k",     0xe000, 0x2000, CRC(8182dd5b) SHA1(f36b57f7f1e79f00b3f07afe1960bca5f5325ee2) )
 
-	ROM_REGION( 0x1000, "gfx1", ROMREGION_INVERT )
+	ROM_REGION( 0x1000, "tiles", ROMREGION_INVERT )
 	ROM_LOAD( "marpy3b.32",   0x0000, 0x1000, CRC(2aa99047) SHA1(1ad2488066e433f2833b179b16d6500dd68ebecd) )
 
-	ROM_REGION( 0x4000, "gfx2", 0 )
-	ROM_LOAD( "marpy3m.64",   0x0000, 0x2000, CRC(ce61b84d) SHA1(33ff0ca22f347aceda084b4b8c3444a18b3d27e6) )
-	ROM_LOAD( "marpy3n.64",   0x2000, 0x2000, CRC(5d0572a7) SHA1(9afecab321dd4558efe27b00dc95a5e22154eb68) )
+	ROM_REGION( 0x4000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "marpy3m.64",   0x0000, 0x2000, CRC(ce61b84d) SHA1(33ff0ca22f347aceda084b4b8c3444a18b3d27e6) )
+	ROM_LOAD16_BYTE( "marpy3n.64",   0x0001, 0x2000, CRC(5d0572a7) SHA1(9afecab321dd4558efe27b00dc95a5e22154eb68) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
 	ROM_LOAD( "mp1-5.5b",     0x0000, 0x0020, CRC(56531268) SHA1(2e356706c07f43eeb67783fb122bdc7fed1b3589) )
@@ -85,10 +85,10 @@ ROM_START( superpc1 )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "spc-3.1k",     0xf000, 0x1000, CRC(04445ddb) SHA1(ce7d14963d5ddaefdeaf433a6f82c43cd1611d9b) )
 
-	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_REGION( 0x1000, "tiles", 0 )
 	ROM_LOAD( "superpc1.3c",  0x0000, 0x1000, CRC(1c72ed9e) SHA1(31833bd244ff0b61419566eae4f53bdd76a5a0e8) )
 
-	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_REGION( 0x2000, "sprites", 0 )
 	ROM_LOAD( "superpc1.3f",  0x0000, 0x2000, CRC(89f07757) SHA1(642ca413cf27496322e4840998cdb711e3c682e0) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
@@ -108,10 +108,10 @@ ROM_START( superpcn )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "spc-3.1k",     0xf000, 0x1000, CRC(04445ddb) SHA1(ce7d14963d5ddaefdeaf433a6f82c43cd1611d9b) )
 
-	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_REGION( 0x1000, "tiles", 0 )
 	ROM_LOAD( "sp1-6.3c",     0x0000, 0x1000, CRC(91c5935c) SHA1(10579edabc26a0910253fab7d41b4c19ecdaaa09) )
 
-	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_REGION( 0x2000, "sprites", 0 )
 	ROM_LOAD( "spv-2.3f",     0x0000, 0x2000, CRC(670a42f2) SHA1(9171922df07e31fd1dc415766f7d2cc50a9d10dc) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
@@ -131,10 +131,10 @@ ROM_START( superpcp )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "spc-3.1k",     0xf000, 0x1000, CRC(04445ddb) SHA1(ce7d14963d5ddaefdeaf433a6f82c43cd1611d9b) )
 
-	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_REGION( 0x1000, "tiles", 0 )
 	ROM_LOAD( "spv-1.3c",     0x0000, 0x1000, CRC(78337e74) SHA1(11222adb55e6bce508896ccb1f6dbab0c1d44e5b) )
 
-	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_REGION( 0x2000, "sprites", 0 )
 	ROM_LOAD( "spcp-2.3f",    0x0000, 0x2000, CRC(0d52ef4d) SHA1(9db8d36d80db8622dd129e8db01ef507f0e5e926) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
@@ -154,10 +154,10 @@ ROM_START( superpcs )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "spc-3.1k",     0xf000, 0x1000, CRC(04445ddb) SHA1(ce7d14963d5ddaefdeaf433a6f82c43cd1611d9b) )
 
-	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_REGION( 0x1000, "tiles", 0 )
 	ROM_LOAD( "superpcs.3c",  0x0000, 0x1000, CRC(3a4f438d) SHA1(ca333d02c94380d4fc4b56c8cc5f7269157ac371) )
 
-	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_REGION( 0x2000, "sprites", 0 )
 	ROM_LOAD( "superpcs.3f",  0x0000, 0x2000, CRC(d477484e) SHA1(edf724a3a53c0bfd18aaa55e452b47c8b54b223e) )
 
 	ROM_REGION( 0x0220, "proms", 0 )
@@ -177,10 +177,10 @@ ROM_START( vectrsup )
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "spc-3.1k",     0xf000, 0x1000, CRC(04445ddb) SHA1(ce7d14963d5ddaefdeaf433a6f82c43cd1611d9b) )
 
-	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_REGION( 0x1000, "tiles", 0 )
 	ROM_LOAD( "vecsup-1.3c",  0x0000, 0x1000, CRC(618db633) SHA1(3930a12c0d76d55b3ff40cc9deca20b01c6c9f9b) )
 
-	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_REGION( 0x2000, "sprites", 0 )
 	ROM_LOAD( "vecsup-2.3f",  0x0000, 0x2000, CRC(62c09c6c) SHA1(f1c65b594c293b6a4eb459eac80fe28929c64eb6) )
 
 	ROM_REGION( 0x0220, "proms", 0 )

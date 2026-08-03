@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 //***************************************************************************************************************
-#include "../mame/drivers/mcatadv.cpp"
+#include "../mame/misc/mcatadv.cpp"
 
 
 ROM_START( mcatadv01 )  // Local text hack to show someone's company name

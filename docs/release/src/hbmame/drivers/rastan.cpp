@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/rastan.cpp"
+#include "../mame/taito/rastan.cpp"
 
 ROM_START( rastan01 )
 	ROM_REGION( 0x60000, "maincpu", 0 )

@@ -47,8 +47,41 @@ class parent_rom_vector : public std::vector<parent_rom>
 public:
 	using std::vector<parent_rom>::vector;
 
-	void remove_redundant_parents()
+	void remove_redundant_parents(device_t const &device)
 	{
+		// remove parents with no shared ROMs
+		const_reverse_iterator firstparent(crend());
+		for (rom_entry const *region = rom_first_region(device); region && ((crend() == firstparent) || (back().type.get() != firstparent->type.get())); region = rom_next_region(region))
+		{
+			for (rom_entry const *rom = rom_first_file(region); rom; rom = rom_next_file(rom))
+			{
+				util::hash_collection const hashes(rom->hashdata());
+				auto const match(
+						std::find_if(
+							crbegin(),
+							firstparent,
+							[rom, &hashes] (parent_rom const &r)
+							{
+								if (r.length != rom_file_size(rom))
+									return false;
+								else if (!hashes.flag(util::hash_collection::FLAG_NO_DUMP))
+									return r.hashes == hashes;
+								else
+									return r.name == rom->name();
+							}));
+				if (match != firstparent)
+				{
+					firstparent = std::find_if(
+							crbegin(),
+							match,
+							[&match] (parent_rom const &r) { return r.type.get() == match->type.get(); });
+					if (back().type.get() == match->type.get())
+						break;
+				}
+			}
+		}
+		erase(firstparent.base(), cend());
+
 		while (!empty())
 		{
 			// find where the next parent starts
@@ -203,7 +236,7 @@ media_auditor::summary media_auditor::audit_media(const char *validation)
 			}
 		}
 	}
-	parentroms.remove_redundant_parents();
+	parentroms.remove_redundant_parents(m_enumerator.config()->root_device());
 
 	// count ROMs required/found
 	std::size_t found(0);
@@ -279,8 +312,8 @@ media_auditor::summary media_auditor::audit_media(const char *validation)
 			LOG("Total required=%u (shared=%u) found=%u (shared=%u parent=%u)\n", required, shared_required, found, shared_found, parent_found);
 	}
 
-	// if we only find files that are in the parent & either the set has no unique files or the parent is not found, then assume we don't have the set at all
-	if ((found == shared_found) && required && ((required != shared_required) || !parent_found))
+	// if we only find files that are in the parent and either the set has no unique files or the parent is not found, then assume we don't have the set at all
+	if ((found == shared_found) && required && (found != required) && ((required != shared_required) || !parent_found))
 	{
 		m_record_list.clear();
 		return NOTFOUND;
@@ -623,6 +656,9 @@ media_auditor::audit_record &media_auditor::audit_one_disk(const rom_entry *rom,
 	chd_file source;
 	const std::error_condition err = rom_load_manager::open_disk_image(m_enumerator.options(), std::forward<T>(args)..., rom, source);
 
+	// FIXME: A CHD with an invalid header or missing parent is treated as not found.
+	// We need a way to report more detailed errors for bad disk images.
+
 	// if we succeeded, get the hashes
 	if (!err)
 	{
@@ -724,13 +760,17 @@ media_auditor::summary media_auditor::winui_summarize(const char *name, std::str
 			|| (record.substatus() == audit_substatus::GOOD_NEEDS_REDUMP)
 			|| (record.substatus() == audit_substatus::NOT_FOUND_NODUMP)
 			|| (record.substatus() == audit_substatus::FOUND_NODUMP)
+			|| (record.substatus() == audit_substatus::NOT_FOUND_OPTIONAL)
 			)
 			continue;
 
 		// output the game name, file name, and length (if applicable)
 		//if (output)
 		{
-			output->append(string_format("%-12s: %s", name, record.name()));
+			if (record.type() == media_type::DISK)
+				output->append(string_format("%-12s: %s%s", name, record.name(), ".chd"));
+			else
+				output->append(string_format("%-12s: %s", name, record.name()));
 			if (record.expected_length() > 0)
 				output->append(string_format(" (%d bytes)", record.expected_length()));
 			output->append(" - ");
@@ -768,11 +808,6 @@ media_auditor::summary media_auditor::winui_summarize(const char *name, std::str
 				}
 				break;
 
-			case audit_substatus::NOT_FOUND_OPTIONAL:
-				if (output) output->append("NOT FOUND BUT OPTIONAL\n");
-				best_new_status = BEST_AVAILABLE;
-				break;
-
 			default:
 				break;
 		}
@@ -782,3 +817,4 @@ media_auditor::summary media_auditor::winui_summarize(const char *name, std::str
 	}
 	return overall_status;
 }
+

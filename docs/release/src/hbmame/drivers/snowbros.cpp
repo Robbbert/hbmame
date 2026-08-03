@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/snowbros.cpp"
-#include "../mame/video/kan_pand.cpp"
+#include "../mame/kaneko/snowbros.cpp"
+#include "../mame/kaneko/kan_pand.cpp"
 
 /***********
  Snow Bros
@@ -57,8 +57,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Snow Bros. - Nick & Tom
-GAME( 1990, snowbros01,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "nianxu",   "Snow Bros (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, snowbros02,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Cure Version 2.6A)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, snowbros03,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Cure Version 2.6B, 2018-08-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, snowbros04,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Special Edition, 2018-09-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, snowbros01,   snowbros,  snowbros,    snowbros, snowbros_pandora_state, empty_init, ROT0, "nianxu",   "Snow Bros (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, snowbros02,   snowbros,  snowbros,    snowbros, snowbros_pandora_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Cure Version 2.6A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, snowbros03,   snowbros,  snowbros,    snowbros, snowbros_pandora_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Cure Version 2.6B, 2018-08-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, snowbros04,   snowbros,  snowbros,    snowbros, snowbros_pandora_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Special Edition, 2018-09-25)", MACHINE_SUPPORTS_SAVE )
 

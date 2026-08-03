@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/taito_b.cpp"
+#include "../mame/taito/taito_b.cpp"
 
 ROM_START( bubbleb ) // same as pbobble except for ic2
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -17,9 +17,6 @@ ROM_START( bubbleb ) // same as pbobble except for ic2
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "pb-ic15.bin", 0x000000, 0x100000, CRC(0840cbc4) SHA1(1adbd7aef44fa80832f63dfb8efdf69fd7256a57) )
 ROM_END
-
-GAME( 1994, bubbleb, pbobble, pbobble, pbobble, taitob_state, init_taito_b, ROT0, "Taito Corporation", "Bubble Buster", MACHINE_SUPPORTS_SAVE )
-
 
 ROM_START( crimecb )
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -39,5 +36,6 @@ ROM_START( crimecb )
 	ROM_LOAD( "b99-03.37", 0x000000, 0x080000, CRC(dda10df7) SHA1(ffbe1423794035e6f049fddb096b7282610b7cee) )
 ROM_END
 
-GAME( 1989, crimecb, crimec, crimec, crimec, taitob_state, init_taito_b, ROT0,   "Taito Corporation Japan",   "Crime City (unknown hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, bubbleb, pbobble, pbobble, pbobble, taitob_state, empty_init, ROT0, "Taito Corporation", "Bubble Buster", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, crimecb, crimec,  crimec,  crimec,  taitob_state, empty_init, ROT0, "Taito Corporation Japan", "Crime City (unknown hack)", MACHINE_SUPPORTS_SAVE )
 

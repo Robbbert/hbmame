@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/kyugo.cpp"
+#include "../mame/orca/kyugo.cpp"
 
 ROM_START( airwolf01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )

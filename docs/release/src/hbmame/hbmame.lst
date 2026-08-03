@@ -20,7 +20,7 @@ galagax
 1943                                   //parent
 1943h
 1943kai                                //parent
-1943kais01
+1943kai01
 1943b2
 
 @source:8080bw.cpp
@@ -35,10 +35,10 @@ sinvtest2
 sinvtest3
 sinvtest4
 
-@source:aerofgt.cpp
+@source:vsystem/pspikes.cpp
 karatblz                               //parent
-karatblzas01
-karatblzas02
+karatblz01
+karatblz02
 
 @source:arkanoid.cpp
 arkanoid                               //parent
@@ -109,7 +109,7 @@ bombjack                               //parent
 bmbjckgr
 bombjckb
 bombjred
-bombjacks01
+bombjack01
 
 @source:btime.cpp
 btime                                  //parent
@@ -137,7 +137,7 @@ bbredux2		/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3		/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
 bublbobf		/* Arkatrad */
 sboblboblh		/* level select hack */
-bublbobls01
+bublbobl01
 
 @source:bwidow.cpp
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
@@ -156,32 +156,32 @@ ddonpacha                              // trap15 hack
 ddonpachjd
 ddonpachjh
 pwrinst2                               //parent
-pwrinst2h
-pwrinst2z
+pwrinst2s02
+pwrinst2s03
 pwrinst2s01
 plegends                               //parent
-plegendsjs01
-plegendsjs02
-plegendsjs03
+plegends01
+plegends02
+plegends03
 gaia                                   //parent
-gaias01
+gaia01
 metmqstr                               //parent
-metmqstrs01
-metmqstrs02
-metmqstrs03
+metmqstr01
+metmqstr02
+metmqstr03
 sailormn                               //parent
-sailormnh01
-sailormnh02
-sailormnh03
-sailormnh04
-sailormnh05
-sailormnh06
-sailormnts01
-sailormnts02
-sailormnts03
-sailormnts04
-sailormnts05
-sailormnts06
+sailormn01
+sailormn02
+sailormn03
+sailormn04
+sailormn05
+sailormn06
+sailormn07
+sailormn08
+sailormn09
+sailormn10
+sailormn11
+sailormn12
 theroes                                //parent
 theroes01
 
@@ -471,118 +471,118 @@ wofch
 3wonders04
 area88rk
 area88rka
-cawingh01
-captcommh01
-captcommh02
-captcommh03
-captcommh04
-captcommh05
-captcommh06
-captcommh07
-captcommh08
-captcommh09
-captcommh10
-captcommh11
-captcommh12
-captcommh13
-captcommjk
-captcomms01
-captcomms04
-captcomms05
-captcomms07
-captcomms09
-captcomms10
-captcomms11
-captcomms12
-captcomms13
-captcomms14
-captcomms15
-captcomms16
-captcomms17
-captcomms18
-captcomms19
-captcomms20
-captcomms21
-captcomms22
-captcomms23
-captcomms24
-captcomms27
-captcomms29
-captcomms30
-captcomms31
-captcomms32
-captcomms33
-captcomms34
-captcomms35
-captcomms36
-captcomms37
-captcomms38
-captcomms39
-captcomms40
-captcomms41
-captcomms42
-captcomms44
-captcomms46
-captcomms47
-captcomms48
-captcomms49
-captcomms50
-captcomms51
-captcomms52
-captcomms53
-captcomms54
-captcomms55
-captcomms56
-captcomms57
-captcomms58
-captcomms59
-captcomms60
-captcomms61
-captcomms62
-captcomms63
-captcomms64
-captcomms65
-captcomms66
-captcomms67
-captcomms68
-captcomms69
-captcomms70
-captcomms71
-captcomms72
-captcomms73
-captcomms74
-captcomms75
-captcomms77
-captcomms78
-captcomms79
-captcomms80
-captcomms81
-captcomms82
-captcomms83
-captcomms84
-captcomms85
-captcomms86
-captcomms87
-captcomms88
-captcomms89
-captcomms90
-captcomms91
-captcomms92
-captcomms93
-captcomms94
-captcomms95
-captcomms96
-captcomms97
-captcomms98
-captcomms99
-captcomms100
-captcomms101
-captcomms102
-captcomms103
-captcomms104
-captcomms105
-captcomms106
-captcomms107
+cawing01
+captcomm001
+captcomm004
+captcomm005
+captcomm007
+captcomm009
+captcomm010
+captcomm011
+captcomm012
+captcomm013
+captcomm014
+captcomm015
+captcomm016
+captcomm017
+captcomm018
+captcomm019
+captcomm020
+captcomm021
+captcomm022
+captcomm023
+captcomm024
+captcomm027
+captcomm029
+captcomm030
+captcomm031
+captcomm032
+captcomm033
+captcomm034
+captcomm035
+captcomm036
+captcomm037
+captcomm038
+captcomm039
+captcomm040
+captcomm041
+captcomm042
+captcomm044
+captcomm046
+captcomm047
+captcomm048
+captcomm049
+captcomm050
+captcomm051
+captcomm052
+captcomm053
+captcomm054
+captcomm055
+captcomm056
+captcomm057
+captcomm058
+captcomm059
+captcomm060
+captcomm061
+captcomm062
+captcomm063
+captcomm064
+captcomm065
+captcomm066
+captcomm067
+captcomm068
+captcomm069
+captcomm070
+captcomm071
+captcomm072
+captcomm073
+captcomm074
+captcomm075
+captcomm077
+captcomm078
+captcomm079
+captcomm080
+captcomm081
+captcomm082
+captcomm083
+captcomm084
+captcomm085
+captcomm086
+captcomm087
+captcomm088
+captcomm089
+captcomm090
+captcomm091
+captcomm092
+captcomm093
+captcomm094
+captcomm095
+captcomm096
+captcomm097
+captcomm098
+captcomm099
+captcomm100
+captcomm101
+captcomm102
+captcomm103
+captcomm104
+captcomm105
+captcomm106
+captcomm107
+captcomm110
+captcomm111
+captcomm112
+captcomm113
+captcomm114
+captcomm115
+captcomm116
+captcomm117
+captcomm118
+captcomm119
+captcomm120
+captcomm121
+captcomm122
+captcomm123
 cps1demo                               // HB
 cps1frog                               // HB
 cps1testm                              // HB
@@ -611,237 +611,237 @@ dinon01                                // Jurassic 99
 dinon02
 dinon03
 dinon04
-dinos01                                // Cadillacs & Dinosaurs
-dinos02
-dinos03
-dinos04
-dinos05
-dinos06
-dinos07
-dinos08
-dinos09
-dinos10
-dinos11
-dinos12
-dinos13
-dinos14
-dinos15
-dinos16
-dinos17
-dinos18
-dinos19
-dinos20
-dinos21
-dinos22
-dinos23
-dinos24
-dinos25
-dinos26
-dinos27
-dinos28
-dinos29
-dinos30
-dinos31
-dinos32
-dinos33
-dinos34
-dinos35
-dinos36
-dinos37
-dinos38
-dinos40
-dinos41
-dinos42
-dinos43
-dinos44
-dinos45
-dinos46
-dinos47
-dinos49
-dinos50
-dinos51
-dinos52
-dinos53
-dinos54
-dinos56
-dinos59
-dinos60
-dinos61
-dinos63
-dinos66
-dinos67
-dinos68
-dinos69
-dinos70
-dinos71
-dinos72
-dinos74
-dinos75
-dinos76
-dinos77
-dinos78
-dinos79
-dinos80
-dinos81
-dinos82
-dinos83
-dinos84
-dinos85
-dinos86
-dinos91
-dinos92
-dinos93
-dinos95
-dinos96
-dinos97
-dinos98
-dinos99
-dinos100
-dinos101
-dinos102
-dinos103
-dinos104
-dinos109
-dinos112
-dinos113
-dinos115
-dinos117
-dinos118
-dinos119
-dinos120
-dinos121
-dinos122
-dinos124
-dinos125
-dinos126
-dinos127
-dinos128
-dinos129
-dinos130
-dinos131
-dinos132
-dinos133
-dinos134
-dinos136
-dinos137
-dinos138
-dinos139
-dinos140
-dinos141
-dinos142
-dinos144
-dinos145
-dinos146
-dinos148
-dinos149
-dinos150
-dinos151
-dinos154
-dinos155
-dinos157
-dinos158
-dinos159
-dinos160
-dinos161
-dinos162
-dinos163
-dinos165
-dinos166
-dinos168
-dinos169
-dinos170
-dinos171
-dinos172
-dinos173
-dinos174
-dinos175
-dinos176
-dinos177
-dinos178
-dinos179
-dinos180
-dinos181
-dinos182
-dinos183
-dinos184
-dinos185
-dinos186
-dinos187
-dinos188
-dinos189
-dinos190
-dinos191
-dinos192
-dinos193
-dinos194
-dinos195
-dinos196
-dinos197
-dinos198
-dinos200
-dinos201
-dinos202
-dinos203
-dinos204
-dinos206
-dinos213
-dinos215
-dinos216
-dinos217
-dinos218
-dinos219
-dinos220
-dinos221
-dinos222
-dinos224
-dinos225
-dinos226
-dinos228
-dinos229
-dinos230
-dinos231
-dinos232
-dinos233
-dinos234
-dinos236
-dinos237
-dinos239
-dinos240
-dinos241
-dinos244
-dinos245
-dinos246
-dinos247
-dinos248
-dinos249
-dinos250
-dinos251
-dinos252
-dinos254
-dinos255
-dinos258
-dinos259
-dinos260
-dinos261
-dinos262
-dinos263
-dinos264
-dinos266
-dinos267
-dinos268
-dinos269
-dinos271
-dinos272
-dinos274
-dinos275
-dinos277
-dinos278
-dinos279
-dinos280
-dinos281
-dinos282
-dinos283
-dinos284
+dino001                                // Cadillacs & Dinosaurs
+dino002
+dino003
+dino004
+dino005
+dino006
+dino007
+dino008
+dino009
+dino010
+dino011
+dino012
+dino013
+dino014
+dino015
+dino016
+dino017
+dino018
+dino019
+dino020
+dino021
+dino022
+dino023
+dino024
+dino025
+dino026
+dino027
+dino028
+dino029
+dino030
+dino031
+dino032
+dino033
+dino034
+dino035
+dino036
+dino037
+dino038
+dino040
+dino041
+dino042
+dino043
+dino044
+dino045
+dino046
+dino047
+dino049
+dino050
+dino051
+dino052
+dino053
+dino054
+dino056
+dino059
+dino060
+dino061
+dino063
+dino066
+dino067
+dino068
+dino069
+dino070
+dino071
+dino072
+dino074
+dino075
+dino076
+dino077
+dino078
+dino079
+dino080
+dino081
+dino082
+dino083
+dino084
+dino085
+dino086
+dino091
+dino092
+dino093
+dino095
+dino096
+dino097
+dino098
+dino099
+dino100
+dino101
+dino102
+dino103
+dino104
+dino109
+dino112
+dino113
+dino115
+dino117
+dino118
+dino119
+dino120
+dino121
+dino122
+dino124
+dino125
+dino126
+dino127
+dino128
+dino129
+dino130
+dino131
+dino132
+dino133
+dino134
+dino136
+dino137
+dino138
+dino139
+dino140
+dino141
+dino142
+dino144
+dino145
+dino146
+dino148
+dino149
+dino150
+dino151
+dino154
+dino155
+dino157
+dino158
+dino159
+dino160
+dino161
+dino162
+dino163
+dino165
+dino166
+dino168
+dino169
+dino170
+dino171
+dino172
+dino173
+dino174
+dino175
+dino176
+dino177
+dino178
+dino179
+dino180
+dino181
+dino182
+dino183
+dino184
+dino185
+dino186
+dino187
+dino188
+dino189
+dino190
+dino191
+dino192
+dino193
+dino194
+dino195
+dino196
+dino197
+dino198
+dino200
+dino201
+dino202
+dino203
+dino204
+dino206
+dino213
+dino215
+dino216
+dino217
+dino218
+dino219
+dino220
+dino221
+dino222
+dino224
+dino225
+dino226
+dino228
+dino229
+dino230
+dino231
+dino232
+dino233
+dino234
+dino236
+dino237
+dino239
+dino240
+dino241
+dino244
+dino245
+dino246
+dino247
+dino248
+dino249
+dino250
+dino251
+dino252
+dino254
+dino255
+dino258
+dino259
+dino260
+dino261
+dino262
+dino263
+dino264
+dino266
+dino267
+dino268
+dino269
+dino271
+dino272
+dino274
+dino275
+dino277
+dino278
+dino279
+dino280
+dino281
+dino282
+dino283
+dino284
 dinot01                                // Turbo-97
 dinot02
 dinot03
@@ -878,7 +878,6 @@ kodu01
 kodu02
 kodu03
 kodu04
-knightsk
 knights01
 knights02
 knights03
@@ -888,73 +887,74 @@ knights06
 knights07
 knights08
 knights09
-knightsh01
-knightsh02
-knightsh03
-knightsh04
-knightsh05
-knightsh06
-knightsh07
-knightsh08
-knightsh09
-knightsh10
-knightsh11
-knightsh12
-knightsh13
-knightsh14
-knightsh15
-knightsh16
-knightsh17
-knightsh18
-knightsjs01
+knights10
+knights11
+knights12
+knights13
+knights14
+knights15
+knights16
+knights17
+knights18
+knights19
+knights20
+knights21
+knights22
+knights23
+knights24
+knights25
+knights26
+knights27
+knights28
+knights29
 mercs01
 mercjs01
-mbombrds01
-mbombrds02
-mbombrds03
-mbombrds04
+mbombrd01
+mbombrd02
+mbombrd03
+mbombrd04
 pnicku
-punishers01
-punishers02
-punishers03
-punishers04
-punishers05
-punishers06
-punishers07
-punishers09
-punishers10
-punishers11
-punishers12
-punishers13
-punishers14
-punishers15
-punishers16
-punishers17
-punishers18
-punisherjs01
-punisherjs02
-punisherjs03
-punisherjs04
-punisherjs05
-punisherjs06
-punisherjs07
-punisherjs08
-punisherjs09
-punisherjs10
-punisherjs11
-punisherjs12
-punisherjs13
-punisherjs14
-punisherjs15
-punisherjs16
-punisherjs17
-punisherjs18
-punisherjs19
-punisherjs20
-punisherjs21
-punisherjs22
-punisherjs23
-punisherjs24
+punisher01
+punisher02
+punisher03
+punisher04
+punisher05
+punisher06
+punisher07
+punisher09
+punisher10
+punisher11
+punisher12
+punisher13
+punisher14
+punisher15
+punisher16
+punisher17
+punisher18
+punisher21
+punisher22
+punisher23
+punisher24
+punisher25
+punisher26
+punisher27
+punisher28
+punisher29
+punisher30
+punisher31
+punisher32
+punisher33
+punisher34
+punisher35
+punisher36
+punisher37
+punisher38
+punisher39
+punisher40
+punisher41
+punisher42
+punisher43
+punisher44
 rockmank
 sf2ce01
 sf2ce02
@@ -1064,26 +1064,26 @@ sf2tlona04
 sf2tlona05
 sf2tlona06
 sf2tlona07
-sfzchs02
-sfzchs03
-sfzchs04
-sfzchs05
-sfzchs06
-sfzchk
-slammasts01
-slammasts02
-slammasts03
-slammasts04
-slammasts05
-slammasts06
+sfzch02
+sfzch03
+sfzch04
+sfzch05
+sfzch06
+sfzch07
+slammast01
+slammast02
+slammast03
+slammast04
+slammast05
+slammast06
 strider01
 strider02
 strider04
 strider05
-varths01
-varths02
-willows01
-willows02
+varth01
+varth02
+willow01
+willow02
 sk2a1
 sk2a2
 sk2a3
@@ -1384,6 +1384,7 @@ sgemf
 spf2t
 ssf2
 ssf2t
+vhunt2
 vsav2
 xmcota
 xmvsf
@@ -1392,36 +1393,36 @@ xmvsf
 1944s01
 1944s02
 1944s03
-19xxs01
-19xxs02
-armwars01
-armwars02
-avsps01
-avsps02
-avsps03
-avsps04
-avsps05
-avsps06
-batcirs01
+19xx01
+19xx02
+armwar01
+armwar02
+avsp01
+avsp02
+avsp03
+avsp04
+avsp05
+avsp06
+batcir01
 csclub01
 csclub02
 cybots01
 cybots02
-ddsomak
-ddsomjk
-ddsoms01
-ddsoms02
-ddsoms03
-ddsoms04
-ddsoms05
-ddsoms06
-ddsoms07
-ddsoms08
-ddtods01
-ddtods02
-dstlks01
+ddsom01
+ddsom02
+ddsom03
+ddsom04
+ddsom05
+ddsom06
+ddsom07
+ddsom08
+ddsom09
+ddsom10
+ddtod01
+ddtod02
+dstlk01
 ffightaec2
-gigawings01
+gigawing01
 hsf2s02
 hsf2s03
 hsf2s04
@@ -1437,48 +1438,48 @@ hsf2s13
 hsf2s14
 hsf2s15
 mmatrix01
-mmatrixj01
+mmatrix02
 mpangj01
-mshs01
-mshs02
-mshs03
-mshs04
-mshvsfs01
-mshvsfs02
-mshvsfs03
-mshvsfs04
-mshvsfs05
-mshvsfs06
-mshvsfs07
-mshvsfs08
-mvscs01
-mvscs02
-mvscs03
-mvscs04
-mvscs05
-mvscs06
-pfghtj01
-pfghtj02
-pfghtj03
-pfghtj04
-progearj01
-progearj02
+msh01
+msh02
+msh03
+msh04
+mshvsf01
+mshvsf02
+mshvsf03
+mshvsf04
+mshvsf05
+mshvsf06
+mshvsf07
+mshvsf08
+mvsc01
+mvsc02
+mvsc03
+mvsc04
+mvsc05
+mvsc06
+pfght01
+pfght02
+pfght03
+pfght04
+progear01
+progear02
 rockman2k
 sf2prime
-sfas01
-sfas02
-sfas03
-sfas04
-sfas05
-sfas06
-sfzj01
-sfzj02
-sfzj03
-sfzj04
-sfzj05
-sfzj06
-sfzj07
-sfzk
+sfa01
+sfa02
+sfa03
+sfa04
+sfa05
+sfa06
+sfz01
+sfz02
+sfz03
+sfz04
+sfz05
+sfz06
+sfz07
+sfz08
 sfa2s01
 sfa2s02
 sfa2s03
@@ -1490,28 +1491,28 @@ sfa2s08
 sfa2s09
 sfa2s10
 sfa2s11
-sfz2j01
-sfz2k01
-sfz2k02
-sfz2alk
-sfz2als01
-sfz2als02
-sfz2als03
-sfz2als04
-sfz2als05
-sfz2als06
-sfz2als07
-sfz2als08
-sfz2als09
-sfz2als10
-sfz2als11
-sfz2als12
-sfz2als13
-sfz2als14
-sfz2als15
-sfz2als16
-sfz2als17
-sfz2als18
+sfz2s01
+sfz2s02
+sfz2s03
+sfz2al01
+sfz2al02
+sfz2al03
+sfz2al04
+sfz2al05
+sfz2al06
+sfz2al07
+sfz2al08
+sfz2al09
+sfz2al10
+sfz2al11
+sfz2al12
+sfz2al13
+sfz2al14
+sfz2al15
+sfz2al16
+sfz2al17
+sfz2al18
+sfz2al19
 sfa3s01
 sfa3s02
 sfa3s03
@@ -1559,7 +1560,7 @@ sfz3mix10
 sfz3mix11
 sfz3mix12
 sfz3mix13
-sgemfs01
+sgemf01
 spf2t01
 ssf2s01
 ssf2s02
@@ -1590,20 +1591,22 @@ ssf2x05
 suicide
 suicide2
 vampj01
+vhunt2s01
 vsav2s01
 vsav2s02
 vsav2s03
-xmcotas01
-xmcotas02
-xmcotas03
-xmcotas04
-xmvsfs01
-xmvsfs02
-xmvsfs03
-xmvsfs04
-xmvsfs05
-xmvsfs06
-xmvsfs07
+vsav2s04
+xmcota01
+xmcota02
+xmcota03
+xmcota04
+xmvsf01
+xmvsf02
+xmvsf03
+xmvsf04
+xmvsf05
+xmvsf06
+xmvsf07
 //cps2xx
 
 @source:cps2t.cpp
@@ -1618,6 +1621,7 @@ sfz3mix27
 sfz3mix28
 sfz3mix29
 sfz3mix30
+sfz3mix31
 sfz3mix
 
 @source:cps3.cpp
@@ -1669,6 +1673,7 @@ sfiii3ns11
 sfiii3ns12
 sfiii3ns13
 sfiii3ns14
+sfiii3ns15
 
 @source:cv1k.cpp
 deathsml                               //parent
@@ -1688,6 +1693,7 @@ futari15bc
 futaribl                               //parent
 futariblc
 futaribljc
+msmatsuri
 
 @source:ddragon.cpp
 ddragon2                               //parent
@@ -1715,7 +1721,7 @@ mjdchuka01
 @source:dec0.cpp
 baddudes                               //parent
 baddudef
-decodemo
+//decodemo      // working in 245, broken in 288
 robocop                                //parent
 robocopb01
 
@@ -1880,17 +1886,17 @@ sf2ces11                               // crowd missing
 
 @source:flstory.cpp
 flstory					//parent
-flstoryjs01
+flstory01
 
 @source:fuukifg3.cpp
 asurabld				//parent
-asurablds01
-asurablds02
-asurablds03
-asurablds04
+asurabld01
+asurabld02
+asurabld03
+asurabld04
 asurabus				//parent
-asurabuss01
-asurabuss02
+asurabus01
+asurabus02
 
 @source:galactic.cpp
 galactic                               // extra sounds
@@ -1930,7 +1936,8 @@ xevious3	/* Xevious 2003 */
 xevious4	/* Xevious 2004 */
 xevious5	/* Xevious 2005 */
 xeviblk		/* Xevious Black */
-sxeviouss01
+sxevious01
+hyxevious
 
 @source:galaxian.cpp
 amidar                                 //parent
@@ -2046,7 +2053,7 @@ hypetest
 lhb2                                   //parent
 lhb2s01
 xymg                                   //parent
-wlccs01
+wlcc01
 
 @source:itech8.cpp
 itecdemo                               // Charles Doty
@@ -2913,6 +2920,7 @@ kof97s641
 kof97s643
 kof97s644
 kof97s645
+kof97s646
 
 @source:kof98.cpp
 kof98aas
@@ -3627,6 +3635,7 @@ kof2001s48
 kof2001s49
 kof2001s50
 kof2001s51
+kof2001s52
 
 @source:kof2002.cpp
 kof200215
@@ -4455,9 +4464,9 @@ wh1d					// 0053 (c) 1992 Alpha Denshi Co.
 @source:mhavoc.cpp
 mhavoc                                 //parent
 mhavocrv
+mhavocrv2
 
 @source:mhavoc_hb.cpp
-mhavocrv2
 mhavocpex1
 mhavocpex2
 mhavocpex3
@@ -4520,6 +4529,8 @@ mk2s07
 mk3                                    //parent
 mk3s01
 mk3s02
+nbahangt                               //parent
+nbamht01
 nbajam06
 wwfmania                               //parent
 wwfmania01
@@ -4588,7 +4599,7 @@ missilet                               // Tesla variant
 @source:mitchell.cpp
 mitcdemo
 pang                                   //parent
-pangbolds01
+pang01
 
 @source:model1.cpp
 vr                                     //parent
@@ -5993,12 +6004,12 @@ mtlchamp			//parent
 mmaulers			//parent
 metamrph			//parent
 viostorm			//parent
-metamrphs01
-mtlchamps01
-mmaulerss01
-viostorms01
-viostorms02
-viostorms03
+metamrph01
+mtlchamp01
+mmaulers01
+viostorm01
+viostorm02
+viostorm03
 
 @source:namcona1.cpp
 emeralda                               //parent
@@ -6046,7 +6057,7 @@ bstars			// 002
 //bstars2		// 041  not needed
 burningf		// 018
 crsword			// 037
-crswd2bl		// 054
+//crswd2bl		// 054 crswd2bl
 ctomaday		// 249
 cyberlip		// 010
 diggerma                               // HB
@@ -6068,7 +6079,7 @@ gowcaizr		// 094
 gpilots			// 020
 //gururin		// 067  not needed
 ironclad		// 220
-//irrmaze		// 236  not needed
+irrmaze			// 236
 //janshin		// 048  not needed
 jockeygp		// 331
 joyjoy			// 021
@@ -6202,6 +6213,7 @@ zupapa			// 070
 68kng
 abyssal
 abyssal1
+adkw                                   // port
 akiradmo
 amazonn
 badapple
@@ -6211,10 +6223,12 @@ baddudesn
 bbb2d1
 bbb2d2
 beast
+blueandr
 bonusstage                             // HB
 bpanicdx                               // HB
-cabalng                                // port
-cabalng1                               // port
+cabaln                                 // port
+cabaln01                               // port
+cabaln02                               // port
 cakefght                               // port
 cakefght1                              // port
 caravan                                // HB
@@ -6227,7 +6241,8 @@ cnbe2018
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
-//csw2                                 //not working & roms missing
+csw2
+csw2s01
 cyborg
 cyborg1
 ddsprdmo
@@ -6243,12 +6258,14 @@ ffeastd		// Frog Feast demo
 flapchck
 foodfn
 fr2			// 098 Idol Mahjong - final romance 2
-fr2cd		/* 098 (c) 1995 Video Systems Co. */
-fr2ch		/* 098 (c) 1995 Video Systems Co. */
+fr2s01
+fr2s02
+fr2s03
 galaxiann
 galaxiann2
 gbi
 gladmort
+gladmortcm
 gladmortd
 gladmortd2
 goldaxen
@@ -6276,6 +6293,7 @@ lhcdba
 looptris
 looptrsp
 ltorb
+midnight
 ndo_a_td
 neo2048
 neo2500
@@ -6381,6 +6399,7 @@ xeviousn01
 xeviousn02
 xeviousn03
 xeviousn04
+xeviousn05
 xmas2017
 yoyoshkn
 zintrick01
@@ -6389,6 +6408,7 @@ zintrick03
 zintrick04
 zintrick05
 zintrick06
+zintrick07
 
 @source:neogeo1.cpp
 2020bb01
@@ -6426,7 +6446,7 @@ breakrev08
 breakrev09
 burningf01
 ctomaday01
-dragons1
+dragonsh01
 eightman01
 fightfev01
 fightfev02
@@ -6446,6 +6466,7 @@ gpilots01
 gpilots02
 gpilots03
 ironclad01
+irrmaze01
 jockeygp01
 joyjoy01
 joyjoy02
@@ -6589,7 +6610,7 @@ tophuntr02
 tpgolf01
 trally01
 turfmast01
-turfmast02
+turfmast03
 twinspri01
 viewpoin01
 viewpoin02
@@ -7203,20 +7224,8 @@ samsh5sp38
 samsh5sp39
 
 @source:ngsengoku.cpp
-sengokucd
-sengoku3b
-sengoku3c
-sengoku3d
-sengoku3eb
-sengoku3eh
-sengoku3ha
-sengoku3k
-sengoku3kc
-sengoku3p
-sengoku3pl
-sengoku3s
-sengoku3ya
-sengoku3yk
+sengoku01
+sengoku2s01
 sengoku3s01
 sengoku3s02
 sengoku3s03
@@ -7232,6 +7241,19 @@ sengoku3s12
 sengoku3s13
 sengoku3s14
 sengoku3s15
+sengoku3s16
+sengoku3s17
+sengoku3s18
+sengoku3s19
+sengoku3s20
+sengoku3s21
+sengoku3s22
+sengoku3s23
+sengoku3s24
+sengoku3s25
+sengoku3s26
+sengoku3s27
+sengoku3s28
 
 @source:ngsvc.cpp
 svccpru
@@ -7401,10 +7423,35 @@ pacpen
 pengopop
 vecpengo                               // T-Bone hack of Pengo
 
-@source:iq_pgm.cpp
-// HOMEBREW
-pgmsnake
+@source:pgm.cpp
+// PARENTS
+pgm
+ket
+killbld
+kovplus
+kov
+kov2
+kov2p
+kovsh
+kovshp
+olds
+oldsplus
+orlegend
+martmast
+theglad
 // HACKS
+ketarr		// trap15 hack
+ketarr10	// trap15 hack
+ketarr15	// trap15 hack
+ketarr151	// trap15 hack
+ketarrf		// trap15 hack
+ketarrs15	// trap15 hack
+ketarrs151	// trap15 hack
+//ket01       //black screen, roms missing
+// HOMEBREW
+pgmcabal
+pgmsnake
+// MORE HACKS
 killbld01
 killbld02
 killbld03
@@ -8076,36 +8123,11 @@ theglad06
 theglad07
 theglad08
 
-@source:pgm.cpp
-// PARENTS
-pgm
-ket
-killbld
-kovplus
-kov
-kov2
-kov2p
-kovsh
-kovshp
-olds
-oldsplus
-orlegend
-martmast
-theglad
-// HOMEBREW
-pgemeni		/* HB Blastar */
-pgmdemo		/* HB Charles Doty */
-pgmfrog		/* HB Rastersoft */
-pgmcabal
-// HACKS
-ketarr		// trap15 hack
-ketarr10	// trap15 hack
-ketarr15	// trap15 hack
-ketarr151	// trap15 hack
-ketarrf		// trap15 hack
-ketarrs15	// trap15 hack
-ketarrs151	// trap15 hack
-//ket01    black screen
+@source:pgm_hb.cpp
+// These use "pgm" from the real pgm driver, as its roms are the same
+pgemeni		// HB Blastar
+pgmdemo		// HB Charles Doty
+pgmfrog		// HB Rastersoft
 
 @source:phoenix.cpp
 phoenix                                //parent
@@ -8321,7 +8343,6 @@ pacman25s51
 pacman25s52
 pacman25s53
 pacman25s54
-pacman25s55
 pacman25s56
 pacman25s57
 pacman25s58
@@ -8806,7 +8827,6 @@ suikoenb                               //parent
 suikoenb01
 
 @source:taitosj.cpp
-adcanoe
 alpine                                 //parent
 alpine01
 frontlin                               //parent
@@ -8981,10 +9001,6 @@ drtoppel01
 insectx                                //parent
 insectx01
 
-@source:toaplan1.cpp
-fireshrk                               //parent
-samesamenh
-
 @source:toaplan2.cpp
 kingdmgp                               //parent
 kgpe
@@ -9073,7 +9089,7 @@ sinistar                               //parent
 sinistar01
 splat                                  //parent
 splatsc1
-conquest
+conquesthb
 
 @source:wiz.cpp
 stinger                                //parent

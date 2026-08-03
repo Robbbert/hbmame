@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/tnzs.cpp"
+#include "../mame/taito/tnzs.cpp"
 
 /************************
  Dr. Toppel's Adventure
@@ -50,6 +50,6 @@ ROM_END
 
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
 // Dr. Toppel's Adventure
-GAME( 1987, drtoppel01,  drtoppel,   extrmatn, drtoppel, extrmatn_state, empty_init, ROT90,  "Taito Corporation Japan",   "Dr. Toppel's Adventure (World, alt?)", MACHINE_SUPPORTS_SAVE ) /* Possible region hack */
+GAME( 1987, drtoppel01,  drtoppel,   extrmatn, drtoppel, tnzs_mcu_state, empty_init, ROT90,  "Taito Corporation Japan",   "Dr. Toppel's Adventure (World, alt?)", MACHINE_SUPPORTS_SAVE ) /* Possible region hack */
 // Insector X
 GAME( 1989, insectx01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "hack", "Insector X (Chinese)", MACHINE_SUPPORTS_SAVE )

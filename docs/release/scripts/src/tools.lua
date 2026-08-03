@@ -31,6 +31,8 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
+	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
 
@@ -72,6 +74,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -116,8 +119,11 @@ end
 links {
 	"utils",
 	ext_lib("expat"),
+	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
+	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
 
@@ -160,6 +166,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -205,6 +212,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -251,6 +259,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -377,6 +386,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -463,7 +473,7 @@ includedirs {
 }
 
 defines {
-  "NL_DISABLE_DYNAMIC_LOAD=1",
+	"NL_DISABLE_DYNAMIC_LOAD=1",
 }
 
 files {
@@ -554,6 +564,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -598,6 +609,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -645,6 +657,7 @@ links {
 	"7z",
 	"ocore_" .. _OPTIONS["osd"],
 	ext_lib("zlib"),
+	ext_lib("zstd"),
 	ext_lib("flac"),
 	ext_lib("utf8proc"),
 }
@@ -687,11 +700,9 @@ files {
 	MAME_DIR .. "src/tools/imgtool/formats/pc_dsk_legacy.cpp",
 	MAME_DIR .. "src/tools/imgtool/formats/pc_dsk_legacy.h",
 	MAME_DIR .. "src/tools/imgtool/modules/amiga.cpp",
-	MAME_DIR .. "src/tools/imgtool/modules/macbin.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/rsdos.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/dgndos.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/os9.cpp",
-	MAME_DIR .. "src/tools/imgtool/modules/mac.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/ti99.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/ti990hd.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/concept.cpp",
@@ -699,11 +710,8 @@ files {
 	MAME_DIR .. "src/tools/imgtool/modules/fat.h",
 	MAME_DIR .. "src/tools/imgtool/modules/pc_flop.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/pc_hard.cpp",
-	MAME_DIR .. "src/tools/imgtool/modules/prodos.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/vzdos.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/thomson.cpp",
-	MAME_DIR .. "src/tools/imgtool/modules/macutil.cpp",
-	MAME_DIR .. "src/tools/imgtool/modules/macutil.h",
 	MAME_DIR .. "src/tools/imgtool/modules/cybiko.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/cybikoxt.cpp",
 	MAME_DIR .. "src/tools/imgtool/modules/psion.cpp",
@@ -722,52 +730,10 @@ configuration { }
 strip()
 
 --------------------------------------------------
--- aueffectutil
---------------------------------------------------
-
-if _OPTIONS["targetos"] == "macosx" then
-	project("aueffectutil")
-		uuid ("3db8316d-fad7-4f5b-b46a-99373c91550e")
-		kind "ConsoleApp"
-
-		flags {
-			"Symbols", -- always include minimum symbols for executables
-		}
-
-		if _OPTIONS["SEPARATE_BIN"]~="1" then
-			targetdir(MAME_DIR)
-		end
-
-		linkoptions {
-			"-sectcreate __TEXT __info_plist " .. _MAKE.esc(MAME_DIR) .. "src/tools/aueffectutil-Info.plist",
-		}
-
-		dependency {
-			{ "aueffectutil",  MAME_DIR .. "src/tools/aueffectutil-Info.plist", true  },
-		}
-
-		links {
-			"AudioUnit.framework",
-			"AudioToolbox.framework",
-			"CoreAudio.framework",
-			"CoreAudioKit.framework",
-			"CoreServices.framework",
-		}
-
-		files {
-			MAME_DIR .. "src/tools/aueffectutil.mm",
-		}
-
-		configuration { }
-
-		strip()
-end
-
---------------------------------------------------
 -- testkeys
 --------------------------------------------------
 
-if (_OPTIONS["osd"] == "sdl") then
+if (_OPTIONS["osd"] == "sdl") or (_OPTIONS["osd"] == "sdl3") then
 	project("testkeys")
 	uuid ("b3f5a5b8-3203-11e9-93e4-670b4f4e359d")
 	kind "ConsoleApp"
@@ -780,6 +746,12 @@ if (_OPTIONS["osd"] == "sdl") then
 		targetdir(MAME_DIR)
 	end
 
+	if _OPTIONS["osd"] == "sdl3" then
+		defines {
+			"SDLMAME_SDL3",
+		}
+	end
+
 	links {
 		"utils",
 		"ocore_" .. _OPTIONS["osd"],
@@ -787,58 +759,49 @@ if (_OPTIONS["osd"] == "sdl") then
 	}
 
 	if _OPTIONS["targetos"]=="windows" then
-		if _OPTIONS["with-bundled-sdl2"]~=nil then
+		if _OPTIONS["USE_LIBSDL"]~="1" then
+			local libsdl
+			if _OPTIONS["osd"] == "sdl3" then
+				libsdl = "SDL3"
+			else
+				libsdl = "SDL2"
+			end
 			configuration { "mingw*"}
+				if _OPTIONS["osd"] == "sdl" then
+					links {
+						"SDL2main",
+					}
+				end
 				links {
-					"SDL2",
+					libsdl,
+					"gdi32",
 					"imm32",
-					"version",
 					"ole32",
 					"oleaut32",
+					"setupapi",
+					"uuid",
+					"version",
 				}
 			configuration { "vs*" }
 				links {
-					"SDL2",
+					libsdl,
 					"imm32",
 					"version",
 				}
 			configuration { }
 		else
-			if _OPTIONS["USE_LIBSDL"]~="1" then
-				configuration { "mingw*"}
-					links {
-						"SDL2main",
-						"SDL2",
-					}
-				configuration { "vs*" }
-					links {
-						"SDL2",
-						"imm32",
-						"version",
-					}
-				configuration { }
-			else
-				local str = backtick(sdlconfigcmd() .. " --libs | sed 's/ -lSDLmain//'")
-				addlibfromstring(str)
-				addoptionsfromstring(str)
-			end
-			configuration { "x32", "vs*" }
-				libdirs {
-					path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x86")
-				}
-			configuration { "x64", "vs*" }
-				libdirs {
-					path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x64")
-				}
+			local str = backtick(sdlconfigcmd() .. " --libs | sed 's/ -lSDLmain//'")
+			addlibfromstring(str)
+			addoptionsfromstring(str)
 		end
-	end
-
-	if BASE_TARGETOS=="unix" then
-		if _OPTIONS["with-bundled-sdl2"]~=nil then
-			links {
-				"SDL2",
+		configuration { "x32", "vs*" }
+			libdirs {
+				path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x86")
 			}
-		end
+		configuration { "x64", "vs*" }
+			libdirs {
+				path.join(_OPTIONS["SDL_INSTALL_ROOT"],"lib","x64")
+			}
 	end
 
 	dofile("osd/sdl_cfg.lua")

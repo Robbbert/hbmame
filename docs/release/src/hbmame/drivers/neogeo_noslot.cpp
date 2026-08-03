@@ -116,7 +116,7 @@ INPUT_PORTS_START( dualbios )
 
 	/* the rom banking seems to be tied directly to the dipswitch */
 	PORT_MODIFY("DSW")
-	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Region ) ) PORT_DIPLOCATION("SW:3") PORT_CHANGED_MEMBER(DEVICE_SELF, neogeo_state, select_bios, 0)
+	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Region ) ) PORT_DIPLOCATION("SW:3") PORT_CHANGED_MEMBER(DEVICE_SELF, FUNC(neogeo_state::select_bios), 0)
 	PORT_DIPSETTING(    0x00, DEF_STR( Asia ) )
 	PORT_DIPSETTING(    0x04, DEF_STR( Japan ) )
 INPUT_PORTS_END
@@ -140,7 +140,7 @@ INPUT_PORTS_START( kizuna4p )
 	PORT_DIPSETTING(    0x00, "4" )
 
 	PORT_MODIFY("SYSTEM")
-	PORT_BIT( 0x0f00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(neogeo_state, kizuna4p_start_r)
+	PORT_BIT( 0x0f00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(FUNC(neogeo_state::kizuna4p_start_r))
 INPUT_PORTS_END
 
 INPUT_PORTS_START( irrmaze )

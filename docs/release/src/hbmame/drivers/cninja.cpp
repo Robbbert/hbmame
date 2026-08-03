@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "../mame/drivers/cninja.cpp"
+#include "../mame/dataeast/cninja.cpp"
 
 // You can choose from 12 characters instead of 8
 ROM_START( deathbrd01 )
