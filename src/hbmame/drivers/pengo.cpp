@@ -349,7 +349,7 @@ void pengo_state::pengo(machine_config &config)
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_pengo);
 	PALETTE(config, m_palette, FUNC(pengo_state::pacman_palette), 128 * 4, 32);
 
-	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	screen_device &screen(SCREEN(config, "screen"));
 	screen.set_raw(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART);
 	screen.set_screen_update(FUNC(pengo_state::screen_update_pacman));
 	screen.set_palette(m_palette);

@@ -399,10 +399,10 @@ const char * GetDriverFilename(int drvindex)
 
 BOOL isDriverVector(const machine_config *config)
 {
-	const screen_device *screen = screen_device_enumerator(config->root_device()).first();
+	auto *output = video_output_interface_enumerator(config->root_device()).first();
 
-	if (screen)
-		if (SCREEN_TYPE_VECTOR == screen->screen_type())
+	if (output) 
+		if (output->is_vector())
 			return true;
 
 	return false;
@@ -410,7 +410,7 @@ BOOL isDriverVector(const machine_config *config)
 
 int numberOfScreens(const machine_config *config)
 {
-	screen_device_enumerator scriter(config->root_device());
+	video_output_interface_enumerator scriter(config->root_device());
 	return scriter.count();
 }
 

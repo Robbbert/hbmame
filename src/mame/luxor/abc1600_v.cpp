@@ -201,7 +201,7 @@ void abc1600_mover_device::device_add_mconfig(machine_config &config)
 {
 	config.set_default_layout(layout_abc1600);
 
-	screen_device &screen(SCREEN(config, SCREEN_TAG, SCREEN_TYPE_RASTER, rgb_t::green()));
+	screen_device &screen(SCREEN(config, SCREEN_TAG).set_color(rgb_t::green()));
 	screen.set_screen_update(FUNC(abc1600_mover_device::screen_update));
 	screen.set_raw(XTAL(64'000'000), 0x3e0, 0, 0x300, 0x433, 0, 0x400);
 
@@ -623,10 +623,7 @@ void abc1600_mover_device::ldty_hb_w(uint8_t data)
 
 	LOG("%s LDTY HB: %02x\n", machine().describe_context(), data);
 
-	if (L_P) return;
-
 	m_ty = ((data & 0x0f) << 8) | (m_ty & 0xff);
-	m_yto = ((data & 0x0f) << 8) | (m_yto & 0xff);
 	m_mta = ((data & 0x0f) << 14) | (m_mta & 0x3fff);
 }
 
@@ -654,10 +651,7 @@ void abc1600_mover_device::ldty_lb_w(uint8_t data)
 
 	LOG("%s LDTY LB: %02x\n", machine().describe_context(), data);
 
-	if (L_P) return;
-
 	m_ty = (m_ty & 0xf00) | data;
-	m_yto = (m_yto & 0xf00) | data;
 	m_mta = (m_mta & 0x3c03f) | (data << 6);
 }
 
@@ -1036,7 +1030,6 @@ inline void abc1600_mover_device::load_xy_reg()
 	uint16_t sum = m_xto + m_xsize + 1;
 
 	m_xto = sum & 0x3ff;
-	m_yto = m_ty & 0xfff;
 	m_mta = (m_ty << 6) | (sum >> 4);
 }
 
@@ -1226,6 +1219,8 @@ void abc1600_mover_device::mover()
 
 	m_rmc = 1;
 	get_shinf();
+
+	m_yto = m_mta >> 6;
 
 	do
 	{

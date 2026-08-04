@@ -10,8 +10,6 @@ Documentation for Major Havoc - look in MAME driver
 #include "includes/mhavoc_hb.h"
 
 #include "cpu/m6502/m6502.h"
-#include "video/avgdvg.h"
-#include "video/vector.h"
 #include "machine/eeprompar.h"
 #include "machine/rescap.h"
 #include "machine/watchdog.h"
@@ -365,12 +363,9 @@ void mhavoc_hbmame::mhavoc_common(machine_config &config)
 	WATCHDOG_TIMER(config, "watchdog");
 
 	/* video hardware */
-	VECTOR(config, "vector");
-	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_VECTOR));
-	screen.set_refresh_hz(50);
-	screen.set_size(400, 300);
-	screen.set_visarea(0, 300, 0, 260);
-	screen.set_screen_update("vector", FUNC(vector_device::screen_update));
+	vector_device &vector(VECTOR(config, "vector"));
+	vector.set_refresh_hz(50);
+	vector.set_visarea(0, 580, 0, 500);
 
 	AVG_MHAVOC(config, m_avg, 0);
 	m_avg->set_vector("vector");

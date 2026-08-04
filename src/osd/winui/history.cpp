@@ -648,25 +648,30 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	}
 
 	buffer.append("\nVIDEO:\n");
-	screen_device_enumerator screeniter(config.root_device());
-	int scrcount = screeniter.count();
-
-	if (scrcount == 0)
-		buffer.append("Screenless");
+	video_output_interface_enumerator screeniter(config.root_device());
+	if (screeniter.count() == 0)
+		buffer.append("Screenless\n");
 	else
+	for (device_video_output_interface &screendev : video_output_interface_enumerator(config.root_device()))
 	{
-		for (screen_device &screen : screeniter)
+		if (strcmp(screendev.device().tag(), config.root_device().tag()))
 		{
-			if (screen.screen_type() == SCREEN_TYPE_VECTOR)
-				buffer.append("Vector");
+			if (screendev.is_vector())
+			{
+				if (DriverIsVertical(drvindex))
+					buffer.append("Vector (V)");
+				else
+					buffer.append("Vector (H)");
+			}
 			else
 			{
-				const rectangle &visarea = screen.visible_area();
+				auto *screen = dynamic_cast<screen_device *>(&screendev);
+				const rectangle &visarea = screen->visible_area();
 
 				if (drv->flags & ORIENTATION_SWAP_XY)
-					snprintf(name, std::size(name), "%d x %d (V) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
+					snprintf(name, std::size(name), "%d x %d (V) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
 				else
-					snprintf(name, std::size(name), "%d x %d (H) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
+					snprintf(name, std::size(name), "%d x %d (H) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
 
 				buffer.append(name);
 			}

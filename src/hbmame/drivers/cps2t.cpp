@@ -274,7 +274,7 @@ void cps2_state::cps2turbo(machine_config &config)
 	EEPROM_93C46_16BIT(config, "eeprom");
 
 	/* video hardware */
-	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	SCREEN(config, m_screen);
 	m_screen->set_video_attributes(VIDEO_UPDATE_BEFORE_VBLANK);
 	m_screen->set_raw(CPS_PIXEL_CLOCK, CPS_HTOTAL, 48, 464, CPS_VTOTAL, 12, 246);
 	m_screen->set_screen_update(FUNC(cps2_state::screen_update_cps1));

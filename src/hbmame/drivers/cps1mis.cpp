@@ -685,7 +685,7 @@ void cps_state::cps1frog(machine_config &config)
 	MCFG_MACHINE_START_OVERRIDE(cps_state, cps1)
 
 	/* video hardware */
-	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	SCREEN(config, m_screen);
 	m_screen->set_raw(8'000'000, 518, 64, 448, 259, 16, 240);
 	m_screen->set_screen_update(FUNC(cps_state::screen_update_cps1));
 	m_screen->screen_vblank().set(FUNC(cps_state::screen_vblank_cps1));

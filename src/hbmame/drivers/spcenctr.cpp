@@ -1089,7 +1089,7 @@ void spcenctr_state::spcenctr(machine_config &config)
 	maincpu.out_inte_func().set(FUNC(spcenctr_state::int_enable_w));
 
 	/* video hardware */
-	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	SCREEN(config, m_screen);
 	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
 	m_screen->set_screen_update(FUNC(spcenctr_state::screen_update));
 
