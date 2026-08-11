@@ -762,14 +762,14 @@ static char *GameInfoScreen(UINT nIndex)
 					sprintf(tmpbuf,"%d x %d (V) %f Hz\n",
 							visarea.max_y - visarea.min_y + 1,
 							visarea.max_x - visarea.min_x + 1,
-							ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
+							screen.frame_period().as_hz());
 				}
 				else
 				{
 					sprintf(tmpbuf,"%d x %d (H) %f Hz\n",
 							visarea.max_x - visarea.min_x + 1,
 							visarea.max_y - visarea.min_y + 1,
-							ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
+							screen.frame_period().as_hz());
 				}
 				strcat(buf, tmpbuf);
 			}

@@ -893,7 +893,7 @@ void CreateFPSFoldersIni(int parent_index)
 			continue;
 		}
 
-		snprintf(fps, std::size(fps), "%f Hz", ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+		snprintf(fps, std::size(fps), "%f Hz", screen->frame_period().as_hz());
 
 		// look for an existant refresh treefolder for this game
 		// (likely to be the previous one, so start at the end)

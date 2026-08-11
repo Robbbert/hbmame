@@ -669,9 +669,9 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 				const rectangle &visarea = screen->visible_area();
 
 				if (drv->flags & ORIENTATION_SWAP_XY)
-					snprintf(name, std::size(name), "%d x %d (V) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+					snprintf(name, std::size(name), "%d x %d (V) %f Hz", visarea.width(), visarea.height(), screen->frame_period().as_hz());
 				else
-					snprintf(name, std::size(name), "%d x %d (H) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen->refresh_attoseconds()));
+					snprintf(name, std::size(name), "%d x %d (H) %f Hz", visarea.width(), visarea.height(), screen->frame_period().as_hz());
 
 				buffer.append(name);
 			}

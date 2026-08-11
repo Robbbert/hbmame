@@ -68,7 +68,7 @@ CPUS["Z8000"] = true  -- polepos
 -- specify available sound cores
 --------------------------------------------------
 
---SOUNDS["ASTROCADE"] = true
+SOUNDS["FLOPPYSOUND"] = true
 
 --------------------------------------------------
 -- specify available video cores
