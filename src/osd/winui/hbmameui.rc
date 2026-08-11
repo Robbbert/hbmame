@@ -546,22 +546,22 @@ BEGIN
 	LTEXT           "Title\nDirectory\nExtra",IDC_PROP_TITLE,52,9,161,25,SS_NOPREFIX
 	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,38,178,1
 	LTEXT           "Manufactured:",IDC_STATIC,18,43,47,8
-	LTEXT           "Static",IDC_PROP_MANUFACTURED,65,43,155,9,SS_NOPREFIX
+	LTEXT           "Static",IDC_PROP_MANUFACTURED,75,43,155,9,SS_NOPREFIX
 	LTEXT           "Status:",IDC_STATIC,18,52,47,8
-	LTEXT           "Static",IDC_PROP_STATUS,65,52,155,32
+	LTEXT           "Static",IDC_PROP_STATUS,75,52,155,32
 	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,85,178,1
 	LTEXT           "CPU:",IDC_STATIC,18,90,47,8
-	LTEXT           "Static\nStatic\nStatic\nStatic\nStatic",IDC_PROP_CPU,65,90,155,40
+	LTEXT           "Static\nStatic\nStatic\nStatic\nStatic",IDC_PROP_CPU,75,90,155,40
 	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,130,178,1
 	LTEXT           "Sound:",IDC_STATIC,18,135,47,8
-	LTEXT           "Static\nStatic\nStatic\nStatic\nStatic",IDC_PROP_SOUND,65,135,155,45
+	LTEXT           "Static\nStatic\nStatic\nStatic\nStatic",IDC_PROP_SOUND,75,135,155,45
 	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,181,178,1
 	LTEXT           "Screen:",IDC_STATIC,18,186,47,8
 	LTEXT           "Static\nStatic\nStatic",IDC_PROP_SCREEN,75,186,139,37
-	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,19,243,177,1
-	LTEXT           "Source:",IDC_STATIC,16,248,47,8
-	LTEXT           "Static",IDC_PROP_SOURCE,73,248,139,8
-	LTEXT           "Clone of:",IDC_PROP_CLONEOF_TEXT,16,258,50,8
+	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,18,243,178,1
+	LTEXT           "Source:",IDC_STATIC,18,248,47,8
+	LTEXT           "Static",IDC_PROP_SOURCE,75,248,139,8
+	LTEXT           "Clone of:",IDC_PROP_CLONEOF_TEXT,18,258,50,8
 	LTEXT           "Static",IDC_PROP_CLONEOF,74,258,130,33
 END
 
