@@ -795,8 +795,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/segahang.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segaxbd.cpp",
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
-	MAME_DIR .. "src/mame/sega/saturn_m.cpp",
-	MAME_DIR .. "src/mame/sega/saturn_v.cpp",
+	MAME_DIR .. "src/mame/sega/saturn.cpp",
 	MAME_DIR .. "src/mame/sega/saturn_scu.cpp",
 	MAME_DIR .. "src/mame/sega/saturn_cd_hle.cpp",
 	MAME_DIR .. "src/mame/sega/saturn_dcc.cpp",
