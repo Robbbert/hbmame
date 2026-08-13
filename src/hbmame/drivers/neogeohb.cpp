@@ -227,7 +227,8 @@ NUM GAME YEAR COMPANY                 TITLE
 517 0FFF 2019 Keith S                 Grime 68000
 518 5345 2025 Earok                   Halo Zero demo
 519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots
-520 5345 2026 DomKid                  Midnight Wanderers (Neo-Geo port) 2-level demo
+520 5345 2026 Z-team                  Midnight Wanderers (Neo-Geo port) 2-level demo
+521 5345 2026 Z-team                  Rick Dangerous DX
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2907,7 +2908,7 @@ ROM_START( blueandr )
 ROM_END
 
 
-// 520: Midnight Wanderers 2-level demo by DomKid
+// 520: Midnight Wanderers 2-level demo by DomKid (Z-team)
 ROM_START( midnight )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "520.p1", 0x000000, 0x080000, CRC(92fdb042) SHA1(535c6568fab3fca2b4c64a95d24eb5d3d9162902) )
@@ -2922,6 +2923,24 @@ ROM_START( midnight )
 	ROM_REGION( 0x1c0000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "520.c1", 0x000000, 0xe0000, CRC(d3a28f25) SHA1(69f6cd1c2e17df466096095d1fad0f4cfc4c0713) )
 	ROM_LOAD16_BYTE( "520.c2", 0x000001, 0xe0000, CRC(99a44023) SHA1(cae2ecc5a2d0742594a3cdf9462861e9c2f2c1eb) )
+ROM_END
+
+
+// 521: Rick Dangerous DX by Z-team
+ROM_START( rickdx )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "521.p1", 0x000000, 0x080000, CRC(d3dd7ab5) SHA1(bf96ae1fe19fa3b6edb6aef4cfa60ab31330299b) )
+
+	NEO_SFIX_128K( "521.s1", CRC(4ec73f78) SHA1(cd252da99008c5055b6637ab9ac30356bf018813) )
+
+	NEO_BIOS_AUDIO_256K( "521.m1", CRC(ad8f34e8) SHA1(301b0d8a005c3dc0d71358de8a7ed8873a8f0644) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "521.v1", 0x000000, 0x6c0000, CRC(69fb1fdf) SHA1(9c610b72bfb5aa6dede6e799c39f6644c43585e5) )
+
+	ROM_REGION( 0x280000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "521.c1", 0x000000, 0x140000, CRC(89e09533) SHA1(f8707be8b6665ac80dfcef6ecdb1153b8e5c3ac6) )
+	ROM_LOAD16_BYTE( "521.c2", 0x000001, 0x140000, CRC(c2df94d4) SHA1(46c88955de5edded07f4ed8a3fda7aba201f9453) )
 ROM_END
 
 
@@ -4459,7 +4478,7 @@ GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "DomKid", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, neo2048,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Nicole Branagan", "Neo 2048", MACHINE_SUPPORTS_SAVE )
@@ -4509,6 +4528,7 @@ GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, pown,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq132", "P.O.W. (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Ryurik: Poteryannaya demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, rickdx,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Rick Dangerous DX", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
