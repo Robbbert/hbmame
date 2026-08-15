@@ -415,6 +415,12 @@ YEAR COMPANY                          TITLE
 2025 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
 2025 Retro Sumus                      SovietBorgs (video on youtube)
 2025 Bit Beam Cannon                  Metal Mack
+2026 Tigerskunk                       Ormanauta (https://tigerskunk.itch.io/)
+2026 tcdev                            Frogger (https://tcdev.itch.io)
+2030 Mike at CannonRetro              Metro Siege (https://www.kickstarter.com/projects/metrosiege/metro-siege?lang=en)
+???? Chips on Steroids                Neotris 2
+???? Chips on Steroids                Super Mortal Fighter X
+???? PixelHeart                       Punky Circus
 
 
 *********************************************************************************************************/

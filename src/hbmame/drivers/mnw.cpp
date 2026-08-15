@@ -26515,7 +26515,29 @@ ROM_START( sengoku2s01 )
 	ROM_LOAD16_BYTE( "040s01.c4", 0x200001, 0x080000, CRC(4c6d8667) SHA1(a48aceb7c17c39f3a343da430948b6e40d46dcea) )
 ROM_END
 
+ROM_START( sengoku2s01 ) // v1.14
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "040s01.p1", 0x000000, 0x100000, CRC(9a8925fe) SHA1(08e1a48af71d7929b041d3f8b04222cd2b902404) )
+
+	NEO_SFIX_128K( "040.s1", CRC(cd9802a3) SHA1(f685d4638f4f68e7e3f101c0c39128454536721b) )
+
+	NEO_BIOS_AUDIO_128K( "040.m1", CRC(d4de4bca) SHA1(ecf604d06f01d40b04e285facef66a6ae2d35661) )
+
+	ROM_REGION( 0x300000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "040.v1", 0x000000, 0x200000, CRC(71cb4b5d) SHA1(56d9aca1d476c19c7d0f707176a8fed53e0189b7) )
+	ROM_LOAD( "040.v2", 0x200000, 0x100000, CRC(c5cece01) SHA1(923a3377dac1919e8c3d9ab316902250caa4785f) )
+
+	ROM_REGION( 0x600000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "040s01.c1", 0x000000, 0x100000, CRC(5740194a) SHA1(f5c43cf1c39c7e3215724403de0ee27db21306de) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "040s01.c2", 0x000001, 0x100000, CRC(dc5a1591) SHA1(172718915268e26578fb5307e6d551d2e3cce634) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "040s01.c3", 0x200000, 0x080000, CRC(5c4040e5) SHA1(f865e756992474922117f5766ac8af357e3d64da) )
+	ROM_LOAD16_BYTE( "040s01.c4", 0x200001, 0x080000, CRC(57ca479b) SHA1(55e22c1fd972e608f1d9c0a0722a0c2d25a8e0da) )
+ROM_END
+
 GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood v1.14)", MACHINE_SUPPORTS_SAVE )
 
 
 // ------------------------------------- SONIC WINGS -----------------------------------------

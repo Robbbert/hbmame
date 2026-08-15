@@ -11,6 +11,11 @@ New Games
 - [wjammers04]          Windjammers (Endless Breeze)
 
 
+Updated Games
+---------------------------------
+- [sengoku2s01]         Sengoku 2 (Red Blood, v1.15)
+
+
 
 
 2026-08-03 0.289.1

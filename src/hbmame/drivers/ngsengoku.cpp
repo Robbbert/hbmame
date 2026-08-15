@@ -52,12 +52,12 @@ ROM_START( sengoku2s01 )
 	ROM_LOAD( "040.v2", 0x200000, 0x100000, CRC(c5cece01) SHA1(923a3377dac1919e8c3d9ab316902250caa4785f) )
 
 	ROM_REGION( 0x600000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "040s01.c1", 0x000000, 0x100000, CRC(5740194a) SHA1(f5c43cf1c39c7e3215724403de0ee27db21306de) )
+	ROM_LOAD16_BYTE( "040s01.c1", 0x000000, 0x100000, CRC(451cdf68) SHA1(b86300adc6dfbb526f600be11dbe085abe0933f2) )
 	ROM_CONTINUE( 0x400000, 0x100000 )
-	ROM_LOAD16_BYTE( "040s01.c2", 0x000001, 0x100000, CRC(dc5a1591) SHA1(172718915268e26578fb5307e6d551d2e3cce634) )
+	ROM_LOAD16_BYTE( "040s01.c2", 0x000001, 0x100000, CRC(942d98b8) SHA1(3c018f5ebff511999195ff44d21f4587950658a5) )
 	ROM_CONTINUE( 0x400001, 0x100000 )
-	ROM_LOAD16_BYTE( "040s01.c3", 0x200000, 0x080000, CRC(5c4040e5) SHA1(f865e756992474922117f5766ac8af357e3d64da) )
-	ROM_LOAD16_BYTE( "040s01.c4", 0x200001, 0x080000, CRC(57ca479b) SHA1(55e22c1fd972e608f1d9c0a0722a0c2d25a8e0da) )
+	ROM_LOAD16_BYTE( "040s01.c3", 0x200000, 0x080000, CRC(f3992a91) SHA1(82027148f0ce85c3658cf86b59a06bd6697339f7) )
+	ROM_LOAD16_BYTE( "040s01.c4", 0x200001, 0x080000, CRC(7838143d) SHA1(56b9beaf54cdec72bcdff3d27b76161eee569f4e) )
 ROM_END
 
 
@@ -681,7 +681,7 @@ ROM_END
  // Sengoku
 GAME( 2007, sengoku01,      sengoku,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
  // Sengoku 2
-GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood v1.14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood v1.15)", MACHINE_SUPPORTS_SAVE )
  // Sengoku 3
 GAME( 2001, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_state, init_sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3s02,    sengoku3, neogeo_noslot, neogeo, neogeo_state, init_sengoku3,  ROT0, "sjx [FCHT]", "Sengoku 3 (Evolution V1.0a)" , MACHINE_SUPPORTS_SAVE )
