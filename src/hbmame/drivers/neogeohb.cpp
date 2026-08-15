@@ -229,6 +229,8 @@ NUM GAME YEAR COMPANY                 TITLE
 519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots
 520 5345 2026 Z-team                  Midnight Wanderers (Neo-Geo port) 2-level demo
 521 5345 2026 Z-team                  Rick Dangerous DX
+522 0539 2026 Sabino                  Doom Geo (demo)
+523 0539 2026 Sabino                  Free Doom
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2950,6 +2952,42 @@ ROM_START( rickdx )
 ROM_END
 
 
+// 522: Doom Geo demo by Sabino
+// No sound. V1 was all zero, left out.
+// Controls: Alt = shoot; Space = Change weapon; Shift = Open door
+// Bugs: Too many to count. Bad gfx. If you get a black screen, press F3 to start over.
+ROM_START( doomgeo )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "522.p1", 0x000000, 0x080000, CRC(3fbc2d79) SHA1(591799dee2053fc1e8c95091127e5e20584eb929) )
+
+	NEO_SFIX_128K( "522.s1", CRC(248bc475) SHA1(c8c8da9ce21ab5ad555f9160e8b6e92f1b4f0e82) )
+
+	NEO_BIOS_AUDIO_128K( "522.m1", CRC(1c996f5d) SHA1(e7ef71811145628ae5eb253c45c5d999c728a8cd) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "522.c1", 0x000000, 0x400000, CRC(70903dec) SHA1(325b58a476a08267143a8923562bb27ef0e237a1) )
+	ROM_LOAD16_BYTE( "522.c2", 0x000001, 0x400000, CRC(90bc023a) SHA1(f82bafc5238d1fde72069f4200a0e9654a1a36bb) )
+ROM_END
+
+#if 0
+// 523: Free Doom
+ROM_START( rickdx )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "523.p1", 0x000000, 0x080000, 
+
+	NEO_SFIX_128K( "523.s1", 
+
+	NEO_BIOS_AUDIO_256K( "523.m1", 
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "523.v1", 0x000000, 0x6c0000, 
+
+	ROM_REGION( 0x280000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "523.c1", 0x000000, 
+	ROM_LOAD16_BYTE( "523.c2", 0x000001, 
+ROM_END
+#endif
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -4444,6 +4482,7 @@ GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo1,    ddsprdmo, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo (newer)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, doomgeo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Doom Geo demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, doubled1,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-09-16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
