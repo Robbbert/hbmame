@@ -2969,24 +2969,23 @@ ROM_START( doomgeo )
 	ROM_LOAD16_BYTE( "522.c2", 0x000001, 0x400000, CRC(90bc023a) SHA1(f82bafc5238d1fde72069f4200a0e9654a1a36bb) )
 ROM_END
 
-#if 0
+
 // 523: Free Doom
-ROM_START( rickdx )
+// No sound. V1 was all zero, left out.
+// This is the same as Doom Geo but with different graphics. Same issues exist.
+ROM_START( freedoom )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "523.p1", 0x000000, 0x080000, 
+	ROM_LOAD16_WORD_SWAP( "523.p1", 0x000000, 0x080000, CRC(f57478f2) SHA1(ada3a015ede437312effa13f1ab98c8ae6f61780) )
 
-	NEO_SFIX_128K( "523.s1", 
+	NEO_SFIX_128K( "523.s1", CRC(1b4ec91c) SHA1(4bc70b1fa8421571555453545f0ac340958611ce) )
 
-	NEO_BIOS_AUDIO_256K( "523.m1", 
+	NEO_BIOS_AUDIO_128K( "522.m1", CRC(1c996f5d) SHA1(e7ef71811145628ae5eb253c45c5d999c728a8cd) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "523.v1", 0x000000, 0x6c0000, 
-
-	ROM_REGION( 0x280000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "523.c1", 0x000000, 
-	ROM_LOAD16_BYTE( "523.c2", 0x000001, 
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "523.c1", 0x000000, 0x400000, CRC(bb8e2a1b) SHA1(0181eb9a6dc5b920b7e8779d7c51db3c0845119c) )
+	ROM_LOAD16_BYTE( "523.c2", 0x000001, 0x400000, CRC(51a2ebaa) SHA1(64636eaf67ba57c67cd358894c623df072dfac66) )
 ROM_END
-#endif
+
 
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
@@ -4492,6 +4491,7 @@ GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, flapchck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Flappy Chicken (2023-04-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, foodfn,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Food Fight (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, freedoom,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Freedoom demo (v0.13.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann2,   galaxiann,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
