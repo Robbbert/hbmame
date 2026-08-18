@@ -29307,6 +29307,7 @@ blueshrkmr2
 boothill
 bowler
 checkmat
+checkmata
 clowns
 clowns1
 desertgu
@@ -33705,6 +33706,9 @@ ampscarp
 @source:motorola/assist05.cpp
 assist05
 
+@source:motorola/execphone2.cpp
+execphone2
+
 @source:motorola/exorciser.cpp
 exorciser
 
@@ -36414,6 +36418,9 @@ obdmx
 
 @source:oberheim/ob8.cpp
 ob8
+
+@source:oberheim/obsx.cpp
+obsx
 
 @source:oberheim/xpander.cpp
 xpander
