@@ -125,7 +125,6 @@ b) Exit the dialog.
 
 #include "properties.h"
 #include "drivenum.h"
-#include "machine/ram.h"
 #include <shlwapi.h>
 #include "corestr.h"
 
@@ -190,7 +189,6 @@ static HBRUSH hBkBrush;
 #ifdef MESS
 static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_options *o, const char *option_name);
 static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *o, const char *option_name);
-static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *o, const char *option_name);
 extern BOOL BrowseForDirectory(HWND hwnd, LPCTSTR pStartDir, TCHAR* pResult);
 bool m_swpath_changed = 0;
 #endif
@@ -2663,12 +2661,10 @@ static void BuildDataMap(void)
 #ifdef MESS
 	// MESS specific stuff
 	datamap_add(properties_datamap, IDC_DIR_LIST,                    DM_STRING, NULL);
-	datamap_add(properties_datamap, IDC_RAM_COMBOBOX,                DM_INT, OPTION_RAMSIZE);
 
 	// set up callbacks
 	datamap_set_callback(properties_datamap, IDC_DIR_LIST,           DCT_READ_CONTROL,      DirListReadControl);
 	datamap_set_callback(properties_datamap, IDC_DIR_LIST,           DCT_POPULATE_CONTROL,  DirListPopulateControl);
-	datamap_set_callback(properties_datamap, IDC_RAM_COMBOBOX,       DCT_POPULATE_CONTROL,  RamPopulateControl);
 #endif
 }
 
@@ -3743,35 +3739,6 @@ static BOOL SoftwareDirectories_OnEndLabelEdit(HWND hDlg, NMHDR* pNMHDR)
 	return bResult;
 }
 
-#if 0
-// only called by PropSheetFilter_Config (below)
-static BOOL DriverHasDevice(const game_driver *gamedrv, iodevice_/t type)
-{
-	BOOL b = false;
-
-	// allocate the machine config
-	machine_config config(*gamedrv,MameUIGlobal());
-
-	for (device_image_interface &dev : image_interface_enumerator(config.root_device()))
-	{
-		if (!dev.user_loadable())
-			continue;
-		if (dev.image_type() == type)
-		{
-			b = true;
-			break;
-		}
-	}
-	return b;
-}
-
-// not used
-BOOL PropSheetFilter_Config(const machine_config *drv, const game_driver *gamedrv)
-{
-	ram_device_enumerator iter(drv->root_device());
-	return (iter.first()) || DriverHasDevice(gamedrv, IO_PRINTER);
-}
-#endif
 INT_PTR CALLBACK GameMessOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	INT_PTR rc = 0;
@@ -3829,147 +3796,5 @@ BOOL MessPropertiesCommand(HWND hWnd, WORD wNotifyCode, WORD wID, BOOL *changed)
 	}
 	return handled;
 }
-
-//============================================================
-//  Functions to handle the RAM control
-//============================================================
-
-static string messram_string(UINT32 ram) // FIXME - limit of 4GB
-{
-	 string suffix = "", messram;
-
-	if ((ram % (1024*1024)) == 0)
-	{
-		ram /= 1024*1024;
-		suffix = "M";
-	}
-	else
-	if ((ram % 1024) == 0)
-	{
-		ram /= 1024;
-		suffix = "K";
-	}
-
-	messram = std::to_string(ram).append(suffix);
-	return messram;
-}
-
-//-------------------------------------------------
-//  parse_string - convert a ram string to an
-//  integer value
-//-------------------------------------------------
-
-static uint32_t parse_string(const char *s)
-{
-	static const struct
-	{
-		const char *suffix;
-		unsigned multiple;
-	} s_suffixes[] =
-	{
-		{ "",       1 },
-		{ "k",      1024 },
-		{ "kb",     1024 },
-		{ "kib",    1024 },
-		{ "m",      1024 * 1024 },
-		{ "mb",     1024 * 1024 },
-		{ "mib",    1024 * 1024 },
-		{ "K",      1024 },
-		{ "KB",     1024 },
-		{ "KiB",    1024 },
-		{ "M",      1024 * 1024 },
-		{ "MB",     1024 * 1024 },
-		{ "MiB",    1024 * 1024 }
-	};
-
-	// parse the string
-	unsigned ram = 0;
-	char suffix[8] = { 0, };
-	sscanf(s, "%u%7s", &ram, suffix);
-
-	// perform the lookup
-	auto iter = std::find_if(std::begin(s_suffixes), std::end(s_suffixes), [&suffix](const auto &potential_suffix)
-	{ return !core_stricmp(suffix, potential_suffix.suffix); } );
-
-	// identify the multiplier (or 0 if not recognized, signalling a parse failure)
-	unsigned multiple = iter != std::end(s_suffixes) ? iter->multiple : 0;
-
-	// return the result
-	return ram * multiple;
-}
-
-static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *o, const char *option_name)
-{
-	int i = 0, current_index = 0;
-
-	// identify the driver
-	int driver_index = PropertiesCurrentGame(dialog);
-	const game_driver *gamedrv = &driver_list::driver(driver_index);
-
-	// clear out the combo box
-	ComboBox_ResetContent(control);
-
-	// allocate the machine config
-	machine_config cfg(*gamedrv,*o);
-
-	// identify how many options that we have
-	ram_device_enumerator iter(cfg.root_device());
-	ram_device *device = iter.first();
-
-	// we can only do something meaningful if there is more than one option
-	if (device)
-	{
-		const ram_device *ramdev = dynamic_cast<const ram_device *>(device);
-		// identify the current amount of RAM
-		const char *this_ram_string = o->value(OPTION_RAMSIZE);
-		uint32_t current_ram = (this_ram_string) ? parse_string(this_ram_string) : 0;
-		uint32_t ram = ramdev->default_size();
-		if (current_ram == 0)
-			current_ram = ram;
-
-		string ramtext = messram_string(ram);
-		TCHAR *t_ramstring = ui_wstring_from_utf8(ramtext.c_str());
-		if( !t_ramstring )
-			return false;
-
-		ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
-		ComboBox_SetItemData(control, i, ram);
-
-		if (!ramdev->extra_options().empty())
-		{
-			/* try to parse each option */
-			for (ram_device::extra_option const &option : ramdev->extra_options())
-			{
-				// identify this option
-				string ramtext2 = option.first;
-				if (ramtext2 != ramtext)
-				{
-					t_ramstring = ui_wstring_from_utf8(ramtext2.c_str());
-					if( t_ramstring )
-					{
-						i++;
-						// add this option to the combo box
-						ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
-						ComboBox_SetItemData(control, i, option.second);
-
-						// is this the current option?  record the index if so
-						if (option.second == current_ram)
-							current_index = i;
-					}
-				}
-			}
-		}
-		if (t_ramstring)
-			free (t_ramstring);
-
-		// set the combo box
-		ComboBox_SetCurSel(control, current_index);
-	}
-
-	EnableWindow(control, i ? 1 : 0);
-
-	return true;
-}
-
 #endif
 

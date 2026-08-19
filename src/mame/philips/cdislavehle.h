@@ -39,6 +39,7 @@ public:
 	auto read_mousey() { return m_read_mousey.bind(); }
 	auto read_mousebtn() { return m_read_mousebtn.bind(); }
 	auto atten_callback() { return m_atten_w.bind(); }
+	auto testplug_callback() { return m_testplug_cb.bind(); }
 
 	uint8_t* get_lcd_state() { return m_lcd_state; }
 
@@ -66,6 +67,7 @@ private:
 
 	required_device_array<dmadac_sound_device, 2> m_dmadac;
 	devcb_write32 m_atten_w;
+	devcb_read_line m_testplug_cb;
 
 	struct channel_state
 	{
@@ -83,7 +85,7 @@ private:
 	uint8_t m_in_index;
 	uint8_t m_in_count;
 
-	uint8_t m_polling_active;
+	uint8_t m_debug_mode;
 
 	uint8_t m_xbus_interrupt_enable;
 
