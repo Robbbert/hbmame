@@ -10,17 +10,17 @@
 
 #include "emu.h"
 #include "emuopts.h"
-#include "ng_memcard.h"
+#include "hbng_memcard.h"
 
 // device type definition
-DEFINE_DEVICE_TYPE(NG_MEMCARD, ng_memcard_device, "ng_memcard", "NeoGeo Memory Card")
+DEFINE_DEVICE_TYPE(HBNG_MEMCARD, hbng_memcard_device, "hbng_memcard", "HB NeoGeo Memory Card")
 
 //-------------------------------------------------
 //  ng_memcard_device - constructor
 //-------------------------------------------------
 
-ng_memcard_device::ng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
-	: device_t(mconfig, NG_MEMCARD, tag, owner, clock),
+hbng_memcard_device::hbng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: device_t(mconfig, HBNG_MEMCARD, tag, owner, clock),
 		device_memcard_image_interface(mconfig, *this)
 {
 }
@@ -31,7 +31,7 @@ ng_memcard_device::ng_memcard_device(const machine_config &mconfig, const char *
 //  device_start - device-specific startup
 //-------------------------------------------------
 
-void ng_memcard_device::device_start()
+void hbng_memcard_device::device_start()
 {
 	save_item(NAME(m_memcard_data));
 }
@@ -41,7 +41,7 @@ void ng_memcard_device::device_start()
     with the given index
 -------------------------------------------------*/
 
-std::pair<std::error_condition, std::string> ng_memcard_device::call_load()
+std::pair<std::error_condition, std::string> hbng_memcard_device::call_load()
 {
 	if(length() != 0x800)
 		return std::make_pair(image_error::INVALIDLENGTH, "Unsupported memory card size (only 2K cards are supported)");
@@ -54,13 +54,13 @@ std::pair<std::error_condition, std::string> ng_memcard_device::call_load()
 	return std::make_pair(std::error_condition(), std::string());
 }
 
-void ng_memcard_device::call_unload()
+void hbng_memcard_device::call_unload()
 {
 	fseek(0, SEEK_SET);
 	fwrite(m_memcard_data, 0x800);
 }
 
-std::pair<std::error_condition, std::string> ng_memcard_device::call_create(int format_type, util::option_resolution *format_options)
+std::pair<std::error_condition, std::string> hbng_memcard_device::call_create(int format_type, util::option_resolution *format_options)
 {
 	memset(m_memcard_data, 0, 0x800);
 
@@ -72,12 +72,12 @@ std::pair<std::error_condition, std::string> ng_memcard_device::call_create(int 
 }
 
 
-u8 ng_memcard_device::read(offs_t offset)
+u8 hbng_memcard_device::read(offs_t offset)
 {
 	return m_memcard_data[offset];
 }
 
-void ng_memcard_device::write(offs_t offset, u8 data)
+void hbng_memcard_device::write(offs_t offset, u8 data)
 {
 	m_memcard_data[offset] = data;
 }

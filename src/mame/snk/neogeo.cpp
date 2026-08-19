@@ -557,7 +557,7 @@
 #include "softlist_dev.h"
 #include "speaker.h"
 
-#include "irrmaze.lh"
+//#include "irrmaze.lh"
 #include "neogeo.lh"
 
 #define LOG_VIDEO_SYSTEM         (1U << 1)
@@ -1801,7 +1801,7 @@ void neogeo_base_state::audio_io_map(address_map &map)
 	map(0x0c, 0x0c).mirror(0xff00).w(m_soundlatch2, FUNC(generic_latch_8_device::write));
 }
 
-
+#if 0
 
 /*************************************
  *
@@ -1882,7 +1882,7 @@ static INPUT_PORTS_START( neogeo_mvs6 )
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_CUSTOM ) // sense: 6-slot
 INPUT_PORTS_END
 
-
+#endif
 
 INPUT_PORTS_START( aes )
 	PORT_START("IN2")
@@ -1972,7 +1972,7 @@ void neogeo_base_state::neogeo_stereo(machine_config &config)
 	m_ym->add_route(2, "speaker", 0.98, 1);
 }
 
-
+#if 0
 void neogeo_base_state::neogeo_memcard(machine_config &config)
 {
 	NG_MEMCARD(config, m_memcard);
@@ -2119,7 +2119,7 @@ void mvs_led_state::mv1_fixed(machine_config &config)
 	NEOGEO_CONTROL_PORT(config, m_ctrl2, neogeo_arc_pin15, nullptr, true);
 }
 
-
+#endif
 
 void aes_base_state::machine_start()
 {
@@ -2146,7 +2146,7 @@ void aes_state::device_post_load()
 	if (m_slots[m_curr_slot] && m_slots[m_curr_slot]->get_rom_size() > 0)
 		m_bank_cartridge->set_base((uint8_t *)m_slots[m_curr_slot]->get_rom_base() + m_bank_base);
 }
-
+#if 0
 // NTSC region
 void aes_state::aes_ntsc(machine_config &config)
 {
@@ -2487,7 +2487,7 @@ void mvs_state::irrmaze(machine_config &config)
 
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge_irrmaze, "irrmaze", false);
 
-	config.set_default_layout(layout_irrmaze);
+	//config.set_default_layout(layout_irrmaze);
 
 	cartslot_fixed(config, "rom");
 }
@@ -12253,3 +12253,5 @@ GAME( 2005, lasthope,   neogeo,   neobase,   neogeo,    mvs_led_state, empty_ini
 
 // NEOBITZ
 // Knight's Chance (c)2014 - MVS/AES
+#endif
+

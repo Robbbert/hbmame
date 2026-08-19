@@ -27,7 +27,6 @@
 #include "mui_opts.h"
 #include "emu_opts.h"
 #include "drivenum.h"
-#include "machine/ram.h"
 #include <shlwapi.h>
 #include "corestr.h"
 #include "path.h"

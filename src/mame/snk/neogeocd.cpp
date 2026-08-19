@@ -77,7 +77,7 @@ protected:
 	virtual void machine_start() override ATTR_COLD;
 	virtual void machine_reset() override ATTR_COLD;
 
-private:
+//private:
 	optional_device<lc89510_temp_device> m_tempcdc;
 	required_shared_ptr<uint8_t> m_z80_ram;
 	required_shared_ptr<uint8_t> m_adpcm_ram;
@@ -331,7 +331,7 @@ void ngcd_state::control_w(address_space &space, offs_t offset, uint16_t data, u
 				// is there some way to enable write protection on the RAM vector area or is it some IRQ masking issue?
 				// the games still write to the normal address for this too?
 				// writes 00 / 01 / ff
-				printf("MapVectorTable? %04x %04x\n",data,mem_mask);
+				//printf("MapVectorTable? %04x %04x\n",data,mem_mask);
 
 				//m_bank_vectors->set_entry(data == 0 ? 0 : 1);
 				m_use_cart_vectors = (data == 0 ? 0 : 1);

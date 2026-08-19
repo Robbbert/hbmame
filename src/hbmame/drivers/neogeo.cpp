@@ -982,7 +982,7 @@ void neogeo_state::neogeo_arcade(machine_config &config)
 	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK));
 	UPD4990A(config, m_upd4990a);
 	NVRAM(config, "saveram", nvram_device::DEFAULT_ALL_0);
-	NG_MEMCARD(config, "memcard");
+	HBNG_MEMCARD(config, "memcard");
 }
 
 void neogeo_state::mvs(machine_config &config)

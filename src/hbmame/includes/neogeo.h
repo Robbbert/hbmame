@@ -9,7 +9,7 @@
 #include "machine/watchdog.h"
 #include "sound/ymopn.h"
 #include "machine/upd1990a.h"
-#include "machine/ng_memcard.h"
+#include "machine/hbng_memcard.h"
 #include "machine/gen_latch.h"
 #include "video/neogeo_spr.h"
 #include "imagedev/snapquik.h"
@@ -335,7 +335,7 @@ private:
 	optional_shared_ptr<u16 > m_save_ram;
 	required_device<screen_device> m_screen;
 	optional_device<palette_device> m_palette;
-	optional_device<ng_memcard_device> m_memcard;
+	optional_device<hbng_memcard_device> m_memcard;
 	optional_ioport m_dsw;
 	optional_ioport m_trackx;
 	optional_ioport m_tracky;

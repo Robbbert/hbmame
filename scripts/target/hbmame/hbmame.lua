@@ -666,7 +666,7 @@ files {
 	MAME_DIR .. "src/hbmame/video/neogeo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/neogeo_noslot.cpp",
 	MAME_DIR .. "src/hbmame/video/neogeo_spr.cpp",
-	MAME_DIR .. "src/hbmame/machine/ng_memcard.cpp",
+	MAME_DIR .. "src/hbmame/machine/hbng_memcard.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo/prot.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo/banked_cart.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/ctrl.cpp",
@@ -675,7 +675,6 @@ files {
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/dial.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/irrmaze.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/kizuna4p.cpp",
---	MAME_DIR .. "src/mame/drivers/neogeocd.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "nichibutsu")
@@ -850,6 +849,13 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/snk6502.cpp",
 	MAME_DIR .. "src/mame/snk/snk6502_a.cpp",
 	MAME_DIR .. "src/mame/snk/snk6502_v.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeocd.cpp",
+	MAME_DIR .. "src/mame/shared/megacdcd.cpp",
+	MAME_DIR .. "src/mame/snk/neogeo_spr.cpp",
+	MAME_DIR .. "src/mame/snk/neogeo.cpp",
+	MAME_DIR .. "src/mame/snk/neogeo_v.cpp",
+	MAME_DIR .. "src/devices/bus/neogeo/slot.cpp",
+	MAME_DIR .. "src/mame/snk/ng_memcard.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "sony")
