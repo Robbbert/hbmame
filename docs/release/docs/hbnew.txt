@@ -16,6 +16,7 @@ New Games
 Updated Games
 ---------------------------------
 - [sengoku2s01]         Sengoku 2 (Red Blood, v1.15)
+- [sf2prime]            Street Fighter II': Prime (v0.80)
 
 
 
