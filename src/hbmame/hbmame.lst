@@ -6660,13 +6660,27 @@ wjammere
 
 @source:neogeocd.cpp
 neocdz
-cd_blueandr
-cd_galx
-cd_galx2
-cd_midnight
+cd_alice
+cd_chelnov
+cd_diff
+cd_eira
+cd_ffury
+cd_fukkireta
+cd_gaxe
+cd_gaxearr
+cd_natademo
+cd_ngdark
+cd_noneon
+cd_ntris3d
+cd_phoenix
 cd_pong
-cd_rickdx
+cd_pow
+cd_pow2
+cd_shinobiarr
+cd_speedball
 cd_ssrpg
+cd_subspecies
+cd_visualnovel
 
 @source:ngdoubledr.cpp
 doubledr01

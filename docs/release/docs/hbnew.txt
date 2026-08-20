@@ -7,6 +7,27 @@
 
 New Games
 ---------------------------------
+- [cd_alice]            We Love Alice demo[CD]
+- [cd_chelnov]          Atomic Runner Chelnov (Neo-Geo port)[CD]
+- [cd_diff]             DIFF demo[CD]
+- [cd_eira]             Eira demo[CD]
+- [cd_ffury]            Fatal Fury - Album Edition[CD]
+- [cd_fukkireta]        Neo Fukkireta demo[CD]
+- [cd_gaxe]             Golden Axe (Neo-Geo port)[CD]
+- [cd_gaxearr]          Golden Axe (v1.0) (PS2 Sega Ages Arranged)[CD]
+- [cd_natademo]         NATADEMO Rel.05[CD]
+- [cd_ngdark]           NGD::ARK(2012-05-04)[CD]
+- [cd_noneon]           No Neo - No Party demo[CD]
+- [cd_ntris3d           N*tris3D Techdemo[CD]
+- [cd_phoenix]          Phoenix(v013)[CD]
+- [cd_pong]             Pong[CD]
+- [cd_pow]              P.O.W. (Neo-Geo port)[CD]
+- [cd_pow2]             P.O.W. (update)[CD]
+- [cd_shinobiarr]       Shinobi Arranged v1.1 (Neo-Geo port)[CD]
+- [cd_speedball]        Speedball2 v1.0.0 demo[CD]
+- [cd_ssrpg]            Samurai Spirits RPG (English)[CD]
+- [cd_subspecies]       Subspecies_Unfinished demo[CD]
+- [cd_visualnovel]      Visual Novel demo (2016-03-31)[CD]
 - [doomgeo]             Doom Geo demo
 - [freedoom]            Freedoom demo (v0.13.0)
 - [kof2001s53]          Kof2001 (Red Arrener, 2026-08-14)
