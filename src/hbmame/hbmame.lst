@@ -237,6 +237,9 @@ comdlux1				/* Twisty Hack */
 contra                                 //parent
 contraj01
 
+@source:cothello.cpp
+cothello01
+
 @source:cps1.cpp
 //1941
 //1941j

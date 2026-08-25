@@ -15,6 +15,7 @@ LAYOUTS += \
 	$(SRC)/mame/layout/attackfc.lay \
 	$(SRC)/mame/layout/bzone.lay \
 	$(SRC)/mame/layout/contcirc.lay \
+	$(SRC)/mame/layout/cothello.lay \
 	$(SRC)/mame/layout/galactic.lay \
 	$(SRC)/mame/layout/gunchamp.lay \
 	$(SRC)/mame/layout/invaders.lay \

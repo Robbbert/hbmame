@@ -687,6 +687,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "nintendo")
 files {
+	MAME_DIR .. "src/hbmame/drivers/cothello.cpp",
 	MAME_DIR .. "src/hbmame/drivers/dkong.cpp",
 	MAME_DIR .. "src/mame/nintendo/dkong_a.cpp",
 	MAME_DIR .. "src/mame/nintendo/dkong_v.cpp",

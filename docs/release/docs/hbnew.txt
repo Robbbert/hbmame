@@ -28,6 +28,7 @@ New Games
 - [cd_ssrpg]            Samurai Spirits RPG (English)[CD]
 - [cd_subspecies]       Subspecies_Unfinished demo[CD]
 - [cd_visualnovel]      Visual Novel demo (2016-03-31)[CD]
+- [cothello01]          Computer Othello (English)
 - [doomgeo]             Doom Geo demo
 - [freedoom]            Freedoom demo (v0.13.0)
 - [ghoulsknight]        Ghouls'n Ghosts - Knight Artoria Edition (World)
