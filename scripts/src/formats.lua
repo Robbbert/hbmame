@@ -19,6 +19,10 @@ project "formats"
 		"ArchiveSplit",
 	}
 
+	defines {
+		"ZLIB_CONST",
+	}
+
 	includedirs {
 		MAME_DIR .. "src/osd",
 		MAME_DIR .. "src/lib",
@@ -498,6 +502,18 @@ if opt_tool(FORMATS, "C3040_DSK") then
 	files {
 		MAME_DIR.. "src/lib/formats/c3040_dsk.cpp",
 		MAME_DIR.. "src/lib/formats/c3040_dsk.h",
+	}
+end
+
+--------------------------------------------------
+--
+--@src/lib/formats/c1571_dsk.h,FORMATS["C1571_DSK"] = true
+--------------------------------------------------
+
+if opt_tool(FORMATS, "C1571_DSK") then
+	files {
+		MAME_DIR.. "src/lib/formats/c1571_dsk.cpp",
+		MAME_DIR.. "src/lib/formats/c1571_dsk.h",
 	}
 end
 

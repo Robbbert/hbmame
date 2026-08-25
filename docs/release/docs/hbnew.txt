@@ -30,6 +30,12 @@ New Games
 - [cd_visualnovel]      Visual Novel demo (2016-03-31)[CD]
 - [doomgeo]             Doom Geo demo
 - [freedoom]            Freedoom demo (v0.13.0)
+- [ghoulsknight]        Ghouls'n Ghosts - Knight Artoria Edition (World)
+- [ghoulsmaiden]        Ghouls'n Ghosts - Maiden Artoria Edition (World)
+- [ghoulsuknight]       Ghouls'n Ghosts - Knight Artoria Edition (USA)
+- [ghoulsumaiden]       Ghouls'n Ghosts - Maiden Artoria Edition (USA)
+- [daimakaiknight]      Ghouls'n Ghosts - Knight Artoria Edition (Japan)
+- [daimakaimaiden]      Ghouls'n Ghosts - Maiden Artoria Edition (Japan)
 - [kof2001s53]          Kof2001 (Red Arrener, 2026-08-14)
 - [rickdx]              Rick Dangerous DX
 - [wjammers04]          Windjammers (Endless Breeze)
