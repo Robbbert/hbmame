@@ -135,9 +135,9 @@ std::pair<std::error_condition, std::string> harddisk_image_device::call_load()
 
 std::pair<std::error_condition, std::string> harddisk_image_device::call_create(int create_format, util::option_resolution *create_args)
 {
-//	if (!create_args)
+	if (!create_args)
 		throw emu_fatalerror("harddisk_image_device::call_create: Expected create_args to not be nullptr");
-#if 0
+
 	const uint32_t cylinders   = create_args->lookup_int('C');
 	const uint32_t heads       = create_args->lookup_int('H');
 	const uint32_t sectors     = create_args->lookup_int('S');
@@ -159,7 +159,7 @@ std::pair<std::error_condition, std::string> harddisk_image_device::call_create(
 
 	if (err)
 		return std::make_pair(err, std::string());
-#endif
+
 	return std::make_pair(internal_load_hd(), std::string());
 }
 

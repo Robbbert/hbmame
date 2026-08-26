@@ -551,13 +551,7 @@ void CreateYearFolders(int parent_index)
 	for (int jj = 0; jj < nGames; jj++)
 	{
 		char s[16];
-		int t1 = sizeof(s);
-		memset(s, '\0', sizeof(s));
-		int t2 = sizeof(driver_list::driver(jj).year)+1;
-		if (t2 > t1)
-			t2 = t1;
-		if (t2)
-			strcpy_s(s, t2, driver_list::driver(jj).year);
+		snprintf(s, sizeof(s), "%s", driver_list::driver(jj).year);
 
 		if (s[0] == '\0' || s[0] == '?')
 			continue;

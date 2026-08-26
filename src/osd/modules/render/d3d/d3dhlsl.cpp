@@ -464,7 +464,8 @@ bool shaders::init(IDirect3D9 *d3dobj, running_machine *machine, renderer_d3d9 *
 		options = new hlsl_options;
 		options->params_init = false;
 
-		strncpy(options->shadow_mask_texture, winoptions.screen_shadow_mask_texture(), sizeof(options->shadow_mask_texture));
+		//strncpy(options->shadow_mask_texture, winoptions.screen_shadow_mask_texture(), sizeof(options->shadow_mask_texture));
+		snprintf(options->shadow_mask_texture, sizeof(options->shadow_mask_texture), "%s", winoptions.screen_shadow_mask_texture() );
 		options->shadow_mask_tile_mode = winoptions.screen_shadow_mask_tile_mode();
 		options->shadow_mask_alpha = winoptions.screen_shadow_mask_alpha();
 		options->shadow_mask_count_x = winoptions.screen_shadow_mask_count_x();
@@ -536,9 +537,11 @@ bool shaders::init(IDirect3D9 *d3dobj, running_machine *machine, renderer_d3d9 *
 		options->bloom_level6_weight = winoptions.screen_bloom_lvl6_weight();
 		options->bloom_level7_weight = winoptions.screen_bloom_lvl7_weight();
 		options->bloom_level8_weight = winoptions.screen_bloom_lvl8_weight();
-		strncpy(options->lut_texture, winoptions.screen_lut_texture(), sizeof(options->lut_texture));
+		//strncpy(options->lut_texture, winoptions.screen_lut_texture(), sizeof(options->lut_texture));
+		snprintf(options->lut_texture, sizeof(options->lut_texture), "%s", winoptions.screen_lut_texture() );
 		options->lut_enable = winoptions.screen_lut_enable();
-		strncpy(options->ui_lut_texture, winoptions.ui_lut_texture(), sizeof(options->ui_lut_texture));
+		//strncpy(options->ui_lut_texture, winoptions.ui_lut_texture(), sizeof(options->ui_lut_texture));
+		snprintf(options->ui_lut_texture, sizeof(options->ui_lut_texture), "%s", winoptions.ui_lut_texture() );
 		options->ui_lut_enable = winoptions.ui_lut_enable();
 
 		options->params_init = true;
