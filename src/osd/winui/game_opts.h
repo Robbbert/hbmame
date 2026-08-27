@@ -72,7 +72,8 @@ class winui_game_options
 			return true;
 
 		char s1[file_line.length()+1];
-		strcpy(s1, file_line.c_str());
+		//strcpy(s1, file_line.c_str());
+		snprintf(s1, sizeof(s1), "%s", file_line.c_str());
 
 		// check that totals match
 		const char* s2 = strtok(s1, ",");
@@ -101,7 +102,8 @@ class winui_game_options
 			if (is_ready)
 			{
 				char s[file_line.length()+1];
-				strcpy(s, file_line.c_str());
+				//strcpy(s, file_line.c_str());
+				snprintf(s, sizeof(s), "%s", file_line.c_str());
 
 				const char* name = strtok(s, "\t");  // get driver name
 				index = driver_list::find(name);
@@ -350,7 +352,8 @@ public:
 		std::ofstream outfile (filename, std::ios::out | std::ios::trunc);
 		size_t size = inistring.size();
 		char t1[size+1];
-		strcpy(t1, inistring.c_str());
+		//strcpy(t1, inistring.c_str());
+		snprintf(t1, sizeof(t1), "%s", inistring.c_str());
 		outfile.write(t1, size);
 		outfile.close();
 		return;

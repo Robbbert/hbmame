@@ -96,11 +96,12 @@ void __cdecl ErrorMsg(const char* fmt, ...)
 
 	va_start(va, fmt);
 
-	vsprintf(buf, fmt, va);
+	vsnprintf(buf, sizeof(buf), fmt, va);
 
 	win_message_box_utf8(GetActiveWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
 
-	strcpy(buf2, MAMEUINAME ": ");
+	//strcpy(buf2, MAMEUINAME ": ");
+	snprintf(buf2, sizeof(buf2), "%s", MAMEUINAME ": ");
 	strcat(buf2,buf);
 	strcat(buf2, "\n");
 
@@ -389,7 +390,8 @@ const char * GetDriverFilename(int drvindex)
 	if (drvindex >= 0)
 	{
 		string driver = string(core_filename_extract_base(driver_list::driver(drvindex).type.source()));
-		strcpy(tmp, driver.c_str());
+		//strcpy(tmp, driver.c_str());
+		snprintf(tmp, sizeof(tmp), "%s", driver.c_str());
 	}
 	return tmp;
 }

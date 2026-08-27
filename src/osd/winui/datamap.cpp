@@ -741,7 +741,7 @@ static char *tztrim(float float_value)
 	char float_string[20];
 	int i = 0;
 
-	sprintf(float_string, "%f", float_value);
+	snprintf(float_string, sizeof(float_string), "%f", float_value);
 
 	char* ptr = float_string;
 

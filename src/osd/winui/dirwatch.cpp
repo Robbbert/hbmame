@@ -94,7 +94,8 @@ static BOOL DirWatcher_WatchDirectory(PDIRWATCHER pWatcher, int nIndex, int nSub
 	if (!pEntry)
 		goto error;
 	memset(pEntry, 0, sizeof(*pEntry));
-	strcpy(pEntry->szDirPath, pszPath);
+	//strcpy(pEntry->szDirPath, pszPath);
+	snprintf(pEntry->szDirPath, sizeof(pEntry->szDirPath), "%s", pszPath);
 	pEntry->overlapped.hEvent = pWatcher->hRequestEvent;
 
 	hDir = win_create_file_utf8(pszPath, FILE_LIST_DIRECTORY,
@@ -139,7 +140,8 @@ static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEnt
 
 	// get the full path to this new file
 	LPSTR pszFullFileName = (LPSTR) alloca(strlen(pEntry->szDirPath) + strlen(pszFileName) + 2);
-	strcpy(pszFullFileName, pEntry->szDirPath);
+	//strcpy(pszFullFileName, pEntry->szDirPath);
+	snprintf(pszFullFileName, sizeof(pszFullFileName), "%s", pEntry->szDirPath);
 	strcat(pszFullFileName, "\\");
 	strcat(pszFullFileName, pszFileName);
 
@@ -205,7 +207,8 @@ static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 
 			// allocate our own copy of the path list
 			pszPathList = (LPSTR) alloca(strlen(pWatcher->pszPathList) + 1);
-			strcpy(pszPathList, pWatcher->pszPathList);
+			//strcpy(pszPathList, pWatcher->pszPathList);
+			snprintf(pszPathList, sizeof(pszPathList), "%s", pWatcher->pszPathList);
 
 			nSubIndex = 0;
 			do

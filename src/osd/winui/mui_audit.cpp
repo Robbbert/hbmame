@@ -67,7 +67,7 @@ static int m_choice = 0;
 static int strcatvprintf(std::string &str, const char *format, va_list args)
 {
 	char tempbuf[4096];
-	int result = vsprintf(tempbuf, format, args);
+	int result = vsnprintf(tempbuf, sizeof(tempbuf), format, args);
 	str.append(tempbuf);
 	return result;
 }
@@ -224,14 +224,14 @@ static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 		{
 			if (rom_index != -1)
 			{
-				sprintf(buffer, "Checking Set %s - %s", driver_list::driver(rom_index).name, driver_list::driver(rom_index).type.fullname());
+				snprintf(buffer, sizeof(buffer), "Checking Set %s - %s", driver_list::driver(rom_index).name, driver_list::driver(rom_index).type.fullname());
 				win_set_window_text_utf8((HWND)hDlg, buffer);
 				ProcessNextRom();
 			}
 			else
 			if (sample_index != -1)
 			{
-				sprintf(buffer, "Checking Set %s - %s", driver_list::driver(sample_index).name, driver_list::driver(sample_index).type.fullname());
+				snprintf(buffer, sizeof(buffer), "Checking Set %s - %s", driver_list::driver(sample_index).name, driver_list::driver(sample_index).type.fullname());
 				win_set_window_text_utf8((HWND)hDlg, buffer);
 				ProcessNextSample();
 			}
@@ -450,7 +450,7 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 	va_list marker;
 	va_start(marker, fmt);
 	char buffer[8000];
-	vsprintf(buffer, fmt, marker);
+	vsnprintf(buffer, sizeof(buffer), fmt, marker);
 	va_end(marker);
 
 	TCHAR* t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(buffer));

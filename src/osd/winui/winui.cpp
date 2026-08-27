@@ -1070,15 +1070,16 @@ HICON LoadIconFromFile(const char *iconname)
 
 	const string t = dir_get_value(40);
 	char s[t.length()+1];
-	strcpy(s, t.c_str());
+	//strcpy(s, t.c_str());
+	snprintf(s, sizeof(s), "%s", t.c_str());
 	char* s1 = strtok(s, ";");
 	while (s1 && !hIcon)
 	{
-		sprintf(tmpStr, "%s/%s.ico", s1, iconname);
+		snprintf(tmpStr, sizeof(tmpStr), "%s/%s.ico", s1, iconname);
 		if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
 		{
-			sprintf(tmpStr, "%s/icons.zip", s1);
-			sprintf(tmpIcoName, "%s.ico", iconname);
+			snprintf(tmpStr, sizeof(tmpStr), "%s/icons.zip", s1);
+			snprintf(tmpIcoName, sizeof(tmpIcoName), "%s.ico", iconname);
 
 			if (!util::archive_file::open_zip(tmpStr, zip))
 			{
@@ -1097,8 +1098,8 @@ HICON LoadIconFromFile(const char *iconname)
 			}
 			else
 			{
-				sprintf(tmpStr, "%s/icons.7z", s1);
-				sprintf(tmpIcoName, "%s.ico", iconname);
+				snprintf(tmpStr, sizeof(tmpStr), "%s/icons.7z", s1);
+				snprintf(tmpIcoName, sizeof(tmpIcoName), "%s.ico", iconname);
 
 				if (!util::archive_file::open_7z(tmpStr, zip))
 				{
@@ -1356,7 +1357,8 @@ char *ModifyThe(const char *str)
 		char *s, *p;
 		char temp[255];
 
-		strcpy(temp, &str[4]);
+		//strcpy(temp, &str[4]);
+		snprintf(temp, sizeof(temp), "%s", &str[4]);
 
 		bufno = (bufno + 1) % 4;
 
@@ -1369,7 +1371,8 @@ char *ModifyThe(const char *str)
 			p[-1] = '\0';
 		}
 
-		strcpy(s, temp);
+		//strcpy(s, temp);
+		snprintf(s, sizeof(s), "%s", temp);
 		strcat(s, ", The");
 
 		if (p)
@@ -3870,10 +3873,12 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			case EN_CHANGE:
 				//put search routine here first, add a 200ms timer later.
 				if ((!_stricmp(buf.c_str(), SEARCH_PROMPT) && !_stricmp(g_SearchText, "")))
-					strcpy(g_SearchText, buf.c_str());
+					//strcpy(g_SearchText, buf.c_str());
+					snprintf(g_SearchText, sizeof(g_SearchText), "%s", buf.c_str());
 				else
 				{
-					strcpy(g_SearchText, buf.c_str());
+					//strcpy(g_SearchText, buf.c_str());
+					snprintf(g_SearchText, sizeof(g_SearchText), "%s", buf.c_str());
 					ResetListView();
 				}
 				break;
@@ -4188,7 +4193,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// INI
 				string t = dir_get_value(7);
 				char buf7[t.size()+1];
-				strcpy(buf7, t.c_str());
+				//strcpy(buf7, t.c_str());
+				snprintf(buf7, sizeof(buf7), "%s", t.c_str());
 				char * t_dir = strtok(buf7, ";");
 				while (t_dir)
 				{
@@ -4200,7 +4206,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// CFG
 				t = dir_get_value(14);
 				char buf14[t.size()+1];
-				strcpy(buf14, t.c_str());
+				//strcpy(buf14, t.c_str());
+				snprintf(buf14, sizeof(buf14), "%s", t.c_str());
 				t_dir = strtok(buf14, ";");
 				while (t_dir)
 				{
@@ -4212,7 +4219,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// NVRAM
 				t = dir_get_value(15);
 				char buf15[t.size()+1];
-				strcpy(buf15, t.c_str());
+				//strcpy(buf15, t.c_str());
+				snprintf(buf15, sizeof(buf15), "%s", t.c_str());
 				t_dir = strtok(buf15, ";");
 				while (t_dir)
 				{
@@ -4224,7 +4232,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// Save states
 				t = dir_get_value(17);
 				char buf17[t.size()+1];
-				strcpy(buf17, t.c_str());
+				//strcpy(buf17, t.c_str());
+				snprintf(buf17, sizeof(buf17), "%s", t.c_str());
 				t_dir = strtok(buf17, ";");
 				while (t_dir)
 				{
@@ -4307,7 +4316,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	case ID_OPTIONS_HISTORY:
 		{
 			char filename[MAX_PATH];
-			strcpy(filename, GetHistoryFileName());
+			//strcpy(filename, GetHistoryFileName());
+			snprintf(filename, sizeof(filename), "%s", GetHistoryFileName());
 			if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_HISTORY_FILE))
 			{
 				SetHistoryFileName(filename);
@@ -4317,7 +4327,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 	case ID_OPTIONS_MAMEINFO:
 		{
 			char filename[MAX_PATH];
-			strcpy(filename, GetMAMEInfoFileName());
+			//strcpy(filename, GetMAMEInfoFileName());
+			snprintf(filename, sizeof(filename), "%s", GetMAMEInfoFileName());
 			if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_MAMEINFO_FILE))
 			{
 				SetMAMEInfoFileName(filename);
@@ -4898,8 +4909,10 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		break;
 
 	case COLUMN_SRCDRIVERS:
-		strcpy(file1, GetDriverFilename(index1));
-		strcpy(file2, GetDriverFilename(index2));
+		//strcpy(file1, GetDriverFilename(index1));
+		//strcpy(file2, GetDriverFilename(index2));
+		snprintf(file1, sizeof(file1), "%s", GetDriverFilename(index1));
+		snprintf(file2, sizeof(file2), "%s", GetDriverFilename(index2));
 		value = core_stricmp(file1, file2);
 		break;
 
@@ -5119,7 +5132,7 @@ void SetStatusBarTextF(int part_index, const char *fmt, ...)
 	va_list va;
 
 	va_start(va, fmt);
-	vsprintf(buf, fmt, va);
+	vsnprintf(buf, sizeof(buf), fmt, va);
 	va_end(va);
 
 	SetStatusBarText(part_index, buf);
@@ -5131,7 +5144,7 @@ static void CLIB_DECL ATTR_PRINTF(1,2) MameMessageBox(const char *fmt, ...)
 	va_list va;
 
 	va_start(va, fmt);
-	vsprintf(buf, fmt, va);
+	vsnprintf(buf, sizeof(buf), fmt, va);
 	win_message_box_utf8(GetMainWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
 	va_end(va);
 }
@@ -5143,7 +5156,8 @@ static void MamePlayBackGame()
 
 	int drvindex = Picker_GetSelectedItem(hwndList);
 	if (drvindex != -1)
-		strcpy(filename, driver_list::driver(drvindex).name);
+		//strcpy(filename, driver_list::driver(drvindex).name);
+		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_INPUT_FILES))
 	{
@@ -5157,8 +5171,8 @@ static void MamePlayBackGame()
 
 		_splitpath(filename, drive, dir, bare_fname, ext);
 
-		sprintf(path,"%s%s",drive,dir);
-		sprintf(fname,"%s%s",bare_fname,ext);
+		snprintf(path, sizeof(path), "%s%s",drive,dir);
+		snprintf(fname, sizeof(fname), "%s%s",bare_fname,ext);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
@@ -5220,8 +5234,10 @@ static void MameLoadState()
 	drvindex = Picker_GetSelectedItem(hwndList);
 	if (drvindex != -1)
 	{
-		strcpy(filename, driver_list::driver(drvindex).name);
-		strcpy(selected_filename, driver_list::driver(drvindex).name);
+		//strcpy(filename, driver_list::driver(drvindex).name);
+		//strcpy(selected_filename, driver_list::driver(drvindex).name);
+		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+		snprintf(selected_filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 	}
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_SAVESTATE_FILES))
 	{
@@ -5238,8 +5254,8 @@ static void MameLoadState()
 		_splitpath(filename, drive, dir, bare_fname, ext);
 
 		// parse path
-		sprintf(path,"%s%s",drive,dir);
-		sprintf(fname,"%s%s",bare_fname,ext);
+		snprintf(path, sizeof(path), "%s%s", drive,dir);
+		snprintf(fname, sizeof(fname), "%s%s", bare_fname,ext);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
@@ -5255,7 +5271,8 @@ static void MameLoadState()
 
 			cPos = strchr(bare_fname, '-' );
 			iPos = cPos ? cPos - bare_fname : strlen(bare_fname);
-			strncpy(romname, bare_fname, iPos );
+			snprintf(romname, iPos, "%s", bare_fname);
+			//strncpy(romname, bare_fname, iPos );
 			romname[iPos] = '\0';
 			if( strcmp(selected_filename,romname) != 0 )
 			{
@@ -5306,7 +5323,8 @@ static void MamePlayRecordGame()
 
 	drvindex = Picker_GetSelectedItem(hwndList);
 	if (drvindex != -1)
-		strcpy(filename, driver_list::driver(drvindex).name);
+		//strcpy(filename, driver_list::driver(drvindex).name);
+		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_INPUT_FILES))
 	{
@@ -5319,7 +5337,7 @@ static void MamePlayRecordGame()
 
 		_splitpath(filename, drive, dir, fname, ext);
 
-		sprintf(path,"%s%s",drive,dir);
+		snprintf(path, sizeof(path), "%s%s", drive,dir);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
@@ -5354,7 +5372,8 @@ static void MamePlayRecordWave()
 
 	drvindex = Picker_GetSelectedItem(hwndList);
 	if (drvindex != -1)
-		strcpy(filename, driver_list::driver(drvindex).name);
+		//strcpy(filename, driver_list::driver(drvindex).name);
+		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_WAVE_FILES))
 	{
@@ -5372,7 +5391,8 @@ static void MamePlayRecordMNG()
 
 	drvindex = Picker_GetSelectedItem(hwndList);
 	if (drvindex != -1)
-		strcpy(filename, driver_list::driver(drvindex).name);
+		//strcpy(filename, driver_list::driver(drvindex).name);
+		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_MNG_FILES))
 	{
@@ -5385,7 +5405,7 @@ static void MamePlayRecordMNG()
 
 		_splitpath(filename, drive, dir, fname, ext);
 
-		sprintf(path,"%s%s",drive,dir);
+		snprintf(path, sizeof(path), "%s%s", drive, dir);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
@@ -5404,7 +5424,8 @@ static void MamePlayRecordAVI()
 
 	drvindex = Picker_GetSelectedItem(hwndList);
 	if (drvindex != -1)
-		strcpy(filename, driver_list::driver(drvindex).name);
+		//strcpy(filename, driver_list::driver(drvindex).name);
+		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_AVI_FILES))
 	{
@@ -5417,7 +5438,7 @@ static void MamePlayRecordAVI()
 
 		_splitpath(filename, drive, dir, fname, ext);
 
-		sprintf(path,"%s%s",drive,dir);
+		snprintf(path, sizeof(path), "%s%s", drive, dir);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 

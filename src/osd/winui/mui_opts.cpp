@@ -842,9 +842,9 @@ void GetTextPlayTime(uint32_t driver_index, char *buf)
 		second -= 60*minute;
 
 		if (hour == 0)
-			sprintf(buf, "%d:%02d", minute, second );
+			snprintf(buf, sizeof(buf), "%d:%02d", minute, second );
 		else
-			sprintf(buf, "%d:%02d:%02d", hour, minute, second );
+			snprintf(buf, sizeof(buf), "%d:%02d:%02d", hour, minute, second );
 	}
 }
 
@@ -1232,7 +1232,8 @@ static void CusColorDecodeString(string ss, COLORREF *value)
 	char *s, *p;
 	char tmpStr[256];
 
-	strcpy(tmpStr, str);
+	//strcpy(tmpStr, str);
+	snprintf(tmpStr, sizeof(tmpStr), "%s", str);
 	p = tmpStr;
 
 	for (int i = 0; p && i < 16; i++)
@@ -1268,7 +1269,8 @@ static void ColumnDecodeStringWithCount(string ss, int *value, int count)
 	if (str == NULL)
 		return;
 
-	strcpy(tmpStr, str);
+	//strcpy(tmpStr, str);
+	snprintf(tmpStr, sizeof(tmpStr), "%s", str);
 	p = tmpStr;
 
 	for (int i = 0; p && i < count; i++)
@@ -1300,7 +1302,8 @@ static void SplitterDecodeString(string ss, int *value)
 	char *s, *p;
 	char tmpStr[256];
 
-	strcpy(tmpStr, str);
+	//strcpy(tmpStr, str);
+	snprintf(tmpStr, sizeof(tmpStr), "%s", str);
 	p = tmpStr;
 
 	for (int i = 0; p && i < GetSplitterCount(); i++)
@@ -1353,7 +1356,7 @@ static string FontEncodeString(const LOGFONT *f)
 		return "";
 
 	char s[200];
-	sprintf(s, "%li,%li,%li,%li,%li,%i,%i,%i,%i,%i,%i,%i,%i,%s",
+	snprintf(s, sizeof(s), "%li,%li,%li,%li,%li,%i,%i,%i,%i,%i,%i,%i,%i,%s",
 			f->lfHeight,
 			f->lfWidth,
 			f->lfEscapement,
@@ -1479,7 +1482,8 @@ void LoadFolderFlags(void)
 			char *ptr;
 
 			// Convert spaces to underscores
-			strcpy(folder_name, lpFolder->m_lpTitle);
+			//strcpy(folder_name, lpFolder->m_lpTitle);
+			snprintf(folder_name, sizeof(folder_name), "%s", lpFolder->m_lpTitle);
 			ptr = folder_name;
 			while (*ptr && *ptr != '\0')
 			{
@@ -1506,7 +1510,8 @@ void LoadFolderFlags(void)
 			char folder_name[400];
 
 			// Convert spaces to underscores
-			strcpy(folder_name, lpFolder->m_lpTitle);
+			//strcpy(folder_name, lpFolder->m_lpTitle);
+			snprintf(folder_name, sizeof(folder_name), "%s", lpFolder->m_lpTitle);
 			char *ptr = folder_name;
 			while (*ptr && *ptr != '\0')
 			{
@@ -1539,7 +1544,8 @@ static void AddFolderFlags()
 			char folder_name[400];
 
 			// Convert spaces to underscores
-			strcpy(folder_name, lpFolder->m_lpTitle);
+			//strcpy(folder_name, lpFolder->m_lpTitle);
+			snprintf(folder_name, sizeof(folder_name), "%s", lpFolder->m_lpTitle);
 			char *ptr = folder_name;
 			while (*ptr && *ptr != '\0')
 			{

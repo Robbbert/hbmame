@@ -253,7 +253,8 @@ class winui_ui_options
 			if (is_ready)
 			{
 				char s[file_line.length()+1];
-				strcpy(s, file_line.c_str());
+				//strcpy(s, file_line.c_str());
+				snprintf(s, sizeof(s), "%s", file_line.c_str());
 
 				const char* name = strtok(s, "\t");  // get adjustment name
 				char* data = strtok(NULL, "\t");    // get next part (there's no next tab, so just return whatever is left)
@@ -315,7 +316,8 @@ public:
 		std::ofstream outfile (filename, std::ios::out | std::ios::trunc);
 		size_t size = inistring.size();
 		char t1[size+1];
-		strcpy(t1, inistring.c_str());
+		//strcpy(t1, inistring.c_str());
+		snprintf(t1, sizeof(t1), "%s", inistring.c_str());
 		outfile.write(t1, size);
 		outfile.close();
 		return;

@@ -546,9 +546,11 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 				ext = ".png";
 		}
 		// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
-		strcpy(fullpath, t.c_str());
+		//strcpy(fullpath, t.c_str());
+		snprintf(fullpath, sizeof(fullpath), "%s", t.c_str());
 		char tempfile[2048];
-		strcpy(tempfile, filename);
+		//strcpy(tempfile, filename);
+		snprintf(tempfile, sizeof(tempfile), "%s", filename);
 		char* system_name = strtok(tempfile, ":");
 		char* file_name = strtok(NULL, ":");
 		string fname;

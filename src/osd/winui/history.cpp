@@ -790,7 +790,8 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 
 	string temp = string(core_filename_extract_base(drv->type.source(), false));
 	char source_file[temp.size()+1], tmp[2048];
-	strcpy(source_file, temp.c_str());
+	//strcpy(source_file, temp.c_str());
+	snprintf(source_file, sizeof(source_file), "%s", temp.c_str());
 	snprintf(tmp, std::size(tmp), "\nGENERAL SOURCE INFO: %s\n", temp.c_str());
 	buffer.append(tmp);
 	buffer.append("\nGAMES SUPPORTED:\n");
@@ -846,7 +847,8 @@ char * GetGameHistory(int driver_index, std::string software)
 		// Get the path to dat files
 		std::string t = dir_get_value(23);
 		char buf[t.size()+1];
-		strcpy(buf, t.c_str());
+		//strcpy(buf, t.c_str());
+		snprintf(buf, sizeof(buf), "%s", t.c_str());
 		// only want first path
 		const char* datsdir = strtok(buf, ";");
 		// validate software
@@ -889,7 +891,8 @@ char * GetGameHistory(int driver_index)
 	{
 		std::string t = dir_get_value(23);
 		char buf[t.size()+1];
-		strcpy(buf, t.c_str());
+		//strcpy(buf, t.c_str());
+		snprintf(buf, sizeof(buf), "%s", t.c_str());
 		// only want first path
 		const char* datsdir = strtok(buf, ";");
 

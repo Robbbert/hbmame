@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0-1.0
+
+Note: This list is for multicart games "CART-AM" only, to be run with stvbios -cartN
+
+It has no right to *repeat* all the games present in sega/stv.cpp, we also don't have a
+slot system for anything diverging from the regular 2 sticks N buttons setup.
+
+-->
+
+<softwarelist name="stv" description="Sega Titan Video Multicart (CART-AM) cartridges">
+
+	<!-- Game: Baku Baku Animal -->
+	<software name="bakubaku">
+		<description>Baku Baku Animal (J 950407 V1.000)</description>
+		<year>1995</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="fpr17969.13" size="0x100000" crc="bee327e5" sha1="1d226db72d6ef68fd294f60659df7f882b25def6" offset="0x000001" loadflag="load16_byte"/>
+				<rom name="mpr17970.2" size="0x400000" crc="bc4d6f91" sha1="dcc241dcabea59325decfba3fd5e113c07958422" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17971.3" size="0x400000" crc="c780a3b3" sha1="99587eea528a6413cacc3e4d3d1dbfff57b03dca" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr17972.4" size="0x400000" crc="8f29815a" sha1="e86acd8096f2aee5f5e3ddfd3abb4f5c2b11df66" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr17973.5" size="0x400000" crc="5f6e0e8b" sha1="eeb5efb5216ab8b8fdee4656774bbd5a2a5b2d42" offset="0x1000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Cotton 2 -->
+	<software name="cotton2">
+		<description>Cotton 2 (JUET 970902 V1.000)</description>
+		<year>1997</year>
+		<publisher>Success</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="mpr20122.7" size="0x200000" crc="d616f78a" sha1="8039dcdfdafb8327a19a1da46a67c0b3f7eee53a" offset="0x200000" loadflag="load16_word_swap"/>
+				<rom name="mpr20117.2" size="0x400000" crc="893656ea" sha1="11e3160083ba018fbd588f07061a4e55c1efbebb" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr20118.3" size="0x400000" crc="1b6a1d4c" sha1="6b234d6b2d24df7f6d400a56698c0af2f78ce0e7" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr20119.4" size="0x400000" crc="5a76e72b" sha1="0a058627ddf78a0bcdaba328a58712419f24e33b" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr20120.5" size="0x400000" crc="7113dd7b" sha1="f86add67c4e1349a9b9ebcd0145a30b1667df811" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mpr20121.6" size="0x400000" crc="8c8fd521" sha1="c715681330b5ed37a8506ac58ee2143baa721206" offset="0x1400000" loadflag="load16_word_swap"/>
+				<rom name="mpr20116.1" size="0x400000" crc="d30b0175" sha1="2da5c3c02d68b8324948a8cdc93946d97fccdd8f" offset="0x1800000" loadflag="load16_word_swap"/>
+				<rom name="mpr20123.8" size="0x400000" crc="35f1b89f" sha1="1d6007c380f817def734fc3030d4fe56df4a15be" offset="0x1c00000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Cotton Boomerang is not a CART-AM (surprisingly) -->
+
+	<!-- Game: Die Hard Arcade -->
+	<software name="diehard">
+		<description>Die Hard Arcade (UET 960515 V1.000)</description>
+		<year>1996</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="fpr19119.13" size="0x100000" crc="de5c4f7c" sha1="35f670a15e9c86edbe2fe718470f5a75b5b096ac" offset="0x000001" loadflag="load16_byte"/>
+				<rom name="mpr19115.2" size="0x400000" crc="6fe06a30" sha1="dedb90f800bae8fd9df1023eb5bec7fb6c9d0179" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr19116.3" size="0x400000" crc="af9e627b" sha1="a53921c3185a93ec95299bf1c29e744e2fa3b8c0" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr19117.4" size="0x400000" crc="74520ff1" sha1="16c1acf878664b3bd866c9b94f3695ae892ac12f" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr19118.5" size="0x400000" crc="2c9702f0" sha1="5c2c66de83f2ccbe97d3b1e8c7e65999e1fa2de1" offset="0x1000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Dynamite Deka -->
+	<software name="dnmtdeka" cloneof="diehard">
+		<description>Dynamite Deka (J 960515 V1.000)</description>
+		<year>1996</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="fpr19114.13" size="0x100000" crc="1fd22a5f" sha1="c3d9653b12354a73a3e15f23a2ab7992ffb83e46" offset="0x000001" loadflag="load16_byte"/>
+				<rom name="mpr19115.2" size="0x400000" crc="6fe06a30" sha1="dedb90f800bae8fd9df1023eb5bec7fb6c9d0179" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr19116.3" size="0x400000" crc="af9e627b" sha1="a53921c3185a93ec95299bf1c29e744e2fa3b8c0" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr19117.4" size="0x400000" crc="74520ff1" sha1="16c1acf878664b3bd866c9b94f3695ae892ac12f" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr19118.5" size="0x400000" crc="2c9702f0" sha1="5c2c66de83f2ccbe97d3b1e8c7e65999e1fa2de1" offset="0x1000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Ejihon Tantei Jimusyo -->
+	<software name="ejihon">
+		<description>Ejihon Tantei Jimusyo (J 950613 V1.000)</description>
+		<year>1995</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr18137.13" size="0x080000" crc="151aa9bc" sha1="0959c60f31634816825acb57413838dcddb17d31" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x080000" offset="0x100001" loadflag="reload"/>
+				<rom name="mpr18138.2" size="0x400000" crc="f5567049" sha1="6eb35e4b5fbda39cf7e8c42b6a568bd53a364d6d" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr18139.3" size="0x400000" crc="f36b4878" sha1="e3f63c0046bd37b7ab02fb3865b8ebcf4cf68e75" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr18140.4" size="0x400000" crc="228850a0" sha1="d83f7fa7df08407fa45a13661393679b88800805" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr18141.5" size="0x400000" crc="b51eef36" sha1="2745cba48dc410d6d31327b956886ec284b9eac3" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mpr18142.6" size="0x400000" crc="cf259541" sha1="51e2c8d16506d6074f6511112ec4b6b44bed4886" offset="0x1400000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Final Arch -->
+	<software name="finlarch" cloneof="smleague" supported="no">
+		<description>Final Arch (J 950714 V1.001)</description>
+		<year>1995</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="finlarch.13" size="0x100000" crc="4505fa9e" sha1="96c6399146cf9c8f1d27a8fb6a265f937258004a" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x100000" offset="0x200000" loadflag="reload_plain"/>
+				<rom size="0x100000" offset="0x300000" loadflag="reload_plain"/>
+				<rom name="mpr18257.2" size="0x400000" crc="137fdf55" sha1="07a02fe531b3707e063498f5bc9749bd1b4cadb3" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom size="0x400000" offset="0x1400000" loadflag="reload"/>
+				<rom name="mpr18258.3" size="0x400000" crc="f519c505" sha1="5cad39314e46b98c24a71f1c2c10c682ef3bdcf3" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom size="0x400000" offset="0x1800000" loadflag="reload"/>
+				<rom name="mpr18259.4" size="0x400000" crc="5cabc775" sha1="84383a4cbe3b1a9dcc6c140cff165425666dc780" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom size="0x400000" offset="0x1c00000" loadflag="reload"/>
+				<rom name="mpr18260.5" size="0x400000" crc="f5b92082" sha1="806ad85a187a23a5cf867f2f3dea7d8150065b8e" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom size="0x400000" offset="0x2000000" loadflag="reload"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Golden Axe - The Duel -->
+	<software name="gaxeduel" supported="partial">
+		<description>Golden Axe - The Duel (JUETL 950117 V1.000)</description>
+		<year>1994</year>
+		<publisher>Sega</publisher>
+		<notes><![CDATA[
+Unstable in multicart, may hang after InVision logo
+]]></notes>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr17766.13" size="0x080000" crc="a83fcd62" sha1="4ce77ebaa0e93c6553ad8f7fb87cbdc32433402b" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x080000" offset="0x100001" loadflag="reload"/>
+				<rom name="mpr17768.2" size="0x400000" crc="d6808a7d" sha1="83a97bbe1160cb45b3bdcbde8adc0d9bae5ded60" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17769.3" size="0x400000" crc="3471dd35" sha1="24febddfe70984cebc0e6948ad718e0e6957fa82" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr17770.4" size="0x400000" crc="06978a00" sha1="a8d1333a9f4322e28b23724937f595805315b136" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr17771.5" size="0x400000" crc="aea2ea3b" sha1="2fbe3e10d3f5a3b3099a7ed5b38b93b6e22e19b8" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mpr17772.6" size="0x400000" crc="b3dc0e75" sha1="fbe2790c84466d186ea3e9d41edfcb7afaf54bea" offset="0x1400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17767.1" size="0x400000" crc="9ba1e7b1" sha1="f297c3697d2e8ba4476d672267163f91f371b362" offset="0x1800000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Pro Mahjong Kiwame S -->
+	<software name="kiwames" supported="partial">
+		<description>Pro Mahjong Kiwame S (J 951020 V1.208)</description>
+		<year>1995</year>
+		<publisher>Athena</publisher>
+		<info name="usage" value="Supports CART-AM but needs system set to 1p, init to joystick in test mode"/>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr18737.13" size="0x080000" crc="cfad6c49" sha1="fc69980a351ed13307706db506c79c774eabeb66" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x080000" offset="0x100001" loadflag="reload"/>
+				<rom name="mpr18738.2" size="0x400000" crc="4b3c175a" sha1="b6d2438ae1d3d51950a7ed1eaadf2dae45c4e7b1" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr18739.3" size="0x400000" crc="eb41fa67" sha1="d12acebb1df9eafd17aff1841087f5017225e7e7" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr18740.4" size="0x200000" crc="9ca7962f" sha1="a09e0db2246b34ca7efa3165afbc5ba292a95398" offset="0xc00000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Mausuke no Ojama the World -->
+	<software name="mausuke" supported="partial">
+		<description>Mausuke no Ojama the World (J 960314 V1.000)</description>
+		<year>1996</year>
+		<publisher>Data East</publisher>
+		<notes><![CDATA[
+Unstable, can crash when cycling thru select button
+]]></notes>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="ic13.bin" size="0x100000" crc="b456f4cd" sha1="91cbe703ec7c1dd45eb3b05bdfeb06e3570599d1" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x100000" offset="0x200000" loadflag="reload_plain"/>
+				<rom size="0x100000" offset="0x300000" loadflag="reload_plain"/>
+				<rom name="mcj-00.2" size="0x200000" crc="4eeacd6f" sha1="104ca230f22cd11cc536b34abd482e54791b4d0f" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mcj-01.3" size="0x200000" crc="365a494b" sha1="29713dfc83a9ade63ebcc7994d14cd785c4500b9" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mcj-02.4" size="0x200000" crc="8b8e4931" sha1="0c94e2ccb72902d7786d1101a3958504f7151077" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mcj-03.5" size="0x200000" crc="9015a0e7" sha1="8ba8a3723267e631169dc1e06620260fbccce4bd" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mcj-04.6" size="0x200000" crc="9d1beaee" sha1="c63b61378860319fff2e605c7b9afaa5f1bc4cd2" offset="0x1400000" loadflag="load16_word_swap"/>
+				<rom name="mcj-05.1" size="0x200000" crc="a7626a82" sha1="c12a099132c5b9234a2de5674f3b8ba5fdd35289" offset="0x1800000" loadflag="load16_word_swap"/>
+				<rom name="mcj-06.8" size="0x200000" crc="1ab8e90e" sha1="8e22f03c1791a983eb330b2a9199e5349a0b1baa" offset="0x1c00000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Pebble Beach - The Great Shot -->
+	<software name="pblbeach" supported="partial">
+		<description>Pebble Beach - The Great Shot (JUE 950913 V0.990)</description>
+		<year>1995</year>
+		<publisher>T&amp;E Soft</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr18852.13" size="0x080000" crc="d12414ec" sha1="0f42ec9e41983781b6892622b00398a102072aa7" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x080000" offset="0x100001" loadflag="reload"/>
+				<rom name="mpr18853.2" size="0x400000" crc="b9268c97" sha1="8734e3f0e6b2849d173e3acc9d0308084a4e84fd" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr18854.3" size="0x400000" crc="3113c8bc" sha1="4e4600646ddd1978988d27430ffdf0d1d405b804" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr18855.4" size="0x400000" crc="daf6ad0c" sha1="2a14a6a42e4eb68abb7a427e43062dfde2d13c5c" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr18856.5" size="0x400000" crc="214cef24" sha1="f62b462170b377cff16bb6c6126cbba00b013a87" offset="0x1000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Princess Clara Daisakusen -->
+	<software name="prikura" supported="partial">
+		<description>Princess Clara Daisakusen (J 960910 V1.000)</description>
+		<year>1996</year>
+		<publisher>Atlus</publisher>
+		<notes><![CDATA[
+Unstable in multicart, may hang after Atlus logo
+]]></notes>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="mpr19337.7" size="0x200000" crc="76f69ff3" sha1="5af2e1eb3288d70c2a1c71d0b6370125d65c7757" offset="0x200000" loadflag="load16_word_swap"/>
+				<rom name="mpr19333.2" size="0x400000" crc="eb57a6a6" sha1="cdacaa7a2fb1a343195e2ac5fd02eabf27f89ccd" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr19334.3" size="0x400000" crc="c9979981" sha1="be491a4ac118d5025d6a6f2d9267a6d52f21d2b6" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr19335.4" size="0x400000" crc="9e000140" sha1="9b7dc3dc7f9dc048d2fcbc2b44ae79a631ceb381" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr19336.5" size="0x400000" crc="2363fa4b" sha1="f45e53352520be4ea313eeab87bcab83f479d5a8" offset="0x1000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Puzzle &amp; Action: Sando-R -->
+	<software name="sandor">
+		<description>Puzzle &amp; Action: Sando-R (J 951114 V1.000)</description>
+		<year>1995</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="sando-r.13"  size="0x100000" crc="fe63a239" sha1="01502d4494f968443581cd2c74f25967d41f775e" offset="0x000001" loadflag="load16_byte"/>
+				<rom name="mpr18635.8"  size="0x400000" crc="441e1368" sha1="acb2a7e8d44c2203b8d3c7a7b70e20ffb120bebf" offset="0x1c00000" loadflag="load16_word_swap"/>
+				<rom  size="0x400000" offset="0x400000" loadflag="reload"/>
+				<rom name="mpr18636.9"  size="0x400000" crc="fff1dd80" sha1="36b8e1526a4370ae33fd4671850faf51c448bca4" offset="0x2000000" loadflag="load16_word_swap"/>
+				<rom  size="0x400000" offset="0x800000" loadflag="reload"/>
+				<rom name="mpr18637.10" size="0x400000" crc="83aced0f" sha1="6cd1702b9c2655dc4f56c666607c333f62b09fc0" offset="0x2400000" loadflag="load16_word_swap"/>
+				<rom size="0x400000" offset="0xc00000" loadflag="reload"/>
+				<rom name="mpr18638.11" size="0x400000" crc="caab531b" sha1="a77bdcc27d183896c0ed576eeebcc1785d93669e" offset="0x2800000" loadflag="load16_word_swap"/>
+				<rom size="0x400000" offset="0x1000000" loadflag="reload"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Shanghai - The Great Wall / Shanghai Triple Threat -->
+	<software name="shanhigw">
+		<description>Shanghai - The Great Wall / Shanghai Triple Threat (JUE 950623 V1.005)</description>
+		<year>1995</year>
+		<publisher>Sunsoft / Activision</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="mpr18341.7" size="0x200000" crc="cc5e8646" sha1="a733616c118140ff3887d30d595533f9a1beae06" offset="0x200000" loadflag="load16_word_swap"/>
+				<rom name="mpr18340.2" size="0x200000" crc="8db23212" sha1="85d604a5c6ab97188716dbcd77d365af12a238fe" offset="0x400000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Super Major League -->
+	<software name="smleague" supported="no">
+		<description>Super Major League (U 960108 V1.000)</description>
+		<year>1995</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr18777.13" size="0x080000" crc="8d180866" sha1="d47ebabab6e06400312d39f68cd818852e496b96" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x080000" offset="0x100001" loadflag="reload"/>
+				<rom name="mpr18778.8"  size="0x400000" crc="25e1300e" sha1="64f3843f62cee34a47244ad5ee78fb2aa35289e3" offset="0x1c00000" loadflag="load16_word_swap"/>
+				<rom name="mpr18779.9"  size="0x400000" crc="51e2fabd" sha1="3aa361149af516f16d7d422596ee82014a183c2b" offset="0x2000000" loadflag="load16_word_swap"/>
+				<rom name="mpr18780.10" size="0x400000" crc="8cd4dd74" sha1="9ffec1280b3965d52f643894bdfecdd792028191" offset="0x2400000" loadflag="load16_word_swap"/>
+				<rom name="mpr18781.11" size="0x400000" crc="13ee41ae" sha1="cdbaeac4c90b5ee84233c299612f7f28280a6ba6" offset="0x2800000" loadflag="load16_word_swap"/>
+				<rom name="mpr18782.12" size="0x200000" crc="9be2270a" sha1="f2de5cd6b269f123305e30bed2b474019e4f05b8" offset="0x2c00000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Stress Busters -->
+	<software name="stress" supported="no">
+		<description>Stress Busters (J 981020 V1.000)</description>
+		<year>1998</year>
+		<publisher>Sega</publisher>
+		<notes><![CDATA[
+Black screen after ST-V logo
+Is this game really CART-AM as the header says?
+]]></notes>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr-21300a.ic13" size="0x100000" crc="899d829e" sha1="b6c6da92dc108353998b29c0659d288645541519" offset="0x000001" loadflag="load16_byte"/>
+				<rom name="mpr-21290.ic2"  size="0x400000" crc="a49d29f3" sha1="8f6c26fd9e94a9e03dd0029026d205cf481fe151" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21291.ic3"  size="0x400000" crc="9452ba20" sha1="8a9ff546901715f99bb911616c74ae30ebd7c6d7" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21292.ic4"  size="0x400000" crc="f60268e2" sha1="5c2febb94553a941a68e9611617750a89c82e783" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21293.ic5"  size="0x400000" crc="794946e0" sha1="7881adb92fbf3efecb88f30834cdd1ed863b0b0e" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21294.ic6"  size="0x400000" crc="550843bb" sha1="5e278a0ae60f7bee23b5f1ee10b8ce31effc9718" offset="0x1400000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21289.ic1"  size="0x400000" crc="c2ee8bea" sha1="5fa0e6b492cc272c33b01adbef9233e6c8098827" offset="0x1800000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21296.ic8"  size="0x400000" crc="b825c42a" sha1="7c6f737b69b9283345f8fa23cb1d110b9b5f3d7e" offset="0x1c00000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21297.ic9"  size="0x400000" crc="4bff7469" sha1="8a36405a1a292d60b5918e604b460ed98740fae3" offset="0x2000000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21298.ic10" size="0x400000" crc="68d07144" sha1="5021f43d19105b484135ebddd3fa203233096c98" offset="0x2400000" loadflag="load16_word_swap"/>
+				<rom name="mpr-21299.ic11" size="0x400000" crc="ecc521c6" sha1="f7ed4dd1cbe179652fdfdde34929b41a1fdcf9e2" offset="0x2800000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Suikoenbu / Outlaws of the Lost Dynasty -->
+	<software name="suikoenb">
+		<description>Suikoenbu / Outlaws of the Lost Dynasty (JUETL 950314 V2.001)</description>
+		<year>1995</year>
+		<publisher>Data East</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="fpr17834.13" size="0x100000" crc="746ef686" sha1="e31c317991a687662a8a2a45aed411001e5f1941" offset="0x000001" loadflag="load16_byte"/>
+				<rom name="mpr17836.2" size="0x400000" crc="55e9642d" sha1="5198291cd1dce0398eb47760db2c19eae99273b0" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17837.3" size="0x400000" crc="13d1e667" sha1="cd513ceb33cc20032090113b61227638cf3b3998" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr17838.4" size="0x400000" crc="f9e70032" sha1="8efdbcce01bdf77acfdb293545c59bf224a9c7d2" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr17839.5" size="0x400000" crc="1b2762c5" sha1="5c7d5fc8a4705249a5b0ea64d51dc3dc95d723f5" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mpr17840.6" size="0x400000" crc="0fd4c857" sha1="42caf22716e834d59e60d45c24f51d95734e63ae" offset="0x1400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17835.1" size="0x400000" crc="77f5cb43" sha1="a4f54bc08d73a56caee5b26bea06360568655bd7" offset="0x1800000" loadflag="load16_word_swap"/>
+				<rom name="mpr17841.8" size="0x400000" crc="f48beffc" sha1="92f1730a206f4a0abf7fb0ee1210e083a464ad70" offset="0x1c00000" loadflag="load16_word_swap"/>
+				<rom name="mpr17842.9" size="0x400000" crc="ac8deed7" sha1="370eb2216b8080d3ddadbd32804db63c4ebac76f" offset="0x2000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Puzzle &amp; Action: Treasure Hunt -->
+	<software name="thunt" cloneof="sandor" supported="no">
+		<description>Puzzle &amp; Action: Treasure Hunt (JUET 970901 V2.00E)</description>
+		<year>1997</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="th-ic7_2.stv" size="0x080000" crc="c4e993de" sha1="7aa433bc2623cb19a09d4ef4c8233a2d29901020" offset="0x200000" loadflag="load16_byte"/>
+				<rom name="th-ic7_1.stv" size="0x080000" crc="1355cc18" sha1="a9b731228a807b2b01f933fe0f7dcdbadaf89b7e" offset="0x200001" loadflag="load16_byte"/>
+				<rom name="th-e-2.ic2" size="0x400000" crc="47315694" sha1="4a7cc195b98dbca146f5efe3b5b35be0f13b2f4a" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="th-e-3.ic3" size="0x400000" crc="c9290b44" sha1="4e51e667edf330cc20e600cf1500f332cc533e20" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="th-e-4.ic4" size="0x400000" crc="c672e40b" sha1="4ba189de7b8fb5ca45fb15c89cdaf0f860831d52" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="th-e-5.ic5" size="0x400000" crc="3914b805" sha1="1331ce82ba0bdfc76fe3456a5252e69c00e2cf1f" offset="0x1000000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Puzzle &amp; Action: BoMulEul Chajara -->
+	<software name="thuntk" supported="no" cloneof="sandor">
+		<description>Puzzle &amp; Action: BoMulEul Chajara (JUET 970125 V2.00K)</description>
+		<year>1997</year>
+		<publisher>Sega / Deniam</publisher>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="2.ic13_2"      size="0x080000" crc="6cae2926" sha1="e8d5745b4228de24672da5017cb3dab58344f59f" offset="0x200000" loadflag="load16_byte"/>
+				<rom name="1.ic13_1"      size="0x080000" crc="460727c8" sha1="da7171b65734264e10692e3408ac93beb374c65e" offset="0x200001" loadflag="load16_byte"/>
+				<rom name="bom210-10.ic2" size="0x400000" crc="f59d0827" sha1="2bed4b2c78e9b4e9332f576e1b264a6343f4cfff" offset="0x1c00000"/>
+				<rom size="0x400000" offset="0x400000" loadflag="reload"/>
+				<rom name="bom210-11.ic3" size="0x400000" crc="44e5a13e" sha1="aee3c06662a1d083f3bd01292cf2694132f63533" offset="0x2000000"/>
+				<rom size="0x400000" offset="0x800000" loadflag="reload"/>
+				<rom name="bom210-12.ic4" size="0x400000" crc="deabc701" sha1="cb313ae9bf6f115682fc76647a999e12c98f6120" offset="0x2400000"/>
+				<rom size="0x400000" offset="0xc00000" loadflag="reload"/>
+				<rom name="bom210-13.ic5" size="0x400000" crc="5ece1d5c" sha1="6d88f71b485bf2b3c164fa22f1c7ecaba4b3f5b1" offset="0x2800000"/>
+				<rom size="0x400000" offset="0x1000000" loadflag="reload"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<!-- Game: Virtua Fighter Remix -->
+	<software name="vfremix" supported="no">
+		<description>Virtua Fighter Remix (JUETBKAL 950428 V1.000)</description>
+		<year>1995</year>
+		<publisher>Sega</publisher>
+		<notes><![CDATA[
+Unstable in multicart, black screen by cycling with select button
+]]></notes>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="epr17944.13" size="0x080000" crc="3304c175" sha1="6d847efad73d361cac4d7fcb452ccf89efa13e24" offset="0x000001" loadflag="load16_byte"/>
+				<rom size="0x080000" offset="0x100001" loadflag="reload"/>
+				<rom name="mpr17946.2" size="0x400000" crc="4cb245f7" sha1="363d9936b27043b5858c956a45736ac05aefc54e" offset="0x400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17947.3" size="0x400000" crc="fef4a9fb" sha1="1b4bd095962db769da17d3644df10f62d041e914" offset="0x800000" loadflag="load16_word_swap"/>
+				<rom name="mpr17948.4" size="0x400000" crc="3e2b251a" sha1="be6191c18727d7cbc6399fd4c1aaae59304af30c" offset="0xc00000" loadflag="load16_word_swap"/>
+				<rom name="mpr17949.5" size="0x400000" crc="b2ecea25" sha1="320c0e7ce34e81e2fe6400cbeb2cb3ca74426cc8" offset="0x1000000" loadflag="load16_word_swap"/>
+				<rom name="mpr17950.6" size="0x400000" crc="5b1f981d" sha1="693b5744d210a2ac8b77e7c8c87f07ca859f8aed" offset="0x1400000" loadflag="load16_word_swap"/>
+				<rom name="mpr17945.1" size="0x200000" crc="03ede188" sha1="849c7fab5b97e043fea3deb8df6cc195ccced0e0" offset="0x1800000" loadflag="load16_word_swap"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wwshin" supported="no">
+		<description>Waku Waku Shinkansen (J 971031 V0.002)</description>
+		<year>1997</year>
+		<publisher>Sega</publisher>
+		<notes><![CDATA[
+Unstable in multicart, black screen by cycling with select button
+Doesn't respond to multicart push button when entering in gameplay (verify, is this really supposed to be multicart compatible?)
+Requires the two analog inputs from base driver
+]]></notes>
+		<part name="cart" interface="stv_cart">
+			<dataarea name="rom" size="0x3000000">
+				<rom name="ic22" offset="0x0200000" size="0x200000" crc="43f7cafc" sha1="ac8f8efb752d6357d48090b3152e77fedea90a6f" loadflag="load16_word_swap" />
+				<rom name="ic24" offset="0x0400000" size="0x200000" crc="db560e59" sha1="edaabef7a165a4c309b4a6bac0f6de6bf8fedb34" loadflag="load16_word_swap" />
+				<rom name="ic26" offset="0x0600000" size="0x200000" crc="2f411ff1" sha1="e7bfb6570c0e5b5b64c4291bdc13fe8a62a69382" loadflag="load16_word_swap" />
+				<rom name="ic28" offset="0x0800000" size="0x200000" crc="ca5e0446" sha1="8e1c5c5c35f617129aaf40a1096f409cf7c96dce" loadflag="load16_word_swap" />
+				<rom name="ic30" offset="0x0a00000" size="0x200000" crc="2653f758" sha1="606dcdfe4e1b0fef495a5f62b2414c80405ebeeb" loadflag="load16_word_swap" />
+				<rom name="ic32" offset="0x0c00000" size="0x200000" crc="8ebfd947" sha1="db12bb43aadeb7ca48434286e7ecf2a7c8680e44" loadflag="load16_word_swap" />
+				<rom name="ic34" offset="0x0e00000" size="0x200000" crc="22b7180f" sha1="56aae3c4a9db9dd7443e2f0aa30052fc50b2ab70" loadflag="load16_word_swap" />
+				<rom name="ic36" offset="0x1000000" size="0x200000" crc="5b83914c" sha1="3d0f96345cdf22116d34eb67d51c1000a417889d" loadflag="load16_word_swap" />
+			</dataarea>
+		</part>
+	</software>
+
+
+</softwarelist>

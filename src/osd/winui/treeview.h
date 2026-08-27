@@ -6,6 +6,7 @@
 #define MAX_EXTRA_FOLDERS 			256
 #define MAX_EXTRA_SUBFOLDERS 		256
 #define ICON_MAX		std::size(treeIconNames)
+#define MAX_TITLE_LENGTH   64
 #include "bitmask.h"
 #include <stdint.h>
 #include "emu_opts.h"
@@ -107,7 +108,7 @@ typedef enum
 
 typedef struct
 {
-	char        *m_lpTitle;       // String contains the folder name
+	char        m_lpTitle[MAX_TITLE_LENGTH];       // String contains the folder name
 	wchar_t     *m_lptTitle;      // String contains the folder name as wchar_t*
 	UINT        m_nFolderId;      // Index / Folder ID number
 	int         m_nParent;        // Parent folder index in treeFolders[]
@@ -118,7 +119,7 @@ typedef struct
 
 typedef struct
 {
-	char        m_szTitle[64];  	// Folder Title
+	char        m_szTitle[MAX_TITLE_LENGTH];  // Folder Title
 	UINT        m_nFolderId;    	// ID
 	int         m_nParent;      	// Parent Folder index in treeFolders[]
 	DWORD       m_dwFlags;      	// Flags - Customizable and Filters

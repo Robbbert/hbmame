@@ -518,7 +518,7 @@ void InitDefaultPropertyPage(HINSTANCE hInst, HWND hWnd)
 	{
 		char temp[100];
 		DWORD dwError = GetLastError();
-		sprintf(temp, "Property Sheet Error %d %X", (int)dwError, (int)dwError);
+		snprintf(temp, sizeof(temp), "Property Sheet Error %d %X", (int)dwError, (int)dwError);
 		win_message_box_utf8(0, temp, "Error", IDOK);
 	}
 
@@ -625,7 +625,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 	{
 		char temp[100];
 		DWORD dwError = GetLastError();
-		sprintf(temp, "Property Sheet Error %d %X", (int)dwError, (int)dwError);
+		snprintf(temp, sizeof(temp), "Property Sheet Error %d %X", (int)dwError, (int)dwError);
 		win_message_box_utf8(0, temp, "Error", IDOK);
 	}
 
@@ -745,13 +745,15 @@ static char *GameInfoScreen(UINT nIndex)
 	memset(buf, '\0', 2048);
 
 	if (isDriverVector(&config))
-		strcpy(buf, "Vector Game");
+		//strcpy(buf, "Vector Game");
+		snprintf(buf, sizeof(buf), "%s", "Vector Game");
 	else
 	{
 		screen_device_enumerator iter(config.root_device());
 		const screen_device *screen = iter.first();
 		if (screen == NULL)
-			strcpy(buf, "Screenless Game");
+			//strcpy(buf, "Screenless Game");
+			snprintf(buf, sizeof(buf), "%s", "Screenless Game");
 		else
 		{
 			for (screen_device &screen : screen_device_enumerator(config.root_device()))
@@ -761,14 +763,14 @@ static char *GameInfoScreen(UINT nIndex)
 
 				if (BIT(GetDriverCacheLower(nIndex), 2)) //ORIENTATION_SWAP_XY
 				{
-					sprintf(tmpbuf,"%d x %d (V) %f Hz\n",
+					snprintf(tmpbuf, sizeof(tmpbuf), "%d x %d (V) %f Hz\n",
 							visarea.max_y - visarea.min_y + 1,
 							visarea.max_x - visarea.min_x + 1,
 							screen.frame_period().as_hz());
 				}
 				else
 				{
-					sprintf(tmpbuf,"%d x %d (H) %f Hz\n",
+					snprintf(tmpbuf, sizeof(tmpbuf), "%d x %d (H) %f Hz\n",
 							visarea.max_x - visarea.min_x + 1,
 							visarea.max_y - visarea.min_y + 1,
 							screen.frame_period().as_hz());
@@ -794,13 +796,15 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 	if ( bRomStatus )
 	{
 		if (IsAuditResultKnown(audit_result) == false)
-			strcpy(buffer, "Unknown");
+			//strcpy(buffer, "Unknown");
+			snprintf(buffer, sizeof(buffer), "%s", "Unknown");
 		else
 		if (IsAuditResultYes(audit_result))
 		{
 			if (DriverIsBroken(driver_index))
 			{
-				strcpy(buffer, "Not working");
+				//strcpy(buffer, "Not working");
+				snprintf(buffer, sizeof(buffer), "%s", "Not Working");
 
 				if (BIT(cache, 22))
 				{
@@ -853,7 +857,8 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 			}
 			else
 			{
-				strcpy(buffer, "Working");
+				//strcpy(buffer, "Working");
+				snprintf(buffer, sizeof(buffer), "%s", "Working");
 
 				if (BIT(cache, 22))
 				{
@@ -907,15 +912,18 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 		}
 		else
 			// audit result is no
-			strcpy(buffer, "BIOS missing");
+			//strcpy(buffer, "BIOS missing");
+			snprintf(buffer, sizeof(buffer), "%s", "BIOS missing");
 	}
 	else
 	{
 		//Just show the emulation flags
 		if (DriverIsBroken(driver_index))
-			strcpy(buffer, "Not working");
+			//strcpy(buffer, "Not working");
+			snprintf(buffer, sizeof(buffer), "%s", "Not Working");
 		else
-			strcpy(buffer, "Working");
+			//strcpy(buffer, "Working");
+			snprintf(buffer, sizeof(buffer), "%s", "Working");
 
 		if (BIT(cache, 22))
 		{
@@ -986,28 +994,29 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
 	switch (opt_type)
 	{
 	case OPTIONS_GLOBAL:
-		strcpy(buf, "Global game options\nDefault options used by all games");
+		//strcpy(buf, "Global game options\nDefault options used by all games");
+		snprintf(buf, sizeof(buf), "%s", "Global game options\nDefault options used by all games");
 		break;
 	case OPTIONS_SOURCE:
-		sprintf(buf, "Properties for machines in %s", GetDriverFilename(nIndex));
+		snprintf(buf, sizeof(buf), "Properties for machines in %s", GetDriverFilename(nIndex));
 		break;
 	case OPTIONS_ARCADE:
-		sprintf(buf, "Default properties for arcade games");
+		snprintf(buf, sizeof(buf), "Default properties for arcade games");
 		break;
 	case OPTIONS_HORIZONTAL:
-		sprintf(buf, "Default properties for horizontal screens");
+		snprintf(buf, sizeof(buf), "Default properties for horizontal screens");
 		break;
 	case OPTIONS_RASTER:
-		sprintf(buf, "Default properties for raster machines");
+		snprintf(buf, sizeof(buf), "Default properties for raster machines");
 		break;
 	case OPTIONS_VECTOR:
-		sprintf(buf, "Default properties for vector machines");
+		snprintf(buf, sizeof(buf), "Default properties for vector machines");
 		break;
 	case OPTIONS_VERTICAL:
-		sprintf(buf, "Default properties for vertical screens");
+		snprintf(buf, sizeof(buf), "Default properties for vertical screens");
 		break;
 	case OPTIONS_GAME:
-		sprintf(buf, "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).type.fullname()), driver_list::driver(nIndex).name);
+		snprintf(buf, sizeof(buf), "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).type.fullname()), driver_list::driver(nIndex).name);
 	default:
 		break;
 	}
@@ -1025,7 +1034,7 @@ static char *GameInfoCloneOf(UINT nIndex)
 	if (DriverIsClone(nIndex))
 	{
 		nParentIndex = GetParentIndex(&driver_list::driver(nIndex));
-		sprintf(buf, "%s - \"%s\"",
+		snprintf(buf, sizeof(buf), "%s - \"%s\"",
 			ConvertAmpersandString(ModifyThe(driver_list::driver(nParentIndex).type.fullname())),
 			driver_list::driver(nParentIndex).name);
 	}
@@ -1512,7 +1521,8 @@ static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 		wchar_t *tempname = PathFindFileName(t_filename);
 		PathRemoveExtension(tempname);
 		char *optname = ui_utf8_from_wstring(tempname);
-		strcpy(option, optname);
+		//strcpy(option, optname);
+		snprintf(option, sizeof(option), "%s", optname);
 		free(t_filename);
 		free(optname);
 
@@ -1743,7 +1753,8 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 			wchar_t *tempname = PathFindFileName(t_filename);
 			PathRemoveExtension(tempname);
 			char *optname = ui_utf8_from_wstring(tempname);
-			strcpy(buffer, optname);
+			//strcpy(buffer, optname);
+			snprintf(buffer, sizeof(buffer), "%s", optname);
 			free(t_filename);
 			free(optname);
 			win_set_window_text_utf8(hCtrl, buffer);
@@ -1770,7 +1781,8 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		char *token = NULL;
 		TCHAR* t_s = NULL;
 		int count = 0;
-		strcpy(buffer, cclist);
+		//strcpy(buffer, cclist);
+		snprintf(buffer, sizeof(buffer), "%s", cclist);
 		token = strtok(buffer, ",");
 
 		if (token != NULL)
@@ -3318,10 +3330,12 @@ static bool SelectLUAScript(HWND hWnd)
 		wchar_t *t_filename = ui_wstring_from_utf8(filename);
 		wchar_t *tempname = PathFindFileName(t_filename);
 		char *optvalue = ui_utf8_from_wstring(tempname);
-		strcpy(script, optvalue);
+		//strcpy(script, optvalue);
+		snprintf(script, sizeof(script), "%s", optvalue);
 		PathRemoveExtension(tempname);
 		char *optname = ui_utf8_from_wstring(tempname);
-		strcpy(option, optname);
+		//strcpy(option, optname);
+		snprintf(option, sizeof(option), "%s", optname);
 		free(t_filename);
 		free(optname);
 		free(optvalue);
@@ -3412,7 +3426,8 @@ static bool SelectBGFXChains(HWND hWnd)
 		wchar_t *tempname = PathFindFileName(t_filename);
 		PathRemoveExtension(tempname);
 		char *optname = win_utf8_from_wstring(tempname);
-		strcpy(option, optname);
+		//strcpy(option, optname);
+		snprintf(option, sizeof(option), "%s", optname);
 		free(t_filename);
 		free(optname);
 

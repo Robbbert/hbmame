@@ -752,7 +752,7 @@ const char * DirectXDecodeError(HRESULT errorval)
 		}
 	}
 	static char tmp[64];
-	sprintf(tmp, "UNKNOWN: 0x%x", (unsigned int)errorval);
+	snprintf(tmp, sizeof(tmp), "UNKNOWN: 0x%x", (unsigned int)errorval);
 	return tmp;
 }
 
