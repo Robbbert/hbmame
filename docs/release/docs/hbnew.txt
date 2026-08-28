@@ -41,16 +41,16 @@ New Games
 - [daimakaimaiden]      Ghouls'n Ghosts - Maiden Artoria Edition (Japan)
 - [kof2001s53]          Kof2001 (Red Arrener, 2026-08-14)
 - [rickdx]              Rick Dangerous DX
-- [sfa2d]               Street Fighter Alpha 2 Dash (960826, PS2 Backport, 2026-08-25)
-- [sfa2g]               Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-08-25)
-- [sfz2d]               Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-25)
-- [sfz2da]              Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-25)
+- [sfa2d]               Street Fighter Alpha 2 Dash (960826, PS2 Backport, 2026-08-27)
+- [sfa2g]               Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-08-27)
+- [sfz2d]               Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-27)
+- [sfz2da]              Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-27)
 - [wjammers04]          Windjammers (Endless Breeze)
 
 
 Updated Games
 ---------------------------------
-- [sengoku2s01]         Sengoku 2 (Red Blood, v1.15)
+- [sengoku2s01]         Sengoku 2 (Red Blood, v1.17)
 - [sf2prime]            Street Fighter II': Prime (v0.80)
 
 
