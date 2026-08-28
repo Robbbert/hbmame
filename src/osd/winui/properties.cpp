@@ -746,14 +746,14 @@ static char *GameInfoScreen(UINT nIndex)
 
 	if (isDriverVector(&config))
 		//strcpy(buf, "Vector Game");
-		snprintf(buf, sizeof(buf), "%s", "Vector Game");
+		snprintf(buf, sizeof(buf), "Vector Game");
 	else
 	{
 		screen_device_enumerator iter(config.root_device());
 		const screen_device *screen = iter.first();
 		if (screen == NULL)
 			//strcpy(buf, "Screenless Game");
-			snprintf(buf, sizeof(buf), "%s", "Screenless Game");
+			snprintf(buf, sizeof(buf), "Screenless Game");
 		else
 		{
 			for (screen_device &screen : screen_device_enumerator(config.root_device()))
@@ -797,14 +797,14 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 	{
 		if (IsAuditResultKnown(audit_result) == false)
 			//strcpy(buffer, "Unknown");
-			snprintf(buffer, sizeof(buffer), "%s", "Unknown");
+			snprintf(buffer, sizeof(buffer), "Unknown");
 		else
 		if (IsAuditResultYes(audit_result))
 		{
 			if (DriverIsBroken(driver_index))
 			{
 				//strcpy(buffer, "Not working");
-				snprintf(buffer, sizeof(buffer), "%s", "Not Working");
+				snprintf(buffer, sizeof(buffer), "Not Working");
 
 				if (BIT(cache, 22))
 				{
@@ -816,13 +816,13 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
-					strcat(buffer, "Colors are completely wrong");
+					strcat(buffer, "Colours are completely wrong");
 				}
 				if (BIT(cache, 20))
 				{
 					if (*buffer != '\0')
 						strcat(buffer, "\r\n");
-					strcat(buffer, "Colors aren't 100% accurate");
+					strcat(buffer, "Colours aren't 100% accurate");
 				}
 				if (BIT(cache, 18))
 				{
@@ -858,7 +858,7 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 			else
 			{
 				//strcpy(buffer, "Working");
-				snprintf(buffer, sizeof(buffer), "%s", "Working");
+				snprintf(buffer, sizeof(buffer), "Working");
 
 				if (BIT(cache, 22))
 				{
@@ -913,17 +913,17 @@ const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
 		else
 			// audit result is no
 			//strcpy(buffer, "BIOS missing");
-			snprintf(buffer, sizeof(buffer), "%s", "BIOS missing");
+			snprintf(buffer, sizeof(buffer), "BIOS missing");
 	}
 	else
 	{
 		//Just show the emulation flags
 		if (DriverIsBroken(driver_index))
 			//strcpy(buffer, "Not working");
-			snprintf(buffer, sizeof(buffer), "%s", "Not Working");
+			snprintf(buffer, sizeof(buffer), "Not Working");
 		else
 			//strcpy(buffer, "Working");
-			snprintf(buffer, sizeof(buffer), "%s", "Working");
+			snprintf(buffer, sizeof(buffer), "Working");
 
 		if (BIT(cache, 22))
 		{
@@ -995,7 +995,7 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
 	{
 	case OPTIONS_GLOBAL:
 		//strcpy(buf, "Global game options\nDefault options used by all games");
-		snprintf(buf, sizeof(buf), "%s", "Global game options\nDefault options used by all games");
+		snprintf(buf, sizeof(buf), "Global game options\nDefault options used by all games");
 		break;
 	case OPTIONS_SOURCE:
 		snprintf(buf, sizeof(buf), "Properties for machines in %s", GetDriverFilename(nIndex));

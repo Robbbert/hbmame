@@ -493,8 +493,8 @@ void CreateDeficiencyFolders(int parent_index)
 	// no games in top level folder
 	SetAllBits(lpFolder->m_lpGameBits, false);
 	// create our subfolders
-	lpWrongCol = NewFolder("Wrong Colors", next_folder_id++, parent_index, IDI_FP_IMP, GetFolderFlags(numFolders));
-	lpImpCol = NewFolder("Imperfect Colors", next_folder_id++, parent_index, IDI_FP_IMP, GetFolderFlags(numFolders));
+	lpWrongCol = NewFolder("Wrong Colours", next_folder_id++, parent_index, IDI_FP_IMP, GetFolderFlags(numFolders));
+	lpImpCol = NewFolder("Imperfect Colours", next_folder_id++, parent_index, IDI_FP_IMP, GetFolderFlags(numFolders));
 	lpImpGraph = NewFolder("Imperfect Graphics", next_folder_id++, parent_index, IDI_FP_IMP, GetFolderFlags(numFolders));
 	lpMissSnd = NewFolder("Missing Sound", next_folder_id++, parent_index, IDI_FP_SOUND, GetFolderFlags(numFolders));
 	lpImpSnd = NewFolder("Imperfect Sound", next_folder_id++, parent_index, IDI_FP_SOUND, GetFolderFlags(numFolders));

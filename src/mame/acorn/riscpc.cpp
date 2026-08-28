@@ -9,19 +9,20 @@ TODO:
 - a7000 should use the plain ARM7500 IOMD flavour (ID 0x5b98) rather than the ARM7500FE one;
 
 TODO (a7000p -bios 2):
-- Hangs at boot with no harddisk (strike ESC key several times until Boot menu appears,
+- Hangs at boot with nullptr ide1:0 option (strike ESC key several times until Boot menu appears,
   then disable it in Configure machine item);
-- In turn above seems too slow to catch up (verify);
-- Verify floppy hookup (seems working but perhaps one too many OS failures along the way);
+- In turn the ESC key Cancel looks too slow to catch up (verify);
 - CD throws "CD drive not ready or disc not present" when mounted
   (NOTE: needs filesystem changed to CDFS in Configure machine)
 - Serial mouse doesn't work even if selected;
+- No VIDC10 sound even if configured in games, needs support in IOMD sound DMA;
 
 Notes:
 - List of compatible RiscPC SWs at:
 https://arcwiki.org.uk/index.php?title=Category:Software_compatible_with_the_RiscPC&pageuntil=Minus+4#mw-pages
 - CTRL + F12 brings a Task window in RISCOS 4 in Desktop
 - https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics%20part%201#TOC1
+- "Configure SoundSystem 8bit" to attempt using older VIDC10 sound system;
 
 **************************************************************************************************/
 
@@ -311,16 +312,18 @@ void riscpc_state::base_config(machine_config &config)
 	m_superio->ndtr2().set("serport1", FUNC(rs232_port_device::write_dtr));
 	m_superio->nrts2().set("serport1", FUNC(rs232_port_device::write_rts));
 
-
 	INPUT_MERGER_ANY_HIGH(config, "ide_irq").output_handler().set(m_iomd, FUNC(arm_iomd_device::int7_w));
 
+	// cfr. note on top, we need to reserve first option for an HDD connector
+	// (even if user don't mount one)
+	subdevice<ata_slot_device>("superio:ide1:0")->set_default_option("hdd");
 	subdevice<ata_interface_device>("superio:ide1")->irq_handler().set("ide_irq", FUNC(input_merger_device::in_w<0>));
 	subdevice<ata_interface_device>("superio:ide2")->irq_handler().set("ide_irq", FUNC(input_merger_device::in_w<1>));
 
 	FLOPPY_CONNECTOR(config, "superio:fdc:0", riscpc_floppies, "35hd", riscpc_floppy_formats).enable_sound(true);
 	FLOPPY_CONNECTOR(config, "superio:fdc:1", riscpc_floppies, "35hd", riscpc_floppy_formats).enable_sound(true);
 
-	rs232_port_device &serport0(RS232_PORT(config, "serport0", isa_com, "microsoft_mouse"));
+	rs232_port_device &serport0(RS232_PORT(config, "serport0", isa_com, nullptr));
 	serport0.rxd_handler().set("superio", FUNC(fdc37c665gt_device::rxd1_w));
 	serport0.dcd_handler().set("superio", FUNC(fdc37c665gt_device::ndcd1_w));
 	serport0.dsr_handler().set("superio", FUNC(fdc37c665gt_device::ndsr1_w));

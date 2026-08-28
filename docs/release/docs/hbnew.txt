@@ -30,6 +30,8 @@ New Games
 - [cd_visualnovel]      Visual Novel demo (2016-03-31)[CD]
 - [cothello01]          Computer Othello (English)
 - [doomgeo]             Doom Geo demo
+- [ffightjs01]          Final Fight (Japan, CD cutscenes, 2026-08-25)
+- [ffightus01]          Final Fight (USA, CD cutscenes, 2026-08-25)
 - [freedoom]            Freedoom demo (v0.13.0)
 - [ghoulsknight]        Ghouls'n Ghosts - Knight Artoria Edition (World)
 - [ghoulsmaiden]        Ghouls'n Ghosts - Maiden Artoria Edition (World)
@@ -39,6 +41,10 @@ New Games
 - [daimakaimaiden]      Ghouls'n Ghosts - Maiden Artoria Edition (Japan)
 - [kof2001s53]          Kof2001 (Red Arrener, 2026-08-14)
 - [rickdx]              Rick Dangerous DX
+- [sfa2d]               Street Fighter Alpha 2 Dash (960826, PS2 Backport, 2026-08-25)
+- [sfa2g]               Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-08-25)
+- [sfz2d]               Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-25)
+- [sfz2da]              Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-25)
 - [wjammers04]          Windjammers (Endless Breeze)
 
 
