@@ -3576,12 +3576,12 @@ ROM_END
 **********************************************/
 ROM_START( sfa2d )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "szaa.03", 0x000000, 0x80000, CRC(ec776dbd) SHA1(be5ae87f4b15d5ef20af8c59e90920cdd3179c3b) )
-	ROM_LOAD16_WORD_SWAP( "szaa.04", 0x080000, 0x80000, CRC(fc6a17ca) SHA1(81de2a4501edff4fb8e89f9ba16854c5dc544cef) )
+	ROM_LOAD16_WORD_SWAP( "szaa.03", 0x000000, 0x80000, CRC(f69e0a9a) SHA1(90fc740a87fcb9caede594ddffd93d334385dfde) )
+	ROM_LOAD16_WORD_SWAP( "szaa.04", 0x080000, 0x80000, CRC(b6b08562) SHA1(745b028dea7aac7aade0ac6058bc3479d07447e1) )
 	ROM_LOAD16_WORD_SWAP( "szaa.05", 0x100000, 0x80000, CRC(f053a55e) SHA1(f98a8af5cd33a543a5596d59381f9adafed38854) )
 	ROM_LOAD16_WORD_SWAP( "szaa.06", 0x180000, 0x80000, CRC(cfc0e7a8) SHA1(31ed58451c7a6ac88a8fccab369167694698f044) )
 	ROM_LOAD16_WORD_SWAP( "szaa.07", 0x200000, 0x80000, CRC(6dd50660) SHA1(dbad9258b7cbb8182b2bd1945c2d660bd04d2027) )
-	ROM_LOAD16_WORD_SWAP( "szaa.08", 0x280000, 0x80000, CRC(d33b2860) SHA1(8c6ae992266e2f6df88642fab9dce769f981f22b) )
+	ROM_LOAD16_WORD_SWAP( "szaa.08", 0x280000, 0x80000, CRC(80c1ff3d) SHA1(e821d90eefda4344a21a6ee0d837a592c57592a7) )
 
 	ROM_REGION( 0x1400000, "gfx", 0 )
 	ROM_LOAD64_WORD( "sza.13m",   0x0000000, 0x400000, CRC(dfe9614d) SHA1(6f752151eea2820a70671ce997a22b0e4b3371cd) )
@@ -3608,12 +3608,12 @@ ROM_END
 
 ROM_START( sfa2g )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "szaa.03", 0x000000, 0x80000, CRC(185499c6) SHA1(135ced78783b9ad71d1a5be186fb2196ad0402e8) )
-	ROM_LOAD16_WORD_SWAP( "szaa.04", 0x080000, 0x80000, CRC(10c99edc) SHA1(1b03d3a79fa44856df80ae97661c50b0f7a3f94d) )
+	ROM_LOAD16_WORD_SWAP( "szaa.03", 0x000000, 0x80000, CRC(51ade6df) SHA1(b9e635b7b35fd4b27298562088c42e938d9845a6) )
+	ROM_LOAD16_WORD_SWAP( "szaa.04", 0x080000, 0x80000, CRC(ff2a7bf4) SHA1(04cff7c323a6f46d3d167dbaba5b4eb6aa567120) )
 	ROM_LOAD16_WORD_SWAP( "szaa.05", 0x100000, 0x80000, CRC(f053a55e) SHA1(f98a8af5cd33a543a5596d59381f9adafed38854) )
 	ROM_LOAD16_WORD_SWAP( "szaa.06", 0x180000, 0x80000, CRC(cfc0e7a8) SHA1(31ed58451c7a6ac88a8fccab369167694698f044) )
 	ROM_LOAD16_WORD_SWAP( "szaa.07", 0x200000, 0x80000, CRC(17598382) SHA1(4bd219a173f7e1dcb8e597d864de44ac35aea26f) )
-	ROM_LOAD16_WORD_SWAP( "szaa.08", 0x280000, 0x80000, CRC(e65b880f) SHA1(54e656fd3a8938e693e3b7c6dd9f49cbdb6abb8f) )
+	ROM_LOAD16_WORD_SWAP( "szaa.08", 0x280000, 0x80000, CRC(b5a15f52) SHA1(69d080a558379b12f45db20ae51efe2b36398a6f) )
 
 	ROM_REGION( 0x1400000, "gfx", 0 )
 	ROM_LOAD64_WORD( "sza.13m",   0x0000000, 0x400000, CRC(a317c9fa) SHA1(ec386856f7aeff4c551f80af7ac941bdac12a5f8) )
@@ -3640,12 +3640,12 @@ ROM_END
 
 ROM_START( sfz2d )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "szaj.03a", 0x000000, 0x80000, CRC(c5208eb0) SHA1(b859bd03ddf05fd29cd8901a80419011d0d86c48) )
-	ROM_LOAD16_WORD_SWAP( "szaj.04a", 0x080000, 0x80000, CRC(b5e10b81) SHA1(6df21cd9dbb0cf774a57612cc609f3fd289f8127) )
+	ROM_LOAD16_WORD_SWAP( "szaj.03a", 0x000000, 0x80000, CRC(aedecad4) SHA1(bc259d0076054c717e6b9eb2d89da6bb975e2f66) )
+	ROM_LOAD16_WORD_SWAP( "szaj.04a", 0x080000, 0x80000, CRC(20e59ac8) SHA1(7473c205f897bda895f5a42f27a084d9d51edf04) )
 	ROM_LOAD16_WORD_SWAP( "szaj.05a", 0x100000, 0x80000, CRC(c88ebf88) SHA1(e37cf232fc70b9a3254dea99754e288232f04e25) )
 	ROM_LOAD16_WORD_SWAP( "szaj.06a", 0x180000, 0x80000, CRC(35ed5b7a) SHA1(b03cb92f594eb35fa374445f74930e9040a2baff) )
 	ROM_LOAD16_WORD_SWAP( "szaj.07a", 0x200000, 0x80000, CRC(e0e127ec) SHA1(1956c44d2c3340d647a1e18ba76b3989b044dbf7) )
-	ROM_LOAD16_WORD_SWAP( "szaj.08a", 0x280000, 0x80000, CRC(1a4ec134) SHA1(2f8ab6130468f8e87d0ca9eb45861d91399e3242) )
+	ROM_LOAD16_WORD_SWAP( "szaj.08a", 0x280000, 0x80000, CRC(49b41669) SHA1(d53e809c0a4117fb6b3442d014ae7a6ef5842d01) )
 
 	ROM_REGION( 0x1400000, "gfx", 0 )
 	ROM_LOAD64_WORD( "sza.13m",   0x0000000, 0x400000, CRC(ae258b4a) SHA1(8db361a24d48cf2fd6ff31de0bd76e9673aa5f07) )
@@ -3672,12 +3672,12 @@ ROM_END
 
 ROM_START( sfz2da )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "szaa.03", 0x000000, 0x80000, CRC(a448180b) SHA1(d6053b892e808c3cb1261fe8ccf0be243b646ccf) )
-	ROM_LOAD16_WORD_SWAP( "szaa.04", 0x080000, 0x80000, CRC(37cf7ba1) SHA1(743c46626d897f52dc607ca82b8cc7f0010855d4) )
+	ROM_LOAD16_WORD_SWAP( "szaa.03", 0x000000, 0x80000, CRC(f4b2b9ad) SHA1(c7956675292d8cf2a2639bf1e36c8dd3ea6ceac1) )
+	ROM_LOAD16_WORD_SWAP( "szaa.04", 0x080000, 0x80000, CRC(15d9b8df) SHA1(cd3ff0ce9c6e533ac7486bbf881de58355d8b604) )
 	ROM_LOAD16_WORD_SWAP( "szaa.05", 0x100000, 0x80000, CRC(f053a55e) SHA1(f98a8af5cd33a543a5596d59381f9adafed38854) )
 	ROM_LOAD16_WORD_SWAP( "szaa.06", 0x180000, 0x80000, CRC(cfc0e7a8) SHA1(31ed58451c7a6ac88a8fccab369167694698f044) )
 	ROM_LOAD16_WORD_SWAP( "szaa.07", 0x200000, 0x80000, CRC(674755ae) SHA1(f1dcc6529db8148d0b2e7128212e237e9fde36b8) )
-	ROM_LOAD16_WORD_SWAP( "szaa.08", 0x280000, 0x80000, CRC(c44a25d5) SHA1(3ec631e828ab3dfdd0518db35a905e353b03e77a) )
+	ROM_LOAD16_WORD_SWAP( "szaa.08", 0x280000, 0x80000, CRC(97b0f288) SHA1(8a389fd642e7034e446af386b6fe38d354753014) )
 
 	ROM_REGION( 0x1400000, "gfx", 0 )
 	ROM_LOAD64_WORD( "sza.13m",   0x0000000, 0x400000, CRC(4baa0449) SHA1(8869dcf08efa7969ce739892761ab0f671fa8a7b) )
@@ -7346,10 +7346,10 @@ GAME( 2009, sfz2al17,   sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 1996, sfz2al18,   sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "BisonSAS", "Street Fighter Zero 2 Alpha (061225BR, Brazil)", MACHINE_SUPPORTS_SAVE ) // portuguese-brazilian hack fix
 GAME( 1996, sfz2al19,   sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Street Fighter Zero 2 Alpha (960805, Korea)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Alpha 2 Gold / Zero 2 Dash (PS2 Backport)
-GAME( 2026, sfa2d,     sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Alpha 2 Dash (960826, PS2 Backport, 2026-08-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sfa2g,     sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-08-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sfz2d,     sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sfz2da,    sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sfa2d,     sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Alpha 2 Dash (960826, PS2 Backport, 2026-08-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sfa2g,     sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-08-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sfz2d,     sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sfz2da,    sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-27)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Alpha 3
 GAME( 2009, sfa3s01,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Alpha 3 (980904E, Modified Version Of The Directive, 2009-05-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, sfa3s02,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "shiro", "Street Fighter Alpha 3 (980904E, Simplified)", MACHINE_SUPPORTS_SAVE )
