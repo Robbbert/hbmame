@@ -639,59 +639,64 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
  *********************************************************************/
 
 /* Build CPU info string */
-static char *GameInfoCPU(int nIndex)
+static char *GameInfoCPU(int drvindex)
 {
-	machine_config config(driver_list::driver(nIndex), MameUIGlobal());
+	static char buf[512] { };
+	if (drvindex < 0)
+		return buf;
+
+	machine_config config(driver_list::driver(drvindex), MameUIGlobal());
 	execute_interface_enumerator cpuiter(config.root_device());
 	std::unordered_set<std::string> exectags;
-	static char buffer[1024];
-
-	memset(&buffer, 0, sizeof(buffer));
+	int len = 0;
+	int bufsize = sizeof(buf);
 
 	for (device_execute_interface &exec : cpuiter)
 	{
 		if (!exectags.insert(exec.device().tag()).second)
 			continue;
 
-		char temp[300];
 		int count = 1;
 		int clock = exec.device().clock();
 		const char *name = exec.device().name();
 
 		for (device_execute_interface &scan : cpuiter)
-		{
 			if (exec.device().type() == scan.device().type() && strcmp(name, scan.device().name()) == 0 && clock == scan.device().clock())
 				if (exectags.insert(scan.device().tag()).second)
 					count++;
-		}
 
 		if (count > 1)
-		{
-			snprintf(temp, std::size(temp), "%d x ", count);
-			strcat(buffer, temp);
-		}
+			if (len < bufsize)
+				len += snprintf(buf + len, bufsize - len, "%d x ", count);
 
 		if (clock >= 1000000)
-			snprintf(temp, std::size(temp), "%s %d.%06d MHz\r\n", name, clock / 1000000, clock % 1000000);
+		{
+			if (len < bufsize)
+				len += snprintf(buf + len, bufsize - len, "%s %d.%06d MHz\n", name, clock / 1000000, clock % 1000000);
+		}
 		else
-			snprintf(temp, std::size(temp), "%s %d.%03d kHz\r\n", name, clock / 1000, clock % 1000);
-
-		strcat(buffer, temp);
+		{
+			if (len < bufsize)
+				len += snprintf(buf + len, bufsize - len, "%s %d.%03d kHz\n", name, clock / 1000, clock % 1000);
+		}
 	}
 
-	return buffer;
+	return buf;
 }
 
 /* Build Sound system info string */
-static char *GameInfoSound(int nIndex)
+static char *GameInfoSound(int drvindex)
 {
-	machine_config config(driver_list::driver(nIndex), MameUIGlobal());
+	static char buf[512] { };
+	if (drvindex < 0)
+		return buf;
+
+	machine_config config(driver_list::driver(drvindex), MameUIGlobal());
 	sound_interface_enumerator sounditer(config.root_device());
 	std::unordered_set<std::string> soundtags;
-	static char buffer[1024];
 	bool has_sound = false;
-
-	memset(&buffer, 0, sizeof(buffer));
+	int len = 0;
+	int bufsize = sizeof(buf);
 
 	for (device_sound_interface &sound : sounditer)
 	{
@@ -699,83 +704,84 @@ static char *GameInfoSound(int nIndex)
 			continue;
 
 		has_sound = true;
-		char temp[300];
 		int count = 1;
 		int clock = sound.device().clock();
 		const char *name = sound.device().name();
 
 		for (device_sound_interface &scan : sounditer)
-		{
 			if (sound.device().type() == scan.device().type() && strcmp(name, scan.device().name()) == 0 && clock == scan.device().clock())
 				if (soundtags.insert(scan.device().tag()).second)
 					count++;
-		}
 
 		if (count > 1)
-		{
-			snprintf(temp, std::size(temp), "%d x ", count);
-			strcat(buffer, temp);
-		}
+			if (len < bufsize)
+				len += snprintf(buf + len, bufsize - len, "%d x ", count);
 
-		strcat(buffer, name);
+		if (len < bufsize)
+			len += snprintf(buf + len, bufsize - len, "%s", name);
 
 		if (clock)
 		{
 			if (clock >= 1000000)
-				snprintf(temp, std::size(temp), " %d.%06d MHz", clock / 1000000, clock % 1000000);
+			{
+				if (len < bufsize)
+					len += snprintf(buf + len, bufsize - len, " %d.%06d MHz", clock / 1000000, clock % 1000000);
+			}
 			else
-				snprintf(temp, std::size(temp), " %d.%03d kHz", clock / 1000, clock % 1000);
-
-			strcat(buffer, temp);
+			{
+				if (len < bufsize)
+					len += snprintf(buf + len, bufsize - len, " %d.%03d kHz", clock / 1000, clock % 1000);
+			}
 		}
 
-		strcat(buffer, "\r\n");
+		if (len < bufsize)
+			len += snprintf(buf + len, bufsize - len, "\r\n");
 	}
 	if (!has_sound)
-		strcat(buffer, "No Sound");
+		strcpy(buf, "No Sound");
 
-	return buffer;
+	return buf;
 }
 
 /* Build Display info string */
-static char *GameInfoScreen(UINT nIndex)
+static char *GameInfoScreen(int drvindex)
 {
-	static char buf[2048];
-	machine_config config(driver_list::driver(nIndex),m_CurrentOpts);
-	memset(buf, '\0', 2048);
+	static char buf[500] { };
+	if (drvindex < 0)
+		return buf;
+
+	machine_config config(driver_list::driver(drvindex),m_CurrentOpts);
+	int len = 0;
+	int bufsize = sizeof(buf);
 
 	if (isDriverVector(&config))
-		//strcpy(buf, "Vector Game");
-		snprintf(buf, sizeof(buf), "Vector Game");
+		strcpy(buf, "Vector Game");
 	else
 	{
 		screen_device_enumerator iter(config.root_device());
 		const screen_device *screen = iter.first();
 		if (screen == NULL)
-			//strcpy(buf, "Screenless Game");
-			snprintf(buf, sizeof(buf), "Screenless Game");
+			strcpy(buf, "Screenless Game");
 		else
 		{
 			for (screen_device &screen : screen_device_enumerator(config.root_device()))
 			{
-				char tmpbuf[2048];
 				const rectangle &visarea = screen.visible_area();
 
-				if (BIT(GetDriverCacheLower(nIndex), 2)) //ORIENTATION_SWAP_XY
+				if (BIT(GetDriverCacheLower(drvindex), 2)) //ORIENTATION_SWAP_XY
 				{
-					snprintf(tmpbuf, sizeof(tmpbuf), "%d x %d (V) %f Hz\n",
+					len += snprintf(buf + len, bufsize - len, "%d x %d (V) %f Hz\n",
 							visarea.max_y - visarea.min_y + 1,
 							visarea.max_x - visarea.min_x + 1,
 							screen.frame_period().as_hz());
 				}
 				else
 				{
-					snprintf(tmpbuf, sizeof(tmpbuf), "%d x %d (H) %f Hz\n",
+					len += snprintf(buf + len, bufsize - len, "%d x %d (H) %f Hz\n",
 							visarea.max_x - visarea.min_x + 1,
 							visarea.max_y - visarea.min_y + 1,
 							screen.frame_period().as_hz());
 				}
-				strcat(buf, tmpbuf);
 			}
 		}
 	}
@@ -783,257 +789,114 @@ static char *GameInfoScreen(UINT nIndex)
 }
 
 
-/* Build game status string */
-const char *GameInfoStatus(int driver_index, BOOL bRomStatus)
+// Build game status string
+// winui just gets the working/non-working line; info property sheet gets all
+const char *GameInfoStatus(int driver_index, BOOL full_report)
 {
-	static char buffer[2048];
-	memset(buffer,0,sizeof(char)*2048);
+	static char buffer[2048] { };
 	if (driver_index < 0)
 		return buffer;
 
-	int audit_result = GetRomAuditResults(driver_index);
-	uint32_t cache = GetDriverCacheLower(driver_index);
-	if ( bRomStatus )
-	{
-		if (IsAuditResultKnown(audit_result) == false)
-			//strcpy(buffer, "Unknown");
-			snprintf(buffer, sizeof(buffer), "Unknown");
-		else
-		if (IsAuditResultYes(audit_result))
-		{
-			if (DriverIsBroken(driver_index))
-			{
-				//strcpy(buffer, "Not working");
-				snprintf(buffer, sizeof(buffer), "Not Working");
-
-				if (BIT(cache, 22))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Game protection isn't fully emulated");
-				}
-				if (BIT(cache, 21))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Colours are completely wrong");
-				}
-				if (BIT(cache, 20))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Colours aren't 100% accurate");
-				}
-				if (BIT(cache, 18))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Video emulation isn't 100% accurate");
-				}
-				if (BIT(cache, 17))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Game lacks sound");
-				}
-				if (BIT(cache, 16))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Sound emulation isn't 100% accurate");
-				}
-				if (BIT(cache, 8))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Screen flipping is not supported");
-				}
-				if (BIT(cache, 10))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Game requires artwork");
-				}
-			}
-			else
-			{
-				//strcpy(buffer, "Working");
-				snprintf(buffer, sizeof(buffer), "Working");
-
-				if (BIT(cache, 22))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Game protection isn't fully emulated");
-				}
-				if (BIT(cache, 21))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Colors are completely wrong");
-				}
-				if (BIT(cache, 20))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Colors aren't 100% accurate");
-				}
-				if (BIT(cache, 18))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Video emulation isn't 100% accurate");
-				}
-				if (BIT(cache, 17))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Game lacks sound");
-				}
-				if (BIT(cache, 16))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Sound emulation isn't 100% accurate");
-				}
-				if (BIT(cache, 8))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Screen flipping is not supported");
-				}
-				if (BIT(cache, 10))
-				{
-					if (*buffer != '\0')
-						strcat(buffer, "\r\n");
-					strcat(buffer, "Game requires artwork");
-				}
-			}
-		}
-		else
-			// audit result is no
-			//strcpy(buffer, "BIOS missing");
-			snprintf(buffer, sizeof(buffer), "BIOS missing");
-	}
+	string buf;
+	if (DriverIsBroken(driver_index))
+		buf = "Not working\n";
 	else
+		buf = "Working\n";
+
+	//if (full_report)
 	{
-		//Just show the emulation flags
-		if (DriverIsBroken(driver_index))
-			//strcpy(buffer, "Not working");
-			snprintf(buffer, sizeof(buffer), "Not Working");
-		else
-			//strcpy(buffer, "Working");
-			snprintf(buffer, sizeof(buffer), "Working");
+		uint32_t cache = GetDriverCacheLower(driver_index);
 
 		if (BIT(cache, 22))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Game protection isn't fully emulated");
-		}
+			buf.append("Game protection isn't fully emulated\n");
+
 		if (BIT(cache, 21))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Colors are completely wrong");
-		}
+			buf.append("Colours are completely wrong\n");
+
 		if (BIT(cache, 20))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Colors aren't 100% accurate");
-		}
+			buf.append("Colours aren't 100% accurate\n");
+
 		if (BIT(cache, 18))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Video emulation isn't 100% accurate");
-		}
+			buf.append("Video emulation isn't 100% accurate\n");
+
 		if (BIT(cache, 17))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Game lacks sound");
-		}
+			buf.append("Game lacks sound\n");
+
 		if (BIT(cache, 16))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Sound emulation isn't 100% accurate");
-		}
+			buf.append("Sound emulation isn't 100% accurate\n");
+
 		if (BIT(cache, 8))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Screen flipping is not supported");
-		}
+			buf.append("Screen flipping is not supported\n");
+
 		if (BIT(cache, 10))
-		{
-			if (*buffer != '\0')
-				strcat(buffer, "\r\n");
-			strcat(buffer, "Game requires artwork");
-		}
+			buf.append("Game requires artwork\n");
 	}
+
+	snprintf(buffer, sizeof(buffer), "%s", buf.c_str());
 	return buffer;
 }
 
 /* Build game manufacturer string */
-static char *GameInfoManufactured(UINT nIndex)
+static char *GameInfoManufactured(int drvindex)
 {
-	static char buffer[1024];
+	static char buf[128] { };
 
-	snprintf(buffer,sizeof(buffer),"%s %s",driver_list::driver(nIndex).year,driver_list::driver(nIndex).manufacturer);
-	return buffer;
+	if (drvindex >= 0)
+	{
+		const char* year = driver_list::driver(drvindex).year;
+		const char* manu = driver_list::driver(drvindex).manufacturer;
+		snprintf(buf, sizeof(buf), "%s %s", year, manu);
+	}
+
+	return buf;
 }
 
 // The title on each property page
-char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
+char *GameInfoTitle(OPTIONS_TYPE opt_type, int drvindex)
 {
-	static char buf[1024];
+	static char buf[128] { };
 
 	switch (opt_type)
 	{
-	case OPTIONS_GLOBAL:
-		//strcpy(buf, "Global game options\nDefault options used by all games");
-		snprintf(buf, sizeof(buf), "Global game options\nDefault options used by all games");
-		break;
-	case OPTIONS_SOURCE:
-		snprintf(buf, sizeof(buf), "Properties for machines in %s", GetDriverFilename(nIndex));
-		break;
-	case OPTIONS_ARCADE:
-		snprintf(buf, sizeof(buf), "Default properties for arcade games");
-		break;
-	case OPTIONS_HORIZONTAL:
-		snprintf(buf, sizeof(buf), "Default properties for horizontal screens");
-		break;
-	case OPTIONS_RASTER:
-		snprintf(buf, sizeof(buf), "Default properties for raster machines");
-		break;
-	case OPTIONS_VECTOR:
-		snprintf(buf, sizeof(buf), "Default properties for vector machines");
-		break;
-	case OPTIONS_VERTICAL:
-		snprintf(buf, sizeof(buf), "Default properties for vertical screens");
-		break;
-	case OPTIONS_GAME:
-		snprintf(buf, sizeof(buf), "%s\n\"%s\"", ModifyThe(driver_list::driver(nIndex).type.fullname()), driver_list::driver(nIndex).name);
-	default:
-		break;
+		case OPTIONS_GLOBAL:
+			strcpy(buf, "Global game options\nDefault options used by all games");
+			break;
+		case OPTIONS_SOURCE:
+			if (drvindex >= 0)
+				snprintf(buf, sizeof(buf), "Properties for machines in %s", GetDriverFilename(drvindex));
+			break;
+		case OPTIONS_ARCADE:
+			strcpy(buf, "Default properties for arcade games");
+			break;
+		case OPTIONS_HORIZONTAL:
+			strcpy(buf, "Default properties for horizontal screens");
+			break;
+		case OPTIONS_RASTER:
+			strcpy(buf, "Default properties for raster machines");
+			break;
+		case OPTIONS_VECTOR:
+			strcpy(buf, "Default properties for vector machines");
+			break;
+		case OPTIONS_VERTICAL:
+			strcpy(buf, "Default properties for vertical screens");
+			break;
+		case OPTIONS_GAME:
+			if (drvindex >= 0)
+				snprintf(buf, sizeof(buf), "%s\n\"%s\"", ModifyThe(driver_list::driver(drvindex).type.fullname()), driver_list::driver(drvindex).name);
+		default:
+			break;
 	}
 	return buf;
 }
 
 /* Build game clone information string */
-static char *GameInfoCloneOf(UINT nIndex)
+static char *GameInfoCloneOf(int drvindex)
 {
-	static char buf[1024];
-	int nParentIndex= -1;
+	static char buf[1024] { };
 
-	buf[0] = '\0';
-
-	if (DriverIsClone(nIndex))
+	if ((drvindex >= 0) && DriverIsClone(drvindex))
 	{
-		nParentIndex = GetParentIndex(&driver_list::driver(nIndex));
+		int nParentIndex = GetParentIndex(&driver_list::driver(drvindex));
 		snprintf(buf, sizeof(buf), "%s - \"%s\"",
 			ConvertAmpersandString(ModifyThe(driver_list::driver(nParentIndex).type.fullname())),
 			driver_list::driver(nParentIndex).name);
@@ -1042,9 +905,9 @@ static char *GameInfoCloneOf(UINT nIndex)
 	return buf;
 }
 
-static const char * GameInfoSource(UINT nIndex)
+static const char * GameInfoSource(UINT drvindex)
 {
-	return GetDriverFilename(nIndex);
+	return GetDriverFilename(drvindex);
 }
 
 /* Handle the information property page */
@@ -1066,7 +929,7 @@ HWND hWnd;
 
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_TITLE),         GameInfoTitle(g_nPropertyMode, g_nGame));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_MANUFACTURED),  GameInfoManufactured(g_nGame));
-		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_STATUS),        GameInfoStatus(g_nGame, false));
+		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_STATUS),        GameInfoStatus(g_nGame, true));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_CPU),           GameInfoCPU(g_nGame));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_SOUND),         GameInfoSound(g_nGame));
 		win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_SCREEN),        GameInfoScreen(g_nGame));
@@ -1520,11 +1383,8 @@ static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 		wchar_t *t_filename = ui_wstring_from_utf8(filename);
 		wchar_t *tempname = PathFindFileName(t_filename);
 		PathRemoveExtension(tempname);
-		char *optname = ui_utf8_from_wstring(tempname);
-		//strcpy(option, optname);
-		snprintf(option, sizeof(option), "%s", optname);
+		snprintf(option, sizeof(option), "%s", ui_utf8_from_wstring(tempname));
 		free(t_filename);
-		free(optname);
 
 		if (strcmp(option, m_CurrentOpts.value(shader)))
 		{
@@ -1752,11 +1612,11 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 			wchar_t *t_filename = ui_wstring_from_utf8(script);
 			wchar_t *tempname = PathFindFileName(t_filename);
 			PathRemoveExtension(tempname);
-			char *optname = ui_utf8_from_wstring(tempname);
+			//char *optname = ui_utf8_from_wstring(tempname);
 			//strcpy(buffer, optname);
-			snprintf(buffer, sizeof(buffer), "%s", optname);
+			snprintf(buffer, sizeof(buffer), "%s", ui_utf8_from_wstring(tempname));
 			free(t_filename);
-			free(optname);
+			//free(optname);
 			win_set_window_text_utf8(hCtrl, buffer);
 		}
 	}
@@ -1777,12 +1637,11 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 	{
 		(void)ComboBox_ResetContent(hCtrl);
 		const char* cclist = cc.c_str();
-		char buffer[sizeof(cclist)+1];
+		char buffer[strlen(cclist)+1];
 		char *token = NULL;
 		TCHAR* t_s = NULL;
 		int count = 0;
-		//strcpy(buffer, cclist);
-		snprintf(buffer, sizeof(buffer), "%s", cclist);
+		strcpy(buffer, cclist);
 		token = strtok(buffer, ",");
 
 		if (token != NULL)
@@ -3329,16 +3188,16 @@ static bool SelectLUAScript(HWND hWnd)
 		char script[MAX_PATH];
 		wchar_t *t_filename = ui_wstring_from_utf8(filename);
 		wchar_t *tempname = PathFindFileName(t_filename);
-		char *optvalue = ui_utf8_from_wstring(tempname);
+		//char *optvalue = ui_utf8_from_wstring(tempname);
 		//strcpy(script, optvalue);
-		snprintf(script, sizeof(script), "%s", optvalue);
+		snprintf(script, sizeof(script), "%s", ui_utf8_from_wstring(tempname));
 		PathRemoveExtension(tempname);
-		char *optname = ui_utf8_from_wstring(tempname);
+		//char *optname = ui_utf8_from_wstring(tempname);
 		//strcpy(option, optname);
-		snprintf(option, sizeof(option), "%s", optname);
+		snprintf(option, sizeof(option), "%s", ui_utf8_from_wstring(tempname));
 		free(t_filename);
-		free(optname);
-		free(optvalue);
+		//free(optname);
+		//free(optvalue);
 
 		if (strcmp(script, m_CurrentOpts.value(OPTION_AUTOBOOT_SCRIPT)))
 		{
@@ -3425,11 +3284,11 @@ static bool SelectBGFXChains(HWND hWnd)
 		wchar_t *t_filename = win_wstring_from_utf8(filename);
 		wchar_t *tempname = PathFindFileName(t_filename);
 		PathRemoveExtension(tempname);
-		char *optname = win_utf8_from_wstring(tempname);
+		//char *optname = win_utf8_from_wstring(tempname);
 		//strcpy(option, optname);
-		snprintf(option, sizeof(option), "%s", optname);
+		snprintf(option, sizeof(option), "%s", win_utf8_from_wstring(tempname));
 		free(t_filename);
-		free(optname);
+		//free(optname);
 
 		if (strcmp(option, m_CurrentOpts.value(OSDOPTION_BGFX_SCREEN_CHAINS)))
 		{

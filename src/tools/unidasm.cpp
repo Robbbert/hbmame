@@ -22,7 +22,6 @@ using util::BIT;
 #include "cpu/apexc/apexcdsm.h"
 #include "cpu/arc/arcdasm.h"
 #include "cpu/arcompact/arcompactdasm.h"
-#include "cpu/arm/armdasm.h"
 #include "cpu/arm7/arm7dasm.h"
 #include "cpu/asap/asapdasm.h"
 #include "cpu/avr8/avr8dasm.h"
@@ -268,9 +267,11 @@ using u64 = util::u64;
 struct arm7_unidasm_t : public arm7_disassembler::config
 {
 	bool t_flag;
-	arm7_unidasm_t() { t_flag = false; }
+	u8 arch_rev;
+	arm7_unidasm_t() { t_flag = false; arch_rev = 5; }
 	virtual ~arm7_unidasm_t() override = default;
 	virtual bool get_t_flag() const override { return t_flag; }
+	virtual u8 get_arch_rev() const override { return arch_rev; }
 } arm7_unidasm;
 
 // Configuration missing
@@ -414,11 +415,11 @@ static const dasm_table_entry dasm_table[] =
 	{ "apexc",           be,  0, []() -> util::disasm_interface * { return new apexc_disassembler; } },
 	{ "arc",             be,  0, []() -> util::disasm_interface * { return new arc_disassembler; } },
 	{ "arcompact",       le,  0, []() -> util::disasm_interface * { return new arcompact_disassembler; } },
-	{ "arm",             le,  0, []() -> util::disasm_interface * { return new arm_disassembler; } },
-	{ "arm7",            le,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = false; return new arm7_disassembler(&arm7_unidasm); } },
-	{ "arm7_be",         be,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = false; return new arm7_disassembler(&arm7_unidasm); } },
-	{ "arm7thumb",       le,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = true; return new arm7_disassembler(&arm7_unidasm); } },
-	{ "arm7thumbb",      be,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = true; return new arm7_disassembler(&arm7_unidasm); } },
+	{ "arm",             le,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = false; arm7_unidasm.arch_rev = 2; return new arm7_disassembler(&arm7_unidasm); } },
+	{ "arm7",            le,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = false; arm7_unidasm.arch_rev = 5; return new arm7_disassembler(&arm7_unidasm); } },
+	{ "arm7_be",         be,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = false; arm7_unidasm.arch_rev = 5; return new arm7_disassembler(&arm7_unidasm); } },
+	{ "arm7thumb",       le,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = true; arm7_unidasm.arch_rev = 5; return new arm7_disassembler(&arm7_unidasm); } },
+	{ "arm7thumbb",      be,  0, []() -> util::disasm_interface * { arm7_unidasm.t_flag = true; arm7_unidasm.arch_rev = 5; return new arm7_disassembler(&arm7_unidasm); } },
 	{ "asap",            le,  0, []() -> util::disasm_interface * { return new asap_disassembler; } },
 	{ "avr8",            le,  0, []() -> util::disasm_interface * { return new avr8_disassembler; } },
 	{ "axc51core",       le,  0, []() -> util::disasm_interface * { return new axc51core_disassembler; } },

@@ -39,10 +39,6 @@
 #include "winutf8.h"
 #include "corestr.h"
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
 static struct ComboBoxHistoryTab
 {
 	const wchar_t*	m_pText;
@@ -419,7 +415,7 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 			// Mask out non filter flags
 			dwFilters = folder->m_dwFlags & FI_MASK;
 			// Display current folder name in dialog titlebar
-			snprintf(tmp,std::size(tmp),"Filters for %s Folder",folder->m_lpTitle);
+			snprintf(tmp, std::size(tmp), "Filters for %s Folder", folder->m_lpTitle);
 			win_set_window_text_utf8(hDlg, tmp);
 			if ( GetFilterInherit() )
 			{
