@@ -140,21 +140,16 @@ void __cdecl dprintf(const char* fmt, ...)
 int winui_message_box_utf8(HWND hWnd, const char *text, const char *caption, UINT type)
 {
 	int result = IDCANCEL;
-	wchar_t *t_text = ui_wstring_from_utf8(text);
-	wchar_t *t_caption = ui_wstring_from_utf8(caption);
+	const wchar_t *t_text = ui_to_utf16(text).c_str();
+	const wchar_t *t_caption = ui_to_utf16(caption).c_str();
 
 	if (!t_text)
 		return result;
 
 	if (!t_caption)
-	{
-		free(t_text);
 		return result;
-	}
 
 	result = MessageBox(hWnd, t_text, t_caption, type);
-	free(t_text);
-	free(t_caption);
 	return result;
 }
 
@@ -171,7 +166,7 @@ void ErrorMessageBox(const char *fmt, ...)
 
 void ShellExecuteCommon(HWND hWnd, const char *cName)
 {
-	wchar_t *tName = ui_wstring_from_utf8(cName);
+	const wchar_t *tName = ui_to_utf16(cName).c_str();
 
 	if(!tName)
 		return;
@@ -179,10 +174,7 @@ void ShellExecuteCommon(HWND hWnd, const char *cName)
 	HINSTANCE hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
 
 	if ((uintptr_t)hErr > 32)
-	{
-		free(tName);
 		return;
-	}
 
 	const char *msg = NULL;
 	switch((uintptr_t)hErr)
@@ -216,7 +208,6 @@ void ShellExecuteCommon(HWND hWnd, const char *cName)
 	}
 
 	ErrorMessageBox("%s\r\nPath: '%s'", msg, cName);
-	free(tName);
 }
 
 UINT GetDepth(HWND hWnd)
@@ -290,16 +281,13 @@ LONG GetCommonControlVersion()
 
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
-	LPTSTR tName = ui_wstring_from_utf8(cName);
+	const wchar_t* tName = ui_to_utf16(cName).c_str();
 	if( !tName )
 		return;
 
 	HINSTANCE hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
 	if ((uintptr_t)hErr > 32)
-	{
-		free(tName);
 		return;
-	}
 
 	LPCTSTR msg = 0;
 	switch((uintptr_t)hErr)
@@ -333,8 +321,6 @@ void DisplayTextFile(HWND hWnd, const char *cName)
 	}
 
 	MessageBox(NULL, msg, tName, MB_OK);
-
-	free(tName);
 }
 
 char* MyStrStrI(const char* pFirst, const char* pSrch)
@@ -744,13 +730,11 @@ void GetSystemErrorMessage(DWORD dwErrorId, TCHAR **tErrorMessage)
 HICON win_extract_icon_utf8(HINSTANCE inst, const char* exefilename, UINT iconindex)
 {
 	HICON icon = 0;
-	TCHAR* t_exefilename = ui_wstring_from_utf8(exefilename);
+	const TCHAR* t_exefilename = ui_to_utf16(exefilename).c_str();
 	if( !t_exefilename )
 		return icon;
 
 	icon = ExtractIcon(inst, t_exefilename, iconindex);
-
-	free(t_exefilename);
 
 	return icon;
 }
@@ -781,13 +765,11 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 							DWORD creationdisposition, DWORD flagsandattributes, HANDLE templatehandle)
 {
 	HANDLE result = 0;
-	TCHAR* t_filename = ui_wstring_from_utf8(filename);
+	const TCHAR* t_filename = ui_to_utf16(filename).c_str();
 	if( !t_filename )
 		return result;
 
 	result = CreateFile(t_filename, desiredmode, sharemode, securityattributes, creationdisposition, flagsandattributes, templatehandle);
-
-	free(t_filename);
 
 	return result;
 }

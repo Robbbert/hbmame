@@ -212,7 +212,7 @@ static int  g_nFolder          = 0;
 //static int  g_nFolderGame      = 0;
 static int m_currScreen = -1;
 static OPTIONS_TYPE g_nPropertyMode = OPTIONS_GAME;
-static BOOL  g_bAutoAspect[MAX_SCREENS+1] = {false, false, false, false, false}; // state of tick on keep-aspect checkbox on "Screen" pane, per screen
+static BOOL  g_bAutoAspect[MAX_SCREENS+1] = { }; // state of tick on keep-aspect checkbox on "Screen" pane, per screen
 static BOOL  g_bAutoSnapSize = false;
 static HICON g_hIcon = NULL;
 std::vector<string> plugin_names(MAX_PLUGINS);  // All possible plugins
@@ -393,11 +393,11 @@ const DUALCOMBOSTR m_cb_BGFXBackend[] =
 	{ TEXT("Auto"),                "auto"   },
 	{ TEXT("DirectX9"),            "dx9"    },
 	{ TEXT("DirectX11"),           "dx11"   },
-	{ TEXT("DirectX12 (Win10)"),   "dx12"   },
+	{ TEXT("DirectX12"),           "dx12"   },
 	{ TEXT("GLES"),                "gles"   },
 	{ TEXT("GLSL"),                "glsl"   },
-	{ TEXT("Metal (Win10)"),       "metal"  },
-	{ TEXT("Vulkan (Win10)"),      "vulkan" },
+	{ TEXT("Metal"),               "metal"  },
+	{ TEXT("Vulkan"),              "vulkan" },
 };
 #define NUMBGFXBACKEND (sizeof(m_cb_BGFXBackend) / sizeof(m_cb_BGFXBackend[0]))
 
@@ -576,42 +576,44 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		return;
 
 	// The title of the entire properties dialog (it mysteriously appends "Properties" to these descriptions).
-	TCHAR* t_description = 0;
+	string desc;
 	switch( opt_type )
 	{
 	case OPTIONS_GAME:
-		t_description = ui_wstring_from_utf8(ModifyThe(driver_list::driver(g_nGame).type.fullname()));
+		desc = ModifyThe(driver_list::driver(g_nGame).type.fullname());
 		break;
 	case OPTIONS_SOURCE:
-		t_description = ui_wstring_from_utf8(GetDriverFilename(g_nGame));
+		desc = GetDriverFilename(g_nGame);
 		break;
 	case OPTIONS_GLOBAL:
-		t_description = ui_wstring_from_utf8("Default Settings");
+		desc = "Default Settings";
 		break;
 	case OPTIONS_ARCADE:
-		t_description = ui_wstring_from_utf8("Arcade game");
+		desc = "Arcade game";
 		break;
 	case OPTIONS_HORIZONTAL:
-		t_description = ui_wstring_from_utf8("Horizontal screens");
+		desc = "Horizontal screens";
 		break;
 	case OPTIONS_RASTER:
-		t_description = ui_wstring_from_utf8("Raster machines");
+		desc = "Raster machines";
 		break;
 	case OPTIONS_VECTOR:
-		t_description = ui_wstring_from_utf8("Vector machines");
+		desc = "Vector machines";
 		break;
 	case OPTIONS_VERTICAL:
-		t_description = ui_wstring_from_utf8("Vertical screens");
+		desc = "Vertical screens";
 		break;
 	default:
 		return;
 	}
-	// If we have no description, return.
-	if( !t_description )
+
+	if (desc.empty())
 		return;
 
+	std::wstring t_description = ui_to_utf16(desc);
+
 	/* Fill in the property sheet header */
-	pshead.pszCaption = t_description;
+	pshead.pszCaption = t_description.c_str();
 	pshead.hwndParent = hWnd;
 	pshead.dwSize     = sizeof(PROPSHEETHEADER);
 	pshead.dwFlags    = PSH_PROPSHEETPAGE | PSH_USEICONID | PSH_PROPTITLE;
@@ -629,7 +631,6 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 		win_message_box_utf8(0, temp, "Error", IDOK);
 	}
 
-	free(t_description);
 	free(pspage);
 }
 
@@ -842,11 +843,9 @@ static char *GameInfoManufactured(int drvindex)
 	static char buf[128] { };
 
 	if (drvindex >= 0)
-	{
-		const char* year = driver_list::driver(drvindex).year;
-		const char* manu = driver_list::driver(drvindex).manufacturer;
-		snprintf(buf, sizeof(buf), "%s %s", year, manu);
-	}
+		snprintf(buf, sizeof(buf), "%s %s",
+			driver_list::driver(drvindex).year,
+			driver_list::driver(drvindex).manufacturer);
 
 	return buf;
 }
@@ -1380,11 +1379,9 @@ static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_SHADER_FILES))
 	{
 		char option[MAX_PATH];
-		wchar_t *t_filename = ui_wstring_from_utf8(filename);
-		wchar_t *tempname = PathFindFileName(t_filename);
-		PathRemoveExtension(tempname);
-		snprintf(option, sizeof(option), "%s", ui_utf8_from_wstring(tempname));
-		free(t_filename);
+		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
+		PathRemoveExtension(tempname); // this function wants wchar
+		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());
 
 		if (strcmp(option, m_CurrentOpts.value(shader)))
 		{
@@ -1608,15 +1605,10 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		else
 		{
 			const char* script = c.c_str();
-			char buffer[260];
-			wchar_t *t_filename = ui_wstring_from_utf8(script);
-			wchar_t *tempname = PathFindFileName(t_filename);
+			char buffer[260] { };
+			wchar_t *tempname = PathFindFileName(ui_to_utf16(script).c_str());
 			PathRemoveExtension(tempname);
-			//char *optname = ui_utf8_from_wstring(tempname);
-			//strcpy(buffer, optname);
-			snprintf(buffer, sizeof(buffer), "%s", ui_utf8_from_wstring(tempname));
-			free(t_filename);
-			//free(optname);
+			snprintf(buffer, sizeof(buffer), "%s", ui_to_utf8(tempname).c_str());
 			win_set_window_text_utf8(hCtrl, buffer);
 		}
 	}
@@ -1639,7 +1631,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		const char* cclist = cc.c_str();
 		char buffer[strlen(cclist)+1];
 		char *token = NULL;
-		TCHAR* t_s = NULL;
+		const TCHAR* t_s = NULL;
 		int count = 0;
 		strcpy(buffer, cclist);
 		token = strtok(buffer, ",");
@@ -1653,15 +1645,13 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 				else
 					printf("Properties.cpp: MAX_PLUGINS < %d\n",count);
 
-				t_s = ui_wstring_from_utf8(token);
+				t_s = ui_to_utf16(token).c_str();
 				if( t_s )
 					if (ComboBox_InsertString(hCtrl, count++, win_tstring_strdup(t_s)) == CB_ERR)
 						return;
 				token = strtok(NULL, ",");
 			}
 		}
-		if (t_s)
-			free(t_s);
 	}
 
 	hCtrl = GetDlgItem(hWnd, IDC_BGFX_CHAINS);
@@ -1907,9 +1897,8 @@ static BOOL ScreenReadControl(datamap *map, HWND dialog, HWND control, windows_o
 		screen_option_name += std::to_string(m_currScreen);
 	int screen_option_index = ComboBox_GetCurSel(control);
 	TCHAR *screen_option_value = (TCHAR*) ComboBox_GetItemData(control, screen_option_index);
-	char *op_val = ui_utf8_from_wstring(screen_option_value);
+	const char *op_val = ui_to_utf8(screen_option_value).c_str();
 	emu_set_value(o, screen_option_name, op_val);
-	free(op_val);
 	return false;
 }
 
@@ -1921,12 +1910,11 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 	DISPLAY_DEVICE dd;
 	int i = 0;
 	int nSelection = 0;
-	TCHAR* t_option = 0;
 
 	/* Remove all items in the list. */
 	ComboBox_ResetContent(control);
 	ComboBox_InsertString(control, 0, TEXT("Auto"));
-	ComboBox_SetItemData(control, 0, (void*)ui_wstring_from_utf8("auto"));
+	ComboBox_SetItemData(control, 0, (void*)win_tstring_strdup(L"auto"));
 
 	//Dynamically populate it, by enumerating the Monitors
 	//iMonitors = GetSystemMetrics(SM_CMONITORS); // this gets the count of monitors attached
@@ -1944,12 +1932,11 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 			if (m_currScreen >= 0)
 				screen_option += std::to_string(m_currScreen);
 			string screen = emu_get_value(o, screen_option);
-			t_option = ui_wstring_from_utf8(screen.c_str());
+			const wchar_t* t_option = ui_to_utf16(screen.c_str()).c_str();
 			if( !t_option )
 				return false;
 			if (_tcscmp(t_option, dd.DeviceName) == 0)
 				nSelection = i+1;
-			free(t_option);
 		}
 	}
 	ComboBox_SetCurSel(control, nSelection);
@@ -2017,39 +2004,14 @@ static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, win
 	return false;
 }
 
-wchar_t *win_wstring_from_utf8(const char *utf8string)
-{
-	// convert MAME string (UTF-8) to UTF-16
-	int char_count = MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, nullptr, 0);
-	wchar_t *result = (wchar_t *)malloc(char_count * sizeof(*result));
-
-	if (result != nullptr)
-		MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, result, char_count);
-
-	return result;
-}
-
-char *win_utf8_from_wstring(const wchar_t *wstring)
-{
-	// convert UTF-16 to MAME string (UTF-8)
-	int char_count = WideCharToMultiByte(CP_UTF8, 0, wstring, -1, nullptr, 0, nullptr, nullptr);
-	char *result = (char *)malloc(char_count * sizeof(*result));
-
-	if (result != nullptr)
-		WideCharToMultiByte(CP_UTF8, 0, wstring, -1, result, char_count, nullptr, nullptr);
-
-	return result;
-}
-
 HANDLE winui_find_first_file_utf8(const char* filename, WIN32_FIND_DATA *findfiledata)
 {
-	wchar_t *t_filename = win_wstring_from_utf8(filename);
+	const wchar_t *t_filename = ui_to_utf16(filename).c_str();
 
 	if (!t_filename)
 		return NULL;
 
 	HANDLE result = FindFirstFile(t_filename, findfiledata);
-	free(t_filename);
 	return result;
 }
 
@@ -2076,7 +2038,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 		while (FindNextFile (hFind, &FindFileData) != 0)
 		{
 			// copy the filename
-			const char *root = win_utf8_from_wstring(FindFileData.cFileName);
+			const char *root = ui_to_utf8(FindFileData.cFileName).c_str();
 			// find the extension
 			char *ext = strrchr(root, '.');
 
@@ -2093,11 +2055,9 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 						selected = index;
 
 					// add it as an option
-					wchar_t *t_root = win_wstring_from_utf8(root);
+					const wchar_t *t_root = ui_to_utf16(root).c_str();
 					ComboBox_InsertString(control, index, t_root);
 					ComboBox_SetItemData(control, index, root);
-					free(t_root);
-					root = NULL;
 					index++;
 				}
 			}
@@ -2160,7 +2120,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 	int sizes_selection = 0;
 	int refresh_selection = 0;
 	string screen_option;
-	LPTSTR t_screen;
+	std::wstring t_screen;
 	TCHAR buf[16];
 	int i;
 	DEVMODE devmode;
@@ -2194,16 +2154,16 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 			screen_option += std::to_string(m_currScreen);
 
 		if (screen_option == "screen")
-			t_screen = NULL;
+			t_screen.clear();
 		else
 		{
 			string screen = emu_get_value(o, screen_option);
-			t_screen = ui_wstring_from_utf8(screen.c_str());
+			t_screen = ui_to_utf16(screen);
 		}
 
 		// retrieve screen information
 		devmode.dmSize = sizeof(devmode);
-		for (i = 0; EnumDisplaySettings(t_screen, i, &devmode); i++)
+		for (i = 0; EnumDisplaySettings(t_screen.c_str(), i, &devmode); i++)
 		{
 			if ((devmode.dmBitsPerPel == 32 ) // Only 32 bit depth supported by core
 				&&(devmode.dmDisplayFrequency == refresh || refresh == 0))
@@ -2238,8 +2198,8 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 				}
 			}
 		}
-		if (t_screen)
-			free(t_screen);
+		//if (t_screen)
+			//free(t_screen);
 
 		ComboBox_SetCurSel(sizes_control, sizes_selection);
 		ComboBox_SetCurSel(refresh_control, refresh_selection);
@@ -2865,7 +2825,7 @@ static void InitializeBIOSUI(HWND hwnd)
 {
 	HWND hCtrl = GetDlgItem(hwnd,IDC_BIOS);
 	int i = 0;
-	TCHAR* t_s;
+	const TCHAR* t_s;
 	if (hCtrl)
 	{
 		const game_driver *gamedrv = &driver_list::driver(g_nGame);
@@ -2899,7 +2859,7 @@ static void InitializeBIOSUI(HWND hwnd)
 					{
 						const char *name = rom->hashdata().c_str();
 						const char *biosname = ROM_GETNAME(rom);
-						t_s = ui_wstring_from_utf8(name);
+						t_s = ui_to_utf16(name);
 						if( !t_s )
 							return;
 						ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
@@ -2931,12 +2891,12 @@ static void InitializeBIOSUI(HWND hwnd)
 				{
 					const char *name = rom->hashdata().c_str();
 					const char *biosname = ROM_GETNAME(rom);
-					t_s = ui_wstring_from_utf8(name);
+					t_s = ui_to_utf16(name).c_str();
 					if( !t_s )
 						return;
 					ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
 					ComboBox_SetItemData( hCtrl, i++, biosname);
-					free(t_s);
+					//free(t_s);
 				}
 			}
 		}
@@ -2974,7 +2934,7 @@ static void InitializeLanguageUI(HWND hWnd)
 
 				if (!(name == "." || name == ".."))
 				{
-					TCHAR *t_s = ui_wstring_from_utf8(entry->name);
+					TCHAR *t_s = ui_to_utf16(entry->name).c_str();
 					ComboBox_InsertString(hCtrl, count, win_tstring_strdup(t_s));
 					ComboBox_SetItemData(hCtrl, count, entry->name);
 					if (!c.empty() && name == c)
@@ -3097,18 +3057,16 @@ static BOOL ResetEffect(HWND hWnd)
 int winui_get_window_text_utf8(HWND hWnd, char *buffer, size_t buffer_size)
 {
 	int result = 0;
-	wchar_t t_buffer[256];
+	wchar_t t_buffer[256] { };
 
-	t_buffer[0] = '\0';
 	// invoke the core Win32 API
 	GetWindowText(hWnd, t_buffer, std::size(t_buffer));
-	char *utf8_buffer = win_utf8_from_wstring(t_buffer);
+	const char *utf8_buffer = ui_to_utf8(t_buffer).c_str();
 
 	if (!utf8_buffer)
 		return result;
 
 	result = snprintf(buffer, buffer_size, "%s", utf8_buffer);
-	free(utf8_buffer);
 	return result;
 }
 
@@ -3186,18 +3144,10 @@ static bool SelectLUAScript(HWND hWnd)
 	{
 		char option[MAX_PATH];
 		char script[MAX_PATH];
-		wchar_t *t_filename = ui_wstring_from_utf8(filename);
-		wchar_t *tempname = PathFindFileName(t_filename);
-		//char *optvalue = ui_utf8_from_wstring(tempname);
-		//strcpy(script, optvalue);
-		snprintf(script, sizeof(script), "%s", ui_utf8_from_wstring(tempname));
+		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
+		snprintf(script, sizeof(script), "%s", ui_to_utf8(tempname).c_str());
 		PathRemoveExtension(tempname);
-		//char *optname = ui_utf8_from_wstring(tempname);
-		//strcpy(option, optname);
-		snprintf(option, sizeof(option), "%s", ui_utf8_from_wstring(tempname));
-		free(t_filename);
-		//free(optname);
-		//free(optvalue);
+		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());
 
 		if (strcmp(script, m_CurrentOpts.value(OPTION_AUTOBOOT_SCRIPT)))
 		{
@@ -3281,14 +3231,9 @@ static bool SelectBGFXChains(HWND hWnd)
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_BGFX_FILES))
 	{
 		char option[MAX_PATH];
-		wchar_t *t_filename = win_wstring_from_utf8(filename);
-		wchar_t *tempname = PathFindFileName(t_filename);
+		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		PathRemoveExtension(tempname);
-		//char *optname = win_utf8_from_wstring(tempname);
-		//strcpy(option, optname);
-		snprintf(option, sizeof(option), "%s", win_utf8_from_wstring(tempname));
-		free(t_filename);
-		//free(optname);
+		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());
 
 		if (strcmp(option, m_CurrentOpts.value(OSDOPTION_BGFX_SCREEN_CHAINS)))
 		{
@@ -3407,7 +3352,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 		pos += _tcslen(&buffer[pos]);
 	}
 
-	char* paths = ui_utf8_from_wstring(buffer);
+	char* paths = ui_to_utf8(buffer).c_str();
 	emu_set_value(o, OPTION_SWPATH, paths);
 
 	return true;
@@ -3427,7 +3372,7 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 
 	if (dirs)
 	{
-		t_dir_list = ui_wstring_from_utf8(c.c_str());
+		t_dir_list = ui_to_utf16(c.c_str()).c_str();
 		if (!t_dir_list)
 			return false;
 	}

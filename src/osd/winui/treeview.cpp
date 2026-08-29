@@ -29,13 +29,12 @@
 
 HANDLE winui2_find_first_file_utf8(const char* filename, WIN32_FIND_DATA *findfiledata)
 {
-	wchar_t *t_filename = ui_wstring_from_utf8(filename);
+	const wchar_t *t_filename = ui_to_utf16(filename).c_str();
 
 	if (!t_filename)
 		return NULL;
 
 	HANDLE result = FindFirstFile(t_filename, findfiledata);
-	free(t_filename);
 	return result;
 }
 
@@ -43,22 +42,17 @@ bool winui_move_file_utf8(const char* existingfilename, const char* newfilename)
 {
 	bool result = false;
 
-	wchar_t *t_existingfilename = ui_wstring_from_utf8(existingfilename);
+	const wchar_t *t_existingfilename = ui_to_utf16(existingfilename).c_str();
 
 	if (!t_existingfilename)
 		return result;
 
-	wchar_t *t_newfilename = ui_wstring_from_utf8(newfilename);
+	const wchar_t *t_newfilename = ui_to_utf16(newfilename).c_str();
 
 	if (!t_newfilename) 
-	{
-		free(t_existingfilename);
 		return result;
-	}
 
 	result = MoveFile(t_existingfilename, t_newfilename);
-	free(t_newfilename);
-	free(t_existingfilename);
 	return result;
 }
 
@@ -1160,9 +1154,8 @@ static void SaveExternalFolders(int parent_index)
 
 	char filename[MAX_PATH];
 	snprintf(filename, std::size(filename), "%s\\%s", GetFolderDir(), fname);
-	wchar_t *temp = ui_wstring_from_utf8(GetFolderDir());
+	const wchar_t *temp = ui_to_utf16(GetFolderDir()).c_str();
 	CreateDirectory(temp, NULL);
-	free(temp);
 	FILE *f = fopen(filename, "w");
 
 	if (f == NULL)
@@ -1431,11 +1424,8 @@ static LPTREEFOLDER NewFolder(const char *lpTitle, UINT nFolderId, int nParent, 
 {
 	LPTREEFOLDER lpFolder = (LPTREEFOLDER)malloc(sizeof(TREEFOLDER));
 	memset(lpFolder, 0, sizeof(TREEFOLDER));
-	//lpFolder->m_lpTitle = (char *)malloc(strlen(lpTitle) + 1);printf("SIZE=%d\n",(int)strlen(lpFolder->m_lpTitle));
-	//strcpy((char *)lpFolder->m_lpTitle, lpTitle);
-	//snprintf((char*)lpFolder->m_lpTitle, sizeof(lpFolder->m_lpTitle), "%s", lpTitle);
 	snprintf(lpFolder->m_lpTitle, sizeof(lpFolder->m_lpTitle), "%s", lpTitle);
-	lpFolder->m_lptTitle = ui_wstring_from_utf8(lpFolder->m_lpTitle);
+	_snwprintf(lpFolder->m_lptTitle, std::size(lpFolder->m_lptTitle), L"%ls", ui_to_utf16(lpTitle).c_str());
 	lpFolder->m_lpGameBits = NewBits(driver_list::total());
 	lpFolder->m_nFolderId = nFolderId;
 	lpFolder->m_nParent = nParent;
@@ -1455,8 +1445,8 @@ static void DeleteFolder(LPTREEFOLDER lpFolder)
 			lpFolder->m_lpGameBits = 0;
 		}
 
-		free(lpFolder->m_lptTitle);
-		lpFolder->m_lptTitle = 0;
+		//free(lpFolder->m_lptTitle);
+		//lpFolder->m_lptTitle = 0;
 		//free(lpFolder->m_lpTitle);
 		//lpFolder->m_lpTitle = "\0";
 		free(lpFolder);
@@ -2172,9 +2162,8 @@ bool TrySaveExtraFolder(LPTREEFOLDER lpFolder)
 	}
 
 	snprintf(fname, std::size(fname), "%s\\%s.ini", GetFolderDir(), extra_folder->m_szTitle);
-	wchar_t *temp = ui_wstring_from_utf8(GetFolderDir());
+	const wchar_t *temp = ui_to_utf16(GetFolderDir()).c_str();
 	CreateDirectory(temp, NULL);
-	free(temp);
 	FILE *f = fopen(fname, "w");
 
 	if (f == NULL)

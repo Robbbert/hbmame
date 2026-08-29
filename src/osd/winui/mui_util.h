@@ -95,6 +95,35 @@ char *ui_utf8_from_wstring(const WCHAR *wstring)
 	return result;
 }
 
+/// Convert a windows UTF-16 string to a UTF-8 string
+///
+/// @param s[in] the UTF-16 string
+/// @return std::string UTF-8 string
+inline std::string ui_to_utf8(std::wstring_view wstr)
+{
+	if (wstr.empty())
+		return {};
+	int len = ::WideCharToMultiByte(CP_UTF8, 0, &wstr[0], wstr.size(), nullptr, 0, nullptr, nullptr);
+	std::string out(len, 0);
+	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], wstr.size(), &out[0], len, nullptr, nullptr);
+	return out;
+}
+
+/// Convert a UTF-8 string to a windows UTF-16 string
+///
+/// @param s[in] the UTF-8 string
+/// @param n[in] the UTF-8 string's length, or -1 if string is null-terminated
+/// @return std::wstring UTF-16 string
+inline std::wstring ui_to_utf16(std::string_view str)
+{
+	if (str.empty())
+		return {};
+	int len = ::MultiByteToWideChar(CP_UTF8, 0, &str[0], str.size(), NULL, 0);
+	std::wstring out(len, 0);
+	MultiByteToWideChar(CP_UTF8, 0, &str[0], str.size(), &out[0], len);
+	return out;
+}
+
 
 #endif /* MUI_UTIL_H */
 

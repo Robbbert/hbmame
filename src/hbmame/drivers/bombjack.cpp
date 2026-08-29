@@ -10,7 +10,7 @@ ROM_START( bmbjckgr )
 	ROM_LOAD( "12g_n01b.bin", 0x6000, 0x2000, CRC(b457909f) SHA1(807b30742a89a327721596c4f5d091912f0ab4ec) )
 	ROM_LOAD( "13g.1r",       0xc000, 0x2000, CRC(f8e14e2c) SHA1(a5dff87ad26eff6a07313594d9bce2ea568c8f26) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_REGION( 0x4000, "audiocpu", 0 )
 	ROM_LOAD( "01_h03t.bin",  0x0000, 0x2000, CRC(8407917d) SHA1(318face9f7a7ab6c7eeac773995040425e780aaf) )
 
 	ROM_REGION( 0x3000, "fgtiles", 0 )
@@ -28,8 +28,9 @@ ROM_START( bmbjckgr )
 	ROM_LOAD( "15g_l07b.bin", 0x2000, 0x2000, CRC(1bb8ec79) SHA1(14c8b6ee9f22491330bbf14356fa4ab3c62cb811) )
 	ROM_LOAD( "14g_j07b.bin", 0x4000, 0x2000, CRC(0a9b3106) SHA1(bfd1c430e3e96896ebf4db962f755353a9a57be8) )
 
-	ROM_REGION( 0x1000, "bgmaps", 0 )
+	ROM_REGION( 0x2000, "bgmaps", 0 )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
+	ROM_RELOAD(              0x1000, 0x1000)
 ROM_END
 
 /* E720 - rom 13 = the old rom11+rom12; rom 14 = the old rom09+rom10+alterations */
@@ -39,7 +40,7 @@ ROM_START( bombjckb )
 	ROM_LOAD( "bombjckb.13",  0x4000, 0x4000, CRC(87fa35ad) SHA1(42d82658609cbc88928fb2fdf579eb117d4b0cbc) )
 	ROM_LOAD( "13.1r",        0xc000, 0x2000, CRC(70e0244d) SHA1(67654155e42821ea78a655f869fb81c8d6387f63) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_REGION( 0x4000, "audiocpu", 0 )
 	ROM_LOAD( "01_h03t.bin",  0x0000, 0x2000, CRC(8407917d) SHA1(318face9f7a7ab6c7eeac773995040425e780aaf) )
 
 	ROM_REGION( 0x3000, "fgtiles", 0 )
@@ -57,8 +58,9 @@ ROM_START( bombjckb )
 	ROM_LOAD( "15_l07b.bin",  0x2000, 0x2000, CRC(013f58f2) SHA1(20c64593ab9fcb04cefbce0cd5d17ce3ff26441b) )
 	ROM_LOAD( "14_j07b.bin",  0x4000, 0x2000, CRC(101c858d) SHA1(ed1746c15cdb04fae888601d940183d5c7702282) )
 
-	ROM_REGION( 0x1000, "bgmaps", 0 )
+	ROM_REGION( 0x2000, "bgmaps", 0 )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
+	ROM_RELOAD(              0x1000, 0x1000)
 ROM_END
 
 ROM_START( bombjred )
@@ -69,7 +71,7 @@ ROM_START( bombjred )
 	ROM_LOAD( "12_n01b.bin",  0x6000, 0x2000, CRC(1d3ecee5) SHA1(8b3c49e21ea4952cae7042890d1be2115f7d6fda) )
 	ROM_LOAD( "13.1r",        0xc000, 0x2000, CRC(70e0244d) SHA1(67654155e42821ea78a655f869fb81c8d6387f63) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_REGION( 0x4000, "audiocpu", 0 )
 	ROM_LOAD( "01_h03t.bin",  0x0000, 0x2000, CRC(8407917d) SHA1(318face9f7a7ab6c7eeac773995040425e780aaf) )
 
 	ROM_REGION( 0x3000, "fgtiles", 0 )
@@ -87,8 +89,9 @@ ROM_START( bombjred )
 	ROM_LOAD( "bombjred.15",  0x2000, 0x2000, CRC(a213f039) SHA1(67e247c4d3fe2b4791d3c5de9bb242c21f31c84d) )
 	ROM_LOAD( "bombjred.14",  0x4000, 0x2000, CRC(498513fe) SHA1(81851994da287982a67a4e47231404f534b6b9df) )
 
-	ROM_REGION( 0x1000, "bgmaps", 0 )
+	ROM_REGION( 0x2000, "bgmaps", 0 )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
+	ROM_RELOAD(              0x1000, 0x1000)
 ROM_END
 
 ROM_START( bombjack01 )
@@ -99,7 +102,7 @@ ROM_START( bombjack01 )
 	ROM_LOAD( "12_n01bhc01.bin",  0x6000, 0x2000, CRC(ff6627cd) SHA1(918aa40ef0d9b01cd1714c751f69edf6cb0415de) )
 	ROM_LOAD( "13.1rhc01",        0xc000, 0x2000, CRC(e8d84fa1) SHA1(c14e91c7e82fca2fb81d03d531f33a399dc34282) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_REGION( 0x4000, "audiocpu", 0 )
 	ROM_LOAD( "01_h03t.bin",  0x0000, 0x2000, CRC(8407917d) SHA1(318face9f7a7ab6c7eeac773995040425e780aaf) )
 
 	ROM_REGION( 0x3000, "fgtiles", 0 )
@@ -117,8 +120,9 @@ ROM_START( bombjack01 )
 	ROM_LOAD( "15_l07bhc01.bin",  0x2000, 0x2000, CRC(e53e8335) SHA1(a61269d3a75afd38cfc8920a7a21dae0128e2ed8) )
 	ROM_LOAD( "14_j07bhc01.bin",  0x4000, 0x2000, CRC(21c7d648) SHA1(239663b31027d5a49edcafac92b3e8e175b2edf2) )
 
-	ROM_REGION( 0x1000, "bgmaps", 0 )
+	ROM_REGION( 0x2000, "bgmaps", 0 )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
+	ROM_RELOAD(              0x1000, 0x1000)
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */

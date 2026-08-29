@@ -4256,7 +4256,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			string as = util::zippath_parent(s);
 			size_t t1 = as.length()-1;
 			if (as[t1] == '\\')
-				as = as.substr(0, t1-1);
+				as = as.substr(0, t1);
 			t1 = as.find(':');
 			if (t1 != string::npos)
 			{

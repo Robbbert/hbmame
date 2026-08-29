@@ -22,15 +22,11 @@
 #include "winutf8.h"
 #include "audit.h"
 #include "resource.h"
+#include "emu_opts.h"
 #include "mui_opts.h"
 #include "mui_util.h"
 #include "properties.h"
 #include <richedit.h>
-
-
-#ifdef _MSC_VER
-#define vsnprintf _vsnprintf
-#endif
 
 /***************************************************************************
     function prototypes
@@ -40,7 +36,7 @@ static DWORD WINAPI AuditThreadProc(LPVOID hDlg);
 static INT_PTR CALLBACK AuditWindowProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam);
 static void ProcessNextRom(void);
 static void ProcessNextSample(void);
-static void CLIB_DECL DetailsPrintf(const char *fmt, ...) ATTR_PRINTF(1,2);
+static void CLIB_DECL DetailsPrintf(int box, const char *fmt, ...) ATTR_PRINTF(2,3);
 static const char * StatusString(int iStatus);
 
 /***************************************************************************
@@ -49,15 +45,15 @@ static const char * StatusString(int iStatus);
 
 #define MAX_AUDITBOX_TEXT   0x7FFFFFFE
 
-static HWND hAudit;
+static volatile HWND hAudit;
 static int rom_index = 0;
 static int roms_correct = 0;
 static int roms_incorrect = 0;
 static int sample_index = 0;
 static int samples_correct = 0;
 static int samples_incorrect = 0;
-static BOOL bPaused = FALSE;
-static BOOL bCancel = FALSE;
+static volatile BOOL bPaused = FALSE;
+static volatile BOOL bCancel = FALSE;
 static int m_choice = 0;
 
 /***************************************************************************
@@ -103,9 +99,9 @@ void AuditDialog(HWND hParent, int choice)
 		MessageBox(GetMainWindow(),TEXT("Unable to Load Riched32.dll"),TEXT("Error"), MB_OK | MB_ICONERROR);
 }
 
-void InitGameAudit(int gameIndex)
+void InitGameAudit(int drvindex)
 {
-	rom_index = gameIndex;
+	rom_index = drvindex;
 }
 
 const char * GetAuditString(int audit_result)
@@ -182,7 +178,8 @@ int MameUIVerifyRomSet(int game, bool choice)
 	}
 
 	// output the summary of the audit
-	DetailsPrintf("%s", summary_string.c_str());
+	if (!summary_string.empty())
+		DetailsPrintf(0, "%s", summary_string.c_str());
 
 	SetRomAuditResults(game, summary);
 	return summary;
@@ -208,7 +205,8 @@ int MameUIVerifySampleSet(int game)
 	}
 
 	// output the summary of the audit
-	DetailsPrintf("%s", summary_string.c_str());
+	if (!summary_string.empty())
+		DetailsPrintf(1, "%s", summary_string.c_str());
 
 	SetSampleAuditResults(game, summary);
 	return summary;
@@ -216,7 +214,7 @@ int MameUIVerifySampleSet(int game)
 
 static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 {
-	char buffer[200];
+	char buffer[80];
 
 	while (!bCancel)
 	{
@@ -325,11 +323,8 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 	case WM_TIMER:
 		KillTimer(hDlg, 0);
 		{
-			int iStatus;
-			LPCSTR lpStatus;
-
-			iStatus = MameUIVerifyRomSet(rom_index, 0);
-			lpStatus = DriverUsesRoms(rom_index) ? StatusString(iStatus) : "None required";
+			int iStatus = MameUIVerifyRomSet(rom_index, 0);
+			LPCSTR lpStatus = DriverUsesRoms(rom_index) ? StatusString(iStatus) : "None required";
 			win_set_window_text_utf8(GetDlgItem(hDlg, IDC_PROP_ROMS), lpStatus);
 
 			if (DriverUsesSamples(rom_index))
@@ -353,7 +348,7 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 static void ProcessNextRom()
 {
 	int retval = 0;
-	TCHAR buffer[200];
+	TCHAR buffer[20] { };
 
 	retval = MameUIVerifyRomSet(rom_index, 1);
 	switch (retval)
@@ -391,7 +386,7 @@ static void ProcessNextRom()
 static void ProcessNextSample()
 {
 	int retval = 0;
-	TCHAR buffer[200];
+	TCHAR buffer[20] { };
 
 	retval = MameUIVerifySampleSet(sample_index);
 
@@ -426,32 +421,46 @@ static void ProcessNextSample()
 
 	if (sample_index == driver_list::total())
 	{
-		DetailsPrintf("Audit complete.\n");
+		DetailsPrintf(1, "Audit complete.\n");
 		SendDlgItemMessage(hAudit, IDCANCEL, WM_SETTEXT, 0, (LPARAM)TEXT("Close"));
 		sample_index = -1;
 	}
 }
 
-static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
+static void CLIB_DECL DetailsPrintf(int box, const char *fmt, ...)
 {
 	//RS 20030613 Different Ids for Property Page and Dialog
 	// so see which one's currently instantiated
-	HWND hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
-	if (hEdit ==  NULL)
-		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP0);
+	HWND hEdit = 0;
+	if (box == 0)
+	{
+		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
+		if (!hEdit)
+			hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP0);
+	}
+	else
+	if (box == 1)
+	{
+		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
+		if (!hEdit)
+			hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP1);
+	}
 
-	if (hEdit == NULL)
+	if (!hEdit)
 	{
 		// Auditing via F5 - no window to display the results
-		//printf("audit detailsprintf() can't find any audit control\n");
+		//printf("audit detailsprintfsprintf() can't find any audit control\n");
 		return;
 	}
 
 	va_list marker;
 	va_start(marker, fmt);
-	char buffer[8000];
+	char buffer[8000] { };
 	vsnprintf(buffer, sizeof(buffer), fmt, marker);
 	va_end(marker);
+
+	if (strlen(buffer) == 0)
+		return;
 
 	TCHAR* t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(buffer));
 	if( !t_s || _tcscmp(TEXT(""), t_s) == 0)
