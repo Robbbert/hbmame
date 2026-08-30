@@ -2806,10 +2806,10 @@ static void UpdateHistory(void)
 
 	if (GetSelectedPick() >= 0)
 	{
-		char *histText = GetGameHistory(Picker_GetSelectedItem(hwndList));
+		string histText = GetGameHistory(Picker_GetSelectedItem(hwndList));
 
-		have_history = (histText && histText[0]) ? true : false;
-		win_set_window_text_utf8(GetDlgItem(hMain, IDC_HISTORY), histText);
+		have_history = !histText.empty();
+		win_set_window_text_utf8(GetDlgItem(hMain, IDC_HISTORY), histText.c_str());
 	}
 
 	if (have_history && BIT(GetWindowPanes(), 3)

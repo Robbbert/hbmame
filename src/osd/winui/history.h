@@ -7,8 +7,8 @@
 #ifndef WINUI_HISTORY_H
 #define WINUI_HISTORY_H
 
-char * GetGameHistory(int driver_index);  // Arcade-only builds (HBMAME, ARCADE)
-char * GetGameHistory(int driver_index, std::string software); // Builds with software support (MESSUI, MAMEUI)
+string GetGameHistory(int);  // Arcade-only builds (HBMAME, ARCADE)
+string GetGameHistory(int, std::string); // Builds with software support (MESSUI, MAMEUI)
 
 #endif
 
