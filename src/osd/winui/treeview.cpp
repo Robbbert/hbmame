@@ -6,10 +6,6 @@
 
 // standard C headers
 #include <sys/stat.h>
-
-#ifdef _MSC_VER
-#include <direct.h>
-#endif
 #include <tchar.h>
 
 // MAME/MAMEUI headers
@@ -345,7 +341,8 @@ bool GameFiltered(int nGame, DWORD dwMask)
 
 	if (strlen(GetSearchText()) && _stricmp(GetSearchText(), SEARCH_PROMPT))
 		if (MyStrStrI(driver_list::driver(nGame).type.fullname(),GetSearchText()) == NULL &&
-			MyStrStrI(driver_list::driver(nGame).name,GetSearchText()) == NULL)
+			MyStrStrI(driver_list::driver(nGame).name,GetSearchText()) == NULL &&
+			MyStrStrI(driver_list::driver(nGame).manufacturer,GetSearchText()) == NULL)
 				return true;
 
 	/*Filter Text is already global*/
@@ -544,7 +541,7 @@ void CreateYearFolders(int parent_index)
 
 	for (int jj = 0; jj < nGames; jj++)
 	{
-		char s[16];
+		char s[16] { };
 		snprintf(s, sizeof(s), "%s", driver_list::driver(jj).year);
 
 		if (s[0] == '\0' || s[0] == '?')
@@ -646,7 +643,7 @@ void CreateScreenFoldersIni(int parent_index)
 
 	for (int jj = 0; jj < driver_list::total(); jj++)
 	{
-		char screen[4];
+		char screen[4] { };
 		snprintf(screen, std::size(screen), "%d", DriverNumScreens(jj));
 
 		// look for an existant screen treefolder for this game
@@ -796,7 +793,7 @@ void CreateResolutionFoldersIni(int parent_index)
 	for (int jj = 0; jj < driver_list::total(); jj++)
 	{
 		machine_config config(driver_list::driver(jj), MameUIGlobal());
-		char res[32];
+		char res[32] { };
 
 		if (DriverIsVector(jj))
 		{
@@ -866,7 +863,7 @@ void CreateFPSFoldersIni(int parent_index)
 	for (int jj = 0; jj < driver_list::total(); jj++)
 	{
 		machine_config config(driver_list::driver(jj), MameUIGlobal());
-		char fps[16];
+		char fps[16] { };
 		
 		if (DriverIsVector(jj))
 		{
@@ -1074,14 +1071,14 @@ static bool LoadExternalFolders(int parent_index, int id)
 	if (fname == NULL)
 		return false;
 
-	char filename[MAX_PATH];
+	char filename[MAX_PATH] { };
 	snprintf(filename, std::size(filename), "%s\\%s", GetFolderDir(), fname);
 	FILE *f = fopen(filename, "r");
  
 	if (f == NULL)
 		return false;
 
-	char readbuf[256];
+	char readbuf[256] { };
 	char *name = NULL;
 	LPTREEFOLDER lpTemp = NULL;
 	int current_id = lpFolder->m_nFolderId;
@@ -1152,7 +1149,7 @@ static void SaveExternalFolders(int parent_index)
 	if (fname == NULL)
 		return;
 
-	char filename[MAX_PATH];
+	char filename[MAX_PATH] { };
 	snprintf(filename, std::size(filename), "%s\\%s", GetFolderDir(), fname);
 	const wchar_t *temp = ui_to_utf16(GetFolderDir()).c_str();
 	CreateDirectory(temp, NULL);
@@ -1766,8 +1763,8 @@ static int InitExtraFolders(void)
 {
 	WIN32_FIND_DATA FindFileData;
 	int count = 0;
-	char buf[MAX_TITLE_LENGTH];
-	char path[MAX_PATH];
+	char buf[MAX_TITLE_LENGTH] { };
+	char path[MAX_PATH] { };
 	const char *dir = GetFolderDir();
 
 	memset(ExtraFolderData, 0, (MAX_EXTRA_FOLDERS * MAX_EXTRA_SUBFOLDERS)* sizeof(LPEXFOLDERDATA));
@@ -1791,7 +1788,7 @@ static int InitExtraFolders(void)
 		while (FindNextFile (hFind, &FindFileData) != 0)
 		{
 			char *file = ui_utf8_from_wstring(FindFileData.cFileName);
-			char inifile[MAX_PATH];
+			char inifile[MAX_PATH] { };
 
 			memset(&inifile, 0, sizeof(inifile));
 			snprintf(inifile, std::size(inifile), "%s\\%s", dir, file);
@@ -1915,8 +1912,8 @@ static void SetExtraIcons(char *name, int *id)
 // Called to add child folders of the top level extra folders already created
 bool TryAddExtraFolderAndChildren(int parent_index)
 {
-	char fname[MAX_PATH];
-	char readbuf[256];
+	char fname[MAX_PATH] { };
+	char readbuf[256] { };
 	char *name = NULL;
 	LPTREEFOLDER lpTemp = NULL;
 	LPTREEFOLDER lpFolder = treeFolders[parent_index];
@@ -2015,8 +2012,8 @@ void GetFolders(TREEFOLDER ***folders,int *num_folders)
 
 static bool TryRenameCustomFolderIni(LPTREEFOLDER lpFolder, const char *old_name, const char *new_name)
 {
-	char filename[MAX_PATH];
-	char new_filename[MAX_PATH];
+	char filename[MAX_PATH] { };
+	char new_filename[MAX_PATH] { };
 
 	if (lpFolder->m_nParent >= 0)
 	{
@@ -2025,8 +2022,10 @@ static bool TryRenameCustomFolderIni(LPTREEFOLDER lpFolder, const char *old_name
 
 		if(lpParent)
 		{
-			snprintf(filename, std::size(filename), "%s\\%s\\%s.ini", GetIniDir().c_str(), lpParent->m_lpTitle, old_name);
-			snprintf(new_filename, std::size(new_filename), "%s\\%s\\%s.ini", GetIniDir().c_str(), lpParent->m_lpTitle, new_name);
+			snprintf(filename, std::size(filename), "%s\\%s\\%s.ini",
+				GetIniDir().c_str(), lpParent->m_lpTitle, old_name);
+			snprintf(new_filename, std::size(new_filename), "%s\\%s\\%s.ini",
+				GetIniDir().c_str(), lpParent->m_lpTitle, new_name);
 			winui_move_file_utf8(filename, new_filename);
 		}
 	}
@@ -2054,27 +2053,21 @@ bool TryRenameCustomFolder(LPTREEFOLDER lpFolder, const char *new_name)
 	{
 		// a child extra folder was renamed, so do the rename and save the parent
 		// save old title
-		char old_title[MAX_TITLE_LENGTH];
+		char old_title[MAX_TITLE_LENGTH] { };
 		snprintf(old_title, sizeof(old_title), "%s", lpFolder->m_lpTitle);
-		//char *old_title = lpFolder->m_lpTitle;
 		// set new title
-		//lpFolder->m_lpTitle = (char *)malloc(strlen(new_name) + 1);
-		//strcpy(lpFolder->m_lpTitle, new_name);
 		snprintf(lpFolder->m_lpTitle, sizeof(lpFolder->m_lpTitle), "%s", new_name);
 
 		// try to save
 		if (TrySaveExtraFolder(lpFolder) == false)
 		{
-			// failed, so free newly allocated title and restore old
-			//free(lpFolder->m_lpTitle);
+			// failed, so restore old
 			snprintf(lpFolder->m_lpTitle, sizeof(lpFolder->m_lpTitle), "%s", old_title);
-			//lpFolder->m_lpTitle = old_title;
 			return false;
 		}
 		
 		TryRenameCustomFolderIni(lpFolder, old_title, new_name);
-		// successful, so free old title
-		//free(old_title);
+		// successful
 		return true;
 	}
 
@@ -2086,9 +2079,6 @@ bool TryRenameCustomFolder(LPTREEFOLDER lpFolder, const char *new_name)
 	if (retval)
 	{
 		TryRenameCustomFolderIni(lpFolder, lpFolder->m_lpTitle, new_name);
-		//free(lpFolder->m_lpTitle);
-		//lpFolder->m_lpTitle = (char *)malloc(strlen(new_name) + 1);
-		//strcpy(lpFolder->m_lpTitle, new_name);
 		snprintf(lpFolder->m_lpTitle, sizeof(lpFolder->m_lpTitle), "%s", new_name);
 	}
 	else
@@ -2110,7 +2100,7 @@ void AddToCustomFolder(LPTREEFOLDER lpFolder, int driver_index)
 		AddGame(lpFolder, driver_index);
 
 		if (TrySaveExtraFolder(lpFolder) == false)
-			RemoveGame(lpFolder, driver_index); 	// undo on error
+			RemoveGame(lpFolder, driver_index);  // undo on error
 	}
 }
 
@@ -2133,7 +2123,7 @@ void RemoveFromCustomFolder(LPTREEFOLDER lpFolder, int driver_index)
 
 bool TrySaveExtraFolder(LPTREEFOLDER lpFolder)
 {
-	char fname[MAX_PATH];
+	char fname[MAX_PATH] { };
 	bool error = false;
 	LPTREEFOLDER root_folder = NULL;
 	LPEXFOLDERDATA extra_folder = NULL;

@@ -90,20 +90,15 @@ void __cdecl ErrorMsg(const char* fmt, ...)
 {
 	static FILE* pFile = NULL;
 	DWORD dwWritten;
-	char buf[5000];
-	char buf2[5000];
+	char buf[5000]{};
+	char buf2[5000]{};
 	va_list va;
-
 	va_start(va, fmt);
-
 	vsnprintf(buf, sizeof(buf), fmt, va);
 
 	win_message_box_utf8(GetActiveWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
 
-	//strcpy(buf2, MAMEUINAME ": ");
-	snprintf(buf2, sizeof(buf2), "%s", MAMEUINAME ": ");
-	strcat(buf2,buf);
-	strcat(buf2, "\n");
+	snprintf(buf2, sizeof(buf2), "MAMEUINAME : %s\n",buf);
 
 	WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), buf2, strlen(buf2), &dwWritten, NULL);
 
@@ -121,15 +116,11 @@ void __cdecl ErrorMsg(const char* fmt, ...)
 
 void __cdecl dprintf(const char* fmt, ...)
 {
-	char buf[5000];
+	char s[5000]{};
 	va_list va;
-
 	va_start(va, fmt);
-
-	_vsnprintf(buf,sizeof(buf),fmt,va);
-
-	win_output_debug_string_utf8(buf);
-
+	vsnprintf(s,sizeof(s),fmt,va);
+	win_output_debug_string_utf8(s);
 	va_end(va);
 }
 
@@ -155,7 +146,7 @@ int winui_message_box_utf8(HWND hWnd, const char *text, const char *caption, UIN
 
 void ErrorMessageBox(const char *fmt, ...)
 {
-	char buf[1024];
+	char buf[1024]{};
 	va_list ptr;
 
 	va_start(ptr, fmt);
@@ -212,15 +203,9 @@ void ShellExecuteCommon(HWND hWnd, const char *cName)
 
 UINT GetDepth(HWND hWnd)
 {
-	UINT nBPP;
-	HDC hDC;
-
-	hDC = GetDC(hWnd);
-
-	nBPP = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
-
+	HDC hDC = GetDC(hWnd);
+	UINT nBPP = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
 	ReleaseDC(hWnd, hDC);
-
 	return nBPP;
 }
 
@@ -257,12 +242,10 @@ LONG GetCommonControlVersion()
 				if(pDllGetVersion)
 				{
 					DLLVERSIONINFO dvi;
-					HRESULT hr;
-
 					ZeroMemory(&dvi, sizeof(dvi));
 					dvi.cbSize = sizeof(dvi);
 
-					hr = (*pDllGetVersion)(&dvi);
+					HRESULT hr = (*pDllGetVersion)(&dvi);
 
 					if (SUCCEEDED(hr))
 					{
@@ -345,9 +328,10 @@ char* MyStrStrI(const char* pFirst, const char* pSrch)
 	return NULL;
 }
 
+// only used by mui_audit
 char * ConvertToWindowsNewlines(const char *source)
 {
-	static char buf[2048 * 2048];
+	static char buf[2048 * 2048]{};
 	char *dest;
 
 	dest = buf;
@@ -372,11 +356,10 @@ char * ConvertToWindowsNewlines(const char *source)
  */
 const char * GetDriverFilename(int drvindex)
 {
-	static char tmp[2048] = { };
+	static char tmp[2048]{};
 	if (drvindex >= 0)
 	{
 		string driver = string(core_filename_extract_base(driver_list::driver(drvindex).type.source()));
-		//strcpy(tmp, driver.c_str());
 		snprintf(tmp, sizeof(tmp), "%s", driver.c_str());
 	}
 	return tmp;

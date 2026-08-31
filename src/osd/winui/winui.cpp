@@ -396,10 +396,10 @@ static PDIRWATCHER s_pWatcher;
 static const struct OSDJoystick* g_pJoyGUI = NULL;
 
 /* store current keyboard state (in bools) here */
-static bool keyboard_state[4096]; /* __code_max #defines the number of internal key_codes */
+static bool keyboard_state[4096]{}; /* __code_max #defines the number of internal key_codes */
 
 /* search */
-static char g_SearchText[256];
+static char g_SearchText[256]{};
 /* table copied from windows/inputs.c */
 // table entry indices
 #define MAME_KEY        0
@@ -1063,15 +1063,18 @@ HICON LoadIconFromFile(const char *iconname)
 {
 	HICON hIcon = 0;
 	struct stat file_stat;
-	char tmpStr[MAX_PATH];
-	char tmpIcoName[MAX_PATH];
+	char tmpStr[MAX_PATH]{};
+	char tmpIcoName[MAX_PATH]{};
 	PBYTE bufferPtr = 0;
 	util::archive_file::ptr zip;
 
 	const string t = dir_get_value(40);
-	char s[t.length()+1];
-	//strcpy(s, t.c_str());
-	snprintf(s, sizeof(s), "%s", t.c_str());
+	char* s = strdup(t.c_str());
+	if (!s)
+	{
+		printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+		return hIcon;
+	}
 	char* s1 = strtok(s, ";");
 	while (s1 && !hIcon)
 	{
@@ -1120,6 +1123,7 @@ HICON LoadIconFromFile(const char *iconname)
 		}
 		s1 = strtok(NULL, ";");
 	}
+	free(s);
 	return hIcon;
 }
 
@@ -1355,9 +1359,8 @@ char *ModifyThe(const char *str)
 	if (strncmp(str, "The ", 4) == 0)
 	{
 		char *s, *p;
-		char temp[255];
+		char temp[255]{};
 
-		//strcpy(temp, &str[4]);
 		snprintf(temp, sizeof(temp), "%s", &str[4]);
 
 		bufno = (bufno + 1) % 4;
@@ -1367,12 +1370,9 @@ char *ModifyThe(const char *str)
 		/* Check for version notes in parens */
 		p = strchr(temp, '(');
 		if (p)
-		{
 			p[-1] = '\0';
-		}
 
-		//strcpy(s, temp);
-		snprintf(s, sizeof(s), "%s", temp);
+		strcpy(s, temp);
 		strcat(s, ", The");
 
 		if (p)
@@ -1438,8 +1438,8 @@ int GetGameNameIndex(const char *name)
 
 static void SetMainTitle(void)
 {
-	char version[50];
-	char buffer[100];
+	char version[50]{};
+	char buffer[100]{};
 
 	sscanf(GetVersionString(),"%49s",version);
 	snprintf(buffer, std::size(buffer), "%s %s", MAMEUINAME, GetVersionString());
@@ -2079,7 +2079,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 
 	case WM_MAME32_FILECHANGED:
 		{
-			char szFileName[32];
+			char szFileName[32]{};
 			char *s;
 			int nGameIndex;
 			int (*pfnGetAuditResults)(uint32_t driver_index) = NULL;
@@ -2114,7 +2114,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 				{
 					for (nParentIndex = nGameIndex; nGameIndex == -1; nParentIndex = GetParentIndex(&driver_list::driver(nParentIndex)))
 					{
-						if (!core_stricmp(driver_list::driver(nParentIndex).name, szFileName))
+						if (_stricmp(driver_list::driver(nParentIndex).name, szFileName)==0)
 						{
 							if (pfnGetAuditResults(nGameIndex) != UNKNOWN)
 							{
@@ -2142,7 +2142,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 					MameUIVerifyRomSet(nGameIndex, 0);
 					break;
 				case 1:
-					MameUIVerifySampleSet(nGameIndex);
+					MameUIVerifySampleSet(nGameIndex, 0);
 					break;
 			}
 
@@ -2270,7 +2270,7 @@ static BOOL FolderCheck(void)
 
 		if (GetSampleAuditResults(nGameIndex) == UNKNOWN)
 		{
-			MameUIVerifySampleSet(nGameIndex);
+			MameUIVerifySampleSet(nGameIndex, 0);
 			changed = true;
 		}
 
@@ -2327,7 +2327,7 @@ static BOOL GameCheck(void)
 
 	if (GetSampleAuditResults(game_index) == UNKNOWN)
 	{
-		MameUIVerifySampleSet(game_index);
+		MameUIVerifySampleSet(game_index, 0);
 		changed = true;
 	}
 
@@ -4193,8 +4193,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// INI
 				string t = dir_get_value(7);
 				char buf7[t.size()+1];
-				//strcpy(buf7, t.c_str());
-				snprintf(buf7, sizeof(buf7), "%s", t.c_str());
+				strcpy(buf7, t.c_str());
 				char * t_dir = strtok(buf7, ";");
 				while (t_dir)
 				{
@@ -4206,8 +4205,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// CFG
 				t = dir_get_value(14);
 				char buf14[t.size()+1];
-				//strcpy(buf14, t.c_str());
-				snprintf(buf14, sizeof(buf14), "%s", t.c_str());
+				strcpy(buf14, t.c_str());
 				t_dir = strtok(buf14, ";");
 				while (t_dir)
 				{
@@ -4219,8 +4217,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// NVRAM
 				t = dir_get_value(15);
 				char buf15[t.size()+1];
-				//strcpy(buf15, t.c_str());
-				snprintf(buf15, sizeof(buf15), "%s", t.c_str());
+				strcpy(buf15, t.c_str());
 				t_dir = strtok(buf15, ";");
 				while (t_dir)
 				{
@@ -4232,8 +4229,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				// Save states
 				t = dir_get_value(17);
 				char buf17[t.size()+1];
-				//strcpy(buf17, t.c_str());
-				snprintf(buf17, sizeof(buf17), "%s", t.c_str());
+				strcpy(buf17, t.c_str());
 				t_dir = strtok(buf17, ";");
 				while (t_dir)
 				{
@@ -4315,7 +4311,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 #if 0
 	case ID_OPTIONS_HISTORY:
 		{
-			char filename[MAX_PATH];
+			char filename[MAX_PATH]{};
 			//strcpy(filename, GetHistoryFileName());
 			snprintf(filename, sizeof(filename), "%s", GetHistoryFileName());
 			if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_HISTORY_FILE))
@@ -4326,7 +4322,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		}
 	case ID_OPTIONS_MAMEINFO:
 		{
-			char filename[MAX_PATH];
+			char filename[MAX_PATH]{};
 			//strcpy(filename, GetMAMEInfoFileName());
 			snprintf(filename, sizeof(filename), "%s", GetMAMEInfoFileName());
 			if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_MAMEINFO_FILE))
@@ -4886,16 +4882,12 @@ static void CreateIcons(void)
 static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_subitem)
 {
 	int value = 0;  /* Default to 0, for unknown case */
-	const char *name1 = NULL;
-	const char *name2 = NULL;
-	char file1[MAX_PATH];
-	char file2[MAX_PATH];
 	int nTemp1=0, nTemp2=0;
 
 	switch (sort_subitem)
 	{
 	case COLUMN_GAMES:
-		return core_stricmp(ModifyThe(driver_list::driver(index1).type.fullname()),
+		return _stricmp(ModifyThe(driver_list::driver(index1).type.fullname()),
 			ModifyThe(driver_list::driver(index2).type.fullname()));
 
 	case COLUMN_ORIENTATION:
@@ -4905,15 +4897,11 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		break;
 
 	case COLUMN_DIRECTORY:
-		value = core_stricmp(driver_list::driver(index1).name, driver_list::driver(index2).name);
+		value = _stricmp(driver_list::driver(index1).name, driver_list::driver(index2).name);
 		break;
 
 	case COLUMN_SRCDRIVERS:
-		//strcpy(file1, GetDriverFilename(index1));
-		//strcpy(file2, GetDriverFilename(index2));
-		snprintf(file1, sizeof(file1), "%s", GetDriverFilename(index1));
-		snprintf(file2, sizeof(file2), "%s", GetDriverFilename(index2));
-		value = core_stricmp(file1, file2);
+		value = _stricmp(GetDriverFilename(index1), GetDriverFilename(index2));
 		break;
 
 	case COLUMN_PLAYTIME:
@@ -4945,31 +4933,35 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		break;
 
 	case COLUMN_MANUFACTURER:
-		value = core_stricmp(driver_list::driver(index1).manufacturer, driver_list::driver(index2).manufacturer);
+		value = _stricmp(driver_list::driver(index1).manufacturer, driver_list::driver(index2).manufacturer);
 		break;
 
 	case COLUMN_YEAR:
-		value = core_stricmp(driver_list::driver(index1).year, driver_list::driver(index2).year);
+		value = _stricmp(driver_list::driver(index1).year, driver_list::driver(index2).year);
 		break;
 
 	case COLUMN_CLONE:
-		name1 = GetCloneParentName(index1);
-		name2 = GetCloneParentName(index2);
+		{
+			const char *name1 = GetCloneParentName(index1);
+			const char *name2 = GetCloneParentName(index2);
 
-		if (*name1 == '\0')
-			name1 = NULL;
-		if (*name2 == '\0')
-			name2 = NULL;
+			if (*name1 == '\0')
+				name1 = NULL;
+			if (*name2 == '\0')
+				name2 = NULL;
 
-		if (NULL == name1 && NULL == name2)
-			value = 0;
-		else if (name2 == NULL)
-			value = -1;
-		else if (name1 == NULL)
-			value = 1;
-		else
-			value = core_stricmp(name1, name2);
-		break;
+			if (NULL == name1 && NULL == name2)
+				value = 0;
+			else
+			if (name2 == NULL)
+				value = -1;
+			else
+			if (name1 == NULL)
+				value = 1;
+			else
+				value = _stricmp(name1, name2);
+			break;
+		}
 	}
 
 	// Handle same comparisons here
@@ -5128,49 +5120,44 @@ void SetStatusBarText(int part_index, const char *message)
 
 void SetStatusBarTextF(int part_index, const char *fmt, ...)
 {
-	char buf[256];
+	char s[256]{};
 	va_list va;
-
 	va_start(va, fmt);
-	vsnprintf(buf, sizeof(buf), fmt, va);
+	vsnprintf(s, sizeof(s), fmt, va);
 	va_end(va);
 
-	SetStatusBarText(part_index, buf);
+	SetStatusBarText(part_index, s);
 }
 
 static void CLIB_DECL ATTR_PRINTF(1,2) MameMessageBox(const char *fmt, ...)
 {
-	char buf[2048];
+	char s[2048]{};
 	va_list va;
-
 	va_start(va, fmt);
-	vsnprintf(buf, sizeof(buf), fmt, va);
-	win_message_box_utf8(GetMainWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
+	vsnprintf(s, sizeof(s), fmt, va);
+	win_message_box_utf8(GetMainWindow(), s, MAMEUINAME, MB_OK | MB_ICONERROR);
 	va_end(va);
 }
 
 static void MamePlayBackGame()
 {
-	char filename[MAX_PATH];
-	*filename = 0;
-
 	int drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-		//strcpy(filename, driver_list::driver(drvindex).name);
-		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+	if (drvindex < 0)
+		return;
+
+	char filename[MAX_PATH]{};
+	snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_INPUT_FILES))
 	{
-		char drive[_MAX_DRIVE];
-		char dir[_MAX_DIR];
-		char bare_fname[_MAX_FNAME];
-		char ext[_MAX_EXT];
-		char path[MAX_PATH];
-		char fname[MAX_PATH];
-		play_options playopts;
-
+		char drive[_MAX_DRIVE] { };
+		char dir[_MAX_DIR] { };
+		char bare_fname[_MAX_FNAME] { };
+		char ext[_MAX_EXT] { };
 		_splitpath(filename, drive, dir, bare_fname, ext);
 
+		char path[MAX_PATH] { };
+		char fname[MAX_PATH] { };
 		snprintf(path, sizeof(path), "%s%s",drive,dir);
 		snprintf(fname, sizeof(fname), "%s%s",bare_fname,ext);
 		if (path[strlen(path)-1] == '\\')
@@ -5215,6 +5202,7 @@ static void MamePlayBackGame()
 			return;
 		}
 
+		play_options playopts;
 		memset(&playopts, 0, sizeof(playopts));
 		playopts.playback = fname;
 		playopts_apply = 0x57;
@@ -5224,41 +5212,32 @@ static void MamePlayBackGame()
 
 static void MameLoadState()
 {
-	int drvindex;
-	char filename[MAX_PATH];
-	char selected_filename[MAX_PATH];
-	play_options playopts;
+	int drvindex = Picker_GetSelectedItem(hwndList);
+	if (drvindex < 0)
+		return;
 
-	*filename = 0;
+	char filename[MAX_PATH]{};
+	char selected_filename[MAX_PATH]{};
+	snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+	snprintf(selected_filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
-	drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-	{
-		//strcpy(filename, driver_list::driver(drvindex).name);
-		//strcpy(selected_filename, driver_list::driver(drvindex).name);
-		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
-		snprintf(selected_filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
-	}
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_SAVESTATE_FILES))
 	{
-		char drive[_MAX_DRIVE];
-		char dir[_MAX_DIR];
-		char ext[_MAX_EXT];
-
-		char path[MAX_PATH];
-		char fname[MAX_PATH];
-		char bare_fname[_MAX_FNAME];
-		char *state_fname;
-		//int rc;
-
+		char drive[_MAX_DRIVE]{};
+		char dir[_MAX_DIR]{};
+		char ext[_MAX_EXT]{};
+		char bare_fname[_MAX_FNAME]{};
 		_splitpath(filename, drive, dir, bare_fname, ext);
 
+		char path[MAX_PATH]{};
+		char fname[MAX_PATH]{};
 		// parse path
 		snprintf(path, sizeof(path), "%s%s", drive,dir);
 		snprintf(fname, sizeof(fname), "%s%s", bare_fname,ext);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
+		char *state_fname;
 #ifdef MESS
 		{
 			state_fname = filename;
@@ -5267,13 +5246,11 @@ static void MameLoadState()
 		{
 			char *cPos=0;
 			int  iPos=0;
-			char romname[MAX_PATH];
+			char romname[MAX_PATH]{};
 
 			cPos = strchr(bare_fname, '-' );
 			iPos = cPos ? cPos - bare_fname : strlen(bare_fname);
 			snprintf(romname, iPos, "%s", bare_fname);
-			//strncpy(romname, bare_fname, iPos );
-			romname[iPos] = '\0';
 			if( strcmp(selected_filename,romname) != 0 )
 			{
 				MameMessageBox("'%s' is not a valid savestate file for game '%s'.", filename, selected_filename);
@@ -5291,10 +5268,11 @@ static void MameLoadState()
 		}
 
 		// call the MAME core function to check the save state file
-		//rc = state_manager::check_file(NULL, pSaveState, selected_filename, MameMessageBox);
+		//int rc = state_manager::check_file(NULL, pSaveState, selected_filename, MameMessageBox);
 		//if (rc)
 //          return;
 
+		play_options playopts;
 		memset(&playopts, 0, sizeof(playopts));
 #ifdef MESS
 		playopts.state = state_fname;
@@ -5317,30 +5295,27 @@ static void MameLoadState()
 
 static void MamePlayRecordGame()
 {
-	int  drvindex;
-	char filename[MAX_PATH];
-	*filename = 0;
+	int drvindex = Picker_GetSelectedItem(hwndList);
+	if (drvindex < 0)
+		return;
 
-	drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-		//strcpy(filename, driver_list::driver(drvindex).name);
-		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+	char filename[MAX_PATH]{};
+	snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_INPUT_FILES))
 	{
-		char drive[_MAX_DRIVE];
-		char dir[_MAX_DIR];
-		char fname[_MAX_FNAME];
-		char ext[_MAX_EXT];
-		char path[MAX_PATH];
-		play_options playopts;
-
+		char drive[_MAX_DRIVE]{};
+		char dir[_MAX_DIR]{};
+		char fname[_MAX_FNAME]{};
+		char ext[_MAX_EXT]{};
 		_splitpath(filename, drive, dir, fname, ext);
 
+		char path[MAX_PATH]{};
 		snprintf(path, sizeof(path), "%s%s", drive,dir);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
+		play_options playopts;
 		memset(&playopts, 0, sizeof(playopts));
 		strcat(fname, ".inp");
 		playopts.record = fname;
@@ -5354,29 +5329,27 @@ void MamePlayGame(void)
 	if (m_lock)
 		return;
 
-	play_options playopts;
-
 	int drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-	{
-		memset(&playopts, 0, sizeof(playopts));
-		MamePlayGameWithOptions(drvindex, &playopts);
-	}
+	if (drvindex < 0)
+		return;
+
+	play_options playopts;
+	memset(&playopts, 0, sizeof(playopts));
+	MamePlayGameWithOptions(drvindex, &playopts);
 }
 
 static void MamePlayRecordWave()
 {
-	int  drvindex;
-	char filename[MAX_PATH];
-	play_options playopts;
+	int drvindex = Picker_GetSelectedItem(hwndList);
+	if (drvindex < 0)
+		return;
 
-	drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-		//strcpy(filename, driver_list::driver(drvindex).name);
-		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+	char filename[MAX_PATH]{};
+	snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_WAVE_FILES))
 	{
+		play_options playopts;
 		memset(&playopts, 0, sizeof(playopts));
 		playopts.wavwrite = filename;
 		playopts_apply = 0x57;
@@ -5386,29 +5359,27 @@ static void MamePlayRecordWave()
 
 static void MamePlayRecordMNG()
 {
-	int  drvindex;
-	char filename[MAX_PATH] = { 0, };
+	int drvindex = Picker_GetSelectedItem(hwndList);
+	if (drvindex < 0)
+		return;
 
-	drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-		//strcpy(filename, driver_list::driver(drvindex).name);
-		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+	char filename[MAX_PATH]{};
+	snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_MNG_FILES))
 	{
-		char drive[_MAX_DRIVE];
-		char dir[_MAX_DIR];
-		char fname[_MAX_FNAME];
-		char ext[_MAX_EXT];
-		char path[MAX_PATH];
-		play_options playopts;
-
+		char drive[_MAX_DRIVE]{};
+		char dir[_MAX_DIR]{};
+		char fname[_MAX_FNAME]{};
+		char ext[_MAX_EXT]{};
 		_splitpath(filename, drive, dir, fname, ext);
 
+		char path[MAX_PATH]{};
 		snprintf(path, sizeof(path), "%s%s", drive, dir);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
+		play_options playopts;
 		memset(&playopts, 0, sizeof(playopts));
 		strcat(fname, ".mng");
 		playopts.mngwrite = fname;
@@ -5419,29 +5390,28 @@ static void MamePlayRecordMNG()
 
 static void MamePlayRecordAVI()
 {
-	int  drvindex;
-	char filename[MAX_PATH] = { 0, };
+	int drvindex = Picker_GetSelectedItem(hwndList);
+	if (drvindex < 0)
+		return;
 
-	drvindex = Picker_GetSelectedItem(hwndList);
-	if (drvindex != -1)
-		//strcpy(filename, driver_list::driver(drvindex).name);
-		snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
+	char filename[MAX_PATH]{};
+	snprintf(filename, sizeof(filename), "%s", driver_list::driver(drvindex).name);
 
 	if (CommonFileDialog(GetSaveFileName, filename, FILETYPE_AVI_FILES))
 	{
-		char drive[_MAX_DRIVE];
-		char dir[_MAX_DIR];
-		char fname[_MAX_FNAME];
-		char ext[_MAX_EXT];
-		char path[MAX_PATH];
-		play_options playopts;
+		char drive[_MAX_DRIVE]{};
+		char dir[_MAX_DIR]{};
+		char fname[_MAX_FNAME]{};
+		char ext[_MAX_EXT]{};
 
 		_splitpath(filename, drive, dir, fname, ext);
 
+		char path[MAX_PATH]{};
 		snprintf(path, sizeof(path), "%s%s", drive, dir);
 		if (path[strlen(path)-1] == '\\')
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
+		play_options playopts;
 		memset(&playopts, 0, sizeof(playopts));
 		strcat(fname, ".avi");
 		playopts.aviwrite = fname;

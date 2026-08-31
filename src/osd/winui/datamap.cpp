@@ -731,8 +731,8 @@ static void populate_control(datamap *map, HWND control, windows_options *opts, 
 // Return a string from a float value with trailing zeros removed.
 static char *tztrim(float float_value)
 {
-	static char tz_string[20];
-	char float_string[20];
+	static char tz_string[20] { };
+	char float_string[20] { };
 	int i = 0;
 
 	snprintf(float_string, sizeof(float_string), "%f", float_value);

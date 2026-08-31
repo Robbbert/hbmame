@@ -252,14 +252,17 @@ class winui_ui_options
 		{
 			if (is_ready)
 			{
-				char s[file_line.length()+1];
-				//strcpy(s, file_line.c_str());
-				snprintf(s, sizeof(s), "%s", file_line.c_str());
-
+				char* s = strdup(file_line.c_str());
+				if (!s)
+				{
+					printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+					return;
+				}
 				const char* name = strtok(s, "\t");  // get adjustment name
 				char* data = strtok(NULL, "\t");    // get next part (there's no next tab, so just return whatever is left)
 				if (name)
 					m_list[name] = data ? data : "";
+				free(s);
 			}
 			else
 			{
@@ -314,12 +317,15 @@ public:
 			inistring.append(it.first).append("\t").append(it.second).append("\n");
 
 		std::ofstream outfile (filename, std::ios::out | std::ios::trunc);
-		size_t size = inistring.size();
-		char t1[size+1];
-		//strcpy(t1, inistring.c_str());
-		snprintf(t1, sizeof(t1), "%s", inistring.c_str());
-		outfile.write(t1, size);
+		char* s = strdup(inistring.c_str());
+		if (!s)
+		{
+			printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+			return;
+		}
+		outfile.write(s, inistring.size());
 		outfile.close();
+		free(s);
 		return;
 	}
 

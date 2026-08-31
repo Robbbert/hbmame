@@ -830,10 +830,15 @@ string GetGameHistory(int drvindex, std::string software)
 	{
 		// Get the path to dat files
 		std::string t = dir_get_value(23);
-		char buf[t.size()+1];
-		strcpy(buf, t.c_str());
+		char* s = strdup(t.c_str());
+		if (!s)
+		{
+			printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+			return fullbuf;
+		}
 		// only want first path
-		const char* datsdir = strtok(buf, ";");
+		const char* datsdir = strtok(s, ";");
+		free(s);
 		// validate software
 		bool sw_valid = false;
 		if (!software.empty())
@@ -880,10 +885,15 @@ string GetGameHistory(int drvindex)
 	if (validate_datfiles())
 	{
 		std::string t = dir_get_value(23);
-		char buf[t.size()+1];
-		strcpy(buf, t.c_str());
+		char* s = strdup(t.c_str());
+		if (!s)
+		{
+			printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+			return fullbuf;
+		}
 		// only want first path
-		const char* datsdir = strtok(buf, ";");
+		const char* datsdir = strtok(s, ";");
+		free(s);
 
 		if (datsdir && osd::directory::open(datsdir))
 		{

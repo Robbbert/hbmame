@@ -100,7 +100,7 @@ NUM TITLES
 
 ********************** Official Titles (including non-free indie) **********************************
 (from info gathered from various sites, hopefully correct)
-(The notation GAME#nnnn? refers to unverified info from wiki.neogeodev.org/index.php?title=NGH_number)
+(The notation GAME#nnnn? refers to unverified info from wiki.neogeodev.org/index.php/NGH_number)
 
 NUM GAME YEAR COMPANY                 TITLE
 ---.----.----.-----------------------.-------------------------------------------
@@ -166,7 +166,7 @@ NUM GAME YEAR COMPANY                 TITLE
 400 0066 1999 Kyle Hodgetts           Digger Man
 403 2003 2003 Neobitz                 Poker Night
 404 2000 2004 Neobitz                 Columns
-407 2000 2002 Blastar                 Neo no Panepon
+407 2000 2002 Blastar                 Neo no Panepon (also GAME#2000?)
 408 1234 2004 Blastar                 Neo Puzzle League
 409 FFFF 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
 410 FFFF 2006 Blastar                 Codename: Blut Engel
@@ -411,7 +411,7 @@ YEAR COMPANY                          TITLE
 2023 NeoHomeBrew                      Flippers Demo (on youtube)
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
 2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
-2023 Nalua Studio                     Vengeance Hunters (https://shop.naluastudio.com/shop/products)
+2023 Nalua Studio                     Vengeance Hunters (GAME#0365?)(https://shop.naluastudio.com/shop/products)
 2023 Shadow Gangs                     Shadow Gangs (https://www.shadowgangs.net)
 2023 PixelHeart                       Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
 2025 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
@@ -425,6 +425,8 @@ YEAR COMPANY                          TITLE
 ???? Chips on Steroids                Neotris 2
 ???? Chips on Steroids                Super Mortal Fighter X
 ???? PixelHeart                       Punky Circus
+???? RasterWizards                    Brutal Justice (https://rasterwizards.itch.io/brutal-justice)
+???? Tigerskunk                       Space Adventure Cobra
 
 
 *********************************************************************************************************/

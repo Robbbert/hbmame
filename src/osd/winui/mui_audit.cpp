@@ -62,9 +62,9 @@ static int m_choice = 0;
 
 static int strcatvprintf(std::string &str, const char *format, va_list args)
 {
-	char tempbuf[4096];
-	int result = vsnprintf(tempbuf, sizeof(tempbuf), format, args);
-	str.append(tempbuf);
+	char s[4096] { };
+	int result = vsnprintf(s, sizeof(s), format, args);
+	str.append(s);
 	return result;
 }
 
@@ -186,7 +186,7 @@ int MameUIVerifyRomSet(int game, bool choice)
 }
 
 // Verifies the Sample set while calling SetSampleAuditResults
-int MameUIVerifySampleSet(int game)
+int MameUIVerifySampleSet(int game, int box)
 {
 	driver_enumerator enumerator(MameUIGlobal(), driver_list::driver(game));
 	enumerator.next();
@@ -206,7 +206,7 @@ int MameUIVerifySampleSet(int game)
 
 	// output the summary of the audit
 	if (!summary_string.empty())
-		DetailsPrintf(1, "%s", summary_string.c_str());
+		DetailsPrintf(box, "%s", summary_string.c_str());
 
 	SetSampleAuditResults(game, summary);
 	return summary;
@@ -214,7 +214,7 @@ int MameUIVerifySampleSet(int game)
 
 static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 {
-	char buffer[80];
+	char s[80] { };
 
 	while (!bCancel)
 	{
@@ -222,15 +222,15 @@ static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 		{
 			if (rom_index != -1)
 			{
-				snprintf(buffer, sizeof(buffer), "Checking Set %s - %s", driver_list::driver(rom_index).name, driver_list::driver(rom_index).type.fullname());
-				win_set_window_text_utf8((HWND)hDlg, buffer);
+				snprintf(s, sizeof(s), "Checking Set %s - %s", driver_list::driver(rom_index).name, driver_list::driver(rom_index).type.fullname());
+				win_set_window_text_utf8((HWND)hDlg, s);
 				ProcessNextRom();
 			}
 			else
 			if (sample_index != -1)
 			{
-				snprintf(buffer, sizeof(buffer), "Checking Set %s - %s", driver_list::driver(sample_index).name, driver_list::driver(sample_index).type.fullname());
-				win_set_window_text_utf8((HWND)hDlg, buffer);
+				snprintf(s, sizeof(s), "Checking Set %s - %s", driver_list::driver(sample_index).name, driver_list::driver(sample_index).type.fullname());
+				win_set_window_text_utf8((HWND)hDlg, s);
 				ProcessNextSample();
 			}
 			else
@@ -329,7 +329,7 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 
 			if (DriverUsesSamples(rom_index))
 			{
-				iStatus = MameUIVerifySampleSet(rom_index);
+				iStatus = MameUIVerifySampleSet(rom_index, 0);
 				lpStatus = StatusString(iStatus);
 			}
 			else
@@ -388,7 +388,7 @@ static void ProcessNextSample()
 	int retval = 0;
 	TCHAR buffer[20] { };
 
-	retval = MameUIVerifySampleSet(sample_index);
+	retval = MameUIVerifySampleSet(sample_index, 1);
 
 	switch (retval)
 	{
@@ -455,14 +455,14 @@ static void CLIB_DECL DetailsPrintf(int box, const char *fmt, ...)
 
 	va_list marker;
 	va_start(marker, fmt);
-	char buffer[8000] { };
-	vsnprintf(buffer, sizeof(buffer), fmt, marker);
+	char s[8000] { };
+	vsnprintf(s, sizeof(s), fmt, marker);
 	va_end(marker);
 
-	if (strlen(buffer) == 0)
+	if (strlen(s) == 0)
 		return;
 
-	TCHAR* t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(buffer));
+	TCHAR* t_s = ui_wstring_from_utf8(ConvertToWindowsNewlines(s));
 	if( !t_s || _tcscmp(TEXT(""), t_s) == 0)
 		return;
 

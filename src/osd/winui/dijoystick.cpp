@@ -739,7 +739,7 @@ const char * DirectXDecodeError(HRESULT errorval)
 		if (g_ErrorCode[i].hr == errorval)
 			return g_ErrorCode[i].szError;
 
-	static char tmp[64];
+	static char tmp[64] { };
 	snprintf(tmp, sizeof(tmp), "UNKNOWN: 0x%x", (unsigned int)errorval);
 	return tmp;
 }

@@ -30,10 +30,6 @@
 #include "treeview.h"
 #include "splitters.h"
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
 typedef std::string string;
 
 /***************************************************************************
@@ -183,7 +179,7 @@ static COLORREF options_get_color(const char *name)
 
 static void options_set_color(const char *name, COLORREF value)
 {
-	char value_str[32];
+	char value_str[32] { };
 
 	if (value == (COLORREF) -1)
 		snprintf(value_str, std::size(value_str), "%d", (int) value);
@@ -368,13 +364,16 @@ static LPBITS GetShowFolderFlags(LPBITS bits)
 		return bits;
 
 	extern const FOLDERDATA g_folderData[];
-	char s[val.size()+1];
-	snprintf(s, val.size()+1, "%s", val.c_str());
+	char* s = strdup(val.c_str());
+	if (!s)
+	{
+		printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+		return bits;
+	}
 	char *token = strtok(s, ",");
-	int j;
 	while (token)
 	{
-		for (j=0; g_folderData[j].m_lpTitle; j++)
+		for (int j=0; g_folderData[j].m_lpTitle; j++)
 		{
 			if (strcmp(g_folderData[j].short_name,token) == 0)
 			{
@@ -384,6 +383,7 @@ static LPBITS GetShowFolderFlags(LPBITS bits)
 		}
 		token = strtok(NULL,",");
 	}
+	free(s);
 	return bits;
 }
 

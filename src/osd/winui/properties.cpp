@@ -516,7 +516,7 @@ void InitDefaultPropertyPage(HINSTANCE hInst, HWND hWnd)
 	/* Create the Property sheet and display it */
 	if (PropertySheet(&pshead) == -1)
 	{
-		char temp[100];
+		char temp[100] { };
 		DWORD dwError = GetLastError();
 		snprintf(temp, sizeof(temp), "Property Sheet Error %d %X", (int)dwError, (int)dwError);
 		win_message_box_utf8(0, temp, "Error", IDOK);
@@ -625,7 +625,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 	/* Create the Property sheet and display it */
 	if (PropertySheet(&pshead) == -1)
 	{
-		char temp[100];
+		char temp[100] { };
 		DWORD dwError = GetLastError();
 		snprintf(temp, sizeof(temp), "Property Sheet Error %d %X", (int)dwError, (int)dwError);
 		win_message_box_utf8(0, temp, "Error", IDOK);
@@ -1359,9 +1359,9 @@ static void UpdateProperties(HWND hDlg, datamap *map, windows_options &o)
 	In both cases, the vsh is entered into the ini-file, but without the extension */
 static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 {
-	char filename[MAX_PATH];
+	char filename[MAX_PATH] { };
 	bool changed = false;
-	char shader[32];
+	char shader[32] { };
 	int dialog;
 
 	*filename = 0;
@@ -1378,7 +1378,7 @@ static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_SHADER_FILES))
 	{
-		char option[MAX_PATH];
+		char option[MAX_PATH] { };
 		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		PathRemoveExtension(tempname); // this function wants wchar
 		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());
@@ -1399,7 +1399,7 @@ static bool ResetGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 {
 	bool changed = false;
 	const char *new_value = "none";
-	char option[32];
+	char option[32] { };
 	int dialog;
 
 	if (is_scr)
@@ -1429,7 +1429,7 @@ static void UpdateMameShader(HWND hWnd, int slot, windows_options &o)
 
 	if (hCtrl)
 	{
-		char option[32];
+		char option[32] { };
 		snprintf(option, std::size(option), "glsl_shader_mame%d", slot);
 		const char* value = o.value(option);
 
@@ -1446,7 +1446,7 @@ static void UpdateScreenShader(HWND hWnd, int slot, windows_options &o)
 
 	if (hCtrl)
 	{
-		char option[32];
+		char option[32] { };
 		snprintf(option, std::size(option), "glsl_shader_screen%d", slot);
 		const char* value = o.value(option);
 
@@ -1629,12 +1629,14 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 	{
 		(void)ComboBox_ResetContent(hCtrl);
 		const char* cclist = cc.c_str();
-		char buffer[strlen(cclist)+1];
-		char *token = NULL;
-		const TCHAR* t_s = NULL;
+		char* s = strdup(cclist);
+		if (!s)
+		{
+			printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+			return;
+		}
 		int count = 0;
-		strcpy(buffer, cclist);
-		token = strtok(buffer, ",");
+		char* token = strtok(s, ",");
 
 		if (token != NULL)
 		{
@@ -1645,13 +1647,19 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 				else
 					printf("Properties.cpp: MAX_PLUGINS < %d\n",count);
 
-				t_s = ui_to_utf16(token).c_str();
+				const TCHAR* t_s = ui_to_utf16(token).c_str();
 				if( t_s )
+				{
 					if (ComboBox_InsertString(hCtrl, count++, win_tstring_strdup(t_s)) == CB_ERR)
+					{
+						free(s);
 						return;
+					}
+				}
 				token = strtok(NULL, ",");
 			}
 		}
+		free(s);
 	}
 
 	hCtrl = GetDlgItem(hWnd, IDC_BGFX_CHAINS);
@@ -2018,7 +2026,7 @@ HANDLE winui_find_first_file_utf8(const char* filename, WIN32_FIND_DATA *findfil
 static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *o, const char *option_name)
 {
 	WIN32_FIND_DATA FindFileData;
-	char path[MAX_PATH];
+	char path[MAX_PATH] { };
 	int selected = 0;
 	int index = 0;
 
@@ -2087,11 +2095,11 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 	HWND refresh_control = GetDlgItem(dialog, IDC_REFRESH);
 	HWND sizes_control = GetDlgItem(dialog, IDC_SIZES);
 	int width = 0, height = 0;
-	char option_value[256];
+	char option_value[256] { };
 
 	if (refresh_control && sizes_control)
 	{
-		TCHAR buffer[256];
+		TCHAR buffer[256] { };
 		ComboBox_GetText(sizes_control, buffer, std::size(buffer) - 1);
 		if (_stscanf(buffer, TEXT("%d x %d"), &width, &height) == 2)
 		{
@@ -3135,15 +3143,15 @@ static BOOL ResetJoystickMap(HWND hWnd)
 
 static bool SelectLUAScript(HWND hWnd)
 {
-	char filename[MAX_PATH];
+	char filename[MAX_PATH] { };
 	bool changed = false;
 
 	*filename = 0;
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_LUASCRIPT_FILES))
 	{
-		char option[MAX_PATH];
-		char script[MAX_PATH];
+		char option[MAX_PATH] { };
+		char script[MAX_PATH] { };
 		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		snprintf(script, sizeof(script), "%s", ui_to_utf8(tempname).c_str());
 		PathRemoveExtension(tempname);
@@ -3223,14 +3231,14 @@ static bool ResetPlugins(HWND hWnd)
 
 static bool SelectBGFXChains(HWND hWnd)
 {
-	char filename[MAX_PATH];
+	char filename[MAX_PATH] { };
 	bool changed = false;
 
 	*filename = 0;
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_BGFX_FILES))
 	{
-		char option[MAX_PATH];
+		char option[MAX_PATH] { };
 		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		PathRemoveExtension(tempname);
 		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());

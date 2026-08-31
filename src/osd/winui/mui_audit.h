@@ -11,7 +11,7 @@ void InitGameAudit(int gameIndex);
 INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 int MameUIVerifyRomSet(int game, bool choice);
-int MameUIVerifySampleSet(int game);
+int MameUIVerifySampleSet(int game, int);
 
 const char * GetAuditString(int audit_result);
 BOOL IsAuditResultKnown(int audit_result);
