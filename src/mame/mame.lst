@@ -16904,6 +16904,7 @@ ap10
 ctk530
 ctk551
 ctk601
+ctk630
 gz70sp
 
 @source:casio/ctrc1.cpp
@@ -21830,6 +21831,7 @@ genius6
 genius6a
 genius6b
 happyskl
+hjdmg
 iqblocka
 iqblockf
 jking103a
@@ -43295,6 +43297,11 @@ x68ksupr
 x68kxvi
 
 @source:sharp/zaurus.cpp
+zmi10
+zmi310
+zmie1
+zmie21
+zmt300s
 zsl5500
 zslc500
 zsl5600

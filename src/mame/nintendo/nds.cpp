@@ -1703,7 +1703,7 @@ void nds_state::arm9_powcnt_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 void nds_state::nds_arm7_map(address_map &map)
 {
 	map(0x00000000, 0x00003fff).rom().region("arm7", 0);
-	map(0x02000000, 0x023fffff).ram().mirror(0x00400000).share("mainram");
+	map(0x02000000, 0x023fffff).ram().mirror(0x00c00000).share("mainram");
 	map(0x03000000, 0x0300ffff).mirror(0x007f0000).m(m_arm7wrambnk, FUNC(address_map_bank_device::amap32));
 	map(0x03800000, 0x0380ffff).ram().mirror(0x007f0000).share("arm7ram");
 	map(0x04000004, 0x04000007).rw(FUNC(nds_state::dispstat_r<1>), FUNC(nds_state::dispstat_w<1>));
@@ -1743,7 +1743,7 @@ void nds_state::nds_arm7_map(address_map &map)
 
 void nds_state::nds_arm9_map(address_map &map)
 {
-	map(0x02000000, 0x023fffff).ram().mirror(0x00400000).share("mainram");
+	map(0x02000000, 0x023fffff).ram().mirror(0x00c00000).share("mainram");
 	map(0x03000000, 0x03007fff).mirror(0x00ff8000).m("nds9wram", FUNC(address_map_bank_device::amap32));
 	map(0x04000000, 0x0400006f).rw(m_ppu[0], FUNC(gba_ppu_device::regs_r), FUNC(gba_ppu_device::regs_w));
 	map(0x04000004, 0x04000007).rw(FUNC(nds_state::dispstat_r<0>), FUNC(nds_state::dispstat_w<0>));
@@ -3111,6 +3111,8 @@ void nds_state::nds(machine_config &config)
 
 	// GBA slot: GBA mode is not emulated, so this is for the firmware's "Game Pak" panel and DS expansion paks
 	GBA_CART_SLOT(config, m_gbacart, gba_cart, nullptr);
+
+	SOFTWARE_LIST(config, "nds_list").set_original("nds");
 	SOFTWARE_LIST(config, "gba_list").set_compatible("gba");
 }
 
