@@ -230,7 +230,8 @@ NUM GAME YEAR COMPANY                 TITLE
 520 5345 2026 Z-team                  Midnight Wanderers (Neo-Geo port) 2-level demo
 521 5345 2026 Z-team                  Rick Dangerous DX
 522 0539 2026 Sabino                  Doom Geo (demo)
-523 0539 2026 Sabino                  Free Doom
+523 0539 2026 Sabino                  Free Doom (demo)
+524 2026 2026 Sabino                  Super Mario Bros.
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2991,8 +2992,27 @@ ROM_START( freedoom )
 ROM_END
 
 
+// 524: Super Mario Bros (not related to 495: New Super Mario Brothers)
+// Bugs: If the screen suddenly goes black, you'll have to restart the game
+ROM_START( smbn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "524.p1", 0x000000, 0x100000, CRC(7f2203e2) SHA1(40c8a2aaedfde648729341da967698e46ebeee46) )
+
+	NEO_SFIX_128K( "524.s1", CRC(d26aa99f) SHA1(9157796d485fe6fcf9d6563e8f0006e0d26d7c8f) )
+
+	NEO_BIOS_AUDIO_128K( "524.m1", CRC(407e6cb6) SHA1(be0de4793809801436f8d4b1e8c639cb121e1022) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "524.v1", 0x000000, 0x80000, CRC(87a8bcb3) SHA1(36005525795ef2c4779eae3955fae722a0abafb7) )
+
+	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "524.c1", 0x0000000, 0x200000, CRC(6ca43fd1) SHA1(35aacdc116d93d9ea719660e4d4ab13231944bc3) )
+	// c2 rom supplied is all zeroes, so not needed
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
-// bugs: screen goes black, sound stops after a few seconds
+// Bugs: If the screen suddenly goes black, you'll have to restart the game
 ROM_START( sgz ) // demo
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "539.p1", 0x000000, 0x100000, CRC(825d0989) SHA1(0b58b061af47df7bfe402fd8207aa7d9f76aecda) )
@@ -4594,6 +4614,7 @@ GAME( 2019, shaman24,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, shinobin,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.0 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobin1,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.1 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobint,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi Test (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )

@@ -45,6 +45,7 @@ New Games
 - [sfa2g]               Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-08-27)
 - [sfz2d]               Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-27)
 - [sfz2da]              Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-27)
+- [smbn]                Super Mario Bros. (Neo Geo)
 - [wjammers04]          Windjammers (Endless Breeze)
 
 

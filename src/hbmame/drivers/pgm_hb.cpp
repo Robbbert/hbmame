@@ -1057,7 +1057,7 @@ void pgm_hb::pgm(machine_config &config)
 
 	ICS2115(config, m_ics, 33.8688_MHz_XTAL);
 	m_ics->irq().set_inputline("soundcpu", 0);
-	m_ics->add_route(ALL_OUTPUTS, "mono", 2.0); // HBMAME - wind the volume up to 11
+	m_ics->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
 void pgm_hb::init_pgm()
@@ -1105,9 +1105,9 @@ ROM_START( pgemeni )
 	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
 	ROM_LOAD( "pgemeni.b1",          0x0000000, 0x400000, CRC(b4127373) SHA1(fa731bedec8ff4c19ec68bd44e8ce0b80ec0c716) )
 
-	ROM_REGION( 0x600000, "ics", 0 )
+	ROM_REGION( 0x600000, "ics", ROMREGION_ERASE00 )
 	PGM_AUDIO_BIOS
-	ROM_LOAD( "pgmdemo.m1",          0x400000, 0x200000, CRC(8d89877e) SHA1(7d76d48d64d7ac5411d714a4bb83f37e3e5b8df6) )
+	// supplied m1 rom is all zeroes, so not needed
 ROM_END
 
 ROM_START( pgmdemo )
@@ -1125,9 +1125,9 @@ ROM_START( pgmdemo )
 	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
 	ROM_LOAD( "pgmdemo.b1",          0x0000000, 0x400000, CRC(15dd191f) SHA1(a90f63138c9a9bf9215b17a14635518aed7da8a9) )
 
-	ROM_REGION( 0x600000, "ics", 0 )
+	ROM_REGION( 0x600000, "ics", ROMREGION_ERASE00 )
 	PGM_AUDIO_BIOS
-	ROM_LOAD( "pgmdemo.m1",          0x400000, 0x200000, CRC(8d89877e) SHA1(7d76d48d64d7ac5411d714a4bb83f37e3e5b8df6) )
+	// supplied m1 rom is all zeroes, so not needed
 ROM_END
 
 ROM_START( pgmfrog )

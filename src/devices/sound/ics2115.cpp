@@ -433,6 +433,10 @@ bool ics2115_device::ics2115_voice::playing()
 int ics2115_device::fill_output(ics2115_voice& voice, sound_stream &stream)
 {
 	bool irq_invalid = false;
+	//HBMAME fix the sound cutting out
+	const u16 fine = 1 << (3* (voice.vol.incr >> 6));
+	voice.vol.add = (voice.vol.incr & 0x3f) << (10 - fine);
+#if 0
 	// measured from hardware
 	switch (voice.vol.mode & 0x3)
 	{
@@ -448,7 +452,7 @@ int ics2115_device::fill_output(ics2115_voice& voice, sound_stream &stream)
 			voice.vol.add = voice.vol.incr << 10;
 			break;
 	}
-
+#endif
 	for (int i = 0; i < stream.samples(); i++)
 	{
 		const s32 volacc = (voice.vol.acc >> 14) & 0xfff;
