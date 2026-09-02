@@ -2142,7 +2142,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 					MameUIVerifyRomSet(nGameIndex, 0);
 					break;
 				case 1:
-					MameUIVerifySampleSet(nGameIndex, 0);
+					MameUIVerifySampleSet(nGameIndex);
 					break;
 			}
 
@@ -2270,7 +2270,7 @@ static BOOL FolderCheck(void)
 
 		if (GetSampleAuditResults(nGameIndex) == UNKNOWN)
 		{
-			MameUIVerifySampleSet(nGameIndex, 0);
+			MameUIVerifySampleSet(nGameIndex);
 			changed = true;
 		}
 
@@ -2327,7 +2327,7 @@ static BOOL GameCheck(void)
 
 	if (GetSampleAuditResults(game_index) == UNKNOWN)
 	{
-		MameUIVerifySampleSet(game_index, 0);
+		MameUIVerifySampleSet(game_index);
 		changed = true;
 	}
 

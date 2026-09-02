@@ -516,7 +516,7 @@ void InitDefaultPropertyPage(HINSTANCE hInst, HWND hWnd)
 	/* Create the Property sheet and display it */
 	if (PropertySheet(&pshead) == -1)
 	{
-		char temp[100] { };
+		char temp[100]{};
 		DWORD dwError = GetLastError();
 		snprintf(temp, sizeof(temp), "Property Sheet Error %d %X", (int)dwError, (int)dwError);
 		win_message_box_utf8(0, temp, "Error", IDOK);
@@ -625,7 +625,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 	/* Create the Property sheet and display it */
 	if (PropertySheet(&pshead) == -1)
 	{
-		char temp[100] { };
+		char temp[100]{};
 		DWORD dwError = GetLastError();
 		snprintf(temp, sizeof(temp), "Property Sheet Error %d %X", (int)dwError, (int)dwError);
 		win_message_box_utf8(0, temp, "Error", IDOK);
@@ -642,7 +642,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 /* Build CPU info string */
 static char *GameInfoCPU(int drvindex)
 {
-	static char buf[512] { };
+	static char buf[512]{};
 	if (drvindex < 0)
 		return buf;
 
@@ -688,7 +688,7 @@ static char *GameInfoCPU(int drvindex)
 /* Build Sound system info string */
 static char *GameInfoSound(int drvindex)
 {
-	static char buf[512] { };
+	static char buf[512]{};
 	if (drvindex < 0)
 		return buf;
 
@@ -747,7 +747,7 @@ static char *GameInfoSound(int drvindex)
 /* Build Display info string */
 static char *GameInfoScreen(int drvindex)
 {
-	static char buf[500] { };
+	static char buf[500]{};
 	if (drvindex < 0)
 		return buf;
 
@@ -794,7 +794,8 @@ static char *GameInfoScreen(int drvindex)
 // winui just gets the working/non-working line; info property sheet gets all
 const char *GameInfoStatus(int driver_index, BOOL full_report)
 {
-	static char buffer[2048] { };
+	static char buffer[2048]{};
+	memset(buffer,0,sizeof(char)*sizeof(buffer));
 	if (driver_index < 0)
 		return buffer;
 
@@ -840,7 +841,7 @@ const char *GameInfoStatus(int driver_index, BOOL full_report)
 /* Build game manufacturer string */
 static char *GameInfoManufactured(int drvindex)
 {
-	static char buf[128] { };
+	static char buf[128]{};
 
 	if (drvindex >= 0)
 		snprintf(buf, sizeof(buf), "%s %s",
@@ -853,7 +854,7 @@ static char *GameInfoManufactured(int drvindex)
 // The title on each property page
 char *GameInfoTitle(OPTIONS_TYPE opt_type, int drvindex)
 {
-	static char buf[128] { };
+	static char buf[128]{};
 
 	switch (opt_type)
 	{
@@ -891,7 +892,7 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, int drvindex)
 /* Build game clone information string */
 static char *GameInfoCloneOf(int drvindex)
 {
-	static char buf[1024] { };
+	static char buf[1024]{};
 
 	if ((drvindex >= 0) && DriverIsClone(drvindex))
 	{
@@ -990,7 +991,7 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 			WORD wNotifyCode = GET_WM_COMMAND_CMD(wParam, lParam);
 			BOOL changed     = false;
 			int nCurSelection = 0;
-			TCHAR szClass[256];
+			TCHAR szClass[256]{};
 
 			switch (wID)
 			{
@@ -1285,7 +1286,7 @@ static void PropToOptions(HWND hWnd, windows_options &o)
 		else
 		{
 			int n = 0, d = 0;
-			TCHAR buffer[200];
+			TCHAR buffer[200]{};
 
 			Edit_GetText(hCtrl, buffer, std::size(buffer));
 			_stscanf(buffer,TEXT("%d"),&n);
@@ -1316,7 +1317,7 @@ static void PropToOptions(HWND hWnd, windows_options &o)
 		else
 		{
 			int width = 0, height = 0;
-			TCHAR buffer[200];
+			TCHAR buffer[200]{};
 
 			Edit_GetText(hCtrl, buffer, std::size(buffer));
 			_stscanf(buffer, TEXT("%d"), &width);
@@ -1359,9 +1360,9 @@ static void UpdateProperties(HWND hDlg, datamap *map, windows_options &o)
 	In both cases, the vsh is entered into the ini-file, but without the extension */
 static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 {
-	char filename[MAX_PATH] { };
+	char filename[MAX_PATH]{};
 	bool changed = false;
-	char shader[32] { };
+	char shader[32]{};
 	int dialog;
 
 	*filename = 0;
@@ -1378,7 +1379,7 @@ static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_SHADER_FILES))
 	{
-		char option[MAX_PATH] { };
+		char option[MAX_PATH]{};
 		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		PathRemoveExtension(tempname); // this function wants wchar
 		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());
@@ -1399,7 +1400,7 @@ static bool ResetGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 {
 	bool changed = false;
 	const char *new_value = "none";
-	char option[32] { };
+	char option[32]{};
 	int dialog;
 
 	if (is_scr)
@@ -1429,7 +1430,7 @@ static void UpdateMameShader(HWND hWnd, int slot, windows_options &o)
 
 	if (hCtrl)
 	{
-		char option[32] { };
+		char option[32]{};
 		snprintf(option, std::size(option), "glsl_shader_mame%d", slot);
 		const char* value = o.value(option);
 
@@ -1446,7 +1447,7 @@ static void UpdateScreenShader(HWND hWnd, int slot, windows_options &o)
 
 	if (hCtrl)
 	{
-		char option[32] { };
+		char option[32]{};
 		snprintf(option, std::size(option), "glsl_shader_screen%d", slot);
 		const char* value = o.value(option);
 
@@ -1461,7 +1462,7 @@ static void UpdateScreenShader(HWND hWnd, int slot, windows_options &o)
 static void OptionsToProp(HWND hWnd, windows_options& o)
 {
 	HWND hCtrl2;
-	TCHAR buf[1024];
+	TCHAR buf[1024]{};
 	int  n = 0;
 	int  d = 0;
 	int  width = 0;
@@ -1605,7 +1606,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		else
 		{
 			const char* script = c.c_str();
-			char buffer[260] { };
+			char buffer[260]{};
 			wchar_t *tempname = PathFindFileName(ui_to_utf16(script).c_str());
 			PathRemoveExtension(tempname);
 			snprintf(buffer, sizeof(buffer), "%s", ui_to_utf8(tempname).c_str());
@@ -2026,7 +2027,7 @@ HANDLE winui_find_first_file_utf8(const char* filename, WIN32_FIND_DATA *findfil
 static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *o, const char *option_name)
 {
 	WIN32_FIND_DATA FindFileData;
-	char path[MAX_PATH] { };
+	char path[MAX_PATH]{};
 	int selected = 0;
 	int index = 0;
 
@@ -2046,7 +2047,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 		while (FindNextFile (hFind, &FindFileData) != 0)
 		{
 			// copy the filename
-			const char *root = ui_to_utf8(FindFileData.cFileName).c_str();
+			const char *root = ui_utf8_from_wstring(FindFileData.cFileName);
 			// find the extension
 			char *ext = strrchr(root, '.');
 
@@ -2063,9 +2064,11 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 						selected = index;
 
 					// add it as an option
-					const wchar_t *t_root = ui_to_utf16(root).c_str();
+					wchar_t *t_root = ui_wstring_from_utf8(root);
 					ComboBox_InsertString(control, index, t_root);
 					ComboBox_SetItemData(control, index, root);
+					free(t_root);
+					root = NULL;
 					index++;
 				}
 			}
@@ -2095,11 +2098,11 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 	HWND refresh_control = GetDlgItem(dialog, IDC_REFRESH);
 	HWND sizes_control = GetDlgItem(dialog, IDC_SIZES);
 	int width = 0, height = 0;
-	char option_value[256] { };
+	char option_value[256]{};
 
 	if (refresh_control && sizes_control)
 	{
-		TCHAR buffer[256] { };
+		TCHAR buffer[256]{};
 		ComboBox_GetText(sizes_control, buffer, std::size(buffer) - 1);
 		if (_stscanf(buffer, TEXT("%d x %d"), &width, &height) == 2)
 		{
@@ -2128,8 +2131,8 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 	int sizes_selection = 0;
 	int refresh_selection = 0;
 	string screen_option;
-	std::wstring t_screen;
-	TCHAR buf[16];
+	LPTSTR t_screen;
+	TCHAR buf[16]{};
 	int i;
 	DEVMODE devmode;
 
@@ -2162,16 +2165,16 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 			screen_option += std::to_string(m_currScreen);
 
 		if (screen_option == "screen")
-			t_screen.clear();
+			t_screen = NULL;
 		else
 		{
 			string screen = emu_get_value(o, screen_option);
-			t_screen = ui_to_utf16(screen);
+			t_screen = ui_wstring_from_utf8(screen.c_str());
 		}
 
 		// retrieve screen information
 		devmode.dmSize = sizeof(devmode);
-		for (i = 0; EnumDisplaySettings(t_screen.c_str(), i, &devmode); i++)
+		for (i = 0; EnumDisplaySettings(t_screen, i, &devmode); i++)
 		{
 			if ((devmode.dmBitsPerPel == 32 ) // Only 32 bit depth supported by core
 				&&(devmode.dmDisplayFrequency == refresh || refresh == 0))
@@ -2206,8 +2209,8 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 				}
 			}
 		}
-		//if (t_screen)
-			//free(t_screen);
+		if (t_screen)
+			free(t_screen);
 
 		ComboBox_SetCurSel(sizes_control, sizes_selection);
 		ComboBox_SetCurSel(refresh_control, refresh_selection);
@@ -3009,14 +3012,14 @@ static void InitializeBGFXBackendUI(HWND hWnd)
 
 static BOOL SelectEffect(HWND hWnd)
 {
-	char filename[MAX_PATH];
+	char filename[MAX_PATH]{};
 	BOOL changed = false;
 
 	*filename = 0;
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_EFFECT_FILES))
 	{
 		//strip Path and extension
-		char buff[MAX_PATH];
+		char buff[MAX_PATH]{};
 		int i, j = 0, k = 0, l = 0;
 		for(i=0; i<strlen(filename); i++ )
 		{
@@ -3065,11 +3068,11 @@ static BOOL ResetEffect(HWND hWnd)
 int winui_get_window_text_utf8(HWND hWnd, char *buffer, size_t buffer_size)
 {
 	int result = 0;
-	wchar_t t_buffer[256] { };
+	wchar_t t_buffer[256]{};
 
 	// invoke the core Win32 API
 	GetWindowText(hWnd, t_buffer, std::size(t_buffer));
-	const char *utf8_buffer = ui_to_utf8(t_buffer).c_str();
+	const char *utf8_buffer = ui_utf8_from_wstring(t_buffer);
 
 	if (!utf8_buffer)
 		return result;
@@ -3081,7 +3084,7 @@ int winui_get_window_text_utf8(HWND hWnd, char *buffer, size_t buffer_size)
 static BOOL ChangeFallback(HWND hWnd)
 {
 	BOOL changed = false;
-	char data[90];
+	char data[90]{};
 
 	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_ARTWORK_FALLBACK), data, std::size(data));
 
@@ -3097,7 +3100,7 @@ static BOOL ChangeFallback(HWND hWnd)
 static BOOL ChangeOverride(HWND hWnd)
 {
 	BOOL changed = false;
-	char data[90];
+	char data[90]{};
 
 	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_ARTWORK_OVERRIDE), data, std::size(data));
 
@@ -3113,7 +3116,7 @@ static BOOL ChangeOverride(HWND hWnd)
 static BOOL ChangeJoystickMap(HWND hWnd)
 {
 	BOOL changed = false;
-	char joymap[90];
+	char joymap[90]{};
 
 	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_JOYSTICKMAP), joymap, std::size(joymap));
 
@@ -3143,15 +3146,15 @@ static BOOL ResetJoystickMap(HWND hWnd)
 
 static bool SelectLUAScript(HWND hWnd)
 {
-	char filename[MAX_PATH] { };
+	char filename[MAX_PATH]{};
 	bool changed = false;
 
 	*filename = 0;
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_LUASCRIPT_FILES))
 	{
-		char option[MAX_PATH] { };
-		char script[MAX_PATH] { };
+		char option[MAX_PATH]{};
+		char script[MAX_PATH]{};
 		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		snprintf(script, sizeof(script), "%s", ui_to_utf8(tempname).c_str());
 		PathRemoveExtension(tempname);
@@ -3231,14 +3234,14 @@ static bool ResetPlugins(HWND hWnd)
 
 static bool SelectBGFXChains(HWND hWnd)
 {
-	char filename[MAX_PATH] { };
+	char filename[MAX_PATH]{};
 	bool changed = false;
 
 	*filename = 0;
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_BGFX_FILES))
 	{
-		char option[MAX_PATH] { };
+		char option[MAX_PATH]{};
 		wchar_t *tempname = PathFindFileName(ui_to_utf16(filename).c_str());
 		PathRemoveExtension(tempname);
 		snprintf(option, sizeof(option), "%s", ui_to_utf8(tempname).c_str());
@@ -3332,7 +3335,7 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 {
 	int directory_count;
 	LV_ITEM lvi;
-	TCHAR buffer[2048];
+	TCHAR buffer[2048]{};
 	int pos = 0;
 
 	// determine the directory count; note that one item is the "<    >" entry
@@ -3441,8 +3444,8 @@ static void MarkChanged(HWND hDlg)
 
 static BOOL SoftwareDirectories_OnInsertBrowse(HWND hDlg, BOOL bBrowse, LPCTSTR lpItem)
 {
-	TCHAR inbuf[MAX_PATH];
-	TCHAR outbuf[MAX_PATH];
+	TCHAR inbuf[MAX_PATH]{};
+	TCHAR outbuf[MAX_PATH]{};
 	LPTSTR lpIn;
 
 	g_bModifiedSoftwarePaths = true;

@@ -186,7 +186,7 @@ int MameUIVerifyRomSet(int game, bool choice)
 }
 
 // Verifies the Sample set while calling SetSampleAuditResults
-int MameUIVerifySampleSet(int game, int box)
+int MameUIVerifySampleSet(int game)
 {
 	driver_enumerator enumerator(MameUIGlobal(), driver_list::driver(game));
 	enumerator.next();
@@ -206,7 +206,7 @@ int MameUIVerifySampleSet(int game, int box)
 
 	// output the summary of the audit
 	if (!summary_string.empty())
-		DetailsPrintf(box, "%s", summary_string.c_str());
+		DetailsPrintf(1, "%s", summary_string.c_str());
 
 	SetSampleAuditResults(game, summary);
 	return summary;
@@ -214,7 +214,7 @@ int MameUIVerifySampleSet(int game, int box)
 
 static DWORD WINAPI AuditThreadProc(LPVOID hDlg)
 {
-	char s[80] { };
+	char s[80]{};
 
 	while (!bCancel)
 	{
@@ -329,7 +329,7 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 
 			if (DriverUsesSamples(rom_index))
 			{
-				iStatus = MameUIVerifySampleSet(rom_index, 0);
+				iStatus = MameUIVerifySampleSet(rom_index);
 				lpStatus = StatusString(iStatus);
 			}
 			else
@@ -348,7 +348,7 @@ INT_PTR CALLBACK GameAuditDialogProc(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lPa
 static void ProcessNextRom()
 {
 	int retval = 0;
-	TCHAR buffer[20] { };
+	TCHAR buffer[20]{};
 
 	retval = MameUIVerifyRomSet(rom_index, 1);
 	switch (retval)
@@ -386,9 +386,9 @@ static void ProcessNextRom()
 static void ProcessNextSample()
 {
 	int retval = 0;
-	TCHAR buffer[20] { };
+	TCHAR buffer[20]{};
 
-	retval = MameUIVerifySampleSet(sample_index, 1);
+	retval = MameUIVerifySampleSet(sample_index);
 
 	switch (retval)
 	{
@@ -429,33 +429,27 @@ static void ProcessNextSample()
 
 static void CLIB_DECL DetailsPrintf(int box, const char *fmt, ...)
 {
-	//RS 20030613 Different Ids for Property Page and Dialog
-	// so see which one's currently instantiated
-	HWND hEdit = 0;
-	if (box == 0)
+	// This does the audit boxes for all systems and for an individual game.
+	// See if it's all systems
+	HWND hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
+	// if not open, try individual game
+	if (!hEdit)
 	{
-		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
+		// if this system has separate boxes for samples, try that
+		// otherwise all errors go into the roms box
+		if (box)
+			hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP1);
 		if (!hEdit)
 			hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP0);
 	}
-	else
-	if (box == 1)
-	{
-		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
-		if (!hEdit)
-			hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP1);
-	}
 
+	// Still nothing? Most likely doing an F5 audit, which has no boxes.
 	if (!hEdit)
-	{
-		// Auditing via F5 - no window to display the results
-		//printf("audit detailsprintfsprintf() can't find any audit control\n");
 		return;
-	}
 
 	va_list marker;
 	va_start(marker, fmt);
-	char s[8000] { };
+	char s[8000]{};
 	vsnprintf(s, sizeof(s), fmt, marker);
 	va_end(marker);
 
