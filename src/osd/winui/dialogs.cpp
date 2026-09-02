@@ -11,12 +11,6 @@
 ***************************************************************************/
 
 
-#ifdef _MSC_VER
-#ifndef NONAMELESSUNION
-#define NONAMELESSUNION
-#endif
-#endif
-
 // standard windows headers
 #include <windows.h>
 #include <windowsx.h>

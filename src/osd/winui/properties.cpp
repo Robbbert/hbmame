@@ -1940,7 +1940,7 @@ static BOOL ScreenPopulateControl(datamap *map, HWND dialog, HWND control, windo
 			if (m_currScreen >= 0)
 				screen_option += std::to_string(m_currScreen);
 			string screen = emu_get_value(o, screen_option);
-			const wchar_t* t_option = ui_to_utf16(screen.c_str()).c_str();
+			const wchar_t* t_option = ui_to_utf16(screen).c_str();
 			if( !t_option )
 				return false;
 			if (_tcscmp(t_option, dd.DeviceName) == 0)
@@ -3380,7 +3380,7 @@ static BOOL DirListPopulateControl(datamap *map, HWND dialog, HWND control, wind
 
 	if (dirs)
 	{
-		t_dir_list = ui_to_utf16(c.c_str()).c_str();
+		t_dir_list = ui_to_utf16(c).c_str();
 		if (!t_dir_list)
 			return false;
 	}
