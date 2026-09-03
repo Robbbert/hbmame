@@ -122,7 +122,7 @@ NUM GAME YEAR COMPANY                 TITLE
 258*     2002 ADK                     Dance RhythMIX
 300 0300 2006 NG:DEV.Team             Last Hope
 301*     2010 NG:DEV.Team             Fast Striker (GAME#0301?)
-302*     2011 NG:DEV.Team             Last Hope Pink Bullets (could be year2008) (GAME#0302?)
+302*     2011 NG:DEV.Team             Last Hope Pink Bullets (GAME#0302?)
 303*     2012 NG:DEV.Team             Gunlord (GAME#0303?)
 304*     2013 NG:DEV.Team             NEO XYX (GAME#0304?)
 305*     2014 NG:DEV.Team             Razion (GAME#0305?)
@@ -163,10 +163,12 @@ GAME = Game number inside the rom (personally verified)
 
 NUM GAME YEAR COMPANY                 TITLE
 ---.----.----.-----------------------.-------------------------------------------
+300 0301 2020 Elrayzeur               Last Hope Blue Bullets
+300 0278 2026 =LoW=                   Last Hope Pink Bullets
 400 0066 1999 Kyle Hodgetts           Digger Man
 403 2003 2003 Neobitz                 Poker Night
 404 2000 2004 Neobitz                 Columns
-407 2000 2002 Blastar                 Neo no Panepon (also GAME#2000?)
+407 2000 2002 Blastar                 Neo no Panepon
 408 1234 2004 Blastar                 Neo Puzzle League
 409 FFFF 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
 410 FFFF 2006 Blastar                 Codename: Blut Engel
@@ -838,6 +840,26 @@ ROM_START( lhbb )  // AES V1.1 - Last Hope with Blue Bullets (hack)
 	ROM_LOAD16_BYTE( "300.c2", 0x000001, 0x400000, CRC(f9b15ab3) SHA1(d8ff2f43686bfc8c2f7ead3ef445e51c15dfbf16) )
 	ROM_LOAD16_BYTE( "300.c3", 0x800000, 0x400000, CRC(50cc21cf) SHA1(0350aaef480c5fa12e68e540a4c974dbf5870add) )
 	ROM_LOAD16_BYTE( "300.c4", 0x800001, 0x400000, CRC(8486ad9e) SHA1(19a2a73c825687e0cb9fd62bde00db91b5409529) )
+ROM_END
+
+ROM_START( lhpb )  // V1.0 - Last Hope with Pink Bullets (hack by =LoW=) - not the original
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "300pb.p1", 0x000000, 0x100000, CRC(b81dd2e0) SHA1(53cfc791267e56d07f1288a20fd1cca4a9f7c631) )
+
+	NEO_SFIX_128K( "300pb.s1", CRC(f0719dbb) SHA1(8d1faa2dac59579b7bda6bdafd8bac5b794ce2f0) )
+
+	NEO_BIOS_AUDIO_128K( "300pb.m1", CRC(4b395814) SHA1(5fc88b369dceb6b8ff5ff42e284d7def0aad1148) )
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "300pb.v1", 0x000000, 0x200000, CRC(2dda0948) SHA1(dc791a41d16b3aeb27f8da2fb7656b73ace579e1) )
+	ROM_LOAD( "300pb.v2", 0x200000, 0x200000, CRC(056f66ef) SHA1(d3ef0d5b75bc763f865315cbd3344e395a6673df) )
+	ROM_LOAD( "300pb.v3", 0x400000, 0x200000, CRC(3754d8f9) SHA1(620098a19151e289471cdab2230d71caacdab70c) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "300pb.c1", 0x000000, 0x400000, CRC(bc2d2a8b) SHA1(fd57c05863649ff609d3927c9d7c02d67b752f50) )
+	ROM_LOAD16_BYTE( "300pb.c2", 0x000001, 0x400000, CRC(1673318d) SHA1(6c3fafd7b3d22021c1430a9c019f63200e0cb5d7) )
+	ROM_LOAD16_BYTE( "300pb.c3", 0x800000, 0x400000, CRC(bf0e4af1) SHA1(41dac8b64e429550964529069e90a503a3b3dd35) )
+	ROM_LOAD16_BYTE( "300pb.c4", 0x800001, 0x400000, CRC(6b44c6a0) SHA1(295a60f69f6ed9a015b7d8790b88615ecf4f81f6) )
 ROM_END
 
 
@@ -4542,7 +4564,8 @@ GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "NG:DEV.TEAM", "Last Hope JP NGCD (Beta V0.52)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "NG:DEV.TEAM", "Last Hope JP NGCD (Beta v0.52)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, lhpb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "=LoW=", "Last Hope (Pink Bullets, hack, v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )

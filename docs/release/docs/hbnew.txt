@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2026-xx-xx 0.290.1
+
+
+
+New Games
+---------------------------------
+- [lhpb]                Last Hope Pink Bullets (hack)
+
+
+
+
 2026-09-03 0.289.2
 
 
