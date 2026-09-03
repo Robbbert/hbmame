@@ -41,7 +41,7 @@ ROM_END
 ************/
 ROM_START( sengoku2s01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "040s01.p1", 0x000000, 0x100000, CRC(ad8f774e) SHA1(c3133ff45b97b6f80ef32a1f1486fef212572bc6) )
+	ROM_LOAD16_WORD_SWAP( "040s01.p1", 0x000000, 0x100000, CRC(551e137e) SHA1(178c7dea02138b02b6f3589e9bd1a109c19dcf70) )
 
 	NEO_SFIX_128K( "040.s1", CRC(cd9802a3) SHA1(f685d4638f4f68e7e3f101c0c39128454536721b) )
 
@@ -52,9 +52,9 @@ ROM_START( sengoku2s01 )
 	ROM_LOAD( "040.v2", 0x200000, 0x100000, CRC(c5cece01) SHA1(923a3377dac1919e8c3d9ab316902250caa4785f) )
 
 	ROM_REGION( 0x600000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "040s01.c1", 0x000000, 0x100000, CRC(4659be44) SHA1(910146a95bb77e34bc9b196142e59cbbdbba34b5) )
+	ROM_LOAD16_BYTE( "040s01.c1", 0x000000, 0x100000, CRC(7863e00c) SHA1(5fc9d88bd9cacbc36716d1223989f2245c883690) )
 	ROM_CONTINUE( 0x400000, 0x100000 )
-	ROM_LOAD16_BYTE( "040s01.c2", 0x000001, 0x100000, CRC(17765684) SHA1(727d315e13d82cf61a266226028dd72d04af6215) )
+	ROM_LOAD16_BYTE( "040s01.c2", 0x000001, 0x100000, CRC(5f5105ff) SHA1(9534a19a2ec6a5e314b2b42f1f298e5065f4bea2) )
 	ROM_CONTINUE( 0x400001, 0x100000 )
 	ROM_LOAD16_BYTE( "040s01.c3", 0x200000, 0x080000, CRC(7a846578) SHA1(c6b9cbc5eed8b8f542cba14dc79b2b3f347cd862) )
 	ROM_LOAD16_BYTE( "040s01.c4", 0x200001, 0x080000, CRC(15eba55e) SHA1(95d9f2a3330798bfe5ff48b02a3459e7aa7c4ad5) )
@@ -681,7 +681,7 @@ ROM_END
  // Sengoku
 GAME( 2007, sengoku01,      sengoku,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "SNK", "Sengoku (CD conversion)", MACHINE_SUPPORTS_SAVE )
  // Sengoku 2
-GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood v1.17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sengoku2s01,    sengoku2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Raphael-Boichot", "Sengoku 2 (Red Blood v1.18)", MACHINE_SUPPORTS_SAVE )
  // Sengoku 3
 GAME( 2001, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_state, init_sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3s02,    sengoku3, neogeo_noslot, neogeo, neogeo_state, init_sengoku3,  ROT0, "sjx [FCHT]", "Sengoku 3 (Evolution V1.0a)" , MACHINE_SUPPORTS_SAVE )

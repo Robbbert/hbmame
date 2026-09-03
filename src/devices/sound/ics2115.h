@@ -15,7 +15,7 @@
 class ics2115_device : public device_t, public device_sound_interface, public device_memory_interface
 {
 public:
-	//static constexpr feature_type imperfect_features() { return feature::SOUND; } // Incorrect/Unverified interrupt, interpolation;
+	static constexpr feature_type imperfect_features() { return feature::SOUND; } // Incorrect/Unverified interrupt, interpolation;
 	// current ramping behavior is seems like incorrect?
 
 	// construction/destruction
@@ -53,7 +53,7 @@ private:
 			s32 left;
 			u32 acc, start, end; // address counters (20.9 fixed point)
 			u16 fc;              // frequency (6.9 fixed point)
-			u8 ctl, saddr;
+			u8 saddr;
 		} osc;
 
 		struct {
@@ -65,6 +65,16 @@ private:
 			u8 incr;
 			u8 pan, mode;
 		} vol;
+
+		union {
+			struct {
+				u8 done       : 1;   // done flag
+				u8 stop       : 1;   // stop flag
+				u8            : 6;   // padding
+				// IRQ on variable?
+			} bitflags;
+			u8 value;
+		} osc_ctrl;
 
 		union {
 			struct {
@@ -95,12 +105,6 @@ private:
 			} bitflags;
 			u8 value;
 		} vol_ctrl;
-
-		// Possibly redundant state. => improvements of wavetable logic
-		// may lead to its elimination.
-		struct {
-			bool on;
-		} state;
 
 		u16 regs[0x20]; // channel registers
 		bool playing();

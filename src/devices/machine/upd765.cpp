@@ -214,6 +214,7 @@ upd765_family_device::upd765_family_device(const machine_config &mconfig, device
 	intrq_cb(*this),
 	drq_cb(*this),
 	hdl_cb(*this),
+	mtr0_cb(*this),
 	idx_cb(*this),
 	ts_cb(*this, ASSERT_LINE),
 	us_cb(*this)
@@ -562,6 +563,9 @@ void upd765_family_device::dor_w(uint8_t data)
 			fi.dev->mon_w(!(dor & (0x10 << i)));
 	}
 	check_irq();
+
+	if(BIT(diff, 4))
+		mtr0_cb(BIT(dor, 4));
 }
 
 uint8_t upd765_family_device::tdr_r()
@@ -584,7 +588,7 @@ uint8_t upd765_family_device::msr_r()
 		break;
 	case PHASE_EXEC:
 		msr |= MSR_CB;
-		if((spec & SPEC_ND) && internal_drq)
+		if((spec & SPEC_ND) && !(st1 & ST1_ND))
 			msr |= MSR_EXM;
 		if(internal_drq) {
 			msr |= MSR_RQM;
@@ -1499,6 +1503,8 @@ int ps2_fdc_device::check_command()
 		return C_LOCK;
 
 	default:
+		if((command[0] & 0xbf) == 0x21)
+			return check_command_set_track();
 		return upd765_family_device::check_command();
 	}
 }
@@ -1673,10 +1679,35 @@ void ps2_fdc_device::execute_command(int cmd)
 		main_phase = PHASE_CMD;
 		break;
 
+	case C_SET_TRACK:
+		execute_command_set_track();
+		break;
+
 	default:
 		upd765_family_device::execute_command(cmd);
 		break;
 	}
+}
+
+int upd765_family_device::check_command_set_track() const
+{
+	if((command[0] & 0xbf) != 0x21)
+		return C_INVALID;
+	if(command_pos < 3)
+		return C_INCOMPLETE;
+	return (command[1] & 0xf8) == 0x30 ? C_SET_TRACK : C_INVALID;
+}
+
+void upd765_family_device::execute_command_set_track()
+{
+	floppy_info &fi = flopi[command[1] & 3];
+	bool high = BIT(command[1], 2);
+	LOGCOMMAND("command set track %d %s%s\n", command[1] & 3, high ? "high" : "low", BIT(command[0], 6) ? " write" : "");
+	if(BIT(command[0], 6) && !high)
+		fi.pcn = command[2];
+	main_phase = PHASE_RESULT;
+	result[0] = high ? 0x00 : fi.pcn;
+	result_pos = 1;
 }
 
 void upd765_family_device::command_end(floppy_info &fi, bool data_completion)
@@ -1850,7 +1881,7 @@ void upd765_family_device::read_data_start(floppy_info &fi)
 				cur_rate);
 
 	fi.st0 = command[1] & 7;
-	st1 = ST1_MA;
+	st1 = 0x00;
 	st2 = 0x00;
 	hdl_cb(1);
 	set_ds(command[1] & 3);
@@ -1867,6 +1898,7 @@ void upd765_family_device::read_data_start(floppy_info &fi)
 
 	if(fi.dev)
 		fi.dev->ss_w(command[1] & 4 ? 1 : 0);
+	st1 = ST1_MA | ST1_ND;
 	read_data_continue(fi);
 }
 
@@ -1894,7 +1926,7 @@ void upd765_family_device::scan_start(floppy_info &fi)
 				cur_rate);
 
 	fi.st0 = command[1] & 7;
-	st1 = ST1_MA;
+	st1 = 0x00;
 	st2 = 0x00;
 	scan_done = false;
 	hdl_cb(1);
@@ -1912,6 +1944,7 @@ void upd765_family_device::scan_start(floppy_info &fi)
 
 	if(fi.dev)
 		fi.dev->ss_w(command[1] & 4 ? 1 : 0);
+	st1 = ST1_MA | ST1_ND;
 	read_data_continue(fi);
 }
 
@@ -2124,7 +2157,7 @@ void upd765_family_device::write_data_start(floppy_info &fi)
 		fi.dev->ss_w(command[1] & 4 ? 1 : 0);
 
 	fi.st0 = command[1] & 7;
-	st1 = ST1_MA;
+	st1 = 0x00;
 	st2 = 0x00;
 	hdl_cb(1);
 	set_ds(command[1] & 3);
@@ -2147,6 +2180,7 @@ void upd765_family_device::write_data_start(floppy_info &fi)
 		return;
 	}
 
+	st1 = ST1_MA | ST1_ND;
 	write_data_continue(fi);
 }
 
@@ -2273,7 +2307,7 @@ void upd765_family_device::read_track_start(floppy_info &fi)
 				command[8],
 				cur_rate);
 	fi.st0 = command[1] & 7;
-	st1 = ST1_MA;
+	st1 = 0x00;
 	st2 = 0x00;
 	hdl_cb(1);
 	set_ds(command[1] & 3);
@@ -2290,6 +2324,7 @@ void upd765_family_device::read_track_start(floppy_info &fi)
 
 	if(fi.dev)
 		fi.dev->ss_w(command[1] & 4 ? 1 : 0);
+	st1 = ST1_MA | ST1_ND;
 	read_track_continue(fi);
 }
 
@@ -3269,6 +3304,21 @@ void dp8473_device::soft_reset()
 	irq = true;
 }
 
+int dp8473_device::check_command()
+{
+	if((command[0] & 0xbf) == 0x21)
+		return check_command_set_track();
+	return upd765_family_device::check_command();
+}
+
+void dp8473_device::execute_command(int cmd)
+{
+	if(cmd == C_SET_TRACK)
+		execute_command_set_track();
+	else
+		upd765_family_device::execute_command(cmd);
+}
+
 pc8477a_device::pc8477a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : ps2_fdc_device(mconfig, PC8477A, tag, owner, clock)
 {
 	ready_polled = true;
@@ -3278,6 +3328,24 @@ pc8477a_device::pc8477a_device(const machine_config &mconfig, const char *tag, d
 	recalibrate_steps = 85; // TODO: may also be programmed as 255, 3925 or 4095 by (unemulated) mode command
 }
 
+int pc8477a_device::check_command()
+{
+	if((command[0] & 0x1f) == 0x18)
+		return C_NSC;
+	return ps2_fdc_device::check_command();
+}
+
+void pc8477a_device::execute_command(int cmd)
+{
+	if(cmd == C_NSC) {
+		LOGCOMMAND("command nsc\n");
+		main_phase = PHASE_RESULT;
+		result[0] = 0x72;
+		result_pos = 1;
+	} else
+		ps2_fdc_device::execute_command(cmd);
+}
+
 pc8477b_device::pc8477b_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : ps2_fdc_device(mconfig, PC8477B, tag, owner, clock)
 {
 	ready_polled = true;
@@ -3285,6 +3353,24 @@ pc8477b_device::pc8477b_device(const machine_config &mconfig, const char *tag, d
 	select_connected = true;
 	select_multiplexed = false;
 	recalibrate_steps = 85; // TODO: may also be programmed as 255, 3925 or 4095 by (unemulated) mode command
+}
+
+int pc8477b_device::check_command()
+{
+	if((command[0] & 0x1f) == 0x18)
+		return C_NSC;
+	return ps2_fdc_device::check_command();
+}
+
+void pc8477b_device::execute_command(int cmd)
+{
+	if(cmd == C_NSC) {
+		LOGCOMMAND("command nsc\n");
+		main_phase = PHASE_RESULT;
+		result[0] = 0x73;
+		result_pos = 1;
+	} else
+		ps2_fdc_device::execute_command(cmd);
 }
 
 wd37c65_device::wd37c65_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock) :

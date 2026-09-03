@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2026-xx-xx 0.290.1
+2026-09-03 0.289.2
 
 
 
@@ -51,7 +51,7 @@ New Games
 
 Updated Games
 ---------------------------------
-- [sengoku2s01]         Sengoku 2 (Red Blood, v1.17)
+- [sengoku2s01]         Sengoku 2 (Red Blood, v1.18)
 - [sf2prime]            Street Fighter II': Prime (v0.80)
 
 
