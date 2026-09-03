@@ -2,7 +2,7 @@ set from=c:\HBMAME
 set to=c:\HBMAME\docs\release
 
 rd %to%\src /q /s
-rd %to%\scripts /q /s
+echo D | rd %to%\scripts /q /s
 
 md %to%\src\emu
 
@@ -75,5 +75,7 @@ md %to%\src\osd\windows
 copy /Y %from%\src\osd\windows\winmain.*            %to%\src\osd\windows
 
 rem now save all our stuff to github
+md %to%\build
+md %to%\scripts
 copy %from%\*.bat                                   %to%\build
 xcopy /E /Y %from%\scripts                          %to%\scripts

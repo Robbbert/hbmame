@@ -16,40 +16,12 @@
 #include "mui_util.h" // For ErrorMsg
 #include "directinput.h"
 
-/***************************************************************************
-    function prototypes
- ***************************************************************************/
-
-/***************************************************************************
-    External variables
- ***************************************************************************/
-
-/***************************************************************************
-    Internal structures
- ***************************************************************************/
-
-/***************************************************************************
-    Internal variables
- ***************************************************************************/
 
 static LPDIRECTINPUT di = NULL;
 
 static HANDLE hDLL = NULL;
 
-/***************************************************************************
-    External functions
- ***************************************************************************/
-
-/****************************************************************************
- *      DirectInputInitialize
- *
- *      Initialize the DirectInput variables.
- *
- *      This entails the following functions:
- *
- *          DirectInputCreate
- *
- ****************************************************************************/
+/****************************************************************************/
 
 typedef HRESULT (WINAPI *dic_proc)(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUT *ppDI, LPUNKNOWN punkOuter);
 
@@ -67,11 +39,7 @@ BOOL DirectInputInitialize()
 		return FALSE;
 
 	dic_proc dic;
-#ifdef UNICODE
 	dic = (dic_proc)GetProcAddress((HINSTANCE)hDLL, "DirectInputCreateW");
-#else
-	dic = (dic_proc)GetProcAddress((HINSTANCE)hDLL, "DirectInputCreateA");
-#endif
 	if (dic == NULL)
 		return false;
 

@@ -27,7 +27,6 @@
 #include "mui_opts.h"
 #include "emu_opts.h"
 #include "drivenum.h"
-#include "machine/ram.h"
 #include <shlwapi.h>
 #include "corestr.h"
 #include "path.h"
@@ -59,7 +58,6 @@ struct DriversInfo
 	bool usesMouse;
 	bool supportsSaveState;
 	bool isVertical;
-	bool hasRam;
 };
 
 static std::vector<DriversInfo> drivers_info;
@@ -79,7 +77,6 @@ enum
 	DRIVER_CACHE_LIGHTGUN   = 0x0800,
 	DRIVER_CACHE_VECTOR     = 0x1000,
 	DRIVER_CACHE_MOUSE      = 0x2000,
-	DRIVER_CACHE_RAM        = 0x4000,
 };
 
 /***************************************************************************
@@ -93,19 +90,15 @@ void __cdecl ErrorMsg(const char* fmt, ...)
 {
 	static FILE* pFile = NULL;
 	DWORD dwWritten;
-	char buf[5000];
-	char buf2[5000];
+	char buf[5000]{};
+	char buf2[5000]{};
 	va_list va;
-
 	va_start(va, fmt);
-
-	vsprintf(buf, fmt, va);
+	vsnprintf(buf, sizeof(buf), fmt, va);
 
 	win_message_box_utf8(GetActiveWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
 
-	strcpy(buf2, MAMEUINAME ": ");
-	strcat(buf2,buf);
-	strcat(buf2, "\n");
+	snprintf(buf2, sizeof(buf2), "MAMEUINAME : %s\n",buf);
 
 	WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), buf2, strlen(buf2), &dwWritten, NULL);
 
@@ -123,15 +116,11 @@ void __cdecl ErrorMsg(const char* fmt, ...)
 
 void __cdecl dprintf(const char* fmt, ...)
 {
-	char buf[5000];
+	char s[5000]{};
 	va_list va;
-
 	va_start(va, fmt);
-
-	_vsnprintf(buf,sizeof(buf),fmt,va);
-
-	win_output_debug_string_utf8(buf);
-
+	vsnprintf(s,sizeof(s),fmt,va);
+	win_output_debug_string_utf8(s);
 	va_end(va);
 }
 
@@ -142,27 +131,22 @@ void __cdecl dprintf(const char* fmt, ...)
 int winui_message_box_utf8(HWND hWnd, const char *text, const char *caption, UINT type)
 {
 	int result = IDCANCEL;
-	wchar_t *t_text = ui_wstring_from_utf8(text);
-	wchar_t *t_caption = ui_wstring_from_utf8(caption);
+	const wchar_t *t_text = ui_to_utf16(text).c_str();
+	const wchar_t *t_caption = ui_to_utf16(caption).c_str();
 
 	if (!t_text)
 		return result;
 
 	if (!t_caption)
-	{
-		free(t_text);
 		return result;
-	}
 
 	result = MessageBox(hWnd, t_text, t_caption, type);
-	free(t_text);
-	free(t_caption);
 	return result;
 }
 
 void ErrorMessageBox(const char *fmt, ...)
 {
-	char buf[1024];
+	char buf[1024]{};
 	va_list ptr;
 
 	va_start(ptr, fmt);
@@ -173,7 +157,7 @@ void ErrorMessageBox(const char *fmt, ...)
 
 void ShellExecuteCommon(HWND hWnd, const char *cName)
 {
-	wchar_t *tName = ui_wstring_from_utf8(cName);
+	const wchar_t *tName = ui_to_utf16(cName).c_str();
 
 	if(!tName)
 		return;
@@ -181,10 +165,7 @@ void ShellExecuteCommon(HWND hWnd, const char *cName)
 	HINSTANCE hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
 
 	if ((uintptr_t)hErr > 32)
-	{
-		free(tName);
 		return;
-	}
 
 	const char *msg = NULL;
 	switch((uintptr_t)hErr)
@@ -218,20 +199,13 @@ void ShellExecuteCommon(HWND hWnd, const char *cName)
 	}
 
 	ErrorMessageBox("%s\r\nPath: '%s'", msg, cName);
-	free(tName);
 }
 
 UINT GetDepth(HWND hWnd)
 {
-	UINT nBPP;
-	HDC hDC;
-
-	hDC = GetDC(hWnd);
-
-	nBPP = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
-
+	HDC hDC = GetDC(hWnd);
+	UINT nBPP = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
 	ReleaseDC(hWnd, hDC);
-
 	return nBPP;
 }
 
@@ -268,12 +242,10 @@ LONG GetCommonControlVersion()
 				if(pDllGetVersion)
 				{
 					DLLVERSIONINFO dvi;
-					HRESULT hr;
-
 					ZeroMemory(&dvi, sizeof(dvi));
 					dvi.cbSize = sizeof(dvi);
 
-					hr = (*pDllGetVersion)(&dvi);
+					HRESULT hr = (*pDllGetVersion)(&dvi);
 
 					if (SUCCEEDED(hr))
 					{
@@ -292,16 +264,13 @@ LONG GetCommonControlVersion()
 
 void DisplayTextFile(HWND hWnd, const char *cName)
 {
-	LPTSTR tName = ui_wstring_from_utf8(cName);
+	const wchar_t* tName = ui_to_utf16(cName).c_str();
 	if( !tName )
 		return;
 
 	HINSTANCE hErr = ShellExecute(hWnd, NULL, tName, NULL, NULL, SW_SHOWNORMAL);
 	if ((uintptr_t)hErr > 32)
-	{
-		free(tName);
 		return;
-	}
 
 	LPCTSTR msg = 0;
 	switch((uintptr_t)hErr)
@@ -335,8 +304,6 @@ void DisplayTextFile(HWND hWnd, const char *cName)
 	}
 
 	MessageBox(NULL, msg, tName, MB_OK);
-
-	free(tName);
 }
 
 char* MyStrStrI(const char* pFirst, const char* pSrch)
@@ -361,9 +328,10 @@ char* MyStrStrI(const char* pFirst, const char* pSrch)
 	return NULL;
 }
 
+// only used by mui_audit
 char * ConvertToWindowsNewlines(const char *source)
 {
-	static char buf[2048 * 2048];
+	static char buf[2048 * 2048]{};
 	char *dest;
 
 	dest = buf;
@@ -388,21 +356,21 @@ char * ConvertToWindowsNewlines(const char *source)
  */
 const char * GetDriverFilename(int drvindex)
 {
-	static char tmp[2048] = { };
+	static char tmp[2048]{};
 	if (drvindex >= 0)
 	{
 		string driver = string(core_filename_extract_base(driver_list::driver(drvindex).type.source()));
-		strcpy(tmp, driver.c_str());
+		snprintf(tmp, sizeof(tmp), "%s", driver.c_str());
 	}
 	return tmp;
 }
 
 BOOL isDriverVector(const machine_config *config)
 {
-	const screen_device *screen = screen_device_enumerator(config->root_device()).first();
+	auto *output = video_output_interface_enumerator(config->root_device()).first();
 
-	if (screen)
-		if (SCREEN_TYPE_VECTOR == screen->screen_type())
+	if (output) 
+		if (output->is_vector())
 			return true;
 
 	return false;
@@ -410,7 +378,7 @@ BOOL isDriverVector(const machine_config *config)
 
 int numberOfScreens(const machine_config *config)
 {
-	screen_device_enumerator scriter(config->root_device());
+	video_output_interface_enumerator scriter(config->root_device());
 	return scriter.count();
 }
 
@@ -461,9 +429,6 @@ static void SetDriversInfo(void)
 		if (gameinfo->usesMouse)
 			cache += DRIVER_CACHE_MOUSE;
 
-		if (gameinfo->hasRam)
-			cache += DRIVER_CACHE_RAM;
-
 		SetDriverCache(ndriver, cache);
 	}
 }
@@ -491,9 +456,6 @@ static void InitDriversInfo(void)
 		gameinfo->supportsSaveState = BIT(cache, 7) ^ 1;  //MACHINE_SUPPORTS_SAVE
 		gameinfo->isHarddisk = false;
 		gameinfo->isVertical = BIT(cache, 2);  //ORIENTATION_SWAP_XY
-
-		ram_device_enumerator iter1(config.root_device());
-		gameinfo->hasRam = (iter1.first() );
 
 		for (device_t &device : device_enumerator(config.root_device()))
 			for (region = rom_first_region(device); region; region = rom_next_region(region))
@@ -594,7 +556,6 @@ static int InitDriversCache(void)
 		gameinfo->usesTrackball     = ((cache_upper & DRIVER_CACHE_TRACKBALL) != 0);
 		gameinfo->usesLightGun      = ((cache_upper & DRIVER_CACHE_LIGHTGUN)  != 0);
 		gameinfo->usesMouse         = ((cache_upper & DRIVER_CACHE_MOUSE)     != 0);
-		gameinfo->hasRam            = ((cache_upper & DRIVER_CACHE_RAM)       != 0);
 	}
 
 	printf("InitDriversCache: Finished\n");fflush(stdout);
@@ -609,7 +570,7 @@ static struct DriversInfo* GetDriversInfo(uint32_t driver_index)
 
 		drivers_info.clear();
 		drivers_info.resize(driver_list::total());
-		std::fill(drivers_info.begin(), drivers_info.end(), DriversInfo{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+		std::fill(drivers_info.begin(), drivers_info.end(), DriversInfo{ });
 		printf("DriversInfo: B\n");fflush(stdout);
 		InitDriversCache();
 		printf("DriversInfo: C\n");fflush(stdout);
@@ -703,11 +664,6 @@ BOOL DriverIsVertical(uint32_t driver_index)
 	return GetDriversInfo(driver_index)->isVertical;
 }
 
-BOOL DriverHasRam(uint32_t driver_index)
-{
-	return GetDriversInfo(driver_index)->hasRam;
-}
-
 void FlushFileCaches(void)
 {
 	util::archive_file::cache_clear();
@@ -757,13 +713,11 @@ void GetSystemErrorMessage(DWORD dwErrorId, TCHAR **tErrorMessage)
 HICON win_extract_icon_utf8(HINSTANCE inst, const char* exefilename, UINT iconindex)
 {
 	HICON icon = 0;
-	TCHAR* t_exefilename = ui_wstring_from_utf8(exefilename);
+	const TCHAR* t_exefilename = ui_to_utf16(exefilename).c_str();
 	if( !t_exefilename )
 		return icon;
 
 	icon = ExtractIcon(inst, t_exefilename, iconindex);
-
-	free(t_exefilename);
 
 	return icon;
 }
@@ -794,13 +748,11 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 							DWORD creationdisposition, DWORD flagsandattributes, HANDLE templatehandle)
 {
 	HANDLE result = 0;
-	TCHAR* t_filename = ui_wstring_from_utf8(filename);
+	const TCHAR* t_filename = ui_to_utf16(filename).c_str();
 	if( !t_filename )
 		return result;
 
 	result = CreateFile(t_filename, desiredmode, sharemode, securityattributes, creationdisposition, flagsandattributes, templatehandle);
-
-	free(t_filename);
 
 	return result;
 }

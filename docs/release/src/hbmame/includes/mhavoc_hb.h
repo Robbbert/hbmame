@@ -11,7 +11,7 @@
 #include "sound/tms5220.h"
 #include "sound/okim6295.h"
 #include "video/avgdvg.h"
-#include "video/vector.h"
+#include "vector.h"
 
 
 #define MHAVOC_CLOCK        10000000

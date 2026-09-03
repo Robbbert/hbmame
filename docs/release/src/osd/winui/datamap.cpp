@@ -22,12 +22,6 @@
 #include "winutf8.h"
 #include "corestr.h"
 
-
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
-
 //============================================================
 //  TYPE DEFINITIONS
 //============================================================
@@ -400,7 +394,7 @@ static int control_operation(datamap *map, HWND dialog, windows_options *opts, d
 	int result = 0;
 	const char *option_name;
 	char option_name_buffer[64];
-	char option_value[1024] = {0, };
+	char option_value[1024] = { };
 
 	HWND control = GetDlgItem(dialog, entry->dlgitem);
 	if (control)
@@ -737,11 +731,11 @@ static void populate_control(datamap *map, HWND control, windows_options *opts, 
 // Return a string from a float value with trailing zeros removed.
 static char *tztrim(float float_value)
 {
-	static char tz_string[20];
-	char float_string[20];
+	static char tz_string[20] { };
+	char float_string[20] { };
 	int i = 0;
 
-	sprintf(float_string, "%f", float_value);
+	snprintf(float_string, sizeof(float_string), "%f", float_value);
 
 	char* ptr = float_string;
 

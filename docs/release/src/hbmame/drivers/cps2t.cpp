@@ -9,7 +9,7 @@
 // All samples code (c) Zero800, 2023
 const char *const samples_id_l[] =
 {
-	"*sfz3mix_l",
+	"*sfz3mix",
 	"empty", // 00
 	"L01", // 01
 	"L02", // 02
@@ -80,7 +80,7 @@ const char *const samples_id_l[] =
 
 const char *const samples_id_r[] =
 {
-	"*sfz3mix_r",
+	"*sfz3mix",
 	"empty", // 00
 	"R01", // 01
 	"R02", // 02
@@ -178,13 +178,13 @@ void cps2_state::qsound_sharedram1_samples_w(offs_t offset, uint16_t data, uint1
 				m_qsound_sharedram1[0x80] = 0xff; //Reset music id flag
 				m_qsound_sharedram1[0x81] = 0xff; //Reset music id flag
 				//printf("%s Music: %02x to %x\n", machine().describe_context().c_str(), data_byte, offset);
-				m_samples_l->start(0, data_byte, true);
+				m_samples_l->start(0, data_byte, true);//printf("Playing L%02X\n",data_byte);
 				if (m_samples_l->playing(0) == true)
 					m_qsound_sharedram2[0x27] = 0x00; //Qsound music volume = 0
 				else
 					m_samples_l->start(0, 0, false); //init L samples
 
-				m_samples_r->start(0, data_byte, true);
+				m_samples_r->start(0, data_byte, true);//printf("Playing R%02X\n",data_byte);
 				if (m_samples_r->playing(0)  == true)
 					m_qsound_sharedram2[0x27] = 0x00; //Qsound music volume = 0
 				else
@@ -274,7 +274,7 @@ void cps2_state::cps2turbo(machine_config &config)
 	EEPROM_93C46_16BIT(config, "eeprom");
 
 	/* video hardware */
-	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	SCREEN(config, m_screen);
 	m_screen->set_video_attributes(VIDEO_UPDATE_BEFORE_VBLANK);
 	m_screen->set_raw(CPS_PIXEL_CLOCK, CPS_HTOTAL, 48, 464, CPS_VTOTAL, 12, 246);
 	m_screen->set_screen_update(FUNC(cps2_state::screen_update_cps1));
@@ -298,12 +298,12 @@ void cps2_state::cps2turbo(machine_config &config)
 	SAMPLES(config, m_samples_l);
 	m_samples_l->set_channels(1);
 	m_samples_l->set_samples_names(samples_id_l);
-	m_samples_l->add_route(0, "lspeaker", 0.1);
+	m_samples_l->add_route(0, "lspeaker", 0.2);
 
 	SAMPLES(config, m_samples_r);
 	m_samples_r->set_channels(1);
 	m_samples_r->set_samples_names(samples_id_r);
-	m_samples_r->add_route(0, "rspeaker", 0.1); 
+	m_samples_r->add_route(0, "rspeaker", 0.2); 
 }
 
 // From here to the end, (c) Robbbert

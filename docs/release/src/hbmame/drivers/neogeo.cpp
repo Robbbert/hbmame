@@ -950,7 +950,7 @@ void neogeo_state::neogeo_base(machine_config &config)
 	/* video hardware */
 	config.set_default_layout(layout_neogeo);
 
-	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	SCREEN(config, m_screen);
 	m_screen->set_raw(NEOGEO_PIXEL_CLOCK, NEOGEO_HTOTAL, NEOGEO_HBEND, NEOGEO_HBSTART, NEOGEO_VTOTAL, NEOGEO_VBEND, NEOGEO_VBSTART);
 	m_screen->set_screen_update(FUNC(neogeo_state::screen_update_neogeo));
 
@@ -982,7 +982,7 @@ void neogeo_state::neogeo_arcade(machine_config &config)
 	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_ticks(3244030, NEOGEO_MASTER_CLOCK));
 	UPD4990A(config, m_upd4990a);
 	NVRAM(config, "saveram", nvram_device::DEFAULT_ALL_0);
-	NG_MEMCARD(config, "memcard");
+	HBNG_MEMCARD(config, "memcard");
 }
 
 void neogeo_state::mvs(machine_config &config)

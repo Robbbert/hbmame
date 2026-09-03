@@ -23,12 +23,6 @@
  *      - Each table must contain at least MAX_HFILES members (extra lines
  *             are ignored)
  *      - Software comes first, followed by Game then Source.
- 
- *      2023-06: Robbbert
- *      - Added support for history.xml
- *      - Dropped support for history.dat
- *      - HBMAME: Dropped support for messinfo.dat, sysinfo.dat, story.dat, marp.dat
- 
 ***************************************************************************/
 
 #include <windows.h>
@@ -68,35 +62,47 @@ HSOURCEINFO;
 
 /*************************** START CONFIGURABLE AREA *******************************/
 // number of dats we support
-#define MAX_HFILES 4
+#define MAX_HFILES 5
 // The order of these is the order they are displayed
 const HGAMEINFO m_gameInfo[MAX_HFILES] =
 {
 	{ "gameinit.dat", "\n**** :GAMEINIT: ****\n\n",         "$mame",  0 },
-	{ "history.xml",  "\n**** :HISTORY: ****\n\n",          "<text>", 1 },
+	{ "history.xml",  "\n**** :HISTORY: ****\n\n",          "<text>",   1 },
+//	{ "sysinfo.dat",  "\n**** :SYSINFO: ****\n\n",          "$bio",   1 },
+	{ "messinfo.dat", "\n**** :MESSINFO: ****\n\n",         "$mame",  1 },
 	{ "mameinfo.dat", "\n**** :MAMEINFO: ****\n\n",         "$mame",  1 },
 	{ "command.dat",  "\n**** :COMMANDS: ****\n\n",         "$cmd",   1 },
+//	{ "story.dat",    "\n**** :HIGH SCORES: ****\n\n",      "$story", 0 },
+//	{ "marp.dat",     "\n**** :MARP HIGH SCORES: ****\n\n", "$marp",  0 },
 };
 
 const HSOURCEINFO m_sourceInfo[MAX_HFILES] =
 {
 	{ NULL },
+	{ NULL },
+//	{ NULL },
+	{ "messinfo.dat", "\n***:MESSINFO DRIVER: ",  "$drv" },
 	{ "mameinfo.dat", "\n***:MAMEINFO DRIVER: ",  "$drv" },
 	{ NULL },
-	{ NULL },
+//	{ NULL },
+//	{ NULL },
 };
 
 const HSOURCEINFO m_swInfo[MAX_HFILES] =
 {
+	{ NULL },
 	{ "history.xml",  "\n**** :HISTORY item: ",     "<text>" },
+//	{ NULL },
 	{ NULL },
 	{ NULL },
 	{ NULL },
+//	{ NULL },
+//	{ NULL },
 };
 
 /*************************** END CONFIGURABLE AREA *******************************/
 
-int file_sizes[MAX_HFILES] = { 0, };
+int file_sizes[MAX_HFILES] = { };
 std::map<std::string, std::streampos> mymap[MAX_HFILES];
 const size_t npos = std::string::npos;
 
@@ -261,7 +267,7 @@ static bool create_index(const char* datsdir, std::ifstream &fp, int filenum)
 	fp.seekg(0);
 	std::string file_line;
 	std::getline(fp, file_line);
-	if (filenum == 0)
+	if (filenum == 1)
 		create_index_history(datsdir, fp, file_line, filenum);
 	else
 	{
@@ -290,7 +296,7 @@ static bool create_index(const char* datsdir, std::ifstream &fp, int filenum)
 		}
 	}
 	// check contents
-//	if (filenum == 6)
+//	if (filenum == 4)
 //		for (auto const &it : mymap[filenum])
 //			printf("%s = %X\n", it.first.c_str(), int(it.second));
 	return true;
@@ -367,7 +373,7 @@ static std::string load_datafile_text(std::ifstream &fp, std::string keycode, in
 		// read text until buffer is full or end of entry is encountered
 		while (std::getline(fp, file_line))
 		{
-			//if (filenum == 6) ("*******2: %s\n",file_line.c_str());
+			//if (filenum == 4) printf("*******2: %s\n",file_line.c_str());
 			if (file_line == "- CONTRIBUTE -")
 				break;
 
@@ -509,8 +515,9 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 {
 	machine_config config(*drv, MameUIGlobal());
 	const game_driver *parent = NULL;
-	char name[512];
+	char name[512] { };
 	bool is_bios = false;
+	int count = 0;
 	buffer = "\n**** :GENERAL MACHINE INFO: ****\n\n";
 
 	// List the game info 'flags'
@@ -537,6 +544,8 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 		buffer.append("The sound emulation isn't 100% accurate.\n");
 
 	if (BIT(cache, 7))
+		buffer.append("Save state supported.\n");
+	else
 		buffer.append("Save state not supported.\n");
 
 	if (BIT(cache, 14))
@@ -548,17 +557,12 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	if (BIT(cache, 13))
 		buffer.append("This game has no sound hardware.\n");
 
-	buffer.append("\n");
-
 	if (drv->flags & MACHINE_IS_BIOS_ROOT)
 		is_bios = true;
 
 	// GAME INFORMATIONS
-	snprintf(name, std::size(name), "\nGAME: %s\n", drv->name);
-	buffer.append(name);
-	snprintf(name, std::size(name), "%s", drv->type.fullname());
-	buffer.append(name);
-	snprintf(name, std::size(name), " (%s %s)\n\nCPU:\n", drv->manufacturer, drv->year);
+	snprintf(name, std::size(name), "\n\nGAME: %s\n%s (%s %s)\n\nCPU:\n",
+		drv->name, drv->type.fullname(), drv->manufacturer, drv->year);
 	buffer.append(name);
 	// iterate over CPUs
 	execute_interface_enumerator cpuiter(config.root_device());
@@ -569,7 +573,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 		if (!exectags.insert(exec.device().tag()).second)
 			continue;
 
-		int count = 1;
+		count = 1;
 		int clock = exec.device().clock();
 		const char *cpu_name = exec.device().name();
 
@@ -604,7 +608,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 			continue;
 
 		has_sound = 1;
-		int count = 1;
+		count = 1;
 		int clock = sound.device().clock();
 		const char *sound_name = sound.device().name();
 
@@ -646,34 +650,50 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 
 		buffer.append(name);
 	}
-
-	buffer.append("\nVIDEO:\n");
-	screen_device_enumerator screeniter(config.root_device());
-	int scrcount = screeniter.count();
-
-	if (scrcount == 0)
-		buffer.append("Screenless");
 	else
+		buffer.append("No Sound\n");
+
+	count = 0;
+	buffer.append("\nVIDEO:\n");
+	video_output_interface_enumerator screeniter(config.root_device());
+	if (screeniter.count())
 	{
-		for (screen_device &screen : screeniter)
+		for (device_video_output_interface &screendev : video_output_interface_enumerator(config.root_device()))
 		{
-			if (screen.screen_type() == SCREEN_TYPE_VECTOR)
-				buffer.append("Vector");
-			else
+			if (strcmp(screendev.device().tag(), config.root_device().tag()))
 			{
-				const rectangle &visarea = screen.visible_area();
-
-				if (drv->flags & ORIENTATION_SWAP_XY)
-					snprintf(name, std::size(name), "%d x %d (V) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
+				if (screendev.is_vector())
+				{
+					count++;
+					if (DriverIsVertical(drvindex))
+						buffer.append("Vector (V)");
+					else
+						buffer.append("Vector (H)");
+				}
 				else
-					snprintf(name, std::size(name), "%d x %d (H) %f Hz", visarea.width(), visarea.height(), ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
+				{
+					auto *screen = dynamic_cast<screen_device *>(&screendev);
+					if (screen)
+					{
+						count++;
+						const rectangle &visarea = screen->visible_area();
 
-				buffer.append(name);
+						if (drv->flags & ORIENTATION_SWAP_XY)
+							snprintf(name, std::size(name), "%d x %d (V) %f Hz", visarea.width(), visarea.height(), screen->frame_period().as_hz());
+						else
+							snprintf(name, std::size(name), "%d x %d (H) %f Hz", visarea.width(), visarea.height(), screen->frame_period().as_hz());
+
+						buffer.append(name);
+					}
+				}
+
+				if (count)
+					buffer.append("\n");
 			}
-
-			buffer.append("\n");
 		}
 	}
+	if (count == 0)
+		buffer.append("Screenless\n");
 
 	buffer.append("\nROM REGION:\n");
 	int g = driver_list::clone(*drv);
@@ -708,12 +728,9 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 					}
 				}
 
-				snprintf(name, std::size(name), "%-16s \t", ROM_GETNAME(rom));
+				snprintf(name, std::size(name), "%-16s \t%09d \t%-10s\n",
+					ROM_GETNAME(rom), rom_file_size(rom), region->name().c_str());
 				buffer.append(name);
-				snprintf(name, std::size(name), "%09d \t", rom_file_size(rom));
-				buffer.append(name);
-				snprintf(name, std::size(name), "%-10s", region->name().c_str());
-				buffer.append(name).append("\n");
 			}
 		}
 	}
@@ -746,29 +763,21 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	{
 		int g = driver_list::clone(*drv);
 
-		if (g != -1)
+		if (g >= 0)
 			drv = &driver_list::driver(g);
 
-		buffer.append("\nPARENT:\n");
-		buffer.append(drv->type.fullname());
-		buffer.append("\n\nCLONES:\n");
+		buffer.append("\nPARENT:\n").append(drv->type.fullname()).append("\n\nCLONES:\n");
 
 		for (int i = 0; i < driver_list::total(); i++)
-		{
 			if (!strcmp (drv->name, driver_list::driver(i).parent))
-			{
-				buffer.append(driver_list::driver(i).type.fullname());
-				buffer.append("\n");
-			}
-		}
+				buffer.append(driver_list::driver(i).type.fullname()).append("\n");
 	}
 
 	string temp = string(core_filename_extract_base(drv->type.source(), false));
-	char source_file[temp.size()+1], tmp[2048];
+	char source_file[temp.size()+1];
 	strcpy(source_file, temp.c_str());
-	snprintf(tmp, std::size(tmp), "\nGENERAL SOURCE INFO: %s\n", temp.c_str());
-	buffer.append(tmp);
-	buffer.append("\nGAMES SUPPORTED:\n");
+	snprintf(name, std::size(name), "\nGENERAL SOURCE INFO: %s\n\nGAMES SUPPORTED:\n", temp.c_str());
+	buffer.append(name);
 
 	for (int i = 0; i < driver_list::total(); i++)
 	{
@@ -810,26 +819,32 @@ bool validate_datfiles(void)
 std::string fullbuf;
 
 // For all of MAME builds - called by winui.cpp
-char * GetGameHistory(int driver_index, std::string software)
+string GetGameHistory(int drvindex, std::string software)
 {
 	fullbuf.clear();
-	if (driver_index < 0)
-		return ConvertToWindowsNewlines(fullbuf.c_str());
+	if (drvindex < 0)
+		return fullbuf;
 
+	size_t pos;
 	if (validate_datfiles())
 	{
 		// Get the path to dat files
 		std::string t = dir_get_value(23);
-		char buf[t.size()+1];
-		strcpy(buf, t.c_str());
+		char* s = strdup(t.c_str());
+		if (!s)
+		{
+			printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+			return fullbuf;
+		}
 		// only want first path
-		const char* datsdir = strtok(buf, ";");
+		const char* datsdir = strtok(s, ";");
+		free(s);
 		// validate software
-		BOOL sw_valid = false;
+		bool sw_valid = false;
 		if (!software.empty())
 		{
-			size_t i = software.find(':');
-			sw_valid = (i != npos) ? true : false;
+			pos = software.find(':');
+			sw_valid = (pos != npos) ? true : false;
 		}
 
 		if (datsdir && osd::directory::open(datsdir))
@@ -837,9 +852,9 @@ char * GetGameHistory(int driver_index, std::string software)
 			for (int filenum = 0; filenum < MAX_HFILES; filenum++)
 			{
 				if (sw_valid)
-					fullbuf.append(load_swinfo(&driver_list::driver(driver_index), datsdir, software, filenum));
-				fullbuf.append(load_gameinfo(&driver_list::driver(driver_index), datsdir, filenum));
-				fullbuf.append(load_sourceinfo(&driver_list::driver(driver_index), datsdir, filenum));
+					fullbuf.append(load_swinfo(&driver_list::driver(drvindex), datsdir, software, filenum));
+				fullbuf.append(load_gameinfo(&driver_list::driver(drvindex), datsdir, filenum));
+				fullbuf.append(load_sourceinfo(&driver_list::driver(drvindex), datsdir, filenum));
 			}
 		}
 		else
@@ -848,32 +863,44 @@ char * GetGameHistory(int driver_index, std::string software)
 	else
 		fullbuf = "\nUnable to display info due to an internal error.\n\n\n";
 
-	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index), driver_index));
+	fullbuf.append(load_driver_geninfo(&driver_list::driver(drvindex), drvindex));
 
-	return ConvertToWindowsNewlines(fullbuf.c_str());
+	pos = 0;
+	while((pos = fullbuf.find("\n", pos)) != std::string::npos)
+	{
+		fullbuf.replace(pos, 1, "\r\n");
+		pos += 2;
+	}
+
+	return fullbuf;
 }
 
 // For Arcade-only builds
-char * GetGameHistory(int driver_index)
+string GetGameHistory(int drvindex)
 {
 	fullbuf.clear();
-	if (driver_index < 0)
-		return ConvertToWindowsNewlines(fullbuf.c_str());
+	if (drvindex < 0)
+		return fullbuf;
 
 	if (validate_datfiles())
 	{
 		std::string t = dir_get_value(23);
-		char buf[t.size()+1];
-		strcpy(buf, t.c_str());
+		char* s = strdup(t.c_str());
+		if (!s)
+		{
+			printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+			return fullbuf;
+		}
 		// only want first path
-		const char* datsdir = strtok(buf, ";");
+		const char* datsdir = strtok(s, ";");
+		free(s);
 
 		if (datsdir && osd::directory::open(datsdir))
 		{
 			for (int filenum = 0; filenum < MAX_HFILES; filenum++)
 			{
-				fullbuf.append(load_gameinfo(&driver_list::driver(driver_index), datsdir, filenum));
-				fullbuf.append(load_sourceinfo(&driver_list::driver(driver_index), datsdir, filenum));
+				fullbuf.append(load_gameinfo(&driver_list::driver(drvindex), datsdir, filenum));
+				fullbuf.append(load_sourceinfo(&driver_list::driver(drvindex), datsdir, filenum));
 			}
 		}
 		else
@@ -882,8 +909,15 @@ char * GetGameHistory(int driver_index)
 	else
 		fullbuf = "\nUnable to display info due to an internal error.\n\n\n";
 
-	fullbuf.append(load_driver_geninfo(&driver_list::driver(driver_index), driver_index));
+	fullbuf.append(load_driver_geninfo(&driver_list::driver(drvindex), drvindex));
 
-	return ConvertToWindowsNewlines(fullbuf.c_str());
+	size_t pos = 0;
+	while((pos = fullbuf.find("\n", pos)) != std::string::npos)
+	{
+		fullbuf.replace(pos, 1, "\r\n"); // 1 = size of string being replaced
+		pos += 2;  // 2 = size of replacement
+	}
+
+	return fullbuf;
 }
 

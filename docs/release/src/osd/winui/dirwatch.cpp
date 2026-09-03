@@ -30,7 +30,7 @@ struct DirWatcherEntry
 		BYTE buffer[1024];
 	} u;
 
-	char szDirPath[1];
+	char szDirPath[MAX_PATH];
 };
 
 
@@ -88,13 +88,13 @@ static void DirWatcher_FreeEntry(struct DirWatcherEntry *pEntry)
 static BOOL DirWatcher_WatchDirectory(PDIRWATCHER pWatcher, int nIndex, int nSubIndex, LPCSTR pszPath, BOOL bWatchSubtree)
 {
 	struct DirWatcherEntry *pEntry;
-	HANDLE hDir;
-
-	pEntry = (DirWatcherEntry *)malloc(sizeof(*pEntry) + strlen(pszPath));
+	int len = sizeof(*pEntry) + strlen(pszPath) + 1;
+	pEntry = (DirWatcherEntry *)malloc(len);
+	HANDLE hDir;   // needed here because of stupid compile error
 	if (!pEntry)
 		goto error;
-	memset(pEntry, 0, sizeof(*pEntry));
-	strcpy(pEntry->szDirPath, pszPath);
+	memset(pEntry, 0, len);
+	snprintf(pEntry->szDirPath, len, "%s", pszPath);
 	pEntry->overlapped.hEvent = pWatcher->hRequestEvent;
 
 	hDir = win_create_file_utf8(pszPath, FILE_LIST_DIRECTORY,
@@ -127,34 +127,28 @@ error:
 
 static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEntry)
 {
-	LPSTR pszFileName;
-	BOOL bPause = 0;
-	HANDLE hFile;
+	bool bPause = 0;
 
-	{
-		int nLength = WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, NULL, 0, NULL, NULL);
-		pszFileName = (LPSTR) alloca(nLength * sizeof(*pszFileName));
-		WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, pszFileName, nLength, NULL, NULL);
-	}
+	int nLength = WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, NULL, 0, NULL, NULL);
+	LPSTR pszFileName = (LPSTR) alloca(nLength * sizeof(*pszFileName));
+	WideCharToMultiByte(CP_ACP, 0, pEntry->u.notify.FileName, -1, pszFileName, nLength, NULL, NULL);
 
 	// get the full path to this new file
-	LPSTR pszFullFileName = (LPSTR) alloca(strlen(pEntry->szDirPath) + strlen(pszFileName) + 2);
-	strcpy(pszFullFileName, pEntry->szDirPath);
-	strcat(pszFullFileName, "\\");
-	strcat(pszFullFileName, pszFileName);
+	int len = strlen(pEntry->szDirPath) + strlen(pszFileName) + 2;
+	LPSTR pszFullFileName = (LPSTR) alloca(len);
+	snprintf(pszFullFileName, len, "%s\\%s", pEntry->szDirPath, pszFileName);
 
-	// attempt to busy wait until any result other than ERROR_SHARING_VIOLATION
-	// is generated
+	// attempt to busy wait until any result other than ERROR_SHARING_VIOLATION is generated
 	int nTries = 100;
 	do
 	{
-		hFile = win_create_file_utf8(pszFullFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+		HANDLE hFile = win_create_file_utf8(pszFullFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 		if (hFile != INVALID_HANDLE_VALUE)
 			CloseHandle(hFile);
 
 		bPause = (nTries--) && (hFile == INVALID_HANDLE_VALUE) && (GetLastError() == ERROR_SHARING_VIOLATION);
 		if (bPause)
-			Sleep(10);
+			Sleep(10);   // Windows-only function, suspend thread for 10 milliseconds
 	}
 	while(bPause);
 
@@ -175,8 +169,6 @@ static void DirWatcher_Signal(PDIRWATCHER pWatcher, struct DirWatcherEntry *pEnt
 
 static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 {
-	LPSTR pszPathList, s;
-	int nSubIndex = 0;
 	PDIRWATCHER pWatcher = (PDIRWATCHER) lpParameter;
 	struct DirWatcherEntry *pEntry;
 	struct DirWatcherEntry **ppEntry;
@@ -204,13 +196,13 @@ static DWORD WINAPI DirWatcher_ThreadProc(LPVOID lpParameter)
 			}
 
 			// allocate our own copy of the path list
-			pszPathList = (LPSTR) alloca(strlen(pWatcher->pszPathList) + 1);
+			LPSTR pszPathList = (LPSTR) alloca(strlen(pWatcher->pszPathList) + 1);
 			strcpy(pszPathList, pWatcher->pszPathList);
 
-			nSubIndex = 0;
+			int nSubIndex = 0;
 			do
 			{
-				s = strchr(pszPathList, ';');
+				LPSTR s = strchr(pszPathList, ';');
 				if (s)
 					*s = '\0';
 

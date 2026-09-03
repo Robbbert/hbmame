@@ -219,13 +219,9 @@ static int DIJoystick_is_joy_pressed(int joycode)
 	if (stick == JOYCODE_STICK_BTN)
 	{
 		/* buttons */
-		int button;
+		int button = GET_JOYCODE_BUTTON(joycode) - 1;
 
-		button = GET_JOYCODE_BUTTON(joycode);
-		button--;
-
-		if (button >= This.joysticks[joy_num].num_buttons
-		|| GET_JOYCODE_DIR(joycode) != JOYCODE_DIR_BTN)
+		if (button >= This.joysticks[joy_num].num_buttons || GET_JOYCODE_DIR(joycode) != JOYCODE_DIR_BTN)
 			return 0;
 
 		return dijs.rgbButtons[button] != 0;
@@ -233,11 +229,6 @@ static int DIJoystick_is_joy_pressed(int joycode)
 
 	if (stick == JOYCODE_STICK_POV)
 	{
-		/* POV */
-		int pov_value = 0;
-		int angle = 0;
-		int axis_value = 0;
-
 		int num_pov = GET_JOYCODE_BUTTON(joycode) / 4;
 		int code = GET_JOYCODE_BUTTON(joycode) % 4;
 		axis = code / 2;
@@ -246,14 +237,15 @@ static int DIJoystick_is_joy_pressed(int joycode)
 		if (num_pov >= This.joysticks[joy_num].num_pov)
 			return 0;
 
-		pov_value = dijs.rgdwPOV[num_pov];
+		int pov_value = dijs.rgdwPOV[num_pov];
 		if (LOWORD(pov_value) == 0xffff)
 			return 0;
 
-		angle = (pov_value + 27000) % 36000;
+		int angle = (pov_value + 27000) % 36000;
 		angle = (36000 - angle) % 36000;
 		angle /= 100;
 
+		int axis_value = 0;
 		/* angle is now in degrees counterclockwise from x axis*/
 		if (axis == 1)
 			axis_value = 128 + (int)(127 * cos(2 * std::numbers::pi * angle / 360.0)); /* x */
@@ -300,10 +292,9 @@ static BOOL DIJoystick_Available(void)
 	/* enumerate for joystick devices */
 	GUID guidDevice = guidNULL;
 	HRESULT hr = IDirectInput_EnumDevices(di, DIDEVTYPE_JOYSTICK, inputEnumDeviceProc, &guidDevice, DIEDFL_ATTACHEDONLY );
+
 	if (FAILED(hr))
-	{
 		return false;
-	}
 
 	/* Are there any joysticks attached? */
 	if (IsEqualGUID(guidDevice, guidNULL))
@@ -745,14 +736,11 @@ static const ERRORCODE g_ErrorCode[] =
 const char * DirectXDecodeError(HRESULT errorval)
 {
 	for (int i = 0; i < (sizeof(g_ErrorCode) / sizeof(g_ErrorCode[0])); i++)
-	{
 		if (g_ErrorCode[i].hr == errorval)
-		{
 			return g_ErrorCode[i].szError;
-		}
-	}
-	static char tmp[64];
-	sprintf(tmp, "UNKNOWN: 0x%x", (unsigned int)errorval);
+
+	static char tmp[64] { };
+	snprintf(tmp, sizeof(tmp), "UNKNOWN: 0x%x", (unsigned int)errorval);
 	return tmp;
 }
 

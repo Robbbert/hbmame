@@ -463,7 +463,7 @@ void puckman_state::pacman(machine_config &config)
 	m_mainlatch->q_out_cb<7>().set(FUNC(puckman_state::coin_counter_w));
 
 	/* video hardware */
-	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	SCREEN(config, m_screen);
 	m_screen->set_raw(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART);
 	m_screen->set_screen_update(FUNC(puckman_state::screen_update_pacman));
 	m_screen->set_palette("palette");
@@ -483,7 +483,7 @@ void puckman_state::pacmanx(machine_config &config)
 {
 	pacman(config);
 	//config.device_remove("screen");
-	//screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	//screen_device &screen(SCREEN(config, "screen"));
 	//screen.set_palette("palette");
 	m_screen->set_raw(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1);
 	m_screen->set_screen_update(FUNC(puckman_state::screen_update_pacmanx));

@@ -444,14 +444,12 @@ static std::error_condition OpenZipDIBFile(const char *dir_name, const char *zip
 // display a snap, cabinet, title, flyer, marquee, pcb, control panel
 static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 {
-	std::error_condition filerr = std::errc::no_such_file_or_directory;
-	util::core_file::ptr file = NULL;
-	char fullpath[2048];
-	const char* zip_name;
-	string t;
-
 	if (pPal)
 		DeletePalette(pPal);
+
+	// Part 1: Get the directory and name for the wanted picture type
+	const char* zip_name;
+	string t;
 
 	switch (pic_type)
 	{
@@ -528,9 +526,27 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			return false;
 	}
 
-	string ext;
+	if (t.empty())
+		return false;
+
+	// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
+	char* s = strdup(filename);
+	if (!s)
+	{
+		printf("Out of memory in __FILE__ in __func__ at line __LINE__\n");
+		return false;
+	}
+	char* system_name = strtok(s, ":");
+	char* file_name = strtok(NULL, ":");
+	free(s);
+
+	// Part 2: Search various path permutations for a suitable picture
+	std::error_condition filerr = std::errc::no_such_file_or_directory;
+	util::core_file::ptr file = NULL;
+	string ext, fname;
 	BOOL success;
 	void *buffer = NULL;
+	char fullpath[std::size(t)+1] { };
 
 	for (u8 extnum = 0; extnum < 3; extnum++)
 	{
@@ -545,12 +561,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			default:
 				ext = ".png";
 		}
-		// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
 		strcpy(fullpath, t.c_str());
-		char tempfile[2048];
-		strcpy(tempfile, filename);
-		char* system_name = strtok(tempfile, ":");
-		char* file_name = strtok(NULL, ":");
 		string fname;
 		buffer = 0;
 		success = false;

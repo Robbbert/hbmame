@@ -237,6 +237,9 @@ comdlux1				/* Twisty Hack */
 contra                                 //parent
 contraj01
 
+@source:cothello.cpp
+cothello01
+
 @source:cps1.cpp
 //1941
 //1941j
@@ -592,6 +595,12 @@ cps1testsa                             // HB
 //cps1xx                               // corrupt gfx
 daimakb
 daimakaik
+ghoulsmaiden
+ghoulsknight
+ghoulsumaiden
+ghoulsuknight
+daimakaimaiden
+daimakaiknight
 dinod01                                // Dinosaur hunter
 dinoj01                                // Cadillacs
 dinoj02
@@ -869,6 +878,8 @@ ffightj2s03
 ffightj2s04
 ffightj1s01
 ffightjk
+ffightjs01
+ffightus01
 forgottnsf2
 ghoulsf2
 kodjk
@@ -1513,6 +1524,10 @@ sfz2al16
 sfz2al17
 sfz2al18
 sfz2al19
+sfa2d
+sfa2g
+sfz2d
+sfz2da
 sfa3s01
 sfa3s02
 sfa3s03
@@ -1650,30 +1665,30 @@ sfiii3mh
 sfiii3ng
 sfiii3np
 sfiii4rd
-jojos01
-jojos02
-jojos03
-jojos04
-jojos05
-jojos06
-redeartns01
-sfiiins01
-sfiii2ns01
-sfiii2ns02
-sfiii2ns03
-sfiii3ns01
-sfiii3ns03
-sfiii3ns05
-sfiii3ns06
-sfiii3ns07
-sfiii3ns08
-sfiii3ns09
-sfiii3ns10
-sfiii3ns11
-sfiii3ns12
-sfiii3ns13
-sfiii3ns14
-sfiii3ns15
+jojo01
+jojo02
+jojo03
+jojo04
+jojo05
+jojo06
+redeartn01
+sfiiin01
+sfiii2n01
+sfiii2n02
+sfiii2n03
+sfiii3n01
+sfiii3n03
+sfiii3n05
+sfiii3n06
+sfiii3n07
+sfiii3n08
+sfiii3n09
+sfiii3n10
+sfiii3n11
+sfiii3n12
+sfiii3n13
+sfiii3n14
+sfiii3n15
 
 @source:cv1k.cpp
 deathsml                               //parent
@@ -3636,6 +3651,7 @@ kof2001s49
 kof2001s50
 kof2001s51
 kof2001s52
+kof2001s53
 
 @source:kof2002.cpp
 kof200215
@@ -6202,8 +6218,29 @@ zintrckb		// 211
 zupapa			// 070
 //dragonsh
 
-//@source:neogeocd.cpp
-//neocdz
+@source:neogeocd.cpp
+neocdz_bios
+cd_alice
+cd_chelnov
+cd_diff
+cd_eira
+cd_ffury
+cd_fukkireta
+cd_gaxe
+cd_gaxearr
+cd_natademo
+cd_ngdark
+cd_noneon
+cd_ntris3d
+cd_phoenix
+cd_pong
+cd_pow
+cd_pow2
+cd_shinobiarr
+cd_speedball
+cd_ssrpg
+cd_subspecies
+cd_visualnovel
 
 @source:neogeohb.cpp
 19yy
@@ -6248,6 +6285,7 @@ cyborg1
 ddsprdmo
 ddsprdmo1
 didemo
+doomgeo
 doubled1
 dti			// Duck Tales Intro
 dtia		// Duck Tales Intro
@@ -6261,6 +6299,7 @@ fr2			// 098 Idol Mahjong - final romance 2
 fr2s01
 fr2s02
 fr2s03
+freedoom
 galaxiann
 galaxiann2
 gbi
@@ -6345,11 +6384,12 @@ poknightfr
 pown
 //raroggame
 rci			/* Robocop intro */
+rickdx
 samantha
 santabll
 sbpf
 seafight
-sgz                                    // runs for a few seconds then black screen
+sgz
 shaman16
 //shaman17
 //shaman18
@@ -6362,6 +6402,7 @@ shaman20
 shinobin
 shinobin1
 shinobint
+smbn
 smi
 snddemo
 spkick
@@ -6622,6 +6663,7 @@ wakuwak7s05
 wjammers01
 wjammers02
 wjammers03
+wjammers04
 zupapa01
 zupapa02
 2020bbe
