@@ -622,18 +622,58 @@ QUICKLOAD_LOAD_MEMBER(abc80_state::quickload_cb)
 	int quickload_size = image.length();
 	std::vector<u8> data(quickload_size);
 	image.fread(&data[0], quickload_size);
-	for (int i = 1; i < quickload_size; i++)
-		space.write_byte(address++, data[i]);
+
+	/*
+
+	    A BASIC program is stored in 253 byte blocks, and a line is never split
+	    across a block boundary. Each line is stored as a length byte, a 16-bit
+	    line number, the tokenized line, and a CR. The lines of a block are
+	    followed by a zero length byte and stale buffer data, which has to be
+	    skipped, and the program is terminated by a length byte of 1.
+
+	*/
+
+	bool done = false;
+
+	for (int block = 0; !done && (block * BAC_BLOCK_SIZE) < quickload_size; block++)
+	{
+		int offset = block * BAC_BLOCK_SIZE;
+
+		// the first block starts with a file type byte
+		int pos = block ? 0 : 1;
+
+		while ((pos < BAC_BLOCK_SIZE) && ((offset + pos) < quickload_size))
+		{
+			u8 length = data[offset + pos];
+
+			if (length == BAC_END_OF_BLOCK) break;
+
+			if (length == BAC_END_OF_PROGRAM)
+			{
+				done = true;
+				break;
+			}
+
+			if ((pos + length) > BAC_BLOCK_SIZE) break;
+
+			for (int i = 0; i < length; i++)
+				space.write_byte(address++, data[offset + pos + i]);
+
+			pos += length;
+		}
+	}
+
+	space.write_byte(address, BAC_END_OF_PROGRAM);
 
 	offs_t eofa = address;
 	space.write_byte(EOFA, eofa & 0xff);
 	space.write_byte(EOFA + 1, eofa >> 8);
-	if (LOG) logerror("EOFA %04x\n",address);
+	if (LOG) logerror("EOFA %04x\n",eofa);
 
-	offs_t head = address + 1;
+	offs_t head = eofa + 1;
 	space.write_byte(HEAD, head & 0xff);
 	space.write_byte(HEAD + 1, head >> 8);
-	if (LOG) logerror("HEAD %04x\n",address);
+	if (LOG) logerror("HEAD %04x\n",head);
 
 	return std::make_pair(std::error_condition(), std::string());
 }
@@ -691,7 +731,9 @@ void abc80_state::abc80_common(machine_config &config)
 	generic_keyboard_device &keyboard(GENERIC_KEYBOARD(config, "generic_kb"));
 	keyboard.set_keyboard_callback(FUNC(abc80_state::kbd_w));
 
-	QUICKLOAD(config, "quickload", "bac", attotime::from_seconds(2)).set_load_callback(FUNC(abc80_state::quickload_cb));
+	quickload_image_device &quickload(QUICKLOAD(config, "quickload", "bac", attotime::from_seconds(2)));
+	quickload.set_load_callback(FUNC(abc80_state::quickload_cb));
+	quickload.set_interface("abc80_quik");
 
 	// internal ram
 	RAM(config, RAM_TAG).set_default_size("16K");
@@ -700,6 +742,7 @@ void abc80_state::abc80_common(machine_config &config)
 	SOFTWARE_LIST(config, "cass_list").set_original("abc80_cass");
 	SOFTWARE_LIST(config, "flop_list").set_original("abc80_flop");
 	SOFTWARE_LIST(config, "rom_list").set_original("abc80_rom");
+	SOFTWARE_LIST(config, "quik_list").set_original("abc80_quik");
 }
 
 void abc80_state::abc80(machine_config &config)

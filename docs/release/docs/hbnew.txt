@@ -10,6 +10,11 @@ New Games
 - [lhpb]                Last Hope Pink Bullets (hack)
 
 
+Updated Games
+---------------------------------
+- [cd_ssrpg]            Samurai Spirits RPG (English) v1.1
+
+
 
 
 2026-09-03 0.289.2

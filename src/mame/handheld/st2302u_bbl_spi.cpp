@@ -36,6 +36,14 @@
 #include "emupal.h"
 #include "speaker.h"
 
+#define LOG_BBL_SPI         (1U << 1)
+#define LOG_BBL_UNKNOWN     (1U << 2)
+
+#define LOG_ALL             (LOG_BBL_SPI | LOG_BBL_UNKNOWN)
+
+#define VERBOSE             (0)
+
+#include "logmacro.h"
 
 namespace {
 
@@ -97,7 +105,7 @@ private:
 	required_device<st7735_lcdc_device> m_lcdc;
 	required_device<generic_spi_flash_device> m_genspi;
 
-	u8 ff_r() { logerror("%s reading from 0x14\n", machine().describe_context());  return 0xff; }
+	u8 ff_r() { LOGMASKED(LOG_BBL_UNKNOWN, "%s reading from 0x14\n", machine().describe_context()); return 0xff; }
 };
 
 
@@ -167,13 +175,13 @@ void bbl380_state::spi10_w(u8 data)
 {
 	m_spi10out = data;
 	m_spi10out_has_data = 1;
-	logerror("%s: spi10_w %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_BBL_SPI, "%s: spi10_w %02x\n", machine().describe_context(), data);
 }
 
 void bbl380_state::spi11_w(u8 data)
 {
 	m_spi11out = data;
-	logerror("%s: spi11_w %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_BBL_SPI, "%s: spi11_w %02x\n", machine().describe_context(), data);
 }
 
 u8 bbl380_state::spi10_r()
@@ -190,13 +198,13 @@ u8 bbl380_state::spi10_r()
 		m_spi10 = m_genspi->read();
 	}
 
-	logerror("%s: spi10_r returning %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_BBL_SPI, "%s: spi10_r returning %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 u8 bbl380_state::spi11_r()
 {
-	logerror("%s: spi11_r returning %02x\n", machine().describe_context(), m_spi11);
+	LOGMASKED(LOG_BBL_SPI, "%s: spi11_r returning %02x\n", machine().describe_context(), m_spi11);
 	return m_spi11;
 }
 
@@ -447,6 +455,13 @@ ROM_START(qpet)
 	ROM_LOAD("t25s16.bin", 0x000000, 0x200000, CRC(78a9c285) SHA1(73b0ebe1c88af79fae3357ab3cb4920d685a14f4) )
 ROM_END
 
+ROM_START(tchib158)
+	ROM_REGION(0x2000, "maincpu", ROMREGION_ERASEFF)
+	ROM_LOAD("st2x_internal_tchib158.bin", 0x0000, 0x2000, NO_DUMP )
+
+	ROM_REGION(0x800000, "spi", ROMREGION_ERASEFF)
+	ROM_LOAD("p25d32sh.u2", 0x000000, 0x400000, CRC(274a25ff) SHA1(4c0560ee6cb2d31edd4afdf99adf04ce8d69c6bf) )
+ROM_END
 
 } // anonymous namespace
 
@@ -489,6 +504,10 @@ CONS( 201?, ppg118,        0,       0,      bbl380_24mhz,   bbl380_prot, bbl380_
 // it is unclear if dphh8633 refers to the case style, rather than the software, as the dphh8630 set was also noted as previously being found in an 8633 unit
 CONS( 201?, dphh8633,      0,       0,      bbl380_menuprot,   bbl380_prot, bbl380_state, empty_init, "<unknown>", "Digital Pocket Hand Held System 268-in-1 - Model 8633", MACHINE_NOT_WORKING )
 CONS( 2016, dphh8661,      0,       0,      bbl380_24mhz,   bbl380_prot, bbl380_state, empty_init, "<unknown>", "Digital Pocket Hand Held System 268-in-1 - Model 8661", MACHINE_NOT_WORKING ) // from PCP? (logo on back of console) 2016 date on PCB
+
+// yet another internal ROM? (doesn't seem to boot with the ones we have)
+
+CONS( 2022, tchib158,      0,       0,      bbl380_menuprot,   bbl380_prot, bbl380_state, empty_init, "Tchibo GmbH", "Tchibo 158-in-1 Retro Game", MACHINE_NOT_WORKING )
 
 // also has the 0xE4 XOR, also doesn't currently boot, could be yet another internal ROM
 CONS( 2021, toumapet,      0,       0,      bbl380,   bbl380, bbl380_state, empty_init, "Shenzhen Shiji New Technology", "Tou ma Pet (OK-550)", MACHINE_NOT_WORKING )
