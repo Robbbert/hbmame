@@ -16,6 +16,9 @@
 
 // standard C headers
 #include <tchar.h>
+#include <iostream>
+#include <fstream>
+#include <locale>
 
 // MAME/MAMEUI headers
 #include "emu.h"
@@ -202,17 +205,14 @@ static void LoadSettingsFile(windows_options &opts, const char *filename)
 // This saves changes to <game>.INI or MAME.INI only
 static void SaveSettingsFile(windows_options &opts, const char *filename)
 {
-	util::core_file::ptr file;
-
-	std::error_condition filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
-
-	if (!filerr)
-	{
-		string inistring = opts.output_ini();
-		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
-		file->puts(inistring.c_str());
-		file.reset();
-	}
+	std::ofstream file;
+	file.imbue(std::locale::classic());
+	file.open(filename);
+	if (!file.is_open() || file.bad() || file.fail())
+		printf("%s: Unable to open for writing\n",filename);
+	else
+		opts.output_ini(file);
+	file.close();
 }
 
 /*  get options, based on passed in game number. */
@@ -434,16 +434,14 @@ string dir_get_value(int dir_index)
 // This saves changes to UI.INI only
 static void SaveSettingsFile(ui_options &opts, const char *filename)
 {
-	util::core_file::ptr file;
-
-	std::error_condition filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
-
-	if (!filerr)
-	{
-		string inistring = opts.output_ini();
-		file->puts(inistring.c_str());
-		file.reset();
-	}
+	std::ofstream file;
+	file.imbue(std::locale::classic());
+	file.open(filename);
+	if (!file.is_open() || file.bad() || file.fail())
+		printf("%s: Unable to open for writing\n",filename);
+	else
+		opts.output_ini(file);
+	file.close();
 }
 
 void ui_save_ini()

@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0-1.0
+
+Info from Atariage and Atarimania
+
+The scharger cartridge must be loaded before being able to load a tape. Press Play when asked.
+
+e.g. mame a2600 scharger -cass commumut
+
+-->
+
+<softwarelist name="a2600_cass" description="Atari 2600 cassettes">
+
+<!-- Star Charger tapes -->
+<!--
+Some games had different titles during development. Some of these are known (and in a couple of cases, tapes have been found and preserved):
+- Galactic Egg (then released as Communist Mutants from Space)
+- Excalibur (then released as Dragonstomper)
+- Hopalong Catastrophe (then released as Rabbit Transit)
+- Jungle Raid (then released as Survival Island)
+- Labyrinth (then released as Escape from the Mindmaster)
+
+MultiLoad (TM) games, i.e. the few games which had separate chunks of data on the tapes, are currently emulated with separate a26 files for each chunk.
+
+
+Side A and B of the tapes have the same content, however the data on Side B has been recorded at a lower speed. Side B was
+meant to be used when there were problems loading the contents from Side A.
+-->
+
+	<software name="commumut">
+		<description>Communist Mutants from Space</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<notes>Also contains preview versions of Suicide Mission and Fireball.</notes>
+		<info name="serial" value="AR-4101"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="12642931">
+				<rom name="communist mutants from space - arcadia corporation (side a).flac" size="12642931" crc="a5ad6283" sha1="6494a8baa2a0ed15191759fade832257ab0e2ab1"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="13416668">
+				<rom name="communist mutants from space - arcadia corporation (side b).flac" size="13416668" crc="11ae9530" sha1="a608e395ed2aca8b677046ef6265e93add5d4dd1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="commumute" cloneof="commumut" supported="partial">
+		<description>Communist Mutants from Space (PAL)</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Escape from the Mindmaster, Dragonstomper, Fireball, and Suicide Mission.</notes>
+		<info name="serial" value="AR-4101"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="22123599">
+				<!-- Only the first file loads. -->
+				<rom name="communist mutants from space - arcadia corporation (pal, side a).flac" size="22123599" crc="b6331fc6" sha1="065410f9a98471ac7146e66dcd9d5f8c220cc7a2"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="23479401">
+				<rom name="communist mutants from space - arcadia corporation (pal, side b).flac" size="23479401" crc="1e882029" sha1="6f75541d6362da2124ce5ce9388c258ec0061ee0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="dstomper">
+		<description>Dragonstomper</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>The software consists of three parts.</notes>
+		<info name="serial" value="AR-4100"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="18951778">
+				<rom name="dragonstomper - starpath corporation (side a).flac" size="18951778" crc="2d671567" sha1="a98e6eef3607041ca053587f0643b90a5ca3b676"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="18827918">
+				<rom name="dragonstomper - starpath corporation (side b).flac" size="18827918" crc="61600cdc" sha1="df8b3e2206b0e643f39bb26f7b1b716d35a4662d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="dstompere" cloneof="dstomper">
+		<description>Dragonstomper (PAL)</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>The software consists of three parts.</notes>
+		<info name="serial" value="AR-4100"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="13738745">
+				<rom name="dragonstomper - starpath corporation (pal, side a).flac" size="13738745" crc="30ef5580" sha1="7987d87f9b7c915e9e9f56ab52290ac4d1eeb331"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="14617426">
+				<rom name="dragonstomper - starpath corporation (pal, side b).flac" size="14617426" crc="0be59b69" sha1="4fac8cebb88936b5e5b290386e0e617dbd04d717"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mindmstr">
+		<description>Escape from the Mindmaster</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>The software consists of four parts.</notes>
+		<info name="serial" value="AR-4200"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="23148011">
+				<rom name="escape from the mindmaster - starpath corporation (side a).flac" size="23148011" crc="32892866" sha1="37608f586688917b5bcee8d4be60b69ae8374b0c"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="25478966">
+				<rom name="escape from the mindmaster - starpath corporation (side b).flac" size="25478966" crc="be4ad193" sha1="b111df968e8ba32182e39fe7a5768191d1b4ca72"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mindmstre" cloneof="mindmstr">
+		<description>Escape from the Mindmaster (PAL)</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>The software consists of four parts.</notes>
+		<info name="serial" value="AR-4200"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="15611417">
+				<rom name="escape from the mindmaster - starpath corporation (pal, side a).flac" size="15611417" crc="35a50bab" sha1="f400acd8291d9781a7f0b54884e6f3fdd36ddbf2"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="16763727">
+				<rom name="escape from the mindmaster - starpath corporation (pal, side b).flac" size="16763727" crc="6175157c" sha1="0b26b22099535642ccbd09a98cccd81e1b4bd417"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="xcalibur" cloneof="dstomper">
+		<description>Excalibur (prototype)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="excalibur (1982) (arcadia corporation) (prototype).a26" size="8448" crc="73007594" sha1="eaea4c24280cf11e11d62bbbe5c0c74448f497e8"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="xcalibura" cloneof="dstomper">
+		<description>Excalibur (prototype, alt)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="excalibur (1982) (arcadia corporation) (prototype) [a].a26" size="8448" crc="24885ec2" sha1="c6a8bb97d1891a45d9d5b6b799a3602ed7c83ef1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="xcalibur36" cloneof="dstomper">
+		<description>Excalibur (prototype, v. 36)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="excalibur version 36 (1982) (arcadia corporation) (prototype).a26" size="8448" crc="2a51cc8d" sha1="9b89ba2b1481468994c6c93600053500912213f3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="xcalibur39" cloneof="dstomper">
+		<description>Excalibur (prototype, v. 39)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="excalibur version 39 (1982) (arcadia corporation) (prototype).a26" size="8448" crc="ba92957e" sha1="9d515c70bb2498b44fd46f129f10be03b73c937c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fireball" supported="partial">
+		<description>Fireball</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<notes>Also contains preview versions of Communist Mutants from Space and Suicide Mission.</notes>
+		<info name="serial" value="AR-4300"/>
+		<info name="developer" value="Scott Nelson"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="12455860">
+				<rom name="fireball - arcadia corporation (side a).flac" size="12455860" crc="96da7cd6" sha1="2e17546eb9d086c9a2afd07a59515b89bb4860ec"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="13430407">
+				<!-- files do not load in emulation, works on hardware. -->
+				<rom name="fireball - arcadia corporation (side b).flac" size="13430407" crc="355dd670" sha1="82fca70ec38691fddff321d81f3c91627e88968d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fireballe" cloneof="fireball" supported="partial">
+		<description>Fireball (PAL)</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Communist Mutants from Space, Escape from the Mindmaster, Dragonstomper and Suicide Mission.</notes>
+		<info name="serial" value="AR-4300"/>
+		<info name="developer" value="Scott Nelson"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="22314825">
+				<!-- Only the first file loads. -->
+				<rom name="fireball - arcadia corporation (pal, side a).flac" size="22314825" crc="da541b82" sha1="c207d652c78b725d46a95cf10fb80b407e68fa4c"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="23371984">
+				<rom name="fireball - arcadia corporation (pal, side b).flac" size="23371984" crc="db1baf69" sha1="2be1ce5a31ba26b89446fa09490870bd81228020"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fireballp" cloneof="fireball">
+		<description>Fireball (prototype)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Scott Nelson"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="fireball (1982) (arcadia corporation) (prototype).a26" size="8448" crc="10e4971e" sha1="fd9ba06548a16067f1a3ab1ef48e3f32d6199191"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="killsat">
+		<description>Killer Satellites</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Escape from the Mindmaster, Dragonstomper, and Fireball.</notes>
+		<info name="serial" value="AR-4103"/>
+		<info name="developer" value="Kevin Norman"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="18842881">
+				<rom name="killer satellites - starpath corporation (side a).flac" size="18842881" crc="02430599" sha1="662958238a36b2de06ed16a2e56678ae8f1e4ce4"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="18766747">
+				<rom name="killer satellites - starpath corporation (side b).flac" size="18766747" crc="fad0b586" sha1="5415992268a04ccdc25121ffcb3516487effdbb7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="killsate" cloneof="killsat" supported="partial">
+		<description>Killer Satellites (PAL)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Escape from the Mindmaster, Dragonstomper, Fireball, and Communist Mutants from Space.</notes>
+		<info name="serial" value="AR-4103"/>
+		<info name="developer" value="Kevin Norman"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="20663264">
+				<!-- Only the first file loads. -->
+				<rom name="killer satellites - starpath corporation (pal, side a).flac" size="20663264" crc="558ce890" sha1="8330bf179cc30519439f4eb5472a07652c362b2d"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="22428769">
+				<rom name="killer satellites - starpath corporation (pal, side b).flac" size="22428769" crc="5a1ad9b5" sha1="ea4698e343addc3a58b88954bffee91833032280"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="killsatp" cloneof="killsat">
+		<description>Killer Satellites (prototype)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4103"/>
+		<info name="developer" value="Kevin Norman"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="killer satellites (1983) (starpath corporation) (prototype).a26" size="8448" crc="c989064c" sha1="dd0a82dac03298a8ce945c4b612cf8944927f5e8"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="labyrint" cloneof="mindmstr">
+		<description>Labyrinth (prototype)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="labyrinth (escape from the mindmaster beta) (1982) (arcadia corporation).a26" size="8448" crc="30ebc4a2" sha1="3ce35421bfa26c69eaced246909956a7e484f1fd"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="labyrinta" cloneof="mindmstr">
+		<description>Labyrinth (prototype, alt)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="labyrinth (escape from the mindmaster beta) (1982) (arcadia corporation) [a].a26" size="8448" crc="9dc34fb0" sha1="1df4b18ce0187eea5b4d3dd7d150f552d97a08fa"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="meteroid" cloneof="suicidem">
+		<description>Meteoroids (prototype)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Steve Hales" />
+		<info name="developer" value="Stephen Harland Landrum" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="meteoroids (suicide mission beta) (1982) (arcadia corporation).a26" size="8448" crc="40d6bbb2" sha1="11c3bd2b9327987e83b34e65e1bbee5fd62e6f60"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="offifrog">
+		<description>The Official Frogger</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Rabbit Transit, Party Mix, Escape from the Mindmaster, and Dragonstomper.</notes>
+		<info name="serial" value="AR-4105"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="21236441">
+				<rom name="the official frogger - starpath corporation (side a).flac" size="21236441" crc="44c6475e" sha1="5e1b8c87bb14171f957b76bb8a323a0ec876a1e0"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="22746952">
+				<rom name="the official frogger - starpath corporation (side b).flac" size="22746952" crc="bd600492" sha1="e8e79dd2bd5536b15de60cdfed5baf49ca9d6b81"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="offifrogpv" cloneof="offifrog">
+		<description>The Official Frogger (preview)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4105"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="official frogger, the (preview) (1983) (starpath corporation).a26" size="8448" crc="5f0181f9" sha1="2edb64be1bb6f4215f520ec2f487b19f29724b8d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="offifroge" cloneof="offifrog">
+		<description>The Official Frogger (PAL)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Rabbit Transit, Party Mix, Escape from the Mindmaster, and Dragonstomper.</notes>
+		<info name="serial" value="AR-4105"/>
+		<info name="developer" value="Stephen Harland Landrum"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="21559759">
+				<rom name="the official frogger - starpath corporation (pal, side a).flac" size="21559759" crc="e9584352" sha1="ccaf23270e438a14d0ab975c7fe09835e44ef84b"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="22712396">
+				<rom name="the official frogger - starpath corporation (pal, side b).flac" size="22712396" crc="4ced8e96" sha1="9961f5ab65aac6490bf1b77b66db4169a206d612"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="partymix">
+		<description>Party Mix</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>The software consists of three parts.</notes>
+		<info name="serial" value="AR-4302"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="15046705">
+				<rom name="party mix - starpath corporation (side a).flac" size="15046705" crc="6094b9b9" sha1="1f18850d2da3e6791663e7260333afff68842445"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="15479394">
+				<rom name="party mix - starpath corporation (side b).flac" size="15479394" crc="329a3d05" sha1="01c0a7add96c5f7d4eac9c5589dd9895feeda6de"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="partymixe" cloneof="partymix">
+		<description>Party Mix (PAL)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4302"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass1" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="party mix (1 of 3) (1983) (starpath corporation) (pal).a26" size="8448" crc="d20d4821" sha1="b92aaae1f94f9c2d9957dfaf1941b7f12c5c7679"/>
+			</dataarea>
+		</part>
+		<part name="cass2" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="party mix (2 of 3) (1983) (starpath corporation) (pal).a26" size="8448" crc="e50a3d5c" sha1="d668e291131fc01b1286f7cbf5f0de10d15de7f1"/>
+			</dataarea>
+		</part>
+		<part name="cass3" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="party mix (3 of 3) (1983) (starpath corporation) (pal).a26" size="8448" crc="d619142f" sha1="00c90aea85bd8272cb34ce23fd0e5f0d36a1ea48"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ppatrol" supported="partial">
+		<description>Phaser Patrol</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<notes>Also contains preview versions of Communist Mutants from Space, Fireball, and Suicide Mission.</notes>
+		<info name="serial" value="AR-4000"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="16605567">
+				<!-- Only the first file loads. -->
+				<rom name="phaser patrol - arcadia corporation (side a).flac" size="16605567" crc="8d4c52f3" sha1="59711d0c077f077f119c9cf20c2e71e20ca77026"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="17995373">
+				<rom name="phaser patrol - arcadia corporation (side b).flac" size="17995373" crc="13945b71" sha1="d2c06d0587b3b820cd79d08b52b8ffd8909bf66b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ppatrole" cloneof="ppatrol" supported="partial">
+		<description>Phaser Patrol (PAL)</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Party Mix, Frogger, Rabbit Transit, and Dragonstomper.</notes>
+		<info name="serial" value="AR-4000"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="21757206">
+				<!-- No files load. -->
+				<rom name="phaser patrol - arcadia corporation (pal, side a).flac" size="21757206" crc="4178f8b6" sha1="f1ba0d65561fb4650540f8fcc33f904334afd287"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="23760153">
+				<rom name="phaser patrol - arcadia corporation (pal, side b).flac" size="23760153" crc="8f9f014b" sha1="c9de2fc404dd33dc5f034d5645519619a5145f2b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ppatrolp" cloneof="ppatrol">
+		<description>Phaser Patrol (prototype)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="serial" value="AR-4000"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="phaser patrol (1982) (arcadia corporation) (prototype).a26" size="8448" crc="4fd200db" sha1="1ff4e3101275555ff014d981ff7f9006c93942ee"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ppatrolpa" cloneof="ppatrol">
+		<description>Phaser Patrol (prototype, alt)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="serial" value="AR-4000"/>
+		<info name="developer" value="Dennis Caswell"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="phaser patrol (1982) (arcadia corporation) (prototype) [a].a26" size="8448" crc="61a05bf2" sha1="abfd85e6973ab55d12f039cb0a4f4df8a62c0330"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rabbit">
+		<description>Rabbit Transit</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Escape from the Mindmaster, Dragonstomper, Communist Mutants from Space, and Fireball.</notes>
+		<info name="serial" value="AR-4104"/>
+		<info name="developer" value="Brian McGhie"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="23856425">
+				<rom name="rabbit transit - starpath corporation (side a).flac" size="23856425" crc="cfae2657" sha1="59568d91cc7561523d3a67e89e72365dcb250854"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="23257740">
+				<rom name="rabbit transit - starpath corporation (side b).flac" size="23257740" crc="d1ba3f71" sha1="653038cf7ddbc375a13a1980d79c1d7ed5376368"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rabbite" cloneof="rabbit">
+		<description>Rabbit Transit (PAL)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Escape from the Mindmaster, Dragonstomper, Communist Mutants from Space, and Fireball.</notes>
+		<info name="serial" value="AR-4104"/>
+		<info name="developer" value="Brian McGhie"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="21689583">
+				<rom name="rabbit transit - starpath corporation (pal, side a).flac" size="21689583" crc="c1870508" sha1="40aa59554098af999295ac89d658303204ea6355"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="22749697">
+				<rom name="rabbit transit - starpath corporation (pal, side B).flac" size="22749697" crc="d08e6b76" sha1="de3c887243ef15ac6319bc8185594efb1ff1c54d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="suicidem" supported="partial">
+		<description>Suicide Mission</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<notes>Also contains preview versions of Communist Mutants from Space and Fireball.</notes>
+		<info name="serial" value="AR-4102"/>
+		<info name="developer" value="Steve Hales" />
+		<info name="developer" value="Stephen Harland Landrum" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="12398976">
+				<!-- Only the first file loads. -->
+				<rom name="suicide mission - arcadia corporation (side a).flac" size="12398976" crc="f4b9fe5a" sha1="c8228cdab5e19323d773b02495283c70bda1a995"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="13063425">
+				<rom name="suicide mission - arcadia corporation (side b).flac" size="13063425" crc="5b4264d9" sha1="8a7877fbfce30200f2e6b18752db585715e84ca7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="suicideme" cloneof="suicidem" supported="partial">
+		<description>Suicide Mission (PAL)</description>
+		<year>1982</year>
+		<publisher>Starpath Corporation</publisher>
+		<notes>Also contains preview versions of Fireball, Dragonstomper, Communist Mutants from Space, Escape from the Mindmaster.</notes>
+		<info name="serial" value="AR-4102"/>
+		<info name="developer" value="Steve Hales" />
+		<info name="developer" value="Stephen Harland Landrum" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cassa" interface="a2600_cass">
+			<dataarea name="cass" size="21008842">
+				<rom name="suicide mission - starpath corporation (pal, side a).flac" size="21008842" crc="3822ff5d" sha1="f472d9ce2adfeab1747889e552a8f75c2a957f0b"/>
+			</dataarea>
+		</part>
+		<part name="cassb" interface="a2600_cass">
+			<dataarea name="cass" size="22364415">
+				<!-- Escape from the Mindmaster does not load. -->
+				<rom name="suicide mission - starpath corporation (pal, side b).flac" size="22364415" crc="750fafdc" sha1="b99264deeaff3c0e8225b744e9b4dd2fd9563fe3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="suicidemp" cloneof="suicidem">
+		<description>Suicide Mission (prototype)</description>
+		<year>1982</year>
+		<publisher>Arcadia Corporation</publisher>
+		<info name="developer" value="Steve Hales" />
+		<info name="developer" value="Stephen Harland Landrum" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="suicide mission (1982) (arcadia corporation) (prototype).a26" size="8448" crc="54efd148" sha1="c3a79f8dbd4af3628ff91fa0f99f995a8756f4fa"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="survival">
+		<description>Survival Island</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4401"/>
+		<info name="developer" value="Steve Mundry" />
+		<info name="developer" value="Scott Nelson" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass1" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="survival island (1 of 3) (1983) (starpath corporation).a26" size="8448" crc="ea4f2765" sha1="cba1c7d15cc3c7b6164652866f958297de9d7eef"/>
+			</dataarea>
+		</part>
+		<part name="cass2" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="survival island (2 of 3) (1983) (starpath corporation).a26" size="8448" crc="ae02fdb4" sha1="bac319deee30cc6fb4f8e12605df2b69a9a249aa"/>
+			</dataarea>
+		</part>
+		<part name="cass3" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="survival island (3 of 3) (1983) (starpath corporation).a26" size="8448" crc="d23dcfec" sha1="34de46efc38be5c870faf11bc878e74519f7aac4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="survivale" cloneof="survival">
+		<description>Survival Island (PAL)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4401"/>
+		<info name="developer" value="Steve Mundry" />
+		<info name="developer" value="Scott Nelson" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass1" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="survival island (1 of 3) (1983) (starpath corporation) (pal).a26" size="8448" crc="2ee59279" sha1="b1344b694ed1408ef50a6c9b1fe162c5b850cd1e"/>
+			</dataarea>
+		</part>
+		<part name="cass2" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="survival island (2 of 3) (1983) (starpath corporation) (pal).a26" size="8448" crc="c7dd5f7f" sha1="9fecc4ea4fbcba8c0ecaabfe6dc77ea97826cc32"/>
+			</dataarea>
+		</part>
+		<part name="cass3" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="survival island (3 of 3) (1983) (starpath corporation) (pal).a26" size="8448" crc="d1f68f7a" sha1="e32c7604f84a3a22f455c6900fce28b33ddcf8cc"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sweat">
+		<description>Sweat! The Decathlon Game (prototype)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="developer" value="Scott Nelson"/>
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass1" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="sweat - the decathlon game (1 of 3) (1983) (starpath corporation) (prototype).a26" size="8448" crc="32297adf" sha1="709a413f7d83176c5e6a6a753308752aecd16923"/>
+			</dataarea>
+		</part>
+		<part name="cass2" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="sweat - the decathlon game (2 of 3) (1983) (starpath corporation) (prototype).a26" size="8448" crc="bc58243a" sha1="e84a3f964098c435d361aba9a2948f7ddc58dc60"/>
+			</dataarea>
+		</part>
+		<part name="cass3" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="sweat - the decathlon game (3 of 3) (1983) (starpath corporation) (prototype).a26" size="8448" crc="ba1f666b" sha1="bea35df3bbcdc7b0a52e5b09716ab6f49719d9b1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="saros">
+		<description>Sword of Saros</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4201"/>
+		<info name="developer" value="Stephen Harland Landrum" />
+		<info name="developer" value="Jon Leupp" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="sword of saros (1983) (starpath corporation).a26" size="8448" crc="d96a3632" sha1="45ab6ae206f86524e31815a736a90287cca94b70"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sarose" cloneof="saros">
+		<description>Sword of Saros (PAL)</description>
+		<year>1983</year>
+		<publisher>Starpath Corporation</publisher>
+		<info name="serial" value="AR-4201"/>
+		<info name="developer" value="Stephen Harland Landrum" />
+		<info name="developer" value="Jon Leupp" />
+		<sharedfeat name="requirement" value="scharger"/>
+		<part name="cass" interface="a2600_cass">
+			<dataarea name="cass" size="8448">
+				<rom name="sword of saros (1983) (starpath corporation) (pal).a26" size="8448" crc="670ff870" sha1="f81877de942e4c424db201e80cee3af38e3c105d"/>
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>

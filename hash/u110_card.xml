@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0-1.0
+
+Undumped cards:
+- Roland SN-SPLA-03
+- Musitronics 2 Voices (U-22)
+- Musitronics 5 Eldek (U-21)
+- Musitronics 6 Analog Synthesizer (U-20)
+  -> see https://www.playkeyboardnow.com/Roland_D70_Soundbanks/page63/index.html
+
+Notes:
+- Roland SN-SPLA-xx wave cards are listed in this file as well.
+  They work just fine in a U-110 despite them being intended for the Roland D-70.
+- The "Rhodes SN-U01-xxR" seem to be rebranded "SN-U110-xx" cards with the same ROM.
+  Their ROM is a bit-perfect match with the "SN-U110-xx" counterparts.
+- SN-U01-xxR cards that were verified to be a bit-perfect match of the respective SN-U110-xx card:
+  - SN-U01-03R Ethnic
+
+Release dates were taken from http://www.rolandmuseum.de/z_syn_wc.php
+
+
+address/data line scrambling (same as SN-R8):
+
+     address              data
+external internal   external internal
+   A0 - - -  A0        D0 - - - D2
+   A1 - - -  A5        D1 - - - D7
+   A2 - - -  A4        D2 - - - D6
+   A3 - - -  A6        D3 - - - D4
+   A4 - - -  A1        D4 - - - D1
+   A5 - - -  A2        D5 - - - D3
+   A6 - - -  A3        D6 - - - D0
+   A7 - - -  A8        D7 - - - D5
+   A8 - - - A10
+   A9 - - - A13
+  A10 - - -  A9
+  A11 - - -  A7
+  A12 - - - A11
+  A13 - - - A12
+  A14 - - - A16
+  A15 - - - A14
+  A16 - - - A15
+  A17 - - - A17
+  A18 - - - A18
+-->
+
+<softwarelist name="u110_card" description="Roland U-110 PCM memory cards">
+	<software name="mus1_akk">
+		<description>Musitronics 1 Akkordeon (U-25)</description>
+		<year>199?</year>
+		<publisher>musitronics GmbH</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<!-- Note: The current dump is an overdump due to how address scrambling works. The internal ROM appears to be only 64K. -->
+				<rom name="musitronics_akkordeon.bin" size="0x20000" crc="12a18917" sha1="6d3f17c44f42b79401416910be624b65b4db8e33"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_mv30_01">
+		<description>SN-MV30-01 Rhythm Section (U-31)</description>
+		<year>1991</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-mv30-01.bin" size="0x80000" crc="90ea2ea8" sha1="9f2dced30b9bcc9c4ae841661ee334f1daa6dd68"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_mv30_02">
+		<description>SN-MV30-02 Orchestral (U-30)</description>
+		<year>1991</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-mv30-02.bin" size="0x80000" crc="57c740c9" sha1="bbe0b2aa7badcc5061b648745f1bd957771f134b"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_spla_01">
+		<description>SN-SPLA-01 Sound Elements Vol. 1 (U-01)</description>
+		<year>1990</year>
+		<publisher>Roland</publisher>
+		<!-- Note: The card reports itself with ID 01, which is also used by SN-U110-01. -->
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-spla-01.bin" size="0x80000" crc="e51284a1" sha1="c248ba8fcfe79c83339132a855dfe047bfa79983"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_01">
+		<description>SN-U110-01 Pipe Organ &amp; Harpsichord</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-01.bin" size="0x80000" crc="8a99cfce" sha1="b57b215828d292505c4d5c3e85aefb3e34086514"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_02">
+		<description>SN-U110-02 Latin &amp; F.X. Percussions</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-02.bin" size="0x80000" crc="7f347263" sha1="5e4edc717adcf7e078ea4bc1ce3bd04eacece672"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_03">
+		<description>SN-U110-03 Ethnic</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-03.bin" size="0x80000" crc="7f14c801" sha1="1cb93d7bfeb499f22cba316a5732af97d7311a4e"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_04">
+		<description>SN-U110-04 Electric Grand &amp; Clavi</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-04.bin" size="0x80000" crc="39e0e70b" sha1="a369fbb1874c222a0c9e1066275e3174917b3725"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_05">
+		<description>SN-U110-05 Orchestral Strings</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-05.bin" size="0x80000" crc="844b2456" sha1="b1a59971153e0cc5c4c2631a9bdb57433f47ca0e"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_06">
+		<description>SN-U110-06 Orchestral Winds</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-06.bin" size="0x80000" crc="c715c9aa" sha1="02d8dfb9bd45721e34b0eec3db69b3f5e182e7bc"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_07">
+		<description>SN-U110-07 Electric Guitar</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-07.bin" size="0x80000" crc="6fb3a4f4" sha1="1e16c98cf776598b726d4f48ca3f3d677cd32c54"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_08">
+		<description>SN-U110-08 Synthesizer</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-08.bin" size="0x80000" crc="104f3974" sha1="71b6f97df6dd4e573db5743c10c77e86d67965a3"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_09">
+		<description>SN-U110-09 Guitar &amp; Keyboards</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-09.bin" size="0x80000" crc="af1c2778" sha1="aea715a0a554c071a2e912894805a8d819802e1d"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_10">
+		<description>SN-U110-10 Rock Drums</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-10.bin" size="0x80000" crc="c219c27e" sha1="3249ff037a165e57173bd45c543a665810d2c57b"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_11">
+		<description>SN-U110-11 Sound Effects</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-11.bin" size="0x80000" crc="0ee5274d" sha1="f5cbe2272d03e21403bfca029476d015f6a34d3a"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_12">
+		<description>SN-U110-12 Sax &amp; Trombone</description>
+		<year>1989</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-12.bin" size="0x80000" crc="39c78747" sha1="bac35550bdd719da4e5dc703d3829523cfee9b8a"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_13">
+		<description>SN-U110-13 Super Strings</description>
+		<year>1992</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-13.bin" size="0x80000" crc="4cbf140a" sha1="4a6ca2b45c83991e62023dfc0114b40baed0e0fd"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_14">
+		<description>SN-U110-14 Super Ac Guitar</description>
+		<year>1992</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-14.bin" size="0x80000" crc="cf5e6371" sha1="dfe87d385068201d3a31a55466e171fda614e412"/>
+			</dataarea>
+		</part>
+	</software>
+	<software name="sn_u110_15">
+		<description>SN-U110-15 Super Brass</description>
+		<year>1992</year>
+		<publisher>Roland</publisher>
+		<part name="card" interface="u110_card">
+			<dataarea name="rom" size="0x80000">
+				<rom name="sn-u110-15.bin" size="0x80000" crc="2df93109" sha1="56918595d39b480a6a15b7ecc8d1c836cca842a3"/>
+			</dataarea>
+		</part>
+	</software>
+</softwarelist>

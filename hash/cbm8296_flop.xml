@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0-1.0
+-->
+<softwarelist name="cbm8296_flop" description="Commodore 8296 diskettes">
+
+	<software name="system">
+		<description>Commodore 8296-D System Disk</description>
+		<year>1984</year>
+		<publisher>Commodore</publisher>
+
+		<part name="flop1" interface="floppy_5_25">
+			<dataarea name="flop" size="1066496">
+				<rom name="8296d-systemdisk.d82" size="1066496" crc="1dbb2376" sha1="b0201074aaa7b9e5984f02e78088a127d6b8e78d" status="baddump" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="execudsk">
+		<description>ExecuDesk</description>
+		<year>1984</year>
+		<publisher>Commodore</publisher>
+
+		<part name="flop1" interface="floppy_5_25">
+			<dataarea name="flop" size="533248">
+				<rom name="execudesk.d80" size="533248" crc="7c72a37a" sha1="e730be7d54f02b7eca13d555e25cfbfc7c144c59" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="petpeeve" supported="no">
+		<description>PETpeeve</description>
+		<year>2025</year>
+		<publisher>Rabenauge &amp; Plush &amp; Crest</publisher>
+
+		<part name="flop1" interface="floppy_5_25">
+			<dataarea name="flop" size="1066496">
+				<rom name="PETpeeve.d82" size="1066496" crc="00681a19" sha1="88421431acc9887acb79e091d7c38857f267e811" />
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0-1.0
+-->
+
+<softwarelist name="mephisto_mm2" description="Mephisto MM II modules">
+
+<!-- HG 240 module works with MM II and MM III, it is 100% identical to Conchess L16 -->
+
+	<software name="hg240">
+		<description>Mephisto HG 240 Opening Library</description>
+		<year>1984</year>
+		<publisher>Hegener + Glaser</publisher>
+		<part name="cart" interface="mephisto_cart">
+			<dataarea name="rom" size="0x4000">
+				<rom name="240" size="0x4000" crc="38f62597" sha1="39ccc0f5d1b895e5334df0944639a886f9300f74" />
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>

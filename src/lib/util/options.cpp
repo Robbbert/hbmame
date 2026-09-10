@@ -12,12 +12,15 @@
 
 #include "corefile.h"
 #include "corestr.h"
+#include "strformat.h"
+
 #include "osdcore.h"
 
 #include <cassert>
 #include <cctype>
 #include <cstdlib>
 #include <locale>
+#include <ostream>
 #include <sstream>
 #include <unordered_set>
 
@@ -1130,12 +1133,9 @@ void core_options::copy_from(const core_options &that)
 //  the optional diff
 //-------------------------------------------------
 
-std::string core_options::output_ini(const core_options *diff) const
+void core_options::output_ini(std::ostream &str, const core_options *diff) const
 {
 	// INI files are complete, so always start with a blank buffer
-	std::ostringstream buffer;
-	buffer.imbue(std::locale::classic());
-
 	int num_valid_headers = 0;
 	int unadorned_index = 0;
 	const char *last_header = nullptr;
@@ -1172,8 +1172,8 @@ std::string core_options::output_ini(const core_options *diff) const
 					if (last_header)
 					{
 						if (num_valid_headers++)
-							buffer << '\n';
-						util::stream_format(buffer, "#\n# %s\n#\n", last_header);
+							str << '\n';
+						util::stream_format(str, "#\n# %s\n#\n", last_header);
 						last_header = nullptr;
 					}
 
@@ -1181,15 +1181,14 @@ std::string core_options::output_ini(const core_options *diff) const
 					if (!is_unadorned)
 					{
 						if (strchr(value, ' '))
-							util::stream_format(buffer, "%-25s \"%s\"\n", name, value);
+							util::stream_format(str, "%-25s \"%s\"\n", name, value);
 						else
-							util::stream_format(buffer, "%-25s %s\n", name, value);
+							util::stream_format(str, "%-25s %s\n", name, value);
 					}
 				}
 			}
 		}
 	}
-	return buffer.str();
 }
 
 
@@ -1197,26 +1196,22 @@ std::string core_options::output_ini(const core_options *diff) const
 //  output_help - output option help to a string
 //-------------------------------------------------
 
-std::string core_options::output_help() const
+void core_options::output_help(std::ostream &str) const
 {
-	// start empty
-	std::ostringstream buffer;
-
 	// loop over all items
 	for (auto &curentry : m_entries)
 	{
 		if (curentry->type() == option_type::HEADER)
 		{
 			// header: just print
-			util::stream_format(buffer, "\n#\n# %s\n#\n", curentry->description());
+			util::stream_format(str, "\n#\n# %s\n#\n", curentry->description());
 		}
 		else if (curentry->description() != nullptr)
 		{
 			// otherwise, output entries for all non-deprecated items
-			util::stream_format(buffer, "-%-19s %s\n", curentry->name(), curentry->description());
+			util::stream_format(str, "-%-19s %s\n", curentry->name(), curentry->description());
 		}
 	}
-	return buffer.str();
 }
 
 

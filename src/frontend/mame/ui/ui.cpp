@@ -51,7 +51,10 @@
 #include "../osd/modules/lib/osdlib.h"
 #include "../osd/modules/lib/osdobj_common.h"
 
+#include "ioprocsstream.h"
+
 #include <functional>
+#include <locale>
 #include <type_traits>
 
 
@@ -2739,7 +2742,13 @@ void mame_ui_manager::save_ui_options()
 	if (!file.open("ui.ini"))
 	{
 		// generate the updated INI
-		file.puts(options().output_ini());
+		{
+			util::owritestream str(file);
+			str.imbue(std::locale::classic());
+
+			options().output_ini(str);
+			str << std::flush;
+		}
 		file.close();
 	}
 	else
@@ -2797,7 +2806,13 @@ void mame_ui_manager::save_main_option()
 		if (!file.open(std::string(emulator_info::get_configname()) + ".ini"))
 		{
 			// generate the updated INI
-			file.puts(options.output_ini());
+			{
+				util::owritestream str(file);
+				str.imbue(std::locale::classic());
+
+				options.output_ini(str);
+				str << std::flush;
+			}
 			file.close();
 		}
 		else
