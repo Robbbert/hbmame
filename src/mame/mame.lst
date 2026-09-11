@@ -1328,6 +1328,9 @@ pmac7200_90
 pmac7200_100
 pmac7200_120
 
+@source:apple/maccordyceps.cpp
+pmac6200
+
 @source:apple/macii.cpp
 mac2fdhd
 macii
@@ -20215,6 +20218,7 @@ ragc153
 retro150
 retro150a
 rhhc152
+rocoball
 supreme
 table108
 tchib158
@@ -49302,6 +49306,7 @@ vsmilebfp
 
 @source:vtech/vsmilepro.cpp
 vsmilpro
+vsmilprof
 
 @source:vtech/vtech1.cpp
 fellow
