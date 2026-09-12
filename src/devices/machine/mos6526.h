@@ -2,7 +2,7 @@
 // copyright-holders:Curt Coder
 /**********************************************************************
 
-    MOS 6526/8520 Complex Interface Adapter emulation
+    MOS 6526/8521/8520 Complex Interface Adapter emulation
 
 **********************************************************************
                             _____   _____
@@ -14,8 +14,8 @@
                    PA4   6 |             | 35  RS3
                    PA5   7 |             | 34  _RES
                    PA6   8 |             | 33  DB0
-                   PA7   9 |             | 32  DB1
-                   PB0  10 |   MOS6526   | 31  DB2
+                   PA7   9 |   MOS6526   | 32  DB1
+                   PB0  10 |   MOS8521   | 31  DB2
                    PB1  11 |   MOS8520   | 30  DB3
                    PB2  12 |             | 29  DB4
                    PB3  13 |             | 28  DB5
@@ -59,8 +59,8 @@ public:
 	auto pb_wr_callback() { return m_write_pb.bind(); }
 	auto pc_wr_callback() { return m_write_pc.bind(); }
 
-	uint8_t read(offs_t offset);
-	void write(offs_t offset, uint8_t data);
+	virtual uint8_t read(offs_t offset);
+	virtual void write(offs_t offset, uint8_t data);
 
 	uint8_t pa_r() { return m_pa; }
 	uint8_t pb_r() { return m_pb; }
@@ -74,15 +74,7 @@ public:
 	void tod_w(int state);
 
 protected:
-	enum
-	{
-		TYPE_6526,
-		TYPE_6526A,
-		TYPE_8520,
-		TYPE_5710
-	};
-
-	mos6526_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, uint32_t variant);
+	mos6526_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
 	// device-level overrides
 	virtual void device_start() override ATTR_COLD;
@@ -91,21 +83,34 @@ protected:
 
 	TIMER_CALLBACK_MEMBER(advance_tod_clock);
 
+	// On the 6526 an ICR read swallows the readable Timer B flag bit of an
+	// underflow landing in the next cycle
+	virtual bool icr_read_loses_tb() const { return true; }
+
+	// The 6526 latches IR through one more stage than the later chips, so its
+	// IRQ - and the IR bit an ICR read returns - lags theirs by a cycle
+	virtual bool irq_one_cycle_early() const { return false; }
+
+	// On the 8520 a timer-high write force-loads and starts a stopped one-shot timer
+	virtual bool timer_hi_starts_oneshot() const { return false; }
+
 	int m_icount;
-	const int m_variant;
 	int m_tod_clock;
 
 	void update_interrupt();
+	void update_alarm();
 	void update_pa();
 	void update_pb();
 	void set_cra(uint8_t data);
 	void set_crb(uint8_t data);
 	void serial_input();
+	void serial_load();
 	void serial_output();
 	void clock_ta();
 	void clock_tb();
 	void clock_pipeline();
-	uint8_t bcd_increment(uint8_t value);
+	uint8_t increment_digits(uint8_t value);
+	uint8_t increment_hour(uint8_t value);
 	virtual void clock_tod();
 	uint8_t read_tod(int offset);
 	void write_tod(int offset, uint8_t data);
@@ -128,6 +133,7 @@ protected:
 	uint8_t m_icr;
 	uint8_t m_imr;
 	bool m_icr_read;
+	bool m_icr_tb_lost;
 
 	// peripheral ports
 	int m_pc;
@@ -147,10 +153,16 @@ protected:
 	uint8_t m_sdr;
 	uint8_t m_shift;
 	bool m_sdr_empty;
+	bool m_shift_loaded;
 	int m_bits;
+	int m_sp_delay;
+	int m_sdr_load_delay;
+	uint8_t m_cnt_hist;
+	bool m_sdr_force_finish;
 
 	// timers
 	int m_ta_out;
+	int m_ta_out_last;
 	int m_tb_out;
 	int m_ta_pb6;
 	int m_tb_pb7;
@@ -186,6 +198,7 @@ protected:
 	uint32_t m_alarm;
 	bool m_tod_stopped;
 	bool m_tod_latched;
+	bool m_alarm_match;
 	emu_timer *m_tod_timer;
 };
 
@@ -196,6 +209,10 @@ class mos6526a_device : public mos6526_device
 {
 public:
 	mos6526a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+protected:
+	virtual bool icr_read_loses_tb() const override { return false; }
+	virtual bool irq_one_cycle_early() const override { return true; }
 };
 
 
@@ -206,11 +223,14 @@ class mos8520_device : public mos6526_device
 public:
 	mos8520_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
-	uint8_t read(offs_t offset);
-	void write(offs_t offset, uint8_t data);
+	virtual uint8_t read(offs_t offset) override;
+	virtual void write(offs_t offset, uint8_t data) override;
 
 protected:
 	virtual void clock_tod() override;
+	virtual bool icr_read_loses_tb() const override { return false; }
+	virtual bool irq_one_cycle_early() const override { return true; }
+	virtual bool timer_hi_starts_oneshot() const override { return true; }
 };
 
 
