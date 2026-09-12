@@ -6565,6 +6565,30 @@ ROM_START( mslug5unity )
 	ROM_LOAD16_BYTE( "268.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
 ROM_END
 
+ROM_START( mslug5s01 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268s01.p1", 0x000000, 0x600000, CRC(caf8132d) SHA1(23cf2cd802f2743f7092017c710c4717d4d35550) )
+
+	NEO_SFIX_128K( "268fu.s1", CRC(64952683) SHA1(88ec728c2fe18a11fdd218bed5d73bb3affe2ec1) )
+
+	NEO_BIOS_AUDIO_128K( "268s01.m1", CRC(346d4a30) SHA1(3fe143afab3ff75365750ca5c14d02737306cbc8) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "268fr.v1", 0x000000, 0x800000, CRC(7ff6ca47) SHA1(e36c4e6a349dd9fd38d1a36b6760bbd943c2a42f) )
+	ROM_LOAD( "268fr.v2", 0x800000, 0x800000, CRC(696cce3b) SHA1(538d4a25befa4ffd25a48df97380469c13980f7a) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268hd.c1", 0x0000000, 0x800000, CRC(e8239365) SHA1(E0A75902A783110049730B66AD3CBCCDD804BF62) )
+	ROM_LOAD16_BYTE( "268hd.c2", 0x0000001, 0x800000, CRC(89b21d4c) SHA1(862AC31CE9570529B33E6F58ADA0AC867A442679) )
+	ROM_LOAD16_BYTE( "268hd.c3", 0x1000000, 0x800000, CRC(3cda13a0) SHA1(5D029C92688384EAFD65AD711A2954D0B86A3163) )
+	ROM_LOAD16_BYTE( "268hd.c4", 0x1000001, 0x800000, CRC(9c00160d) SHA1(C612102F9CD288BBA4C245B5855D795E4362B217) )
+	ROM_LOAD16_BYTE( "268hd.c5", 0x2000000, 0x800000, CRC(38754256) SHA1(744D91D041998CA27EE2781188746797C65377BD) )
+	ROM_LOAD16_BYTE( "268hd.c6", 0x2000001, 0x800000, CRC(59d33e9c) SHA1(ED7F5C7DB4C35EC5A7DB0AD5436110B3FE80B89A) )
+	ROM_LOAD16_BYTE( "268hd.c7", 0x3000000, 0x800000, CRC(c9f8c357) SHA1(7064224AFA887F57245F5479B0B46228539A131B) )
+	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
+ROM_END
+
+
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 GAME( 2003, mslug5b,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5b,  ROT0, "bootleg", "Metal Slug 5 (Bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -6814,6 +6838,7 @@ GAME( 2020, mslug5ervx14,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, i
 GAME( 2020, mslug5ervx15,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version, 2019-07-28)(Revised Version Super Grenade Remix 1.0, 2020-10-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5ervx16,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version, 2019-07-28)(Revised Version Super Grenade Remix 1.1, 2020-10-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mslug5unity,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb,   ROT0, "hack", "Metal Slug 5 Unity", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug5s01,        mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,     ROT0, "Xiao Zhang Bing", "Metal Slug 5 Remake v2", MACHINE_SUPPORTS_SAVE )
 
 // 5555: Uses metal slug characters in new scenes. After you die, immediately hit 1 to get a menu.
 // There's no official name (it just says Metal Slug).
