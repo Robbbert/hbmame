@@ -2818,6 +2818,10 @@ ROM_END
 ROM_START( foodfn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "514.p1", 0x000000, 0x080000, CRC(904bb32f) SHA1(b6e29634485af5e88997971f0dfb7661e93e8724) )
+	// new rom, has an 80-second pause at start, and the controls don't work
+	//ROM_LOAD16_WORD_SWAP( "514.p1", 0x000000, 0x080000, CRC(455a609f) SHA1(d6c82c3925a8f3b1f3544de8908394bdce38b204) )
+	//ROM_FILL(0x105d4,1,0x4e)  // skip 80-second wait
+	//ROM_FILL(0x105d5,1,0x71)
 
 	NEO_SFIX_128K( "021.s1", CRC(6956d778) SHA1(e3757776d60dc07d8e07c9ca61b223b14732f860) )
 
