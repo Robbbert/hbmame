@@ -2022,24 +2022,51 @@ ginganin01
 
 @source:gng.cpp
 gng                                    //parent
+gngaenh
+gngbenh
+gngcenh
+gngenh
 gngknight
 gngknighta
+gngknightaenh
 gngknightb
+gngknightbenh
 gngknightc
+gngknightcenh
+gngknightenh
 gngknightt
+gngknighttenh
 gngmaiden
 gngmaidena
+gngmaidenaenh
 gngmaidenb
+gngmaidenbenh
 gngmaidenc
+gngmaidencenh
+gngmaidenenh
 gngmaident
+gngmaidentenh
+gngtenh
+makaimurbenh
+makaimurcenh
+makaimurenh
+makaimurgenh
 makknight
 makknightb
+makknightbenh
 makknightc
+makknightcenh
+makknightenh
 makknightg
+makknightgenh
 makmaiden
 makmaidenb
+makmaidenbenh
 makmaidenc
+makmaidencenh
+makmaidenenh
 makmaideng
+makmaidengenh
 
 @source:gottlieb.cpp
 qbert                                  //parent
