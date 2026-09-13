@@ -717,6 +717,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/adbhost.h,MACHINES["ADBHOST"] = true
+---------------------------------------------------
+
+if MACHINES["ADBHOST"] then
+	files {
+		MAME_DIR .. "src/devices/machine/adbhost.cpp",
+		MAME_DIR .. "src/devices/machine/adbhost.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/adc0804.h,MACHINES["ADC0804"] = true
 ---------------------------------------------------
 
@@ -5536,6 +5548,17 @@ if MACHINES["UNIHAMMER"] then
 	files {
 		MAME_DIR .. "src/devices/machine/unihammer.cpp",
 		MAME_DIR .. "src/devices/machine/unihammer.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/alpsdpg23.h,MACHINES["ALPSDPG23"] = true
+---------------------------------------------------
+if MACHINES["ALPSDPG23"] then
+	files {
+		MAME_DIR .. "src/devices/machine/alpsdpg23.cpp",
+		MAME_DIR .. "src/devices/machine/alpsdpg23.h",
 	}
 end
 
