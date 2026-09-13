@@ -38,6 +38,7 @@ New Games
 - [makmaidenenh]        Makaimura - Maiden Artoria Edition (Enhanced)
 - [makmaidengenh]       Makaimura - Maiden Artoria Edition (Enhanced) (Japan revision G)
 - [mslug5s01]           Metal Slug 5 Remake v2
+- [mslug5s02]           Metal Slug 5 Extend Ver
 - [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (940311J, English Restoration, 2026-09-10)
 
 
