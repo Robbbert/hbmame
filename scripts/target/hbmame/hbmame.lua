@@ -294,6 +294,7 @@ files {
 	MAME_DIR .. "src/hbmame/machine/mhavoc_hb.cpp",
 	MAME_DIR .. "src/mame/atari/atarisy1_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
+	MAME_DIR .. "src/mame/atari/atarixga.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "capcom")
