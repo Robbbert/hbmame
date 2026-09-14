@@ -1330,6 +1330,7 @@ pmac7200_120
 
 @source:apple/maccordyceps.cpp
 pmac6200
+pmac5200
 
 @source:apple/macii.cpp
 mac2fdhd
@@ -19948,6 +19949,7 @@ pisces
 piscesb
 porter
 portera
+porterb
 quaak
 redufo
 redufob
@@ -29169,6 +29171,11 @@ mtchxlti
 pubtimed
 pubtimeda
 
+@source:metro/blzntrnd.cpp
+blzntrnd
+gstrik2
+gstrik2j
+
 @source:metro/hyprduel.cpp
 hyprduel
 hyprduel2
@@ -29179,7 +29186,6 @@ magerror
 balcube
 bangball
 batlbubl
-blzntrnd
 daitorid
 daitorida
 dharma
@@ -29191,8 +29197,6 @@ dokyusp
 gakusai
 gakusai2
 gakusaia
-gstrik2
-gstrik2j
 gunmast
 karatour
 karatourj
@@ -35009,6 +35013,9 @@ mini5sx
 @source:nec/ews4800.cpp
 ews4800_310
 
+@source:nec/mobilepro.cpp
+mbpro450
+
 @source:nec/pc_h98.cpp
 pc_h98s
 
@@ -37661,6 +37668,9 @@ pm5644p00
 
 @source:philips/philipsbo.cpp
 pbo
+
+@source:philips/velo.cpp
+pvelo1
 
 @source:philips/vg5k.cpp
 vg5k
@@ -40344,6 +40354,9 @@ s50
 s550
 w30
 
+@source:roland/roland_sb55.cpp
+sb55
+
 @source:roland/roland_sc55.cpp
 sc55
 sc155
@@ -40639,6 +40652,7 @@ xy168
 
 @source:seequa/chameleon.cpp
 chameleon
+champroto
 
 @source:sega/angelkds.cpp
 angelkds
