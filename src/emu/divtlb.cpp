@@ -240,6 +240,14 @@ void device_vtlb_interface::vtlb_load(int entrynum, int numpages, offs_t address
 		}
 	}
 
+	// an empty entry must take no reference, or vtlb_fill() can never clear page zero
+	if (numpages == 0)
+	{
+		m_live[liveindex] = 0;
+		m_fixedpages[entrynum] = 0;
+		return;
+	}
+
 	// claim this new entry
 	m_live[liveindex] = tableindex + 1;
 	m_refcnt[tableindex]++;
@@ -334,6 +342,32 @@ void device_vtlb_interface::vtlb_flush_address(offs_t address)
 	m_table[tableindex] = 0;
 }
 
+
+//-------------------------------------------------
+//  vtlb_flush_fixed - invalidate fixed pages
+//  matching selected address bits
+//-------------------------------------------------
+
+void device_vtlb_interface::vtlb_flush_fixed(offs_t address, offs_t mask)
+{
+	const offs_t pagemask = mask >> m_pageshift;
+	const offs_t target = (address >> m_pageshift) & pagemask;
+
+	// walk the live entries rather than the table; like vtlb_flush_address, leave the live array alone
+	for (int liveindex = m_dynamic; liveindex < m_dynamic + m_fixed; liveindex++)
+	{
+		if (m_live[liveindex] != 0)
+		{
+			const offs_t first = m_live[liveindex] - 1;
+			const int pages = m_fixedpages[liveindex - m_dynamic];
+			for (int page = 0; page < pages; page++)
+			{
+				if (((first + page) & pagemask) == target && (m_table[first + page] & FLAG_FIXED))
+					m_table[first + page] = 0;
+			}
+		}
+	}
+}
 
 
 //**************************************************************************

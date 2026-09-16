@@ -412,7 +412,7 @@ uint8_t pc1512_base_state::printer_r(offs_t offset)
 		data |= m_centronics_select << 4;
 		data |= m_centronics_perror << 5;
 		data |= m_centronics_ack << 6;
-		data |= m_centronics_busy << 7;
+		data |= !m_centronics_busy << 7;
 		break;
 
 	case 2:
@@ -534,9 +534,10 @@ void pc1512_base_state::printer_w(offs_t offset, uint8_t data)
 
 		m_printer_control = data & 0x1f;
 
-		m_centronics->write_strobe(BIT(data, 0));
-		m_centronics->write_autofd(BIT(data, 1));
+		m_centronics->write_strobe(!BIT(data, 0));
+		m_centronics->write_autofd(!BIT(data, 1));
 		m_centronics->write_init(BIT(data, 2));
+		m_centronics->write_select_in(!BIT(data, 3));
 
 		m_ack_int_enable = BIT(data, 4);
 		update_ack();
@@ -1010,7 +1011,7 @@ void pc1512_base_state::drive_select_w(uint8_t data)
 void pc1512_base_state::update_ack()
 {
 	if (m_ack_int_enable)
-		m_pic->ir7_w(m_centronics_ack);
+		m_pic->ir7_w(!m_centronics_ack);
 	else
 		m_pic->ir7_w(CLEAR_LINE);
 }
@@ -1262,8 +1263,8 @@ void pc1512_state::pc1512(machine_config &config)
 	RAM(config, RAM_TAG).set_default_size("512K").set_extra_options("544K,576K,608K,640K");
 
 	// software list
+	SOFTWARE_LIST(config, "pc_flop_list").set_original("ibm5150");
 	SOFTWARE_LIST(config, "flop_list").set_original("pc1512_flop");
-	SOFTWARE_LIST(config, "hdd_list").set_original("pc1512_hdd");
 }
 
 
@@ -1287,6 +1288,8 @@ void pc1512_state::pc1512hd(machine_config &config)
 	pc1512(config);
 	//subdevice<isa8_slot_device>("isa1")->set_default_option("wdxt_gen");
 	subdevice<isa8_slot_device>("isa1")->set_default_option("hdc");
+
+	SOFTWARE_LIST(config, "hdd_list").set_original("pc1512_hdd");
 }
 
 
@@ -1394,14 +1397,14 @@ void pc1640_state::pc1640(machine_config &config)
 	ISA8_SLOT(config, "isa2", 0, ISA_BUS_TAG, pc_isa8_cards, nullptr, false);
 	ISA8_SLOT(config, "isa3", 0, ISA_BUS_TAG, pc_isa8_cards, nullptr, false);
 	ISA8_SLOT(config, "isa4", 0, ISA_BUS_TAG, pc_isa8_cards, nullptr, false);
-	ISA8_SLOT(config, "isa5", 0, ISA_BUS_TAG, pc1640_isa8_cards, "iga", false);
+	ISA8_SLOT(config, "isa5", 0, ISA_BUS_TAG, pc1640_isa8_cards, "iga", false).set_fixed(true);
 
 	// internal ram
 	RAM(config, RAM_TAG).set_default_size("640K");
 
 	// software list
+	SOFTWARE_LIST(config, "pc_flop_list").set_original("ibm5150");
 	SOFTWARE_LIST(config, "flop_list").set_original("pc1640_flop");
-	SOFTWARE_LIST(config, "hdd_list").set_original("pc1640_hdd");
 }
 
 
@@ -1425,6 +1428,8 @@ void pc1640_state::pc1640hd(machine_config &config)
 	pc1640(config);
 	//subdevice<isa8_slot_device>("isa1")->set_default_option("wdxt_gen");
 	subdevice<isa8_slot_device>("isa1")->set_default_option("hdc");
+
+	SOFTWARE_LIST(config, "hdd_list").set_original("pc1640_hdd");
 }
 
 
