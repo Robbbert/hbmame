@@ -537,7 +537,7 @@ ROM_END
 
 ROM_START( ssf2tgmc )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sfxj.03d", 0x000000, 0x80000, CRC(deacc6a6) SHA1(0a92774105332426bab74fa5fa2f2b8c8308843c) )
+	ROM_LOAD16_WORD_SWAP( "sfxj.03d", 0x000000, 0x80000, CRC(b8a10ee0) SHA1(7ba52e493332e0408e591031c1fc56134591b2e1) )
 	ROM_LOAD16_WORD_SWAP( "sfxj.04a", 0x080000, 0x80000, CRC(86104c3a) SHA1(67ecbaf213c74d3aa51cf9fc7a07548c74fe362c) )
 	ROM_LOAD16_WORD_SWAP( "sfxj.05", 0x100000, 0x80000, CRC(f4ff18f5) SHA1(aa713c9e1a2eba35bf1c9b40bb262ff7e46b9ce4) )
 	ROM_LOAD16_WORD_SWAP( "sfxj.06b", 0x180000, 0x80000, CRC(413477c2) SHA1(63bf120566db0c23cc726e7cdbf78428582c694f) )
@@ -7317,7 +7317,7 @@ GAME( 2005, ssf2t07,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 1994, ssf2t08,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "KrysoFun", "Super Street Fighter II Turbo (940223ETC, Plus v0.9 beta)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, ssf2t09,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Super Street Fighter II Turbo (940223ETC, difficulty fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, ssf2t10,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Super Street Fighter II Turbo (940223U, difficulty fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ssf2tgmc,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Super Street Fighter II Turbo: Grand Master Challenge (940311J, English Restoration, 2026-09-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssf2tgmc,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Super Street Fighter II Turbo: Grand Master Challenge (940311J, English Restoration, 2026-09-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl3,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.3 beta, 2020-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl4,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.4 beta, 2020-11-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ssf2tnl5,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.5 beta, 2021-06-11)", MACHINE_SUPPORTS_SAVE )
