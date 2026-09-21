@@ -515,7 +515,7 @@ void video_manager::exit()
 	m_snap_bitmap.reset();
 
 	// print a final result if we have at least 2 seconds' worth of data
-	if (!emulator_info::standalone() && m_overall_emutime.seconds() >= 1)
+	if (m_overall_emutime.seconds() >= 2)
 	{
 		osd_ticks_t tps = osd_ticks_per_second();
 		double final_real_time = (double)m_overall_real_seconds + (double)m_overall_real_ticks / (double)tps;
@@ -1002,7 +1002,7 @@ void video_manager::recompute_speed(const attotime &emutime)
 	}
 
 	// if we're past the "time-to-execute" requested, signal an exit
-	if (m_seconds_to_run != 0 && emutime.seconds() >= m_seconds_to_run)
+	if (m_seconds_to_run > 1 && emutime.seconds() >= m_seconds_to_run)
 	{
 		// create a final screenshot
 		if (m_snap_native)
