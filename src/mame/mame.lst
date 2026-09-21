@@ -1322,6 +1322,9 @@ macsefd
 unitron
 utrn1024
 
+@source:apple/macalchemy.cpp
+pmac6400
+
 @source:apple/maccatalyst.cpp
 pmac7200
 pmac7200_90
@@ -1331,6 +1334,16 @@ pmac7200_120
 @source:apple/maccordyceps.cpp
 pmac6200
 pmac5200
+
+@source:apple/macgazelle.cpp
+pmac5500
+pmac5500_250
+pmac5500_275
+pmac6500
+pmac6500_250
+pmac6500_275
+pmac6500_300
+pmac20th
 
 @source:apple/macii.cpp
 mac2fdhd
@@ -1417,6 +1430,10 @@ macct650
 macqd610
 macqd650
 macqd800
+
+@source:apple/macquadraav.cpp
+macqd660av
+macqd840av
 
 @source:apple/newton.cpp
 emate
@@ -20868,7 +20885,9 @@ monty
 @source:handheld/mylife.cpp
 mylife
 mylifei
+mylifei4
 mylifes
+myrelife
 
 @source:handheld/pensebem.cpp
 pbem2017
@@ -32479,6 +32498,7 @@ nostk
 mcm70
 
 @source:misc/megaphx.cpp
+afterwar
 hamboy
 megaphx
 yoyospel
@@ -40045,6 +40065,10 @@ mcword_de
 @source:psion/mc600.cpp
 mc600
 
+@source:psion/osaris.cpp
+osaris
+osaris_fr
+
 @source:psion/psion.cpp
 psion1
 psioncm
@@ -40081,6 +40105,7 @@ psion3mx_fr
 psion3mx_nl
 
 @source:psion/psion5mx.cpp
+conan
 mako
 mc218
 mc218_de
@@ -40093,6 +40118,7 @@ psion618c
 revo
 revo_de
 revo_fr
+revo_nl
 
 @source:psion/psion7.cpp
 netbook
@@ -42356,7 +42382,7 @@ prc2ksu
 prikura
 puyosun
 rsgun
-sandor
+sandr
 sanjeon
 sackids
 sasissu
@@ -44136,6 +44162,9 @@ arthurkn100
 circus2
 fruitcat
 pharmyst
+
+@source:skeleton/licocai.cpp
+licocai
 
 @source:skeleton/lilith.cpp
 lilith
