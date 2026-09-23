@@ -63,7 +63,7 @@ function toolchain(_buildDir, _subDir)
 		androidPlatform = "android-24"
 	end
 
-	if _ACTION == "gmake" or _ACTION == "ninja" then
+	if _ACTION == "gmake" or _ACTION == "ninja" or _ACTION == "jcdb" then
 
 		if nil == _OPTIONS["gcc"] or nil == _OPTIONS["gcc_version"] then
 			print("GCC flavor and version must be specified!")
@@ -218,6 +218,11 @@ function toolchain(_buildDir, _subDir)
 			premake.vstudio.toolset = "Intel C++ Compiler XE 15.0"
 			location (_buildDir .. "projects/" .. _subDir .. "/".. _ACTION .. "-intel")
 		end
+	end
+
+	-- put the compilation database at the source root for editor discovery
+	if _ACTION == "jcdb" then
+		location (MAME_DIR)
 	end
 
 	if (_OPTIONS["CC"] ~= nil) then
@@ -717,4 +722,3 @@ function strip()
 
 	configuration {} -- reset configuration
 end
-
