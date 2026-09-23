@@ -319,6 +319,7 @@ files {
 	MAME_DIR .. "src/mame/capcom/kabuki.cpp",
 	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/gng.cpp",
+	MAME_DIR .. "src/hbmame/drivers/exedexes.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cave")

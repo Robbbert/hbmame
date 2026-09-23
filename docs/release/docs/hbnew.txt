@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [dkongt]              Donkey Kong Test Rom v1.00
 - [dkongjrt]            Donkey Kong Junior Test Rom v1.00
+- [exedexes01]          Exed Exes (Recreation of loctest ver, 2026-09-21)
 - [gngaenh]             Ghosts'n Goblins (Enhanced) (World? set 2)
 - [gngbenh]             Ghosts'n Goblins (Enhanced) (World? set 3)
 - [gngcenh]             Ghosts'n Goblins (Enhanced) (World? set 4)

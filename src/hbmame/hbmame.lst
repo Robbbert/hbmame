@@ -1879,6 +1879,10 @@ tenkaibbs01
 //@source:ertictac.cpp
 //armdemo				/* Charles Doty */  // totally broken
 
+@source:exedexes.cpp
+exedexes
+exedexes01
+
 @source:exidy.cpp
 targ                                   //parent
 targtest
