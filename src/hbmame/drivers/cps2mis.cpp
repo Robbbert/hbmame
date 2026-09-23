@@ -4818,6 +4818,43 @@ ROM_START( vhunt2s01 )
 	ROM_LOAD( "vhunt2.key",   0x00, 0x14, CRC(61306b20) SHA1(f72cf44837f6d934dd6bc877c3c98db388e72a67) )
 ROM_END
 
+ /**********************************
+ Vampire Savior The Lord of Vampire
+*************************************/
+ROM_START( vsavru )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 ) // 68000 code
+	ROM_LOAD16_WORD_SWAP( "vm3j.03d", 0x000000, 0x80000, CRC(87184d16) SHA1(2336e291fb87e4edb19cdab99f338d7d8f5521dd) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.04d", 0x080000, 0x80000, CRC(fc2d5b8e) SHA1(1a029dcd0d69ea72e963c9f657cc286dccd7d4ad) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.05a", 0x100000, 0x80000, CRC(95ce88d5) SHA1(ba5e64c2551d97a71d2f4d7a78663aede4b722e8) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.06b", 0x180000, 0x80000, CRC(2c4297e0) SHA1(3a7103456ba3937f63c28dd42020cac1955b5741) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.07b", 0x200000, 0x80000, CRC(b3cbf9a8) SHA1(d5b8d6938456b345000f905813588230d1a5511a) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.08a", 0x280000, 0x80000, CRC(5773e5c9) SHA1(551afc5d921f9ef1fe928ca83d072b6a6105ab0e) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.09b", 0x300000, 0x80000, CRC(d064f8b9) SHA1(09f77f7b466c147a5d894a4ec3b40bd068dfab26) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.10b", 0x380000, 0x80000, CRC(434518e9) SHA1(ce1c8557a9e6c5451ab41a96f01b0cd4ba02ea3e) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "vm3.13m",   0x0000000, 0x400000, CRC(25b89bee) SHA1(3c49ae8814b631930f0ef0d3ac84196ee37bc126) )
+	ROM_LOAD64_WORD( "vm3.15m",   0x0000002, 0x400000, CRC(7c4ed97c) SHA1(e29d0198f182eabc64fe0423913c08913e3539c6) )
+	ROM_LOAD64_WORD( "vm3.17m",   0x0000004, 0x400000, CRC(05295327) SHA1(ee225c7633170c9f131d88c82dbbbdfd6c4ff79b) )
+	ROM_LOAD64_WORD( "vm3.19m",   0x0000006, 0x400000, CRC(e90b3fee) SHA1(c39715c37525d532237eea1b4098a4db7509efb6) )
+	ROM_LOAD64_WORD( "vm3.14m",   0x1000000, 0x400000, CRC(c1a28e6c) SHA1(012803af33174c0602649d2a2d84f6ee79f54ad2) )
+	ROM_LOAD64_WORD( "vm3.16m",   0x1000002, 0x400000, CRC(194a7304) SHA1(a19a9a6fb829953b054dc5c3b0dc017f60d37928) )
+	ROM_LOAD64_WORD( "vm3.18m",   0x1000004, 0x400000, CRC(df9a9f47) SHA1(ce29ff00cf4b6fdd9b3b1ed87823534f1d364eab) )
+	ROM_LOAD64_WORD( "vm3.20m",   0x1000006, 0x400000, CRC(c22fc3d9) SHA1(df7538c05b03a4ad94d369f8083799979e6fac42) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 ) // 64k for the audio CPU (+banks)
+	ROM_LOAD( "vm3.01",   0x00000, 0x08000, CRC(f778769b) SHA1(788ce1ad8a322179f634df9e62a31ad776b96762) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "vm3.02",   0x28000, 0x20000, CRC(cc09faa1) SHA1(2962ef0ceaf7e7279de3c421ea998763330eb43e) )
+
+	ROM_REGION( 0x800000, "qsound", 0 ) // QSound samples
+	ROM_LOAD16_WORD_SWAP( "vm3.11m",   0x000000, 0x400000, CRC(e80e956e) SHA1(74181fca4b764fb3c56ceef2cb4c6fd6c18ec4b6) )
+	ROM_LOAD16_WORD_SWAP( "vm3.12m",   0x400000, 0x400000, CRC(9cd71557) SHA1(7059db25698a0b286314c5961c618f6d2e6f24a1) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "vsavj.key",    0x000000, 0x000014, CRC(36d28ab8) SHA1(7de11dbe4a7ea0e8b68ab332f80e32cb6c1bf48e) )
+ROM_END
+
  /************************************
  Vampire Savior 2 The Lord of Vampire
 ***************************************/
@@ -7693,6 +7730,8 @@ GAME( 2015, suicide,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, R
 GAME( 2015, suicide2,   suicide,  dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "Razoola", "Suicide Test v2", MACHINE_SUPPORTS_SAVE )
 // Vampire Hunter 2 Darkstalkers Revenge
 GAME( 2026, vhunt2s01,  vhunt2,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors 2: Darkstalkers Revenge (970929J, English, 2026-09-17)", MACHINE_SUPPORTS_SAVE )
+// Vampire Savior The Lord of Vampire
+GAME( 2026, vsavru,     vsav,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Vampire Savior: The Lord of Vampire (970519U, English Restoration, 2026-09-22)", MACHINE_SUPPORTS_SAVE )
 // Vampire Savior 2 The Lord of Vampire
 GAME( 2008, vsav2s01,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Command Change, 2008-04-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, vsav2s02,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Infinite Power, 2008-07-28)", MACHINE_SUPPORTS_SAVE )
