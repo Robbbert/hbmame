@@ -1933,7 +1933,6 @@ spacmiss                               // extra sounds
 
 @source:galaga.cpp
 galaga		//parent
-xevious		//parent
 galagads
 galagab2
 galaga84
@@ -1954,20 +1953,6 @@ vgalagaf
 galaga01
 galaga02
 galaga03
-battlesh	/* Battles 2002 */
-gaous		/* Xevious Hack */
-mrdonm		/* Mr Do Nightmare */
-sxvioush	/* Super Xevious 2002 */
-xevioush	/* Xevious 2002 */
-xviousah
-xeviousp	/* Xevious Plus! */
-xevious3	/* Xevious 2003 */
-xevious4	/* Xevious 2004 */
-xevious5	/* Xevious 2005 */
-xeviblk		/* Xevious Black */
-sxevious01
-hyxevious
-hyxevious01
 
 @source:galaxian.cpp
 amidar                                 //parent
@@ -9190,6 +9175,23 @@ wmg
 @source:wwfsstar.cpp
 wwfsstar                               //parent
 wwesstar
+
+@source:xevious.cpp
+xevious		//parent
+battlesh	/* Battles 2002 */
+gaous		/* Xevious Hack */
+mrdonm		/* Mr Do Nightmare */
+sxvioush	/* Super Xevious 2002 */
+xevioush	/* Xevious 2002 */
+xviousah
+xeviousp	/* Xevious Plus! */
+xevious3	/* Xevious 2003 */
+xevious4	/* Xevious 2004 */
+xevious5	/* Xevious 2005 */
+xeviblk		/* Xevious Black */
+sxevious01
+hyxevious
+hyxevious01
 
 @source:yiear.cpp
 yiear                                  //parent
