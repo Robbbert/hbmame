@@ -586,7 +586,6 @@ createHBMAMEProjects(_target, _subtarget, "namco")
 files {
 	MAME_DIR .. "src/hbmame/drivers/galaga.cpp",
 	MAME_DIR .. "src/mame/namco/galaga_a.cpp",
-	MAME_DIR .. "src/mame/namco/galaga_v.cpp",
 	MAME_DIR .. "src/mame/namco/bosco.cpp",
 	MAME_DIR .. "src/mame/namco/digdug.cpp",
 	MAME_DIR .. "src/hbmame/drivers/xevious.cpp",

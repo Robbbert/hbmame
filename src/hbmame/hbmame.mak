@@ -27,6 +27,7 @@ LAYOUTS += \
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
+	$(SRC)/mame/layout/racinfrc.lay \
 	$(SRC)/mame/layout/redbaron.lay \
 	$(SRC)/mame/layout/inttoote.lay \
 	$(SRC)/mame/layout/jockeyc.lay \
