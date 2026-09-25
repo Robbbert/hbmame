@@ -589,7 +589,6 @@ files {
 	MAME_DIR .. "src/mame/namco/galaga_v.cpp",
 	MAME_DIR .. "src/mame/namco/bosco.cpp",
 	MAME_DIR .. "src/mame/namco/digdug.cpp",
-	MAME_DIR .. "src/mame/namco/xevious_m.cpp",
 	MAME_DIR .. "src/hbmame/drivers/xevious.cpp",
 	MAME_DIR .. "src/mame/namco/starfield_05xx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
