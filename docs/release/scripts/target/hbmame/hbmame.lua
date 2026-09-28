@@ -294,6 +294,7 @@ files {
 	MAME_DIR .. "src/hbmame/machine/mhavoc_hb.cpp",
 	MAME_DIR .. "src/mame/atari/atarisy1_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
+	MAME_DIR .. "src/mame/atari/atarixga.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "capcom")
@@ -318,6 +319,7 @@ files {
 	MAME_DIR .. "src/mame/capcom/kabuki.cpp",
 	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/gng.cpp",
+	MAME_DIR .. "src/hbmame/drivers/exedexes.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cave")
@@ -584,11 +586,9 @@ createHBMAMEProjects(_target, _subtarget, "namco")
 files {
 	MAME_DIR .. "src/hbmame/drivers/galaga.cpp",
 	MAME_DIR .. "src/mame/namco/galaga_a.cpp",
-	MAME_DIR .. "src/mame/namco/galaga_v.cpp",
 	MAME_DIR .. "src/mame/namco/bosco.cpp",
 	MAME_DIR .. "src/mame/namco/digdug.cpp",
-	MAME_DIR .. "src/mame/namco/xevious_m.cpp",
-	MAME_DIR .. "src/mame/namco/xevious.cpp",
+	MAME_DIR .. "src/hbmame/drivers/xevious.cpp",
 	MAME_DIR .. "src/mame/namco/starfield_05xx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/namco/mappy_v.cpp",

@@ -2511,6 +2511,31 @@ ROM_START( dkongacc )
 	ROM_LOAD( "dkongacc.5e",   0x0200, 0x0100, CRC(ece3b0f2) SHA1(3b13cf44164849a9854f2efa918a36d747e91341) )
 ROM_END
 
+ROM_START( dkongt )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkongt.5et",  0x0000, 0x1000, CRC(773ed80c) SHA1(9e0cbc30835b28671517020e6fa01ae23ea19bdf) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.bin",   0x0000, 0x0800, CRC(12c8c95d) SHA1(a57ff5a231c45252a63b354137c920a1379b70a3) )
+	ROM_LOAD( "v_3pt.bin",    0x0800, 0x0800, CRC(15e9c5e9) SHA1(976eb1e18c74018193a35aa86cff482ebfc5cc4e) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",   0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",   0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",   0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",   0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",     0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",     0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
 /*******************
  Donkey Kong Junior
 *******************/
@@ -2526,6 +2551,30 @@ ROM_START( dkongjr01 )
 	ROM_CONTINUE(       0x2800, 0x0800 )
 	ROM_CONTINUE(       0x5000, 0x0800 )
 	ROM_CONTINUE(       0x1800, 0x0800 )
+
+	ROM_REGION( 0x1000, "soundcpu", 0 )
+	ROM_LOAD( "djr1-c_3h.3h",     0x0000, 0x1000, CRC(715da5f8) SHA1(f708c3fd374da65cbd9fe2e191152f5d865414a0) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "djr1-v.3n",        0x0000, 0x1000, CRC(8d51aca9) SHA1(64887564b079d98e98aafa53835e398f34fe4e3f) )
+	ROM_LOAD( "djr1-v.3p",        0x1000, 0x1000, CRC(4ef64ba5) SHA1(41a7a4005087951f57f62c9751d62a8c495e6bb3) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "djr1-v_7c.7c",     0x0000, 0x0800, CRC(dc7f4164) SHA1(07a6242e95b5c3b8dfdcd4b4950f463dba16dd77) )
+	ROM_LOAD( "djr1-v_7d.7d",     0x0800, 0x0800, CRC(0ce7dcf6) SHA1(0654b77526c49f0dfa077ac4f1f69cf5cb2e2f64) )
+	ROM_LOAD( "djr1-v_7e.7e",     0x1000, 0x0800, CRC(24d1ff17) SHA1(696854bf3dc5447d33b4815db357e6ce3834d867) )
+	ROM_LOAD( "djr1-v_7f.7f",     0x1800, 0x0800, CRC(0f8c083f) SHA1(0b688ae9da296b2447fffa5e135fd6a56ec3e790) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "djr1-c-2e.2e",     0x0000, 0x0100, CRC(463dc7ad) SHA1(b2c9f22facc8885be2d953b056eb8dcddd4f34cb) )
+	ROM_LOAD( "djr1-c-2f.2f",     0x0100, 0x0100, CRC(47ba0042) SHA1(dbec3f4b8013628c5b8f83162e5f8b1f82f6ee5f) )
+	ROM_LOAD( "djr1-v-2n.2n",     0x0200, 0x0100, CRC(dbf185bf) SHA1(2697a991a4afdf079dd0b7e732f71c7618f43b70) )
+ROM_END
+
+ROM_START( dkongjrt )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkongjrt.5b", 0x0000, 0x1000, CRC(36df09ea) SHA1(5ad29ef52e09b4ca31bf7239675a4d65feb7e7d4) )
+	ROM_CONTINUE(       0x3000, 0x1000 )
 
 	ROM_REGION( 0x1000, "soundcpu", 0 )
 	ROM_LOAD( "djr1-c_3h.3h",     0x0000, 0x1000, CRC(715da5f8) SHA1(f708c3fd374da65cbd9fe2e191152f5d865414a0) )
@@ -2633,6 +2682,8 @@ GAME( 2023, dksprfin3, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dkonghh,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong HeartHunt v1.01 (2022-10-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dkbrlbss,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Barrel Boss v1.01 (2023-08-16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dkongacc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Accelerate v1.01 (2023-09-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, dkongt,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Snesnescube64", "Donkey Kong Test Rom v1.00", MACHINE_SUPPORTS_SAVE )
 // Donkey Kong Junior
 GAME( 1982, dkongjr01, dkongjr,  dkongjr,   dkongjr,  dkong_state, empty_init,    ROT270, "John Kowalski", "Donkey Kong Junior (bugfixed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, dkongjrt,  dkongjr,  dkongjr,   dkongjr,  dkong_state, empty_init,    ROT270, "Snesnescube64", "Donkey Kong Junior Test Rom v1.00", MACHINE_SUPPORTS_SAVE )
 

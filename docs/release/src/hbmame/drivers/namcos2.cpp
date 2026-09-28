@@ -59,6 +59,9 @@ ROM_START( pheliosx )
 
 	ROM_REGION16_BE( 0x200000, "c140", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "ps_voi-1.voice1",  0x000000, 0x080000, CRC(f67376ed) SHA1(b54257aad34c6ad03d5b040e6a5dda94a48b6780) )
+
+	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 ) /* sprite zoom lookup table */
+	ROM_LOAD( "mh5762.7p",    0x00000,  0x002000, CRC(90db1bf6) SHA1(dbb9e50a8efc3b4012fcf587cc87da9ef42a1b80) )
 ROM_END
 
 ROM_START( valkyrien )
@@ -110,6 +113,9 @@ ROM_START( valkyrien )
 	ROM_REGION16_BE( 0x200000, "c140", ROMREGION_ERASE00 )
 	NAMCOS2_DATA_LOAD_E_256K( "wd1voi1.bin",  0x000000, CRC(f1ace193) SHA1(dd13bdf4b99c6bf4e356d623ff2e3da72db331dd) )
 	NAMCOS2_DATA_LOAD_E_128K( "wd1voi2.bin",  0x100000, CRC(e95c5cf3) SHA1(4bfc7303bde23bcf6739c7877dd87671c33135bc) )
+
+	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 ) /* sprite zoom lookup table */
+	ROM_LOAD( "mh5762.7p",    0x00000,  0x002000, CRC(90db1bf6) SHA1(dbb9e50a8efc3b4012fcf587cc87da9ef42a1b80) )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */

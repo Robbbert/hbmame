@@ -158,7 +158,8 @@ ROM_END
 
 ROM_START( cd_ssrpg )
 	NEOCDZ_BASE
-	DISK_IMAGE_READONLY( "828", 0, SHA1(2bc6a30d305c52e9189efe9840d34370ed260300) )
+	//DISK_IMAGE_READONLY( "828_v10", 0, SHA1(2bc6a30d305c52e9189efe9840d34370ed260300) )
+	DISK_IMAGE_READONLY( "828_v11", 0, SHA1(e00cd4c12cd8d6b07d93f8e271337389af442f7d) )
 ROM_END
 
 ROM_START( cd_subspecies )
@@ -195,7 +196,7 @@ GAME( 2024, cd_pow,         neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (update)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
-GAME( 2016, cd_ssrpg,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Apocalypse", "Samurai Spirits RPG (English)[CD]", 0 )
+GAME( 2024, cd_ssrpg,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Jeff Nussbaum", "Samurai Spirits RPG (English)[CD]", 0 )
 GAME( 2020, cd_subspecies,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "Subspecies_Unfinished demo[CD]", 0 )
 GAME( 2016, cd_visualnovel, neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Trilobit", "Visual Novel demo (2016-03-31)[CD]", 0 )
 

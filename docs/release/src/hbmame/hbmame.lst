@@ -1463,6 +1463,10 @@ mshvsf05
 mshvsf06
 mshvsf07
 mshvsf08
+mshvsfru
+mshvsfrj
+mshvsfex
+mshvsfej
 mvsc01
 mvsc02
 mvsc03
@@ -1527,6 +1531,7 @@ sfz2al19
 sfa2d
 sfa2g
 sfz2d
+sfz2alr
 sfz2da
 sfa3s01
 sfa3s02
@@ -1590,6 +1595,9 @@ ssf2t07
 ssf2t08
 ssf2t09
 ssf2t10
+ssf2tgmc
+ssf2tuc
+ssf2xuc
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1785,6 +1793,7 @@ dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
 dkongf
 dkongjr01
+dkongjrt
 dkongst
 dkongst2
 dkongss
@@ -1794,6 +1803,7 @@ dkongpe
 dkongce
 dkongklc
 dkongrev
+dkongt
 dkongx
 dkongx11
 dkongte
@@ -1869,6 +1879,10 @@ tenkaibbs01
 //@source:ertictac.cpp
 //armdemo				/* Charles Doty */  // totally broken
 
+@source:exedexes.cpp
+exedexes
+exedexes01
+
 @source:exidy.cpp
 targ                                   //parent
 targtest
@@ -1919,7 +1933,6 @@ spacmiss                               // extra sounds
 
 @source:galaga.cpp
 galaga		//parent
-xevious		//parent
 galagads
 galagab2
 galaga84
@@ -1940,19 +1953,6 @@ vgalagaf
 galaga01
 galaga02
 galaga03
-battlesh	/* Battles 2002 */
-gaous		/* Xevious Hack */
-mrdonm		/* Mr Do Nightmare */
-sxvioush	/* Super Xevious 2002 */
-xevioush	/* Xevious 2002 */
-xviousah
-xeviousp	/* Xevious Plus! */
-xevious3	/* Xevious 2003 */
-xevious4	/* Xevious 2004 */
-xevious5	/* Xevious 2005 */
-xeviblk		/* Xevious Black */
-sxevious01
-hyxevious
 
 @source:galaxian.cpp
 amidar                                 //parent
@@ -2019,24 +2019,51 @@ ginganin01
 
 @source:gng.cpp
 gng                                    //parent
+gngaenh
+gngbenh
+gngcenh
+gngenh
 gngknight
 gngknighta
+gngknightaenh
 gngknightb
+gngknightbenh
 gngknightc
+gngknightcenh
+gngknightenh
 gngknightt
+gngknighttenh
 gngmaiden
 gngmaidena
+gngmaidenaenh
 gngmaidenb
+gngmaidenbenh
 gngmaidenc
+gngmaidencenh
+gngmaidenenh
 gngmaident
+gngmaidentenh
+gngtenh
+makaimurbenh
+makaimurcenh
+makaimurenh
+makaimurgenh
 makknight
 makknightb
+makknightbenh
 makknightc
+makknightcenh
+makknightenh
 makknightg
+makknightgenh
 makmaiden
 makmaidenb
+makmaidenbenh
 makmaidenc
+makmaidencenh
+makmaidenenh
 makmaideng
+makmaidengenh
 
 @source:gottlieb.cpp
 qbert                                  //parent
@@ -5475,6 +5502,8 @@ mslug5ervx14
 mslug5ervx15
 mslug5ervx16
 mslug5unity
+mslug5s01
+mslug5s02
 mslug5ast
 
 @source:mslug6.cpp
@@ -6329,6 +6358,8 @@ lhbb
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
 //lhopecd                              // broken
+lhpb
+lhpb01
 looptris
 looptrsp
 ltorb
@@ -9144,6 +9175,23 @@ wmg
 @source:wwfsstar.cpp
 wwfsstar                               //parent
 wwesstar
+
+@source:xevious.cpp
+xevious		//parent
+battlesh	/* Battles 2002 */
+gaous		/* Xevious Hack */
+mrdonm		/* Mr Do Nightmare */
+sxvioush	/* Super Xevious 2002 */
+xevioush	/* Xevious 2002 */
+xviousah
+xeviousp	/* Xevious Plus! */
+xevious3	/* Xevious 2003 */
+xevious4	/* Xevious 2004 */
+xevious5	/* Xevious 2005 */
+xeviblk		/* Xevious Black */
+sxevious01
+hyxevious
+hyxevious01
 
 @source:yiear.cpp
 yiear                                  //parent
