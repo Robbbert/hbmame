@@ -1836,6 +1836,7 @@ history_navigation:
 int linenoiseColumns(void)
 {
     struct current current;
+	current.cols = 0;
     current.output = NULL;
     enableRawMode (&current);
     getWindowSize (&current);

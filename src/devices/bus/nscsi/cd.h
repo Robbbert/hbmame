@@ -28,9 +28,12 @@ protected:
 	nscsi_cdrom_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, const char *mfr, const char *product, const char *rev, uint8_t inq_data, uint8_t compliance)
 		: nscsi_cdrom_device(mconfig, type, tag, owner, 0)
 	{
-		strncpy(manufacturer, mfr, 8);
-		strncpy(this->product, product, 16);
-		strncpy(revision, rev, 4);
+		//strncpy(manufacturer, mfr, 8);
+		//strncpy(this->product, product, 16);
+		//strncpy(revision, rev, 4);
+		snprintf(manufacturer, std::size(manufacturer), "%s", mfr);
+		snprintf(this->product, std::size(this->product), "%s", product);
+		snprintf(revision, std::size(revision), "%s", rev);
 		inquiry_data = inq_data;
 		this->compliance = compliance;
 	}
@@ -49,7 +52,7 @@ protected:
 
 	void update_directory();
 
-	bool m_removal_prevented;
+	bool m_removal_prevented = false;
 
 private:
 	struct toolbox_directory_entry
@@ -61,25 +64,25 @@ private:
 
 	static constexpr uint32_t bytes_per_sector = 2048;
 
-	u32 sequence_counter;
-	uint8_t sector_buffer[bytes_per_sector];
-	uint32_t bytes_per_block;
-	int lba, cur_sector;
-	uint8_t mode_data[256];
-	uint8_t mode_data_size;
+	u32 sequence_counter = 0;
+	uint8_t sector_buffer[bytes_per_sector]{};
+	uint32_t bytes_per_block = 0;
+	int lba = 0, cur_sector = 0;
+	uint8_t mode_data[256]{};
+	uint8_t mode_data_size = 0;
 
-	char manufacturer[8];
-	char product[16];
-	char revision[4];
-	uint8_t inquiry_data;
-	uint8_t compliance;
+	char manufacturer[8]{};
+	char product[16]{};
+	char revision[4]{};
+	uint8_t inquiry_data = 0;
+	uint8_t compliance = 0;
 
-	uint8_t cdda_sotc;
+	uint8_t cdda_sotc = 0;
 
-	uint32_t m_xfer_position;
-	uint16_t m_write_length;
-	uint32_t m_write_offset;
-	bool m_write_is_setup;
+	uint32_t m_xfer_position = 0;
+	uint16_t m_write_length = 0;
+	uint32_t m_write_offset = 0;
+	bool m_write_is_setup = false;
 	std::string m_write_path;
 	std::vector<toolbox_directory_entry> m_directory;
 	std::vector<uint8_t> m_xfer_buffer;

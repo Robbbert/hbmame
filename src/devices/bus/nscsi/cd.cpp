@@ -394,9 +394,12 @@ void nscsi_cdrom_device::scsi_command()
 			m_scsi_cmdbuf[3] = 0x02; // response data format = SPC-3 standard
 			m_scsi_cmdbuf[4] = 0x20; // additional length
 			m_scsi_cmdbuf[7] = inquiry_data;
-			strncpy((char *)&m_scsi_cmdbuf[8], manufacturer, 8);
-			strncpy((char *)&m_scsi_cmdbuf[16], product, 16);
-			strncpy((char *)&m_scsi_cmdbuf[32], revision, 4);
+			//strncpy((char *)&m_scsi_cmdbuf[8], manufacturer, 8);
+			//strncpy((char *)&m_scsi_cmdbuf[16], product, 16);
+			//strncpy((char *)&m_scsi_cmdbuf[32], revision, 4);
+			strcpy((char *)&m_scsi_cmdbuf[8], manufacturer);
+			strcpy((char *)&m_scsi_cmdbuf[16], product);
+			strcpy((char *)&m_scsi_cmdbuf[32], revision);
 
 			// vendor and product information must be padded with spaces
 			for(int i = 8; i < 36; i++)

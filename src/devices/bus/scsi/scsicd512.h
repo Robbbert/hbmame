@@ -26,9 +26,12 @@ protected:
 		const char *mfr, const char *product, const char *rev, uint8_t data)
 		: scsicd512_device(mconfig, type, tag, owner, 0)
 	{
-		strncpy(m_manufacturer, mfr, 8);
-		strncpy(m_product, product, 16);
-		strncpy(m_revision, rev, 4);
+		//strncpy(m_manufacturer, mfr, 8);
+		//strncpy(m_product, product, 16);
+		//strncpy(m_revision, rev, 4);
+		snprintf(m_manufacturer, std::size(m_manufacturer), "%s", mfr);
+		snprintf(m_product, std::size(m_product), "%s", product);
+		snprintf(m_revision, std::size(m_revision), "%s", rev);
 		m_data = data;
 	}
 
