@@ -1837,7 +1837,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 {
 	MINMAXINFO *mminfo;
 	int i;
-	TCHAR szClass[128];
+	TCHAR szClass[128]{};
 
 	switch (message)
 	{
@@ -1992,7 +1992,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 
 		  POSSIBLE BUGS:
 		  I've included this check in the subclassed windows, but a
-		  mose move in either the title bar, the menu, or the
+		  mouse move in either the title bar, the menu, or the
 		  toolbar will not generate a WM_MOUSEOVER message. At least
 		  not one that I know how to pick up. A solution could maybe
 		  be to subclass those too, but that's too much work :)
@@ -3468,7 +3468,7 @@ static void ResetListView()
 	(void)ListView_DeleteAllItems(hwndList);
 
 	// hint to have it allocate it all at once
-	ListView_SetItemCount(hwndList,driver_list::total());
+	ListView_SetItemCountEx(hwndList,driver_list::total(), LVSICF_NOINVALIDATEALL | LVSICF_NOSCROLL);
 
 	lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM | LVIF_INDENT;
 	lvi.stateMask = 0;
