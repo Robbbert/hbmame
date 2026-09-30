@@ -438,9 +438,6 @@ victor9k
 @source:adc/super6.cpp
 super6
 
-@source:adc/superslave.cpp
-superslv
-
 @source:adds/4000_260.cpp
 4000_260
 
@@ -46845,10 +46842,10 @@ alphatan
 hhtiger
 
 @source:tangerine/microtan.cpp
-mt65
 micron
-spinveti
+mt65
 mt6809
+spinveti
 
 @source:tangerine/oric.cpp
 oric1
@@ -46881,6 +46878,9 @@ lockonc
 
 @source:tatsumi/roundup5.cpp
 roundup5
+
+@source:tatsumi/sbking.cpp
+sbking
 
 @source:tatsumi/tx1.cpp
 buggyboy
