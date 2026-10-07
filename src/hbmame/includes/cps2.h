@@ -272,6 +272,7 @@ public:
 	void init_cps2();
 	void init_cps2nc();
 	void init_cps2crypt();
+	void init_cps2crypt(u32 length);
 	void init_ssf2tb();
 	void init_pzloop2();
 	void init_singbrd();
@@ -319,7 +320,11 @@ public:
 	void cps1_render_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer, int primask);
 	void cps1_render_high_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer);
 	void cps2_set_sprite_priorities();
-	void cps2_objram_latch();
+	enum class cps2_scroll_layer { SCROLL1, SCROLL2, SCROLL3 };
+	virtual void cps2_objram_latch();
+	virtual int cps2_scroll_code(cps2_scroll_layer layer, int code, int attr) const { return code; }
+	virtual int cps2_sprite_code(int code, int index, int column, int row) const { return code; }
+	virtual void cps2_sound_gain(double gain);
 	u16 *cps2_objbase();
 
 	/* cps2 driver */
@@ -346,6 +351,7 @@ public:
 	void qsound_decrypted_opcodes_map(address_map &map);
 	void qsound_main_map(address_map &map);
 	void qsound_sub_map(address_map &map);
+	void qsound_sub_map_common(address_map &map);
 	void sound_map(address_map &map);
 	void sub_map(address_map &map);
 
