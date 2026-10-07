@@ -1386,6 +1386,7 @@ mpang
 msh
 mshvsf
 mvsc
+nwarr
 progear
 sfa
 sfa2
@@ -1396,6 +1397,7 @@ spf2t
 ssf2
 ssf2t
 vhunt2
+vsav
 vsav2
 xmcota
 xmvsf
@@ -1432,6 +1434,7 @@ ddsom10
 ddtod01
 ddtod02
 dstlk01
+vamprest
 ffightaec2
 gigawing01
 hsf2s02
@@ -1473,6 +1476,7 @@ mvsc03
 mvsc04
 mvsc05
 mvsc06
+nwarrru
 pfght01
 pfght02
 pfght03
@@ -1533,6 +1537,8 @@ sfa2g
 sfz2d
 sfz2alr
 sfz2da
+sfa2ex
+sfz2ex
 sfa3s01
 sfa3s02
 sfa3s03
@@ -1619,6 +1625,7 @@ vsav2s01
 vsav2s02
 vsav2s03
 vsav2s04
+vsavru
 xmcota01
 xmcota02
 xmcota03

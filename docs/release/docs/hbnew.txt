@@ -7,10 +7,25 @@
 
 New Games
 ---------------------------------
+- [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
+- [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
+- [sfz2ex]              Street Fighter Zero 2 EX (960805J, 2026-10-06)
+- [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
+- [vsavru]              Vampire Savior: The Lord of Vampire (970519U, English Restoration, 2026-09-22)
 
 
 Updated Games
 ---------------------------------
+- [mshvsfej]            Marvel Super Heroes Vs. Street Fighter EX (970707J, 2026-10-06)
+- [mshvsfex]            Marvel Super Heroes Vs. Street Fighter EX (970625U, 2026-10-06)
+- [mshvsfrj]            Marvel Super Heroes Vs. Street Fighter (970707J, Restoration, 2026-09-17)
+- [mshvsfru]            Marvel Super Heroes Vs. Street Fighter (970625U, English Restoration, 2026-09-17)
+- [sfa2d]               Street Fighter Alpha 2 Dash (960826, PS2 Backport, 2026-10-06)
+- [sfa2g]               Street Fighter Alpha 2 Gold (960826, PS2 Backport, 2026-10-06)
+- [sfz2d]               Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-10-06)
+- [sfz2da]              Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-10-06)
+- [ssf2tuc]             Super Street Fighter II EX: The Ultimate Championship (940223U, 2026-10-06)
+- [ssf2xuc]             Super Street Fighter II EX: The Ultimate Championship (940223J, 2026-10-06)
 
 
 
