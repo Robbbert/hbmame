@@ -1866,9 +1866,6 @@ dotrikun2
 dotriman
 mineswp
 
-@source:dt7.cpp
-dt7                                    // press 9 to coin up, sound breaks at end of game
-
 @source:dynax.cpp
 mjelctrn                               //parent
 mjelct3s01

@@ -956,7 +956,6 @@ files {
 	MAME_DIR .. "src/mame/toaplan/gp9001.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_dsp.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_scu.cpp",
-	MAME_DIR .. "src/hbmame/drivers/dt7.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_coincounter.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_txtilemap.cpp",
 }
