@@ -1374,6 +1374,40 @@ ROM_START( vampj01 )
 	ROM_LOAD( "vampj.key",    0x00, 0x14, CRC(8418cc6f) SHA1(e7128ac94fc7c37a64e4640db08f1769215769e5) )
 ROM_END
 
+ROM_START( vamprest )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "vamj.03a", 0x000000, 0x80000, CRC(f36d0886) SHA1(8ee2c79a657c539b376f2ca37f9541fc0d53c4a0) )
+	ROM_LOAD16_WORD_SWAP( "vamj.04b", 0x080000, 0x80000, CRC(48f49597) SHA1(5e87069d2bfe288cef41e6d2edfd4292442f40a5) )
+	ROM_LOAD16_WORD_SWAP( "vamj.05a", 0x100000, 0x80000, CRC(6c497e92) SHA1(7c1ccdfd77fb50afe024c8402376daaeab641a24) )
+	ROM_LOAD16_WORD_SWAP( "vamj.06a", 0x180000, 0x80000, CRC(f1bbecb6) SHA1(6adba89393e05f16f70b57085cabd6b4c20f53e8) )
+	ROM_LOAD16_WORD_SWAP( "vamj.07a", 0x200000, 0x80000, CRC(1067ad84) SHA1(5e4cc75cfdfd512b6230c656e7304262b5143aee) )
+	ROM_LOAD16_WORD_SWAP( "vamj.08a", 0x280000, 0x80000, CRC(4b89f41f) SHA1(bd78f33a6d448655eecf7448921d282b302fa4cb) )
+	ROM_LOAD16_WORD_SWAP( "vamj.09a", 0x300000, 0x80000, CRC(744507a9) SHA1(590f4a6b9160aac42fa0f585d21ac765f2fd28be) )
+	ROM_LOAD16_WORD_SWAP( "vamj.10a", 0x380000, 0x80000, CRC(9270c26b) SHA1(c2a7e199a74c9f27704cf935483ebddc6da256a1) )
+
+	ROM_REGION( 0x1400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "vam.13m",   0x0000000, 0x400000, CRC(2c48a876) SHA1(93e39ab574599f003272bf4cec163ee995e73ef2) )
+	ROM_LOAD64_WORD( "vam.15m",   0x0000002, 0x400000, CRC(6465e083) SHA1(9b76691bf414177dbb59e5b5d739a45a7284ee5d) )
+	ROM_LOAD64_WORD( "vam.17m",   0x0000004, 0x400000, CRC(c613f6eb) SHA1(4abe2a44e6d3c080d89c62a11f628a600e513a4b) )
+	ROM_LOAD64_WORD( "vam.19m",   0x0000006, 0x400000, CRC(29424b8d) SHA1(f2b04975f9d586b698bfd890a1920aa3d5f1ce8f) )
+	ROM_LOAD64_WORD( "vam.14m",   0x1000000, 0x100000, CRC(bd87243c) SHA1(87b33aeb72514e1228ffc27ec6dd534f14882760) )
+	ROM_LOAD64_WORD( "vam.16m",   0x1000002, 0x100000, CRC(afec855f) SHA1(cd117833b8d475489b90ff44b57e2c5cb1af3af5) )
+	ROM_LOAD64_WORD( "vam.18m",   0x1000004, 0x100000, CRC(3a033625) SHA1(294238f30cba5cf4f8f1de951d54c2077bd95de9) )
+	ROM_LOAD64_WORD( "vam.20m",   0x1000006, 0x100000, CRC(2bff6a89) SHA1(8f4e131e5ce0af48fb89f98026d9f0356c7c301f) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "vam.01",   0x00000, 0x08000, CRC(64b685d5) SHA1(6c180e7420db754eca5cad17a40f5a64f5c3bd15) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "vam.02",   0x28000, 0x20000, CRC(cf7c97c7) SHA1(109a4b56ecd59be9c3f5869de99d40619bdaef21) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "vam.11m",   0x000000, 0x200000, CRC(4a39deb2) SHA1(7e63e615869958db66a4e52a0272afee5a10e446) )
+	ROM_LOAD16_WORD_SWAP( "vam.12m",   0x200000, 0x200000, CRC(1a3e5c03) SHA1(c5a556e125d6c3d68da745b4d56cd7a851f2a23d) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "vampj.key",    0x00, 0x14, CRC(8418cc6f) SHA1(e7128ac94fc7c37a64e4640db08f1769215769e5) )
+ROM_END
+
  /***************
  Armored Warriors
 ******************/
@@ -7525,6 +7559,7 @@ GAME( 2020, ddtod01,    ddtod,    cps2,      cps2_4p4b, cps2_state, init_cps2, R
 GAME( 2018, ddtod02,    ddtod,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (940412E, Plus)", MACHINE_SUPPORTS_SAVE )
 // Darkstalkers: The Night Warriors
 GAME( 2016, dstlk01,    dstlk,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Darkstalkers: The Night Warriors (940705E, Simplify Edition, 2016-12-06)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, vamprest,   dstlk,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)", MACHINE_SUPPORTS_SAVE )
 // Vampire The Night Warriors
 GAME( 2006, vampj01,    dstlk,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Vampire: The Night Warriors (940705J, Enable hidden characters, 2006-05-31)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
