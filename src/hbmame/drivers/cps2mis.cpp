@@ -4816,6 +4816,43 @@ ROM_START( pfght04 )
 ROM_END
 
  /************************************
+ Night Warriors: Darkstalkers' Revenge
+***************************************/
+ROM_START( nwarrru )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "vphj.03f", 0x000000, 0x80000, CRC(8bb491f7) SHA1(3a0f226634bbad4c8da7214a017ec1ba22d756d2) )
+	ROM_LOAD16_WORD_SWAP( "vphj.04c", 0x080000, 0x80000, CRC(5a592e49) SHA1(f9c239aaeaa39142f9476166f8ff7daec719d23c) )
+	ROM_LOAD16_WORD_SWAP( "vphj.05d", 0x100000, 0x80000, CRC(832ea9f4) SHA1(50f45407e0d21932428a8d9dd14877c5a6da4f58) )
+	ROM_LOAD16_WORD_SWAP( "vphj.06c", 0x180000, 0x80000, CRC(ac3bd3d5) SHA1(c0aa04c43dba2876d97d95fffd4766a28193b300) )
+	ROM_LOAD16_WORD_SWAP( "vphj.07b", 0x200000, 0x80000, CRC(0761309f) SHA1(7c6f9ec4d93ea9dbd634142558baaaf170cd4c76) )
+	ROM_LOAD16_WORD_SWAP( "vphj.08b", 0x280000, 0x80000, CRC(5a5c2bf5) SHA1(296c6a5a0062b58bc71a297bc8b27eea099c8518) )
+	ROM_LOAD16_WORD_SWAP( "vphj.09b", 0x300000, 0x80000, CRC(823d6d99) SHA1(17be75b2ebfbf60a2141aef67c386454d23565f2) )
+	ROM_LOAD16_WORD_SWAP( "vphj.10b", 0x380000, 0x80000, CRC(daa98fe2) SHA1(3cd5c82710407678cf881fa3660a8a18f5fd0d2c) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "vph.13m",   0x0000000, 0x400000, CRC(da6e5f0d) SHA1(9a6b6ab7d4409e8e682e6d09a8b9fbc13cc0b40c) )
+	ROM_LOAD64_WORD( "vph.15m",   0x0000002, 0x400000, CRC(82fe8661) SHA1(593b0b3bb8e950204d04ff65791aeb9e7f46d027) )
+	ROM_LOAD64_WORD( "vph.17m",   0x0000004, 0x400000, CRC(4f2408e0) SHA1(cd49c6b3c7e6470c6058f98ccc5210b052bb13e2) )
+	ROM_LOAD64_WORD( "vph.19m",   0x0000006, 0x400000, CRC(d3789851) SHA1(00eb4bf59c47b6afa15eca10de6da03a2e2c6718) )
+	ROM_LOAD64_WORD( "vph.14m",   0x1000000, 0x400000, CRC(7a0e1add) SHA1(6b28a91bd59bba97886fdea30116a5b1071109ed) )
+	ROM_LOAD64_WORD( "vph.16m",   0x1000002, 0x400000, CRC(2f41ca75) SHA1(f4a67e60b62001e6fe75cb05b9c81040a8a09f54) )
+	ROM_LOAD64_WORD( "vph.18m",   0x1000004, 0x400000, CRC(64498eed) SHA1(d64e54a9ad1cbb927b7bac2eb16e1487834c5706) )
+	ROM_LOAD64_WORD( "vph.20m",   0x1000006, 0x400000, CRC(17f2433f) SHA1(0cbf8c96f92016fefb4a9c668ce5fd260342d712) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "vph.01",   0x00000, 0x08000, CRC(5045dcac) SHA1(fd1a6586fbdd48a707df1fa52309b4cf50e3cc4c) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "vph.02",   0x28000, 0x20000, CRC(86b60e59) SHA1(197d07ced8b9850729c83fa59b7afc283500bdee) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "vph.11m",   0x000000, 0x200000, CRC(e1837d33) SHA1(e3cb69f64767bacbec7286d0b4cd0ce7a0ba13d8) )
+	ROM_LOAD16_WORD_SWAP( "vph.12m",   0x200000, 0x200000, CRC(fbd3cd90) SHA1(4813c25802ad71b77ca04fd8f3a86344f99f0d6a) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "vhuntj.key",   0x00, 0x14, CRC(72854f68) SHA1(657a4484c40a8b583abd74a8c7f0524ec6199dd2) )
+ROM_END
+
+ /************************************
  Vampire Hunter 2 Darkstalkers Revenge
 ***************************************/
 ROM_START( vhunt2s01 )
@@ -7763,6 +7800,8 @@ GAME( 1996, spf2t01,    spf2t,    cps2,      cps2_2p2b, cps2_state, init_cps2, R
 // CPS-2 Suicide Tester (derived from spf2t)
 GAME( 2015, suicide,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "Razoola", "Suicide Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, suicide2,   suicide,  dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "Razoola", "Suicide Test v2", MACHINE_SUPPORTS_SAVE )
+// Night Warriors: Darkstalkers' Revenge
+GAME( 2026, nwarrru,    nwarr,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)", MACHINE_SUPPORTS_SAVE )
 // Vampire Hunter 2 Darkstalkers Revenge
 GAME( 2026, vhunt2s01,  vhunt2,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors 2: Darkstalkers Revenge (970929J, English, 2026-09-17)", MACHINE_SUPPORTS_SAVE )
 // Vampire Savior The Lord of Vampire
