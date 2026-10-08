@@ -146,6 +146,11 @@ ROM_START( cd_pow2 )
 	DISK_IMAGE_READONLY( "pow2", 0, SHA1(9017ead20ecbfeb25c6c36282423c90375403b32) )
 ROM_END
 
+ROM_START( cd_robocop )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "robocop", 0, SHA1(917157311d62b31d06956c3f773808f6d5b2ff94) )
+ROM_END
+
 ROM_START( cd_shinobiarr )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "shinobiarr", 0, SHA1(3f93364dc54a91eadeddf52675a7043b191675ba) )
@@ -194,6 +199,7 @@ GAME( 2016, cd_phoenix,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2023, cd_pong,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "David Vandensteen", "Pong[CD]", 0 )
 GAME( 2024, cd_pow,         neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (Neo-Geo port)[CD]", 0 )
 GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (update)[CD]", 0 )
+GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
 GAME( 2024, cd_ssrpg,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Jeff Nussbaum", "Samurai Spirits RPG (English)[CD]", 0 )
