@@ -234,6 +234,7 @@ NUM GAME YEAR COMPANY                 TITLE
 522 0539 2026 Sabino                  Doom Geo (demo)
 523 0539 2026 Sabino                  Free Doom (demo)
 524 2026 2026 Sabino                  Super Mario Bros.
+525 2027 2026 Sabino                  VS. Super Mario Bros.
 526 0780 2026 Eagle Software          Maiya Super Nature Girl
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
@@ -3043,7 +3044,8 @@ ROM_END
 // Bugs: If the screen suddenly goes black, you'll have to restart the game
 ROM_START( smbn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "524.p1", 0x000000, 0x100000, CRC(7f2203e2) SHA1(40c8a2aaedfde648729341da967698e46ebeee46) )
+	//ROM_LOAD16_WORD_SWAP( "524.p1", 0x000000, 0x100000, CRC(7f2203e2) SHA1(40c8a2aaedfde648729341da967698e46ebeee46) )
+	ROM_LOAD16_WORD_SWAP( "524a.p1", 0x000000, 0x100000, CRC(2e1a9e13) SHA1(449d339d91501d6057a77361db25ab64855dac0c) )
 
 	NEO_SFIX_128K( "524.s1", CRC(d26aa99f) SHA1(9157796d485fe6fcf9d6563e8f0006e0d26d7c8f) )
 
@@ -3054,6 +3056,25 @@ ROM_START( smbn )
 
 	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "524.c1", 0x0000000, 0x200000, CRC(6ca43fd1) SHA1(35aacdc116d93d9ea719660e4d4ab13231944bc3) )
+	// c2 rom supplied is all zeroes, so not needed
+ROM_END
+
+
+// 525: VS. Super Mario Bros
+// Bugs: Runs at half speed
+ROM_START( vssmbn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "525.p1", 0x000000, 0x100000, CRC(492d9a45) SHA1(b41aab9bfcecbbc5fd4ae3c4e34ad0a34b39b037) )
+
+	NEO_SFIX_128K( "525.s1", CRC(f9b8db1e) SHA1(f050d0171d85845d39e2443c38c67754c59d9ae2) )
+
+	NEO_BIOS_AUDIO_128K( "524.m1", CRC(407e6cb6) SHA1(be0de4793809801436f8d4b1e8c639cb121e1022) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "524.v1", 0x000000, 0x80000, CRC(87a8bcb3) SHA1(36005525795ef2c4779eae3955fae722a0abafb7) )
+
+	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "525.c1", 0x0000000, 0x200000, CRC(bfa287fa) SHA1(ae85fde5636e49607aae509b89cd9786a068c749) )
 	// c2 rom supplied is all zeroes, so not needed
 ROM_END
 
@@ -4709,6 +4730,7 @@ GAME( 2025, vaporous,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Venus Wars demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 3.28, 2026-02-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr02,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
