@@ -2699,7 +2699,7 @@ ROM_START( goldaxen )
 	ROM_LOAD16_BYTE( "507.c2",   0x0000001, 0x200000, CRC(a78a6647) SHA1(19a9b65701935165bd972542f868b71b3d70cb47) )
 ROM_END
 
-
+#if 0
 // 508: POW port by iq_132, converted from CD by Robbbert.
 // bugs: no music, because it's in separate wav files on the CD
 ROM_START( pown )
@@ -2718,7 +2718,7 @@ ROM_START( pown )
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD( "508.c1",   0x0000000, 0x200000, CRC(887ca97e) SHA1(b4a1176ba6862554d8f2dbea9864afb865f6f296) )
 ROM_END
-
+#endif
 
 // 509: Super Power Kick beta 1 by Kakoeimon
 ROM_START( spkick )
@@ -4642,7 +4642,7 @@ GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, pown,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "P.O.W. (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2025, pown,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "P.O.W. (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Ryurik: Poteryannaya demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, rickdx,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Rick Dangerous DX", MACHINE_SUPPORTS_SAVE )

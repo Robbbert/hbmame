@@ -6254,6 +6254,7 @@ zupapa			// 070
 @source:neogeocd.cpp
 neocdz_bios
 cd_alice
+cd_altbeast
 cd_chelnov
 cd_diff
 cd_eira
@@ -6417,7 +6418,6 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
-pown
 //raroggame
 rci			/* Robocop intro */
 rickdx

@@ -71,6 +71,11 @@ ROM_START( cd_alice )
 	DISK_IMAGE_READONLY( "819", 0, SHA1(a9dfafadc121be3ea991a0a85377622d9a3a535f) )
 ROM_END
 
+ROM_START( cd_altbeast )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "altbeast", 0, SHA1(99172235cab2c049d489de2d84ae3de628d13ecd) )
+ROM_END
+
 ROM_START( cd_chelnov )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "chelnov", 0, SHA1(45d1902421e97e642d02a485dcd06f9780d94fd1) )
@@ -184,6 +189,7 @@ CONS( 1996, neocdz_bios, 0, 0, neocd_ntsc, neocd, ngcd_state, init_neocdz, "SNK"
 
 // Games
 GAME( 2016, cd_alice,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "We Love Alice demo[CD]", 0 )
+GAME( 2026, cd_altbeast,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Altered Beast (Neo-Geo port)[CD]", 0 )
 GAME( 2024, cd_chelnov,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "Atomic Runner Chelnov (Neo-Geo port)[CD]", 0 )
 GAME( 2016, cd_diff,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Citavia", "DIFF demo[CD]", 0 )
 GAME( 2015, cd_eira,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Resistance", "Eira demo[CD]", 0 )
