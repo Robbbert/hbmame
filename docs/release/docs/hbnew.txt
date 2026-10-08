@@ -18,6 +18,7 @@ New Games
 - [outrungb]            Out Run (Gumball Edition)
 - [sf2s17]              Street Fighter II' (Bonus Stage)
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
+- [sfz2al20]            Street Fighter Zero 2 Alpha Dash / Gold (960813U)
 - [sfz2ex]              Street Fighter Zero 2 EX (960805J, 2026-10-06)
 - [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
 - [vsavru]              Vampire Savior: The Lord of Vampire (970519U, English Restoration, 2026-09-22)
