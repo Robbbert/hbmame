@@ -2754,7 +2754,7 @@ ROM_START( spkick2 )
 	ROM_LOAD( "509a.c1",   0x0000000, 0x400000, CRC(ef914101) SHA1(9f5f37a930982a476ef42ad6da9a25c7a7fdd0e2) )
 ROM_END
 
-
+#if 0
 // 510: Atomic Runner Chelnov port by iq_132, converted from CD by Robbbert.
 // bugs: no music, because it's in separate wav files on the CD
 ROM_START( chelnovn )
@@ -2772,7 +2772,7 @@ ROM_START( chelnovn )
 	ROM_REGION( 0x80000, "sprites", 0 )
 	ROM_LOAD( "510.c1",   0x000000, 0x80000, CRC(d8eed0b2) SHA1(ff3c81737e7045c9a39f104bf7f48406bf8895d5) )
 ROM_END
-
+#endif
 
 // 511: Bad Dudes vs Dragonninja port by OzzyOuzo.
 ROM_START( baddudesn )
@@ -4538,7 +4538,7 @@ GAME( 2021, cabaln,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, cabaln01,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, cabaln02,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, chelnovn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "Atomic Runner Chelnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2024, chelnovn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "Atomic Runner Chelnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
