@@ -15,6 +15,7 @@ New Games
 - [maiya]               Maiya Super Nature Girl
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [outrungb]            Out Run (Gumball Edition)
+- [sf2s17]              Street Fighter II' (Bonus Stage)
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
 - [sfz2ex]              Street Fighter Zero 2 EX (960805J, 2026-10-06)
 - [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
