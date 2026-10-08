@@ -91,6 +91,11 @@ ROM_START( cd_eira )
 	DISK_IMAGE_READONLY( "817", 0, SHA1(c441932e9566f0647888ceeff3229622ae9609a8) )
 ROM_END
 
+ROM_START( cd_eswat )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "eswat", 0, SHA1(2b8228d0c7075591c21bc9a0d8f9b5352761451b) )
+ROM_END
+
 ROM_START( cd_ffury )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "ffuryae", 0, SHA1(c0e0e4180bddc3691ab59e5e2900ab3dcc9080f7) )
@@ -193,6 +198,7 @@ GAME( 2026, cd_altbeast,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2024, cd_chelnov,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "Atomic Runner Chelnov (Neo-Geo port)[CD]", 0 )
 GAME( 2016, cd_diff,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Citavia", "DIFF demo[CD]", 0 )
 GAME( 2015, cd_eira,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Resistance", "Eira demo[CD]", 0 )
+GAME( 2026, cd_eswat,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Cyber Police ESWAT (Neo-Geo port)[CD]", 0 )
 GAME( 2023, cd_ffury,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "[unk]", "Fatal Fury - Album Edition[CD]", 0 )
 GAME( 2017, cd_fukkireta,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Visy", "Neo Fukkireta demo[CD]", 0 )
 GAME( 2025, cd_gaxe,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "h0ffman", "Golden Axe (Neo-Geo port)[CD]", 0 )

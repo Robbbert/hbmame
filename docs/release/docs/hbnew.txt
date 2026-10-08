@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [cd_altbeast]         Altered Beast (Neo-Geo port)[CD]
+- [cd_eswat]            Cyber Police ESWAT (Neo-Geo port)[CD]
 - [cd_robocop]          Robocop (Neo-Geo port)[CD]
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
