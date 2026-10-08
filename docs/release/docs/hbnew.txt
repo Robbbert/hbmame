@@ -11,6 +11,10 @@ New Games
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
 - [sfz2ex]              Street Fighter Zero 2 EX (960805J, 2026-10-06)
 - [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
+- [vhunt2s02]           Night Warriors 2 Arrange (970929J, English, 2026-10-07)
+- [vhunt2s03]           Vampire Hunter 2 Arrange (970929J, 2026-10-07)
+- [vsav2s05]            Vampire Savior 2 Arrange (970913J, English, 2026-10-07)
+- [vsav2s06]            Vampire Savior 2 Arrange (970913J, 2026-10-07)
 - [vsavru]              Vampire Savior: The Lord of Vampire (970519U, English Restoration, 2026-09-22)
 
 
