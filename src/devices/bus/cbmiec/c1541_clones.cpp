@@ -26,7 +26,6 @@
 DEFINE_DEVICE_TYPE(FSD1,                       fsd1_device,                       "fsd1",     "FSD-1 Disk Drive")
 DEFINE_DEVICE_TYPE(FSD2,                       fsd2_device,                       "fsd2",     "FSD-2 Disk Drive")
 DEFINE_DEVICE_TYPE(CSD1,                       csd1_device,                       "csd1",     "CSD-1 Disk Drive")
-DEFINE_DEVICE_TYPE(INDUS_GT,                   indus_gt_device,                   "indusgt",  "Indus GT Disk Drive")
 DEFINE_DEVICE_TYPE(TECHNICA,                   technica_device,                   "technica", "Westfalia Technica Disk Drive")
 DEFINE_DEVICE_TYPE(BLUE_CHIP,                  blue_chip_device,                  "bluechip", "Amtech Blue Chip Disk Drive")
 DEFINE_DEVICE_TYPE(COMMANDER_C2,               commander_c2_device,               "cmdrc2",   "Commander C-II Disk Drive")
@@ -106,30 +105,6 @@ const tiny_rom_entry *csd1_device::device_rom_region() const
 
 
 //-------------------------------------------------
-//  ROM( indusgt )
-//-------------------------------------------------
-
-ROM_START( indusgt )
-	ROM_REGION( 0x4000, M6502_TAG, 0 )
-	ROM_LOAD( "u18 v1.1.u18", 0x0000, 0x2000, CRC(e401ce56) SHA1(9878053bdff7a036f57285c2c4974459df2602d8) )
-	ROM_LOAD( "u17 v1.1.u17", 0x2000, 0x2000, CRC(575ad906) SHA1(f48837b024add84f888acd83a9cf9eb7d2379172) )
-
-	ROM_REGION( 0x2000, "romdisk", 0 )
-	ROM_LOAD( "u19 v1.1.u19", 0x0000, 0x2000, CRC(8f83e7a5) SHA1(5bceaad520dac9d0527723b3b454e8ec99748e5b) )
-ROM_END
-
-
-//-------------------------------------------------
-//  rom_region - device-specific ROM region
-//-------------------------------------------------
-
-const tiny_rom_entry *indus_gt_device::device_rom_region() const
-{
-	return ROM_NAME( indusgt );
-}
-
-
-//-------------------------------------------------
 //  ROM( technica )
 //-------------------------------------------------
 
@@ -179,7 +154,7 @@ const tiny_rom_entry *blue_chip_device::device_rom_region() const
 ROM_START( cmdrc2 )
 	ROM_REGION( 0x4000, M6502_TAG, 0 )
 	ROM_LOAD( "commander_c-ii_8k_rom1.bin", 0x0000, 0x2000, CRC(cb19daf3) SHA1(9fab414451af54d0bed9d4c9fd5fab1b8720c269) )
-	ROM_LOAD( "commander_c-ii_8k_rom2.bin", 0x2000, 0x2000, CRC(ed85a390) SHA1(eecf92fb8cc20a6c86e30f897d09d427509dd3d3) )
+	ROM_LOAD( "commander_c-ii_8k_rom2.bin", 0x2000, 0x2000, BAD_DUMP CRC(ed85a390) SHA1(eecf92fb8cc20a6c86e30f897d09d427509dd3d3) )
 ROM_END
 
 
@@ -301,14 +276,6 @@ fsd2_device::fsd2_device(const machine_config &mconfig, const char *tag, device_
 
 csd1_device::csd1_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: c1541_device_base(mconfig, CSD1, tag, owner, clock) { }
-
-
-//-------------------------------------------------
-//  indus_gt_device - constructor
-//-------------------------------------------------
-
-indus_gt_device::indus_gt_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
-	: c1541_device_base(mconfig, INDUS_GT, tag, owner, clock) { }
 
 
 //-------------------------------------------------
