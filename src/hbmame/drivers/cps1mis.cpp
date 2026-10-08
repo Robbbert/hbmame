@@ -19369,11 +19369,11 @@ ROM_START( sf2koryu04 ) // sf2koryuh
 	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
-ROM_START( sf2mix ) // 1.6
+ROM_START( sf2mix ) // 1.7
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(41877bf2) SHA1(08c8562a8312ff3bf0b1c8476e093b1fb0269ff5) ) // 8f
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(ecc7e105) SHA1(f6f07d97e14bbc3fc80551c7a5faee4606f99f7b) ) // 7f
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(07fb17ea) SHA1(63bd2f436300ded1395067eb09068b94b2f1a8b3) ) // 6f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(60d0d40d) SHA1(c1adbeced0f7231a17935e94a6d9601a1b3a8c17) ) // 8f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(f7bd54e7) SHA1(7ac2e56eec9bdeee8ca377a31e4cb5fcd740fb77) ) // 7f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(b580c709) SHA1(c65a416eeaa3affe08a713fe5d5400e2c738b56f) ) // 6f
 
 	ROM_REGION( 0x600000, "gfx", 0 )
 	ROM_LOAD64_WORD( "sf2mix.c01",  0x000000, 0x80000, CRC(a8f70643) SHA1(0d3ab7fe1d0d15397a79c9bd304f22593a9b8d87) ) // 3a
@@ -28966,7 +28966,7 @@ GAME( 1992, sf2koryu01,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2ha
 GAME( 1992, sf2koryu02,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2koryu03,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, sf2koryu04,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2mkot01,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)", MACHINE_SUPPORTS_SAVE ) // 920666
 GAME( 2018, sf2red01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Golden Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2red02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Hardest Level)", MACHINE_SUPPORTS_SAVE )
