@@ -706,6 +706,30 @@ ROM_START( bucaneerx )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( bupacman ) // it's actually a hack of puckman rather than pacman
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "bupm.6e",      0x0000, 0x0800, CRC(292c2004) SHA1(0e4b080dc8a85edc33d8b49fc17da062b4e544bc) )
+	ROM_LOAD( "bupm.6k",      0x0800, 0x0800, CRC(bc02ee74) SHA1(261cc35c6e522c2487eb1421fcb6f7c4b9056fda) )
+	ROM_LOAD( "bupm.6f",      0x1000, 0x0800, CRC(5a3d2bc0) SHA1(a273f679ffe235ca02b7bc7e56d74228c3e4b2cf) )
+	ROM_LOAD( "bupm.6m",      0x1800, 0x0800, CRC(1e878c6e) SHA1(a47b3398e0e1e0da6330eef817bfd9ee69528a09) )
+	ROM_LOAD( "puckman.6h",   0x2000, 0x0800, CRC(6bf4f625) SHA1(afe72fdfec66c145b53ed865f98734686b26e921) )
+	ROM_LOAD( "bupm.6n",      0x2800, 0x0800, CRC(ada07b4d) SHA1(7e0c7c1a305290d8857c2013eaca548c195fed61) )
+	ROM_LOAD( "bupm.6j",      0x3000, 0x0800, CRC(32a1f575) SHA1(c68c715f8a53a77bbc2b52875c27456c7e6b6d78) )
+	ROM_LOAD( "bupm.6p",      0x3800, 0x0800, CRC(31159185) SHA1(3f11f5f5f0ad94c2af4f7a4bdd0ae79fdc2ead22) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "bupm.5e",      0x0000, 0x0800, CRC(3624374b) SHA1(ceb80661104c96159d45b71c5c62324279405348) )
+	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "bupm.5f",      0x1000, 0x0800, CRC(2a05a00f) SHA1(f4f53c0dd391ed704142dd22ff98cffe33d62d05) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	ROM_REGION( 0x0120, "proms", 0 ) \
+	ROM_LOAD( "bupm.7f",      0x0000, 0x0020, CRC(76631e65) SHA1(ede9f2c851a9aa2cc9e5cec683dffa4a1b855b6b) )
+	ROM_LOAD( "bupm.4a",      0x0020, 0x0100, CRC(4d111f36) SHA1(ab3517ec08aeac70d51aa4080959cd396877274c) )
+
+	PACMAN_SOUND_PROMS
+ROM_END
+
 ROM_START( caterpil )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "caterpil.6e",  0x0000, 0x1000, CRC(b53c5650) SHA1(54f1fee2494cfc0452051a6f134c5c3b691b4ffb) )
@@ -6886,6 +6910,7 @@ GAME( 1981, puckmodx, puckmanx, pacmanx,  pacman,   puckman_state, empty_init,  
 GAME( 2001, abortman, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Paul Copeland",  "Abortman", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, bacman,   puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "George Phillips",  "Bac-man (2015-08-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, bucaneerx,puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Bucco", "Buccaneer", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, bupacman, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Zeroco", "Busy Pacman", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, caterpil, puckman,  pacman,   mspacman, puckman_state, empty_init,   ROT90, "Phi", "Caterpillar", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, chtpac,   puckman,  pacman,   pacman0,  puckman_state, empty_init,   ROT90, "[Midway]", "Pacman [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, chtpman2, puckman,  pacman,   pacman0,  puckman_state, empty_init,   ROT90, "[Namco]", "New Puck2 [c]", MACHINE_SUPPORTS_SAVE )

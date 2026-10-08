@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [bupacman]            Busy Pacman
 - [cd_altbeast]         Altered Beast (Neo-Geo port)[CD]
 - [cd_eswat]            Cyber Police ESWAT (Neo-Geo port)[CD]
 - [cd_robocop]          Robocop (Neo-Geo port)[CD]
