@@ -11,7 +11,7 @@ New Games
 - [cd_altbeast]         Altered Beast (Neo-Geo port)[CD]
 - [cd_eswat]            Cyber Police ESWAT (Neo-Geo port)[CD]
 - [cd_neotris2]         Neotris 2 Proto[CD]
-- [cd_robocop]          Robocop (Neo-Geo port)[CD]
+- [cd_robocop]          Robocop (Neo-Geo port v17)[CD]
 - [cd_sdodgeb]          Super Dodge Ball (v0.99 beta)[CD]
 - [hyxevious02]         Hyper Easy Xevious
 - [maiya]               Maiya Super Nature Girl (v3)
