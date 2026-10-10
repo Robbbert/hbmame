@@ -121,6 +121,11 @@ ROM_START( cd_natademo )
 	DISK_IMAGE_READONLY( "818", 0, SHA1(22ac0c741defe9d792b9f38cd48dd0742140ec0a) )
 ROM_END
 
+ROM_START( cd_neotris2 )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "neotris2", 0, SHA1(715b54bf5b6e55617d8f9bfd1f0794c6e377184a) )
+ROM_END
+
 ROM_START( cd_ngdark )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "805", 0, SHA1(940b8b162ddf98cafebbd0bd7a3e43fae455d0cf) )
@@ -210,6 +215,7 @@ GAME( 2017, cd_fukkireta,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2025, cd_gaxe,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "h0ffman", "Golden Axe (Neo-Geo port)[CD]", 0 )
 GAME( 2025, cd_gaxearr,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "h0ffman", "Golden Axe (v1.0) (PS2 Sega Ages Arranged)[CD]", 0 )
 GAME( 2016, cd_natademo,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "BEY", "NATADEMO Rel.05[CD]", 0 )
+GAME( 2026, cd_neotris2,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Chips On Steroids", "Neotris 2 Proto[CD]", 0 )
 GAME( 2011, cd_ngdark,      neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "NGD::Devgroup", "NGD::ARK(2012-05-04)[CD]", 0 )
 GAME( 2019, cd_noneon,      neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Citavia", "No Neo - No Party demo[CD]", 0 )
 GAME( 2021, cd_ntris3d,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "N*tris3D Techdemo[CD]", 0 )
@@ -217,7 +223,7 @@ GAME( 2016, cd_phoenix,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2023, cd_pong,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "David Vandensteen", "Pong[CD]", 0 )
 GAME( 2024, cd_pow,         neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (Neo-Geo port)[CD]", 0 )
 GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (update)[CD]", 0 )
-GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port)[CD]", 0 )
+GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port v17)[CD]", 0 )
 GAME( 2026, cd_sdodgeb,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Super Dodge Ball (v0.99 beta)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
