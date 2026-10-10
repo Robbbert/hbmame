@@ -6419,16 +6419,17 @@ ngtd2
 ngtetris
 ngym2610
 nsmb
-nsmbd			// unplayable demo
+nsmbd                 // unplayable demo
 nyan
 nyana
-pcmademo	// 2015 freem
-pcmbdemo	// 2015 freem
-poknight	/* 2003 (c) 200? JMK */
+pcmademo
+pcmbdemo
+perfectf
+poknight              //Jeff M Kurtz
 poknightcd
 poknightfr
 //raroggame
-rci			/* Robocop intro */
+rci
 rickdx
 samantha
 santabll

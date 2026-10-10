@@ -236,6 +236,7 @@ NUM GAME YEAR COMPANY                 TITLE
 524 2026 2026 Sabino                  Super Mario Bros.
 525 2027 2026 Sabino                  VS. Super Mario Bros.
 526 0780 2026 Eagle Software          Maiya Super Nature Girl
+527 1234 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -3097,6 +3098,23 @@ ROM_START( maiya )
 ROM_END
 
 
+// 527: The Perfect Fighter (demo v4)
+ROM_START( perfectf )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "527.p1", 0x000000, 0x200000, CRC(073f1ba4) SHA1(d9a93d18b533257721056d88c4ac5c34cc8088ba) )
+
+	NEO_SFIX_128K( "527.s1", CRC(b0b1e3c3) SHA1(471c97f930606898b463cfc9854e47853fc53387) )
+
+	NEO_BIOS_AUDIO_128K( "527.m1", CRC(66b84e47) SHA1(3415c4ad39bd2d3551c37eb265e07a47e2478601) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "527.v1", 0x000000, 0x1000000, CRC(16949f60) SHA1(1eb797e6e688cb3a43fb7d1d98aacf899b1aa4d3) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD( "527.c1", 0x0000000, 0x2000000, CRC(fd443deb) SHA1(19b522c36be2b02b7b80ce060b0e3351bcd5f8ba) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // Bugs: If the screen suddenly goes black, you'll have to restart the game
 ROM_START( sgz ) // demo
@@ -4680,6 +4698,7 @@ GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )

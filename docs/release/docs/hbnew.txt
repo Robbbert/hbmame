@@ -17,6 +17,7 @@ New Games
 - [maiya]               Maiya Super Nature Girl (v3)
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [outrungb]            Out Run (Gumball Edition)
+- [perfectf]            Perfect Fighter, the (demo v4)
 - [sf2s17]              Street Fighter II' (Bonus Stage)
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
 - [sfz2al20]            Street Fighter Zero 2 Alpha Dash / Gold (960813U)
