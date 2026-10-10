@@ -331,6 +331,23 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/bus/a800/pbi/slot.h,BUSES["A800_PBI"] = true
+---------------------------------------------------
+
+if BUSES["A800_PBI"] then
+	files {
+		MAME_DIR .. "src/devices/bus/a800/pbi/kmkide.cpp",
+		MAME_DIR .. "src/devices/bus/a800/pbi/kmkide.h",
+		MAME_DIR .. "src/devices/bus/a800/pbi/options.cpp",
+		MAME_DIR .. "src/devices/bus/a800/pbi/options.h",
+		MAME_DIR .. "src/devices/bus/a800/pbi/slot.cpp",
+		MAME_DIR .. "src/devices/bus/a800/pbi/slot.h",
+	}
+end
+
+
+---------------------------------------------------
+--
 --@src/devices/bus/a800/sio/a8sio.h,BUSES["A800_SIO"] = true
 ---------------------------------------------------
 
@@ -1612,6 +1629,8 @@ if BUSES["CBMIEC"] then
 		MAME_DIR .. "src/devices/bus/cbmiec/minichief.h",
 		MAME_DIR .. "src/devices/bus/cbmiec/mos5710.cpp",
 		MAME_DIR .. "src/devices/bus/cbmiec/mos5710.h",
+		MAME_DIR .. "src/devices/bus/cbmiec/msdsd.cpp",
+		MAME_DIR .. "src/devices/bus/cbmiec/msdsd.h",
 		MAME_DIR .. "src/devices/bus/cbmiec/mps1200.cpp",
 		MAME_DIR .. "src/devices/bus/cbmiec/mps1200.h",
 		MAME_DIR .. "src/devices/bus/cbmiec/mps1224.cpp",
@@ -1860,6 +1879,8 @@ if BUSES["COCO"] then
 		MAME_DIR .. "src/devices/bus/coco/dragon_sprites.h",
 		MAME_DIR .. "src/devices/bus/coco/meb_intrf.cpp",
 		MAME_DIR .. "src/devices/bus/coco/meb_intrf.h",
+		MAME_DIR .. "src/devices/bus/coco/meb_3n1.cpp",
+		MAME_DIR .. "src/devices/bus/coco/meb_3n1.h",
 		MAME_DIR .. "src/devices/bus/coco/meb_rtime.cpp",
 		MAME_DIR .. "src/devices/bus/coco/meb_rtime.h",
 	}
@@ -3079,6 +3100,8 @@ if BUSES["ISA"] then
 		MAME_DIR .. "src/devices/bus/isa/pds.h",
 		MAME_DIR .. "src/devices/bus/isa/pgc.cpp",
 		MAME_DIR .. "src/devices/bus/isa/pgc.h",
+		MAME_DIR .. "src/devices/bus/isa/proga.cpp",
+		MAME_DIR .. "src/devices/bus/isa/proga.h",
 		MAME_DIR .. "src/devices/bus/isa/prose4k1.cpp",
 		MAME_DIR .. "src/devices/bus/isa/prose4k1.h",
 		MAME_DIR .. "src/devices/bus/isa/sb16.cpp",
@@ -6295,6 +6318,8 @@ if BUSES["VIC20"] then
 	files {
 		MAME_DIR .. "src/devices/bus/vic20/exp.cpp",
 		MAME_DIR .. "src/devices/bus/vic20/exp.h",
+		MAME_DIR .. "src/devices/bus/vic20/32k.cpp",
+		MAME_DIR .. "src/devices/bus/vic20/32k.h",
 		MAME_DIR .. "src/devices/bus/vic20/fe3.cpp",
 		MAME_DIR .. "src/devices/bus/vic20/fe3.h",
 		MAME_DIR .. "src/devices/bus/vic20/megacart.cpp",
