@@ -22,6 +22,8 @@ New Games
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-06)
 - [sfz2al20]            Street Fighter Zero 2 Alpha Dash / Gold (960813U)
 - [sfz2ex]              Street Fighter Zero 2 EX (960805J, 2026-10-06)
+- [snowbrosn]           Snow Bros (Neo-Geo port, beta 0.1)
+- [ssodan]              Sword of Sodan (Neo-Geo port, beta 0.4)
 - [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
 - [vhunt2s02]           Night Warriors 2 Arrange (970929J, English, 2026-10-07)
 - [vhunt2s03]           Vampire Hunter 2 Arrange (970929J, 2026-10-07)
