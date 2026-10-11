@@ -337,7 +337,7 @@ uint8_t c1541_device_base::via0_pb_r()
 	u8 data;
 
 	// data in
-	data = !m_bus->data_r() && !m_ga->atn_r();
+	data = !m_bus->data_r();
 
 	// clock in
 	data |= !m_bus->clk_r() << 2;
@@ -494,7 +494,8 @@ void c1541_device_base::device_add_mconfig(machine_config &config)
 	connector.set_fixed(true);
 	connector.set_media_change_time(attotime::from_msec(100));
 	connector.set_formats(c1541_device_base::floppy_formats);
-	connector.enable_sound(true);
+
+	connector.enable_sound("c1541");
 }
 
 
