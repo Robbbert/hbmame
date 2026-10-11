@@ -34,6 +34,7 @@ sinvtest1
 sinvtest2
 sinvtest3
 sinvtest4
+tinyvadr
 
 @source:vsystem/pspikes.cpp
 karatblz                               //parent

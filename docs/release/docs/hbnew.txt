@@ -24,6 +24,7 @@ New Games
 - [sfz2ex]              Street Fighter Zero 2 EX (960805J, 2026-10-06)
 - [snowbrosn]           Snow Bros (Neo-Geo port, beta 0.1)
 - [ssodan]              Sword of Sodan (Neo-Geo port, beta 0.4)
+- [tinyvadr]            Tiny Vaders
 - [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
 - [vhunt2s02]           Night Warriors 2 Arrange (970929J, English, 2026-10-07)
 - [vhunt2s03]           Vampire Hunter 2 Arrange (970929J, 2026-10-07)
