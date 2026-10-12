@@ -2314,13 +2314,27 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
 
 	if (csize)
 	{
+		uint32_t i;
 		f = fopen("555.c1", "wb");
 		if (!f)
 		{
 			printf("Error opening file '555.c1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
-		fwrite(&spr_region[0], 1, csize, f);
+		for (i = 0; i < csize; i+=2)
+			fwrite(&spr_region[i], 1, 1, f);
+		fclose(f);
+
+		f = fopen("555.c2", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.c2'\n");
+			return std::make_pair(image_error::UNSPECIFIED, " ");
+		}
+		for (i = 1; i < csize; i+=2)
+			fwrite(&spr_region[i], 1, 1, f);
+		if (csize & 1)
+			fwrite(&spr_region[i], 1, 1, f); // extra byte to keep both files the same size
 		fclose(f);
 	}
 #endif
