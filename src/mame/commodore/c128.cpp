@@ -5,6 +5,7 @@
 #include "screen.h"
 #include "softlist_dev.h"
 #include "speaker.h"
+#include "bus/c128/vdcram.h"
 #include "bus/c64/exp.h"
 #include "bus/cbmiec/cbmiec.h"
 #include "bus/cbmiec/c1571.h"
@@ -68,8 +69,7 @@ public:
 		m_rom(*this, M8502_TAG),
 		m_charom(*this, "charom"),
 		m_color_ram(*this, "color_ram", 0x800, ENDIANNESS_LITTLE),
-		m_vdc_ram(*this, "vdc_ram"),
-		m_vdc_ram_config(*this, "VDC_RAM"),
+		m_vdc_ram(*this, "vdcram"),
 		m_row(*this, "ROW%u", 0),
 		m_k(*this, "K%u", 0),
 		m_lock(*this, "LOCK"),
@@ -77,7 +77,6 @@ public:
 		m_40_80(*this, "40_80"),
 		m_portswap(*this, "JOYSWAP"),
 		m_charom_jumper(*this, "CHAROM_A12"),
-		m_vdc_ram_64k(true),
 		m_lp_cia(true),
 		m_lp_joy(true),
 		m_z80en(0),
@@ -92,6 +91,10 @@ public:
 		m_ioacc(0),
 		m_cnt1(1),
 		m_sp1(1),
+		m_user_cnt1(true),
+		m_user_sp1(true),
+		m_cnt1_pin(true),
+		m_sp1_pin(true),
 		m_iec_data_out(1),
 		m_iec_atn(1),
 		m_iec_clk(1),
@@ -126,8 +129,7 @@ public:
 	required_memory_region m_rom;
 	required_memory_region m_charom;
 	memory_share_creator<uint8_t> m_color_ram;
-	required_shared_ptr<uint8_t> m_vdc_ram;
-	required_ioport m_vdc_ram_config;
+	required_device<c128_vdc_ram_slot_device> m_vdc_ram;
 	required_ioport_array<8> m_row;
 	required_ioport_array<3> m_k;
 	required_ioport m_lock;
@@ -135,10 +137,8 @@ public:
 	required_ioport m_40_80;
 	optional_ioport m_portswap;
 	required_ioport m_charom_jumper;
-	bool m_vdc_ram_64k;
 	bool m_lp_cia;
 	bool m_lp_joy;
-	DECLARE_INPUT_CHANGED_MEMBER(vdc_ram_changed);
 
 	virtual void machine_start() override ATTR_COLD;
 	virtual void machine_reset() override ATTR_COLD;
@@ -156,8 +156,6 @@ public:
 	void write(offs_t offset, uint8_t data);
 	uint8_t vic_videoram_r(offs_t offset);
 	uint8_t vic_colorram_r(offs_t offset);
-	uint8_t vdc_videoram_r(offs_t offset);
-	void vdc_videoram_w(offs_t offset, uint8_t data);
 
 	void mmu_z80en_w(int state);
 	void mmu_busack_w(int state);
@@ -189,6 +187,8 @@ public:
 
 	void iec_srq_w(int state);
 	void iec_data_w(int state);
+	void user_cnt1_w(int state);
+	void user_sp1_w(int state);
 
 	uint8_t exp_dma_cd_r(offs_t offset);
 	void exp_dma_cd_w(offs_t offset, uint8_t data);
@@ -232,6 +232,10 @@ public:
 	// fast serial state
 	int m_cnt1;
 	int m_sp1;
+	bool m_user_cnt1;
+	bool m_user_sp1;
+	bool m_cnt1_pin;
+	bool m_sp1_pin;
 	int m_iec_data_out;
 
 	// deferred IEC bus output state
@@ -264,8 +268,6 @@ public:
 	void c128dcrp(machine_config &config);
 	void c128d81(machine_config &config);
 	void m8502_mem(address_map &map) ATTR_COLD;
-	void vdc_videoram_map(address_map &map) ATTR_COLD;
-	void vdc_videoram_map_64k(address_map &map) ATTR_COLD;
 	void vic_colorram_map(address_map &map) ATTR_COLD;
 	void vic_videoram_map(address_map &map) ATTR_COLD;
 	void z80_io(address_map &map) ATTR_COLD;
@@ -756,36 +758,6 @@ void c128_state::vic_colorram_map(address_map &map)
 }
 
 
-//-------------------------------------------------
-//  ADDRESS_MAP( vdc_videoram_map )
-//-------------------------------------------------
-
-void c128_state::vdc_videoram_map(address_map &map)
-{
-	map(0x0000, 0xffff).rw(FUNC(c128_state::vdc_videoram_r), FUNC(c128_state::vdc_videoram_w)).share(m_vdc_ram);
-}
-
-void c128_state::vdc_videoram_map_64k(address_map &map)
-{
-	map(0x0000, 0xffff).ram().share(m_vdc_ram);
-}
-
-uint8_t c128_state::vdc_videoram_r(offs_t offset)
-{
-	return m_vdc_ram[m_vdc_ram_64k ? offset : (((offset & 0x7e00) >> 1) | (offset & 0x00ff))];
-}
-
-void c128_state::vdc_videoram_w(offs_t offset, uint8_t data)
-{
-	m_vdc_ram[m_vdc_ram_64k ? offset : (((offset & 0x7e00) >> 1) | (offset & 0x00ff))] = data;
-}
-
-INPUT_CHANGED_MEMBER(c128_state::vdc_ram_changed)
-{
-	m_vdc_ram_64k = bool(newval);
-}
-
-
 
 //**************************************************************************
 //  INPUT PORTS
@@ -938,11 +910,6 @@ static INPUT_PORTS_START( c128 )
 	PORT_CONFNAME( 0x01, 0x00, "Character ROM A12" )
 	PORT_CONFSETTING( 0x00, "128/64" )
 	PORT_CONFSETTING( 0x01, "CAPS LOCK" )
-
-	PORT_START( "VDC_RAM" )
-	PORT_CONFNAME( 0x01, 0x00, "VDC RAM" ) PORT_CHANGED_MEMBER(DEVICE_SELF, FUNC(c128_state::vdc_ram_changed), 0)
-	PORT_CONFSETTING( 0x00, "16K" )
-	PORT_CONFSETTING( 0x01, "64K" )
 INPUT_PORTS_END
 
 
@@ -1220,69 +1187,6 @@ static INPUT_PORTS_START( c128_ch )
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("1  !  { + }") PORT_CODE(KEYCODE_1)                                 PORT_CHAR('1') PORT_CHAR('!')
 INPUT_PORTS_END
 
-
-static INPUT_PORTS_START( c128dcr )
-	PORT_INCLUDE( c128 )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_de )
-	PORT_INCLUDE( c128_de )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_fr )
-	PORT_INCLUDE( c128_fr )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_it )
-	PORT_INCLUDE( c128_it )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_dk )
-	PORT_INCLUDE( c128_dk )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_no )
-	PORT_INCLUDE( c128_no )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_es )
-	PORT_INCLUDE( c128_es )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_ch )
-	PORT_INCLUDE( c128_ch )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
-
-static INPUT_PORTS_START( c128dcr_se )
-	PORT_INCLUDE( c128_se )
-
-	PORT_MODIFY( "VDC_RAM" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
-INPUT_PORTS_END
 
 
 //**************************************************************************
@@ -1597,7 +1501,6 @@ void c128_state::joy1_trigger_w(int state)
 void c128_state::cia1_cnt_w(int state)
 {
 	m_cnt1 = state;
-	m_user->write_4(state);
 
 	update_iec();
 }
@@ -1605,7 +1508,6 @@ void c128_state::cia1_cnt_w(int state)
 void c128_state::cia1_sp_w(int state)
 {
 	m_sp1 = state;
-	m_user->write_5(state);
 
 	update_iec();
 }
@@ -1761,25 +1663,23 @@ inline void c128_state::update_iec()
 {
 	int fsdir = m_mmu->fsdir_r();
 
-	// fast serial data in
-	int data_in = m_iec->data_r();
+	bool const sp1 = m_sp1 && m_user_sp1 && (fsdir || m_iec->data_r());
+	bool const cnt1 = m_cnt1 && m_user_cnt1 && (fsdir || m_iec_srq);
 
-	m_cia1->sp_w(fsdir || data_in);
+	m_cia1->sp_w(sp1);
+	m_cia1->cnt_w(cnt1);
 
 	// fast serial data out
 	int data_out = !m_iec_data_out;
 
-	if (fsdir) data_out &= m_sp1;
+	if (fsdir) data_out &= sp1;
 
 	m_iec_data = data_out;
-
-	// fast serial clock in
-	m_cia1->cnt_w(fsdir || m_iec_srq);
 
 	// fast serial clock out
 	int srq_out = 1;
 
-	if (fsdir) srq_out &= m_cnt1;
+	if (fsdir) srq_out &= cnt1;
 
 	m_iec_srq_out = srq_out;
 
@@ -1787,6 +1687,18 @@ inline void c128_state::update_iec()
 	m_iec->host_clk_w(m_iec_clk);
 	m_iec->host_data_w(m_iec_data);
 	m_iec->host_srq_w(m_iec_srq_out);
+
+	if (sp1 != m_sp1_pin)
+	{
+		m_sp1_pin = sp1;
+		m_user->write_5(sp1);
+	}
+
+	if (cnt1 != m_cnt1_pin)
+	{
+		m_cnt1_pin = cnt1;
+		m_user->write_4(cnt1);
+	}
 }
 
 void c128_state::iec_srq_w(int state)
@@ -1797,6 +1709,18 @@ void c128_state::iec_srq_w(int state)
 
 void c128_state::iec_data_w(int state)
 {
+	update_iec();
+}
+
+void c128_state::user_cnt1_w(int state)
+{
+	m_user_cnt1 = state;
+	update_iec();
+}
+
+void c128_state::user_sp1_w(int state)
+{
+	m_user_sp1 = state;
 	update_iec();
 }
 
@@ -1894,6 +1818,10 @@ void c128_state::machine_start()
 	save_item(NAME(m_clrbank));
 	save_item(NAME(m_cnt1));
 	save_item(NAME(m_sp1));
+	save_item(NAME(m_user_cnt1));
+	save_item(NAME(m_user_sp1));
+	save_item(NAME(m_cnt1_pin));
+	save_item(NAME(m_sp1_pin));
 	save_item(NAME(m_iec_data_out));
 	save_item(NAME(m_iec_atn));
 	save_item(NAME(m_iec_clk));
@@ -1909,7 +1837,6 @@ void c128_state::machine_start()
 	save_item(NAME(m_charom_caps));
 	save_item(NAME(m_user_pa2));
 	save_item(NAME(m_user_pb));
-	save_item(NAME(m_vdc_ram_64k));
 	save_item(NAME(m_lp_cia));
 	save_item(NAME(m_lp_joy));
 }
@@ -1920,7 +1847,6 @@ void c128_state::machine_reset()
 	m_reset = 1;
 	m_iec_retry_ba = -1;
 	m_charom_caps = m_charom_jumper->read();
-	m_vdc_ram_64k = bool(m_vdc_ram_config->read());
 
 	m_user->write_3(0);
 	m_user->write_3(1);
@@ -1981,9 +1907,10 @@ void c128_state::ntsc(machine_config &config)
 	m_nmi->output_handler().set_inputline(m_subcpu, m8502_device::NMI_LINE);
 
 	// video hardware
+	C128_VDC_RAM_SLOT(config, m_vdc_ram, c128_vdc_ram_cards, "16k");
 	MOS8563(config, m_vdc, XTAL(16'000'000));
 	m_vdc->set_screen(SCREEN_VDC_TAG);
-	m_vdc->set_addrmap(0, &c128_state::vdc_videoram_map);
+	m_vdc->set_addrmap(0, *m_vdc_ram, &c128_vdc_ram_slot_device::map);
 	m_vdc->set_show_border_area(true);
 	m_vdc->set_char_width(8);
 
@@ -2067,8 +1994,8 @@ void c128_state::ntsc(machine_config &config)
 
 	PET_USER_PORT(config, m_user, c64_user_port_cards, nullptr);
 	m_user->p3_handler().set(FUNC(c128_state::exp_reset_w));
-	m_user->p4_handler().set(m_cia1, FUNC(mos6526_device::cnt_w));
-	m_user->p5_handler().set(m_cia1, FUNC(mos6526_device::sp_w));
+	m_user->p4_handler().set(FUNC(c128_state::user_cnt1_w));
+	m_user->p5_handler().set(FUNC(c128_state::user_sp1_w));
 	m_user->p6_handler().set(m_cia2, FUNC(mos6526_device::cnt_w));
 	m_user->p7_handler().set(m_cia2, FUNC(mos6526_device::sp_w));
 	m_user->p9_handler().set(m_iec, FUNC(cbm_iec_device::host_atn_w));
@@ -2109,6 +2036,7 @@ void c128_state::c128(machine_config &config)
 	m_iec->srq_callback().set(FUNC(c128_state::iec_srq_w));
 	m_iec->srq_callback().append("cia1_flag", FUNC(input_merger_device::in_w<1>));
 	m_iec->data_callback().set(FUNC(c128_state::iec_data_w));
+	m_iec->atn_callback().set(m_user, FUNC(pet_user_port_device::write_9));
 }
 
 
@@ -2119,11 +2047,13 @@ void c128_state::c128(machine_config &config)
 void c128_state::c128dcr(machine_config &config)
 {
 	ntsc(config);
-	m_vdc->set_addrmap(0, &c128_state::vdc_videoram_map_64k);
+	m_vdc_ram->set_default_option("64k");
+	m_vdc_ram->set_fixed(true);
 	cbm_iec_slot_device::add(config, m_iec, nullptr);
 	m_iec->srq_callback().set(FUNC(c128_state::iec_srq_w));
 	m_iec->srq_callback().append("cia1_flag", FUNC(input_merger_device::in_w<1>));
 	m_iec->data_callback().set(FUNC(c128_state::iec_data_w));
+	m_iec->atn_callback().set(m_user, FUNC(pet_user_port_device::write_9));
 
 	CBM_IEC_SLOT(config.replace(), "iec8", 8, c128dcr_iec_devices, "c1571cr").set_fixed(true);
 }
@@ -2140,6 +2070,7 @@ void c128_state::c128d81(machine_config &config)
 	m_iec->srq_callback().set(FUNC(c128_state::iec_srq_w));
 	m_iec->srq_callback().append("cia1_flag", FUNC(input_merger_device::in_w<1>));
 	m_iec->data_callback().set(FUNC(c128_state::iec_data_w));
+	m_iec->atn_callback().set(m_user, FUNC(pet_user_port_device::write_9));
 
 	CBM_IEC_SLOT(config.replace(), "iec8", 8, c128d81_iec_devices, "c1563").set_fixed(true);
 }
@@ -2173,9 +2104,10 @@ void c128_state::pal(machine_config &config)
 	m_nmi->output_handler().set_inputline(m_subcpu, m8502_device::NMI_LINE);
 
 	// video hardware
+	C128_VDC_RAM_SLOT(config, m_vdc_ram, c128_vdc_ram_cards, "16k");
 	MOS8563(config, m_vdc, XTAL(16'000'000));
 	m_vdc->set_screen(SCREEN_VDC_TAG);
-	m_vdc->set_addrmap(0, &c128_state::vdc_videoram_map);
+	m_vdc->set_addrmap(0, *m_vdc_ram, &c128_vdc_ram_slot_device::map);
 	m_vdc->set_show_border_area(true);
 	m_vdc->set_char_width(8);
 
@@ -2259,8 +2191,8 @@ void c128_state::pal(machine_config &config)
 
 	PET_USER_PORT(config, m_user, c64_user_port_cards, nullptr);
 	m_user->p3_handler().set(FUNC(c128_state::exp_reset_w));
-	m_user->p4_handler().set(m_cia1, FUNC(mos6526_device::cnt_w));
-	m_user->p5_handler().set(m_cia1, FUNC(mos6526_device::sp_w));
+	m_user->p4_handler().set(FUNC(c128_state::user_cnt1_w));
+	m_user->p5_handler().set(FUNC(c128_state::user_sp1_w));
 	m_user->p6_handler().set(m_cia2, FUNC(mos6526_device::cnt_w));
 	m_user->p7_handler().set(m_cia2, FUNC(mos6526_device::sp_w));
 	m_user->p9_handler().set(m_iec, FUNC(cbm_iec_device::host_atn_w));
@@ -2301,6 +2233,7 @@ void c128_state::c128pal(machine_config &config)
 	m_iec->srq_callback().set(FUNC(c128_state::iec_srq_w));
 	m_iec->srq_callback().append("cia1_flag", FUNC(input_merger_device::in_w<1>));
 	m_iec->data_callback().set(FUNC(c128_state::iec_data_w));
+	m_iec->atn_callback().set(m_user, FUNC(pet_user_port_device::write_9));
 }
 
 
@@ -2311,11 +2244,13 @@ void c128_state::c128pal(machine_config &config)
 void c128_state::c128dcrp(machine_config &config)
 {
 	pal(config);
-	m_vdc->set_addrmap(0, &c128_state::vdc_videoram_map_64k);
+	m_vdc_ram->set_default_option("64k");
+	m_vdc_ram->set_fixed(true);
 	cbm_iec_slot_device::add(config, m_iec, nullptr);
 	m_iec->srq_callback().set(FUNC(c128_state::iec_srq_w));
 	m_iec->srq_callback().append("cia1_flag", FUNC(input_merger_device::in_w<1>));
 	m_iec->data_callback().set(FUNC(c128_state::iec_data_w));
+	m_iec->atn_callback().set(m_user, FUNC(pet_user_port_device::write_9));
 
 	CBM_IEC_SLOT(config.replace(), "iec8", 8, c128dcr_iec_devices, "c1571cr").set_fixed(true);
 }
@@ -2737,15 +2672,15 @@ COMP( 1986, c128dp,     c128,   0,      c128pal,  c128,    c128_state, empty_ini
 
 COMP( 1986, c128cr,     c128,   0,      c128,     c128,    c128_state, empty_init, "Commodore Business Machines", "Commodore 128CR (NTSC, prototype)",   MACHINE_SUPPORTS_SAVE )
 
-COMP( 1987, c128dcr,    c128,   0,      c128dcr,  c128dcr,    c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (NTSC)",             MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcrp,   c128,   0,      c128dcrp, c128dcr,    c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (PAL)",              MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_ch, c128,   0,      c128dcrp, c128dcr_ch, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Switzerland)", MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_de, c128,   0,      c128dcrp, c128dcr_de, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Germany)",          MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_dk, c128,   0,      c128dcrp, c128dcr_dk, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Denmark)", MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_es, c128,   0,      c128dcrp, c128dcr_es, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Spain)", MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_fr, c128,   0,      c128dcrp, c128dcr_fr, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (France)",           MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_it, c128,   0,      c128dcrp, c128dcr_it, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Italy)",            MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_no, c128,   0,      c128dcrp, c128dcr_no, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Norway)", MACHINE_SUPPORTS_SAVE )
-COMP( 1987, c128dcr_se, c128,   0,      c128dcrp, c128dcr_se, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Sweden/Finland)",   MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr,    c128,   0,      c128dcr,  c128,    c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (NTSC)",             MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcrp,   c128,   0,      c128dcrp, c128,    c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (PAL)",              MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_ch, c128,   0,      c128dcrp, c128_ch, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Switzerland)", MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_de, c128,   0,      c128dcrp, c128_de, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Germany)",          MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_dk, c128,   0,      c128dcrp, c128_dk, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Denmark)", MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_es, c128,   0,      c128dcrp, c128_es, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Spain)", MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_fr, c128,   0,      c128dcrp, c128_fr, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (France)",           MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_it, c128,   0,      c128dcrp, c128_it, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Italy)",            MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_no, c128,   0,      c128dcrp, c128_no, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Norway)", MACHINE_SUPPORTS_SAVE )
+COMP( 1987, c128dcr_se, c128,   0,      c128dcrp, c128_se, c128_state, empty_init, "Commodore Business Machines", "Commodore 128DCR (Sweden/Finland)",   MACHINE_SUPPORTS_SAVE )
 
 COMP( 1986, c128d81,    c128,   0,      c128d81,  c128,    c128_state, empty_init, "Commodore Business Machines", "Commodore 128D/81 (NTSC, prototype)", MACHINE_SUPPORTS_SAVE )
