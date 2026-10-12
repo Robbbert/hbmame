@@ -555,7 +555,7 @@ static INPUT_PORTS_START( invaders )
 	PORT_DIPSETTING(    0x01, "4" )
 	PORT_DIPSETTING(    0x02, "5" )
 	PORT_DIPSETTING(    0x03, "6" )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED ) // in the software, this is TILI, but not connected on the Midway PCB. Is this correct?
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED ) // in the software, this is TILT, but not connected on the Midway PCB. Is this correct?
 	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) ) PORT_DIPLOCATION("SW:2")
 	PORT_DIPSETTING(    0x08, "1000" )
 	PORT_DIPSETTING(    0x00, "1500" )
@@ -588,6 +588,16 @@ static INPUT_PORTS_START( invaders )
 	INVADERS_CONTROL_PORT_P2
 INPUT_PORTS_END
 
+INPUT_PORTS_START( tinyvadr )
+	PORT_INCLUDE( invaders )
+
+	PORT_MODIFY("IN2")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_TILT )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) ) PORT_DIPLOCATION("SW:2")
+	PORT_DIPSETTING(    0x08, "1000" )
+	PORT_DIPSETTING(    0x00, "500" )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED ) PORT_DIPLOCATION("SW:1")
+INPUT_PORTS_END
 
 void invaders_state::main_map(address_map &map)
 {
@@ -978,5 +988,5 @@ GAMEL(2017, sinvtest2,   invaders, invaders,  invaders,  invaders_state, empty_i
 GAMEL(2019, sinvtest3,   invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Marc Deslauriers",      "Space Invaders Test ROM (v1.3, 2019-03-27)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAME (2025, sinvtest4,   invaders, invadpt2,  invadpt2,  invaders_state, empty_init,   ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.1, 2025-07-11)", MACHINE_SUPPORTS_SAVE )
 GAMEL(1978, sinvrdzm,    invaders, invaders,  sinvrdzm,  invaders_state, empty_init,   ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAME (1978, tinyvadr,    invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Zeroco", "Tiny Vaders", MACHINE_SUPPORTS_SAVE )
+GAME (1978, tinyvadr,    invaders, invaders,  tinyvadr,  invaders_state, empty_init,   ROT270, "Zeroco", "Tiny Vaders", MACHINE_SUPPORTS_SAVE )
 
