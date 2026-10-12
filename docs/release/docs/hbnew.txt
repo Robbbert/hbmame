@@ -7,7 +7,7 @@
 
 New Games
 ---------------------------------
-- [altbeastn]           Altered Beast (Neo-Geo port)
+- [altbeastn]           Altered Beast (Neo-Geo port, v1.2)
 - [arena2]              Arena
 - [bupacman]            Busy Pacman
 - [cd_eswat]            Cyber Police ESWAT (Neo-Geo port)[CD]
