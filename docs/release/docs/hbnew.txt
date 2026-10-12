@@ -7,9 +7,9 @@
 
 New Games
 ---------------------------------
+- [altbeastn]           Altered Beast (Neo-Geo port)
 - [arena2]              Arena
 - [bupacman]            Busy Pacman
-- [cd_altbeast]         Altered Beast (Neo-Geo port)[CD]
 - [cd_eswat]            Cyber Police ESWAT (Neo-Geo port)[CD]
 - [cd_neotris2]         Neotris 2 Proto[CD]
 - [cd_robocop]          Robocop (Neo-Geo port v17)[CD]
