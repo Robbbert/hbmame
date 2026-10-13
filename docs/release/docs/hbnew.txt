@@ -15,6 +15,7 @@ New Games
 - [cd_sdodgeb]          Super Dodge Ball (v0.99 beta)[CD]
 - [hyxevious02]         Hyper Easy Xevious
 - [maiya]               Maiya Super Nature Girl (v4)
+- [nslasheru01]         Night Slashers (US, Uncensored Effects, v1.0, 2026-10-05)
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [outrungb]            Out Run (Gumball Edition)
 - [perfectf]            Perfect Fighter, the (demo v4)

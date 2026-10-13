@@ -1765,6 +1765,8 @@ robocopb01
 @source:deco32.cpp
 fghthist                               //parent
 fghthist01
+nslasher                               //parent
+nslasheru01
 
 @source:decocass.cpp
 decocass                               //parent
