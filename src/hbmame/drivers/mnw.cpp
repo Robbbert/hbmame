@@ -26891,5 +26891,24 @@ ROM_START( maiya )
 	ROM_LOAD16_BYTE( "526.c1", 0x0000000, 0x400000, CRC(5fa779f8) SHA1(1bce1e2e77395cd2353be295035e2c9ffc3204d0) )
 	ROM_LOAD16_BYTE( "526.c2", 0x0000001, 0x400000, CRC(3af3dc8f) SHA1(b245c8d819daa14f8f0543eafd91ac349d291f55) )
 ROM_END
-GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v2)", MACHINE_SUPPORTS_SAVE )
+
+// 526: Maiya v3 (https://github.com/eaglesoftware777/neogeosdk/)
+ROM_START( maiya )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "526.p1", 0x000000, 0x80000, CRC(2902ae7f) SHA1(ac4c0b6a0b93504acbe61514b54d8ce71f91e732) )
+
+	NEO_SFIX_128K( "526.s1", CRC(5c7951e1) SHA1(b0a45c2085b5ef49f7a197bf403f103be2f21f4f) )
+
+	NEO_BIOS_AUDIO_128K( "526.m1", CRC(ce7717bd) SHA1(66f3ef28d76104adeed931bc2f6b65a5f5e4c4e8) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "526.v1", 0x000000, 0x79ab00, CRC(127b89b4) SHA1(8ec212c59da5e650ed6978cf358e24220b5d33c3) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "526.c1", 0, 0x400000, CRC(7dc0232b) SHA1(37cafdf27f0e91cb8507358dde1b6682393da525) )
+	ROM_LOAD16_BYTE( "526.c2", 1, 0x400000, CRC(a42cfe1a) SHA1(a0c1cb619b89c68ac687d0573b442084b96821fe) )
+ROM_END
+GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v3)", MACHINE_SUPPORTS_SAVE )
+
 
