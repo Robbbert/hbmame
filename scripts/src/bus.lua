@@ -1392,6 +1392,10 @@ end
 
 if BUSES["C128"] then
 	files {
+		MAME_DIR .. "src/devices/bus/c128/mmu.cpp",
+		MAME_DIR .. "src/devices/bus/c128/mmu.h",
+		MAME_DIR .. "src/devices/bus/c128/supercpu128_mmu.cpp",
+		MAME_DIR .. "src/devices/bus/c128/supercpu128_mmu.h",
 		MAME_DIR .. "src/devices/bus/c128/vdcram.cpp",
 		MAME_DIR .. "src/devices/bus/c128/vdcram.h",
 	}
@@ -1496,6 +1500,8 @@ if BUSES["C64"] then
 		MAME_DIR .. "src/devices/bus/c64/prophet64.h",
 		MAME_DIR .. "src/devices/bus/c64/ps64.cpp",
 		MAME_DIR .. "src/devices/bus/c64/ps64.h",
+		MAME_DIR .. "src/devices/bus/c64/ramlink.cpp",
+		MAME_DIR .. "src/devices/bus/c64/ramlink.h",
 		MAME_DIR .. "src/devices/bus/c64/reu.cpp",
 		MAME_DIR .. "src/devices/bus/c64/reu.h",
 		MAME_DIR .. "src/devices/bus/c64/rex.cpp",
@@ -1571,6 +1577,16 @@ if BUSES["C64"] then
 		MAME_DIR .. "src/devices/bus/c64/up9600.cpp",
 		MAME_DIR .. "src/devices/bus/c64/up9600.h",
 	}
+
+	dependency {
+		{ MAME_DIR .. "src/devices/bus/c64/ramlink.cpp", GEN_DIR .. "emu/layout/ramlink.lh" },
+		{ MAME_DIR .. "src/devices/bus/c64/supercpu.cpp", GEN_DIR .. "emu/layout/supercpu.lh" },
+	}
+
+	custombuildtask {
+		layoutbuildtask("emu/layout", "ramlink"),
+		layoutbuildtask("emu/layout", "supercpu"),
+	}
 end
 
 
@@ -1636,6 +1652,8 @@ if BUSES["CBMIEC"] then
 		MAME_DIR .. "src/devices/bus/cbmiec/c64_nl10.h",
 		MAME_DIR .. "src/devices/bus/cbmiec/cmdhd.cpp",
 		MAME_DIR .. "src/devices/bus/cbmiec/cmdhd.h",
+		MAME_DIR .. "src/devices/bus/cbmiec/cmdpar.cpp",
+		MAME_DIR .. "src/devices/bus/cbmiec/cmdpar.h",
 		MAME_DIR .. "src/devices/bus/cbmiec/diag264_lb_iec.cpp",
 		MAME_DIR .. "src/devices/bus/cbmiec/diag264_lb_iec.h",
 		MAME_DIR .. "src/devices/bus/cbmiec/dolphindos.cpp",
