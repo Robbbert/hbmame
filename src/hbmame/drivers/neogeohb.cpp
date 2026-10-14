@@ -3125,11 +3125,11 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (beta 0.1) by Bendk97
+// 528: Snow Bros (beta 0.3) by Bendk97
 // Bugs: No Sound
 ROM_START( snowbrosn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(43059566) SHA1(676873f7676726b6ef6d52eebd9f97eccf6ee2ff) )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(d429ba5b) SHA1(4b853dc60216f16310ae6903cc18e60c85ad9c49) )
 
 	NEO_SFIX_128K( "528.s1", CRC(5fb678af) SHA1(40f78732f1f6c63ddfbbd9b3b9086369c1cceaef) )
 
@@ -4871,7 +4871,7 @@ GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
