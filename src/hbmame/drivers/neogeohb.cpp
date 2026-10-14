@@ -244,6 +244,7 @@ NUM GAME YEAR COMPANY                 TITLE
 532 0781 2026 Eagle Software          Shadow League Fighting (https://github.com/eaglesoftware777/neogeosdk/)
 533 0779 2026 Eagle Software          Sky Lance (https://github.com/eaglesoftware777/neogeosdk/)
 534 0E58 2026 Teo Tormo               Robocop (https://teo-tormo.itch.io/)
+535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -3089,7 +3090,7 @@ ROM_START( vssmbn )
 ROM_END
 
 
-// 526: Maiya v4 by Eagle Software
+// 526: Maiya (v4) by Eagle Software
 ROM_START( maiya )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "526.p1", 0x000000, 0x80000, CRC(5fe28a51) SHA1(2d1481933b0ba9a9f0f0e48e6e046cdabbd79b35) )
@@ -3181,7 +3182,7 @@ ROM_START( arena2 )
 ROM_END
 
 
-// 531: Altered Beast port by ShinobiZ - v1.2
+// 531: Altered Beast port (v1.2) by ShinobiZ
 ROM_START( altbeastn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD( "531.p1", 0x000000, 0x100000, CRC(6ea2a6f2) SHA1(663acfed9ed3063c680b1fd5bede7959cee9d9e8) )
@@ -3199,7 +3200,7 @@ ROM_START( altbeastn )
 ROM_END
 
 
-// 532: Shadow League Fighting v1 by Eagle Software
+// 532: Shadow League Fighting (v1) by Eagle Software
 // Bugs: Bad colours and gfx
 ROM_START( shadowlf )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -3218,7 +3219,7 @@ ROM_START( shadowlf )
 ROM_END
 
 
-// 533: Sky Lance v1 by Eagle Software
+// 533: Sky Lance (v1) by Eagle Software
 // Bugs: Bad colours and gfx
 ROM_START( skylance )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -3237,7 +3238,7 @@ ROM_START( skylance )
 ROM_END
 
 
-// 534: Robocop v9 by Teo Tormo
+// 534: Robocop (v9) by Teo Tormo
 // Bugs: Some parts run too fast
 ROM_START( robocopn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -3256,6 +3257,26 @@ ROM_START( robocopn )
 ROM_END
 
 
+// 535: Hang On (v2.0) by ShinobiZ
+// Bugs: No Sound
+ROM_START( hangonn )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "535.p1", 0x000000, 0x100000, CRC(317040d4) SHA1(4dc4266c2d6a7535daa53fb9951575eef22efbaa) )
+	ROM_LOAD16_WORD_SWAP( "535.p2", 0x100000, 0x500000, CRC(500b59ea) SHA1(94bc6c36f66df44ba1b3edacd8b75afd68df8ec7) )
+
+	NEO_SFIX_128K( "535.s1", CRC(72b4653d) SHA1(a1601f3bf04ade94f8489ca718274fc3d45683ed) )
+
+	NEO_BIOS_AUDIO_256K( "535.m1", CRC(9c53a21d) SHA1(602763961a2858cda3a3b66f9dbe8695a684beb4) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "535.v1", 0x000000, 0x200000, CRC(3aed32bd) SHA1(63a1d5961b1ca9318875728743542e14b724c444) )
+
+	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "535.c1", 0, 0x800000, CRC(4440a35d) SHA1(d553a3f7ef31be3ef88adac50a547f267d0e1151) )
+	ROM_LOAD16_BYTE( "535.c2", 1, 0x800000, CRC(83018efe) SHA1(2d07384d614eec735f511c1b2098b6dadc0c792c) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // Bugs: If the screen suddenly goes black, you'll have to restart the game
 ROM_START( sgz ) // demo
@@ -3269,7 +3290,7 @@ ROM_START( sgz ) // demo
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "539.v1",   0x000000, 0x200000, CRC(8928bcf2) SHA1(aa139c5bfa79f12188794c373fdc91d6cae972de) )
-	// v2 included in the set is pgmdemo.m1, so entirely useless
+	// v2 included in the set is all zero, so left out
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "539.c1", 0, 0x200000, CRC(7679fe24) SHA1(7ad065393103869c80caaac8b90ac324ef165128) )
@@ -3331,7 +3352,7 @@ ROM_END
 
 
 // 603: MVS 4P Key System Check
-// No Sound.
+// No sound
 // On first run there's an address error. Press F3.
 ROM_START( ng4psyschk )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
@@ -4772,8 +4793,9 @@ GAME( 2024, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2024, gladmortd2,   gladmortd,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, grime,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime 68000", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, halozero,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Earok", "Halo Zero demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Hang On (Neo-Geo port, v2.0)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )
@@ -4871,7 +4893,7 @@ GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
