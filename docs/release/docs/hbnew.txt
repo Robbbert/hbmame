@@ -17,6 +17,7 @@ New Games
 - [cd_snowbros]         Snow Bros (Neo-Geo port, beta 0.3)[CD]
 - [hangonn]             Hang On (Neo-Geo port, v2.0)
 - [hyxevious02]         Hyper Easy Xevious
+- [jetpac]              Jetpac (v1.0, 2026-10-14)
 - [ladygolf01]          Vs. Stroke & Match Golf (Ladies Version, set LG4 ?, Easier CPU, v1.0, 2026-09-26)
 - [ladygolfe01]         Vs. Stroke & Match Golf (Ladies Version, set LG4 E, Easier CPU, v1.0, 2026-09-26)
 - [maiya]               Maiya Super Nature Girl (v4)
