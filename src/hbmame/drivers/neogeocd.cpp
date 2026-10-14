@@ -173,6 +173,11 @@ ROM_START( cd_sdodgeb )
 	DISK_IMAGE_READONLY( "sdodgeb", 0, SHA1(0275bee8ba9508b2d8a338ec5997029ba452e51d) ) // sd loader
 ROM_END
 
+ROM_START( cd_sf2ce )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(eb4a50fedc76523764370097a02da2a110337691) )
+ROM_END
+
 ROM_START( cd_shinobiarr )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "shinobiarr", 0, SHA1(3f93364dc54a91eadeddf52675a7043b191675ba) )
@@ -226,6 +231,7 @@ GAME( 2024, cd_pow,         neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (update)[CD]", 0 )
 GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port v17)[CD]", 0 )
 GAME( 2026, cd_sdodgeb,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Super Dodge Ball (v0.99 beta)[CD]", 0 )
+GAME( 2026, cd_sf2ce,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Champion Edition (Neo-Geo port, 74FP)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
 GAME( 2024, cd_ssrpg,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Jeff Nussbaum", "Samurai Spirits RPG (English)[CD]", 0 )
