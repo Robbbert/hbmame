@@ -195,7 +195,7 @@ GAME( 2002, drmario01,   drmario,      vsnes,    drmario,   vs_uni_state, init_d
 GAME( 2019, drluigi,     drmario,      vsnes,    drmario,   vs_uni_state, init_drmario,  ROT0, "Szemigi", "Dr. Luigi", 0 )
 GAME( 2020, frombelow,   suprmrio,     vsnes,    frombelow, vs_uni_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
 GAME( 2020, vs_urban,    0,            vsnes,    vs_urban,  vs_uni_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
-GAME( 1984, smgolf01,    0,            vsnes,    golf,      vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Men Version, set GF4-2 F, Easier CPU, v1.0, 2026-09-26)",       0 )
-GAME( 1984, ladygolfe01, smgolf01,     vsnes,    golf4s,    vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Ladies Version, set LG4 E, Easier CPU, v1.0, 2026-09-26)",      0 )
-GAME( 1984, ladygolf01,  smgolf01,     vsnes,    golf,      vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Ladies Version, set LG4 ?, Easier CPU, v1.0, 2026-09-26)",      0 )
+GAME( 1984, smgolf01,    0,            vsnes,    golf,      vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Men Version, set GF4-2 F, Easier CPU, v1.0, 2026-09-26)", 0 )
+GAME( 1984, ladygolfe01, smgolf01,     vsnes,    golf4s,    vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Ladies Version, set LG4 E, Easier CPU, v1.0, 2026-09-26)", 0 )
+GAME( 1984, ladygolf01,  smgolf01,     vsnes,    golf,      vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Ladies Version, set LG4 ?, Easier CPU, v1.0, 2026-09-26)", 0 )
 

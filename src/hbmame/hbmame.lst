@@ -8902,6 +8902,10 @@ sonson01
 spcenctr                               //parent
 senctest
 
+//@source:srumbler.cpp
+//srumbler                               //parent
+//srumbler01         not working
+
 @source:ssv.cpp
 survarts                               //parent
 survarts01

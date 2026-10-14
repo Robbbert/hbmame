@@ -30,7 +30,7 @@ New Games
 - [skylance]            Sky Lance (v1)
 - [smgolf01]            Vs. Stroke & Match Golf (Men Version, set GF4-2 F, Easier CPU, v1.0, 2026-09-26)
 - [snowbrosn]           Snow Bros (Neo-Geo port, beta 0.1)
-- [ssodan]              Sword of Sodan (Neo-Geo port, beta 0.4)
+- [ssodan]              Sword of Sodan (Neo-Geo port, beta 0.5)
 - [tinyvadr]            Tiny Vaders
 - [vamprest]            Darkstalkers: The Night Warriors (940705U, English Restoration, 2026-10-06)
 - [vhunt2s02]           Night Warriors 2 Arrange (970929J, English, 2026-10-07)

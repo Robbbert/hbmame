@@ -3144,10 +3144,10 @@ ROM_START( snowbrosn )
 ROM_END
 
 
-// 529: Sword of Sodan (beta 0.4) by Bendk97
+// 529: Sword of Sodan (beta 0.5) by Bendk97
 ROM_START( ssodan )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "529.p1", 0x000000, 0x100000, CRC(d515bf3d) SHA1(117059eb8b7f52168f4e04a9c29f8e64e31781f7) )
+	ROM_LOAD16_WORD_SWAP( "529.p1", 0x000000, 0x100000, CRC(66994776) SHA1(864a51ea7630b071a65e4bcd16f8ebba3fc3932a) )
 
 	NEO_SFIX_128K( "529.s1", CRC(8c2cfe44) SHA1(bfb8e3cf54d316e815c9da46dc56f64169859fcb) )
 
@@ -4875,7 +4875,7 @@ GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, syscheck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, teot_1,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, teot_2,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo 2, 2021-02-20)", MACHINE_SUPPORTS_SAVE )
