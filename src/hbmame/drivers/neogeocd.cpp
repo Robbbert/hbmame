@@ -183,6 +183,11 @@ ROM_START( cd_shinobiarr )
 	DISK_IMAGE_READONLY( "shinobiarr", 0, SHA1(3f93364dc54a91eadeddf52675a7043b191675ba) )
 ROM_END
 
+ROM_START( cd_snowbros )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "snowbros", 0, SHA1(19cce31aee4c3c4f0050374764a70610c2400515) )
+ROM_END
+
 ROM_START( cd_speedball )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "829", 0, SHA1(550726ee523e6dc32a961e4cdbc63a6c2e2a4bc8) )
@@ -233,6 +238,7 @@ GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2026, cd_sdodgeb,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Super Dodge Ball (v0.99 beta)[CD]", 0 )
 GAME( 2026, cd_sf2ce,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Champion Edition (Neo-Geo port, 74FP)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
+GAME( 2026, cd_snowbros,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
 GAME( 2024, cd_ssrpg,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Jeff Nussbaum", "Samurai Spirits RPG (English)[CD]", 0 )
 GAME( 2020, cd_subspecies,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "Subspecies_Unfinished demo[CD]", 0 )
