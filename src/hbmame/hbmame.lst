@@ -4479,6 +4479,10 @@ stapper1	/* Tapper Simpsons Hack ver .81 */
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
+@source:megaplay.cpp
+megaplay                               // BIOS, parent
+mp_addams                              // HB
+
 @source:megasys1.cpp
 soldam
 soldam01
