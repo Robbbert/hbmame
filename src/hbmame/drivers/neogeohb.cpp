@@ -239,7 +239,7 @@ NUM GAME YEAR COMPANY                 TITLE
 527 1234 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
 528 0999 2026 Bendk97                 Snow Bros (https://bendk97.itch.io/)
 529 0539 2026 Bendk97                 Sword of Sodan (https://bendk97.itch.io/)
-530 0539 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
+530 2602 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
 531 0F77 2026 ShinobiZ                Altered Beast (https://shinobiz72.itch.io/)
 532 0781 2026 Eagle Software          Shadow League Fighting (https://github.com/eaglesoftware777/neogeosdk/)
 533 0779 2026 Eagle Software          Sky Lance (https://github.com/eaglesoftware777/neogeosdk/)
@@ -3160,11 +3160,10 @@ ROM_START( ssodan )
 ROM_END
 
 
-// 530: Arena by Delarfab (Marked as Arena 2 and also the site screenshot, but it's Arena in-game)
-// Bugs: Goes berzerk midway through a game.
+// 530: Arena 2 by Delarfab
 ROM_START( arena2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "530.p1", 0x000000, 0x100000, CRC(e560bb14) SHA1(a5410c09afe4b37c7d081bb2b10c521fc52b5f56) )
+	ROM_LOAD16_WORD_SWAP( "530.p1", 0x000000, 0x100000, CRC(9ed6466d) SHA1(b14beedc6339cbc391d4c38e35bd3e0306afba95) )
 
 	NEO_SFIX_128K( "530.s1", CRC(b2d1bed5) SHA1(c2677c8feeaed70ed97fa95c91663b378741fc31) )
 
@@ -3174,8 +3173,8 @@ ROM_START( arena2 )
 	ROM_LOAD( "530.v1", 0x000000, 0x80000, CRC(634c279c) SHA1(18ede8919af3a9b71d9496273f4df8d613d58f79) )
 
 	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "530.c1", 0, 0x200000, CRC(ebec0ee7) SHA1(3b83c8b8d2a3e05fd1daab0be7f415993fd8c684) )
-	ROM_LOAD16_BYTE( "530.c2", 1, 0x200000, CRC(959adc0d) SHA1(dfb213ce25f9806fa40abc5b208b0adee3fa8e07) )
+	ROM_LOAD16_BYTE( "530.c1", 0, 0x200000, CRC(86856821) SHA1(98247e4025311a5b6ac1f4f2790c8e673f793253) )
+	ROM_LOAD16_BYTE( "530.c2", 1, 0x200000, CRC(2f2b10e6) SHA1(4728ac8553e2f55f461d125d82d7eff7a43820a6) )
 ROM_END
 
 
@@ -4742,7 +4741,7 @@ GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, altbeastn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Altered Beast (Neo-Geo port, v1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, amazonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Soldier Girl Amazon (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, arena2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Delarfab", "Arena", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, arena2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Delarfab", "Arena 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
