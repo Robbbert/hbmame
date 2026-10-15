@@ -3124,15 +3124,15 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (beta 0.3) by Bendk97
+// 528: Snow Bros (beta 0.3c) by Bendk97
 // Bugs: No Sound
 ROM_START( snowbrosn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(d429ba5b) SHA1(4b853dc60216f16310ae6903cc18e60c85ad9c49) )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(8aaa655a) SHA1(1bbd4259f006e5267cb239f0114a941f03b25a1e) )
 
 	NEO_SFIX_128K( "528.s1", CRC(5fb678af) SHA1(40f78732f1f6c63ddfbbd9b3b9086369c1cceaef) )
 
-	NEO_BIOS_AUDIO_64K( "528.m1", CRC(ee77fdcb) SHA1(1d985af3f60b8925e25f20bc0bf8bbd7eab52cae) )
+	NEO_BIOS_AUDIO_64K( "528.m1", CRC(ca694dcf) SHA1(0f75452eb7f72c51792ba6e29b266e31cfcd470f) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "528.v1", 0x000000, 0x800000, CRC(548c091b) SHA1(20997304536d0319d81df73cf43738ca208e54fc) )
@@ -4891,7 +4891,7 @@ GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3c)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
