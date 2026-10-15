@@ -59,6 +59,7 @@ Updated Games
 - [smbn]                Super Mario Bros. (Neo Geo)
 - [ssf2tuc]             Super Street Fighter II EX: The Ultimate Championship (940223U, 2026-10-06)
 - [ssf2xuc]             Super Street Fighter II EX: The Ultimate Championship (940223J, 2026-10-06)
+- [wjammers04]          Windjammers (Endless Breeze, v1.2.0)
 
 
 
@@ -174,7 +175,7 @@ New Games
 - [sfz2d]               Street Fighter Zero 2 Dash (960805J, PS2 Backport, 2026-08-27)
 - [sfz2da]              Street Fighter Zero 2 Dash (960826, English, PS2 Backport, 2026-08-27)
 - [smbn]                Super Mario Bros. (Neo Geo)
-- [wjammers04]          Windjammers (Endless Breeze)
+- [wjammers04]          Windjammers (Endless Breeze, v1.1.0)
 
 
 Updated Games

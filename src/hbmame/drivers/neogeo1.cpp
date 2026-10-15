@@ -5011,11 +5011,11 @@ ROM_START( wjammers03 )
 	ROM_LOAD16_BYTE( "065.c4", 0x200001, 0x100000, CRC(715e15ff) SHA1(ac8b8b01f5c7384b883afbe0cf977430378e3fef) )
 ROM_END
 
-ROM_START( wjammers04 )
+ROM_START( wjammers04 ) // v1.2.0
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "065s04.p1", 0x000000, 0x100000, CRC(042fbcdf) SHA1(932b031048f9f5d85b40844f62966f34d133cc12) )
+	ROM_LOAD16_WORD_SWAP( "065s04.p1", 0x000000, 0x100000, CRC(e82fae8b) SHA1(e98eca1550fde0d67d89f2dbc41e1d9df8e325c8) )
 
-	NEO_SFIX_128K( "065s04.s1", CRC(9827f989) SHA1(15db8737f32d43a39dfb0575898eaeb0f69cc778) )
+	NEO_SFIX_128K( "065s04.s1", CRC(0b9ac678) SHA1(21370efe745388412259029827e402af345c5eab) )
 
 	NEO_BIOS_AUDIO_128K( "065.m1", CRC(52c23cfc) SHA1(809a7e072ad9acbffc25e9bd27cdb97638d09d07) )
 
@@ -5026,10 +5026,10 @@ ROM_START( wjammers04 )
 	ROM_LOAD( "065.v4", 0x300000, 0x100000, CRC(5dee7963) SHA1(f8e6de73d65dd80b29c711f00835a574a770cb4e) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "065.c1", 0x000000, 0x100000, CRC(c7650204) SHA1(42918d700d59864f8ab15caf968a062a563c9b09) )
-	ROM_LOAD16_BYTE( "065.c2", 0x000001, 0x100000, CRC(d9f3e71d) SHA1(fad1f64061eac1bf85bf6d75d2eae974a8c94069) )
-	ROM_LOAD16_BYTE( "065s04.c3", 0x200000, 0x100000, CRC(153363b0) SHA1(bb4d5d112989916790c02e663fdd9fd74f1de575) )
-	ROM_LOAD16_BYTE( "065s04.c4", 0x200001, 0x100000, CRC(c7b5b02d) SHA1(ec8b0e2ffe792b20d08bb1465a17afedc5dc22c1) )
+	ROM_LOAD16_BYTE( "065s04.c1", 0x000000, 0x100000, CRC(e267ae0e) SHA1(fc009a2b70546e8c69e657c740ac481235eae170) )
+	ROM_LOAD16_BYTE( "065s04.c2", 0x000001, 0x100000, CRC(b26f6d16) SHA1(da5a173e27a43a814c98b15df85de19d91ca414a) )
+	ROM_LOAD16_BYTE( "065s04.c3", 0x200000, 0x100000, CRC(2fb1c407) SHA1(912eb144c071bcaaa3415ed3ba38bb3ffa2ddca2) )
+	ROM_LOAD16_BYTE( "065s04.c4", 0x200001, 0x100000, CRC(1fb46167) SHA1(c6332ed8f2550e4c2c8296f9964b683d365124a1) )
 ROM_END
 
 
@@ -5350,7 +5350,7 @@ GAME( 2023, wakuwak7s05,    wakuwak7, neogeo_noslot, neogeo,   neogeo_state, ini
 GAME( 2025, wjammers01,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Boomchild", "Windjammers (Let me play longer)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wjammers02,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Windjammers (Traduction French v0.1)(beta)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wjammers03,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Aneue Bannzai", "Windjammers (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, wjammers04,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Boomchild", "Windjammers (Endless Breeze)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wjammers04,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Boomchild", "Windjammers (Endless Breeze, v1.2.0)", MACHINE_SUPPORTS_SAVE )
 // Zupapa
 GAME( 2001, zupapa01,       zupapa,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "SNK", "Zupapa! (Custom decrypted C Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, zupapa02,       zupapa,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "SNK", "Zupapa! (Custom decrypted C Set 2)", MACHINE_SUPPORTS_SAVE )
