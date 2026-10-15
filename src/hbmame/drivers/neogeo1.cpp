@@ -3511,6 +3511,30 @@ ROM_START( pulstar02 )
 	ROM_LOAD16_BYTE( "089.c8", 0x1800001, 0x200000, CRC(a223572d) SHA1(2791b1212f57937b2b2a95bc9e420c06d0c37669) )
 ROM_END
 
+ROM_START( pulstar03 ) // pulstarae
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "089s03.p1", 0x000000, 0x100000, CRC(dcb02236) SHA1(078a71f82b1c4caca62dbc154679a9f9b4724da2) )
+	ROM_LOAD16_WORD_SWAP( "089.p2", 0x100000, 0x200000, CRC(028b774c) SHA1(fc5da2821a5072f2b78245fc59b6e3eeef116d16) )
+
+	NEO_SFIX_128K( "089s03.s1", CRC(2a659ff9) SHA1(cd8bec9be236219952cb7db3bba610fa914795b0) )
+
+	NEO_BIOS_AUDIO_128K( "089.m1", CRC(ff3df7c7) SHA1(59d2ef64f734f6026073b365300221909057a512) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "089.v1", 0x000000, 0x400000, CRC(6f726ecb) SHA1(e8e2a46af690ce6c7ee64a58ab5010d22df9548c) )
+	ROM_LOAD( "089.v2", 0x400000, 0x400000, CRC(9d2db551) SHA1(83f7e5db7fb1502ceadcd334df90b11b1bba78e5) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "089.c1", 0x0000000, 0x400000, CRC(f4e97332) SHA1(54693827a99836e7d61c45d495dd78bf3fcf1544) )
+	ROM_LOAD16_BYTE( "089.c2", 0x0000001, 0x400000, CRC(836d14da) SHA1(99cc4f9b764503eff7849ff2977d90bb47c5564a) )
+	ROM_LOAD16_BYTE( "089.c3", 0x0800000, 0x400000, CRC(913611c4) SHA1(9664eb1fe1e6f8c3ddeeff872d38ea920ed38a82) )
+	ROM_LOAD16_BYTE( "089.c4", 0x0800001, 0x400000, CRC(44cef0e3) SHA1(34f6f348ba86a2a06cb9c43a16b97cf6ee6158ac) )
+	ROM_LOAD16_BYTE( "089.c5", 0x1000000, 0x400000, CRC(89baa1d7) SHA1(976c745c44967de61e2a23227835be580b1d283a) )
+	ROM_LOAD16_BYTE( "089.c6", 0x1000001, 0x400000, CRC(b2594d56) SHA1(685c0bf8ff76c76e41c2ceaebb96349634cfdb2e) )
+	ROM_LOAD16_BYTE( "089s03.c7", 0x1800000, 0x200000, CRC(3a74b3a2) SHA1(d98df081b7fc2508d26da5dc09599384f84fdc63) )
+	ROM_LOAD16_BYTE( "089s03.c8", 0x1800001, 0x200000, CRC(8a0bb5d5) SHA1(0f42546589fb7a852221109bb7bdf3789df2fb0f) )
+ROM_END
+
 
 /*******************
  Puzzle Bobble
@@ -5247,6 +5271,7 @@ GAME( 1999, preisle2s03,    preisle2, neogeo_noslot, neogeo,   neogeo_state, ini
 // Pulstar
 GAME( 1995, pulstar01,      pulstar,  neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Aicom", "Pulstar (alt 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, pulstar02,      pulstar,  neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Aicom", "Pulstar (alt 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, pulstar03,      pulstar,  neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Boomchild", "Pulstar (Aegis)", MACHINE_SUPPORTS_SAVE )
 // Puzzle De Pon
 GAME( 1995, puzzledp01,     puzzledp, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! (Korean)", MACHINE_SUPPORTS_SAVE )
 // Puzzle De Pon R
