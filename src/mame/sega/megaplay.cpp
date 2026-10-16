@@ -218,6 +218,17 @@ static INPUT_PORTS_START ( mp_sonic )
 //  PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN ) PORT_NAME("0x6201 bit 7") PORT_CODE(KEYCODE_K)
 INPUT_PORTS_END
 
+static INPUT_PORTS_START ( mp_sonica )
+	PORT_INCLUDE( mp_sonic )
+
+	PORT_MODIFY("DSW1") // DSW C  (per game settings)
+	PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW3:3,4")
+	PORT_DIPSETTING( 0x08, DEF_STR( Normal ) )
+	PORT_DIPSETTING( 0x0c, "Timer Off" )
+	PORT_DIPSETTING( 0x04, DEF_STR( Hard ) )
+	PORT_DIPSETTING( 0x00, DEF_STR( Hardest ) )
+INPUT_PORTS_END
+
 static INPUT_PORTS_START ( mp_gaxe2 )
 	PORT_INCLUDE( megaplay )
 
@@ -767,6 +778,21 @@ ROM_START( mp_sonic ) // Sonic
 	MEGAPLAY_PLDS
 ROM_END
 
+ROM_START( mp_sonica ) // Sonic
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "cpu.bin.1", 0x000000, 0x040000, CRC(61107df0) SHA1(b8d8e1e87aea7e27f672b8405981bfd28cb316f4) )
+	ROM_LOAD16_BYTE( "cpu.bin.2", 0x000001, 0x040000, CRC(c4873bfb) SHA1(08fd0694ff28cd9b68601921094ef42f96675e09) )
+	// Game instruction ROM copied to 0x300000 - 0x310000 (odd / even bytes equal)
+
+	ROM_REGION( 0x8000, "user1", 0 ) // Game instructions
+	ROM_LOAD( "data.bin", 0x000000, 0x08000, CRC(c0a9c987) SHA1(4a92e70d6f63bcfc608ad06637c4e09cf2b2bb55) )
+
+	ROM_REGION( 0x20000, "mtbios", 0 ) // BIOS
+	MEGAPLAY_BIOS
+
+	MEGAPLAY_PLDS
+ROM_END
+
 /* this cart looks to be a conversion from something else... Sega rom numbers were missing
    but the code looks like it's probably real */
 // PCB  171-5834
@@ -1016,7 +1042,8 @@ didn't have original Sega part numbers it's probably a converted TWC cart
 */
 
 /* -- */ GAME( 1993, megaplay, 0,        megaplay, megaplay, mplay_state, init_megaplay, ROT0, "Sega", "Mega Play BIOS",                      MACHINE_IS_BIOS_ROOT | MACHINE_IMPERFECT_GRAPHICS )
-/* 01 */ GAME( 1993, mp_sonic, megaplay, megaplay, mp_sonic, mplay_state, init_megaplay, ROT0, "Sega", "Sonic The Hedgehog (Mega Play)",      MACHINE_IMPERFECT_GRAPHICS )
+/* 01 */ GAME( 1993, mp_sonic, megaplay, megaplay, mp_sonic, mplay_state, init_megaplay, ROT0, "Sega", "Sonic The Hedgehog (Mega Play) (set 1)",MACHINE_IMPERFECT_GRAPHICS )
+/* 01 */ GAME( 1993, mp_sonica,mp_sonic, megaplay, mp_sonica,mplay_state, init_megaplay, ROT0, "Sega", "Sonic The Hedgehog (Mega Play) (set 2)",MACHINE_IMPERFECT_GRAPHICS )
 /* 02 */ GAME( 1993, mp_gaxe2, megaplay, megaplay, mp_gaxe2, mplay_state, init_megaplay, ROT0, "Sega", "Golden Axe II (Mega Play) (Rev B)",   MACHINE_IMPERFECT_GRAPHICS )
 /* 02 */ GAME( 1993, mp_gaxe2a,mp_gaxe2, megaplay, mp_gaxe2, mplay_state, init_megaplay, ROT0, "Sega", "Golden Axe II (Mega Play)",           MACHINE_IMPERFECT_GRAPHICS )
 /* 03 */ GAME( 1993, mp_gslam, megaplay, megaplay, mp_gslam, mplay_state, init_megaplay, ROT0, "Sega", "Grand Slam (Mega Play)",              MACHINE_IMPERFECT_GRAPHICS )
