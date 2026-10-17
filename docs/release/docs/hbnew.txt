@@ -55,6 +55,7 @@ New Games
 - [vsavs02]             Vampire Savior Arrange (970519J, 2026-10-13)
 - [vssmbn]              VS. Super Mario Bros. (Neo-Geo)
 - [warriorman]          Warrior Man
+- [wolf3d]              Wolfenstein-3D (v1.2.0)
 
 
 Updated Games

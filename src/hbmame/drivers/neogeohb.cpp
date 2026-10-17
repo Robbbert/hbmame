@@ -247,6 +247,7 @@ NUM GAME YEAR COMPANY                 TITLE
 535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
 536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
 537 0539 2026 Neslou                  Bubble Open (https://neslou.itch.io/bubble-open)
+538 0539 2026 Thibaut Lion            Wolfenstein-3D (https://www.wolfmvs.com)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -3310,6 +3311,29 @@ ROM_START( bubbleopen )
 ROM_END
 
 
+// 538: Wolfenstein-3D by Thibaut Lion
+ROM_START( wolf3d )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "538.p1", 0x000000, 0x80000, CRC(00b38f35) SHA1(2d8fa290062fc56f13cf0e7b95fa26f84d1172d5) )
+
+	NEO_SFIX_128K( "538.s1", CRC(67bfa3a2) SHA1(3f18d15aba79ab171676826065ab66003c2328e5) )
+
+	NEO_BIOS_AUDIO_128K( "538.m1", CRC(60e0acb9) SHA1(6202f4e1ae881442ff84720a5141bc458e9ef0cf) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	// This is used in adpcma and adpcmb, mame will auto-copy the data into both areas
+	ROM_LOAD( "538.v1", 0x000000, 0x200000, CRC(cc0f0f7d) SHA1(084bafd31ec595f87df4ffb9755ced21dacd32a9) )
+
+	ROM_REGION( 0x6000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "538.c1", 0x0000000, 0x1000000, CRC(cba29aef) SHA1(86a506e3374227d241bd1a45d03fa21c6d9342c9) )
+	ROM_LOAD16_BYTE( "538.c2", 0x0000001, 0x1000000, CRC(e88b4a64) SHA1(87dc4167a8c317dc526ddcd4635c7f2ce56d8d01) )
+	ROM_LOAD16_BYTE( "538.c3", 0x2000000, 0x1000000, CRC(958b670f) SHA1(bdf9ac7a6a4bfb8706e3dff23dfbb35bf29b93b4) )
+	ROM_LOAD16_BYTE( "538.c4", 0x2000001, 0x1000000, CRC(8b4d1874) SHA1(6341d38c27a859534aef448773954bb4c268e7d8) )
+	ROM_LOAD16_BYTE( "538.c5", 0x4000000, 0x1000000, CRC(14b469a4) SHA1(0ff39429589748f6313ae2726b59824005111d41) )
+	ROM_LOAD16_BYTE( "538.c6", 0x4000001, 0x1000000, CRC(df9048ab) SHA1(733da040948f7116639e2469c4ba8c9db528e107) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // Bugs: If the screen suddenly goes black, you'll have to restart the game
 ROM_START( sgz ) // demo
@@ -4955,6 +4979,7 @@ GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, warriorman,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Warrior Man", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wolf3d,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Thibaut Lion", "Wolfenstein-3D (v1.2.0)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr02,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
