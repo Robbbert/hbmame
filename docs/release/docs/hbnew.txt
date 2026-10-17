@@ -39,7 +39,7 @@ New Games
 - [shadowlf]            Shadow League Fighting (v1)
 - [skylance]            Sky Lance (v1 rc1)
 - [smgolf01]            Vs. Stroke & Match Golf (Men Version, set GF4-2 F, Easier CPU, v1.0, 2026-09-26)
-- [snowbrosn]           Snow Bros (Neo-Geo port, beta 0.3c)
+- [snowbrosn]           Snow Bros (Neo-Geo port, v1.0)
 - [ssodan]              Sword of Sodan (Neo-Geo port, beta 0.5)
 - [tinyvadr]            Tiny Vaders
 - [usf2j8]              Ultra Street Fighter II: The Final Challengers (940223J, Backport, 2026-10-16)
