@@ -1493,6 +1493,7 @@ sfa03
 sfa04
 sfa05
 sfa06
+sfaru
 sfz01
 sfz02
 sfz03
@@ -1501,6 +1502,8 @@ sfz05
 sfz06
 sfz07
 sfz08
+sfzrj
+sfzra
 sfa2s01
 sfa2s02
 sfa2s03
@@ -1512,9 +1515,12 @@ sfa2s08
 sfa2s09
 sfa2s10
 sfa2s11
+sfa2ru
 sfz2s01
 sfz2s02
 sfz2s03
+sfz2rj
+sfz2ra
 sfz2al01
 sfz2al02
 sfz2al03
@@ -1607,6 +1613,8 @@ ssf2t10
 ssf2tgmc
 ssf2tuc
 ssf2xuc
+usf2t8
+usf2j8
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1633,6 +1641,8 @@ vsav2s04
 vsav2s05
 vsav2s06
 vsavru
+vsavs01
+vsavs02
 xmcota01
 xmcota02
 xmcota03
