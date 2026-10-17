@@ -317,6 +317,7 @@ NUM GAME YEAR COMPANY                 TITLE
 688 7777 2018 Vasily Familiya         Shaman King demo
 689 7777 2019 Vasily Familiya         Venus Wars demo
 690 7777 2020 Vasily Familiya         Girl X Girl demo
+777 0777 2026 Eagle Software          Sdk Demo (https://github.com/eaglesoftware777/neogeosdk/)
 
 
 
@@ -4811,6 +4812,25 @@ ROM_START( gxg )
 ROM_END
 
 
+// 777 : SDK Demo (v1.7.0) by Eagle Software
+// No Sound
+ROM_START( sdkdemo )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "777.p1", 0x000000, 0x80000, CRC(bb24b668) SHA1(32e9cf74514c4776f6fcabe39e1844892e863337) )
+
+	NEO_SFIX_128K( "777.s1", CRC(375809b8) SHA1(8e66116eeb64654ef5617b982cd5725d084653a1) )
+
+	NEO_BIOS_AUDIO_128K( "777.m1", CRC(7fca1d07) SHA1(5cfd435161de15397535896dcabd34edae88eb45) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "777.v1", 0x000000, 0x708700, CRC(bb2f8632) SHA1(eb1b4bfccda6da4aa753c8da6acba00c2296282a) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "777.c1", 0, 0x800000, CRC(b61b6077) SHA1(f044b00d6d90ce192d5b2aac450b7bb151163ae3) )
+	ROM_LOAD16_BYTE( "777.c2", 1, 0x800000, CRC(f92e6907) SHA1(f83a9a334c7c0019faf5894e7dd22a89ad875934) )
+ROM_END
+
+
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
@@ -4972,6 +4992,7 @@ GAME( 2026, rickdx,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v9)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sdkdemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "SDK Demo (v1.7.0)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sgz,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Shadow Gangs", "Shadow Gangs demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

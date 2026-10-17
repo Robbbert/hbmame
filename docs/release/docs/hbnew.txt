@@ -28,6 +28,7 @@ New Games
 - [perfectf]            Perfect Fighter, the (demo v5)
 - [pulstar03]           Pulstar (Aegis)
 - [robocopn]            Robocop (Neo-Geo port, v9)
+- [sdkdemo]             SDK Demo (v1.7.0)
 - [sf2s17]              Street Fighter II' (Bonus Stage)
 - [sfa2ex]              Street Fighter Alpha 2 EX (960826, 2026-10-15)
 - [sfa2ru]              Street Fighter Alpha 2 (960430U, English Restoration, 2026-10-11)
