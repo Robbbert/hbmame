@@ -246,6 +246,7 @@ NUM GAME YEAR COMPANY                 TITLE
 534 0E58 2026 Teo Tormo               Robocop (https://teo-tormo.itch.io/)
 535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
 536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
+537 0539 2026 Neslou                  Bubble Open (https://neslou.itch.io/bubble-open)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -3275,7 +3276,7 @@ ROM_END
 
 // 536: Warrior Man by NK Home Entertainment
 ROM_START( warriorman )
-	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "536.p1", 0x000000, 0x80000, CRC(ff4f12b7) SHA1(8ef709fd759dc32aeb0100bb644120ad78d952bc) )
 
 	NEO_SFIX_128K( "536.s1", CRC(4c175fa4) SHA1(06834aa930d981959c4be0f4391b1d37c8688785) )
@@ -3288,6 +3289,24 @@ ROM_START( warriorman )
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "536.c1", 0, 0x3f3680, CRC(52013527) SHA1(95c8e4bf4dad5db88cdaf2aad1cc9ccc9d4b8c61) )
 	ROM_LOAD16_BYTE( "536.c2", 1, 0x3f3680, CRC(92e7fbfe) SHA1(a82d19223520fe919c3412656940ae1d943a2a6a) )
+ROM_END
+
+
+// 537: Bubble Open by Neslou
+ROM_START( bubbleopen )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "537.p1", 0x000000, 0x100000, CRC(e931552d) SHA1(fe1322c6253b9d53c575fc6fcfb75f4ec03208a1) )
+
+	NEO_SFIX_128K( "537.s1", CRC(64f8b8f3) SHA1(fbdbb489a2be1c3613a0c6950a3a3ae08f0ee94a) )
+
+	NEO_BIOS_AUDIO_128K( "537.m1", CRC(323eff7a) SHA1(b23333abb81799c6a01ac2195a0aaabe76e6436a) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "537.v1", 0x000000, 0x800000, CRC(929cacaa) SHA1(f53d6d572be0824eabc7401ab933627a36ae0854) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "537.c1", 0, 0x200000, CRC(c300583b) SHA1(d4ab2f2309634f255ae26d5c2cbbf4ad53ee08c6) )
+	ROM_LOAD16_BYTE( "537.c2", 1, 0x200000, CRC(4e9d9d52) SHA1(23e651661aa6a5dfb19973c25d2ee1c5e59d3e4d) )
 ROM_END
 
 
@@ -4770,6 +4789,7 @@ GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, blueandr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kaiju Wasp", "Blue and Red Fight the Robots v1.7", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, bubbleopen,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neslou", "Bubble Open (demo 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabaln,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabaln01,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, cabaln02,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
