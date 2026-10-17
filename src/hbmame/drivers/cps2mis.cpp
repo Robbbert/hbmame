@@ -4616,14 +4616,14 @@ ROM_END
 
 ROM_START( mshvsfex )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 ) // 68000 code
-	ROM_LOAD16_WORD_SWAP( "mvsj.03i", 0x000000, 0x80000, CRC(38bbc66a) SHA1(df258a8cc6d1cb50c10917c25255a2db80eba659) )
-	ROM_LOAD16_WORD_SWAP( "mvsj.04i", 0x080000, 0x80000, CRC(aee80449) SHA1(1f9782a7a7c15cecaca75bcf7e6491758d7958fb) )
+	ROM_LOAD16_WORD_SWAP( "mvsj.03i", 0x000000, 0x80000, CRC(f8dfd93d) SHA1(957d0aa1352aae1c5af93b9752d3d7cb2198c3d0) )
+	ROM_LOAD16_WORD_SWAP( "mvsj.04i", 0x080000, 0x80000, CRC(bf86e247) SHA1(5fcbb2f3a4e76164836a527e11b6180a5b99eb4a) )
 	ROM_LOAD16_WORD_SWAP( "mvs.05h",  0x100000, 0x80000, CRC(c6dca8ff) SHA1(7329467a8de80a13349f50ffb31be395909e16db) )
 	ROM_LOAD16_WORD_SWAP( "mvs.06a",  0x180000, 0x80000, CRC(444fb179) SHA1(e4b0b667d0e40eb78b2430422416d3611c92b63a) )
 	ROM_LOAD16_WORD_SWAP( "mvs.07b",  0x200000, 0x80000, CRC(e9cbc426) SHA1(06e1954894f4d4553bd937de57365e879d245c2f) )
 	ROM_LOAD16_WORD_SWAP( "mvs.08a",  0x280000, 0x80000, CRC(c2813884) SHA1(49e5d4bc48f90c8146cb6aafb9240aff0119f1a7) )
 	ROM_LOAD16_WORD_SWAP( "mvs.09b",  0x300000, 0x80000, CRC(3ba08818) SHA1(9ab132a3cac55fcccebe6c99b6fb0ba1305f8f6e) )
-	ROM_LOAD16_WORD_SWAP( "mvs.10b",  0x380000, 0x80000, CRC(5f6c1146) SHA1(83f817d5c27f7202657751dbde0bac587973dbf5) )
+	ROM_LOAD16_WORD_SWAP( "mvs.10b",  0x380000, 0x80000, CRC(d21fc5ec) SHA1(eb864541bb5456f2a54a340b551506ce2fdc6981) )
 
 	ROM_REGION( 0x2000000, "gfx", 0 )
 	ROM_LOAD64_WORD( "mvs.13m",   0x0000000, 0x400000, CRC(7c4ee686) SHA1(d775698b13ae841d195817b008d86830ffc41c1b) )
@@ -4650,14 +4650,14 @@ ROM_END
 
 ROM_START( mshvsfej )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 ) // 68000 code
-	ROM_LOAD16_WORD_SWAP( "mvsj.03i", 0x000000, 0x80000, CRC(8f52f63d) SHA1(ddcba9a66dcb74a22de2eb3b1b9d6fa07c231ecb) )
-	ROM_LOAD16_WORD_SWAP( "mvsj.04i", 0x080000, 0x80000, CRC(aee80449) SHA1(1f9782a7a7c15cecaca75bcf7e6491758d7958fb) )
+	ROM_LOAD16_WORD_SWAP( "mvsj.03i", 0x000000, 0x80000, CRC(4f36e96a) SHA1(2c665437d5470b4d4dd0af007a95e04fc518ba4d) )
+	ROM_LOAD16_WORD_SWAP( "mvsj.04i", 0x080000, 0x80000, CRC(bf86e247) SHA1(5fcbb2f3a4e76164836a527e11b6180a5b99eb4a) )
 	ROM_LOAD16_WORD_SWAP( "mvs.05h",  0x100000, 0x80000, CRC(c6dca8ff) SHA1(7329467a8de80a13349f50ffb31be395909e16db) )
 	ROM_LOAD16_WORD_SWAP( "mvs.06a",  0x180000, 0x80000, CRC(444fb179) SHA1(e4b0b667d0e40eb78b2430422416d3611c92b63a) )
 	ROM_LOAD16_WORD_SWAP( "mvs.07b",  0x200000, 0x80000, CRC(e9cbc426) SHA1(06e1954894f4d4553bd937de57365e879d245c2f) )
 	ROM_LOAD16_WORD_SWAP( "mvs.08a",  0x280000, 0x80000, CRC(c2813884) SHA1(49e5d4bc48f90c8146cb6aafb9240aff0119f1a7) )
 	ROM_LOAD16_WORD_SWAP( "mvs.09b",  0x300000, 0x80000, CRC(3ba08818) SHA1(9ab132a3cac55fcccebe6c99b6fb0ba1305f8f6e) )
-	ROM_LOAD16_WORD_SWAP( "mvs.10b",  0x380000, 0x80000, CRC(5f6c1146) SHA1(83f817d5c27f7202657751dbde0bac587973dbf5) )
+	ROM_LOAD16_WORD_SWAP( "mvs.10b",  0x380000, 0x80000, CRC(d21fc5ec) SHA1(eb864541bb5456f2a54a340b551506ce2fdc6981) )
 
 	ROM_REGION( 0x2000000, "gfx", 0 )
 	ROM_LOAD64_WORD( "mvs.13m",   0x0000000, 0x400000, CRC(7c4ee686) SHA1(d775698b13ae841d195817b008d86830ffc41c1b) )
@@ -7908,8 +7908,8 @@ GAME( 1997, mshvsf07,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 1997, mshvsf08,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Marvel Super Heroes Vs. Street Fighter (970707J, Get maximum power on attack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, mshvsfru,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Marvel Super Heroes Vs. Street Fighter (970625U, English Restoration, 2026-09-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, mshvsfrj,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Marvel Super Heroes Vs. Street Fighter (970707J, Restoration, 2026-09-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, mshvsfex,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Marvel Super Heroes Vs. Street Fighter EX (970625U, 2026-10-06)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, mshvsfej,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Marvel Super Heroes Vs. Street Fighter EX (970707J, 2026-10-06)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mshvsfex,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Marvel Super Heroes Vs. Street Fighter EX (970625U, 2026-10-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mshvsfej,   mshvsf,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Marvel Super Heroes Vs. Street Fighter EX (970707J, 2026-10-11)", MACHINE_SUPPORTS_SAVE )
 // Marvel Vs. Capcom Clash of Super Heroes
 GAME( 1998, mvsc01,     mvsc,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "0 DAY-S[EGCG]", "Marvel Vs. Capcom: Clash of Super Heroes (980123U, Enable EX.Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, mvsc02,     mvsc,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Marvel Vs. Capcom: Clash of Super Heroes (980123E, Enhanced Edition, 2013-10-08)", MACHINE_SUPPORTS_SAVE )
