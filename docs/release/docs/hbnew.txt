@@ -23,7 +23,7 @@ New Games
 - [nslasheru01]         Night Slashers (US, Uncensored Effects, v1.0, 2026-10-05)
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [outrungb]            Out Run (Gumball Edition)
-- [perfectf]            Perfect Fighter, the (demo v4)
+- [perfectf]            Perfect Fighter, the (demo v5)
 - [pulstar03]           Pulstar (Aegis)
 - [robocopn]            Robocop (Neo-Geo port, v9)
 - [sf2s17]              Street Fighter II' (Bonus Stage)

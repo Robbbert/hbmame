@@ -26973,3 +26973,22 @@ ROM_END
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta-0.3c)", MACHINE_SUPPORTS_SAVE )
 
 
+// 527: The Perfect Fighter (demo v4)
+ROM_START( perfectf )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "527.p1", 0x000000, 0x200000, CRC(073f1ba4) SHA1(d9a93d18b533257721056d88c4ac5c34cc8088ba) )
+
+	NEO_SFIX_128K( "527.s1", CRC(b0b1e3c3) SHA1(471c97f930606898b463cfc9854e47853fc53387) )
+
+	NEO_BIOS_AUDIO_128K( "527.m1", CRC(66b84e47) SHA1(3415c4ad39bd2d3551c37eb265e07a47e2478601) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "527.v1", 0x000000, 0x1000000, CRC(16949f60) SHA1(1eb797e6e688cb3a43fb7d1d98aacf899b1aa4d3) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "527.c1", 0, 0x1000000, CRC(f5c40702) SHA1(7a5351394bf42d5fd15396db1ae12dc109016859) )
+	ROM_LOAD16_BYTE( "527.c2", 1, 0x1000000, CRC(512a7b79) SHA1(065a5c8bdc879b7a97fd3d387a86087aff296514) )
+ROM_END
+GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v4)", MACHINE_SUPPORTS_SAVE )
+
+

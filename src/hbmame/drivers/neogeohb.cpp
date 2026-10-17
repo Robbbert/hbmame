@@ -236,7 +236,7 @@ NUM GAME YEAR COMPANY                 TITLE
 524 2026 2026 Sabino                  Super Mario Bros.
 525 2027 2026 Sabino                  VS. Super Mario Bros.
 526 0780 2026 Eagle Software          Maiya Super Nature Girl (https://github.com/eaglesoftware777/neogeosdk/)
-527 1234 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
+527 7026 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
 528 0999 2026 Bendk97                 Snow Bros (https://bendk97.itch.io/)
 529 0539 2026 Bendk97                 Sword of Sodan (https://bendk97.itch.io/)
 530 2602 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
@@ -3106,21 +3106,21 @@ ROM_START( maiya )
 ROM_END
 
 
-// 527: The Perfect Fighter (demo v4)
+// 527: The Perfect Fighter (demo v5)
 ROM_START( perfectf )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "527.p1", 0x000000, 0x200000, CRC(073f1ba4) SHA1(d9a93d18b533257721056d88c4ac5c34cc8088ba) )
+	ROM_LOAD16_WORD_SWAP( "527.p1", 0x000000, 0x200000, CRC(5578a712) SHA1(f391d5993118377f1894a25c2fa8c2ac1d7cecee) )
 
 	NEO_SFIX_128K( "527.s1", CRC(b0b1e3c3) SHA1(471c97f930606898b463cfc9854e47853fc53387) )
 
-	NEO_BIOS_AUDIO_128K( "527.m1", CRC(66b84e47) SHA1(3415c4ad39bd2d3551c37eb265e07a47e2478601) )
+	NEO_BIOS_AUDIO_128K( "527.m1", CRC(5fbc49a7) SHA1(321d815a71354841f1235220f517fa9f016f13b0) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "527.v1", 0x000000, 0x1000000, CRC(16949f60) SHA1(1eb797e6e688cb3a43fb7d1d98aacf899b1aa4d3) )
+	ROM_LOAD( "527.v1", 0x000000, 0x1000000, CRC(a16dfc27) SHA1(54fb5bff6c780c22f123631ba63b4ddfaffb674e) )
 
 	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "527.c1", 0, 0x1000000, CRC(f5c40702) SHA1(7a5351394bf42d5fd15396db1ae12dc109016859) )
-	ROM_LOAD16_BYTE( "527.c2", 1, 0x1000000, CRC(512a7b79) SHA1(065a5c8bdc879b7a97fd3d387a86087aff296514) )
+	ROM_LOAD16_BYTE( "527.c1", 0, 0x1000000, CRC(0f9f7188) SHA1(699194d1eaca08f423eb24cefc3bbb7701d9c1e2) )
+	ROM_LOAD16_BYTE( "527.c2", 1, 0x1000000, CRC(c62eef02) SHA1(6f109699b0835e9ba0aa3fb8247adacb40fd6eba) )
 ROM_END
 
 
@@ -4859,7 +4859,7 @@ GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
