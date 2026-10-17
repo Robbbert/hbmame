@@ -5077,7 +5077,7 @@ ROM_END
 ROM_START( vsavru )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 ) // 68000 code
 	ROM_LOAD16_WORD_SWAP( "vm3j.03d", 0x000000, 0x80000, CRC(87184d16) SHA1(2336e291fb87e4edb19cdab99f338d7d8f5521dd) )
-	ROM_LOAD16_WORD_SWAP( "vm3j.04d", 0x080000, 0x80000, CRC(fc2d5b8e) SHA1(1a029dcd0d69ea72e963c9f657cc286dccd7d4ad) )
+	ROM_LOAD16_WORD_SWAP( "vm3j.04d", 0x080000, 0x80000, CRC(c623f797) SHA1(b10a80e7d3483cfa2af4b46617a58ab34a6caaac) )
 	ROM_LOAD16_WORD_SWAP( "vm3j.05a", 0x100000, 0x80000, CRC(95ce88d5) SHA1(ba5e64c2551d97a71d2f4d7a78663aede4b722e8) )
 	ROM_LOAD16_WORD_SWAP( "vm3j.06b", 0x180000, 0x80000, CRC(2c4297e0) SHA1(3a7103456ba3937f63c28dd42020cac1955b5741) )
 	ROM_LOAD16_WORD_SWAP( "vm3j.07b", 0x200000, 0x80000, CRC(b3cbf9a8) SHA1(d5b8d6938456b345000f905813588230d1a5511a) )
@@ -8081,7 +8081,7 @@ GAME( 2026, vhunt2s01,  vhunt2,   cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2026, vhunt2s02,  vhunt2,   cps2plus_16, cps2_2p6b, cps2plus_state, init_cps2plus, ROT0, "strygo", "Night Warriors 2 Arrange (970929J, English, 2026-10-07)", 0 )
 GAME( 2026, vhunt2s03,  vhunt2,   cps2plus_16, cps2_2p6b, cps2plus_state, init_cps2plus, ROT0, "strygo", "Vampire Hunter 2 Arrange (970929J, 2026-10-07)", 0 )
 // Vampire Savior The Lord of Vampire
-GAME( 2026, vsavru,     vsav,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Vampire Savior: The Lord of Vampire (970519U, English Restoration, 2026-09-22)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, vsavru,     vsav,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Vampire Savior: The Lord of Vampire (970519U, English Restoration, 2026-10-11)", MACHINE_SUPPORTS_SAVE )
 // Vampire Savior 2 The Lord of Vampire
 GAME( 2008, vsav2s01,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Command Change, 2008-04-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, vsav2s02,   vsav2,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Vampire Savior 2: The Lord of Vampire (970913J, Infinite Power, 2008-07-28)", MACHINE_SUPPORTS_SAVE )
