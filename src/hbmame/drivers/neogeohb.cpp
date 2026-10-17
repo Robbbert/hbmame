@@ -250,6 +250,7 @@ NUM GAME YEAR COMPANY                 TITLE
 538 0539 2026 Thibaut Lion            Wolfenstein-3D (Neo-Geo port) (https://www.wolfmvs.com)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 540 0998 2026 Bendk97                 Shadow of the Beast (Neo-Geo port) (https://bendk97.itch.io/)
+541 0997 2026 Bendk97                 Out Run (Neo-Geo port) (https://bendk97.itch.io/)
 
 
 
@@ -3375,6 +3376,24 @@ ROM_START( sotbn )
 ROM_END
 
 
+// 541: Out Run (beta-0.2.2) by Bendk97
+ROM_START( outrunn )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(f97c11ec) SHA1(237515f6c4dad4dd79b2e1ba3b7dba382f7da52a) )
+
+	NEO_SFIX_128K( "541.s1", CRC(ec75e7ec) SHA1(a7eaf51dd728dbc0a456d044430618d8e0941168) )
+
+	NEO_BIOS_AUDIO_128K( "541.m1", CRC(17c7d757) SHA1(e58983170c3c9120824bee8ea3ab1fd7b890c387) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "541.v1",   0x000000, 0x1000000, CRC(c7f9348d) SHA1(11c5a404886ecbc645d6186bc8fd2214f1545f6f) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "541.c1", 0, 0x2000000, CRC(78cccee5) SHA1(25857eb75dda4ae938a022ea240c45cfb26368f5) )
+	ROM_LOAD16_BYTE( "541.c2", 1, 0x2000000, CRC(7fcd2681) SHA1(5469e75a2d0414ffd806a78a0870a5f06c70d3fc) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4939,6 +4958,7 @@ GAME( 2020, nsmb,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, nsmbd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.2.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5)", MACHINE_SUPPORTS_SAVE )
