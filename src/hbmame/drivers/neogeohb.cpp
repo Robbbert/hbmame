@@ -247,8 +247,9 @@ NUM GAME YEAR COMPANY                 TITLE
 535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
 536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
 537 0539 2026 Neslou                  Bubble Open (https://neslou.itch.io/bubble-open)
-538 0539 2026 Thibaut Lion            Wolfenstein-3D (https://www.wolfmvs.com)
+538 0539 2026 Thibaut Lion            Wolfenstein-3D (Neo-Geo port) (https://www.wolfmvs.com)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
+540 0998 2026 Bendk97                 Shadow of the Beast (Neo-Geo port) (https://bendk97.itch.io/)
 
 
 
@@ -3355,6 +3356,25 @@ ROM_START( sgz ) // demo
 ROM_END
 
 
+// 540: Shadow of the Beast (beta-0.1.4) by Bendk97
+ROM_START( sotbn )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(a8bca706) SHA1(f6f73784ae572ad95d8e2ed605380689e727e4af) )
+	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(cc1cf5ef) SHA1(e650181e1157e1c373c133b79db2392fbf466586) )
+
+	NEO_SFIX_128K( "540.s1", CRC(f3ae362e) SHA1(5ea908046965226432d0ab4ba967542971047e9d) )
+
+	NEO_BIOS_AUDIO_128K( "540.m1", CRC(7cf328f0) SHA1(41ecca61282fd4ef306c9663606d748093eb0e67) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "540.v1",   0x000000, 0x1000000, CRC(640b1088) SHA1(03f99fbd75a1a65e8bf371bb3ad7adba64b625e2) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "540.c1", 0, 0x200000, CRC(07df4789) SHA1(fd4ff095704b25fd2341c0cab6b6625c45990414) )
+	ROM_LOAD16_BYTE( "540.c2", 1, 0x200000, CRC(ba73827e) SHA1(b78708e912ec384362272f6a41f483339a4cd585) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4952,6 +4972,7 @@ GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.1.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
@@ -4979,7 +5000,7 @@ GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, warriorman,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Warrior Man", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, wolf3d,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Thibaut Lion", "Wolfenstein-3D (v1.2.0)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wolf3d,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Thibaut Lion", "Wolfenstein-3D (Neo-Geo port, v1.2.0)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr02,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
