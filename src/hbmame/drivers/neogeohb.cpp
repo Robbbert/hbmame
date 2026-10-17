@@ -245,6 +245,7 @@ NUM GAME YEAR COMPANY                 TITLE
 533 0779 2026 Eagle Software          Sky Lance (https://github.com/eaglesoftware777/neogeosdk/)
 534 0E58 2026 Teo Tormo               Robocop (https://teo-tormo.itch.io/)
 535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
+536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -3254,7 +3255,6 @@ ROM_END
 
 
 // 535: Hang On (v2.0) by ShinobiZ
-// Bugs: No Sound
 ROM_START( hangonn )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "535.p1", 0x000000, 0x100000, CRC(317040d4) SHA1(4dc4266c2d6a7535daa53fb9951575eef22efbaa) )
@@ -3270,6 +3270,24 @@ ROM_START( hangonn )
 	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "535.c1", 0, 0x800000, CRC(4440a35d) SHA1(d553a3f7ef31be3ef88adac50a547f267d0e1151) )
 	ROM_LOAD16_BYTE( "535.c2", 1, 0x800000, CRC(83018efe) SHA1(2d07384d614eec735f511c1b2098b6dadc0c792c) )
+ROM_END
+
+
+// 536: Warrior Man by NK Home Entertainment
+ROM_START( warriorman )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "536.p1", 0x000000, 0x80000, CRC(ff4f12b7) SHA1(8ef709fd759dc32aeb0100bb644120ad78d952bc) )
+
+	NEO_SFIX_128K( "536.s1", CRC(4c175fa4) SHA1(06834aa930d981959c4be0f4391b1d37c8688785) )
+
+	NEO_BIOS_AUDIO_128K( "536.m1", CRC(a3e65a9c) SHA1(5ecf9d35e870eeae47f9ea21e198a803485a07c1) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "536.v1", 0x000000, 0x1000000, CRC(3dccb4ad) SHA1(0e12cb865a9091297ce36327d8e1408d5388d31e) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "536.c1", 0, 0x3f3680, CRC(52013527) SHA1(95c8e4bf4dad5db88cdaf2aad1cc9ccc9d4b8c61) )
+	ROM_LOAD16_BYTE( "536.c2", 1, 0x3f3680, CRC(92e7fbfe) SHA1(a82d19223520fe919c3412656940ae1d943a2a6a) )
 ROM_END
 
 
@@ -4916,6 +4934,7 @@ GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 3.28, 2026-02-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, warriorman,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Warrior Man", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr02,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
