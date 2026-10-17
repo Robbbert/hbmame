@@ -4955,8 +4955,8 @@ ROM_END
 ***************************************/
 ROM_START( vhunt2s01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "c75s01.p1", 0x000000, 0x80000, CRC(10da5708) SHA1(1970d1769393dd7d1fd26ef70620d364a09929f2) )
-	ROM_LOAD16_WORD_SWAP( "c75s01.p2", 0x080000, 0x80000, CRC(60cf3a23) SHA1(512bb46c40603aec679b1cc8bf8d0a65995d543c) )
+	ROM_LOAD16_WORD_SWAP( "c75s01.p1", 0x000000, 0x80000, CRC(1d20cdec) SHA1(34199a1a9b6ae759c2d8f06886c76ad05e6a389a) )
+	ROM_LOAD16_WORD_SWAP( "c75s01.p2", 0x080000, 0x80000, CRC(15206969) SHA1(94368127ea33bb3c3db4983713df8ab747c8ab92) )
 	ROM_LOAD16_WORD_SWAP( "c75.p3",  0x100000, 0x80000, CRC(de34f624) SHA1(60bbbd1765e76839b01c38765da2368c5188ec61) )
 	ROM_LOAD16_WORD_SWAP( "c75.p4",  0x180000, 0x80000, CRC(6a3b9897) SHA1(4f3b37004db8a3d3dde709b51c94c392615134b5) )
 	ROM_LOAD16_WORD_SWAP( "c75.p5",  0x200000, 0x80000, CRC(b021c029) SHA1(de4299197600608e83fe50775e3f352f5add844d) )
@@ -4965,10 +4965,10 @@ ROM_START( vhunt2s01 )
 	ROM_LOAD16_WORD_SWAP( "c75.p8",  0x380000, 0x80000, CRC(11730952) SHA1(2966b80b99ab065614a6ddb546110f482b998e32) )
 
 	ROM_REGION( 0x2000000, "gfx", 0 )
-	ROM_LOAD64_WORD( "c75s01.c1",   0x0000000, 0x400000, CRC(3a56e2f4) SHA1(5c956ab60b3cf21c28221fbf0d98a84b375be7d0) )
-	ROM_LOAD64_WORD( "c75s01.c2",   0x0000002, 0x400000, CRC(aa61e461) SHA1(8bcb5992f5bb94cbbb3842d8f70a3522c76838ae) )
-	ROM_LOAD64_WORD( "c75s01.c3",   0x0000004, 0x400000, CRC(ccd2f7c4) SHA1(fa2ffeb514d9ebbadba812e0c43dcbdb0989d438) )
-	ROM_LOAD64_WORD( "c75s01.c4",   0x0000006, 0x400000, CRC(5df31cf6) SHA1(2695cc37a8f4e82a6e846ca34139798b52b804ff) )
+	ROM_LOAD64_WORD( "c75s01.c1",   0x0000000, 0x400000, CRC(d3d78306) SHA1(448430396d9dbc774da5d097eace61e73e5cfe01) )
+	ROM_LOAD64_WORD( "c75s01.c2",   0x0000002, 0x400000, CRC(c204240e) SHA1(974a84c49a30c040dd8f3d70385cce8524343ab4) )
+	ROM_LOAD64_WORD( "c75s01.c3",   0x0000004, 0x400000, CRC(d07037e5) SHA1(943aca7f7053f6ef4fef79f38423f64ddfa4d2ca) )
+	ROM_LOAD64_WORD( "c75s01.c4",   0x0000006, 0x400000, CRC(6cc239ff) SHA1(6eac24f75a899963fb217bff6a1571b169afa2f7) )
 	ROM_LOAD64_WORD( "c75.c5",   0x1000000, 0x400000, CRC(cd09bd63) SHA1(e582b20a948ae54f52590496051688dbfae2bc9c) )
 	ROM_LOAD64_WORD( "c75.c6",   0x1000002, 0x400000, CRC(e0182c15) SHA1(a924d53ab39f4d85173bdb92a197dde2db0dc3f7) )
 	ROM_LOAD64_WORD( "c75.c7",   0x1000004, 0x400000, CRC(778dc4f6) SHA1(8d0cd1c387b4b6ac7f92bb2e5a25983856328cdc) )
@@ -8077,7 +8077,7 @@ GAME( 2015, suicide2,   suicide,  dead_cps2, cps2_2p2b, cps2_state, init_cps2, R
 // Night Warriors: Darkstalkers' Revenge
 GAME( 2026, nwarrru,    nwarr,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)", MACHINE_SUPPORTS_SAVE )
 // Vampire Hunter 2 Darkstalkers Revenge
-GAME( 2026, vhunt2s01,  vhunt2,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors 2: Darkstalkers Revenge (970929J, English, 2026-09-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, vhunt2s01,  vhunt2,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Night Warriors 2: Darkstalkers Revenge (970929J, English, 2026-10-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vhunt2s02,  vhunt2,   cps2plus_16, cps2_2p6b, cps2plus_state, init_cps2plus, ROT0, "strygo", "Night Warriors 2 Arrange (970929J, English, 2026-10-07)", 0 )
 GAME( 2026, vhunt2s03,  vhunt2,   cps2plus_16, cps2_2p6b, cps2plus_state, init_cps2plus, ROT0, "strygo", "Vampire Hunter 2 Arrange (970929J, 2026-10-07)", 0 )
 // Vampire Savior The Lord of Vampire
