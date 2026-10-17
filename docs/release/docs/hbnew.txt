@@ -37,7 +37,7 @@ New Games
 - [sfzra]               Street Fighter Zero (950727A, English Restoration, 2026-10-13)
 - [sfzrj]               Street Fighter Zero (950727J, English Restoration, 2026-10-13)
 - [shadowlf]            Shadow League Fighting (v1)
-- [skylance]            Sky Lance (v1)
+- [skylance]            Sky Lance (v1 rc1)
 - [smgolf01]            Vs. Stroke & Match Golf (Men Version, set GF4-2 F, Easier CPU, v1.0, 2026-09-26)
 - [snowbrosn]           Snow Bros (Neo-Geo port, beta 0.3c)
 - [ssodan]              Sword of Sodan (Neo-Geo port, beta 0.5)

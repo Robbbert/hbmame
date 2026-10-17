@@ -3215,11 +3215,11 @@ ROM_START( shadowlf )
 ROM_END
 
 
-// 533: Sky Lance (v1) by Eagle Software
-// Bugs: Bad colours and gfx
+// 533: Sky Lance (v1 rc1) by Eagle Software
+// Bugs: Stationary sprites tend to jump around a bit when shot
 ROM_START( skylance )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x80000, CRC(f3a553f5) SHA1(bde45b942203f0624e1b2552a60a20aac6e6c14c) )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x80000, CRC(29e1968d) SHA1(d8996809f3c77b0e1dafdd634e21ba255553cec3) )
 
 	NEO_SFIX_128K( "533.s1", CRC(bd69c9ff) SHA1(e0694292073549d50cbcb1e02f853c3122805bff) )
 
@@ -4885,7 +4885,7 @@ GAME( 2019, shaman24,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, shinobin,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.0 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobin1,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.1 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobint,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi Test (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Sky Lance (v1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Sky Lance (v1 rc1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )

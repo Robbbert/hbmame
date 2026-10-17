@@ -26934,3 +26934,23 @@ ROM_START( wjammers04 ) // v1.1.0
 ROM_END
 GAME( 2026, wjammers04,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Boomchild", "Windjammers (Endless Breeze, v1.1.0)", MACHINE_SUPPORTS_SAVE )
 
+// 533: Sky Lance (v1) by Eagle Software
+// Bugs: Bad colours and gfx
+ROM_START( skylance )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x80000, CRC(f3a553f5) SHA1(bde45b942203f0624e1b2552a60a20aac6e6c14c) )
+
+	NEO_SFIX_128K( "533.s1", CRC(bd69c9ff) SHA1(e0694292073549d50cbcb1e02f853c3122805bff) )
+
+	NEO_BIOS_AUDIO_128K( "533.m1", CRC(cb88d068) SHA1(074a5a4be1e2bbb296709937053a3bd52b79a4c5) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "533.v1", 0x000000, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "533.c1", 0, 0x400000, CRC(e80e7df9) SHA1(f3234d43b9c78630f4100d30e79820ba48a20969) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x400000, CRC(0668da32) SHA1(216fc99e3929dd6d6f08196546aa900000d17248) )
+ROM_END
+GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Sky Lance (v1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+
+
