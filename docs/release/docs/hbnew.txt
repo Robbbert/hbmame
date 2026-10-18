@@ -21,6 +21,7 @@ New Games
 - [ladygolf01]          Vs. Stroke & Match Golf (Ladies Version, set LG4 ?, Easier CPU, v1.0, 2026-09-26)
 - [ladygolfe01]         Vs. Stroke & Match Golf (Ladies Version, set LG4 E, Easier CPU, v1.0, 2026-09-26)
 - [maiya]               Maiya Super Nature Girl (v4)
+- [mp_addams]           The Addams Family ARCADE (Mega Play)
 - [nslasheru01]         Night Slashers (US, Uncensored Effects, v1.0, 2026-10-05)
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [outrungb]            Out Run (Gumball Edition)
