@@ -3259,7 +3259,7 @@ ROM_START( robocopn )
 ROM_END
 
 
-// 535: Hang On (v2.0) by ShinobiZ
+// 535: Hang On (v2.1.7) by ShinobiZ
 ROM_START( hangonn )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "535.p1", 0x000000, 0x100000, CRC(8cdee388) SHA1(a75f507e947be7c0131758d98f433019172eb030) )
@@ -3315,6 +3315,7 @@ ROM_END
 
 
 // 538: Wolfenstein-3D by Thibaut Lion
+// Bugs: Bad Graphics. When a guard is killed there's no ammo left behind. No cheats.
 ROM_START( wolf3d )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "538.p1", 0x000000, 0x80000, CRC(00b38f35) SHA1(2d8fa290062fc56f13cf0e7b95fa26f84d1172d5) )
@@ -3377,7 +3378,7 @@ ROM_START( sotbn )
 ROM_END
 
 
-// 541: Out Run (beta-0.2.2) by Bendk97
+// 541: Out Run (beta-0.2.3) by Bendk97
 ROM_START( outrunn )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(0fde395e) SHA1(09616937449a6435f525fbdbc2382ec6d6b3e88c) )
