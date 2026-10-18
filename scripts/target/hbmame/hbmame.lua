@@ -740,7 +740,7 @@ files {
 createHBMAMEProjects(_target, _subtarget, "sega")
 files {
 	MAME_DIR .. "src/hbmame/drivers/segas24.cpp",
-	MAME_DIR .. "src/mame/sega/megaplay.cpp",
+	MAME_DIR .. "src/hbmame/drivers/megaplay.cpp",
 	MAME_DIR .. "src/mame/sega/megatech.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segac2.cpp",
 	MAME_DIR .. "src/mame/sega/segae.cpp",
