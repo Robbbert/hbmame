@@ -319,6 +319,7 @@ NUM GAME YEAR COMPANY                 TITLE
 689 7777 2019 Vasily Familiya         Venus Wars demo
 690 7777 2020 Vasily Familiya         Girl X Girl demo
 777 0777 2026 Eagle Software          Sdk Demo (https://github.com/eaglesoftware777/neogeosdk/)
+782 0782 2026 Eagle Software          Seven Wonders Puzzles (https://github.com/eaglesoftware777/neogeosdk/)
 
 
 
@@ -2437,7 +2438,7 @@ ROM_START( neo2048 )
 
 	NEO_BIOS_AUDIO_64K( "499.m1", CRC(6e363bd2) SHA1(9005b6b34caa5405c290775b79c7cd644ce2881f) )
 
-	ROM_REGION( 0x10000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x10000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "499.v1", 0x000000, 0x00e200, CRC(dba56bf0) SHA1(0bcee505e10300108b967c0475caa92ed36e6a2b) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
@@ -2728,7 +2729,7 @@ ROM_START( pown )
 
 	NEO_BIOS_AUDIO_64K( "508.m1", CRC(b50f61bb) SHA1(46d5017e40ca79e280fa247de3eb74ca5092117c) )
 
-	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x80000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "508.v1",   0x000000, 0x4c900, CRC(fba165f8) SHA1(948b19b340fe2a1d6123746d537714adaa07aa1d) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
@@ -2784,7 +2785,7 @@ ROM_START( chelnovn )
 
 	NEO_BIOS_AUDIO_64K( "510.m1", CRC(f675a58e) SHA1(71d78ace6e0bbe25094a15d953b8660be8a81328) )
 
-	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x40000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "510.v1",   0x000000, 0x35e00, CRC(ae367d92) SHA1(3af5d584820835aee3a1c6ab21f9c76670befdb0) )
 
 	ROM_REGION( 0x80000, "sprites", 0 )
@@ -2976,7 +2977,7 @@ ROM_START( blueandr )
 
 	NEO_BIOS_AUDIO_256K( "519.m1", CRC(170e7948) SHA1(824e83b15adc26be346235f29848ac7582c9bd1f) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "519.v1", 0x000000, 0xb80000, CRC(4aa33827) SHA1(2935649e4e87f6f66b8d13802ad5ea751c58ce8b) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
@@ -2994,7 +2995,7 @@ ROM_START( midnight )
 
 	NEO_BIOS_AUDIO_256K( "520.m1", CRC(64f774ea) SHA1(49df9ac5877dcb26f08c277027e484d0f89b51c7) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "520.v1", 0x000000, 0xa40000, CRC(f9506ce5) SHA1(0074040fbe6211fd9bd6dd13041c226fc24f7fc5) )
 
 	ROM_REGION( 0x1c0000, "sprites", 0 )
@@ -3012,7 +3013,7 @@ ROM_START( rickdx )
 
 	NEO_BIOS_AUDIO_256K( "521.m1", CRC(ad8f34e8) SHA1(301b0d8a005c3dc0d71358de8a7ed8873a8f0644) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "521.v1", 0x000000, 0x6c0000, CRC(69fb1fdf) SHA1(9c610b72bfb5aa6dede6e799c39f6644c43585e5) )
 
 	ROM_REGION( 0x280000, "sprites", 0 )
@@ -3104,7 +3105,7 @@ ROM_START( maiya )
 
 	NEO_BIOS_AUDIO_128K( "526.m1", CRC(ce7717bd) SHA1(66f3ef28d76104adeed931bc2f6b65a5f5e4c4e8) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "526.v1", 0x000000, 0x79ab00, CRC(127b89b4) SHA1(8ec212c59da5e650ed6978cf358e24220b5d33c3) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
@@ -3213,7 +3214,7 @@ ROM_START( shadowlf )
 
 	NEO_BIOS_AUDIO_128K( "532.m1", CRC(ceabdb57) SHA1(f59d59155c52ebc177933ab9d4c9a26f499946d5) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "532.v1", 0x000000, 0x79c100, CRC(63c1b4e6) SHA1(718aa37a1c3754fb62196ddb121a00c323bc8533) )
 
 	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
@@ -3232,7 +3233,7 @@ ROM_START( skylance )
 
 	NEO_BIOS_AUDIO_128K( "533.m1", CRC(cb88d068) SHA1(074a5a4be1e2bbb296709937053a3bd52b79a4c5) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "533.v1", 0x000000, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
@@ -4855,6 +4856,25 @@ ROM_START( sdkdemo )
 ROM_END
 
 
+// 782 : Seven Wonders Puzzles (v1) by Eagle Software
+// No Sound
+ROM_START( 7wonders )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "782.p1", 0x000000, 0x80000, CRC(30264e7a) SHA1(d51f7fbde1af28c4881cbd3dc026fb2b6a3e1c8b) )
+
+	NEO_SFIX_128K( "782.s1", CRC(eb99e197) SHA1(a5a393c0500a3e0c8a03a4bff614e23e66c57804) )
+
+	NEO_BIOS_AUDIO_128K( "782.m1", CRC(a8031d28) SHA1(3ff4f7a43961f1952f499ac55c5e903dc4fa7eaa) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "782.v1", 0x000000, 0x324400, CRC(afec46cd) SHA1(274b9b049ce8285afb8def6b0e302e7a5885e4d9) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "782.c1", 0, 0x400000, CRC(20efee4b) SHA1(cd81a92fb029aebc040a87b4c7d6f257bff954a4) )
+	ROM_LOAD16_BYTE( "782.c2", 1, 0x400000, CRC(2e56f9b5) SHA1(f3b0ba4d319fcb49a03d89b7182d469685cd1e1b) )
+ROM_END
+
+
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
@@ -4878,6 +4898,7 @@ GAME( 2026, zintrick06,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, zintrick07,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2023, 68kng,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dekadence", "68k Inside intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, 7wonders,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Seven Wonders Puzzles (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, 240ptest1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v1.0", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
