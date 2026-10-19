@@ -322,6 +322,7 @@ NUM GAME YEAR COMPANY                 TITLE
 782 0782 2026 Eagle Software          Seven Wonders Puzzles (https://github.com/eaglesoftware777/neogeosdk/)
 783 0783 2026 Eagle Software          Maiya & Luna (https://github.com/eaglesoftware777/neogeosdk/)
 784 0784 2026 Eagle Software          No Signal Z Alpha (https://github.com/eaglesoftware777/neogeosdk/)
+785 0785 2026 Eagle Software          Mahjong Demo (https://github.com/eaglesoftware777/neogeosdk/)
 
 
 
@@ -4911,6 +4912,24 @@ ROM_START( nosignal )
 ROM_END
 
 
+// 785 : Mahjong Demo (v1) by Eagle Software
+ROM_START( mahjongd )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "785.p1", 0x000000, 0x80000, CRC(c88f560f) SHA1(66675304e79830014cbaf8b287d05a1884506fb4) )
+
+	NEO_SFIX_128K( "785.s1", CRC(fa8680fe) SHA1(b15c9960b777e6c235d84e08066c19c2492948b2) )
+
+	NEO_BIOS_AUDIO_128K( "785.m1", CRC(a227f905) SHA1(1c1a9332380cee7fb29e0c6bb205f26b809a7200) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "785.v1", 0x000000, 0x200000, CRC(f04d0f8d) SHA1(276f8a8e420e8e5d5418c887abaf0b6dc3c23eed) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "785.c1", 0, 0x400000, CRC(96cd3e55) SHA1(372e185127b3d3f7fb20ef4ffaaf24ee30a09980) )
+	ROM_LOAD16_BYTE( "785.c2", 1, 0x400000, CRC(f9d40dc0) SHA1(1de0002667d1771308f216464f6d84933f9f7afb) )
+ROM_END
+
+
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
@@ -5017,6 +5036,7 @@ GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mahjongd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Mahjong Demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )

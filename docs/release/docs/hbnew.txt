@@ -22,6 +22,7 @@ New Games
 - [jetpac]              Jetpac (v1.0, 2026-10-14)
 - [ladygolf01]          Vs. Stroke & Match Golf (Ladies Version, set LG4 ?, Easier CPU, v1.0, 2026-09-26)
 - [ladygolfe01]         Vs. Stroke & Match Golf (Ladies Version, set LG4 E, Easier CPU, v1.0, 2026-09-26)
+- [mahjongd]            Mahjong Demo (v1)
 - [maiya]               Maiya Super Nature Girl (v4)
 - [maiyaluna]           Maiya & Luna (v1)
 - [mp_addams]           The Addams Family ARCADE (Mega Play)
