@@ -3184,10 +3184,11 @@ ROM_START( arena2 )
 ROM_END
 
 
-// 531: Altered Beast port (v1.2) by ShinobiZ
+// 531: Altered Beast port (v1.3) by ShinobiZ
 ROM_START( altbeastn )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "531.p1", 0x000000, 0x100000, CRC(6ea2a6f2) SHA1(663acfed9ed3063c680b1fd5bede7959cee9d9e8) )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD( "531.p1", 0x000000, 0x100000, CRC(0b65215f) SHA1(138c9126119535f928eaee9ca7f773b99dfc2be1) )
+	ROM_LOAD( "531.p2", 0x100000, 0x100000, CRC(9f87f71f) SHA1(c50b6cd5f6d8b6b7de88b3773f6f2ffa78256e2d) )
 
 	NEO_SFIX_128K( "531.s1", CRC(469e9588) SHA1(bb954feb1941bf5afe0ec7211b4f859989ea0f3e) )
 
@@ -3259,7 +3260,7 @@ ROM_START( robocopn )
 ROM_END
 
 
-// 535: Hang On (v2.1.7) by ShinobiZ
+// 535: Hang On (v2.1) by ShinobiZ
 ROM_START( hangonn )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "535.p1", 0x000000, 0x100000, CRC(8cdee388) SHA1(a75f507e947be7c0131758d98f433019172eb030) )
@@ -4860,7 +4861,7 @@ GAME( 2023, 240ptest1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, altbeastn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Altered Beast (Neo-Geo port, v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, altbeastn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Altered Beast (Neo-Geo port, v1.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, amazonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Soldier Girl Amazon (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, arena2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Delarfab", "Arena 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
@@ -4913,7 +4914,7 @@ GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2019, grime,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime 68000", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, halozero,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Earok", "Halo Zero demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Hang On (Neo-Geo port, v2.1.7)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Hang On (Neo-Geo port, v2.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )
