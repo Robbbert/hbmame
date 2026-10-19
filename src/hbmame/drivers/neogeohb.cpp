@@ -3203,22 +3203,21 @@ ROM_START( altbeastn )
 ROM_END
 
 
-// 532: Shadow League Fighting (v1) by Eagle Software
-// Bugs: Bad colours and gfx
+// 532: Shadow League Fighting (v3) by Eagle Software
 ROM_START( shadowlf )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "532.p1", 0x000000, 0x80000, CRC(22c2d16a) SHA1(f28516ab06414aae7d419371195c71bb97fa41e7) )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "532.p1", 0x000000, 0x300000, CRC(20a6ea2d) SHA1(5aa5e1a9a3a84adb9d6c10cede58794f70ba68e1) )
 
-	NEO_SFIX_128K( "532.s1", CRC(f0e7a314) SHA1(3422341ce98da6d4a736e7c4590eed055b095c2f) )
+	NEO_SFIX_128K( "532.s1", CRC(636d9736) SHA1(81472c10d87a63717617c79dbb89eadc7f6c6a7f) )
 
-	NEO_BIOS_AUDIO_128K( "532.m1", CRC(6738f78a) SHA1(923c9dc1f8d3d45d89babaf04afaa607211e38b9) )
+	NEO_BIOS_AUDIO_128K( "532.m1", CRC(ceabdb57) SHA1(f59d59155c52ebc177933ab9d4c9a26f499946d5) )
 
-	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "532.v1", 0x000000, 0x200000, CRC(1753d05d) SHA1(f60c6820f6c9a2b29ae75e160fc74e50f195580a) )
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "532.v1", 0x000000, 0x79c100, CRC(63c1b4e6) SHA1(718aa37a1c3754fb62196ddb121a00c323bc8533) )
 
-	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "532.c1", 0, 0x400000, CRC(f29bd2b2) SHA1(8a3e576fa07ca3f3f202da3cb0de3c2a6aae20bb) )
-	ROM_LOAD16_BYTE( "533.c2", 1, 0x400000, CRC(aaceeab6) SHA1(8640a9a2a307e425e3eee1fe823a3c9c0dc5bd71) )
+	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "532.c1", 0, 0x800000, CRC(a8420eed) SHA1(0a4e257d9db251e002bd7a5549bed60a5fe0cc59) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x800000, CRC(efd2b313) SHA1(62297ffc0737b30436aa7578e2a3d716a7535d84) )
 ROM_END
 
 
@@ -4997,7 +4996,7 @@ GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, sdkdemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "SDK Demo (v1.7.0)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sgz,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Shadow Gangs", "Shadow Gangs Zero (kick demo v2.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, shaman16,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.16", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, shaman17,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.17", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, shaman18,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.18", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
