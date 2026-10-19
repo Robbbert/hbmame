@@ -25,6 +25,7 @@ New Games
 - [maiya]               Maiya Super Nature Girl (v4)
 - [maiyaluna]           Maiya & Luna (v1)
 - [mp_addams]           The Addams Family ARCADE (Mega Play)
+- [nosignal]            No Signal Z Alpha (v1)
 - [nslasheru01]         Night Slashers (US, Uncensored Effects, v1.0, 2026-10-05)
 - [nwarrru]             Night Warriors: Darkstalkers' Revenge (950316U, English Restoration, 2026-10-06)
 - [outrungb]            Out Run (Gumball Edition)
