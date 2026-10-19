@@ -235,14 +235,11 @@ NUM GAME YEAR COMPANY                 TITLE
 523 0539 2026 Sabino                  Free Doom (demo)
 524 2026 2026 Sabino                  Super Mario Bros.
 525 2027 2026 Sabino                  VS. Super Mario Bros.
-526 0780 2026 Eagle Software          Maiya Super Nature Girl (https://github.com/eaglesoftware777/neogeosdk/)
 527 7026 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
 528 0999 2026 Bendk97                 Snow Bros (https://bendk97.itch.io/)
 529 0539 2026 Bendk97                 Sword of Sodan (https://bendk97.itch.io/)
 530 2602 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
 531 0F77 2026 ShinobiZ                Altered Beast (https://shinobiz72.itch.io/)
-532 0781 2026 Eagle Software          Shadow League Fighting (https://github.com/eaglesoftware777/neogeosdk/)
-533 0779 2026 Eagle Software          Sky Lance (https://github.com/eaglesoftware777/neogeosdk/)
 534 0E58 2026 Teo Tormo               Robocop (https://teo-tormo.itch.io/)
 535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
 536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
@@ -319,7 +316,11 @@ NUM GAME YEAR COMPANY                 TITLE
 689 7777 2019 Vasily Familiya         Venus Wars demo
 690 7777 2020 Vasily Familiya         Girl X Girl demo
 777 0777 2026 Eagle Software          Sdk Demo (https://github.com/eaglesoftware777/neogeosdk/)
+779 0779 2026 Eagle Software          Sky Lance (https://github.com/eaglesoftware777/neogeosdk/)
+780 0780 2026 Eagle Software          Maiya Super Nature Girl (https://github.com/eaglesoftware777/neogeosdk/)
+781 0781 2026 Eagle Software          Shadow League Fighting (https://github.com/eaglesoftware777/neogeosdk/)
 782 0782 2026 Eagle Software          Seven Wonders Puzzles (https://github.com/eaglesoftware777/neogeosdk/)
+783 0783 2026 Eagle Software          Maiya & Luna (https://github.com/eaglesoftware777/neogeosdk/)
 
 
 
@@ -3096,24 +3097,6 @@ ROM_START( vssmbn )
 ROM_END
 
 
-// 526: Maiya (v4) by Eagle Software
-ROM_START( maiya )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "526.p1", 0x000000, 0x80000, CRC(5fe28a51) SHA1(2d1481933b0ba9a9f0f0e48e6e046cdabbd79b35) )
-
-	NEO_SFIX_128K( "526.s1", CRC(5c7951e1) SHA1(b0a45c2085b5ef49f7a197bf403f103be2f21f4f) )
-
-	NEO_BIOS_AUDIO_128K( "526.m1", CRC(ce7717bd) SHA1(66f3ef28d76104adeed931bc2f6b65a5f5e4c4e8) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "526.v1", 0x000000, 0x79ab00, CRC(127b89b4) SHA1(8ec212c59da5e650ed6978cf358e24220b5d33c3) )
-
-	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "526.c1", 0, 0x400000, CRC(48638505) SHA1(b2517c2a09efe0b196335c616ba3b2f13969f052) )
-	ROM_LOAD16_BYTE( "526.c2", 1, 0x400000, CRC(66a5c0e2) SHA1(9f3d77f2284925c82d8e26f725243083a73d6d92) )
-ROM_END
-
-
 // 527: The Perfect Fighter (demo v5)
 ROM_START( perfectf )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -3202,43 +3185,6 @@ ROM_START( altbeastn )
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "531.c1", 0, 0x400000, CRC(14712ab1) SHA1(831150a80aa46f2b60e301a2706f0e34f0f2f6b9) )
 	ROM_LOAD16_BYTE( "531.c2", 1, 0x400000, CRC(c18c2ad6) SHA1(06d48fb4c9381853275ed58ebf582b8c73b79b1c) )
-ROM_END
-
-
-// 532: Shadow League Fighting (v3) by Eagle Software
-ROM_START( shadowlf )
-	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "532.p1", 0x000000, 0x300000, CRC(20a6ea2d) SHA1(5aa5e1a9a3a84adb9d6c10cede58794f70ba68e1) )
-
-	NEO_SFIX_128K( "532.s1", CRC(636d9736) SHA1(81472c10d87a63717617c79dbb89eadc7f6c6a7f) )
-
-	NEO_BIOS_AUDIO_128K( "532.m1", CRC(ceabdb57) SHA1(f59d59155c52ebc177933ab9d4c9a26f499946d5) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "532.v1", 0x000000, 0x79c100, CRC(63c1b4e6) SHA1(718aa37a1c3754fb62196ddb121a00c323bc8533) )
-
-	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "532.c1", 0, 0x800000, CRC(a8420eed) SHA1(0a4e257d9db251e002bd7a5549bed60a5fe0cc59) )
-	ROM_LOAD16_BYTE( "533.c2", 1, 0x800000, CRC(efd2b313) SHA1(62297ffc0737b30436aa7578e2a3d716a7535d84) )
-ROM_END
-
-
-// 533: Sky Lance (v2) by Eagle Software
-// Bugs: Stationary sprites tend to jump around a bit when shot
-ROM_START( skylance )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x80000, CRC(ae68c9a1) SHA1(155475e9dad4d970e738c4f10d293818d4ce7bae) )
-
-	NEO_SFIX_128K( "533.s1", CRC(bd69c9ff) SHA1(e0694292073549d50cbcb1e02f853c3122805bff) )
-
-	NEO_BIOS_AUDIO_128K( "533.m1", CRC(cb88d068) SHA1(074a5a4be1e2bbb296709937053a3bd52b79a4c5) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "533.v1", 0x000000, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
-
-	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "533.c1", 0, 0x400000, CRC(e80e7df9) SHA1(f3234d43b9c78630f4100d30e79820ba48a20969) )
-	ROM_LOAD16_BYTE( "533.c2", 1, 0x400000, CRC(0668da32) SHA1(216fc99e3929dd6d6f08196546aa900000d17248) )
 ROM_END
 
 
@@ -4856,8 +4802,61 @@ ROM_START( sdkdemo )
 ROM_END
 
 
+// 779: Sky Lance (v2) by Eagle Software
+ROM_START( skylance )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "779.p1", 0x000000, 0x80000, CRC(ae68c9a1) SHA1(155475e9dad4d970e738c4f10d293818d4ce7bae) )
+
+	NEO_SFIX_128K( "779.s1", CRC(bd69c9ff) SHA1(e0694292073549d50cbcb1e02f853c3122805bff) )
+
+	NEO_BIOS_AUDIO_128K( "779.m1", CRC(cb88d068) SHA1(074a5a4be1e2bbb296709937053a3bd52b79a4c5) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "779.v1", 0x000000, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "779.c1", 0, 0x400000, CRC(e80e7df9) SHA1(f3234d43b9c78630f4100d30e79820ba48a20969) )
+	ROM_LOAD16_BYTE( "779.c2", 1, 0x400000, CRC(0668da32) SHA1(216fc99e3929dd6d6f08196546aa900000d17248) )
+ROM_END
+
+
+// 780: Maiya (v4) by Eagle Software
+ROM_START( maiya )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "780.p1", 0x000000, 0x80000, CRC(5fe28a51) SHA1(2d1481933b0ba9a9f0f0e48e6e046cdabbd79b35) )
+
+	NEO_SFIX_128K( "780.s1", CRC(5c7951e1) SHA1(b0a45c2085b5ef49f7a197bf403f103be2f21f4f) )
+
+	NEO_BIOS_AUDIO_128K( "780.m1", CRC(ce7717bd) SHA1(66f3ef28d76104adeed931bc2f6b65a5f5e4c4e8) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "780.v1", 0x000000, 0x79ab00, CRC(127b89b4) SHA1(8ec212c59da5e650ed6978cf358e24220b5d33c3) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "780.c1", 0, 0x400000, CRC(48638505) SHA1(b2517c2a09efe0b196335c616ba3b2f13969f052) )
+	ROM_LOAD16_BYTE( "780.c2", 1, 0x400000, CRC(66a5c0e2) SHA1(9f3d77f2284925c82d8e26f725243083a73d6d92) )
+ROM_END
+
+
+// 781: Shadow League Fighting (v3) by Eagle Software
+ROM_START( shadowlf )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "781.p1", 0x000000, 0x300000, CRC(20a6ea2d) SHA1(5aa5e1a9a3a84adb9d6c10cede58794f70ba68e1) )
+
+	NEO_SFIX_128K( "781.s1", CRC(636d9736) SHA1(81472c10d87a63717617c79dbb89eadc7f6c6a7f) )
+
+	NEO_BIOS_AUDIO_128K( "781.m1", CRC(ceabdb57) SHA1(f59d59155c52ebc177933ab9d4c9a26f499946d5) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "781.v1", 0x000000, 0x79c100, CRC(63c1b4e6) SHA1(718aa37a1c3754fb62196ddb121a00c323bc8533) )
+
+	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "781.c1", 0, 0x800000, CRC(a8420eed) SHA1(0a4e257d9db251e002bd7a5549bed60a5fe0cc59) )
+	ROM_LOAD16_BYTE( "781.c2", 1, 0x800000, CRC(efd2b313) SHA1(62297ffc0737b30436aa7578e2a3d716a7535d84) )
+ROM_END
+
+
 // 782 : Seven Wonders Puzzles (v1) by Eagle Software
-// No Sound
 ROM_START( 7wonders )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "782.p1", 0x000000, 0x80000, CRC(30264e7a) SHA1(d51f7fbde1af28c4881cbd3dc026fb2b6a3e1c8b) )
@@ -4872,6 +4871,24 @@ ROM_START( 7wonders )
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "782.c1", 0, 0x400000, CRC(20efee4b) SHA1(cd81a92fb029aebc040a87b4c7d6f257bff954a4) )
 	ROM_LOAD16_BYTE( "782.c2", 1, 0x400000, CRC(2e56f9b5) SHA1(f3b0ba4d319fcb49a03d89b7182d469685cd1e1b) )
+ROM_END
+
+
+// 783 : Maiya and Luna (v1) by Eagle Software
+ROM_START( maiyaluna )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "783.p1", 0x000000, 0x80000, CRC(dda3c6e9) SHA1(60dfea90600b4ce6702b24f2ca1782b3e804bebd) )
+
+	NEO_SFIX_128K( "783.s1", CRC(74a73a67) SHA1(3046b5ef0309239297521ca5c5ec82d9081d9865) )
+
+	NEO_BIOS_AUDIO_128K( "783.m1", CRC(f8436258) SHA1(6ce3894e89a59cca4c5af8c656ba9eb4e0ca0941) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "783.v1", 0x000000, 0x76c400, CRC(0518d9fc) SHA1(b328636be66f6aedd5fcc5b48a59434858201163) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "783.c1", 0, 0x400000, CRC(cd2c43bb) SHA1(cba8d7ca848393919ddd0233eca849623ccd8d30) )
+	ROM_LOAD16_BYTE( "783.c2", 1, 0x400000, CRC(60b12724) SHA1(b28f2710d55bbf9162c7197b7967d356964c3a15) )
 ROM_END
 
 
@@ -4982,6 +4999,7 @@ GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
