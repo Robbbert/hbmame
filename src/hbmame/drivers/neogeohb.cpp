@@ -3117,10 +3117,10 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (v1.0) by Bendk97
+// 528: Snow Bros (v1.0.2) by Bendk97
 ROM_START( snowbrosn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(3c91d30a) SHA1(e4877602b558cf75b4aa4c7ec8aed8eac4f0bb9e) )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(41c5834c) SHA1(bc7a6df9c3a049a29c5369ad659364668292ba3f) )
 
 	NEO_SFIX_128K( "528.s1", CRC(5fb678af) SHA1(40f78732f1f6c63ddfbbd9b3b9086369c1cceaef) )
 
@@ -3130,8 +3130,8 @@ ROM_START( snowbrosn )
 	ROM_LOAD( "528.v1", 0x000000, 0x800000, CRC(548c091b) SHA1(20997304536d0319d81df73cf43738ca208e54fc) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "528.c1", 0, 0x80000, CRC(c73e580e) SHA1(9dd123ba870ce3011049f31ea5a93fad6c301dd8) )
-	ROM_LOAD16_BYTE( "528.c2", 1, 0x80000, CRC(75e57c19) SHA1(2177c973f9d59f6a3a218c4ed063c9352e901071) )
+	ROM_LOAD16_BYTE( "528.c1", 0, 0x80000, CRC(d3984dd9) SHA1(0dee55b40e17c1a82be55f96026642a60ee3459a) )
+	ROM_LOAD16_BYTE( "528.c2", 1, 0x80000, CRC(75775686) SHA1(c00b3144ee023671aa473efb89a0916287a2a988) )
 ROM_END
 
 
@@ -5116,7 +5116,7 @@ GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.1.6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
