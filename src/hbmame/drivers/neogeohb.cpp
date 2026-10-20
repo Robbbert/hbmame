@@ -3254,7 +3254,7 @@ ROM_END
 
 
 // 535: Hang On (v2.0) by ShinobiZ
-// Bugs: No Sound
+// Bugs: Had to change ym interrupt to HOLD_LINE to get sound
 ROM_START( hangonn )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "535.p1", 0x000000, 0x100000, CRC(317040d4) SHA1(4dc4266c2d6a7535daa53fb9951575eef22efbaa) )

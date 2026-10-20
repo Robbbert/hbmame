@@ -30,6 +30,7 @@ CPUS["I8089"] = true
 CPUS["I86"] = true
 CPUS["I960"] = true -- model2
 CPUS["KC80"] = true -- ddenlovr
+CPUS["K056734"] = true -- konamigx
 CPUS["M37710"] = true -- namcona1
 CPUS["M6502"] = true
 CPUS["M6800"] = true
@@ -329,6 +330,7 @@ files {
 	MAME_DIR .. "src/mame/atlus/cave_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cv1k.cpp",
 	MAME_DIR .. "src/mame/cave/cv1k_v.cpp",
+	MAME_DIR .. "src/mame/cave/cv1k_touch.cpp",
 	MAME_DIR .. "src/mame/atlus/sprite013.cpp",
 }
 

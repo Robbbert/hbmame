@@ -70,4 +70,5 @@ LAYOUTS += \
 	$(SRC)/mame/layout/chasehq.lay \
 	$(SRC)/mame/layout/dblaxle.lay \
 	$(SRC)/mame/layout/enforceja.lay \
+	$(SRC)/mame/layout/cv1k_touch.lay \
 
