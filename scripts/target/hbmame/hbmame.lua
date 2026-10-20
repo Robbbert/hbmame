@@ -742,7 +742,8 @@ files {
 createHBMAMEProjects(_target, _subtarget, "sega")
 files {
 	MAME_DIR .. "src/hbmame/drivers/segas24.cpp",
-	MAME_DIR .. "src/mame/sega/megaplay.cpp",
+	MAME_DIR .. "src/hbmame/drivers/megaplay.cpp",
+	MAME_DIR .. "src/mame/sega/megadriv.cpp",
 	MAME_DIR .. "src/mame/sega/megatech.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segac2.cpp",
 	MAME_DIR .. "src/mame/sega/segae.cpp",
@@ -1025,6 +1026,7 @@ files {
 	MAME_DIR .. "src/devices/machine/cat702.cpp",
 	MAME_DIR .. "src/devices/machine/ds2430a.cpp",
 	MAME_DIR .. "src/devices/machine/mb87030.cpp",
+	MAME_DIR .. "src/devices/machine/sega_md_ioport.cpp",
 	MAME_DIR .. "src/devices/machine/mos6530.cpp",
 	MAME_DIR .. "src/devices/machine/nandflash.cpp",
 	MAME_DIR .. "src/devices/machine/nmk112.cpp",

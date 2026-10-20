@@ -26934,3 +26934,81 @@ ROM_START( wjammers04 ) // v1.1.0
 ROM_END
 GAME( 2026, wjammers04,     wjammers, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Boomchild", "Windjammers (Endless Breeze, v1.1.0)", MACHINE_SUPPORTS_SAVE )
 
+// 533: Sky Lance (v1) by Eagle Software
+// Bugs: Bad colours and gfx
+ROM_START( skylance )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x80000, CRC(f3a553f5) SHA1(bde45b942203f0624e1b2552a60a20aac6e6c14c) )
+
+	NEO_SFIX_128K( "533.s1", CRC(bd69c9ff) SHA1(e0694292073549d50cbcb1e02f853c3122805bff) )
+
+	NEO_BIOS_AUDIO_128K( "533.m1", CRC(cb88d068) SHA1(074a5a4be1e2bbb296709937053a3bd52b79a4c5) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "533.v1", 0x000000, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "533.c1", 0, 0x400000, CRC(e80e7df9) SHA1(f3234d43b9c78630f4100d30e79820ba48a20969) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x400000, CRC(0668da32) SHA1(216fc99e3929dd6d6f08196546aa900000d17248) )
+ROM_END
+GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Sky Lance (v1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+
+
+// 528: Snow Bros (beta 0.3c) by Bendk97
+ROM_START( snowbrosn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(8aaa655a) SHA1(1bbd4259f006e5267cb239f0114a941f03b25a1e) )
+
+	NEO_SFIX_128K( "528.s1", CRC(5fb678af) SHA1(40f78732f1f6c63ddfbbd9b3b9086369c1cceaef) )
+
+	NEO_BIOS_AUDIO_64K( "528.m1", CRC(ca694dcf) SHA1(0f75452eb7f72c51792ba6e29b266e31cfcd470f) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "528.v1", 0x000000, 0x800000, CRC(548c091b) SHA1(20997304536d0319d81df73cf43738ca208e54fc) )
+
+	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "528.c1", 0, 0x80000, CRC(c73e580e) SHA1(9dd123ba870ce3011049f31ea5a93fad6c301dd8) )
+	ROM_LOAD16_BYTE( "528.c2", 1, 0x80000, CRC(75e57c19) SHA1(2177c973f9d59f6a3a218c4ed063c9352e901071) )
+ROM_END
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta-0.3c)", MACHINE_SUPPORTS_SAVE )
+
+
+// 527: The Perfect Fighter (demo v4)
+ROM_START( perfectf )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "527.p1", 0x000000, 0x200000, CRC(073f1ba4) SHA1(d9a93d18b533257721056d88c4ac5c34cc8088ba) )
+
+	NEO_SFIX_128K( "527.s1", CRC(b0b1e3c3) SHA1(471c97f930606898b463cfc9854e47853fc53387) )
+
+	NEO_BIOS_AUDIO_128K( "527.m1", CRC(66b84e47) SHA1(3415c4ad39bd2d3551c37eb265e07a47e2478601) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "527.v1", 0x000000, 0x1000000, CRC(16949f60) SHA1(1eb797e6e688cb3a43fb7d1d98aacf899b1aa4d3) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "527.c1", 0, 0x1000000, CRC(f5c40702) SHA1(7a5351394bf42d5fd15396db1ae12dc109016859) )
+	ROM_LOAD16_BYTE( "527.c2", 1, 0x1000000, CRC(512a7b79) SHA1(065a5c8bdc879b7a97fd3d387a86087aff296514) )
+ROM_END
+GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v4)", MACHINE_SUPPORTS_SAVE )
+
+
+// 532: Shadow League Fighting (v1) by Eagle Software
+// Bugs: Bad colours and gfx
+ROM_START( shadowlf )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "532.p1", 0x000000, 0x80000, CRC(22c2d16a) SHA1(f28516ab06414aae7d419371195c71bb97fa41e7) )
+
+	NEO_SFIX_128K( "532.s1", CRC(f0e7a314) SHA1(3422341ce98da6d4a736e7c4590eed055b095c2f) )
+
+	NEO_BIOS_AUDIO_128K( "532.m1", CRC(6738f78a) SHA1(923c9dc1f8d3d45d89babaf04afaa607211e38b9) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "532.v1", 0x000000, 0x200000, CRC(1753d05d) SHA1(f60c6820f6c9a2b29ae75e160fc74e50f195580a) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "532.c1", 0, 0x400000, CRC(f29bd2b2) SHA1(8a3e576fa07ca3f3f202da3cb0de3c2a6aae20bb) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x400000, CRC(aaceeab6) SHA1(8640a9a2a307e425e3eee1fe823a3c9c0dc5bd71) )
+ROM_END
+GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+
+

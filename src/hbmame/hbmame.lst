@@ -1493,6 +1493,7 @@ sfa03
 sfa04
 sfa05
 sfa06
+sfaru
 sfz01
 sfz02
 sfz03
@@ -1501,6 +1502,8 @@ sfz05
 sfz06
 sfz07
 sfz08
+sfzrj
+sfzra
 sfa2s01
 sfa2s02
 sfa2s03
@@ -1512,9 +1515,12 @@ sfa2s08
 sfa2s09
 sfa2s10
 sfa2s11
+sfa2ru
 sfz2s01
 sfz2s02
 sfz2s03
+sfz2rj
+sfz2ra
 sfz2al01
 sfz2al02
 sfz2al03
@@ -1607,6 +1613,8 @@ ssf2t10
 ssf2tgmc
 ssf2tuc
 ssf2xuc
+usf2t8
+usf2j8
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1633,6 +1641,8 @@ vsav2s04
 vsav2s05
 vsav2s06
 vsavru
+vsavs01
+vsavs02
 xmcota01
 xmcota02
 xmcota03
@@ -4479,6 +4489,10 @@ stapper1	/* Tapper Simpsons Hack ver .81 */
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
+@source:megaplay.cpp
+megaplay                               // BIOS, parent
+mp_addams                              // HB
+
 @source:megasys1.cpp
 soldam
 soldam01
@@ -4564,6 +4578,7 @@ mk2s03
 mk2s04
 mk2s05
 mk2s06
+mk2s08                                 // Mortal Kombat II rev 4.0 (JUNKWAX), = FBNeo mk2rev4
 nbajamte                               //parent
 nbajam01
 nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
@@ -6295,6 +6310,7 @@ cd_visualnovel
 240ptest
 240ptest1
 68kng
+7wonders
 abyssal
 abyssal1
 adkw                                   // port
@@ -6312,6 +6328,7 @@ beast
 blueandr
 bonusstage                             // HB
 bpanicdx                               // HB
+bubbleopen
 cabaln                                 // port
 cabaln01                               // port
 cabaln02                               // port
@@ -6326,6 +6343,7 @@ cnbe2018
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
+cosmogngn
 csw2
 csw2s01
 cyborg
@@ -6383,7 +6401,9 @@ lhpb01
 looptris
 looptrsp
 ltorb
+mahjongd
 maiya
+maiyaluna
 midnight
 ndo_a_td
 neo2048
@@ -6424,10 +6444,12 @@ ngmontst3
 ngtd2
 ngtetris
 ngym2610
+nosignal
 nsmb
 nsmbd                 // unplayable demo
 nyan
 nyana
+outrunn
 pcmademo
 pcmbdemo
 perfectf
@@ -6441,6 +6463,7 @@ robocopn
 samantha
 santabll
 sbpf
+sdkdemo
 seafight
 sgz
 shaman16
@@ -6461,6 +6484,7 @@ smbn
 smi
 snddemo
 snowbrosn
+sotbn
 spkick
 spkick2
 spriteex
@@ -6487,7 +6511,9 @@ vaporous
 //venuswars
 violentv
 //vlad2000
+warriorman
 vssmbn
+wolf3d
 wrldracr
 wrldracr01
 wrldracr02
