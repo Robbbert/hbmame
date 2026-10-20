@@ -3328,14 +3328,14 @@ ROM_START( sotbn )
 ROM_END
 
 
-// 541: Out Run (beta-0.3) by Bendk97
+// 541: Out Run (beta-0.3.1) by Bendk97
 ROM_START( outrunn )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(cc72181b) SHA1(c352c04598a30cd8e093f649adcb1fe6f25dc50c) )
+	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(60b09f6c) SHA1(597e48858c7638b84389bbb111e591a7cbb65ecd) )
 
 	NEO_SFIX_128K( "541.s1", CRC(ec75e7ec) SHA1(a7eaf51dd728dbc0a456d044430618d8e0941168) )
 
-	NEO_BIOS_AUDIO_128K( "541.m1", CRC(17c7d757) SHA1(e58983170c3c9120824bee8ea3ab1fd7b890c387) )
+	NEO_BIOS_AUDIO_128K( "541.m1", CRC(f4309dd8) SHA1(06ec1fd208bdd701f6cdc03e791afd846885d9b1) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "541.v1",   0x000000, 0x1000000, CRC(c7f9348d) SHA1(11c5a404886ecbc645d6186bc8fd2214f1545f6f) )
@@ -5082,7 +5082,7 @@ GAME( 2020, nsmb,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, nsmbd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5)", MACHINE_SUPPORTS_SAVE )
