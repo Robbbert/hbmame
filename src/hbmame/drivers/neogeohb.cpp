@@ -3309,10 +3309,10 @@ ROM_START( sgz ) // demo
 ROM_END
 
 
-// 540: Shadow of the Beast (beta-0.1.5) by Bendk97
+// 540: Shadow of the Beast (beta-0.1.6) by Bendk97
 ROM_START( sotbn )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(35a12620) SHA1(4046721b44d97c1d9bd3c51e0c487e32c3cd7459) )
+	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(53dfae69) SHA1(40a41b0205b78c3ac08c632de83a9cd0e94be2b7) )
 	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(cc1cf5ef) SHA1(e650181e1157e1c373c133b79db2392fbf466586) )
 
 	NEO_SFIX_128K( "540.s1", CRC(f3ae362e) SHA1(5ea908046965226432d0ab4ba967542971047e9d) )
@@ -5117,7 +5117,7 @@ GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.1.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.1.6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
