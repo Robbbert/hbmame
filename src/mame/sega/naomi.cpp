@@ -2044,6 +2044,12 @@ static INPUT_PORTS_START( crackndj )
 	PORT_START("A0")
 	PORT_BIT( 0xff00, 0x8000, IPT_AD_STICK_X ) PORT_MINMAX(0x00, 0xff00) PORT_SENSITIVITY(25) PORT_KEYDELTA(200) PORT_REVERSE PORT_NAME("Fader")
 	PORT_BIT( 0x00ff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("R0")
+	PORT_BIT( 0xff00, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(25) PORT_KEYDELTA(50) PORT_PLAYER(1) PORT_NAME("Turntable L")
+
+	PORT_START("R2")
+	PORT_BIT( 0xff00, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(25) PORT_KEYDELTA(50) PORT_PLAYER(2) PORT_NAME("Turntable R")
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( monkeyba )
@@ -2150,7 +2156,7 @@ INPUT_PORTS_END
 
 // 犬のおさんぽ
 // cabinet has a treadmill with incline, two handlebars and a lead / leash to simulate dog walking
-// TODO: treadmill comes from the 4 not hooked up rotary channels?
+// TODO: treadmill comes from the 4 not hooked up rotary channels, plus mostly manual.
 static INPUT_PORTS_START( inunoos )
 	PORT_INCLUDE( naomi_mie )
 
@@ -2177,6 +2183,34 @@ static INPUT_PORTS_START( inunoos )
 	PORT_DIPNAME( 0x01, 0x01, "Monitor" ) PORT_DIPLOCATION("SW1:1")
 	PORT_DIPSETTING(    0x01, "31 kHz" )
 	PORT_DIPSETTING(    0x00, "15 kHz" )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( otrigger )
+	PORT_INCLUDE( naomi_mie )
+
+	PORT_START("TILT")
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_TILT )
+	PORT_BIT( 0x7f, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("P1")
+	PORT_BIT( 0x8000, IP_ACTIVE_HIGH, IPT_START1 )
+	PORT_BIT( 0x2000, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_8WAY
+	PORT_BIT( 0x1000, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_8WAY
+	PORT_BIT( 0x0800, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_8WAY
+	PORT_BIT( 0x0400, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_8WAY
+	PORT_BIT( 0x0200, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x0100, IP_ACTIVE_HIGH, IPT_BUTTON2 )
+	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_BUTTON3 )
+	PORT_BIT( 0x407f, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("P2")
+	PORT_BIT( 0xffff, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("R0")
+	PORT_BIT( 0xffff, 0x0000, IPT_TRACKBALL_X ) PORT_SENSITIVITY(25) PORT_KEYDELTA(50)
+
+	PORT_START("R1")
+	PORT_BIT( 0xffff, 0x0000, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(25) PORT_KEYDELTA(50)
 INPUT_PORTS_END
 
 // TODO: deambiguate IPT_COINs (each player has one)
@@ -3025,6 +3059,50 @@ void naomi_state::naomim2_smarinef(machine_config &config)
 	config.device_remove("837_13551");
 	sega_837_13844_device &sega837(SEGA_837_13844(config, "837_13844", "mie"));
 	sega837.set_port_tags("TILT", "P1", "P2", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "OUTPUT");
+}
+
+/*
+ * Naomi M2 Inu no Osanpo
+ */
+
+ void naomi_state::naomim2_inunoos(machine_config &config)
+{
+	naomim2(config);
+
+	config.device_remove("837_13551");
+	sega_837_13844_device &sega837(SEGA_837_13844(config, "837_13844", "mie"));
+	sega837.set_port_tags("TILT", "P1", "P2", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "OUTPUT");
+	sega837.set_digital_bits(8);
+	sega837.set_encoder_bits(4);
+}
+
+/*
+ * Naomi M2 Crackin' DJ
+ */
+
+ void naomi_state::naomim2_crackndj(machine_config &config)
+{
+	naomim2(config);
+
+	sega_837_13938_device &sega938(SEGA_837_13938(config, "837_13938", "mie"));
+	sega938.set_rotary_tags("R0", "R1", "R2", "R3");
+}
+
+/*
+ * Naomi M2 Out Trigger
+ */
+
+ void naomi_state::naomim2_otrigger(machine_config &config)
+{
+	naomim2(config);
+
+	config.device_remove("837_13551");
+	sega_837_13551_device &sega837(SEGA_837_13551(config, "837_13551", "mie"));
+	sega837.set_port_tags("TILT", "P1", "P2", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "OUTPUT");
+	sega837.set_analog_bits(0);
+
+	sega_837_13938_device &sega938(SEGA_837_13938(config, "837_13938", "mie"));
+	sega938.set_rotary_tags("R0", "R1", "R2", "R3");
 }
 
 
@@ -11412,7 +11490,7 @@ void naomi_state::init_hotd2()
 /* 0013    */ GAME( 1999, jambo,     naomi,    naomim2, jambo,   naomi_state, init_naomi,   ROT0, "Sega", "Jambo! Safari (Rev A)", GAME_FLAGS )
 /* 0015    */ GAME( 1999, vtennis,   naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Virtua Tennis / Power Smash", GAME_FLAGS )
 /* 0016    */ GAME( 1999, derbyoc,   naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Derby Owners Club (Japan, Rev B)", GAME_FLAGS )
-/* 0017    */ GAME( 1999, otrigger,  naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "OutTrigger", GAME_FLAGS )
+/* 0017    */ GAME( 1999, otrigger,  naomi,    naomim2_otrigger, otrigger,   naomi_state, init_naomi,   ROT0, "Sega", "OutTrigger", GAME_FLAGS )
 /* 0018    */ GAME( 1999, sgtetris,  naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Sega Tetris", GAME_FLAGS )
 /* 0019    */ GAME( 1999, dybb99,    naomi,    naomim2, dybbnao, naomi_state, init_naomi,   ROT0, "Sega", "Dynamite Baseball '99 (Japan, Rev B)", GAME_FLAGS )
 /* 0020    */ GAME( 1999, sambaa,    samba,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Samba De Amigo (Rev A)", GAME_FLAGS )
@@ -11443,7 +11521,7 @@ void naomi_state::init_hotd2()
 /* 0040    */ GAME( 2000, wwfroyal,  naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "WWF Royal Rumble", GAME_FLAGS )
 /* 0041    */ GAME( 2000, slasho,    naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Slashout", GAME_FLAGS )
 // 0042 Ferrari F355 Challenge 2 - International Course Edition (twin/deluxe) - identical to f355twn2 listed above.
-/* 0043    */ GAME( 2000, crackndj,  naomi,    naomim2, crackndj,naomi_state, init_naomi,   ROT0, "Sega", "Crackin' DJ", GAME_FLAGS )
+/* 0043    */ GAME( 2000, crackndj,  naomi,    naomim2_crackndj, crackndj,naomi_state, init_naomi,   ROT0, "Sega", "Crackin' DJ", GAME_FLAGS )
 /* 0044    */ GAME( 2000, csmasho,   csmash,   naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Cosmic Smash", GAME_FLAGS )
 /* 0044    */ GAME( 2000, csmash,    naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Sega", "Cosmic Smash (Rev A)", GAME_FLAGS )
 /* 0045    */ GAME( 1999, tokyobus,  naomi,    naomim2, naomi,   naomi_state, init_naomi,   ROT0, "Fortyfive", "Tokyo Bus Guide (Japan, Rev A)", GAME_FLAGS )
@@ -11456,8 +11534,8 @@ void naomi_state::init_hotd2()
 /* 0056    */ GAME( 2000, shorse,    naomi,    naomim2, naomi,   naomi_state, init_naomi,  ROT270,"Sega", "Star Horse (satellite)", GAME_FLAGS )
 /* 0064    */ GAME( 2001, wrungpo,   wrungp,   naomim2, wrungp,  naomi_state, init_naomi,   ROT0, "CRI / Sega", "Wave Runner GP (USA, Rev A)", GAME_FLAGS )
 /* 0064    */ GAME( 2001, wrungp,    naomi,    naomim2, wrungp,  naomi_state, init_naomi,   ROT0, "CRI / Sega", "Wave Runner GP", GAME_FLAGS )
-/* 0068    */ GAME( 2001, crakndj2,  naomi,    naomim2, crackndj,naomi_state, init_naomi,   ROT0, "Sega", "Crackin' DJ Part 2 (Japan)", GAME_FLAGS )
-/* 0073    */ GAME( 2001, inunoos,   naomi,    naomim2, inunoos, naomi_state, init_naomi,   ROT0, "Wow Entertainment / Sega", "Inu no Osanpo / Dog Walking (Japan, Export, Rev A)", GAME_FLAGS )
+/* 0068    */ GAME( 2001, crakndj2,  naomi,    naomim2_crackndj, crackndj,naomi_state, init_naomi,   ROT0, "Sega", "Crackin' DJ Part 2 (Japan)", GAME_FLAGS )
+/* 0073    */ GAME( 2001, inunoos,   naomi,    naomim2_inunoos, inunoos, naomi_state, init_naomi,   ROT0, "Wow Entertainment / Sega", "Inu no Osanpo / Dog Walking (Japan, Export, Rev A)", GAME_FLAGS )
 // 0075 Star Horse 2001 (main screens)
 // 0076 Star Horse 2001 (sound)
 // 0077 Star Horse 2001 (live)
