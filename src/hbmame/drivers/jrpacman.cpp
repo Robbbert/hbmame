@@ -179,7 +179,7 @@ void jrpacman_state::jrpacman(machine_config &config)
 	Z80(config, m_maincpu, 18432000/6);    /* 3.072 MHz */
 	m_maincpu->set_addrmap(AS_PROGRAM, &jrpacman_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &jrpacman_state::io_map);
-	m_maincpu->set_vblank_int("screen", FUNC(jrpacman_state::vblank_irq));
+	m_maincpu->set_irq_acknowledge_callback(FUNC(jrpacman_state::interrupt_vector_r));
 
 	ls259_device &latch1(LS259(config, "latch1")); // 5P
 	latch1.q_out_cb<0>().set(FUNC(jrpacman_state::irq_mask_w));
@@ -204,6 +204,7 @@ void jrpacman_state::jrpacman(machine_config &config)
 	screen.set_visarea(0*8, 36*8-1, 0*8, 28*8-1);
 	screen.set_screen_update(FUNC(jrpacman_state::screen_update_pacman));
 	screen.set_palette(m_palette);
+	screen.screen_vblank().set(FUNC(jrpacman_state::vblank_irq));
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_jrpacman);
 	PALETTE(config, m_palette, FUNC(jrpacman_state::pacman_palette), 128 * 4, 32);

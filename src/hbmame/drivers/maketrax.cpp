@@ -77,7 +77,7 @@ void puckman_state::piranha_interrupt_vector_w(u8 data)
 	if (data == 0xfa)
 		data = 0x78;
 
-	m_maincpu->set_input_line_vector(0, data );
+	m_interrupt_vector = data;
 }
 
 

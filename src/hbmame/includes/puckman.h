@@ -146,7 +146,8 @@ protected:
 	DECLARE_VIDEO_START(jrpacman);
 	u32 screen_update_pacman(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	u32 screen_update_s2650games(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	INTERRUPT_GEN_MEMBER(vblank_irq);
+	void vblank_irq(int state);
+	IRQ_CALLBACK_MEMBER(interrupt_vector_r);
 	void init_save_state();
 	void jrpacman_mark_tile_dirty( int offset );
 	void eyes_decode(u8 *data);

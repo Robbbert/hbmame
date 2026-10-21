@@ -88,15 +88,27 @@
  *
  *************************************/
 
+void puckman_state::vblank_irq(int state)
+{
+	if (state && m_irq_mask)
+		m_maincpu->set_input_line(INPUT_LINE_IRQ0, ASSERT_LINE);
+}
+
 void puckman_state::irq_mask_w(int state)
 {
 	m_irq_mask = state;
+	if (!state)
+		m_maincpu->set_input_line(INPUT_LINE_IRQ0, CLEAR_LINE);
 }
 
 void puckman_state::pacman_interrupt_vector_w(u8 data)
 {
-	m_maincpu->set_input_line_vector(0, data);
-	m_maincpu->set_input_line(0, CLEAR_LINE);
+	m_interrupt_vector = data;
+}
+
+IRQ_CALLBACK_MEMBER(puckman_state::interrupt_vector_r)
+{
+	return m_interrupt_vector;
 }
 
 // Apply the speedup hack depending on dipswitch and fire button
@@ -118,12 +130,6 @@ void puckman_state::speedcheat()
 		else
 		if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe; /* pacplus */
 	}
-}
-
-INTERRUPT_GEN_MEMBER( puckman_state::vblank_irq )
-{
-	if(m_irq_mask)
-		device.execute().set_input_line(0, HOLD_LINE);
 }
 
 // When fire button pressed or released, see if cheat should turn on or off
@@ -449,7 +455,7 @@ void puckman_state::pacman(machine_config &config)
 	Z80(config, m_maincpu, MASTER_CLOCK/6);
 	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::pacman_map);
 	m_maincpu->set_addrmap(AS_IO, &puckman_state::io_map);
-	m_maincpu->set_vblank_int("screen", FUNC(puckman_state::vblank_irq));
+	m_maincpu->set_irq_acknowledge_callback(FUNC(puckman_state::interrupt_vector_r));
 
 	WATCHDOG_TIMER(config, m_watchdog).set_vblank_count("screen", 16);
 
@@ -467,6 +473,7 @@ void puckman_state::pacman(machine_config &config)
 	m_screen->set_raw(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART);
 	m_screen->set_screen_update(FUNC(puckman_state::screen_update_pacman));
 	m_screen->set_palette("palette");
+	m_screen->screen_vblank().set(FUNC(puckman_state::vblank_irq));
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_pacman);
 	PALETTE(config, m_palette, FUNC(puckman_state::pacman_palette), 128*4, 32);
