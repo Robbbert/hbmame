@@ -164,7 +164,7 @@ ROM_END
 ROM_START( cd_robocop )
 	NEOCDZ_BASE
 	//DISK_IMAGE_READONLY( "robocop", 0, SHA1(917157311d62b31d06956c3f773808f6d5b2ff94) ) // older
-	DISK_IMAGE_READONLY( "robocop", 0, SHA1(141885638f9a42b5c6cb6aa9e3106d254bf2c3e2) )
+	DISK_IMAGE_READONLY( "robocop", 0, SHA1(141885638f9a42b5c6cb6aa9e3106d254bf2c3e2) ) // v18
 ROM_END
 
 ROM_START( cd_sdodgeb )
@@ -175,7 +175,8 @@ ROM_END
 
 ROM_START( cd_sf2ce )
 	NEOCDZ_BASE
-	DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(eb4a50fedc76523764370097a02da2a110337691) )
+	//DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(eb4a50fedc76523764370097a02da2a110337691) ) // 74FP version
+	DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(69881892dcb5ba910da2279c370951f83b16b07c) ) // v1
 ROM_END
 
 ROM_START( cd_shinobiarr )
@@ -236,7 +237,7 @@ GAME( 2024, cd_pow,         neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (update)[CD]", 0 )
 GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port v17)[CD]", 0 )
 GAME( 2026, cd_sdodgeb,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Super Dodge Ball (v0.99 beta)[CD]", 0 )
-GAME( 2026, cd_sf2ce,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Champion Edition (Neo-Geo port, 74FP)[CD]", 0 )
+GAME( 2026, cd_sf2ce,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Champion Edition (Neo-Geo port, v1)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_snowbros,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
