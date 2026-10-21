@@ -432,14 +432,17 @@ YEAR COMPANY                          TITLE
 2025 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
 2025 Retro Sumus                      SovietBorgs (video on youtube)
 2025 Bit Beam Cannon                  Metal Mack
-2026 Tigerskunk                       Ormanauta (https://tigerskunk.itch.io/)
+2026 Tigerskunk                       Ormanauta (https://tigerskunk.itch.io/hyperblaster)
 2026 tcdev                            Frogger (https://tcdev.itch.io)
 2030 Mike at CannonRetro              Metro Siege (https://www.kickstarter.com/projects/metrosiege/metro-siege?lang=en)
-???? Chips on Steroids                Neotris 2 (CD beta exists)
-???? Chips on Steroids                Super Mortal Fighter X
-???? PixelHeart                       Punky Circus
-???? RasterWizards                    Brutal Justice (https://rasterwizards.itch.io/brutal-justice)
-???? Tigerskunk                       Space Adventure Cobra
+---- Chips on Steroids                Neotris 2 (CD beta exists)
+---- Chips on Steroids                Super Mortal Fighter X
+---- PixelHeart                       Punky Circus
+---- RasterWizards                    Brutal Justice (https://rasterwizards.itch.io/brutal-justice)
+---- Tigerskunk                       Space Adventure Cobra
+---- BitBeamCannon                    Metal Mack (https://www.kickstarter.com/projects/bitbeamcannon/metal-mack)
+---- MS3Research                      Z.E.N.E.K.O. (https://www.kickstarter.com/projects/zeneko/zeneko-run-n-gun-game-for-mega-drive-genesis-neo-geo)
+2027 Naula Studio                     Necro Pop
 
 
 *********************************************************************************************************/
