@@ -252,7 +252,7 @@ NUM GAME YEAR COMPANY                 TITLE
 
 
 
-********************** Non-playable demos (600-799) ************************
+********************** Non-playable demos (600-699) ************************
 (includes input tests and the like)
 GAME = Game number inside the rom (personally verified)
 
@@ -3301,11 +3301,11 @@ ROM_START( sgz ) // demo
 ROM_END
 
 
-// 540: Shadow of the Beast (beta-0.1.6) by Bendk97
+// 540: Shadow of the Beast (beta-0.2.0) by Bendk97
 ROM_START( sotbn )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(53dfae69) SHA1(40a41b0205b78c3ac08c632de83a9cd0e94be2b7) )
-	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(cc1cf5ef) SHA1(e650181e1157e1c373c133b79db2392fbf466586) )
+	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(de4491a2) SHA1(38ec27f7aef702183866a3c3ad19ebbeb11b952c) )
+	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(895856dd) SHA1(99e00c7195f6ea81b395a45c325e6361856aa0a7) )
 
 	NEO_SFIX_128K( "540.s1", CRC(f3ae362e) SHA1(5ea908046965226432d0ab4ba967542971047e9d) )
 
@@ -3315,8 +3315,8 @@ ROM_START( sotbn )
 	ROM_LOAD( "540.v1",   0x000000, 0x1000000, CRC(640b1088) SHA1(03f99fbd75a1a65e8bf371bb3ad7adba64b625e2) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "540.c1", 0, 0x200000, CRC(07df4789) SHA1(fd4ff095704b25fd2341c0cab6b6625c45990414) )
-	ROM_LOAD16_BYTE( "540.c2", 1, 0x200000, CRC(ba73827e) SHA1(b78708e912ec384362272f6a41f483339a4cd585) )
+	ROM_LOAD16_BYTE( "540.c1", 0, 0x200000, CRC(f6beef52) SHA1(d1a2218c9807fda56833657edcc9d7374e5b0fd7) )
+	ROM_LOAD16_BYTE( "540.c2", 1, 0x200000, CRC(7429c5cb) SHA1(869f81a48dbbb7db128a79d062ed9ede10cc8cbe) )
 ROM_END
 
 
@@ -4720,7 +4720,7 @@ GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.1.6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
