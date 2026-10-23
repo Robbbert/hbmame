@@ -6540,6 +6540,40 @@ ROM_START( sfa3s19 ) // sfa3uhd
 	ROM_LOAD( "sfa3u.key",    0x00, 0x14, CRC(4a8f98c1) SHA1(11953de12ed8fbb6f60ad03b1ba5e22a429b7cfa) )
 ROM_END
 
+ROM_START( sfa3ru )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sz3j.03c", 0x000000, 0x80000, CRC(cb2367cb) SHA1(3849fabd2a1974d74618c961fc6d9de0b386905d) )
+	ROM_LOAD16_WORD_SWAP( "sz3j.04c", 0x080000, 0x80000, CRC(c4746c41) SHA1(eb9a0c92567d3986902d554f68a408c8a99ec5f8) )
+	ROM_LOAD16_WORD_SWAP( "c78.p3",  0x100000, 0x80000, CRC(57fd0a40) SHA1(bc2d5f4d57117bbf58b1adb088e00424ef489e92) )
+	ROM_LOAD16_WORD_SWAP( "c78.p4",  0x180000, 0x80000, CRC(f6305f8b) SHA1(3fd1ebdbad96103aca604e950b488e52460a71ec) )
+	ROM_LOAD16_WORD_SWAP( "c78.p5",  0x200000, 0x80000, CRC(6eab0f6f) SHA1(f8d093dda65cf4e8a3000dc1b96355bb03dcb495) )
+	ROM_LOAD16_WORD_SWAP( "sz3.08c",  0x280000, 0x80000, CRC(743184e5) SHA1(fd8035d5b553f6a4a8e9be6773a54b7f1a15f09d) )
+	ROM_LOAD16_WORD_SWAP( "sz3.09c",  0x300000, 0x80000, CRC(3b9e4187) SHA1(47fb518f3a3c0e0ed206d12f0edde548cfd259b8) )
+	ROM_LOAD16_WORD_SWAP( "sz3.10b",  0x380000, 0x80000, CRC(3108b13e) SHA1(e38e8ea0c9d58e6084ec5ed47f38ecc429dfbf89) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "sz3.13m",   0x0000000, 0x400000, CRC(1cef39bc) SHA1(7deca37619cf110a2c4e14db5c1b7b81bb98c427) )
+	ROM_LOAD64_WORD( "sz3.15m",   0x0000002, 0x400000, CRC(1efafa96) SHA1(c7f994dd9f16e6e3340ef48a888d94c7c8305818) )
+	ROM_LOAD64_WORD( "sz3.17m",   0x0000004, 0x400000, CRC(794a20f7) SHA1(24fcc21e1219ac748e882b37e372aeb924f9ae6f) )
+	ROM_LOAD64_WORD( "sz3.19m",   0x0000006, 0x400000, CRC(8617f745) SHA1(743c41750a1d4bae7592d3238e34287f186ba216) )
+	ROM_LOAD64_WORD( "sz3.14m",   0x1000000, 0x400000, CRC(31bfae76) SHA1(3a4f2bd1ecea43c2b0f94681a7d1aae74dacb05b) )
+	ROM_LOAD64_WORD( "sz3.16m",   0x1000002, 0x400000, CRC(c366c0ab) SHA1(c78771101a0fd0d7fe63cd3b415804f3ac394e00) )
+	ROM_LOAD64_WORD( "sz3.18m",   0x1000004, 0x400000, CRC(be20b9bb) SHA1(7c689b3fa416c7f41b7418eabd18fa10c9d9c5f8) )
+	ROM_LOAD64_WORD( "sz3.20m",   0x1000006, 0x400000, CRC(682eada9) SHA1(46065d17eb27dad8a1780609d6570402fd6dfe44) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c78.m1",   0x00000, 0x08000, CRC(de810084) SHA1(fd0b969b732921ed8b40c16fbfa30ee09c7a7cbd) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c78.m2",   0x28000, 0x20000, CRC(72445dc4) SHA1(14fca7596ac45ba655016eef5b6120f9f9671c23) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c78.q1",   0x000000, 0x400000, CRC(1c89eed1) SHA1(649a0b0a3eb72e2e69e9fb1ac51a58b70daa39f3) )
+	ROM_LOAD16_WORD_SWAP( "c78.q2",   0x400000, 0x400000, CRC(f392b13a) SHA1(fa04ce0370144a49bd1d5acd873eef87b0dc9d15) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "sfz3j.key",    0x00, 0x14, CRC(d30cca8d) SHA1(b05869902d4d5968d5f79ed6165eb4b78e1ddcdd) )
+ROM_END
+
  /*********************
  Street Fighter Zero 3
 ************************/
@@ -7172,6 +7206,40 @@ ROM_START( sfz3j19 ) // sfz3te v1.2
 	ROM_LOAD64_WORD( "c78.c2",   0x0000002, 0x400000, CRC(8e933741) SHA1(f4ac4bfe830dc7df9fe4f680e4e0c053e7cbd8fe) )
 	ROM_LOAD64_WORD( "c78.c3",   0x0000004, 0x400000, CRC(d6e98147) SHA1(37f331fbb1284db446faecade6f484f58c0e1b2a) )
 	ROM_LOAD64_WORD( "c78.c4",   0x0000006, 0x400000, CRC(f31a728a) SHA1(f14136564648f006c1b74afda78349f260524b5f) )
+	ROM_LOAD64_WORD( "c78.c5",   0x1000000, 0x400000, CRC(5ff98297) SHA1(9e0ce43380b776c7a03872bafd4856f6fa60bda7) )
+	ROM_LOAD64_WORD( "c78.c6",   0x1000002, 0x400000, CRC(52b5bdee) SHA1(7918204dc457f7a146d8fb8cf7242dfed3109fd8) )
+	ROM_LOAD64_WORD( "c78.c7",   0x1000004, 0x400000, CRC(40631ed5) SHA1(c18c56822b90a71ca5fbdf3440eb2671011f3d8f) )
+	ROM_LOAD64_WORD( "c78.c8",   0x1000006, 0x400000, CRC(763409b4) SHA1(af60a5116c1ca9050366a35ea29128921867f3cc) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c78.m1",   0x00000, 0x08000, CRC(de810084) SHA1(fd0b969b732921ed8b40c16fbfa30ee09c7a7cbd) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c78.m2",   0x28000, 0x20000, CRC(72445dc4) SHA1(14fca7596ac45ba655016eef5b6120f9f9671c23) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c78.q1",   0x000000, 0x400000, CRC(1c89eed1) SHA1(649a0b0a3eb72e2e69e9fb1ac51a58b70daa39f3) )
+	ROM_LOAD16_WORD_SWAP( "c78.q2",   0x400000, 0x400000, CRC(f392b13a) SHA1(fa04ce0370144a49bd1d5acd873eef87b0dc9d15) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "sfz3j.key",    0x00, 0x14, CRC(d30cca8d) SHA1(b05869902d4d5968d5f79ed6165eb4b78e1ddcdd) )
+ROM_END
+
+ROM_START( sfz3rj )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sz3j.03c", 0x000000, 0x80000, CRC(70f049e5) SHA1(7538b3135b225444138ed410b213f4c0a64aea64) )
+	ROM_LOAD16_WORD_SWAP( "sz3j.04c", 0x080000, 0x80000, CRC(faf7c4aa) SHA1(565b17180ff8a7944af37442f522cef0d711fabb) )
+	ROM_LOAD16_WORD_SWAP( "c78.p3",  0x100000, 0x80000, CRC(57fd0a40) SHA1(bc2d5f4d57117bbf58b1adb088e00424ef489e92) )
+	ROM_LOAD16_WORD_SWAP( "c78.p4",  0x180000, 0x80000, CRC(f6305f8b) SHA1(3fd1ebdbad96103aca604e950b488e52460a71ec) )
+	ROM_LOAD16_WORD_SWAP( "c78.p5",  0x200000, 0x80000, CRC(6eab0f6f) SHA1(f8d093dda65cf4e8a3000dc1b96355bb03dcb495) )
+	ROM_LOAD16_WORD_SWAP( "c78.p6",  0x280000, 0x80000, CRC(910c4a3b) SHA1(dbd41280f9b16ad6a5b8f12092549970349395f1) )
+	ROM_LOAD16_WORD_SWAP( "sz3.09c",  0x300000, 0x80000, CRC(91aa1312) SHA1(efc3ba7f27dc6379202448e66bad61e8a56ecb59) )
+	ROM_LOAD16_WORD_SWAP( "sz3.10b",  0x380000, 0x80000, CRC(8ef31512) SHA1(fb1715647ffacb155d6f5cc7befb5326e104d26e) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "sz3.13m",   0x0000000, 0x400000, CRC(dd13c9d1) SHA1(1cb08c81fa250846357b0a4f5bfd29b86d6769a9) )
+	ROM_LOAD64_WORD( "sz3.15m",   0x0000002, 0x400000, CRC(998afbfd) SHA1(a6a7a44eac10b36b949bfd739a25ee7a69817972) )
+	ROM_LOAD64_WORD( "sz3.17m",   0x0000004, 0x400000, CRC(3bef3687) SHA1(f7877c4a425adcbf36a1839aae2e29a23b973051) )
+	ROM_LOAD64_WORD( "sz3.19m",   0x0000006, 0x400000, CRC(7f968eed) SHA1(344163e1a44751eb28c8e3ec5d3efe2d3a262552) )
 	ROM_LOAD64_WORD( "c78.c5",   0x1000000, 0x400000, CRC(5ff98297) SHA1(9e0ce43380b776c7a03872bafd4856f6fa60bda7) )
 	ROM_LOAD64_WORD( "c78.c6",   0x1000002, 0x400000, CRC(52b5bdee) SHA1(7918204dc457f7a146d8fb8cf7242dfed3109fd8) )
 	ROM_LOAD64_WORD( "c78.c7",   0x1000004, 0x400000, CRC(40631ed5) SHA1(c18c56822b90a71ca5fbdf3440eb2671011f3d8f) )
@@ -8396,6 +8464,7 @@ GAME( 2009, sfa3s16,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, R
 GAME( 2009, sfa3s17,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Alpha 3 (980904E, Hidden Character Full Version Fix, 2009-09-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfa3s18,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Alpha 3 (980904E, Boss Special, 2009-07-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfa3s19,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "Dodowang", "Street Fighter Alpha 3 (980904U, Revision Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sfa3ru,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Alpha 3 (980904J, English Restoration, 2026-10-21)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero 3
 GAME( 1998, sfz3j01,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 3 (980904J, Balrog Lifts The Scene Crawl Limit)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, sfz3j02,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 3 (980904J, Command Change)", MACHINE_SUPPORTS_SAVE )
@@ -8416,6 +8485,7 @@ GAME( 2007, sfz3j16,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2009, sfz3j17,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 3 (980904J, Shin Edition, 2009-01-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sfz3j18,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "0xZERO3", "Street Fighter Zero 3 (980629J, Training Edition v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sfz3j19,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "0xZERO3", "Street Fighter Zero 3 (980629J, Training Edition v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sfz3rj,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Street Fighter Zero 3 (980904J, Japanese Restoration, 2026-10-21)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sfz3mix07,  sfa3,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter Zero 3 (Mix 0.07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sfz3mix07a, sfa3,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter Zero 3 (Mix 0.07a)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sfz3mix07b, sfa3,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter Zero 3 (Mix 0.07b)", MACHINE_SUPPORTS_SAVE )
