@@ -660,7 +660,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	{
 		for (device_video_output_interface &screendev : video_output_interface_enumerator(config.root_device()))
 		{
-			if (strcmp(screendev.device().tag(), config.root_device().tag()))
+			if (0 != strcmp(screendev.device().tag(), config.root_device().tag()))
 			{
 				if (screendev.is_vector())
 				{
@@ -769,7 +769,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 		buffer.append("\nPARENT:\n").append(drv->type.fullname()).append("\n\nCLONES:\n");
 
 		for (int i = 0; i < driver_list::total(); i++)
-			if (!strcmp (drv->name, driver_list::driver(i).parent))
+			if (0 == strcmp (drv->name, driver_list::driver(i).parent))
 				buffer.append(driver_list::driver(i).type.fullname()).append("\n");
 	}
 
