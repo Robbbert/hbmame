@@ -3338,15 +3338,15 @@ ROM_START( outrunn )
 ROM_END
 
 
-// 542: Cosmo Gang the video (beta-0.1.2) by Bendk97
+// 542: Cosmo Gang the video (beta-0.2.0) by Bendk97
 ROM_START( cosmogngn )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(20e060c5) SHA1(8384243183c916a75bd8d4bd844a82b793a1cb7e) )
+	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(2e1e7a7d) SHA1(d4930901bc194837ae0ed5fa04b070be30d9d53a) )
 	ROM_LOAD16_WORD_SWAP( "542.p2", 0x100000, 0x200000, CRC(993317a4) SHA1(db275d90718335d32f5fcdc8676ac5dda1f7dc88) )
 
 	NEO_SFIX_128K( "542.s1", CRC(03f56b5b) SHA1(387931fe9a2c9830698cfe3e6338d8adbdb861be) )
 
-	NEO_BIOS_AUDIO_128K( "542.m1", CRC(19da0d10) SHA1(18a841a6e0e718a197ae02a92f298db1f790e836) )
+	NEO_BIOS_AUDIO_128K( "542.m1", CRC(c3e9a425) SHA1(0ec59b6f0451d297db6685feffef34819654b17e) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "542.v1",   0x000000, 0x800000, CRC(c01e3384) SHA1(90b602615fedca540f203ba87a250b51996ec6c6) )
@@ -4603,7 +4603,7 @@ GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, beta-0.1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, beta-0.2.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
