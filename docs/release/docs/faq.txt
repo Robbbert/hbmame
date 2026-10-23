@@ -51,7 +51,7 @@ A.  Start Vector Breakout, then hold down 1 and press F3.
 12. I can't get all the dots in PAC RABBIT.
 A.  Rabbits can jump. Press 1. And yes, it is possible to jump over a monster. Watch out for the mad fox.
 
-13. Shock Troopers 2nd squad Wesker hack (shocktr2w, shocktr2s01) doesn't work properly.
+13. Shock Troopers 2nd squad Wesker hack (shocktr2s01, shocktr2s03) doesn't work properly.
 A.  It needs to be set to Console-AES mode. When you see the Unibios screen, press the keys
     Ctrl, Alt and Space together. Now you are at a menu. Press Ctrl. Press Ctrl to select Europe,
     then Alt to select Console-AES. Then press F3 to restart. These settings will be remembered
@@ -91,5 +91,5 @@ A.  When the title screen shows, hold down F1 and 1 together.
 A.  Send me a PM. Remember, games cannot be included without roms to test with.
 
 99. My question isn't here!
-A.  Ask it on the forum at mameworld.info, or at 1emulation.com
+A.  Ask it on the forum at www.1emulation.com
 
