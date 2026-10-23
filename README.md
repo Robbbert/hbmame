@@ -1,3 +1,23 @@
+# HBMAME for macOS
+
+Unofficial native macOS builds of [HBMAME](https://github.com/Robbbert/hbmame), signed with a Developer ID and notarized by Apple.
+
+- **Download:** [latest release](https://github.com/estefan3112/hbmame-macos/releases/latest)
+- **Requirements:** Apple Silicon Mac, macOS 13 or later, SDL3 in `/Library/Frameworks` (see the release notes)
+- **Source:** unmodified upstream release tags; this fork only adds macOS build and packaging
+
+### Compile on macOS
+
+MACOSX_DEPLOYMENT_TARGET=13.0 make REGENIE=1 USE_LIBSDL=0 -j$(sysctl -n hw.ncpu) TARGET=hbmame
+
+`USE_LIBSDL=0` is required if Homebrew's SDL3 is installed; otherwise the build silently links against it.
+
+Mac-specific issues belong in this repository, not upstream.
+
+---
+
+*Original HBMAME README:*
+
 What is HBMAME?
 ===============
 
