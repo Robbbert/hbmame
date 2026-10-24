@@ -89,9 +89,12 @@ jobs:
         echo "Using SDL $TAG"
         gh release download "$TAG" --repo libsdl-org/SDL --pattern 'SDL3-*.dmg' --dir "$RUNNER_TEMP"
         hdiutil attach "$RUNNER_TEMP"/SDL3-*.dmg -nobrowse -readonly -mountpoint "$RUNNER_TEMP/sdl3"
-        # the DMG ships an .xcframework; the linker needs the plain macOS slice
+        # the DMG ships an .xcframework; install it as on the local Mac, plus the
+        # plain macOS slice as SDL3.framework (what the linker and users need)
+        XCF=$(find "$RUNNER_TEMP/sdl3" -maxdepth 2 -type d -name SDL3.xcframework | head -1)
         FW=$(find "$RUNNER_TEMP/sdl3" -maxdepth 4 -type d -path '*macos*' -name SDL3.framework | head -1)
         [ -z "$FW" ] && { echo "::error::macOS SDL3.framework not found in DMG"; exit 1; }
+        [ -n "$XCF" ] && sudo ditto "$XCF" /Library/Frameworks/SDL3.xcframework
         sudo ditto "$FW" /Library/Frameworks/SDL3.framework
         hdiutil detach "$RUNNER_TEMP/sdl3"
         vtool -show-build /Library/Frameworks/SDL3.framework/SDL3 | grep minos
@@ -100,6 +103,16 @@ jobs:
       # USE_LIBSDL=0 is required: without it the build silently switches to
       # Homebrew's SDL3 whenever it can find one (the runner has Homebrew).
       run: make REGENIE=1 USE_LIBSDL=0 -j$(sysctl -n hw.ncpu) TARGET=hbmame
+
+    - name: Add /Library/Frameworks as rpath
+      # The build only stores the .xcframework slice path as rpath; users who
+      # install SDL3.framework as MAME's instructions say need /Library/Frameworks.
+      run: |
+        if ! otool -l hbmame | grep -A2 LC_RPATH | grep -q 'path /Library/Frameworks '; then
+          install_name_tool -add_rpath /Library/Frameworks hbmame
+          codesign --force --sign - hbmame   # restore ad-hoc signature for -validate
+        fi
+        otool -l hbmame | grep -A2 LC_RPATH
 
     - name: Check linking and minimum macOS version
       run: |
@@ -122,9 +135,7 @@ jobs:
       run: |
         mkdir -p dist/hbmame
         cp hbmame dist/hbmame/
-        for d in plugins language bgfx hash artwork; do
-          [ -d "$d" ] && cp -R "$d" dist/hbmame/
-        done
+        rsync -a --exclude='*.po' plugins language bgfx hash artwork dist/hbmame/
         cp COPYING dist/hbmame/ 2>/dev/null || true
 
     - name: Import signing certificate
