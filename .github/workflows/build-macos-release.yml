@@ -1,0 +1,223 @@
+# Builds standalone HBMAME for macOS (Apple Silicon), linked against
+# SDL3.framework in /Library/Frameworks (same convention as official MAME),
+# signs it with the Developer ID, notarizes it and optionally publishes a release.
+#
+# Runs ONLY when started by hand: Actions tab -> "macOS release build" -> Run workflow.
+# Upstream commits never trigger it.
+
+name: macOS release build
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Upstream tag, branch or commit to build (e.g. master or tag2893)'
+        required: true
+        default: 'master'
+      repository:
+        description: 'Source repository (leave as is for upstream HBMAME)'
+        required: true
+        default: 'Robbbert/hbmame'
+      release_tag:
+        description: 'Release tag/version for the zip name and release, e.g. 0.289.4 (empty = commit hash)'
+        required: false
+        default: ''
+      publish:
+        description: 'Publish as a GitHub release (needs release_tag and signing secrets)'
+        type: boolean
+        default: false
+      prerelease:
+        description: 'Mark the release as pre-release'
+        type: boolean
+        default: true
+      sdl_version:
+        description: 'SDL3 version, e.g. 3.2.24 (empty = newest SDL 3 release)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write   # needed only for creating the release
+
+env:
+  MACOSX_DEPLOYMENT_TARGET: '13.0'
+  CAN_SIGN: ${{ secrets.MACOS_CERTIFICATE != '' }}
+
+jobs:
+  build:
+    runs-on: macos-15          # Apple Silicon runner
+    timeout-minutes: 340
+    steps:
+    - name: Check inputs
+      run: |
+        if [ "${{ inputs.publish }}" = "true" ]; then
+          if [ -z "${{ inputs.release_tag }}" ]; then
+            echo "::error::Publishing needs a release_tag."; exit 1
+          fi
+          if [ "$CAN_SIGN" != "true" ]; then
+            echo "::error::Publishing needs the signing secrets (MACOS_CERTIFICATE etc.)."; exit 1
+          fi
+        fi
+
+    - name: Check out HBMAME source
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
+        fetch-depth: 1
+
+    - name: Work out names
+      run: |
+        SRC_SHA=$(git rev-parse HEAD)
+        LABEL="${{ inputs.release_tag }}"
+        [ -z "$LABEL" ] && LABEL="${SRC_SHA:0:9}"
+        echo "SRC_SHA=$SRC_SHA" >> "$GITHUB_ENV"
+        echo "LABEL=$LABEL" >> "$GITHUB_ENV"
+        echo "ZIP=hbmame-$LABEL-macos-arm64.zip" >> "$GITHUB_ENV"
+        echo "Building ${{ inputs.repository }} @ ${{ inputs.ref }} ($SRC_SHA)"
+
+    - name: Install SDL3.framework into /Library/Frameworks
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        if [ -n "${{ inputs.sdl_version }}" ]; then
+          TAG="release-${{ inputs.sdl_version }}"
+        else
+          # newest non-prerelease SDL 3 release (SDL 2 releases are skipped)
+          TAG=$(gh api 'repos/libsdl-org/SDL/releases?per_page=40' \
+                -q '[.[] | select(.tag_name | startswith("release-3.")) | select(.prerelease | not)][0].tag_name')
+        fi
+        echo "Using SDL $TAG"
+        gh release download "$TAG" --repo libsdl-org/SDL --pattern 'SDL3-*.dmg' --dir "$RUNNER_TEMP"
+        hdiutil attach "$RUNNER_TEMP"/SDL3-*.dmg -nobrowse -readonly -mountpoint "$RUNNER_TEMP/sdl3"
+        # the DMG ships an .xcframework; the linker needs the plain macOS slice
+        FW=$(find "$RUNNER_TEMP/sdl3" -maxdepth 4 -type d -path '*macos*' -name SDL3.framework | head -1)
+        [ -z "$FW" ] && { echo "::error::macOS SDL3.framework not found in DMG"; exit 1; }
+        sudo ditto "$FW" /Library/Frameworks/SDL3.framework
+        hdiutil detach "$RUNNER_TEMP/sdl3"
+        vtool -show-build /Library/Frameworks/SDL3.framework/SDL3 | grep minos
+
+    - name: Build HBMAME
+      # USE_LIBSDL=0 is required: without it the build silently switches to
+      # Homebrew's SDL3 whenever it can find one (the runner has Homebrew).
+      run: make REGENIE=1 USE_LIBSDL=0 -j$(sysctl -n hw.ncpu) TARGET=hbmame
+
+    - name: Check linking and minimum macOS version
+      run: |
+        otool -L hbmame | grep -i sdl
+        if otool -L hbmame | grep -q /opt/homebrew; then
+          echo "::error::hbmame is linked against Homebrew libraries"; exit 1
+        fi
+        vtool -show-build hbmame | grep minos
+
+    - name: Validate drivers
+      run: ./hbmame -validate
+
+    - name: Compile UI translations
+      run: |
+        for x in language/*/*.po; do
+          python3 scripts/build/msgfmt.py --output-file "$(dirname "$x")/$(basename "$x" .po).mo" "$x"
+        done
+
+    - name: Package
+      run: |
+        mkdir -p dist/hbmame
+        cp hbmame dist/hbmame/
+        for d in plugins language bgfx hash artwork; do
+          [ -d "$d" ] && cp -R "$d" dist/hbmame/
+        done
+        cp COPYING dist/hbmame/ 2>/dev/null || true
+
+    - name: Import signing certificate
+      if: env.CAN_SIGN == 'true'
+      env:
+        MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+        MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+      run: |
+        KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
+        KEYCHAIN_PW=$(openssl rand -base64 24)
+        echo "$MACOS_CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+        security create-keychain -p "$KEYCHAIN_PW" "$KEYCHAIN"
+        security set-keychain-settings -lut 21600 "$KEYCHAIN"
+        security unlock-keychain -p "$KEYCHAIN_PW" "$KEYCHAIN"
+        security import "$RUNNER_TEMP/cert.p12" -P "$MACOS_CERTIFICATE_PWD" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PW" "$KEYCHAIN" > /dev/null
+        security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+        rm "$RUNNER_TEMP/cert.p12"
+        IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN" | grep 'Developer ID Application' | head -1 | awk -F'"' '{print $2}')
+        [ -z "$IDENTITY" ] && { echo "::error::No Developer ID Application identity in certificate"; exit 1; }
+        echo "IDENTITY=$IDENTITY" >> "$GITHUB_ENV"
+
+    - name: Sign binary
+      if: env.CAN_SIGN == 'true'
+      run: |
+        # disable-library-validation: lets the hardened binary load SDL3.framework,
+        #   which is signed by the SDL developers, not by your team
+        # allow-jit / allow-unsigned-executable-memory: MAME's dynamic recompilers
+        cat > "$RUNNER_TEMP/hbmame.entitlements" <<'EOF'
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+          <key>com.apple.security.cs.disable-library-validation</key><true/>
+          <key>com.apple.security.cs.allow-jit</key><true/>
+          <key>com.apple.security.cs.allow-unsigned-executable-memory</key><true/>
+        </dict>
+        </plist>
+        EOF
+        codesign --force --timestamp --options runtime \
+          --entitlements "$RUNNER_TEMP/hbmame.entitlements" \
+          --sign "$IDENTITY" dist/hbmame/hbmame
+        codesign --verify --strict --verbose=2 dist/hbmame/hbmame
+        codesign -d --entitlements - dist/hbmame/hbmame
+
+    - name: Create zip
+      run: ditto -c -k --keepParent dist/hbmame "$ZIP"
+
+    - name: Notarize
+      if: env.CAN_SIGN == 'true'
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      run: |
+        # A bare command-line binary can't be stapled; Gatekeeper checks the
+        # notarization online on first launch. The zip itself stays unchanged.
+        OUT=$(xcrun notarytool submit "$ZIP" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" \
+              --team-id "$APPLE_TEAM_ID" --wait --timeout 1h --output-format json)
+        echo "$OUT"
+        ID=$(echo "$OUT" | python3 -c 'import sys,json; print(json.load(sys.stdin)["id"])')
+        STATUS=$(echo "$OUT" | python3 -c 'import sys,json; print(json.load(sys.stdin)["status"])')
+        if [ "$STATUS" != "Accepted" ]; then
+          xcrun notarytool log "$ID" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID"
+          echo "::error::Notarization status: $STATUS"; exit 1
+        fi
+
+    - name: Remove signing keychain
+      if: always() && env.CAN_SIGN == 'true'
+      run: security delete-keychain "$RUNNER_TEMP/signing.keychain-db" || true
+
+    - name: Upload build
+      uses: actions/upload-artifact@v4
+      with:
+        name: hbmame-${{ env.LABEL }}-macos-arm64
+        path: ${{ env.ZIP }}
+        if-no-files-found: error
+
+    - name: Publish GitHub release
+      if: inputs.publish
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        PRE=""
+        [ "${{ inputs.prerelease }}" = "true" ] && PRE="--prerelease"
+        cat > "$RUNNER_TEMP/notes.md" <<EOF
+        HBMAME $LABEL for macOS on Apple Silicon, signed and notarized.
+
+        Built from ${{ inputs.repository }} @ \`${{ inputs.ref }}\` (commit $SRC_SHA).
+        Requires macOS 13 or newer and **SDL3.framework in /Library/Frameworks**
+        (same as the official MAME macOS builds).
+        EOF
+        gh release create "${{ inputs.release_tag }}" "$ZIP" \
+          --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+          --title "HBMAME ${{ inputs.release_tag }} (macOS arm64)" \
+          --notes-file "$RUNNER_TEMP/notes.md" $PRE
