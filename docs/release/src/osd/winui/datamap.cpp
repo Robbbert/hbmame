@@ -367,7 +367,7 @@ static void broadcast_changes(datamap *map, HWND dialog, windows_options *opts, 
 		// search for an entry with the same option_name, but is not the exact
 		// same entry
 		that_option_name = map->entries[i].option_name;
-		if (map->entries[i].option_name && (&map->entries[i] != entry) && !strcmp(that_option_name, option_name))
+		if (map->entries[i].option_name && (&map->entries[i] != entry) && (0 == strcmp(that_option_name, option_name)))
 		{
 			// we've found a control sharing the same option; populate it
 			other_control = GetDlgItem(dialog, map->entries[i].dlgitem);

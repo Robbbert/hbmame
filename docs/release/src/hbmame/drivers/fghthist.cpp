@@ -5,7 +5,6 @@
 /*****************
  Fighter's History
 ********************/
-
 ROM_START( fghthist01 )
 	ROM_REGION(0x100000, "maincpu", 0 )
 	ROM_LOAD32_WORD( "lc00-1_s01.1f", 0x000000, 0x80000, CRC(aeb6551b) SHA1(7aec2a9cc10df80690e66cbdaf1d4b71cfd28cbd) )
@@ -40,7 +39,48 @@ ROM_START( fghthist01 )
 	ROM_LOAD( "ve-01a.4d", 0x0200, 0x0117, CRC(109613c8) SHA1(5991e010c1bc2a827c8ee2c85a9b40e00a3167b3) )
 ROM_END
 
+/*****************
+ Night Slashers
+********************/
+ROM_START( nslasheru01 )
+	ROM_REGION(0x100000, "maincpu", 0 )
+	ROM_LOAD32_WORD( "s01.00.f1", 0x000000, 0x80000, CRC(f3e2646e) SHA1(b90e01d3ef70cd22acb730b66d6bc1c413f73f4e) )
+	ROM_LOAD32_WORD( "s01.01.f2", 0x000002, 0x80000, CRC(29804ee6) SHA1(95edfe61372f69aacc0b45a85e3c1754f7780d4a) )
+
+	ROM_REGION(0x10000, "audiocpu", 0 )
+	ROM_LOAD( "02.l18",  0x00000,  0x10000, CRC(5e63bd91) SHA1(a6ac3c8c50f44cf2e6cf029aef1c974d1fc16ed5) )
+
+	ROM_REGION( 0x200000, "tiles1", 0 )
+	ROM_LOAD( "mbh-00.8c",  0x000000,  0x200000,  CRC(a877f8a3) SHA1(79253525f360a73161894f31e211e4d6b38d307a) )
+
+	ROM_REGION( 0x200000, "tiles2", 0 )
+	ROM_LOAD( "mbh-01.9c",  0x000000,  0x200000,  CRC(1853dafc) SHA1(b1183c0db301cbed9f079c782202dbfc553b198e) )
+
+	ROM_REGION( 0x640000, "sprites1", 0 )
+	ROM_LOAD40_WORD_SWAP( "mbh-02.14c",  0x000003,  0x200000, CRC(b2f158a1) SHA1(4f8c0b324813db198fe1dad7fff4185b828b94de) )
+	ROM_LOAD40_WORD_SWAP( "mbh-04.16c",  0x000001,  0x200000, CRC(eecfe06d) SHA1(2df817fe5e2ea31207b217bb03dc58979c05d0d2) )
+	ROM_LOAD40_BYTE(      "mbh-06.18c",  0x000000,  0x100000, CRC(038c2127) SHA1(5bdb215305f1a419fde27a83b623a38b9328e560) )
+	ROM_LOAD40_WORD_SWAP( "mbh-03.15c",  0x500003,  0x080000, CRC(787787e3) SHA1(531444e3f28aa9a7539a5a76ca94a9d6b97274c5) )
+	ROM_LOAD40_WORD_SWAP( "mbh-05.17c",  0x500001,  0x080000, CRC(1d2b7c17) SHA1(ae0b8e0448a1a8180fb424fb0bc8a4302f8ff602) )
+	ROM_LOAD40_BYTE(      "mbh-07.19c",  0x500000,  0x040000, CRC(bbd22323) SHA1(6ab665b2e6d04cdadc48c52e15098e978b61fe10) )
+
+	ROM_REGION( 0x100000, "sprites2", 0 )
+	ROM_LOAD( "mbh-08.16e",  0x000000,  0x80000,  CRC(cdd7f8cb) SHA1(910bbe8783c0ba722e9d6399b332d658fa059fdb) )
+	ROM_LOAD( "mbh-09.18e",  0x080000,  0x80000,  CRC(33fa2121) SHA1(eb0e99d29b1ad9995df28e5b7cfc89d53efb53c3) )
+
+	ROM_REGION(0x80000, "oki1", 0 )
+	ROM_LOAD( "mbh-10.14l", 0x000000,  0x80000,  CRC(c4d6b116) SHA1(c5685bce6a6c6a74ca600ebf766ba1007f0dc666) )
+
+	ROM_REGION(0x80000, "oki2", 0 )
+	ROM_LOAD( "mbh-11.16l", 0x000000,  0x80000,  CRC(0ec40b6b) SHA1(9fef44149608ae2a00f6a75a6f77f2efcab6e78e) )
+
+	ROM_REGION(0x200, "prom", 0 )
+	ROM_LOAD( "ln-00.j7", 0x000000,  0x200, CRC(5e83eaf3) SHA1(95f5eb8e56dff6c2dce7c39a6dd458bfc38fe1cf) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Fighter's History
 GAME( 1993, fghthist01,     fghthist, fghthist,  fghthist, fghthist_state, init_fghthist,  ROT0, "yumeji[2ch]", "Fighter's History (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+// Night Slashers
+GAME( 2016, nslasheru01,    nslasher, nslasheru, nslasher, nslasher_state, init_nslasher,  ROT0, "dejp1993", "Night Slashers (US, Uncensored Effects, v1.0, 2026-10-05)", MACHINE_SUPPORTS_SAVE )
 

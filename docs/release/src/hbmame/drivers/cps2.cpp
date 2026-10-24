@@ -774,6 +774,11 @@ struct game_keys
 
 void cps2_state::init_cps2crypt()
 {
+	init_cps2crypt(memregion("maincpu")->bytes());
+}
+
+void cps2_state::init_cps2crypt(u32 length)
+{
 	if (m_region_key)
 	{
 		u32 key[2] = { };
@@ -811,7 +816,7 @@ void cps2_state::init_cps2crypt()
 		logerror("cps2 decrypt 0x%08x,0x%08x,0x%08x,0x%08x\n", key[0], key[1], lower, upper);
 
 		// we have a proper key so use it to decrypt
-		cps2_decrypt(machine(), (u16 *)memregion("maincpu")->base(), m_decrypted_opcodes, memregion("maincpu")->bytes(), key, lower / 2, upper / 2);
+		cps2_decrypt(machine(), (u16 *)memregion("maincpu")->base(), m_decrypted_opcodes, length, key, lower / 2, upper / 2);
 	}
 }
 
@@ -1029,8 +1034,13 @@ TIMER_CALLBACK_MEMBER(cps2_state::cps2_update_digital_volume)
 	if (m_cps2digitalvolumelevel > 39) m_cps2digitalvolumelevel = 39;
 	if (m_cps2digitalvolumelevel < 0) m_cps2digitalvolumelevel = 0;
 
-	m_qsound->set_output_gain(0, m_cps2digitalvolumelevel / 39.0);
-	m_qsound->set_output_gain(1, m_cps2digitalvolumelevel / 39.0);
+	cps2_sound_gain(m_cps2digitalvolumelevel / 39.0);
+}
+
+void cps2_state::cps2_sound_gain(double gain)
+{
+	m_qsound->set_output_gain(0, gain);
+	m_qsound->set_output_gain(1, gain);
 }
 
 u16 cps2_state::cps2_qsound_volume_r()
@@ -1218,15 +1228,19 @@ void cps2_state::dead_cps2_map(address_map &map)
 
 void cps2_state::qsound_sub_map(address_map &map)
 {
+	qsound_sub_map_common(map);
+	map(0xd000,0xd002).w("qsound",FUNC(qsound_device::qsound_w));
+	map(0xd007,0xd007).r("qsound",FUNC(qsound_device::qsound_r));
+}
+
+void cps2_state::qsound_sub_map_common(address_map &map)
+{
 	map(0x0000,0x7fff).rom();
 	map(0x8000,0xbfff).bankr("bank1");  /* banked (contains music data) */
 	map(0xc000,0xcfff).ram().share("qsound_ram1");
-	map(0xd000,0xd002).w("qsound",FUNC(qsound_device::qsound_w));
 	map(0xd003,0xd003).w(FUNC(cps2_state::qsound_banksw_w));
-	map(0xd007,0xd007).r("qsound",FUNC(qsound_device::qsound_r));
 	map(0xf000,0xffff).ram().share("qsound_ram2");
 }
-
 
 /*************************************
  *
@@ -12208,5 +12222,6 @@ GAME( 2001, pzloop2jd,  pzloop2,  dead_cps2,     pzloop2,   cps2_state, init_pzl
 GAME( 2004, hsf2d,      hsf2,     dead_cps2,     cps2_2p6b, cps2_state, init_cps2,     ROT0,   "bootleg", "Hyper Street Fighter II: The Anniversary Edition (Asia 040202 Phoenix Edition) (bootleg)",   MACHINE_SUPPORTS_SAVE )
 // HBMAME
 #include "cps2mis.cpp"
+#include "cps2plus.cpp"
 #include "cps2t.cpp"
 

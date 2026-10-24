@@ -2,9 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/namco/xevious.cpp"
 
-/******
- Xevious
-*********/
 ROM_START( battlesh )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "bg1.d9",      0x0000, 0x2000, CRC(b6e4f4f3) SHA1(ceaaa63b50e75dcb05aeb68574336dfe56a8434a) )
@@ -622,6 +619,52 @@ ROM_START( hyxevious01 )
 	ROM_LOAD( "xvi-1.5n",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
+ROM_START( hyxevious02 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "02xvi_1.3p",   0x0000, 0x1000, CRC(6fd89621) SHA1(10eed83a158060d54f1161b5f7efcac7b2e430b4) )
+	ROM_LOAD( "02xvi_2.3m",   0x1000, 0x1000, CRC(fe415f81) SHA1(c472c5fe8e71f97de14db2ca1067fd591c569739) )
+	ROM_LOAD( "02xvi_3.2m",   0x2000, 0x1000, CRC(c5628af4) SHA1(425e84a20d0c5edad61cbb2ac5978738f5c3f694) )
+	ROM_LOAD( "01xvi_4.2l",   0x3000, 0x1000, CRC(ffa45371) SHA1(5f79d54e0620187afd660a3e9dc0586c023bbe7b) )
+
+	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_LOAD( "02xvi_5.3f",   0x0000, 0x1000, CRC(6346838b) SHA1(cc04d536d6704a56e43829abee01ca90e365c310) )
+	ROM_LOAD( "02xvi_6.3j",   0x1000, 0x1000, CRC(d917118d) SHA1(27fe599886ca35083fd63f7fc2377cf1dee0224a) )
+
+	ROM_REGION( 0x10000, "sub2", 0 )
+	ROM_LOAD( "01xvi_7.2c",   0x0000, 0x1000, CRC(13707e32) SHA1(77338ef04a15e738b7cefa5889a89b835c1375fb) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "01xvi_12.3b",  0x0000, 0x1000, CRC(01de9009) SHA1(a1e9e3d42551f29fe19769ca0c61ed8a80b6a206) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "01xvi_13.3c",  0x0000, 0x1000, CRC(2d15b4f6) SHA1(062789a15b101e6b3bec6cbaca43c9d1dfd6d67a) )
+	ROM_LOAD( "01xvi_14.3d",  0x1000, 0x1000, CRC(17b87634) SHA1(4f7afc227fd8537eafbb341bacf60ccedf2a9b48) )
+
+	ROM_REGION( 0xa000, "gfx3", ROMREGION_ERASE00 )
+	ROM_LOAD( "01xvi_15.4m",  0x0000, 0x2000, CRC(a5b59dcf) SHA1(286d2dbef786ac07a5e3ae34d835cb2f22c7fae5) )
+	ROM_LOAD( "xvi_17.4p",    0x2000, 0x2000, CRC(dfb587ce) SHA1(acff2bf5cde85a16cdc98a52cdea11f77fadf25a) )
+	ROM_LOAD( "01xvi_16.4n",  0x4000, 0x1000, CRC(64e83f92) SHA1(233a0258ecf4ff240d60bd576783e94e837526ae) )
+	ROM_LOAD( "01xvi_18.4r",  0x5000, 0x2000, CRC(e5d614e4) SHA1(83ed0c5e0781f9750ce9f8a5d87f59428a23a32a) )
+
+	ROM_REGION( 0x4000, "gfx4", 0 )
+	ROM_LOAD( "01xvi_9.2a",   0x0000, 0x1000, CRC(bdf36d3f) SHA1(fd374f9f59009d7338ce231e2ed20961c130e464) )
+	ROM_LOAD( "01xvi_10.2b",  0x1000, 0x2000, CRC(9802cff9) SHA1(f6c4f9024e6de6171a40acd4dec931484199b100) )
+	ROM_LOAD( "01xvi_11.2c",  0x3000, 0x1000, CRC(a374dece) SHA1(e06481bf27398e28d8f2e27ef87aa316e4821267) )
+
+	ROM_REGION( 0x0b00, "proms", 0 )
+	ROM_LOAD( "xvi-8.6a",     0x0000, 0x0100, CRC(5cc2727f) SHA1(0dc1e63a47a4cb0ba75f6f1e0c15e408bb0ee2a1) )
+	ROM_LOAD( "xvi-9.6d",     0x0100, 0x0100, CRC(5c8796cc) SHA1(63015e3c0874afc6b1ca032f1ffb8f90562c77c8) )
+	ROM_LOAD( "xvi-10.6e",    0x0200, 0x0100, CRC(3cb60975) SHA1(c94d5a5dd4d8a08d6d39c051a4a722581b903f45) )
+	ROM_LOAD( "01xvi-7.4h",   0x0300, 0x0200, CRC(7c19819e) SHA1(37c6842fe75477e3550fc920928c623c071f7681) )
+	ROM_LOAD( "01xvi-6.4f",   0x0500, 0x0200, CRC(a3a0aba5) SHA1(26a5f2a36572a5777517b3a33b8d2cf6106f8d7e) )
+	ROM_LOAD( "xvi-4.3l",     0x0700, 0x0200, CRC(fd8b9d91) SHA1(87ddf0b9d723aabb422d6d416aa9ec6bc246bf34) )
+	ROM_LOAD( "xvi-5.3m",     0x0900, 0x0200, CRC(bf906d82) SHA1(776168a73d3b9f0ce05610acc8a623deae0a572b) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "xvi-2.7n",     0x0000, 0x0100, CRC(550f06bc) SHA1(816a0fafa0b084ac11ae1af70a5186539376fc2a) )
+	ROM_LOAD( "xvi-1.5n",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
+
 
 /*    YEAR  NAME          PARENT   MACHINE   INPUT     CLASS          INIT          MONITOR COMPANY                 FULLNAME FLAGS */
 GAME( 2002, battlesh,     xevious, battles,  xevious,  battles_state, init_xevious, ROT90, "bootleg", "Battles 2002", MACHINE_SUPPORTS_SAVE )
@@ -637,4 +680,5 @@ GAME( 2002, xviousah,     xevious, xevious,  xeviousa, xevious_state, init_xevio
 GAME( 1984, sxevious01,   xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "hack", "Xevious Plus! (Release 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, hyxevious,    xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "Zeroco", "Hyper Xevious (2026-07-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, hyxevious01,  xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "Zeroco", "Hyper Xevious (2026-09-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, hyxevious02,  xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "Zeroco", "Hyper Easy Xevious", MACHINE_SUPPORTS_SAVE )
 

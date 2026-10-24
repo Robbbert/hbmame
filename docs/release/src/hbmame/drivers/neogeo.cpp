@@ -968,7 +968,7 @@ void neogeo_state::neogeo_base(machine_config &config)
 	GENERIC_LATCH_8(config, m_soundlatch2);
 
 	YM2610(config, m_ym, NEOGEO_YM2610_CLOCK);
-	m_ym->irq_handler().set_inputline(m_audiocpu, 0);
+	m_ym->irq_handler().set_inputline(m_audiocpu, 0, HOLD_LINE); // Hack for games that doesn't use IRQ correctly (hangonn)
 	m_ym->add_route(0, "lspeaker", 0.84);
 	m_ym->add_route(0, "rspeaker", 0.84);
 	m_ym->add_route(1, "lspeaker", 0.98);
@@ -2314,13 +2314,27 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
 
 	if (csize)
 	{
+		uint32_t i;
 		f = fopen("555.c1", "wb");
 		if (!f)
 		{
 			printf("Error opening file '555.c1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
-		fwrite(&spr_region[0], 1, csize, f);
+		for (i = 0; i < csize; i+=2)
+			fwrite(&spr_region[i], 1, 1, f);
+		fclose(f);
+
+		f = fopen("555.c2", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.c2'\n");
+			return std::make_pair(image_error::UNSPECIFIED, " ");
+		}
+		for (i = 1; i < csize; i+=2)
+			fwrite(&spr_region[i], 1, 1, f);
+		if (csize & 1)
+			fwrite(&spr_region[i], 1, 1, f); // extra byte to keep both files the same size
 		fclose(f);
 	}
 #endif

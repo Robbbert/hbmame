@@ -5,9 +5,6 @@ The test roms:
 - Test VID-R only works if the cabinet is in Cocktail mode.
 - Test LAU-H is when your ship blows up. On a colour board, the screen will flash red.
 - The SHIFTERS test (when present) only happens on the 2nd round of audio tests.
-
-The multigame roms:
-- The colours and sounds are bad. This might occur on real hardware.
 ***************************************************************************************/
 #include "emu.h"
 #include "cpu/i8085/i8085.h"
@@ -558,7 +555,7 @@ static INPUT_PORTS_START( invaders )
 	PORT_DIPSETTING(    0x01, "4" )
 	PORT_DIPSETTING(    0x02, "5" )
 	PORT_DIPSETTING(    0x03, "6" )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED ) // in the software, this is TILI, but not connected on the Midway PCB. Is this correct?
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED ) // in the software, this is TILT, but not connected on the Midway PCB. Is this correct?
 	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) ) PORT_DIPLOCATION("SW:2")
 	PORT_DIPSETTING(    0x08, "1000" )
 	PORT_DIPSETTING(    0x00, "1500" )
@@ -591,6 +588,16 @@ static INPUT_PORTS_START( invaders )
 	INVADERS_CONTROL_PORT_P2
 INPUT_PORTS_END
 
+INPUT_PORTS_START( tinyvadr )
+	PORT_INCLUDE( invaders )
+
+	PORT_MODIFY("IN2")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_TILT )
+	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Bonus_Life ) ) PORT_DIPLOCATION("SW:2")
+	PORT_DIPSETTING(    0x08, "1000" )
+	PORT_DIPSETTING(    0x00, "500" )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED ) PORT_DIPLOCATION("SW:1")
+INPUT_PORTS_END
 
 void invaders_state::main_map(address_map &map)
 {
@@ -878,6 +885,14 @@ ROM_START( invaders )
 	ROM_LOAD( "invaders.e", 0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
 ROM_END
 
+ROM_START( tinyvadr )
+	ROM_REGION( 0x6000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD( "tinyvadr.h", 0x0000, 0x0800, CRC(bf3121f7) SHA1(dd57aa57f05397d7b610df55847666156886f2c9) )
+	ROM_LOAD( "tinyvadr.g", 0x0800, 0x0800, CRC(ac58c700) SHA1(976a4981eb861614ba1f7a857bb387fc499f5f29) )
+	ROM_LOAD( "tinyvadr.f", 0x1000, 0x0800, CRC(4d5cbcf8) SHA1(ff0eb2e01577c1ea18234dfcc9a3ea69fe32bd75) )
+	ROM_LOAD( "tinyvadr.e", 0x1800, 0x0800, CRC(387e15f9) SHA1(2925b6149370e7cc4bdb651c50f1e8894d5ea0b2) )
+ROM_END
+
 // Dumped by Andy Welburn, 2026-03-12.
 // Says "Space Invaders Part II" on screen - dump didn't come with colour proms, so I added them.
 ROM_START( invdelux )
@@ -973,4 +988,5 @@ GAMEL(2017, sinvtest2,   invaders, invaders,  invaders,  invaders_state, empty_i
 GAMEL(2019, sinvtest3,   invaders, invaders,  invaders,  invaders_state, empty_init,   ROT270, "Marc Deslauriers",      "Space Invaders Test ROM (v1.3, 2019-03-27)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAME (2025, sinvtest4,   invaders, invadpt2,  invadpt2,  invaders_state, empty_init,   ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.1, 2025-07-11)", MACHINE_SUPPORTS_SAVE )
 GAMEL(1978, sinvrdzm,    invaders, invaders,  sinvrdzm,  invaders_state, empty_init,   ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAME (1978, tinyvadr,    invaders, invaders,  tinyvadr,  invaders_state, empty_init,   ROT270, "Zeroco", "Tiny Vaders", MACHINE_SUPPORTS_SAVE )
 

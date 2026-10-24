@@ -78,7 +78,6 @@ project "formats"
 		MAME_DIR .. "src/lib/formats/d88_dsk.h",
 		MAME_DIR .. "src/lib/formats/dfi_dsk.cpp",
 		MAME_DIR .. "src/lib/formats/dfi_dsk.h",
-		MAME_DIR .. "src/lib/formats/fdi_dsk.cpp",
 		MAME_DIR .. "src/lib/formats/rpk.cpp",
 		MAME_DIR .. "src/lib/formats/rpk.h",
 		MAME_DIR .. "src/lib/formats/86f_dsk.cpp",
@@ -622,6 +621,18 @@ if opt_tool(FORMATS, "CGEN_CAS") then
 	files {
 		MAME_DIR.. "src/lib/formats/cgen_cas.cpp",
 		MAME_DIR.. "src/lib/formats/cgen_cas.h",
+	}
+end
+
+--------------------------------------------------
+--
+--@src/lib/formats/clipper_dsk.h,FORMATS["CLIPPER_DSK"] = true
+--------------------------------------------------
+
+if opt_tool(FORMATS, "CLIPPER_DSK") then
+	files {
+		MAME_DIR.. "src/lib/formats/clipper_dsk.cpp",
+		MAME_DIR.. "src/lib/formats/clipper_dsk.h",
 	}
 end
 
