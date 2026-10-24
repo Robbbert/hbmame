@@ -145,6 +145,48 @@ ROM_START( mightybj01 )
 	PALETTE_STANDARD("ppu1:palette")
 ROM_END
 
+ROM_START( smgolf01 )
+	ROM_REGION( 0x8000, "prg", 0 )
+	ROM_LOAD( "mds-gf4-2 f.1d or 6d",  0x0000, 0x2000, CRC(4a723087) SHA1(87dc063d295f55871598a1e1eb4e62ce298b2f0c) )
+	ROM_LOAD( "mds-gf4-2 f.1c.s01",  0x2000, 0x2000, CRC(b8634d7e) SHA1(3095a432d5ebfb864ad0ccf18ae562ad83aab663) )
+	ROM_LOAD( "mds-gf4-2 f.1b or 6b",  0x4000, 0x2000, CRC(6783652f) SHA1(7165ee59d3787cb56eed4791351da07f4bcc68ed) )
+	ROM_LOAD( "mds-gf4-2 f.1a or 6a",  0x6000, 0x2000, CRC(bfc17263) SHA1(9e3b46fe08be893935138247ed3168d19d55312e) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "mds-gf4-2 f.2b or 8b",  0x0000, 0x2000, CRC(2782a3e5) SHA1(4e57aab58fb250da951a9aecd21d6aa79e697bcb) )
+	ROM_LOAD( "mds-gf4-2 f.2a or 8a",  0x2000, 0x2000, CRC(6e93fdef) SHA1(44f46421adabbc40135c681592cb5226b7c9012a) )
+
+	PALETTE_2C04_0002("ppu1:palette")
+ROM_END
+
+ROM_START( ladygolfe01 )
+	ROM_REGION( 0x8000, "prg", 0 )
+	ROM_LOAD( "mds-lg4 e.1d or 6d", 0x0000, 0x2000, CRC(408ea247) SHA1(48cbcf9b87e522b20599bcf2b61df81bfd55db7b) )
+	ROM_LOAD( "mds-lg4 e.1c.s01", 0x2000, 0x2000,  CRC(824a9d05) SHA1(33639da3df62aa462c4e49d16bcb8eff307e9e56) )
+	ROM_LOAD( "mds-lg4 e.1b or 6b", 0x4000, 0x2000, CRC(67f40126) SHA1(891c2bc2b6e1ee1d58baea22714133cae6e38b8d) )
+	ROM_LOAD( "mds-lg4 e.1a or 6a", 0x6000, 0x2000, CRC(44393845) SHA1(5c36dcb115d4233a1e03faa28e95d2662953ca91) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "mds-lg4 e.2b or 8b", 0x0000, 0x2000, CRC(95618947) SHA1(e8f09bffa3fa1a1cac8fa25df9fba962951c1fb3) )
+	ROM_LOAD( "mds-lg4 e.2a or 8a", 0x2000, 0x2000, CRC(d07407b1) SHA1(b998b46fe83e76fac3d7b71495d1da8580a731f9) )
+
+	PALETTE_2C04_0002("ppu1:palette")
+ROM_END
+
+ROM_START( ladygolf01 )
+	ROM_REGION( 0x8000, "prg", 0 )
+	ROM_LOAD( "lg-1d",  0x0000, 0x2000, CRC(8b2ab436) SHA1(145a75f30f1fab5b1babf01ada9ed23f59c2c18d) )
+	ROM_LOAD( "lg-1c.s01",  0x2000, 0x2000, CRC(4acd65c4) SHA1(02c6e1a4491e25f1e7daa962906bc76fc076619c) )
+	ROM_LOAD( "lg-1b",  0x4000, 0x2000, CRC(dcdd8220) SHA1(563028f8db9ad221d8ac8f8096b4587b822eedb7) )
+	ROM_LOAD( "lg-1a",  0x6000, 0x2000, CRC(26a3cb3b) SHA1(00131637eb76154c4f04eb54707e0e7b453d4580) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "mds-lg4 e.2b or 8b", 0x0000, 0x2000, CRC(95618947) SHA1(e8f09bffa3fa1a1cac8fa25df9fba962951c1fb3) )
+	ROM_LOAD( "mds-lg4 e.2a or 8a", 0x2000, 0x2000, CRC(d07407b1) SHA1(b998b46fe83e76fac3d7b71495d1da8580a731f9) )
+
+	PALETTE_2C04_0002("ppu1:palette")
+ROM_END
+
 
 GAME( 2002, mrio2002,    suprmrio,     vsnes,    suprmrio,  vs_uni_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
 GAME( 2025, mightybj01,  nvs_mightybj, mightybj, mightybj,  vs_uni_state, init_vsnormal, ROT0, "Vag", "Mighty Bomb Jack (Greek)", 0 )
@@ -153,4 +195,7 @@ GAME( 2002, drmario01,   drmario,      vsnes,    drmario,   vs_uni_state, init_d
 GAME( 2019, drluigi,     drmario,      vsnes,    drmario,   vs_uni_state, init_drmario,  ROT0, "Szemigi", "Dr. Luigi", 0 )
 GAME( 2020, frombelow,   suprmrio,     vsnes,    frombelow, vs_uni_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
 GAME( 2020, vs_urban,    0,            vsnes,    vs_urban,  vs_uni_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
+GAME( 1984, smgolf01,    0,            vsnes,    golf,      vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Men Version, set GF4-2 F, Easier CPU, v1.0, 2026-09-26)", 0 )
+GAME( 1984, ladygolfe01, smgolf01,     vsnes,    golf4s,    vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Ladies Version, set LG4 E, Easier CPU, v1.0, 2026-09-26)", 0 )
+GAME( 1984, ladygolf01,  smgolf01,     vsnes,    golf,      vs_uni_state, init_vsnormal, ROT0, "rhodesmichael03", "Vs. Stroke & Match Golf (Ladies Version, set LG4 ?, Easier CPU, v1.0, 2026-09-26)", 0 )
 

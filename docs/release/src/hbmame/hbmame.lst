@@ -34,6 +34,7 @@ sinvtest1
 sinvtest2
 sinvtest3
 sinvtest4
+tinyvadr
 
 @source:vsystem/pspikes.cpp
 karatblz                               //parent
@@ -1068,6 +1069,7 @@ sf2s13
 sf2s14
 sf2s15
 sf2s16
+sf2s17
 sf2tlona01
 sf2tlona02
 sf2tlona03
@@ -1386,6 +1388,7 @@ mpang
 msh
 mshvsf
 mvsc
+nwarr
 progear
 sfa
 sfa2
@@ -1396,6 +1399,7 @@ spf2t
 ssf2
 ssf2t
 vhunt2
+vsav
 vsav2
 xmcota
 xmvsf
@@ -1432,6 +1436,10 @@ ddsom10
 ddtod01
 ddtod02
 dstlk01
+vamprest
+ffex2j
+ffex2r
+ffex2u
 ffightaec2
 gigawing01
 hsf2s02
@@ -1473,6 +1481,7 @@ mvsc03
 mvsc04
 mvsc05
 mvsc06
+nwarrru
 pfght01
 pfght02
 pfght03
@@ -1487,6 +1496,7 @@ sfa03
 sfa04
 sfa05
 sfa06
+sfaru
 sfz01
 sfz02
 sfz03
@@ -1495,6 +1505,8 @@ sfz05
 sfz06
 sfz07
 sfz08
+sfzrj
+sfzra
 sfa2s01
 sfa2s02
 sfa2s03
@@ -1506,9 +1518,12 @@ sfa2s08
 sfa2s09
 sfa2s10
 sfa2s11
+sfa2ru
 sfz2s01
 sfz2s02
 sfz2s03
+sfz2rj
+sfz2ra
 sfz2al01
 sfz2al02
 sfz2al03
@@ -1528,11 +1543,14 @@ sfz2al16
 sfz2al17
 sfz2al18
 sfz2al19
+sfz2al20
 sfa2d
 sfa2g
 sfz2d
 sfz2alr
 sfz2da
+sfa2ex
+sfz2ex
 sfa3s01
 sfa3s02
 sfa3s03
@@ -1552,6 +1570,7 @@ sfa3s16
 sfa3s17
 sfa3s18
 sfa3s19
+sfa3ru
 sfz3j01
 sfz3j02
 sfz3j03
@@ -1571,6 +1590,7 @@ sfz3j16
 sfz3j17
 sfz3j18
 sfz3j19
+sfz3rj
 sfz3mix07
 sfz3mix07a
 sfz3mix07b
@@ -1598,6 +1618,8 @@ ssf2t10
 ssf2tgmc
 ssf2tuc
 ssf2xuc
+usf2t8
+usf2j8
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1615,10 +1637,17 @@ suicide
 suicide2
 vampj01
 vhunt2s01
+vhunt2s02
+vhunt2s03
 vsav2s01
 vsav2s02
 vsav2s03
 vsav2s04
+vsav2s05
+vsav2s06
+vsavru
+vsavs01
+vsavs02
 xmcota01
 xmcota02
 xmcota03
@@ -1751,6 +1780,8 @@ robocopb01
 @source:deco32.cpp
 fghthist                               //parent
 fghthist01
+nslasher                               //parent
+nslasheru01
 
 @source:decocass.cpp
 decocass                               //parent
@@ -1865,9 +1896,6 @@ dotrikun                               //parent
 dotrikun2
 dotriman
 mineswp
-
-@source:dt7.cpp
-dt7                                    // press 9 to coin up, sound breaks at end of game
 
 @source:dynax.cpp
 mjelctrn                               //parent
@@ -4466,6 +4494,10 @@ stapper1	/* Tapper Simpsons Hack ver .81 */
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
 
+@source:megaplay.cpp
+megaplay                               // BIOS, parent
+mp_addams                              // HB
+
 @source:megasys1.cpp
 soldam
 soldam01
@@ -4551,6 +4583,7 @@ mk2s03
 mk2s04
 mk2s05
 mk2s06
+mk2s08                                 // Mortal Kombat II rev 4.0 (JUNKWAX), = FBNeo mk2rev4
 nbajamte                               //parent
 nbajam01
 nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
@@ -6250,14 +6283,17 @@ zupapa			// 070
 @source:neogeocd.cpp
 neocdz_bios
 cd_alice
+//cd_altbeast      // buggy
 cd_chelnov
 cd_diff
 cd_eira
+cd_eswat
 cd_ffury
 cd_fukkireta
 cd_gaxe
 cd_gaxearr
 cd_natademo
+cd_neotris2
 cd_ngdark
 cd_noneon
 cd_ntris3d
@@ -6266,6 +6302,8 @@ cd_pong
 cd_pow
 cd_pow2
 cd_shinobiarr
+cd_sdodgeb
+cd_sf2ce
 cd_speedball
 cd_ssrpg
 cd_subspecies
@@ -6277,11 +6315,14 @@ cd_visualnovel
 240ptest
 240ptest1
 68kng
+7wonders
 abyssal
 abyssal1
 adkw                                   // port
 akiradmo
+altbeastn
 amazonn
+arena2
 badapple
 badapplea
 badappleb
@@ -6292,6 +6333,7 @@ beast
 blueandr
 bonusstage                             // HB
 bpanicdx                               // HB
+bubbleopen
 cabaln                                 // port
 cabaln01                               // port
 cabaln02                               // port
@@ -6299,7 +6341,6 @@ cakefght                               // port
 cakefght1                              // port
 caravan                                // HB
 cbarrel                                // HB
-chelnovn
 cndi		/* Chip n Dale Intro */
 cndia
 cnbe
@@ -6307,12 +6348,12 @@ cnbe2018
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
+cosmogngn
 csw2
 csw2s01
 cyborg
 cyborg1
 ddsprdmo
-ddsprdmo1
 didemo
 doomgeo
 doubled1
@@ -6337,14 +6378,13 @@ gladmortcm
 gladmortd
 gladmortd2
 goldaxen
-//greenspace
 grime
 gxg
 halozero
+hangonn
 horekidb3
 hypernoid
 hypernoid01
-//igla
 inthuntn
 iocero
 jumpnrund
@@ -6363,6 +6403,9 @@ lhpb01
 looptris
 looptrsp
 ltorb
+mahjongd
+maiya
+maiyaluna
 midnight
 ndo_a_td
 neo2048
@@ -6370,15 +6413,10 @@ neo2500
 neo3d
 neocstlv
 neodemo
-//neodemo02
-neofight
-neofightb
-neofighto
 neogal1
 neogal1d
 neogal1t
 neogal2
-//neohw
 neonopon
 //neonopon_d1 // unplayable demo
 //neonopon_d2 // unplayable demo
@@ -6403,42 +6441,40 @@ ngmontst3
 ngtd2
 ngtetris
 ngym2610
+nosignal
 nsmb
-nsmbd			// unplayable demo
+nsmbd                 // unplayable demo
 nyan
 nyana
-pcmademo	// 2015 freem
-pcmbdemo	// 2015 freem
-poknight	/* 2003 (c) 200? JMK */
+outrunn
+pcmademo
+pcmbdemo
+perfectf
+poknight              //Jeff M Kurtz
 poknightcd
 poknightfr
-pown
-//raroggame
-rci			/* Robocop intro */
+rci
 rickdx
+robocopn
 samantha
 santabll
 sbpf
+sdkdemo
 seafight
 sgz
-shaman16
-//shaman17
-//shaman18
-//shaman19
-shaman20
-//shaman21
-//shaman22
-//shaman23
-//shaman24
+shadowlf
 shinobin
 shinobin1
 shinobint
+skylance
 smbn
 smi
 snddemo
+snowbrosn
+sotbn
 spkick
 spkick2
-spriteex
+ssodan
 syscheck
 teot_1
 teot_2
@@ -6458,13 +6494,13 @@ tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 vaporous
-//venuswars
 violentv
-//vlad2000
+warriorman
+vssmbn
+wolf3d
 wrldracr
 wrldracr01
 wrldracr02
-//ww2demo
 xeno
 xeviousn
 xeviousn01
@@ -6638,6 +6674,7 @@ preisle2s02
 preisle2s03
 pulstar01
 pulstar02
+pulstar03
 puzzldpr01
 puzzledp01
 ragnagrd01
@@ -8495,6 +8532,7 @@ baby3		/* T-Bone hack */
 baby4		/* T-Bone hack */
 brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
 bucaneerx	/* PacMAME Hacks */
+bupacman
 caterpil
 chtpac
 chtpac3d
@@ -8725,6 +8763,7 @@ outrunen
 outrunen0
 outrunen1
 outrunen2
+outrungb
 outrunm
 outrunt1
 toutrun                                //parent
@@ -8875,6 +8914,10 @@ sonson01
 spcenctr                               //parent
 senctest
 
+//@source:srumbler.cpp
+//srumbler                               //parent
+//srumbler01         not working
+
 @source:ssv.cpp
 survarts                               //parent
 survarts01
@@ -8975,6 +9018,7 @@ twinqix                                //parent
 twinqix01
 
 @source:taito_l.cpp
+jetpac
 sokoban                                // HB Sokoban LE by cmonkey
 speccies                               // HB Speccies 2 by Sokurah
 sqij                                   // HB SQIJ by Sokurah
@@ -9141,6 +9185,9 @@ frombelow
 vs_urban
 nvs_mightybj                           //parent
 mightybj01
+smgolf01
+ladygolf01
+ladygolfe01
 
 @source:warriorb.cpp
 sagaiav2
@@ -9192,6 +9239,7 @@ xeviblk		/* Xevious Black */
 sxevious01
 hyxevious
 hyxevious01
+hyxevious02
 
 @source:yiear.cpp
 yiear                                  //parent

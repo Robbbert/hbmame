@@ -5,6 +5,15 @@
 /*************
   Homebrew
 **************/
+ROM_START( jetpac )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "jetpac.ic10",      0x00000, 0xf000, CRC(f06281c4) SHA1(6779514eee8e212c7bd46ff805784a3ae0beb4ac) )
+
+	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
+	ROM_LOAD16_BYTE( "jetpac.ic9", 0x00000, 0x10000, CRC(83e284a4) SHA1(fe03d76546e4f01ae1ac001ffcde87337dc346b1) )
+	ROM_LOAD16_BYTE( "jetpac.ic8", 0x00001, 0x10000, CRC(d714c279) SHA1(bb474df5cc4d038981e63f3bea6aed1f92185c15) )
+ROM_END
+
 ROM_START( sokoban )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "sokoban.ic10",      0x00000, 0x10000, CRC(5959ddb4) SHA1(73f206e19cdfd151426092aa3eea6f72093f360b) )
@@ -12,10 +21,6 @@ ROM_START( sokoban )
 	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
 	ROM_LOAD16_BYTE( "sokoban.ic9", 0x00000, 0x10000, CRC(859e1ff4) SHA1(899b71bd0eb9923e88cf7142ed634b36b3e34c6c) )
 	ROM_LOAD16_BYTE( "sokoban.ic8", 0x00001, 0x10000, CRC(439a6670) SHA1(79144e3ba5205f5356f28d3b23ef32d3d4fca51c) )
-
-	// came with the zipfile but not used
-	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
 ROM_START( speccies )
@@ -23,16 +28,12 @@ ROM_START( speccies )
 	ROM_LOAD( "speccies.ic10",     0x00000, 0x55e9, CRC(29e126ac) SHA1(1e3e1379f964e0967d6ea5ef6a84741319b5108f) )
 
 	// came with the zipfile but not used
-	ROM_REGION( 0x0800, "mcu:mcu", 0 )
-	ROM_LOAD_OPTIONAL( "mc68705p3.ic4", 0x0000, 0x0800, CRC(085f68b4) SHA1(2dbc7e2c015220dc59ee1f1208540744e5b9b7cc) )
+	//ROM_REGION( 0x0800, "mcu:mcu", 0 )
+	//ROM_LOAD_OPTIONAL( "mc68705p3.ic4", 0x0000, 0x0800, CRC(085f68b4) SHA1(2dbc7e2c015220dc59ee1f1208540744e5b9b7cc) )
 
 	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
 	ROM_LOAD16_BYTE( "speccies.ic9", 0x00000, 0x10000, CRC(11ed1528) SHA1(55f0b63bcbbbe4ad4d1041dca980b55ccb7a7aea) )
 	ROM_LOAD16_BYTE( "speccies.ic8", 0x00001, 0x10000, CRC(fcfeb89f) SHA1(fc0e811c72313b371d3a6530b27f9023ff201e31) )
-
-	// came with the zipfile but not used
-	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
 ROM_START( sqij )
@@ -42,10 +43,6 @@ ROM_START( sqij )
 	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
 	ROM_LOAD16_BYTE( "sqij.ic9", 0x00000, 0x10000, CRC(c4de729b) SHA1(58e4c8d8af121dd25eba737cc1917841bc3ec6f5) )
 	ROM_LOAD16_BYTE( "sqij.ic8", 0x00001, 0x10000, CRC(978df42d) SHA1(51d7310591c68ec12178b606f0779915f15de8a0) )
-
-	// came with the zipfile but not used
-	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
 ROM_START( sqij15 ) // this version works on real hardware
@@ -55,10 +52,6 @@ ROM_START( sqij15 ) // this version works on real hardware
 	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
 	ROM_LOAD16_BYTE( "sqij.ic9", 0x00000, 0x10000, CRC(c4de729b) SHA1(58e4c8d8af121dd25eba737cc1917841bc3ec6f5) )
 	ROM_LOAD16_BYTE( "sqij.ic8", 0x00001, 0x10000, CRC(978df42d) SHA1(51d7310591c68ec12178b606f0779915f15de8a0) )
-
-	// came with the zipfile but not used
-	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD_OPTIONAL( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
 ROM_START( tldemo )
@@ -136,13 +129,11 @@ ROM_START( plotting01 )
 	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
 	ROM_LOAD16_BYTE( "b96-02hc01.ic9", 0x00000, 0x10000, CRC(78b05c85) SHA1(384626d0ef246702cdf6869bedee42fa18c2f438) )
 	ROM_LOAD16_BYTE( "b96-03hc01.ic8", 0x00001, 0x10000, CRC(ef56d689) SHA1(16391444b2e50accfd81e5bf35bf2b5f74e3d138) )
-
-	ROM_REGION( 0x0200, "plds", 0 )
-	ROM_LOAD( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
 /*    YEAR  NAME         PARENT    MACHINE    INPUT      CLASS              INIT          MONITOR   COMPANY     FULLNAME FLAGS */
 // Homebrew
+GAME( 2026, jetpac,      0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "Sokurah", "Jetpac (v1.0, 2026-10-14)", 0 )
 GAME( 2015, sokoban,     0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "cmonkey", "Sokoban LE", 0 )
 GAME( 2015, speccies,    0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "Sokurah", "Speccies 2", 0 )
 GAME( 2018, sqij,        0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "Sokurah", "SQIJ!", 0 )

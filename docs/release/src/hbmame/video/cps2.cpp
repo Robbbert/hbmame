@@ -490,6 +490,7 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile0_info)
 	int attr = m_scroll1[2 * tile_index + 1];
 
 	code = gfxrom_bank_mapper(GFXTYPE_SCROLL1, code);
+	code = cps2_scroll_code(cps2_scroll_layer::SCROLL1, code, attr);
 
 	/* allows us to reproduce a problem seen with a ffight board where USA and Japanese
 	     roms have been mixed to be reproduced (ffightub) -- it looks like each column
@@ -511,6 +512,7 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile1_info)
 	int attr = m_scroll2[2 * tile_index + 1];
 
 	code = gfxrom_bank_mapper(GFXTYPE_SCROLL2, code);
+	code = cps2_scroll_code(cps2_scroll_layer::SCROLL2, code, attr);
 
 	tileinfo.set(2, code, (attr & 0x1f) + 0x40, TILE_FLIPYX((attr & 0x60) >> 5));
 	tileinfo.group = (attr & 0x0180) >> 7;
@@ -526,6 +528,7 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile2_info)
 	int attr = m_scroll3[2 * tile_index + 1];
 
 	code = gfxrom_bank_mapper(GFXTYPE_SCROLL3, code);
+	code = cps2_scroll_code(cps2_scroll_layer::SCROLL3, code, attr);
 
 	tileinfo.set(3, code, (attr & 0x1f) + 0x60, TILE_FLIPYX((attr & 0x60) >> 5));
 	tileinfo.group = (attr & 0x0180) >> 7;
@@ -1005,19 +1008,21 @@ void cps2_state::cps2_find_last_sprite()    /* Find the offset of last sprite */
 
 void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int *primasks )
 {
-#define DRAWSPRITE(CODE,COLOR,FLIPX,FLIPY,SX,SY)                                    \
+#undef DRAWSPRITE
+#define DRAWSPRITE(CODE,COLOR,FLIPX,FLIPY,SX,SY,COLUMN,ROW)                                    \
 {                                                                                   \
+	int const tile_code = cps2_sprite_code((CODE), i / 4, (COLUMN), (ROW));          \
 	if (flip_screen())                                                           \
 		m_gfxdecode->gfx(2)->prio_transpen(bitmap,\
 				cliprect,                                            \
-				CODE,                                                               \
+				tile_code,                                                               \
 				COLOR,                                                              \
 				!(FLIPX),!(FLIPY),                                                  \
 				512-16-(SX),256-16-(SY), screen.priority(),primasks[priority],15);                 \
 	else                                                                            \
 		m_gfxdecode->gfx(2)->prio_transpen(bitmap,\
 				cliprect,                                            \
-				CODE,                                                               \
+				tile_code,                                                               \
 				COLOR,                                                              \
 				FLIPX,FLIPY,                                                        \
 				SX,SY, screen.priority(),primasks[priority],15);                 \
@@ -1075,7 +1080,7 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 									code + (nx - 1) - nxs + 0x10 * (ny - 1 - nys),
 									(col & 0x1f),
 									1,1,
-									sx,sy);
+									sx,sy,nx - 1 - nxs,ny - 1 - nys);
 						}
 					}
 				}
@@ -1092,7 +1097,7 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 									code + nxs + 0x10 * (ny - 1 - nys),
 									(col & 0x1f),
 									0,1,
-									sx,sy);
+									sx,sy,nxs,ny - 1 - nys);
 						}
 					}
 				}
@@ -1112,7 +1117,7 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 									code + (nx - 1) - nxs + 0x10 * nys,
 									(col & 0x1f),
 									1,0,
-									sx,sy);
+									sx,sy,nx - 1 - nxs,nys);
 						}
 					}
 				}
@@ -1130,7 +1135,7 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 									(code & ~0xf) + ((code + nxs) & 0xf) + 0x10 * nys,  //  pgear fix
 									(col & 0x1f),
 									0,0,
-									sx,sy);
+									sx,sy,nxs,nys);
 						}
 					}
 				}
@@ -1143,10 +1148,11 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 					code,
 					(col & 0x1f),
 					colour&0x20,colour&0x40,
-					(x+xoffs) & 0x3ff,(y+yoffs) & 0x3ff);
+					(x+xoffs) & 0x3ff,(y+yoffs) & 0x3ff,0,0);
 		}
 	}
 }
+#undef DRAWSPRITE
 
 
 

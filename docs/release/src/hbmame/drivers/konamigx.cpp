@@ -142,8 +142,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragoon Might
-GAME( 1995, dragoona01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)", 0 )
-GAME( 1995, dragoona02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)", 0 )
-GAME( 1995, dragoona03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)", 0 )
-GAME( 2018, dragoona04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "hack", "Dragoon Might (Unknown Hack, 2018-03-04)", 0 )
+GAME( 1995, dragoona01,  dragoona, dragoonj,      dragoonj, konamigx_esc_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)", 0 )
+GAME( 1995, dragoona02,  dragoona, dragoonj,      dragoonj, konamigx_esc_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)", 0 )
+GAME( 1995, dragoona03,  dragoona, dragoonj,      dragoonj, konamigx_esc_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)", 0 )
+GAME( 2018, dragoona04,  dragoona, dragoonj,      dragoonj, konamigx_esc_state, init_posthack, ROT0, "hack", "Dragoon Might (Unknown Hack, 2018-03-04)", 0 )
 

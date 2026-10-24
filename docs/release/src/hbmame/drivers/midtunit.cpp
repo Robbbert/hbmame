@@ -445,6 +445,42 @@ ROM_START( mk2s06 ) // mk2la03
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
 ROM_END
 
+ROM_START( mk2s08 ) // mk2rev4 (FBNeo), Rev 4.0 EAA637 FC
+	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "mk2s08.u2", 0x000000, 0x80000, CRC(fff86ce6) SHA1(9912cc81ff2ca2b0a80b0dbe881c7cf1f77cf515) )
+	ROM_RELOAD(                0x100000, 0x80000 )
+	ROM_LOAD16_BYTE( "mk2s08.u3", 0x200000, 0x80000, CRC(a5d9baa8) SHA1(30ba2e364eb6b3ef85ad33e5abb0e36ace4c67ad) )
+	ROM_RELOAD(                0x300000, 0x80000 )
+	ROM_LOAD16_BYTE( "mk2s08.u4", 0x400000, 0x80000, CRC(51ef6866) SHA1(6ea6d6bbf9ed00e00ce952c6126bb0ed8698fd40) )
+	ROM_RELOAD(                0x500000, 0x80000 )
+	ROM_LOAD16_BYTE( "mk2s08.u5", 0x600000, 0x80000, CRC(373de0e7) SHA1(a98eb3cf50fb3776429e6e12e85b8875ffcefca5) )
+	ROM_RELOAD(                0x700000, 0x80000 )
+	ROM_LOAD16_BYTE( "mk2s08.u6", 0x800000, 0x80000, CRC(b05d11bf) SHA1(bb19cb3adb2d36c44552f257a35b75aef595c668) )
+	ROM_RELOAD(                0x900000, 0x80000 )
+	ROM_LOAD16_BYTE( "mk2s08.u7", 0xa00000, 0x80000, CRC(a51de7aa) SHA1(9a6dd45179230c81a2a5f597ed49d1394d828586) )
+	ROM_RELOAD(                0xb00000, 0x80000 )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "mk2s08.uj12", 0x00000, 0x80000, CRC(fd23dd93) SHA1(6b9a07166b50796e82863068ef14837498592808) )
+	ROM_LOAD16_BYTE( "mk2s08.ug12", 0x00001, 0x80000, CRC(d40d34fd) SHA1(afe49e506a0f989785ca30d1b5c9d5227032ee60) )
+
+	ROM_REGION( 0xc00000, "video", 0 )
+	ROM_LOAD32_BYTE( "mk2s08.ug14", 0x000000, 0x100000, CRC(9c864f0f) SHA1(c310cb2711f1bf5030ddc9372a39a32f6e91b674) )
+	ROM_LOAD32_BYTE( "mk2s08.uj14", 0x000001, 0x100000, CRC(3314f622) SHA1(1ca8da30ae49b0945e8560f790e7c22ed963a87f) )
+	ROM_LOAD32_BYTE( "mk2s08.ug19", 0x000002, 0x100000, CRC(e768a4ce) SHA1(69c47a4556e6184b9086af922b69050cf4debb3c) )
+	ROM_LOAD32_BYTE( "mk2s08.uj19", 0x000003, 0x100000, CRC(04305b16) SHA1(d601b461501a1ffb10912165f8062ffdf4a2b350) )
+
+	ROM_LOAD32_BYTE( "mk2s08.ug16", 0x400000, 0x100000, CRC(1e5325f3) SHA1(3e1307c5d7241f52a26c28760711e0ca0a073d8e) )
+	ROM_LOAD32_BYTE( "mk2s08.uj16", 0x400001, 0x100000, CRC(8004a3b6) SHA1(5252b786b843cf8b608293ae9c039106e69ed882) )
+	ROM_LOAD32_BYTE( "mk2s08.ug20", 0x400002, 0x100000, CRC(0c929fba) SHA1(19c7e86254f8f8574666391fc706d6f9ffc937a9) )
+	ROM_LOAD32_BYTE( "mk2s08.uj20", 0x400003, 0x100000, CRC(7ed4ba0d) SHA1(74167ec3323e1059e96e9d47f6a85800f9448ef7) )
+
+	ROM_LOAD32_BYTE( "mk2s08.ug17", 0x800000, 0x100000, CRC(3924479e) SHA1(1f5078406122e1ea2816e34f24a5597040740faa) )
+	ROM_LOAD32_BYTE( "mk2s08.uj17", 0x800001, 0x100000, CRC(a1af4391) SHA1(fe4d5d5099b42e5ba1cb24800078624f2b2c5787) )
+	ROM_LOAD32_BYTE( "mk2s08.ug22", 0x800002, 0x100000, CRC(d7bd61c3) SHA1(d24d400ea8f19331dac205fa759b627039c9d6af) )
+	ROM_LOAD32_BYTE( "mk2s08.uj22", 0x800003, 0x100000, CRC(53dc6b89) SHA1(60035420f9cd7dc808af4695e0ac575248253ba0) )
+ROM_END
+
 /**************************
  Ultimate Mortal Kombat II
 ***************************/
@@ -901,6 +937,7 @@ GAME( 2017, mk2s03,      mk2,      mk2,         mk2,      mk2_state,            
 GAME( 2018, mk2s04,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.5 plus beta 2, 2018-12-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, mk2s05,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "Midway", "Mortal Kombat II (3.3 prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mk2s06,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "hack", "Mortal Kombat II (SP4K, 2021-08-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mk2s08,      mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "JUNKWAX", "Mortal Kombat II (rev 4.0)", MACHINE_SUPPORTS_SAVE )
 // Ultimate Mortal Kombat II
 GAME( 2014, umk2s01,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.050)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, umk2s02,     mk2,      mk2,         mk2,      mk2_state,            init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.051)", MACHINE_SUPPORTS_SAVE )

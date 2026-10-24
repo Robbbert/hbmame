@@ -227,14 +227,14 @@ void mui_plugin_options::scan_directory(const std::string &path, bool recursive)
 		// iterate over all files in the directory
 		for (const osd::directory::entry *entry = directory->read(); entry != nullptr; entry = directory->read())
 		{
-			if (entry->type == osd::directory::entry::entry_type::FILE && !strcmp(entry->name, "plugin.json"))
+			if (entry->type == osd::directory::entry::entry_type::FILE && (0 == strcmp(entry->name, "plugin.json")))
 			{
 				load_plugin(util::path_concat(path, entry->name));
 			}
 			else
 			if (entry->type == osd::directory::entry::entry_type::DIR)
 			{
-				if (recursive && strcmp(entry->name, ".") && strcmp(entry->name, ".."))
+				if (recursive && (0 != strcmp(entry->name, ".")) && (0 != strcmp(entry->name, "..")))
 					scan_directory(util::path_concat(path, entry->name), recursive);
 			}
 		}

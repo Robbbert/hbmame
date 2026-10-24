@@ -30,6 +30,7 @@ CPUS["I8089"] = true
 CPUS["I86"] = true
 CPUS["I960"] = true -- model2
 CPUS["KC80"] = true -- ddenlovr
+CPUS["K056734"] = true -- konamigx
 CPUS["M37710"] = true -- namcona1
 CPUS["M6502"] = true
 CPUS["M6800"] = true
@@ -320,6 +321,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/gng.cpp",
 	MAME_DIR .. "src/hbmame/drivers/exedexes.cpp",
+	-- MAME_DIR .. "src/hbmame/drivers/srumbler.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cave")
@@ -328,6 +330,7 @@ files {
 	MAME_DIR .. "src/mame/atlus/cave_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cv1k.cpp",
 	MAME_DIR .. "src/mame/cave/cv1k_v.cpp",
+	MAME_DIR .. "src/mame/cave/cv1k_touch.cpp",
 	MAME_DIR .. "src/mame/atlus/sprite013.cpp",
 }
 
@@ -739,7 +742,8 @@ files {
 createHBMAMEProjects(_target, _subtarget, "sega")
 files {
 	MAME_DIR .. "src/hbmame/drivers/segas24.cpp",
-	MAME_DIR .. "src/mame/sega/megaplay.cpp",
+	MAME_DIR .. "src/hbmame/drivers/megaplay.cpp",
+	MAME_DIR .. "src/mame/sega/megadriv.cpp",
 	MAME_DIR .. "src/mame/sega/megatech.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segac2.cpp",
 	MAME_DIR .. "src/mame/sega/segae.cpp",
@@ -956,7 +960,6 @@ files {
 	MAME_DIR .. "src/mame/toaplan/gp9001.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_dsp.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_scu.cpp",
-	MAME_DIR .. "src/hbmame/drivers/dt7.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_coincounter.cpp",
 	MAME_DIR .. "src/mame/toaplan/toaplan_txtilemap.cpp",
 }
@@ -1023,6 +1026,7 @@ files {
 	MAME_DIR .. "src/devices/machine/cat702.cpp",
 	MAME_DIR .. "src/devices/machine/ds2430a.cpp",
 	MAME_DIR .. "src/devices/machine/mb87030.cpp",
+	MAME_DIR .. "src/devices/machine/sega_md_ioport.cpp",
 	MAME_DIR .. "src/devices/machine/mos6530.cpp",
 	MAME_DIR .. "src/devices/machine/nandflash.cpp",
 	MAME_DIR .. "src/devices/machine/nmk112.cpp",

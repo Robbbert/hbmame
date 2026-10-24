@@ -71,6 +71,11 @@ ROM_START( cd_alice )
 	DISK_IMAGE_READONLY( "819", 0, SHA1(a9dfafadc121be3ea991a0a85377622d9a3a535f) )
 ROM_END
 
+ROM_START( cd_altbeast )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "altbeast", 0, SHA1(99172235cab2c049d489de2d84ae3de628d13ecd) )
+ROM_END
+
 ROM_START( cd_chelnov )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "chelnov", 0, SHA1(45d1902421e97e642d02a485dcd06f9780d94fd1) )
@@ -84,6 +89,11 @@ ROM_END
 ROM_START( cd_eira )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "817", 0, SHA1(c441932e9566f0647888ceeff3229622ae9609a8) )
+ROM_END
+
+ROM_START( cd_eswat )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "eswat", 0, SHA1(2b8228d0c7075591c21bc9a0d8f9b5352761451b) )
 ROM_END
 
 ROM_START( cd_ffury )
@@ -109,6 +119,11 @@ ROM_END
 ROM_START( cd_natademo )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "818", 0, SHA1(22ac0c741defe9d792b9f38cd48dd0742140ec0a) )
+ROM_END
+
+ROM_START( cd_neotris2 )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "neotris2", 0, SHA1(715b54bf5b6e55617d8f9bfd1f0794c6e377184a) )
 ROM_END
 
 ROM_START( cd_ngdark )
@@ -146,9 +161,32 @@ ROM_START( cd_pow2 )
 	DISK_IMAGE_READONLY( "pow2", 0, SHA1(9017ead20ecbfeb25c6c36282423c90375403b32) )
 ROM_END
 
+ROM_START( cd_robocop )
+	NEOCDZ_BASE
+	//DISK_IMAGE_READONLY( "robocop", 0, SHA1(917157311d62b31d06956c3f773808f6d5b2ff94) ) // older
+	DISK_IMAGE_READONLY( "robocop", 0, SHA1(141885638f9a42b5c6cb6aa9e3106d254bf2c3e2) ) // v17
+ROM_END
+
+ROM_START( cd_sdodgeb )
+	NEOCDZ_BASE
+	//DISK_IMAGE_READONLY( "sdodgeb", 0, SHA1(52917d2ffc719b779f5fab2bc3bc6687b3f657ec) ) // cd
+	DISK_IMAGE_READONLY( "sdodgeb", 0, SHA1(0275bee8ba9508b2d8a338ec5997029ba452e51d) ) // sd loader
+ROM_END
+
+ROM_START( cd_sf2ce )
+	NEOCDZ_BASE
+	//DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(eb4a50fedc76523764370097a02da2a110337691) ) // 74FP version
+	DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(69881892dcb5ba910da2279c370951f83b16b07c) ) // v1
+ROM_END
+
 ROM_START( cd_shinobiarr )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "shinobiarr", 0, SHA1(3f93364dc54a91eadeddf52675a7043b191675ba) )
+ROM_END
+
+ROM_START( cd_snowbros )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "snowbros", 0, SHA1(19cce31aee4c3c4f0050374764a70610c2400515) )
 ROM_END
 
 ROM_START( cd_speedball )
@@ -179,14 +217,17 @@ CONS( 1996, neocdz_bios, 0, 0, neocd_ntsc, neocd, ngcd_state, init_neocdz, "SNK"
 
 // Games
 GAME( 2016, cd_alice,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "We Love Alice demo[CD]", 0 )
+GAME( 2026, cd_altbeast,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Altered Beast (Neo-Geo port)[CD]", 0 )
 GAME( 2024, cd_chelnov,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "Atomic Runner Chelnov (Neo-Geo port)[CD]", 0 )
 GAME( 2016, cd_diff,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Citavia", "DIFF demo[CD]", 0 )
 GAME( 2015, cd_eira,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Resistance", "Eira demo[CD]", 0 )
+GAME( 2026, cd_eswat,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Cyber Police ESWAT (Neo-Geo port)[CD]", 0 )
 GAME( 2023, cd_ffury,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "[unk]", "Fatal Fury - Album Edition[CD]", 0 )
 GAME( 2017, cd_fukkireta,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Visy", "Neo Fukkireta demo[CD]", 0 )
 GAME( 2025, cd_gaxe,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "h0ffman", "Golden Axe (Neo-Geo port)[CD]", 0 )
 GAME( 2025, cd_gaxearr,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "h0ffman", "Golden Axe (v1.0) (PS2 Sega Ages Arranged)[CD]", 0 )
 GAME( 2016, cd_natademo,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "BEY", "NATADEMO Rel.05[CD]", 0 )
+GAME( 2026, cd_neotris2,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Chips On Steroids", "Neotris 2 Proto[CD]", 0 )
 GAME( 2011, cd_ngdark,      neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "NGD::Devgroup", "NGD::ARK(2012-05-04)[CD]", 0 )
 GAME( 2019, cd_noneon,      neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Citavia", "No Neo - No Party demo[CD]", 0 )
 GAME( 2021, cd_ntris3d,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "N*tris3D Techdemo[CD]", 0 )
@@ -194,7 +235,11 @@ GAME( 2016, cd_phoenix,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2023, cd_pong,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "David Vandensteen", "Pong[CD]", 0 )
 GAME( 2024, cd_pow,         neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (Neo-Geo port)[CD]", 0 )
 GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "iq_132", "P.O.W. (update)[CD]", 0 )
+GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port v17)[CD]", 0 )
+GAME( 2026, cd_sdodgeb,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Super Dodge Ball (v0.99 beta)[CD]", 0 )
+GAME( 2026, cd_sf2ce,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Champion Edition (Neo-Geo port, v1)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
+GAME( 2026, cd_snowbros,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
 GAME( 2024, cd_ssrpg,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Jeff Nussbaum", "Samurai Spirits RPG (English)[CD]", 0 )
 GAME( 2020, cd_subspecies,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Blastar", "Subspecies_Unfinished demo[CD]", 0 )
