@@ -59,7 +59,7 @@ jobs:
         fi
 
     - name: Check out HBMAME source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: ${{ inputs.repository }}
         ref: ${{ inputs.ref }}
@@ -89,26 +89,28 @@ jobs:
         echo "Using SDL $TAG"
         gh release download "$TAG" --repo libsdl-org/SDL --pattern 'SDL3-*.dmg' --dir "$RUNNER_TEMP"
         hdiutil attach "$RUNNER_TEMP"/SDL3-*.dmg -nobrowse -readonly -mountpoint "$RUNNER_TEMP/sdl3"
-        # the DMG ships an .xcframework; install it as on the local Mac, plus the
-        # plain macOS slice as SDL3.framework (what the linker and users need)
-        XCF=$(find "$RUNNER_TEMP/sdl3" -maxdepth 2 -type d -name SDL3.xcframework | head -1)
+        # the DMG ships an .xcframework; install only its macOS slice as
+        # /Library/Frameworks/SDL3.framework (what MAME's instructions tell users)
+        ls -la "$RUNNER_TEMP/sdl3"
         FW=$(find "$RUNNER_TEMP/sdl3" -maxdepth 4 -type d -path '*macos*' -name SDL3.framework | head -1)
         [ -z "$FW" ] && { echo "::error::macOS SDL3.framework not found in DMG"; exit 1; }
-        [ -n "$XCF" ] && sudo ditto "$XCF" /Library/Frameworks/SDL3.xcframework
         sudo ditto "$FW" /Library/Frameworks/SDL3.framework
+        ls /Library/Frameworks/SDL3.framework/Headers/SDL.h
         hdiutil detach "$RUNNER_TEMP/sdl3"
         vtool -show-build /Library/Frameworks/SDL3.framework/SDL3 | grep minos
 
     - name: Build HBMAME
-      # USE_LIBSDL=0 is required: without it the build silently switches to
-      # Homebrew's SDL3 whenever it can find one (the runner has Homebrew).
-      run: make REGENIE=1 USE_LIBSDL=0 -j$(sysctl -n hw.ncpu) TARGET=hbmame
+      # USE_LIBSDL=0: without it the build silently switches to Homebrew's SDL3
+      #   whenever it can find one (the runner has Homebrew).
+      # SDL_FRAMEWORK_PATH: the default points inside SDL3.xcframework; this uses
+      #   /Library/Frameworks/SDL3.framework for headers, linking and the rpath.
+      run: make REGENIE=1 USE_LIBSDL=0 SDL_FRAMEWORK_PATH=/Library/Frameworks/ -j$(sysctl -n hw.ncpu) TARGET=hbmame
 
-    - name: Add /Library/Frameworks as rpath
-      # The build only stores the .xcframework slice path as rpath; users who
-      # install SDL3.framework as MAME's instructions say need /Library/Frameworks.
+    - name: Make sure /Library/Frameworks is an rpath
+      # Users install SDL3.framework there, as MAME's instructions say.
+      # (Normally already set via SDL_FRAMEWORK_PATH; this is a safety net.)
       run: |
-        if ! otool -l hbmame | grep -A2 LC_RPATH | grep -q 'path /Library/Frameworks '; then
+        if ! otool -l hbmame | grep -A2 LC_RPATH | grep -qE 'path /Library/Frameworks/? '; then
           install_name_tool -add_rpath /Library/Frameworks hbmame
           codesign --force --sign - hbmame   # restore ad-hoc signature for -validate
         fi
