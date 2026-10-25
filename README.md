@@ -6,6 +6,14 @@ Unofficial native macOS builds of [HBMAME](https://github.com/Robbbert/hbmame), 
 - **Requirements:** Apple Silicon Mac, macOS 13 or later, SDL3 in `/Library/Frameworks` (see the release notes)
 - **Source:** unmodified upstream release tags; this fork only adds macOS build and packaging
 
+### Starting HBMAME
+
+Start `hbmame` from Terminal (`./hbmame` in its folder, optionally with a game name) or from a frontend such as DJCJArcade or Attract-Mode.
+
+**Do not double-click `hbmame` in the Finder.** Even though the binary is signed and notarized, macOS then checks it like an app bundle, and Gatekeeper blocks it with "Apple could not verify 'hbmame' is free of malware". This is expected behaviour for plain command-line binaries that are not packaged as an `.app`, and does not mean the download is damaged or unsafe. Started from Terminal or a frontend, macOS verifies the signature and notarization normally and HBMAME runs without any warning.
+
+If you already double-clicked it and got the warning, nothing is broken: simply start it from Terminal instead.
+
 ### Compile on macOS
 
 MACOSX_DEPLOYMENT_TARGET=13.0 make REGENIE=1 USE_LIBSDL=0 -j$(sysctl -n hw.ncpu) TARGET=hbmame
