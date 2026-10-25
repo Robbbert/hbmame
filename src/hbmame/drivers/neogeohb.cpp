@@ -3338,10 +3338,10 @@ ROM_START( outrunn )
 ROM_END
 
 
-// 542: Cosmo Gang the video (beta-0.2.6) by Bendk97
+// 542: Cosmo Gang the video (v1.0) by Bendk97
 ROM_START( cosmogngn )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(3c0c4d66) SHA1(ebfff5f157bba0e303d2a44be3322ba73a21d2d5) )
+	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(d4f56a71) SHA1(8e6d829af23c53b0c9d47b8cd4bc7832bf5adf22) )
 	ROM_LOAD16_WORD_SWAP( "542.p2", 0x100000, 0x200000, CRC(7482ecfd) SHA1(3707a2a5a8518eaead7da79e79377a542e599ea1) )
 
 	NEO_SFIX_128K( "542.s1", CRC(03f56b5b) SHA1(387931fe9a2c9830698cfe3e6338d8adbdb861be) )
@@ -4603,7 +4603,7 @@ GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, beta-0.2.6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
