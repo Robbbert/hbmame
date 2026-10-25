@@ -249,6 +249,7 @@ NUM GAME YEAR COMPANY                 TITLE
 540 0998 2026 Bendk97                 Shadow of the Beast (Neo-Geo port) (https://bendk97.itch.io/)
 541 0997 2026 Bendk97                 Out Run (Neo-Geo port) (https://bendk97.itch.io/)
 542 0993 2026 Bendk97                 Cosmo Gang the video (Neo-Geo port) (https://bendk97.itch.io/)
+543 0994 2026 Bendk97                 Knights of the Round (Neo-Geo port) (https://bendk97.itch.io/)
 
 
 
@@ -3108,12 +3109,12 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (v1.0.2) by Bendk97
+// 528: Snow Bros (v1.2) by Bendk97
 ROM_START( snowbrosn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(41c5834c) SHA1(bc7a6df9c3a049a29c5369ad659364668292ba3f) )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(098df1ed) SHA1(da64f54df5b6a999eb5efc85dc4fb07f4550a39c) )
 
-	NEO_SFIX_128K( "528.s1", CRC(5fb678af) SHA1(40f78732f1f6c63ddfbbd9b3b9086369c1cceaef) )
+	NEO_SFIX_128K( "528.s1", CRC(441fe85a) SHA1(29647b58eb408da32f8e554db884863bb31e6e4e) )
 
 	NEO_BIOS_AUDIO_64K( "528.m1", CRC(ca694dcf) SHA1(0f75452eb7f72c51792ba6e29b266e31cfcd470f) )
 
@@ -3301,13 +3302,14 @@ ROM_START( sgz ) // demo
 ROM_END
 
 
-// 540: Shadow of the Beast (beta-0.2.1) by Bendk97
+// 540: Shadow of the Beast (beta-0.2.5) by Bendk97
+// Cheat menu: At the title screen press one at a time: B C D C B
 ROM_START( sotbn )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(341d386c) SHA1(63ec34d12730eeef6d8db55a926d2a619843536c) )
+	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(f9833a0a) SHA1(9e0b29eb833949397476df1ab556093e3eafe025) )
 	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(2e7a9d52) SHA1(65fdf1545f2d0f6a13dd33299754831957251235) )
 
-	NEO_SFIX_128K( "540.s1", CRC(f3ae362e) SHA1(5ea908046965226432d0ab4ba967542971047e9d) )
+	NEO_SFIX_128K( "540.s1", CRC(195de445) SHA1(e56db25d0d8367d64db949585a513f48f97dd6e7) )
 
 	NEO_BIOS_AUDIO_128K( "540.m1", CRC(7cf328f0) SHA1(41ecca61282fd4ef306c9663606d748093eb0e67) )
 
@@ -3320,10 +3322,10 @@ ROM_START( sotbn )
 ROM_END
 
 
-// 541: Out Run (beta-0.3.2) by Bendk97
+// 541: Out Run (beta-0.3.3) by Bendk97
 ROM_START( outrunn )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(6fcc7265) SHA1(b80f834a7d134eeaff4d42fb8b5c038e4e03b210) )
+	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(e8ff1bb5) SHA1(f6d5e1a56f843d037caafbb973d82d6a0e6b21bf) )
 
 	NEO_SFIX_128K( "541.s1", CRC(1f21c37f) SHA1(36bc8732f73fe93fd1b8655a57cdf078ce00b78d) )
 
@@ -3338,15 +3340,15 @@ ROM_START( outrunn )
 ROM_END
 
 
-// 542: Cosmo Gang the video (beta-0.2.4) by Bendk97
+// 542: Cosmo Gang the video (v1.1.1) by Bendk97
 ROM_START( cosmogngn )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(b061f0b1) SHA1(3725f5d686411e1ebbf26243b3ca6297ebcfd689) )
-	ROM_LOAD16_WORD_SWAP( "542.p2", 0x100000, 0x200000, CRC(7482ecfd) SHA1(3707a2a5a8518eaead7da79e79377a542e599ea1) )
+	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(41b14af2) SHA1(93dcb1bd5cf81f172f57e42970755b1ca52798f9) )
+	ROM_LOAD16_WORD_SWAP( "542.p2", 0x100000, 0x200000, CRC(d24a1af5) SHA1(b6f06f76e5d46c6a5646a1ce17ecf2b2070c643f) )
 
 	NEO_SFIX_128K( "542.s1", CRC(03f56b5b) SHA1(387931fe9a2c9830698cfe3e6338d8adbdb861be) )
 
-	NEO_BIOS_AUDIO_128K( "542.m1", CRC(bc90ae68) SHA1(7cd9264b307f0f0e341bcdea78b1ece2b953ece4) )
+	NEO_BIOS_AUDIO_128K( "542.m1", CRC(7acaf042) SHA1(723209b7b81f4033bf54bf148e70da951fd5d904) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "542.v1",   0x000000, 0x800000, CRC(c01e3384) SHA1(90b602615fedca540f203ba87a250b51996ec6c6) )
@@ -3355,8 +3357,27 @@ ROM_START( cosmogngn )
 	ROM_LOAD( "542.v21",   0x000000, 0x1000000, CRC(e10ecb05) SHA1(19170f261041ec4236cb7ba4b256d2f801779d04) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "542.c1", 0, 0x1000000, CRC(782b6dbc) SHA1(0f8b3e50208c65a245e9a6f8569d00254e39e54f) )
-	ROM_LOAD16_BYTE( "542.c2", 1, 0x1000000, CRC(3c03f273) SHA1(922f50e769980202d082f3ee5d9691c8bbd67e53) )
+	ROM_LOAD16_BYTE( "542.c1", 0, 0x1000000, CRC(26d5557c) SHA1(66dd78c0cfe6dd3f57cc2adfeca26c4e70ba544d) )
+	ROM_LOAD16_BYTE( "542.c2", 1, 0x1000000, CRC(2e68ae0d) SHA1(f703da36b442d6e06f283a0b0251c0d2a231947a) )
+ROM_END
+
+
+// 543: Knights of the Round (beta-0.2.0) by Bendk97
+ROM_START( knightsn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(33738e12) SHA1(38e46dab8a8f1053d2c5d07858ff1760045a6201) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(11987977) SHA1(2c396749e6cb85ad9da53be6ab5c192a6b4f259b) )
+
+	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
+
+	NEO_BIOS_AUDIO_128K( "543.m1", CRC(5adb5817) SHA1(13ef6125750e3f67d5e3b076ac616af634dc23f6) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "543.v1",   0x000000, 0x1000000, CRC(14d97a5b) SHA1(1f656c938a43dd13cb1266451e78cc5d7ecd24cb) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(40d8f578) SHA1(76850a682fafaa76450568755613c81b4948aaf9) )
+	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(9094cd34) SHA1(de066839f333f709a0743daf7947f271b6987922) )
 ROM_END
 
 
@@ -4603,7 +4624,7 @@ GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, beta-0.2.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
@@ -4641,6 +4662,7 @@ GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.2.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
@@ -4695,7 +4717,7 @@ GAME( 2020, nsmb,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, nsmbd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5)", MACHINE_SUPPORTS_SAVE )
@@ -4719,8 +4741,8 @@ GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
