@@ -3320,10 +3320,10 @@ ROM_START( sotbn )
 ROM_END
 
 
-// 541: Out Run (beta-0.3.2) by Bendk97
+// 541: Out Run (beta-0.3.3) by Bendk97
 ROM_START( outrunn )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(6fcc7265) SHA1(b80f834a7d134eeaff4d42fb8b5c038e4e03b210) )
+	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(e8ff1bb5) SHA1(f6d5e1a56f843d037caafbb973d82d6a0e6b21bf) )
 
 	NEO_SFIX_128K( "541.s1", CRC(1f21c37f) SHA1(36bc8732f73fe93fd1b8655a57cdf078ce00b78d) )
 
@@ -4695,7 +4695,7 @@ GAME( 2020, nsmb,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, nsmbd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5)", MACHINE_SUPPORTS_SAVE )
