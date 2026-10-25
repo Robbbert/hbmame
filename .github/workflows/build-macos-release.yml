@@ -106,14 +106,19 @@ jobs:
       #   /Library/Frameworks/SDL3.framework for headers, linking and the rpath.
       run: make REGENIE=1 USE_LIBSDL=0 SDL_FRAMEWORK_PATH=/Library/Frameworks/ -j$(sysctl -n hw.ncpu) TARGET=hbmame
 
-    - name: Make sure /Library/Frameworks is an rpath
-      # Users install SDL3.framework there, as MAME's instructions say.
-      # (Normally already set via SDL_FRAMEWORK_PATH; this is a safety net.)
+    - name: Add rpaths for both ways of installing SDL3
+      # Users may have /Library/Frameworks/SDL3.framework (MAME's classic
+      # instructions) or /Library/Frameworks/SDL3.xcframework (SDL's own
+      # package, copied as is). The binary finds SDL3 in either.
       run: |
-        if ! otool -l hbmame | grep -A2 LC_RPATH | grep -qE 'path /Library/Frameworks/? '; then
-          install_name_tool -add_rpath /Library/Frameworks hbmame
-          codesign --force --sign - hbmame   # restore ad-hoc signature for -validate
-        fi
+        changed=0
+        for rp in /Library/Frameworks /Library/Frameworks/SDL3.xcframework/macos-arm64_x86_64; do
+          if ! otool -l hbmame | grep -A2 LC_RPATH | grep -qE "path $rp/? "; then
+            install_name_tool -add_rpath "$rp" hbmame
+            changed=1
+          fi
+        done
+        [ "$changed" = 1 ] && codesign --force --sign - hbmame   # restore ad-hoc signature for -validate
         otool -l hbmame | grep -A2 LC_RPATH
 
     - name: Check linking and minimum macOS version
@@ -210,10 +215,12 @@ jobs:
       run: security delete-keychain "$RUNNER_TEMP/signing.keychain-db" || true
 
     - name: Upload build
-      uses: actions/upload-artifact@v4
+      # archive: false uploads our zip as is, so the download is a single zip
+      # (without it, GitHub wraps it in a second zip)
+      uses: actions/upload-artifact@v7
       with:
-        name: hbmame-${{ env.LABEL }}-macos-arm64
         path: ${{ env.ZIP }}
+        archive: false
         if-no-files-found: error
 
     - name: Publish GitHub release
@@ -227,8 +234,8 @@ jobs:
         HBMAME $LABEL for macOS on Apple Silicon, signed and notarized.
 
         Built from ${{ inputs.repository }} @ \`${{ inputs.ref }}\` (commit $SRC_SHA).
-        Requires macOS 13 or newer and **SDL3.framework in /Library/Frameworks**
-        (same as the official MAME macOS builds).
+        Requires macOS 13 or newer and SDL3 in /Library/Frameworks, either as
+        SDL3.framework or as SDL3.xcframework (as shipped in SDL's DMG).
         EOF
         gh release create "${{ inputs.release_tag }}" "$ZIP" \
           --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
