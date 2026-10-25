@@ -18,7 +18,7 @@ If you already double-clicked it and got the warning, nothing is broken: simply 
 
 MACOSX_DEPLOYMENT_TARGET=13.0 make REGENIE=1 USE_LIBSDL=0 -j$(sysctl -n hw.ncpu) TARGET=hbmame
 
-`USE_LIBSDL=0` is required if Homebrew's SDL3 is installed; otherwise the build silently links against it.
+USE_LIBSDL=0: use this option if HBMAME should run with the official SDL3 framework from libsdl.org instead of Homebrew’s SDL3. If you’re fine with HBMAME using Homebrew’s sdl3, you can leave it out. Without Homebrew’s SDL3 installed, the build uses the framework anyway.
 
 Mac-specific issues belong in this repository, not upstream.
 
