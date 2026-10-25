@@ -7,15 +7,15 @@
 
 New Games
 ---------------------------------
-- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.1.5)
+- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.0)
 
 
 Updated Games
 ---------------------------------
-- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.0)
+- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.1)
 - [outrunn]             Out Run (Neo-Geo port, beta-0.3.3)
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.2)
-- [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.3)
+- [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.5)
 - [usf2j8]              Ultra Street Fighter II: The Final Challengers (Japan, 2026-10-23)
 - [usf2t8]              Ultra Street Fighter II: The Final Challengers (USA, 2026-10-23)
 
