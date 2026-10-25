@@ -11,7 +11,7 @@ New Games
 
 Updated Games
 ---------------------------------
-- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, beta-0.2.4)
+- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, beta-0.2.6)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.3)
 - [usf2j8]              Ultra Street Fighter II: The Final Challengers (Japan, 2026-10-23)
 - [usf2t8]              Ultra Street Fighter II: The Final Challengers (USA, 2026-10-23)
