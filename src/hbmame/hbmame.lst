@@ -6419,9 +6419,6 @@ neogal1d
 neogal1t
 neogal2
 neonopon
-//neonopon_d1 // unplayable demo
-//neonopon_d2 // unplayable demo
-//neonopon_d3 // unplayable demo
 neopang
 neopong
 neoponga
@@ -6454,6 +6451,7 @@ perfectf
 poknight              //Jeff M Kurtz
 poknightcd
 poknightfr
+//prehislen    // stops after a few seconds
 rci
 rickdx
 robocopn
@@ -6477,15 +6475,6 @@ spkick
 spkick2
 ssodan
 syscheck
-teot_1
-teot_2
-teot_3
-teot_4
-teot_5
-teot_6
-teot_7
-teot_8
-teot_9
 teot
 test01		// MVS Test 01 by Furrtek
 timesup
@@ -6497,6 +6486,7 @@ twister		// Blastar 2015
 vaporous
 violentv
 warriorman
+wrallyn
 vssmbn
 wolf3d
 wrldracr

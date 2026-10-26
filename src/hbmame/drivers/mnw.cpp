@@ -27415,3 +27415,245 @@ ROM_END
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
 
 
+ROM_START( teot_1 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323a.p1", 0x000000, 0x100000, CRC(759b68d3) SHA1(2ccec3f12c1e35f47e5f5419c9770c72d783d27f) )
+
+	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
+
+	NEO_BIOS_AUDIO_64K( "323a.m1", CRC(2b5738dc) SHA1(53fb556a3a12030d8e4abecafc5823037ba88c1b) )
+
+	ROM_REGION( 0x900000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323a.v1",   0x000000, 0x100000, CRC(ac261416) SHA1(c9092127362fb07bc969d655dd2806f0e6c43e28) )
+	ROM_LOAD( "323a.v2",   0x100000, 0x100000, CRC(95ea979a) SHA1(54007defb7c833b0e15d08d2be2ac21f6830d625) )
+	ROM_LOAD( "323a.v3",   0x200000, 0x100000, CRC(493223d3) SHA1(eb8cc3967fd1e1228807ec79c2584b8cc0cfbbe8) )
+	ROM_LOAD( "323a.v4",   0x300000, 0x100000, CRC(fbf00c96) SHA1(4083f8efbcf748dba31f0030b82487e0ea56980b) )
+	ROM_LOAD( "323a.v5",   0x400000, 0x100000, CRC(9b2031d4) SHA1(15c8f5cb26af29b8dca53f1c1c49384a1b73b820) )
+	ROM_LOAD( "323a.v6",   0x500000, 0x100000, CRC(107cfc89) SHA1(c4ced7dfab24ff42c6fc2424b18cf199ba30cbfa) )
+	ROM_LOAD( "323a.v7",   0x600000, 0x100000, CRC(0703b761) SHA1(7d586b69bb9578d550871eda884cd6b32d86a01f) )
+	ROM_LOAD( "323a.v8",   0x700000, 0x100000, CRC(8d525588) SHA1(297871c1e8888d9adab3781fb6c2c27ecf50ca45) )
+	ROM_LOAD( "323a.v9",   0x800000, 0x100000, CRC(97f073b6) SHA1(02a4cce3f0cdb9421350ee5af49af13d7dcd16c2) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323a.c1", 0, 0x800000, CRC(76b8e9ae) SHA1(3129ab5283c1cde389c8b311fb6c469688492fdf) )
+	ROM_LOAD16_BYTE( "323a.c2", 1, 0x800000, CRC(b0c6b4d0) SHA1(38fbff87722b3ae2f3f005369dbdbdea60a3be12) )
+ROM_END
+
+ROM_START( teot_2 ) // 2nd demo, 2021-02-20
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323b.p1", 0x000000, 0x100000, CRC(3ab0b686) SHA1(c950bc58044a31fe3575fb5c32ba222014b65677) )
+	ROM_LOAD16_WORD_SWAP( "323b.p2", 0x100000, 0x100000, CRC(258909d5) SHA1(a4707264d39d2a06b5f9417f5d55d92cc4c328dd) )
+
+	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
+
+	NEO_BIOS_AUDIO_64K( "323b.m1", CRC(62bd5336) SHA1(dd496daca2c662f6671d3c820f0cafac1bffe0b2) )
+
+	ROM_REGION( 0x700000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323b.v1",   0x000000, 0x100000, CRC(a0906304) SHA1(681b24a72c5c082433d04feae76f9fc20af589af) )
+	ROM_LOAD( "323b.v2",   0x100000, 0x100000, CRC(c5e10c1a) SHA1(e4f48144405d8de3dde86b460f4102114e8b9525) )
+	ROM_LOAD( "323b.v3",   0x200000, 0x100000, CRC(cb78034b) SHA1(ead8368002c7858e4d14f14e1e5a1756f6a381b0) )
+	ROM_LOAD( "323b.v4",   0x300000, 0x100000, CRC(4a2d0d6d) SHA1(70703d0952146619b1dfa5fd86cce94de2aca9d6) )
+	ROM_LOAD( "323b.v5",   0x400000, 0x100000, CRC(51285019) SHA1(d279fbab0cd7c179c6c45f2604ae67c83b3bcce3) )
+	ROM_LOAD( "323b.v6",   0x500000, 0x100000, CRC(03641f40) SHA1(cc979d28b548de35e53a4c52cb1cf9508a38660d) )
+	ROM_LOAD( "323b.v7",   0x600000, 0x100000, CRC(e425eff3) SHA1(3a924e544da43daab4f782e344565cc81dade183) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323b.c1", 0, 0x800000, CRC(94080cf2) SHA1(f2464da2076466f1387d4e4b812ea4ebec80e72c) )
+	ROM_LOAD16_BYTE( "323b.c2", 1, 0x800000, CRC(fb5116b6) SHA1(d70b13b24a3b85a0881bd0fe998fc98f6a99e99b) )
+ROM_END
+
+ROM_START( teot_3 ) // Alpha5 demo, 2021-05-16  (can crash sometimes)
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323c.p1", 0x000000, 0x100000, CRC(9038ff78) SHA1(33f0ce3874e24c366177c89824c4b0cd1d30dfce) )
+	ROM_LOAD16_WORD_SWAP( "323c.p2", 0x100000, 0x800000, CRC(fe363160) SHA1(e503dd9cefa2b7d69ea2aaff60c63c00b83c158d) )
+
+	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
+
+	NEO_BIOS_AUDIO_64K( "323c.m1", CRC(31b05f06) SHA1(da1f984af58bcc7d4d496382bcb938fa7aff5ab1) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323c.v1",   0x000000, 0x800000, CRC(299d84cf) SHA1(da0bb20b8faeaf0d78f987afc775abaadcc59dfa) )
+	ROM_LOAD( "323c.v2",   0x800000, 0x800000, CRC(aced6c72) SHA1(8dc481445dbcc717c6dccb27dff446c5f05080f0) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323c.c1",   0, 0x1000000, CRC(28872e1f) SHA1(420d68ed2d417e1edfbd351619ff144fb7eacd9b) )
+	ROM_LOAD16_BYTE( "323c.c2",   1, 0x1000000, CRC(fe31d1fc) SHA1(947d4cc47905308d03423640d863e60007b2309a) )
+ROM_END
+
+ROM_START( teot_4 ) // Beta, 2022-01-05
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323d.p1", 0x000000, 0x100000, CRC(603fac98) SHA1(b5d4caf9162cac28d153fe33169cfc8acb679f84) )
+	ROM_LOAD16_WORD_SWAP( "323d.p2", 0x100000, 0x800000, CRC(5f557ad5) SHA1(9983d3b913f0d3bb315b696cd77f2ad7d04fbcd3) )
+
+	NEO_SFIX_128K( "323d.s1", CRC(aba8f74c) SHA1(c8d12f535099ce0232bb637e04ac7b79569e15fe) )
+
+	NEO_BIOS_AUDIO_64K( "323d.m1", CRC(dc29f33b) SHA1(cb1f45e93b19b00b901c5992a2646db652755d6e) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323d.v1",   0x000000, 0x800000, CRC(91b3deed) SHA1(6408ad38bcbe2712a11e30efecb47b027cabd49a) )
+	ROM_LOAD( "323d.v2",   0x800000, 0x800000, CRC(985e6f6b) SHA1(b3e92d6ab08ad42347b622dbb72a7589a7dbe885) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323d.c1",   0, 0x1000000, CRC(7919ea09) SHA1(bb8e058346ebc02b7e20f324411c6455271a837b) )
+	ROM_LOAD16_BYTE( "323d.c2",   1, 0x1000000, CRC(62aa59a8) SHA1(dc4b7dc87d43b2c61bea799d2de5344d1c1999b9) )
+ROM_END
+
+ROM_START( teot_5 ) // Beta 2, 2022-01-29
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323e.p1", 0x000000, 0x100000, CRC(0d5763ae) SHA1(53dc53f9945cd7daeb7ab1e121f3aed132c75d0a) )
+	ROM_LOAD16_WORD_SWAP( "323e.p2", 0x100000, 0x800000, CRC(bee21724) SHA1(0c37bb950568932493a1806cd1038e5935a5bddf) )
+
+	NEO_SFIX_128K( "323e.s1", CRC(52895190) SHA1(d11385c51591b685c533a9f27c4fd3aa62927bef) )
+
+	NEO_BIOS_AUDIO_64K( "323e.m1", CRC(583db6a5) SHA1(4f6e15a50b2074aa1d2eb5d1b91bead0639be963) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323e.v1",   0x000000, 0x800000, CRC(d88114d4) SHA1(981f151c2b7e63e876f350169426759e0e73cdd1) )
+	ROM_LOAD( "323e.v2",   0x800000, 0x800000, CRC(6fccb0d0) SHA1(386f7f054d1d988cca904c03ca52023236b22813) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323e.c1",   0, 0x800000, CRC(b087909a) SHA1(e4dc29edb0f5d8ea53d8c4c5934ae5e1176466fa) )
+	ROM_LOAD16_BYTE( "323e.c2",   1, 0x800000, CRC(a4d6cd16) SHA1(780e0b3eae94536951731fea1bb4145bfa5eec77) )
+ROM_END
+
+ROM_START( teot_6 ) // Beta 3, 2022-03-12
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323f.p1", 0x000000, 0x100000, CRC(2af068c0) SHA1(82f5885fbfdef47c0e9416cf9bd9accf8e5a739d) )
+	ROM_LOAD16_WORD_SWAP( "323f.p2", 0x100000, 0x800000, CRC(3ddc321d) SHA1(496573202a417d40894f69c2044ef408d3a0f01b) )
+
+	NEO_SFIX_128K( "323e.s1", CRC(52895190) SHA1(d11385c51591b685c533a9f27c4fd3aa62927bef) )
+
+	NEO_BIOS_AUDIO_64K( "323f.m1", CRC(5edaa24d) SHA1(90209de31a87da4118600be64869b36067d76c4b) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323f.v1",   0x000000, 0x800000, CRC(70042574) SHA1(368e85d38a94238b61969ee564f94bef143b808d) )
+	ROM_LOAD( "323f.v2",   0x800000, 0x800000, CRC(d84d05b2) SHA1(7ad3914b5e95572d3fc9dadc6ad0e23463983118) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323f.c1",   0, 0x1000000, CRC(360e5362) SHA1(a86a5eea49218669c5e00a6b286a7d2d6f02ab3c) )
+	ROM_LOAD16_BYTE( "323f.c2",   1, 0x1000000, CRC(1fdff0ce) SHA1(4ef77f3e01d58612e9b730426adb81d87ccb5572) )
+ROM_END
+
+ROM_START( teot_7 ) // Beta 4, 2022-05-07
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323g.p1", 0x000000, 0x100000, CRC(fdb9a8d4) SHA1(7e0d43ebe7b3841948a0de311b521b3eaa1c91d7) )
+	ROM_LOAD16_WORD_SWAP( "323g.p2", 0x100000, 0x800000, CRC(02dd52ed) SHA1(71a310cf48fe719726f60aa11e87e11bb217ac5c) )
+
+	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
+
+	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
+	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323g.c1",   0, 0x1000000, CRC(66f0afa6) SHA1(3ee249703bf4710d4ae7ac6b9928f81dcb679654) )
+	ROM_LOAD16_BYTE( "323g.c2",   1, 0x1000000, CRC(e773037f) SHA1(ac3d07091fc8f25f01b9f21f5a0abff750af8208) )
+ROM_END
+
+ROM_START( teot_8 ) // Beta 5, 2022-05-29
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323h.p1", 0x000000, 0x100000, CRC(1cd69227) SHA1(dd2669a5f0db942b4dfddaa6448179038d1852b6) )
+	ROM_LOAD16_WORD_SWAP( "323h.p2", 0x100000, 0x800000, CRC(68dc7463) SHA1(e304187c3343d6a3f4dcad05ab68a1e73434079c) )
+
+	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
+
+	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
+	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323h.c1",   0, 0x1000000, CRC(2fdbfbef) SHA1(3bc2f207538893f71a7f14800dc9f11f1788c5bf) )
+	ROM_LOAD16_BYTE( "323h.c2",   1, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
+ROM_END
+
+ROM_START( teot_9 ) // Beta 6, 2022-07-06
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323i.p1", 0x000000, 0x100000, CRC(49b25c64) SHA1(91d2d27952818c40ad288af90df606a75ca7f824) )
+	ROM_LOAD16_WORD_SWAP( "323h.p2", 0x100000, 0x800000, CRC(68dc7463) SHA1(e304187c3343d6a3f4dcad05ab68a1e73434079c) )
+
+	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
+
+	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
+	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323h.c1",   0, 0x1000000, CRC(2fdbfbef) SHA1(3bc2f207538893f71a7f14800dc9f11f1788c5bf) )
+	ROM_LOAD16_BYTE( "323h.c2",   1, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
+ROM_END
+GAME( 2020, teot_1,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, teot_2,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo 2, 2021-02-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, teot_3,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, alpha 5, 2021-05-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_4,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta, 2022-01-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_5,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_6,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_7,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_8,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_9,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 6, 2022-07-06)", MACHINE_SUPPORTS_SAVE )
+
+// 407 : Neo No Panepon by Blastar, 2002
+// No sound
+/* There are 4 versions.
+   Release dates: v1a and v1b = 2002-07-07, v1c = 2002-08-22, v2 = 2002-10-05
+
+   MAME has a bug where the first 2 high scores do not show. (Change pixel clock to /6 to fix this)
+*/
+// Keeps rebooting; use Universe Bios to see opening screen, then press Space to reboot
+ROM_START( neonopon_d1 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "407a.p1", 0x000000, 0x080000, CRC(43b7c759) SHA1(bbb4bf7957a336be6e5daa4030a5ebb1c72d92ee) )
+
+	NEO_SFIX_64K( "407a.s1", CRC(e28ea706) SHA1(bd113a91a1303e2ec670250225a1cd35d34c7f60) )
+
+	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "407a.c1", 0, 0x100000, CRC(24dcba77) SHA1(da7ce6797bf4ac9903dbb00587815c51c835c879) )
+	ROM_LOAD16_BYTE( "407a.c2", 1, 0x100000, CRC(57c41e26) SHA1(39d810547f3f8a44b45e7807f1e6b3a0672a1688) )
+ROM_END
+// Keeps rebooting; use Universe Bios to see opening screen, then press Space to reboot
+ROM_START( neonopon_d2 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "407a.p1", 0x000000, 0x080000, CRC(43b7c759) SHA1(bbb4bf7957a336be6e5daa4030a5ebb1c72d92ee) )
+
+	NEO_SFIX_64K( "407a.s1", CRC(e28ea706) SHA1(bd113a91a1303e2ec670250225a1cd35d34c7f60) )
+
+	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "407b.c1", 0, 0x100000, CRC(0833c9e7) SHA1(62f4e093bd5b521ee3f64aa1744e324a3a50eb12) )
+	ROM_LOAD16_BYTE( "407b.c2", 1, 0x100000, CRC(fbf5f67f) SHA1(52a6a800d4afaa9675e1f6eab5ed4be772f17338) )
+ROM_END
+// Keeps rebooting; use Universe Bios to see opening screen, then press Space to reboot
+ROM_START( neonopon_d3 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "407a.p1", 0x000000, 0x080000, CRC(43b7c759) SHA1(bbb4bf7957a336be6e5daa4030a5ebb1c72d92ee) )
+
+	NEO_SFIX_64K( "407.s1", CRC(93e6fe7d) SHA1(791789c33eeeaa23fe6581db2f0ee3c35c73c052) )
+
+	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "407c.c1", 0, 0x100000, CRC(e0573498) SHA1(80ec6ef8a6133f1f66704920332e92daa3daee14) )
+	ROM_LOAD16_BYTE( "407b.c2", 1, 0x100000, CRC(fbf5f67f) SHA1(52a6a800d4afaa9675e1f6eab5ed4be772f17338) )
+ROM_END
+GAME( 2002, neonopon_d1,  neonopon, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (demo 1, 2002-07-07)", MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neonopon_d2,  neonopon, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (demo 2, 2002-07-07)", MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neonopon_d3,  neonopon, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (demo 3, 2002-08-22)", MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+
+
