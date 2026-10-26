@@ -3302,11 +3302,11 @@ ROM_START( sgz ) // demo
 ROM_END
 
 
-// 540: Shadow of the Beast (beta-0.2.5) by Bendk97
+// 540: Shadow of the Beast (beta-0.2.6) by Bendk97
 // Cheat menu: At the title screen press one at a time: B C D C B
 ROM_START( sotbn )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(f9833a0a) SHA1(9e0b29eb833949397476df1ab556093e3eafe025) )
+	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(a89bda20) SHA1(54e0892017732b115fd78834cfdcfb5340ac5fd6) )
 	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(2e7a9d52) SHA1(65fdf1545f2d0f6a13dd33299754831957251235) )
 
 	NEO_SFIX_128K( "540.s1", CRC(195de445) SHA1(e56db25d0d8367d64db949585a513f48f97dd6e7) )
@@ -3362,15 +3362,15 @@ ROM_START( cosmogngn )
 ROM_END
 
 
-// 543: Knights of the Round (beta-0.2.0) by Bendk97
+// 543: Knights of the Round (beta-0.2.1) by Bendk97
 ROM_START( knightsn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(33738e12) SHA1(38e46dab8a8f1053d2c5d07858ff1760045a6201) )
-	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(11987977) SHA1(2c396749e6cb85ad9da53be6ab5c192a6b4f259b) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(60592960) SHA1(c46361eebcf2d6fb2b2a4aa466ff0c20d99765b4) )
 
 	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
 
-	NEO_BIOS_AUDIO_128K( "543.m1", CRC(5adb5817) SHA1(13ef6125750e3f67d5e3b076ac616af634dc23f6) )
+	NEO_BIOS_AUDIO_128K( "543.m1", CRC(905c6348) SHA1(c9333734fd936e2d3e3eba5e724475e21421f621) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "543.v1",   0x000000, 0x1000000, CRC(14d97a5b) SHA1(1f656c938a43dd13cb1266451e78cc5d7ecd24cb) )
@@ -4662,7 +4662,7 @@ GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.2.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.2.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
@@ -4742,7 +4742,7 @@ GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
