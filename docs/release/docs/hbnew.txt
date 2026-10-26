@@ -14,6 +14,8 @@ New Games
 Updated Games
 ---------------------------------
 - [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.1)
+- [maiyaluna]           Maiya & Luna (v2)
+- [nosignal]            No Signal Z Alpha (v2)
 - [outrunn]             Out Run (Neo-Geo port, beta-0.3.3)
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.2)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.6)

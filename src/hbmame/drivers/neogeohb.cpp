@@ -4580,10 +4580,10 @@ ROM_START( 7wonders )
 ROM_END
 
 
-// 783 : Maiya and Luna (v1) by Eagle Software
+// 783 : Maiya and Luna (v2) by Eagle Software
 ROM_START( maiyaluna )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "783.p1", 0x000000, 0x80000, CRC(dda3c6e9) SHA1(60dfea90600b4ce6702b24f2ca1782b3e804bebd) )
+	ROM_LOAD16_WORD_SWAP( "783.p1", 0x000000, 0x80000, CRC(aa44e49a) SHA1(a26a3e781a7b7d046489dae39f7861c8750f5720) )
 
 	NEO_SFIX_128K( "783.s1", CRC(74a73a67) SHA1(3046b5ef0309239297521ca5c5ec82d9081d9865) )
 
@@ -4593,15 +4593,15 @@ ROM_START( maiyaluna )
 	ROM_LOAD( "783.v1", 0x000000, 0x76c400, CRC(0518d9fc) SHA1(b328636be66f6aedd5fcc5b48a59434858201163) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "783.c1", 0, 0x400000, CRC(cd2c43bb) SHA1(cba8d7ca848393919ddd0233eca849623ccd8d30) )
-	ROM_LOAD16_BYTE( "783.c2", 1, 0x400000, CRC(60b12724) SHA1(b28f2710d55bbf9162c7197b7967d356964c3a15) )
+	ROM_LOAD16_BYTE( "783.c1", 0, 0x400000, CRC(b73a67ac) SHA1(3dcc38dc7dd22462a80209e1c22fee704cd44f82) )
+	ROM_LOAD16_BYTE( "783.c2", 1, 0x400000, CRC(9707b70a) SHA1(33f0ea6b4d94dfd40643a49df347fa2058f2a2f9) )
 ROM_END
 
 
-// 784 : No Signal Z Alpha (v1) by Eagle Software
+// 784 : No Signal Z Alpha (v2) by Eagle Software
 ROM_START( nosignal )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "784.p1", 0x000000, 0x80000, CRC(3c898fec) SHA1(2ed2070951df80b195ecea3c716412fb4d9a16a2) )
+	ROM_LOAD16_WORD_SWAP( "784.p1", 0x000000, 0x80000, CRC(814e8d63) SHA1(7dfd50ce2d9cd9d27e3357300e277705bf71e083) )
 
 	NEO_SFIX_128K( "784.s1", CRC(fb90dfcc) SHA1(542820e191a41c407affd1a267f7be62ac0e5508) )
 
@@ -4611,8 +4611,8 @@ ROM_START( nosignal )
 	ROM_LOAD( "784.v1", 0x000000, 0x5bdb00, CRC(d57dbcf8) SHA1(8c9760d6141952ddd3be543c6869b4308088d78d) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "784.c1", 0, 0x400000, CRC(814b6a0d) SHA1(b53aa3a93092d43d1e418d4ab9b787ac816bb423) )
-	ROM_LOAD16_BYTE( "784.c2", 1, 0x400000, CRC(3f67cee5) SHA1(591f0e7dfd29c00d29434d2604c6d4d867071355) )
+	ROM_LOAD16_BYTE( "784.c1", 0, 0x400000, CRC(fb971306) SHA1(a958710d7320cfab10df4384d086afdebdb7f410) )
+	ROM_LOAD16_BYTE( "784.c2", 1, 0x400000, CRC(fba2415a) SHA1(d8d72605e7449f1c8ac79afc1d8bf2ed754eab48) )
 ROM_END
 
 
@@ -4741,7 +4741,7 @@ GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, mahjongd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Mahjong Demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
@@ -4777,7 +4777,7 @@ GAME( 2022, ngmontst3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Crim/Stephen", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ngym2610,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NeoGeo YM2610 Test", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, nosignal,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "No Signal Z Alpha (v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, nosignal,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "No Signal Z Alpha (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, nsmb,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, nsmbd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
