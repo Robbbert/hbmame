@@ -240,6 +240,8 @@ NUM GAME YEAR COMPANY                 TITLE
 529 0539 2026 Bendk97                 Sword of Sodan (https://bendk97.itch.io/)
 530 2602 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
 531 0F77 2026 ShinobiZ                Altered Beast (https://shinobiz72.itch.io/)
+532 0999 2026 Arkretro                World Rally (Neo-Geo port)
+533 0999 2026 F.C Team                Prehistoric Isle in 1930 (Neo-Geo port) (https://capitaine-power.itch.io/)
 534 0E58 2026 Teo Tormo               Robocop (https://teo-tormo.itch.io/)
 535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
 536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
@@ -3182,6 +3184,69 @@ ROM_START( altbeastn )
 ROM_END
 
 
+// 532: World Rally port () by Arkretro
+ROM_START( wrallyn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "532.p1", 0x000000, 0x200000, CRC(66ae3de4) SHA1(9073fa73575365c8f3fd36fe692f36c9a1deb10b) )
+
+	NEO_SFIX_128K( "532.s1", CRC(39913a0a) SHA1(9778578f8fe0b1260b5aaf8f9c26b2ed55d6affd) )
+
+	NEO_BIOS_AUDIO_64K( "532.m1", CRC(8a3b1946) SHA1(85dfa7f134d9ed4cde3403668299c8d642768a34) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "532.v1", 0x000000, 0x400000, CRC(edc105d0) SHA1(39566bb0927266c8536b09a4ba2d96d8a7edb8b9) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "532.c1", 0, 0x400000, CRC(b11347c2) SHA1(e974d9d283f9740a08482ad3acb1e94b3c8d9c62) )
+	ROM_LOAD16_BYTE( "532.c2", 1, 0x400000, CRC(2bfcd5fc) SHA1(cd43281f5fd3506c2bb3d5191c655691712551ba) )
+ROM_END
+
+
+#if 0
+// 533: Prehistoric Isle in 1930 (demo v1) by F.C Team
+// Bugs: Quits after a few seconds of play then does weird stuff
+ROM_START( prehislen )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x100000, CRC(6e868f53) SHA1(f0fd6eaebf340d604945d96b2fac3cbffa89c7fb) )
+
+	NEO_SFIX_128K( "533.s1", CRC(1489be8e) SHA1(cf3c838e3f992329cc05b06ccb9fd4b70762e9a3) )
+
+	NEO_BIOS_AUDIO_128K( "533.m1", CRC(ca7db0d5) SHA1(2ce1167a69d0b8a08ef9f1287a5eba2426c579a0) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "533.v1",   0x000000, 0x100000, CRC(851288d7) SHA1(ee81053c0796026ae78bc2b1fb98ee939a40f33b) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "533.v21",   0x000000, 0x1000000, CRC(00e1785d) SHA1(39e0f42d2d20ebeca3f17b563dec3c70e39742da) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "533.c1", 0, 0x200000, CRC(1ccfaf10) SHA1(e3be869d269135288015a378683b4e8c022eec40) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x200000, CRC(2ac1a6b7) SHA1(d93214c3c94e48d4de83287050da78a84f553902) )
+ROM_END
+
+
+// 533: Prehistoric Isle in 1930 (demo v2) by F.C Team
+// Bugs: Quits after a few seconds of play then does weird stuff
+ROM_START( prehislen )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0x000000, 0x100000, CRC(7334f9bd) SHA1(d2aeadaabd3c5396634cfa5f2c54c3e4473e5e60) )
+
+	NEO_SFIX_128K( "533.s1", CRC(1489be8e) SHA1(cf3c838e3f992329cc05b06ccb9fd4b70762e9a3) )
+
+	NEO_BIOS_AUDIO_128K( "533.m1", CRC(9860223a) SHA1(8e9c1287f2470f4e81d4178a1f57c9cf664461ad) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "533.v1",   0x000000, 0x100000, CRC(851288d7) SHA1(ee81053c0796026ae78bc2b1fb98ee939a40f33b) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "533.v21",   0x000000, 0x1000000, CRC(edb79e99) SHA1(18f41f09df7882d0b39ab2343f4b373da0d22d98) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "533.c1", 0, 0x200000, CRC(23c12e85) SHA1(196bbe105682f680ec9ff9cb9b078dffbf0bf3a1) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x200000, CRC(98c519fe) SHA1(9f86421a98931d6d84283f8ac913ea3d88f48aa6) )
+ROM_END
+#endif
+
 // 534: Robocop (v9) by Teo Tormo
 // Bugs: Some parts run too fast
 ROM_START( robocopn )
@@ -4724,6 +4789,7 @@ GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 //GAME( 2025, pown,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "P.O.W. (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, rickdx,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Rick Dangerous DX", MACHINE_SUPPORTS_SAVE )
@@ -4768,6 +4834,7 @@ GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, warriorman,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Warrior Man", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wolf3d,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Thibaut Lion", "Wolfenstein-3D (Neo-Geo port, v1.2.0)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wrallyn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Arkretro", "World Rally (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, wrldracr02,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
