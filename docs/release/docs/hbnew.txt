@@ -7,6 +7,8 @@
 
 New Games
 ---------------------------------
+- [striderjs01]         Strider Hiryu EX (Japan, 2026-10-27)
+- [striderus01]         Strider EX (USA, 2026-10-27)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-10-26)
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-10-26)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-10-26)

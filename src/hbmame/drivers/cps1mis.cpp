@@ -20610,6 +20610,81 @@ ROM_START( strider05 )
 	ROM_LOAD( "strider.key", 0x00, 0x80, CRC(39065af5) SHA1(ffff84fd87e851718c564062564970677da923c9) )
 ROM_END
 
+ROM_START( striderjs01 ) // striderjr with a 2 MB program and an 8 MB gfx region for the PC Engine CD backport
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c03js01.p1", 0x00000, 0x80000, CRC(39260f46) SHA1(84f6a1aba00fd498aa29ecc339bad646ff945bce) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03js01.p5", 0x80000, 0x80000, CRC(abc6d8ff) SHA1(d7e825abc7de0c0b81a7aa36597feacb340b0dcf) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03js01.p6", 0x100000, 0x100000, CRC(150e1549) SHA1(490b398310595aed8cc372daa447e60b7cd3624b) ) // EX bank: scene player, scene streams, subtitles, desert stage
+
+	ROM_REGION( 0x800000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c03js01.c01", 0x000000, 0x80000, CRC(f92cc010) SHA1(7cec7f7cdc7efce28fd49ae0220a41d2fa811fd0) ) // EX build
+	ROM_LOAD64_WORD( "c03js01.c03", 0x000002, 0x80000, CRC(9abd7b1e) SHA1(cb00c37ad5b53daee8a1d7bb949adc3559561d13) ) // EX build
+	ROM_LOAD64_WORD( "c03js01.c05", 0x000004, 0x80000, CRC(085ec243) SHA1(3bd523f041b6d2144f983642f6e4e14f951f0c90) ) // EX build
+	ROM_LOAD64_WORD( "c03js01.c07", 0x000006, 0x80000, CRC(2443df27) SHA1(a9ba2d641280794181aa4d4000dbd14e08161198) ) // EX build
+	ROM_LOAD64_WORD( "c03.c17", 0x200000, 0x80000, CRC(005f000b) SHA1(e6f65af7cc3295be9efaaded352e7ae6320b4133) )
+	ROM_LOAD64_WORD( "c03.c19", 0x200002, 0x80000, CRC(b9441519) SHA1(bb0926dc484dae4f64c5e5a6bce20afdc7aeba55) )
+	ROM_LOAD64_WORD( "c03.c21", 0x200004, 0x80000, CRC(b7d04e8b) SHA1(5c5a079baa694927c33d0e0c23e5ff09d6c9d985) )
+	ROM_LOAD64_WORD( "c03.c23", 0x200006, 0x80000, CRC(6b4713b4) SHA1(759b8b1fc7a5c4b00d74a27c2dd11667db44b09e) )
+
+	ROM_LOAD64_WORD( "c03js01.c25", 0x400000, 0x100000, CRC(e8507e5b) SHA1(4e5eb01ad95fa0b9bc7a75bda48b8a899c4c3801) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03js01.c27", 0x400002, 0x100000, CRC(1120f48d) SHA1(d7be842534e9b6ec98d007d16873dae0c237e9be) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03js01.c29", 0x400004, 0x100000, CRC(f7a36cd4) SHA1(dfbb046838dc2d477a3421810c9bbf6759289d48) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03js01.c31", 0x400006, 0x100000, CRC(b0ef929a) SHA1(59e22eb73ab4b987a6318ac19be63286ff85f8a2) ) // EX gfx bank
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c03js01.m1", 0x00000, 0x08000, CRC(a08e24b9) SHA1(9cb9f86196b123b7c50749e0a986766eb04dff27) ) // EX build
+	ROM_CONTINUE(            0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c03js01.v1", 0x00000, 0x20000, CRC(897269dd) SHA1(0fe2e81296fd88e1cac82c861c26f19d81704015) ) // EX build
+	ROM_LOAD( "c03js01.v2", 0x20000, 0x20000, CRC(3f56c8cc) SHA1(1a1030f55f651b62c7b23fe260ecfb63aeee03e0) ) // EX build
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "striderjs01.key", 0x00, 0x80, CRC(6802a1a5) SHA1(410528a5288b5896c2ce5060f8036145ddc2a8ac) ) // CPS_B_21_DEF with the EX gfx bank
+ROM_END
+
+ROM_START( striderus01 ) // striderua with a 2 MB program and an 8 MB gfx region for the PC Engine CD backport
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "c03us01.p1", 0x00000, 0x20000, CRC(457395b9) SHA1(b8dbcfc3219b1176d89ae3d04433f70c27b1ce64) ) // EX build
+	ROM_LOAD16_BYTE( "c03us01.p2", 0x00001, 0x20000, CRC(118f8690) SHA1(e2bb22f470bd4ecc643ba8ec20b86913b047ca6e) ) // EX build
+	ROM_LOAD16_BYTE( "c03us01.p3", 0x40000, 0x20000, CRC(3306fd0f) SHA1(297bf81e08336d913b70f04ddcfead84045ec180) ) // EX build
+	ROM_LOAD16_BYTE( "c03us01.p4", 0x40001, 0x20000, CRC(1ac8cad9) SHA1(29f345dfe5b5ebf740d4c8a7068eee2777fde218) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03us01.p5", 0x80000, 0x80000, CRC(06edfbaf) SHA1(1d6a1b7a42c768eae58775f503eb72ca3c536005) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03us01.p6", 0x100000, 0x100000, CRC(075dfc39) SHA1(a6ea9e5359acbdcdfb0147ca9f90661e51468393) ) // EX bank: scene player, scene streams, subtitles, desert stage
+
+	ROM_REGION( 0x800000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c03us01.c01", 0x000000, 0x80000, CRC(f92cc010) SHA1(7cec7f7cdc7efce28fd49ae0220a41d2fa811fd0) ) // EX build
+	ROM_LOAD64_WORD( "c03us01.c03", 0x000002, 0x80000, CRC(9abd7b1e) SHA1(cb00c37ad5b53daee8a1d7bb949adc3559561d13) ) // EX build
+	ROM_LOAD64_WORD( "c03us01.c05", 0x000004, 0x80000, CRC(085ec243) SHA1(3bd523f041b6d2144f983642f6e4e14f951f0c90) ) // EX build
+	ROM_LOAD64_WORD( "c03us01.c07", 0x000006, 0x80000, CRC(2443df27) SHA1(a9ba2d641280794181aa4d4000dbd14e08161198) ) // EX build
+	ROM_LOAD64_WORD( "c03.c17", 0x200000, 0x80000, CRC(005f000b) SHA1(e6f65af7cc3295be9efaaded352e7ae6320b4133) )
+	ROM_LOAD64_WORD( "c03.c19", 0x200002, 0x80000, CRC(b9441519) SHA1(bb0926dc484dae4f64c5e5a6bce20afdc7aeba55) )
+	ROM_LOAD64_WORD( "c03.c21", 0x200004, 0x80000, CRC(b7d04e8b) SHA1(5c5a079baa694927c33d0e0c23e5ff09d6c9d985) )
+	ROM_LOAD64_WORD( "c03.c23", 0x200006, 0x80000, CRC(6b4713b4) SHA1(759b8b1fc7a5c4b00d74a27c2dd11667db44b09e) )
+
+	ROM_LOAD64_WORD( "c03us01.c25", 0x400000, 0x100000, CRC(e8507e5b) SHA1(4e5eb01ad95fa0b9bc7a75bda48b8a899c4c3801) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03us01.c27", 0x400002, 0x100000, CRC(1120f48d) SHA1(d7be842534e9b6ec98d007d16873dae0c237e9be) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03us01.c29", 0x400004, 0x100000, CRC(f7a36cd4) SHA1(dfbb046838dc2d477a3421810c9bbf6759289d48) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03us01.c31", 0x400006, 0x100000, CRC(b0ef929a) SHA1(59e22eb73ab4b987a6318ac19be63286ff85f8a2) ) // EX gfx bank
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c03us01.m1", 0x00000, 0x08000, CRC(a08e24b9) SHA1(9cb9f86196b123b7c50749e0a986766eb04dff27) ) // EX build
+	ROM_CONTINUE(         0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c03us01.v1", 0x00000, 0x20000, CRC(897269dd) SHA1(0fe2e81296fd88e1cac82c861c26f19d81704015) ) // EX build
+	ROM_LOAD( "c03us01.v2", 0x20000, 0x20000, CRC(3f56c8cc) SHA1(1a1030f55f651b62c7b23fe260ecfb63aeee03e0) ) // EX build
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "striderus01.key", 0x00, 0x80, CRC(db7ce280) SHA1(e212a15a81eeaa6ff4624defd62c530ec75efab5) ) // CPS_B_01 with the EX gfx bank
+ROM_END
+
 
 /********************
  Street Fighter Zero
@@ -29034,6 +29109,8 @@ GAME( 1989, strider01,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,
 GAME( 2017, strider02,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "System 11", "Strider (JP, fixes graphics and music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, strider04,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "Arcadefixer", "Strider (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, strider05,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "hack", "Strider (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, striderjs01, strider, cps1_12MHz, strider, cps_state, init_cps1, ROT0, "strygo", "Strider Hiryu EX (Japan, 2026-10-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, striderus01, strider, cps1_10MHz, stridrua, cps_state, init_cps1, ROT0, "strygo", "Strider EX (USA, 2026-10-27)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero
 GAME( 2007, sfzch02,       sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "Pipi899[EZ]", "Street Fighter Zero (Move Hack, 2007-02-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzch03,       sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Asia 950925)", MACHINE_SUPPORTS_SAVE )
