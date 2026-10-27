@@ -1,9 +1,9 @@
-# Builds standalone HBMAME for macOS (Apple Silicon), linked against
-# SDL3.framework in /Library/Frameworks (same convention as official MAME),
-# signs it with the Developer ID, notarizes it and optionally publishes a release.
+# Builds HBMAME.app for macOS (Apple Silicon) from upstream HBMAME:
+# SDL3.framework bundled, signed with the Developer ID, notarized and stapled,
+# delivered as a signed, notarized and stapled DMG.
 #
 # Runs ONLY when started by hand: Actions tab -> "macOS release build" -> Run workflow.
-# Upstream commits never trigger it.
+# The app files (launcher, Info.plist, icon, entitlements) come from macos/ in this repo.
 
 name: macOS release build
 
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: 'Upstream tag, branch or commit to build (e.g. master or tag2893)'
+        description: 'Upstream tag, branch or commit to build (e.g. tag2894 or master)'
         required: true
         default: 'master'
       repository:
@@ -19,7 +19,7 @@ on:
         required: true
         default: 'Robbbert/hbmame'
       release_tag:
-        description: 'Release tag/version for the zip name and release, e.g. 0.289.4 (empty = commit hash)'
+        description: 'Release tag/version for file names and the release, e.g. 0.289.4 (empty = commit hash)'
         required: false
         default: ''
       publish:
@@ -58,21 +58,29 @@ jobs:
           fi
         fi
 
+    - name: Check out this repository (app bundle files)
+      uses: actions/checkout@v5
+      with:
+        path: fork
+
     - name: Check out HBMAME source
       uses: actions/checkout@v5
       with:
         repository: ${{ inputs.repository }}
         ref: ${{ inputs.ref }}
         fetch-depth: 1
+        path: src
 
     - name: Work out names
+      working-directory: src
       run: |
         SRC_SHA=$(git rev-parse HEAD)
         LABEL="${{ inputs.release_tag }}"
         [ -z "$LABEL" ] && LABEL="${SRC_SHA:0:9}"
         echo "SRC_SHA=$SRC_SHA" >> "$GITHUB_ENV"
         echo "LABEL=$LABEL" >> "$GITHUB_ENV"
-        echo "ZIP=hbmame-$LABEL-macos-arm64.zip" >> "$GITHUB_ENV"
+        echo "APP=$RUNNER_TEMP/dist/HBMAME.app" >> "$GITHUB_ENV"
+        echo "DMG=HBMAME-$LABEL-macos-arm64.dmg" >> "$GITHUB_ENV"
         echo "Building ${{ inputs.repository }} @ ${{ inputs.ref }} ($SRC_SHA)"
 
     - name: Install SDL3.framework into /Library/Frameworks
@@ -89,61 +97,77 @@ jobs:
         echo "Using SDL $TAG"
         gh release download "$TAG" --repo libsdl-org/SDL --pattern 'SDL3-*.dmg' --dir "$RUNNER_TEMP"
         hdiutil attach "$RUNNER_TEMP"/SDL3-*.dmg -nobrowse -readonly -mountpoint "$RUNNER_TEMP/sdl3"
-        # the DMG ships an .xcframework; install only its macOS slice as
-        # /Library/Frameworks/SDL3.framework (what MAME's instructions tell users)
-        ls -la "$RUNNER_TEMP/sdl3"
+        # the DMG ships an .xcframework; install only its macOS slice
         FW=$(find "$RUNNER_TEMP/sdl3" -maxdepth 4 -type d -path '*macos*' -name SDL3.framework | head -1)
         [ -z "$FW" ] && { echo "::error::macOS SDL3.framework not found in DMG"; exit 1; }
         sudo ditto "$FW" /Library/Frameworks/SDL3.framework
-        ls /Library/Frameworks/SDL3.framework/Headers/SDL.h
         hdiutil detach "$RUNNER_TEMP/sdl3"
+        ls /Library/Frameworks/SDL3.framework/Headers/SDL.h
         vtool -show-build /Library/Frameworks/SDL3.framework/SDL3 | grep minos
 
     - name: Build HBMAME
+      working-directory: src
       # USE_LIBSDL=0: without it the build silently switches to Homebrew's SDL3
       #   whenever it can find one (the runner has Homebrew).
       # SDL_FRAMEWORK_PATH: the default points inside SDL3.xcframework; this uses
-      #   /Library/Frameworks/SDL3.framework for headers, linking and the rpath.
+      #   /Library/Frameworks/SDL3.framework for headers and linking.
       run: make REGENIE=1 USE_LIBSDL=0 SDL_FRAMEWORK_PATH=/Library/Frameworks/ -j$(sysctl -n hw.ncpu) TARGET=hbmame
 
-    - name: Add rpaths for both ways of installing SDL3
-      # Users may have /Library/Frameworks/SDL3.framework (MAME's classic
-      # instructions) or /Library/Frameworks/SDL3.xcframework (SDL's own
-      # package, copied as is). The binary finds SDL3 in either.
-      run: |
-        changed=0
-        for rp in /Library/Frameworks /Library/Frameworks/SDL3.xcframework/macos-arm64_x86_64; do
-          if ! otool -l hbmame | grep -A2 LC_RPATH | grep -qE "path $rp/? "; then
-            install_name_tool -add_rpath "$rp" hbmame
-            changed=1
-          fi
-        done
-        [ "$changed" = 1 ] && codesign --force --sign - hbmame   # restore ad-hoc signature for -validate
-        otool -l hbmame | grep -A2 LC_RPATH
-
-    - name: Check linking and minimum macOS version
+    - name: Check linking, minimum macOS version, drivers
+      working-directory: src
       run: |
         otool -L hbmame | grep -i sdl
         if otool -L hbmame | grep -q /opt/homebrew; then
           echo "::error::hbmame is linked against Homebrew libraries"; exit 1
         fi
         vtool -show-build hbmame | grep minos
-
-    - name: Validate drivers
-      run: ./hbmame -validate
+        ./hbmame -validate
+        # App version from the binary itself, e.g. "0.289.4x (automated)" -> 0.289.4
+        VERSION=$(./hbmame -version | grep -oE '^[0-9]+(\.[0-9]+)+' | head -1)
+        [ -z "$VERSION" ] && { echo "::error::Could not read version from hbmame"; exit 1; }
+        echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+        echo "App version: $VERSION"
 
     - name: Compile UI translations
+      working-directory: src
       run: |
         for x in language/*/*.po; do
           python3 scripts/build/msgfmt.py --output-file "$(dirname "$x")/$(basename "$x" .po).mo" "$x"
         done
 
-    - name: Package
+    - name: Assemble HBMAME.app
       run: |
-        mkdir -p dist/hbmame
-        cp hbmame dist/hbmame/
-        rsync -a --exclude='*.po' plugins language bgfx hash artwork dist/hbmame/
-        cp COPYING dist/hbmame/ 2>/dev/null || true
+        C="$APP/Contents"
+        mkdir -p "$C/MacOS" "$C/Frameworks" "$C/Resources"
+
+        # program, launcher (main executable), Info.plist, icon
+        cp src/hbmame "$C/MacOS/hbmame"
+        cp fork/macos/hbmame-launcher "$C/MacOS/hbmame-launcher"
+        chmod +x "$C/MacOS/hbmame" "$C/MacOS/hbmame-launcher"
+        cp fork/macos/Info.plist "$C/Info.plist"
+        /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$C/Info.plist"
+        /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$C/Info.plist"
+        plutil -lint "$C/Info.plist"
+        cp fork/macos/hbmame.icns "$C/Resources/"
+
+        # read-only runtime files
+        (cd src && rsync -a --exclude='*.po' plugins language bgfx hash artwork "$C/Resources/")
+
+        # bundled SDL3, without Finder or AppleDouble leftovers
+        ditto --norsrc --noextattr --noqtn /Library/Frameworks/SDL3.framework "$C/Frameworks/SDL3.framework"
+
+        # rpath: only the bundled framework
+        BIN="$C/MacOS/hbmame"
+        for rp in $(otool -l "$BIN" | awk '/cmd LC_RPATH/{getline; getline; print $2}'); do
+          install_name_tool -delete_rpath "$rp" "$BIN"
+        done
+        install_name_tool -add_rpath @executable_path/../Frameworks "$BIN"
+        otool -l "$BIN" | grep -A2 LC_RPATH
+
+        # no .DS_Store, ._* files or extended attributes anywhere in the bundle
+        find "$APP" \( -name '.DS_Store' -o -name '._*' \) -print -delete
+        xattr -cr "$APP"
+        ls -la "$C/Frameworks/SDL3.framework"
 
     - name: Import signing certificate
       if: env.CAN_SIGN == 'true'
@@ -165,61 +189,87 @@ jobs:
         [ -z "$IDENTITY" ] && { echo "::error::No Developer ID Application identity in certificate"; exit 1; }
         echo "IDENTITY=$IDENTITY" >> "$GITHUB_ENV"
 
-    - name: Sign binary
-      if: env.CAN_SIGN == 'true'
-      run: |
-        # disable-library-validation: lets the hardened binary load SDL3.framework,
-        #   which is signed by the SDL developers, not by your team
-        # allow-jit / allow-unsigned-executable-memory: MAME's dynamic recompilers
-        cat > "$RUNNER_TEMP/hbmame.entitlements" <<'EOF'
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-          <key>com.apple.security.cs.disable-library-validation</key><true/>
-          <key>com.apple.security.cs.allow-jit</key><true/>
-          <key>com.apple.security.cs.allow-unsigned-executable-memory</key><true/>
-        </dict>
-        </plist>
-        EOF
-        codesign --force --timestamp --options runtime \
-          --entitlements "$RUNNER_TEMP/hbmame.entitlements" \
-          --sign "$IDENTITY" dist/hbmame/hbmame
-        codesign --verify --strict --verbose=2 dist/hbmame/hbmame
-        codesign -d --entitlements - dist/hbmame/hbmame
-
-    - name: Create zip
-      run: ditto -c -k --keepParent dist/hbmame "$ZIP"
-
-    - name: Notarize
-      if: env.CAN_SIGN == 'true'
-      env:
-        APPLE_ID: ${{ secrets.APPLE_ID }}
-        APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
-        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      run: |
-        # A bare command-line binary can't be stapled; Gatekeeper checks the
-        # notarization online on first launch. The zip itself stays unchanged.
-        OUT=$(xcrun notarytool submit "$ZIP" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" \
+        # helper: notarize a file and fail with Apple's log if it is not accepted
+        cat > "$RUNNER_TEMP/notarize.sh" <<'EOF'
+        #!/bin/bash
+        set -euo pipefail
+        OUT=$(xcrun notarytool submit "$1" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" \
               --team-id "$APPLE_TEAM_ID" --wait --timeout 1h --output-format json)
         echo "$OUT"
         ID=$(echo "$OUT" | python3 -c 'import sys,json; print(json.load(sys.stdin)["id"])')
         STATUS=$(echo "$OUT" | python3 -c 'import sys,json; print(json.load(sys.stdin)["status"])')
         if [ "$STATUS" != "Accepted" ]; then
           xcrun notarytool log "$ID" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID"
-          echo "::error::Notarization status: $STATUS"; exit 1
+          echo "::error::Notarization of $1: $STATUS"; exit 1
         fi
+        EOF
+        chmod +x "$RUNNER_TEMP/notarize.sh"
+
+    - name: Sign HBMAME.app (inside out)
+      run: |
+        C="$APP/Contents"
+        if [ "$CAN_SIGN" = "true" ]; then
+          codesign --force --timestamp --options runtime --sign "$IDENTITY" "$C/Frameworks/SDL3.framework"
+          codesign --force --timestamp --options runtime --sign "$IDENTITY" \
+            --entitlements fork/macos/hbmame.entitlements "$C/MacOS/hbmame"
+          codesign --force --timestamp --options runtime --sign "$IDENTITY" "$APP"
+        else
+          # unsigned test build: ad-hoc signature so it can at least run locally
+          codesign --force --deep --sign - "$APP"
+        fi
+        codesign --verify --deep --strict --verbose=2 "$APP"
+        codesign -d --entitlements - "$C/MacOS/hbmame"
+        # smoke test: SDL must load from inside the bundle
+        "$C/MacOS/hbmame" -version
+
+    - name: Notarize and staple HBMAME.app
+      if: env.CAN_SIGN == 'true'
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      run: |
+        ditto -c -k --keepParent "$APP" "$RUNNER_TEMP/HBMAME-notarize.zip"
+        "$RUNNER_TEMP/notarize.sh" "$RUNNER_TEMP/HBMAME-notarize.zip"
+        xcrun stapler staple "$APP"
+        xcrun stapler validate "$APP"
+        spctl --assess --type execute -vv "$APP"
+
+    - name: Create DMG
+      run: |
+        STAGE="$RUNNER_TEMP/dmg"
+        mkdir -p "$STAGE"
+        ditto "$APP" "$STAGE/HBMAME.app"
+        ln -s /Applications "$STAGE/Applications"
+        # hdiutil occasionally reports "Resource busy" on CI runners: retry
+        for i in 1 2 3 4 5; do
+          hdiutil create -volname "HBMAME $LABEL" -srcfolder "$STAGE" -ov -format UDZO "$DMG" && break
+          echo "hdiutil failed, retrying ($i)"; sleep 10
+        done
+        [ -f "$DMG" ] || { echo "::error::DMG creation failed"; exit 1; }
+
+    - name: Sign, notarize and staple DMG
+      if: env.CAN_SIGN == 'true'
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      run: |
+        codesign --force --timestamp --sign "$IDENTITY" "$DMG"
+        "$RUNNER_TEMP/notarize.sh" "$DMG"
+        xcrun stapler staple "$DMG"
+        xcrun stapler validate "$DMG"
+        spctl --assess --type open --context context:primary-signature -vv "$DMG"
 
     - name: Remove signing keychain
       if: always() && env.CAN_SIGN == 'true'
       run: security delete-keychain "$RUNNER_TEMP/signing.keychain-db" || true
 
-    - name: Upload build
-      # archive: false uploads our zip as is, so the download is a single zip
-      # (without it, GitHub wraps it in a second zip)
+    - name: Upload DMG
+      # archive: false uploads the DMG as is (no extra zip around it)
       uses: actions/upload-artifact@v7
       with:
-        path: ${{ env.ZIP }}
+        path: ${{ env.DMG }}
         archive: false
         if-no-files-found: error
 
@@ -231,13 +281,21 @@ jobs:
         PRE=""
         [ "${{ inputs.prerelease }}" = "true" ] && PRE="--prerelease"
         cat > "$RUNNER_TEMP/notes.md" <<EOF
-        HBMAME $LABEL for macOS on Apple Silicon, signed and notarized.
+        HBMAME $LABEL as a macOS app for Apple Silicon, signed and notarized.
 
         Built from ${{ inputs.repository }} @ \`${{ inputs.ref }}\` (commit $SRC_SHA).
-        Requires macOS 13 or newer and SDL3 in /Library/Frameworks, either as
-        SDL3.framework or as SDL3.xcframework (as shipped in SDL's DMG).
+
+        **Install:** open the DMG and drag HBMAME to Applications. Requires macOS 13 or newer.
+        SDL3 is included, nothing else needs to be installed.
+
+        - On first launch, HBMAME creates its folders and a full \`hbmame.ini\` in
+          \`~/Library/Application Support/hbmame\`. Put your ROMs into its \`roms\` folder,
+          or point \`rompath\` in \`hbmame.ini\` to your ROM folder.
+        - Frontends: use \`/Applications/HBMAME.app/Contents/MacOS/hbmame-launcher\` as the
+          emulator; all arguments are passed through to HBMAME.
+        - Merged ROM sets: run *Audit media* once in the UI so clones appear under "Available".
         EOF
-        gh release create "${{ inputs.release_tag }}" "$ZIP" \
+        gh release create "${{ inputs.release_tag }}" "$DMG" \
           --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-          --title "HBMAME ${{ inputs.release_tag }} (macOS arm64)" \
+          --title "HBMAME ${{ inputs.release_tag }} (macOS app)" \
           --notes-file "$RUNNER_TEMP/notes.md" $PRE
