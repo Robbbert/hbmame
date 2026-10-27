@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.4)
+- [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [wrallyn]             World Rally (Neo-Geo port)
 
 

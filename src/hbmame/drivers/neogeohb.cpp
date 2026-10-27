@@ -252,7 +252,7 @@ NUM GAME YEAR COMPANY                 TITLE
 541 0997 2026 Bendk97                 Out Run (port) (https://bendk97.itch.io/)
 542 0993 2026 Bendk97                 Cosmo Gang the video (port) (https://bendk97.itch.io/)
 543 0994 2026 Bendk97                 Knights of the Round (port) (https://bendk97.itch.io/)
-544 ---- 2026 Teo Tormo               King of Dragons, the (port) (https://teo-tormo.itch.io/)
+544 0927 2026 Teo Tormo               King of Dragons, the (port) (https://teo-tormo.itch.io/)
 
 
 
@@ -3040,6 +3040,24 @@ ROM_START( knightsn )
 ROM_END
 
 
+// 544: King of Dragons (beta 16) port by Teo Tormo
+ROM_START( kodn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "544.p1", 0, 0x200000, CRC(defe9d25) SHA1(f82b5c7771031d75b5930191a560dac400b6a9c9) )
+
+	NEO_SFIX_128K( "544.s1", CRC(c121499c) SHA1(0d711fc6af155311f20cd161621c7cc2ef0db98b) )
+
+	NEO_BIOS_AUDIO_128K( "544.m1", CRC(ad0870b4) SHA1(32779c5a3cc2e8a13509bfce855fb48ce77179b8) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "544.v1",   0, 0x1000000, CRC(767527ad) SHA1(9b34fb6819098caddcc3959732034c1da58f437a) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "544.c1", 0, 0x200000, CRC(ee6a06b9) SHA1(f2981db9587b71a11a12741dab4a3c7173331e3c) )
+	ROM_LOAD16_BYTE( "544.c2", 1, 0x200000, CRC(ab59e980) SHA1(8ce75259f12f12da5a32712db7f6e4bc7c00cacf) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4314,6 +4332,7 @@ GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.2.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, kodn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
