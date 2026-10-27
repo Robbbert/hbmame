@@ -1,12 +1,13 @@
 ﻿What's new in HBMAME
 ====================
 
-2026-1x-xx 0.290.1
+2026-11-xx 0.289.6
 
 
 
 New Games
 ---------------------------------
+- [jimpower]            Jim Power (Neo-Geo port)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.4)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)

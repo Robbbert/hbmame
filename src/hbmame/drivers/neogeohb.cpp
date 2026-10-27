@@ -253,6 +253,7 @@ NUM GAME YEAR COMPANY                 TITLE
 542 0993 2026 Bendk97                 Cosmo Gang the video (port) (https://bendk97.itch.io/)
 543 0994 2026 Bendk97                 Knights of the Round (port) (https://bendk97.itch.io/)
 544 0927 2026 Teo Tormo               King of Dragons, the (port) (https://teo-tormo.itch.io/)
+545 0777 2026 NK Home Entertainment   Jim Power (port) (https://nicoklem.itch.io/)
 
 
 
@@ -2734,18 +2735,18 @@ ROM_END
 // 536: Warrior Man by NK Home Entertainment
 ROM_START( warriorman )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "536.p1", 0, 0x80000, CRC(90328b30) SHA1(2e4b52ef586f7e72ac9fee2dcd5be289dfc9c2b1) )
+	ROM_LOAD16_WORD_SWAP( "536.p1", 0, 0x8cdb0, CRC(fcf4dc87) SHA1(49e55fd8253d4497a448b02f5e18dd5df1dad388) )
 
-	NEO_SFIX_128K( "536.s1", CRC(4c175fa4) SHA1(06834aa930d981959c4be0f4391b1d37c8688785) )
+	NEO_SFIX_128K( "536.s1", CRC(cf448b94) SHA1(ca3fbb2065700ac25617e2a9f9d6e92aebc2b131) )
 
 	NEO_BIOS_AUDIO_128K( "536.m1", CRC(b0cf3a68) SHA1(3be6e3bb27f961feeb7021f33243bcfaca31797a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "536.v1", 0, 0x1000000, CRC(7b4f4f0b) SHA1(6426e81c917e1bb7b8d1fd8b4c652e03db79bd3f) )
+	ROM_LOAD( "536.v1", 0, 0x1000000, CRC(8175e920) SHA1(d2c68082629e467fec2513674d1611dadb9de80d) )
 
-	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "536.c1", 0, 0x3f4780, CRC(764f7202) SHA1(2c3d1ca7651ec44408f9573f1c94bc04a5e5701b) )
-	ROM_LOAD16_BYTE( "536.c2", 1, 0x3f4780, CRC(f928b28e) SHA1(d1ed6afc91c1e7738e2e356add752bdac9600a03) )
+	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "536.c1", 0, 0x800000, CRC(4fadbb5d) SHA1(d51329000528440649c29529f7b3b2509be408e6) )
+	ROM_LOAD16_BYTE( "536.c2", 1, 0x800000, CRC(4c50ca6b) SHA1(a372e6f00cbb3327067389db41ad2fcd14e1f948) )
 ROM_END
 
 
@@ -2906,6 +2907,24 @@ ROM_START( kodn )
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "544.c1", 0, 0x200000, CRC(ee6a06b9) SHA1(f2981db9587b71a11a12741dab4a3c7173331e3c) )
 	ROM_LOAD16_BYTE( "544.c2", 1, 0x200000, CRC(ab59e980) SHA1(8ce75259f12f12da5a32712db7f6e4bc7c00cacf) )
+ROM_END
+
+
+// 545: Jim Power port by NK Home Entertainment
+ROM_START( jimpower )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "545.p1", 0, 0x80000, CRC(8b89ac37) SHA1(3184a087821493ab7aa288a628ce82787a495eae) )
+
+	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	NEO_BIOS_AUDIO_128K( "545.m1", CRC(9c2c2367) SHA1(e03e8b76dac88f6ccdbaed3eca0662351dbae05c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "545.v1",   0, 0x1000000, CRC(59a4ea3b) SHA1(8b67b9a69bb9d6c82fa294e6e9e409edbb435ed2) )
+
+	ROM_REGION( 0x8000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "545.c1", 0, 0x400000, CRC(0d5e1e87) SHA1(981034cc1c7afd28ba954140d08d6e0f37a2e22a) )
+	ROM_LOAD16_BYTE( "545.c2", 1, 0x400000, CRC(2bf95f79) SHA1(11d3fdbb74e1ef190debd0e6cd57ccd6af84e635) )
 ROM_END
 
 
@@ -4178,6 +4197,7 @@ GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, hypernoid01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, jimpower,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Jim Power (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Nov 2020)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Dez 2020)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
