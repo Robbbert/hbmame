@@ -21,6 +21,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [ffightus01]          Final Fight EX (USA, 2026-10-24)
+- [ffightjs01]          Final Fight EX (Japan, 2026-10-24)
 - [vsavs01]             Vampire Savior Arrange (English, 2026-10-27)
 - [vsavs02]             Vampire Savior Arrange (Japan, 2026-10-27)
 - [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (English Restoration, 2026-10-25)

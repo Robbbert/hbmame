@@ -13747,11 +13747,11 @@ ROM_END
 
 ROM_START( ffightus01 ) //ffightu with a 6 MB gfx region for Final Fight EX (USA disc)
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(08ebc951) SHA1(46e9b1553ebeeac45eb9bf50ad7a02a1cadf9bf5) )
-	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(cb6961d0) SHA1(a378af1b2e9b9713006895501ae49c4d8122b1ef) )
-	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(118eb060) SHA1(12188886993438298a83d2f4c0377672c809994b) )
-	ROM_LOAD16_BYTE( "c07u.p4",     0x40001, 0x20000, CRC(38964eff) SHA1(e450f3d872198b1c9de8f74ee250e9e5fb896110) )
-	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(b662dda9) SHA1(7ba4a7a9d2fcc1a2fb34681eed1c5891da015b46) )
+	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(1bbe6639) SHA1(1cf29c8d3c1c2345a07bf3f9a13c3f8d0c9b9648) )
+	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(9a9fe4f3) SHA1(749e2aea8a2bc77d4d9f26866f53ab567dbdac54) )
+	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(d3c9e580) SHA1(216fc0c5602847c79d907f56e709ca0b2dba0ee9) )
+	ROM_LOAD16_BYTE( "c07u.p4",     0x40001, 0x20000, CRC(55a29283) SHA1(c1cf96470fcf8ccfbfca71e27ffdc3ef7e515506) )
+	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(1c9b1b36) SHA1(a811501800ae0b90ffea410d405a56d4b773c0f8) )
 	ROM_LOAD16_WORD_SWAP( "c07us01.p7", 0x100000, 0x100000, CRC(e6e4df5f) SHA1(f2c9b9c4166a06959006af6a150834cc82cb6869) ) // cutscene script/palette/tilemap tables (CRC pinned at ship)
 
 	ROM_REGION( 0x600000, "gfx", 0 )
@@ -13782,12 +13782,12 @@ ROM_END
 
 ROM_START( ffightjs01 ) //ffightj with a 6 MB gfx region for Final Fight EX (Japan disc)
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(89b6ed01) SHA1(e500beab69560437ddfa568554566c7582a1955a) )
-	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(3b3694e9) SHA1(1aa5932976e842fb7d669a4d581e2f0e2cd8922d) )
-	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(118eb060) SHA1(12188886993438298a83d2f4c0377672c809994b) )
-	ROM_LOAD16_BYTE( "c07j.p4",     0x40001, 0x20000, CRC(26242617) SHA1(49f7970114e28f97cc58c46e87941002c1d59f75) )
-	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(1888fb77) SHA1(3a6efb570c7c5b3716c1cf02e77ba47cf43aa37d) )
-	ROM_LOAD16_WORD_SWAP( "c07js01.p7", 0x100000, 0x100000, CRC(ed618024) SHA1(bf9d12479f6896e29661b60f9688f23289d4015d) ) // cutscene script/palette/tilemap tables (JP disc timeline)
+	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(4dcd780e) SHA1(742591af4bd65c6128b72b2a98b8f2af171f9d37) )
+	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(fd0623ca) SHA1(7dc3ed7d883ffff93f1c7629725a3c67bf46de88) )
+	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(4d30793c) SHA1(88e3da70513268f089e2be2ae8543b854ab3b753) )
+	ROM_LOAD16_BYTE( "c07j.p4",     0x40001, 0x20000, CRC(dabe8850) SHA1(b3e78e5bd387c6f9278b987a9578955ba2060fce) )
+	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(f9e7b052) SHA1(69f2ecbaa1b147e24039cae4429b833ea9e4146e) )
+	ROM_LOAD16_WORD_SWAP( "c07js01.p7", 0x100000, 0x100000, CRC(8bdfd316) SHA1(cc9354d5250849fe2b891b6026ecefbff6428ceb) ) // cutscene script/palette/tilemap tables (JP disc timeline)
 
 	ROM_REGION( 0x600000, "gfx", 0 )
 	ROM_LOAD64_WORD( "c07.c01",     0x000000, 0x80000, CRC(976bcfbb) SHA1(7df44df92e1dedf50c44bf683fb3c53354a6d570) ) // J content (77 SCROLL1 text tiles) in World layout
@@ -13798,13 +13798,13 @@ ROM_START( ffightjs01 ) //ffightj with a 6 MB gfx region for Final Fight EX (Jap
 	ROM_LOAD64_WORD( "c07js01.c11", 0x200002, 0x80000, CRC(2699067e) SHA1(260e08c1083d5bcae8aab1773d739493c8e21661) )
 	ROM_LOAD64_WORD( "c07js01.c13", 0x200004, 0x80000, CRC(ed5833cb) SHA1(7588b7e7309ad7d7600c90b40f1d98a22892ec16) )
 	ROM_LOAD64_WORD( "c07js01.c15", 0x200006, 0x80000, CRC(bed965c8) SHA1(5a874dc45e6fbd4dd7f0986563f15c01d2e0280d) )
-	ROM_LOAD64_WORD( "c07js01.c17", 0x400000, 0x80000, CRC(4611c2a6) SHA1(d92ed42690a8ca1231bdd05ab7c69b418f9f608f) )
-	ROM_LOAD64_WORD( "c07js01.c19", 0x400002, 0x80000, CRC(2044be8a) SHA1(0c1ee6ecab181af66aa7ff321422a827033b607a) )
-	ROM_LOAD64_WORD( "c07js01.c21", 0x400004, 0x80000, CRC(ed030a5c) SHA1(fde7403146971f2e9b0380beec912739a1f1e2e5) )
-	ROM_LOAD64_WORD( "c07js01.c23", 0x400006, 0x80000, CRC(b75abe81) SHA1(5fb3eed3945459a18da69d2c4dba9b46be65aae2) )
+	ROM_LOAD64_WORD( "c07js01.c17", 0x400000, 0x80000, CRC(7d0a63fa) SHA1(9934499f177c42de828879b1293ed896878e37aa) )
+	ROM_LOAD64_WORD( "c07js01.c19", 0x400002, 0x80000, CRC(b61bca08) SHA1(df15ac1001487d8c606afb1c5b6b10310534d042) )
+	ROM_LOAD64_WORD( "c07js01.c21", 0x400004, 0x80000, CRC(8e33931b) SHA1(885a46338f3f34297cd473fae985b2d507322e77) )
+	ROM_LOAD64_WORD( "c07js01.c23", 0x400006, 0x80000, CRC(d60af261) SHA1(a2e74954fe7f194e0eb471ba7da937c461803c06) )
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "c07.m1", 0x00000, 0x08000, CRC(283b10ed) SHA1(3d7979967145bd28c01490dd7ef9d9716dede2dd) )
+	ROM_LOAD( "c07.m1", 0x00000, 0x08000, CRC(57a4cf41) SHA1(7111b27356c28c8e6bc421c7414097da2e3ccb63) )
 	ROM_CONTINUE(          0x10000, 0x08000 )
 
 	ROM_REGION( 0x40000, "oki", 0 )
@@ -28891,8 +28891,8 @@ GAME( 2020, ffightj2s03,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 GAME( 2020, ffightj2s04,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition, 2020-06-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ffightj1s01,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (1VS2 Enhanced Version, 2017-11-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, ffightjk,      ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ffightus01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (USA, 2026-10-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ffightjs01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (Japan, 2026-10-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffightus01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (USA, 2026-10-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffightjs01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (Japan, 2026-10-24)", MACHINE_SUPPORTS_SAVE )
 // Forgotten Worlds
 GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
