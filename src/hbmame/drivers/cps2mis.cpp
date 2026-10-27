@@ -7621,8 +7621,8 @@ ROM_END
 ***************************/
 ROM_START( ffex2j )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sz3ud.03c", 0x000000, 0x80000, CRC(9eb92f51) SHA1(43f33f15d52ceb5609123dfee009568a7811b797) )
-	ROM_LOAD16_WORD_SWAP( "sz3ud.04c", 0x080000, 0x80000, CRC(3a2393c0) SHA1(0fbd067c848221568d24f3b55e700fef5ca04b80) )
+	ROM_LOAD16_WORD_SWAP( "sz3ud.03c", 0x000000, 0x80000, CRC(789ff036) SHA1(ff320ca50ab251219e9cd297f83c3bd97b2f3de3) )
+	ROM_LOAD16_WORD_SWAP( "sz3ud.04c", 0x080000, 0x80000, CRC(613c6ecc) SHA1(4d436c060ebbbe1fc57269ea66f3761051b39ac1) )
 	ROM_LOAD16_WORD_SWAP( "sz3.05c", 0x100000, 0x80000, CRC(787bb7f2) SHA1(2112cec75d3d25e845a55e5cf553c33246a4100c) )
 	ROM_LOAD16_WORD_SWAP( "sz3.06c", 0x180000, 0x80000, CRC(a8d2d10b) SHA1(d9cbe0558d0e36071d1a6cfd3daeed7dafe4ae40) )
 	ROM_LOAD16_WORD_SWAP( "sz3.07c", 0x200000, 0x80000, CRC(bcf7297e) SHA1(add270404bf37f42083591fa0920184171df7165) )
@@ -7652,8 +7652,8 @@ ROM_END
 
 ROM_START( ffex2r )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sz3ud.03c", 0x000000, 0x80000, CRC(d1129b95) SHA1(be13d7b3597d9c10dfbd2eca14b9a1300d3c9c4c) )
-	ROM_LOAD16_WORD_SWAP( "sz3ud.04c", 0x080000, 0x80000, CRC(5d10506d) SHA1(5196aa7916816b7a712608bf509bef3c214389eb) )
+	ROM_LOAD16_WORD_SWAP( "sz3ud.03c", 0x000000, 0x80000, CRC(bce36dc0) SHA1(9f3fa5ead1dca8b8507c81a3c6a942a33b807105) )
+	ROM_LOAD16_WORD_SWAP( "sz3ud.04c", 0x080000, 0x80000, CRC(273ae5d9) SHA1(b0940c3d7d9ee34f3652ea82ec41ae0c3a2f1248) )
 	ROM_LOAD16_WORD_SWAP( "sz3.05c", 0x100000, 0x80000, CRC(787bb7f2) SHA1(2112cec75d3d25e845a55e5cf553c33246a4100c) )
 	ROM_LOAD16_WORD_SWAP( "sz3.06c", 0x180000, 0x80000, CRC(5652684a) SHA1(de8c90c59fe4d36ddeff9123c8e4f946300399cd) )
 	ROM_LOAD16_WORD_SWAP( "sz3.07c", 0x200000, 0x80000, CRC(6e430b5c) SHA1(b19a465732b215811a4bdf5a851b24b80570ae30) )
@@ -7683,8 +7683,8 @@ ROM_END
 
 ROM_START( ffex2u )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sz3ud.03c", 0x000000, 0x80000, CRC(e022fd18) SHA1(1b0b7919902a069f4c76b5d59b3e601534ddbed2) )
-	ROM_LOAD16_WORD_SWAP( "sz3ud.04c", 0x080000, 0x80000, CRC(9c228c18) SHA1(d8805a344eeb3d2391832ddf26f793217e3d6aca) )
+	ROM_LOAD16_WORD_SWAP( "sz3ud.03c", 0x000000, 0x80000, CRC(4f9873c4) SHA1(6176bc01754985649a9625a8b3d6d508bf5e833b) )
+	ROM_LOAD16_WORD_SWAP( "sz3ud.04c", 0x080000, 0x80000, CRC(4957978c) SHA1(9a3a8a8b1ec463b13323b577410e56b3e25b394c) )
 	ROM_LOAD16_WORD_SWAP( "sz3.05c", 0x100000, 0x80000, CRC(787bb7f2) SHA1(2112cec75d3d25e845a55e5cf553c33246a4100c) )
 	ROM_LOAD16_WORD_SWAP( "sz3.06c", 0x180000, 0x80000, CRC(5652684a) SHA1(de8c90c59fe4d36ddeff9123c8e4f946300399cd) )
 	ROM_LOAD16_WORD_SWAP( "sz3.07c", 0x200000, 0x80000, CRC(6e430b5c) SHA1(b19a465732b215811a4bdf5a851b24b80570ae30) )
@@ -8461,9 +8461,9 @@ GAME( 2026, vamprest,   dstlk,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 // Vampire The Night Warriors
 GAME( 2006, vampj01,    dstlk,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Vampire: The Night Warriors (940705J, Enable hidden characters, 2006-05-31)", MACHINE_SUPPORTS_SAVE )
 // Final Fight EX (CPS-2)
-GAME( 2026, ffex2j,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "strygo", "Final Fight EX CPS2 (Japan, 2026-10-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ffex2r,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "strygo", "Final Fight EX CPS2 (English Restoration, 2026-10-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ffex2u,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "strygo", "Final Fight EX CPS2 (USA, 2026-10-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffex2j,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "strygo", "Final Fight EX CPS2 (Japan, 2026-10-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffex2r,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "strygo", "Final Fight EX CPS2 (English Restoration, 2026-10-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffex2u,    0,        dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "strygo", "Final Fight EX CPS2 (USA, 2026-10-25)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
 GAME( 1999, gigawing01, gigawing, cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "LB70", "Giga Wing (990222U, Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 // Hyper Street Fighter II
