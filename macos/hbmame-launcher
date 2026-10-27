@@ -1,0 +1,72 @@
+#!/bin/zsh
+# HBMAME.app launcher: sets up Application Support on first launch,
+# then starts hbmame with the read-only system files from the app bundle.
+
+HERE="${0:A:h}"                 # .../HBMAME.app/Contents/MacOS
+CONTENTS="${HERE:h}"            # .../HBMAME.app/Contents
+RES="$CONTENTS/Resources"
+SUPPORT="$HOME/Library/Application Support/hbmame"
+U='$HOME/Library/Application Support/hbmame'   # literal, HBMAME expands $HOME itself
+
+# Classic fullscreen instead of macOS "Spaces" fullscreen. With Spaces, a game
+# started from the UI opens on the desktop in a window instead of fullscreen.
+export SDL_VIDEO_MAC_FULLSCREEN_SPACES=0
+
+# 1. User folders (created if missing, so this also repairs deleted folders)
+for d in roms samples artwork ctrlr cheat crosshair fonts software \
+         cfg nvram inp sta snap diff comments ini; do
+  mkdir -p "$SUPPORT/$d"
+done
+
+# 2. Default artwork (incl. bgfx): copied on first launch and after app updates.
+#    Same-named default files are refreshed, your own added artwork is never touched.
+VER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$CONTENTS/Info.plist" 2>/dev/null)
+if [[ "$(cat "$SUPPORT/.artwork-version" 2>/dev/null)" != "$VER" ]]; then
+  rsync -a "$RES/artwork/" "$SUPPORT/artwork/"
+  print -r -- "$VER" > "$SUPPORT/.artwork-version"
+fi
+
+# System paths inside the bundle, passed on every start
+# (so moving or updating the app never breaks them)
+SYS=(
+  -hashpath     "$RES/hash"
+  -pluginspath  "$RES/plugins"
+  -languagepath "$RES/language"
+  -bgfx_path    "$RES/bgfx"
+)
+
+cd "$SUPPORT"
+
+# 3. Full hbmame.ini, written once by HBMAME itself, never overwritten.
+if [[ ! -f "$SUPPORT/hbmame.ini" ]]; then
+  #    inipath is written with $HOME (portable ini, no user name in it)
+  "$HERE/hbmame" "${SYS[@]}" \
+    -inipath            "$U;$U/ini" \
+    -homepath           "$U" \
+    -rompath            "$U/roms" \
+    -samplepath         "$U/samples" \
+    -artpath            "$U/artwork" \
+    -ctrlrpath          "$U/ctrlr" \
+    -cheatpath          "$U/cheat" \
+    -crosshairpath      "$U/crosshair" \
+    -fontpath           "$U/fonts" \
+    -swpath             "$U/software" \
+    -cfg_directory      "$U/cfg" \
+    -nvram_directory    "$U/nvram" \
+    -input_directory    "$U/inp" \
+    -state_directory    "$U/sta" \
+    -snapshot_directory "$U/snap" \
+    -diff_directory     "$U/diff" \
+    -comment_directory  "$U/comments" \
+    -createconfig > /dev/null 2>&1
+fi
+
+# 4. Start HBMAME. Arguments (e.g. a game name from a frontend) are passed on;
+#    old macOS "-psn_" arguments from Finder are dropped.
+args=()
+for a in "$@"; do [[ "$a" == -psn_* ]] || args+=("$a"); done
+
+# inipath limited to Application Support (no stray ~/.hbmame or ./hbmame.ini).
+# Must be the expanded path here: HBMAME does not expand $HOME in a
+# command-line inipath.
+exec "$HERE/hbmame" "${SYS[@]}" -inipath "$SUPPORT;$SUPPORT/ini" "${args[@]}"

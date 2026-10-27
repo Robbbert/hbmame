@@ -12,6 +12,7 @@
 /*
 /*/
 !/.github/
+!/macos/
 !/3rdparty/
 !/android-project/
 !/benchmarks/
