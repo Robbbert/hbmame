@@ -7,6 +7,9 @@
 
 New Games
 ---------------------------------
+- [sfaexu]              Street Fighter Alpha EX (USA, 2026-10-26)
+- [sfzexa]              Street Fighter Zero EX (Asia, 2026-10-26)
+- [sfzexj]              Street Fighter Zero EX (Japan, 2026-10-26)
 - [jimpower]            Jim Power (Neo-Geo port)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.4)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
