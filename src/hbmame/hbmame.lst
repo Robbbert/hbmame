@@ -6365,10 +6365,8 @@ ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
 flapchck
 foodfn
-fr2			// 098 Idol Mahjong - final romance 2
-fr2s01
-fr2s02
-fr2s03
+fr2         // cd conv no music
+fr2s03      // cd conv with music
 freedoom
 galaxiann
 galaxiann2
@@ -6501,13 +6499,8 @@ xeviousn04
 xeviousn05
 xmas2017
 yoyoshkn
-zintrick01
-zintrick02
-zintrick03
-zintrick04
-zintrick05
-zintrick06
-zintrick07
+zintrick05     // unlock 4 hidden players
+zintrick07     // full music
 
 @source:neogeo1.cpp
 2020bb01

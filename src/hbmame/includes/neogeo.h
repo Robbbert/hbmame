@@ -107,7 +107,6 @@ public:
 	void init_cthd2003();
 	void init_cthd2k3a();
 	void init_fatfury2();
-	void init_fr2ch();
 	void init_ganryu();
 	void init_garou();
 	void init_garouh();

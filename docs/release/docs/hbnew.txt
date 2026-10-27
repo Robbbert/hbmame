@@ -7,7 +7,7 @@
 
 New Games
 ---------------------------------
-- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.2)
+- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.4)
 - [wrallyn]             World Rally (Neo-Geo port)
 
 
@@ -18,7 +18,7 @@ Updated Games
 - [nosignal]            No Signal Z Alpha (v2)
 - [outrunn]             Out Run (Neo-Geo port, beta-0.3.3)
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.2.1)
-- [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.6)
+- [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
 - [usf2j8]              Ultra Street Fighter II: The Final Challengers (Japan, 2026-10-23)
 - [usf2t8]              Ultra Street Fighter II: The Final Challengers (USA, 2026-10-23)
 
