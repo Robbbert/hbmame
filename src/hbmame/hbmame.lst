@@ -4497,6 +4497,8 @@ sargex		/* Gatinho Sarge x-rated */
 @source:megaplay.cpp
 megaplay                               // BIOS, parent
 mp_addams                              // HB
+mp_sonic                               //parent
+mp_sonic01
 
 @source:megasys1.cpp
 soldam

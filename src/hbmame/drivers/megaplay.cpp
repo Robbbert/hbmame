@@ -58,6 +58,33 @@ ROM_START( mp_addams )
 	MEGAPLAY_PLDS
 ROM_END
 
+static INPUT_PORTS_START ( mp_sonic01 )
+	PORT_INCLUDE( mp_sonic )
+
+	PORT_MODIFY("DSW1") // DSW C  (per game settings)
+	PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW3:3,4")
+	PORT_DIPSETTING( 0x08, DEF_STR( Normal ) )
+	PORT_DIPSETTING( 0x0c, "Timer Off" )
+	PORT_DIPSETTING( 0x04, DEF_STR( Hard ) )
+	PORT_DIPSETTING( 0x00, DEF_STR( Hardest ) )
+INPUT_PORTS_END
+
+ROM_START( mp_sonic01 )
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD( "cpu.bin", 0x000000, 0x80000, CRC(3e1f3596) SHA1(8e4d65d84d35c124b4761e3f5fdc081961b417ce) )
+
+	// Game instruction ROM copied to 0x300000 - 0x310000 (odd / even bytes equal)
+	ROM_REGION( 0x8000, "user1", 0 ) // Game instructions
+	ROM_LOAD( "data.bin", 0x000000, 0x08000, CRC(c0a9c987) SHA1(4a92e70d6f63bcfc608ad06637c4e09cf2b2bb55) )
+
+	ROM_REGION( 0x20000, "mtbios", 0 ) // BIOS
+	MEGAPLAY_BIOS
+
+	MEGAPLAY_PLDS
+ROM_END
+
 } // anonymous namespace
 
 GAME( 2026, mp_addams, megaplay, megaplay_nvram, mp_addams, mplay_hb_state, init_megaplay, ROT0, "hack", "The Addams Family ARCADE (Mega Play)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1993, mp_sonic01, mp_sonic, megaplay, mp_sonic01, mplay_state, init_megaplay, ROT0, "Sega", "Sonic The Hedgehog (Mega Play) (No Timer)", 0 )
+
