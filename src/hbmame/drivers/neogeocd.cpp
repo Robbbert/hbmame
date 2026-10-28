@@ -179,6 +179,11 @@ ROM_START( cd_sf2ce )
 	DISK_IMAGE_READONLY( "sf2ce", 0, SHA1(69881892dcb5ba910da2279c370951f83b16b07c) ) // v1
 ROM_END
 
+ROM_START( cd_sf2coll )
+	NEOCDZ_BASE
+	DISK_IMAGE_READONLY( "sf2coll", 0, SHA1(42a292c21420b84c6fa78c87b7d8b7939423f105) )
+ROM_END
+
 ROM_START( cd_shinobiarr )
 	NEOCDZ_BASE
 	DISK_IMAGE_READONLY( "shinobiarr", 0, SHA1(3f93364dc54a91eadeddf52675a7043b191675ba) )
@@ -238,6 +243,7 @@ GAME( 2025, cd_pow2,        neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocd
 GAME( 2026, cd_robocop,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Robocop (Neo-Geo port v17)[CD]", 0 )
 GAME( 2026, cd_sdodgeb,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Super Dodge Ball (v0.99 beta)[CD]", 0 )
 GAME( 2026, cd_sf2ce,       neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Champion Edition (Neo-Geo port, v1)[CD]", 0 )
+GAME( 2026, cd_sf2coll,     neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Teo Tormo", "Street Fighter II' Collection (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_shinobiarr,  neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "H0ffman", "Shinobi Arranged v1.1 (Neo-Geo port)[CD]", 0 )
 GAME( 2026, cd_snowbros,    neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Bendk97", "Snow Bros (Neo-Geo port, beta 0.3)[CD]", 0 )
 GAME( 2026, cd_speedball,   neocdz_bios,  neocd_hb, neocd,  ngcd_hb,  init_neocdz,  ROT0, "Z-team", "Speedball2 v1.0.0 demo[CD]", 0 )
