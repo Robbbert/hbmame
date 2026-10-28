@@ -1909,9 +1909,6 @@ mjelctrns01
 tenkai                                 //parent
 tenkaibbs01
 
-@source:epos.cpp
-catapult01
-
 //@source:ertictac.cpp
 //armdemo				/* Charles Doty */  // totally broken
 

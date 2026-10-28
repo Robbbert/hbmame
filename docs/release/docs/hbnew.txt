@@ -7,7 +7,6 @@
 
 New Games
 ---------------------------------
-- [catapult01]          Catapult (repaired by AI)
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port)[CD]
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.5)
