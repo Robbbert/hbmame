@@ -7,8 +7,8 @@
 
 New Games
 ---------------------------------
-- [jimpower]            Jim Power (Neo-Geo port)
-- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.4)
+- [jimpower]            Jim Power (Neo-Geo port, v1.1)
+- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.5)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
 - [wrallyn]             World Rally (Neo-Geo port)

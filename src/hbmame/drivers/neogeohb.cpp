@@ -2873,22 +2873,22 @@ ROM_START( cosmogngn )
 ROM_END
 
 
-// 543: Knights of the Round (beta-0.2.4) port by Bendk97
+// 543: Knights of the Round (beta-0.2.5) port by Bendk97
 ROM_START( knightsn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(33738e12) SHA1(38e46dab8a8f1053d2c5d07858ff1760045a6201) )
-	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(09ef1688) SHA1(39a4e1637ade62582af11538d09c7bb6c3348042) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(3eaf285f) SHA1(72084553a42b25b95aa8bf3051f44d499fd7c338) )
 
 	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
 
-	NEO_BIOS_AUDIO_128K( "543.m1", CRC(1c859f3a) SHA1(bf9c502bda4b8049502c82a7308485217e822b50) )
+	NEO_BIOS_AUDIO_128K( "543.m1", CRC(cd5f28a5) SHA1(702fe4d2a3773131b24cc9608ec8cf52a4e7ac7c) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "543.v1",   0, 0x1000000, CRC(188d83d5) SHA1(c16b7e235ef231e1726a48926b4e333be0d7c00c) )
+	ROM_LOAD( "543.v1",   0, 0x1000000, CRC(4d727983) SHA1(420ab207413c8c8fc04f87f5312c5c75e7fde463) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(a75ef583) SHA1(5666ac64fbc43aedb3ff5d24c29fa663f574f28a) )
-	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(d308956c) SHA1(bd02065433ea92885baa489c202ea557b99fc93b) )
+	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(8507b792) SHA1(c8e69b62170f5335623ca809efb6921428ada4f1) )
+	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(f69ac783) SHA1(a0f5d2ab58af918aae3a9e72d187a9897b489e2d) )
 ROM_END
 
 
@@ -2913,9 +2913,9 @@ ROM_END
 // 545: Jim Power port by NK Home Entertainment
 ROM_START( jimpower )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "545.p1", 0, 0x80000, CRC(8b89ac37) SHA1(3184a087821493ab7aa288a628ce82787a495eae) )
+	ROM_LOAD16_WORD_SWAP( "545.p1", 0, 0x80000, CRC(9c5fe235) SHA1(2cdc4e95c4c70911c116acb93cfc4d1a1a680e08) )
 
-	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+	NEO_SFIX_128K( "545.s1", CRC(f468127b) SHA1(6d40d6944e01dfb0c8a54f831c54a58778c49ef4) )
 
 	NEO_BIOS_AUDIO_128K( "545.m1", CRC(9c2c2367) SHA1(e03e8b76dac88f6ccdbaed3eca0662351dbae05c) )
 
@@ -4197,13 +4197,13 @@ GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, hypernoid01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, jimpower,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Jim Power (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, jimpower,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Jim Power (Neo-Geo port, v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Nov 2020)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Dez 2020)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.2.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.2.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, kodn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
