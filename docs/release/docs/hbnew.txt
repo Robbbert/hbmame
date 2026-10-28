@@ -17,6 +17,7 @@ New Games
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-10-26)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-10-26)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-10-26)
+- [tempcax]             Tempest CAX 2026 (v1.2)
 - [wrallyn]             World Rally (Neo-Geo port)
 
 
