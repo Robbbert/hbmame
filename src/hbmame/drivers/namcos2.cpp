@@ -60,7 +60,7 @@ ROM_START( pheliosx )
 	ROM_REGION16_BE( 0x200000, "c140", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "ps_voi-1.voice1",  0x000000, 0x080000, CRC(f67376ed) SHA1(b54257aad34c6ad03d5b040e6a5dda94a48b6780) )
 
-	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 ) /* sprite zoom lookup table */
+	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 )
 	ROM_LOAD( "mh5762.7p",    0x00000,  0x002000, CRC(90db1bf6) SHA1(dbb9e50a8efc3b4012fcf587cc87da9ef42a1b80) )
 ROM_END
 
@@ -114,26 +114,26 @@ ROM_START( valkyrien )
 	NAMCOS2_DATA_LOAD_E_256K( "wd1voi1.bin",  0x000000, CRC(f1ace193) SHA1(dd13bdf4b99c6bf4e356d623ff2e3da72db331dd) )
 	NAMCOS2_DATA_LOAD_E_128K( "wd1voi2.bin",  0x100000, CRC(e95c5cf3) SHA1(4bfc7303bde23bcf6739c7877dd87671c33135bc) )
 
-	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 ) /* sprite zoom lookup table */
+	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 )
 	ROM_LOAD( "mh5762.7p",    0x00000,  0x002000, CRC(90db1bf6) SHA1(dbb9e50a8efc3b4012fcf587cc87da9ef42a1b80) )
 ROM_END
 
 ROM_START( valkyrienmv5 )
-	ROM_REGION( 0x040000, "maincpu", 0 )     /* Master CPU */
+	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "wd1mpr0.bin",  0x000000, 0x020000, CRC(f6e93a8c) SHA1(fc2513935a14c994eb0d4405de1cec5d9f62b363) )
 	ROM_LOAD16_BYTE( "wd1mpr1.bin",  0x000001, 0x020000, CRC(0f496013) SHA1(90f8ab7930ad0e7974d63740ace93d3fc26faf89) )
 
-	ROM_REGION( 0x040000, "slave", 0 )   /* Slave CPU */
+	ROM_REGION( 0x040000, "slave", 0 )
 	ROM_LOAD16_BYTE( "wd1spr0.bin",  0x000000, 0x010000, CRC(b2398321) SHA1(13b76d8756a5e47d7469f72ef5fd2837b3e24b3e) )
 	ROM_LOAD16_BYTE( "wd1spr1.bin",  0x000001, 0x010000, CRC(38dba897) SHA1(22254186906b1accfb043172e6d0129d23d83b02) )
 
-	ROM_REGION( 0x020000, "audiocpu", 0 )    /* Sound CPU (Banked) */
+	ROM_REGION( 0x020000, "audiocpu", 0 )
 	ROM_LOAD( "wd1snd0.bin",  0x000000, 0x020000, CRC(d0fbf58b) SHA1(bc149eefcf5566a8e37ae60a62f5037a6e0f10bd) )
 
-	ROM_REGION( 0x8000, "c65mcu:external", ROMREGION_ERASE00 ) /* I/O MCU */
+	ROM_REGION( 0x8000, "c65mcu:external", ROMREGION_ERASE00 )
 	ROM_LOAD( "sys2c65c.bin",  0x000000, 0x008000, CRC(a5b2a4ff) SHA1(068bdfcc71a5e83706e8b23330691973c1c214dc) )
 
-	ROM_REGION( 0x400000, "sprite", 0 )          /* Sprites */
+	ROM_REGION( 0x400000, "sprite", 0 )
 	NAMCOS2_SPRROM_LOAD_256K( "wdobj0.bin",  0x000003, CRC(e8089451) SHA1(f4d05df0015de01ec570f5f89ea11592204e4fe2) )
 	NAMCOS2_SPRROM_LOAD_256K( "wdobj1.bin",  0x000002, CRC(7ca65666) SHA1(39d792abf5a1a5f3906cb6ab4626f4a5b20cb081) )
 	NAMCOS2_SPRROM_LOAD_256K( "wdobj2.bin",  0x000001, CRC(7c159407) SHA1(ed5472eb9df7990b8d80ff5a587e41d138f48db8) )
@@ -143,7 +143,7 @@ ROM_START( valkyrienmv5 )
 	NAMCOS2_SPRROM_LOAD_256K( "wdobj6.bin",  0x200001, CRC(9fa2ea21) SHA1(89cefc286cf4de7f6e32dc6dc689835a21bea2ed) )
 	NAMCOS2_SPRROM_LOAD_256K( "wdobj7.bin",  0x200000, CRC(66e07a36) SHA1(2f84128bbdc9dcfd783d3a85cb47a92087e71272) )
 
-	ROM_REGION( 0x400000, "c123tmap", 0 )          /* Tiles */
+	ROM_REGION( 0x400000, "c123tmap", 0 )
 	NAMCOS2_GFXROM_LOAD_128K( "wdchr0.bin",  0x000000, CRC(debb0116) SHA1(ba4a9a166e22cf4930574eeadd127520ff7192b4) )
 	NAMCOS2_GFXROM_LOAD_128K( "wdchr1.bin",  0x080000, CRC(8a1431e8) SHA1(ef3c81ea92f2541387760c24395ddf7a02f907f2) )
 	NAMCOS2_GFXROM_LOAD_128K( "wdchr2.bin",  0x100000, CRC(62f75f69) SHA1(bcfd34c3c450cd05eb6a080307dc962687ccc799) )
@@ -151,39 +151,38 @@ ROM_START( valkyrienmv5 )
 	NAMCOS2_GFXROM_LOAD_128K( "wdchr4.bin",  0x200000, CRC(2f73d05e) SHA1(76341fd8c5e4216430eb09ded38ac554b5777ee5) )
 	NAMCOS2_GFXROM_LOAD_128K( "wdchr5.bin",  0x280000, CRC(b632b2ec) SHA1(914cb9a0dd42067b93e47c8cf847d588f361854f) )
 
-	ROM_REGION( 0x400000, "s2roz", 0 )    /* ROZ Tiles */
+	ROM_REGION( 0x400000, "s2roz", 0 )
 	NAMCOS2_GFXROM_LOAD_128K( "wdroz0.bin",  0x000000, CRC(f776bf66) SHA1(2b134d5f9ede1205260a2109fdcd0d5c47b397ba) )
 	NAMCOS2_GFXROM_LOAD_128K( "wdroz1.bin",  0x080000, CRC(c1a345c3) SHA1(3d8c2ab457b81485014a83b4d9e8a80fe487ddef) )
 	NAMCOS2_GFXROM_LOAD_128K( "wdroz2.bin",  0x100000, CRC(28ffb44a) SHA1(207343e76dd02cbfe7575edd9b18074f68bb6768) )
 	NAMCOS2_GFXROM_LOAD_128K( "wdroz3.bin",  0x180000, CRC(7e77b46d) SHA1(db0ba244fb878120a4f06af4666ddc4cc430c97a) )
 
-	ROM_REGION( 0x080000, "c123tmap:mask", 0 )    /* Mask shape */
+	ROM_REGION( 0x080000, "c123tmap:mask", 0 )
 	NAMCOS2_GFXROM_LOAD_128K( "wdshape.bin",  0x000000, CRC(3b5e0249) SHA1(259bbabf57a8ad739c646c56aad6d0b92e10adcd) )
 
-	ROM_REGION16_BE( 0x200000, "data_rom", 0 )  /* Shared data roms */
+	ROM_REGION16_BE( 0x200000, "data_rom", 0 )
 	NAMCOS2_DATA_LOAD_E_128K( "wd1dat0.13s",  0x000000, CRC(ea209f48) SHA1(5e73a745dc2faaa4ce6c633d4072d41e9e494276) )
 	NAMCOS2_DATA_LOAD_O_128K( "wd1dat1.13p",  0x000000, CRC(04b48ada) SHA1(aa046f8856bdd5b56d481c2c12ad2808c6517a5f) )
 
-	ROM_REGION16_BE( 0x200000, "c140", ROMREGION_ERASE00 )    /* Sound voices */
+	ROM_REGION16_BE( 0x200000, "c140", ROMREGION_ERASE00 )
 	NAMCOS2_DATA_LOAD_E_256K( "wd1voi1.bin",  0x000000, CRC(f1ace193) SHA1(dd13bdf4b99c6bf4e356d623ff2e3da72db331dd) )
 	NAMCOS2_DATA_LOAD_E_128K( "wd1voi2.bin",  0x100000, CRC(e95c5cf3) SHA1(4bfc7303bde23bcf6739c7877dd87671c33135bc) )
 
-	ROM_REGION( 0x2000, "nvram", 0 ) /* game doesn't auto initialize nvram properly */
+	ROM_REGION( 0x2000, "nvram", 0 )
 	ROM_LOAD( "valkyrie.nv",  0x000000, 0x2000, CRC(d5ce4069) SHA1(ce01ebbbd8d4e03a7b8e0fa50296d6cc1a978800) )
 
-	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 ) /* sprite zoom lookup table */
-	// from ordyne, not dumped from this hardware
-	ROM_LOAD( "lh5762.6n", 0x00000, 0x002000, BAD_DUMP CRC(90db1bf6) SHA1(dbb9e50a8efc3b4012fcf587cc87da9ef42a1b80) )
+	ROM_REGION( 0x2000, "s2sprite:scalelut", 0 )
+	ROM_LOAD( "lh5762.6n", 0x00000, 0x002000, CRC(90db1bf6) SHA1(dbb9e50a8efc3b4012fcf587cc87da9ef42a1b80) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+//   YEAR  NAME          PARENT    MACHINE   INPUT     CLASS          INIT          MONITOR COMPANY       FULLNAME    FLAGS
 // Phelios
-GAME(1988, pheliosx,   phelios,  base2,    base,     namcos2_state, init_phelios,  ROT90,  "Wayder", "Phelios (Sound Bug fix - Final Battle)", 0)
+GAME(1988, pheliosx,     phelios,  base2,    base,     namcos2_state, init_phelios,  ROT90, "Wayder", "Phelios (Sound Bug fix - Final Battle)", MACHINE_SUPPORTS_SAVE )
 
 // Translation by coinoplegacy.com
-GAME(  1989, valkyrien, valkyrie, base3, base, namcos2_state, init_valkyrie, ROT90,  "hack", "Valkyrie no Densetsu (English Translation)", 0 )
+GAME(1989, valkyrien,    valkyrie, base3,    base,     namcos2_state, init_valkyrie, ROT90, "hack", "Valkyrie no Densetsu (English Translation)", MACHINE_SUPPORTS_SAVE )
 
 // English translation ported from the PS1 Namco Museum Vol. 5 release (The Legend of Valkyrie)
 // https://github.com/SpiralBrad/valkyrie-no-densetsu-english
-GAME(  1989, valkyrienmv5, valkyrie, base3, base, namcos2_state, init_valkyrie, ROT90,  "SpiralBrad", "Valkyrie no Densetsu (English Translation from Namco Museum Vol. 5)", MACHINE_SUPPORTS_SAVE )
+GAME(1989, valkyrienmv5, valkyrie, base3,    base,     namcos2_state, init_valkyrie, ROT90, "SpiralBrad", "Valkyrie no Densetsu (English Translation from Namco Museum Vol. 5)", MACHINE_SUPPORTS_SAVE )
 

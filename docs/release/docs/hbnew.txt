@@ -18,6 +18,7 @@ New Games
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-10-26)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-10-26)
 - [tempcax]             Tempest CAX 2026 (v1.2)
+- [valkyrienmv5]        Valkyrie no Densetsu (English Translation from Namco Museum Vol. 5)
 - [wrallyn]             World Rally (Neo-Geo port)
 
 
