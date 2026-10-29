@@ -1030,6 +1030,7 @@ files {
 	MAME_DIR .. "src/devices/machine/mos6530.cpp",
 	MAME_DIR .. "src/devices/machine/nandflash.cpp",
 	MAME_DIR .. "src/devices/machine/nmk112.cpp",
+	MAME_DIR .. "src/devices/machine/quadmouse.cpp",
 	MAME_DIR .. "src/devices/machine/segacrpt_device.cpp",
 	MAME_DIR .. "src/devices/machine/segacrp2_device.cpp",
 	MAME_DIR .. "src/devices/machine/z80dma.cpp",
