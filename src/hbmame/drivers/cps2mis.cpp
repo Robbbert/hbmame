@@ -647,7 +647,7 @@ ROM_START( ssf2xuc )
 	ROM_LOAD( "ssf2xj.key",   0x000000, 0x000014, CRC(160d1424) SHA1(187baff83b54acfdcedd9b9222a4cc768040c622) )
 ROM_END
 
-ROM_START( usf2t8 )
+ROM_START( usf2u )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sfxj.03d", 0x000000, 0x80000, CRC(b68685d2) SHA1(a1c2c69d9d572b2e6107d0de6bd3b42633683b9b) )
 	ROM_LOAD16_WORD_SWAP( "sfxj.04a", 0x080000, 0x80000, CRC(98f735de) SHA1(14a39bc90df219c4daae2fbcaf687f61f32d0492) )
@@ -692,7 +692,7 @@ ROM_START( usf2t8 )
 	ROM_LOAD( "ssf2xj.key", 0x000000, 0x14, CRC(160d1424) SHA1(187baff83b54acfdcedd9b9222a4cc768040c622) )
 ROM_END
 
-ROM_START( usf2j8 )
+ROM_START( usf2j )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sfxj.03d", 0x000000, 0x80000, CRC(e3c398a2) SHA1(6ec13feec6fc6cde01dacef970bf12f0cd55d43a) )
 	ROM_LOAD16_WORD_SWAP( "sfxj.04a", 0x080000, 0x80000, CRC(14b3193b) SHA1(7e66b7350002b32693b4d1f1ff1a2ad544d8f8f4) )
@@ -8540,8 +8540,8 @@ GAME( 2024, ssf2t10,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2026, ssf2tgmc,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Super Street Fighter II Turbo: Grand Master Challenge (940311J, English Restoration, 2026-10-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssf2tuc,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Super Street Fighter II EX: The Ultimate Championship (940223U, 2026-10-21)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssf2xuc,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Super Street Fighter II EX: The Ultimate Championship (940223J, 2026-10-21)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, usf2t8,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Ultra Street Fighter II: The Final Challengers (940223U, Backport, 2026-10-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, usf2j8,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Ultra Street Fighter II: The Final Challengers (940223J, Backport, 2026-10-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, usf2u,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Ultra Street Fighter II: The Final Challengers (940223U, Backport, 2026-10-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, usf2j,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Ultra Street Fighter II: The Final Challengers (940223J, Backport, 2026-10-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl3,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.3 beta, 2020-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl4,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.4 beta, 2020-11-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ssf2tnl5,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.5 beta, 2021-06-11)", MACHINE_SUPPORTS_SAVE )

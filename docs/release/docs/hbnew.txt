@@ -36,8 +36,8 @@ Updated Games
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.2.1)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
 - [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (English Restoration, 2026-10-25)
-- [usf2j8]              Ultra Street Fighter II: The Final Challengers (Japan, 2026-10-28)
-- [usf2t8]              Ultra Street Fighter II: The Final Challengers (USA, 2026-10-28)
+- [usf2j]               Ultra Street Fighter II: The Final Challengers (Japan, 2026-10-28)
+- [usf2u]               Ultra Street Fighter II: The Final Challengers (USA, 2026-10-28)
 - [vsavs01]             Vampire Savior Arrange (English, 2026-10-27)
 - [vsavs02]             Vampire Savior Arrange (Japan, 2026-10-27)
 
