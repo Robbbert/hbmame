@@ -92,13 +92,14 @@ protected:
 	uint8_t m_green_disable = 0; // always enabled?
 	uint8_t m_green_select = 0;
 	// interrupts
-	TIMER_CALLBACK_MEMBER(interrupt_callback);
+	bool m_int_enable = 0;
+	void int_enable_w(int);
+	TIMER_CALLBACK_MEMBER(interrupt_trigger);
+	IRQ_CALLBACK_MEMBER(interrupt_vector);
 	attotime m_interrupt_time;
 	emu_timer *m_interrupt_timer = nullptr;
 	int vpos_to_vysnc_chain_counter(int);
 	int vysnc_chain_counter_to_vpos(uint8_t, int);
-	void create_interrupt_timer();
-	void start_interrupt_timer();
 	// sound
 	attotime m_555_time_remain{};
 	TIMER_DEVICE_CALLBACK_MEMBER(effect_555_cb);
@@ -330,11 +331,11 @@ void schaser_state::port05_w(uint8_t data)
 
 void schaser_state::machine_start()
 {
+	m_interrupt_timer = timer_alloc(FUNC(schaser_state::interrupt_trigger), this);
 	save_item(NAME(m_flip_screen));
 	save_item(NAME(m_sound_en));
 	save_item(NAME(m_explosion));
 	save_item(NAME(m_555_is_low));
-	create_interrupt_timer();
 }
 
 
@@ -349,7 +350,11 @@ void schaser_state::machine_reset()
 
 	port03_w(0);
 	port05_w(0);
-	start_interrupt_timer();
+
+	int vpos = vysnc_chain_counter_to_vpos(MW8080BW_INT_TRIGGER_COUNT_1, MW8080BW_INT_TRIGGER_VBLANK_1);
+	m_interrupt_timer->adjust(m_screen->time_until_pos(vpos));
+
+	m_interrupt_time = attotime::zero;
 }
 
 int schaser_state::vpos_to_vysnc_chain_counter( int vpos )
@@ -380,18 +385,22 @@ int schaser_state::vysnc_chain_counter_to_vpos( u8 counter, int vblank )
 	return vpos;
 }
 
-
-TIMER_CALLBACK_MEMBER(schaser_state::interrupt_callback)
+TIMER_CALLBACK_MEMBER(schaser_state::interrupt_trigger)
 {
-	int next_counter, next_vblank;
+	int const vpos = m_screen->vpos();
+	uint8_t const counter = vpos_to_vysnc_chain_counter(vpos);
 
-	/* compute vector and set the interrupt line */
-	int vpos = m_screen->vpos();
-	int counter = vpos_to_vysnc_chain_counter(vpos);
-	u8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
-	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
+	if (m_int_enable)
+	{
+		m_maincpu->set_input_line(0, ASSERT_LINE);
+		m_interrupt_time = machine().time();
+	}
+	else
+		m_maincpu->set_input_line(0, CLEAR_LINE);
 
-	/* set up for next interrupt */
+	// set up for next interrupt
+	uint8_t next_counter;
+	int next_vblank;
 	if (counter == MW8080BW_INT_TRIGGER_COUNT_1)
 	{
 		next_counter = MW8080BW_INT_TRIGGER_COUNT_2;
@@ -403,21 +412,26 @@ TIMER_CALLBACK_MEMBER(schaser_state::interrupt_callback)
 		next_vblank = MW8080BW_INT_TRIGGER_VBLANK_1;
 	}
 
-	int next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
+	int const next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
 	m_interrupt_timer->adjust(m_screen->time_until_pos(next_vpos));
 }
 
-
-void schaser_state::create_interrupt_timer()
+void schaser_state::int_enable_w(int state)
 {
-	m_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(schaser_state::interrupt_callback),this));
+	m_int_enable = state;
 }
 
-
-void schaser_state::start_interrupt_timer()
+IRQ_CALLBACK_MEMBER(schaser_state::interrupt_vector)
 {
-	int vpos = vysnc_chain_counter_to_vpos(MW8080BW_INT_TRIGGER_COUNT_1, MW8080BW_INT_TRIGGER_VBLANK_1);
-	m_interrupt_timer->adjust(m_screen->time_until_pos(vpos));
+	int vpos = m_screen->vpos();
+	// MAME scheduling quirks cause this to happen more often than you might think, in fact far too often
+	if (machine().time() < m_interrupt_time)
+		vpos++;
+	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
+	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+
+	m_maincpu->set_input_line(0, CLEAR_LINE);
+	return vector;
 }
 
 void schaser_state::colour_w(offs_t offset, u8 data)
@@ -554,6 +568,8 @@ void schaser_state::schaser(machine_config &config)
 	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
 	m_maincpu->set_addrmap(AS_PROGRAM, &schaser_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &schaser_state::io_map);
+	m_maincpu->set_irq_acknowledge_callback(FUNC(schaser_state::interrupt_vector));
+	m_maincpu->out_inte_func().set(FUNC(schaser_state::int_enable_w));
 
 	WATCHDOG_TIMER(config, m_watchdog).set_vblank_count("screen", 255);
 
@@ -848,30 +864,17 @@ void sc_state::port05_w(u8 data)
 
 void sc_state::machine_start()
 {
-	save_item(NAME(m_flip_screen));
-	save_item(NAME(m_sound_en));
-	save_item(NAME(m_explosion));
+	schaser_state::machine_start();
 	save_item(NAME(m_last_effect));
 	save_item(NAME(m_sound_seq));
-	save_item(NAME(m_555_is_low));
-	create_interrupt_timer();
 }
 
 
 void sc_state::machine_reset()
 {
-	m_flip_screen = 0;
-	m_sound_en = 0;
-	m_explosion = 0;
+	schaser_state::machine_reset();
 	m_last_effect = 0xff;
 	m_sound_seq = 0;
-	m_555_is_low = 0;
-	m_555_time_remain = attotime::zero;
-	m_555_timer->adjust(attotime::never);
-
-	port03_w(0);
-	port05_w(0);
-	start_interrupt_timer();
 }
 
 u8 sc_state::port02_r()
