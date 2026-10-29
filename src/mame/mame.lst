@@ -32468,6 +32468,15 @@ ribrac
 codemagik
 lependu
 
+@source:misc/lgtz80.cpp
+arthurkn
+arthurkn100
+circus2
+fruitcat
+mx97iitb
+pharmyst
+
+
 @source:misc/limenko.cpp
 dynabomb
 hrthouse
@@ -33580,6 +33589,7 @@ cs9_qps
 cs9_spp
 cspe_qps
 csv1_qps
+drvkrazy
 funcsino
 hangman
 nsupertr3
@@ -35447,11 +35457,11 @@ galivan
 galivan2
 galivan3
 ninjemak
-ninjemat
 youma
 youma2
 youmab
 youmab2
+youmat
 
 @source:nichibutsu/gomoku.cpp
 gomoku
@@ -44318,13 +44328,6 @@ lft1510
 
 @source:skeleton/lg-dvd.cpp
 lggp40
-
-@source:skeleton/lgtz80.cpp
-arthurkn
-arthurkn100
-circus2
-fruitcat
-pharmyst
 
 @source:skeleton/licocai.cpp
 licocai
