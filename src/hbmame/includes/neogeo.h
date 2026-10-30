@@ -94,7 +94,6 @@ public:
 	void neogeo_noslot(machine_config &config);
 	void nggno(machine_config &config);
 	void ngmvs(machine_config &config);
-	void ngneo(machine_config &config);
 	void no_watchdog(machine_config &config);
 	void gsc(machine_config &config);
 	void gsc1(machine_config &config);
@@ -211,8 +210,8 @@ public:
 	virtual void machine_start() override;
 	required_device<cpu_device> m_maincpu;
 
-private:
-
+protected:
+	void main_map_noslot(address_map &map);
 	u32 mvs_open7z(std::string zip_name, std::string filename, uint8_t *region_name, u32 region_size);
 	void io_control_w(offs_t offset, u8 data);
 	u16 memcard_r(offs_t offset);
@@ -237,7 +236,6 @@ private:
 	TIMER_CALLBACK_MEMBER(vblank_interrupt_callback);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(gno_q_cb);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(mvs_q_cb);
-	DECLARE_QUICKLOAD_LOAD_MEMBER(neo_q_cb);
 
 	u32 screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
@@ -245,7 +243,6 @@ private:
 	void main_map_slot(address_map &map);
 	void audio_map(address_map &map);
 	void audio_io_map(address_map &map);
-	void main_map_noslot(address_map &map);
 	void main_map1(address_map &map);
 	void gsc1_map(address_map &map);
 

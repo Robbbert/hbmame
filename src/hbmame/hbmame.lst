@@ -6122,7 +6122,6 @@ spcloneo	// v0.7.2.2
 // These are the parents of our hacks
 neogeo
 //nggno                                  // .gno support
-ngneo                                  // .neo support
 ngmvs                                  // multimvs support
 2020bb			// 030
 3countb			// 043
@@ -6508,6 +6507,10 @@ xmas2017
 yoyoshkn
 zintrick05     // unlock 4 hidden players
 zintrick07     // full music
+
+@source:neogeosd.cpp
+ngneo                                  // .neo support
+//sd_test
 
 @source:neogeo1.cpp
 2020bb01
