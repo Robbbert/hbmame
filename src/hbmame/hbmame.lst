@@ -6465,7 +6465,7 @@ sbpf
 sdkdemo
 seafight
 sgz
-shadowlf
+//shadowlf
 shinobin
 shinobin1
 shinobint
@@ -6489,7 +6489,7 @@ totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 vaporous
 violentv
-warriorman
+//warriorman
 wrallyn
 vssmbn
 wolf3d
@@ -6510,7 +6510,8 @@ zintrick07     // full music
 
 @source:neogeosd.cpp
 ngneo                                  // .neo support
-//sd_test
+sd_shadowlf
+sd_warriorm
 
 @source:neogeo1.cpp
 2020bb01

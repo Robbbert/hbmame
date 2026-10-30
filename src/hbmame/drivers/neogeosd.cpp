@@ -22,6 +22,7 @@
 #include "softlist_dev.h"
 
 //#define DUMP_NEO_ROMS
+//#define PRINT_INFO
 
 namespace {
 
@@ -357,21 +358,27 @@ void neosd_class::init_neosd()
 	uint32_t user_ptr = 0x1000;
 
 	// copy the data from the NEO file to the regions
+#ifdef PRINT_INFO
 	printf("psize=%X\n",psize);fflush(stdout);
+#endif
 	if (psize)
 	{
 		memcpy(&cpuregion[0], &m_user->base()[user_ptr], psize);
 		user_ptr += psize;
 	}
 
+#ifdef PRINT_INFO
 	printf("ssize=%X\n",ssize);fflush(stdout);
+#endif
 	if (ssize)
 	{
 		memcpy(&fix_region[0], &m_user->base()[user_ptr], ssize);
 		user_ptr += ssize;
 	}
 
+#ifdef PRINT_INFO
 	printf("msize=%X\n",msize);fflush(stdout);
+#endif
 	if (msize)
 	{
 		memcpy(&audiocpu_region[0x10000], &m_user->base()[user_ptr], msize);
@@ -379,7 +386,9 @@ void neosd_class::init_neosd()
 		user_ptr += msize;
 	}
 
+#ifdef PRINT_INFO
 	printf("vsize=%X\n",vsize);fflush(stdout);
+#endif
 	if (vsize)
 	{
 		memcpy(&ym_region[0], &m_user->base()[user_ptr], vsize);
@@ -387,19 +396,25 @@ void neosd_class::init_neosd()
 		user_ptr += vsize;
 	}
 
+#ifdef PRINT_INFO
 	printf("v2size=%X\n",v2size);fflush(stdout);
+#endif
 	if (v2size)
 	{
 		memcpy(&memregion("ymsnd:adpcmb")->base()[0], &m_user->base()[user_ptr], v2size);
 		user_ptr += v2size;
 	}
 
+#ifdef PRINT_INFO
 	printf("csize=%X\n",csize);fflush(stdout);
+#endif
 	if (csize)
 		memcpy(&spr_region[0], &m_user->base()[user_ptr], csize);
 
 	// Prepare the system
+#ifdef PRINT_INFO
 	printf("Ready to start\n");fflush(stdout);
+#endif
 	init_neogeo();
 	m_sprgen->set_sprite_region(m_region_sprites->base(), csize); // fix wh2
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), ssize, m_region_fixedbios);
@@ -438,16 +453,23 @@ ROM_START( ngneo )
 	NEOSD_BASE
 ROM_END
 
-ROM_START( sd_test )
+ROM_START( sd_shadowlf )
 	NEOSD_BASE
-	ROM_REGION( 0x18c1000, "user", 0 )
-	ROM_LOAD( "jimpower.neo", 0x000000, 0x18c1000, CRC(223ddf7a) SHA1(70c4868f5df9250c5f2e65bf77cb717fd778226e) )
+	ROM_REGION( 0x1b41000, "user", 0 )
+	ROM_LOAD( "shadowlf.neo", 0x000000, 0x1b41000, CRC(9138a0e7) SHA1(fdca9a3da1b59a209592a49eea9f39e88693428c) )
+ROM_END
+
+ROM_START( sd_warriorm )
+	NEOSD_BASE
+	ROM_REGION( 0x20cea9c, "user", 0 )
+	ROM_LOAD( "warriorm.neo", 0x000000, 0x20cea9c, CRC(6780e12a) SHA1(e582d8af30960a2385982d201cdf16488355fa1f) )
 ROM_END
 
 
 } // anonymous namespace
 
-/*    YEAR  NAME        PARENT    MACHINE   INPUT    CLASS         INIT    */
-GAME( 1990, ngneo,      neogeo,   ngneo,    neogeo,  neosd_class,  empty_init,  ROT0, "SNK", "Neo-Geo .neo support", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sd_test,    neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "SNK", "Jim Power test", MACHINE_SUPPORTS_SAVE )
+/*    YEAR  NAME          PARENT    MACHINE   INPUT    CLASS         INIT    */
+GAME( 1990, ngneo,        neogeo,   ngneo,    neogeo,  neosd_class,  empty_init,  ROT0, "SNK", "Neo-Geo .neo support", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sd_shadowlf,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Eagle Software", "Shadow League Fighting (v3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sd_warriorm,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "NK Home Entertainment", "Warrior Man (v4)", MACHINE_SUPPORTS_SAVE )
 

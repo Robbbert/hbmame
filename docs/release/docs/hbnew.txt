@@ -31,8 +31,10 @@ Updated Games
 - [ffightjs01]          Final Fight EX (Japan, 2026-10-24)
 - [ffightus01]          Final Fight EX (USA, 2026-10-24)
 - [maiyaluna]           Maiya & Luna (v2)
-- [nosignal]            No Signal Z Alpha (v2)
+- [nosignal]            No Signal Z Alpha (v3)
 - [outrunn]             Out Run (Neo-Geo port, beta-0.3.3)
+- [sd_shadowlf]         Shadow League Fighting (v3.1)
+- [sd_warriorm]         Warrior Man
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.2.1)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
 - [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (English Restoration, 2026-10-25)
