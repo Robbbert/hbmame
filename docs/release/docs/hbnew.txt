@@ -24,6 +24,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [ssf2tuc]             Super Street Fighter II EX (USA, 2026-10-30)
+- [ssf2xuc]             Super Street Fighter II EX (Japan, 2026-10-30)
 - [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.2)
 - [ffex2j]              Final Fight EX CPS2 (Japan, 2026-10-25)
 - [ffex2r]              Final Fight EX CPS2 (English Restoration, 2026-10-25)
