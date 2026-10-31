@@ -9,7 +9,7 @@ New Games
 ---------------------------------
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
-- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.2.5)
+- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.3.4)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
 - [striderjs01]         Strider Hiryu EX (Japan, 2026-10-27)
@@ -24,7 +24,7 @@ New Games
 
 Updated Games
 ---------------------------------
-- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.2)
+- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.3)
 - [ffex2j]              Final Fight EX CPS2 (Japan, 2026-10-25)
 - [ffex2r]              Final Fight EX CPS2 (English Restoration, 2026-10-25)
 - [ffex2u]              Final Fight EX CPS2 (USA, 2026-10-25)
@@ -32,10 +32,10 @@ Updated Games
 - [ffightus01]          Final Fight EX (USA, 2026-10-24)
 - [maiyaluna]           Maiya & Luna (v2)
 - [nosignal]            No Signal Z Alpha (v3)
-- [outrunn]             Out Run (Neo-Geo port, beta-0.3.3)
+- [outrunn]             Out Run (Neo-Geo port, beta-0.4.0)
 - [sd_shadowlf]         Shadow League Fighting (v3.1)
 - [sd_warriorm]         Warrior Man
-- [snowbrosn]           Snow Bros (Neo-Geo port, v1.2.1)
+- [snowbrosn]           Snow Bros (Neo-Geo port, v1.3.0)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
 - [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (English Restoration, 2026-10-25)
 - [usf2j]               Ultra Street Fighter II: The Final Challengers (Japan, 2026-10-28)
