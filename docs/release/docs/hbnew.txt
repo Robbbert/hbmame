@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
+- [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.3.4)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)

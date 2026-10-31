@@ -496,7 +496,7 @@ ROM_START( csw2s01 ) // crswd2blpx
 	ROM_LOAD16_BYTE( "054s01.c2", 1, 0x400000, CRC(d8016890) SHA1(a3d38f9e6bbed588363c7bd598511570f9c392b5) )
 ROM_END
 
-ROM_START( csw2s02 ) // crswd2rcm : Bugs: no music
+ROM_START( csw2s02 ) // crswd2rcm
 	ROM_REGION( 0x200000, "maincpu", ROMREGION_BE|ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "054s02.p1", 0x100000, 0x100000, CRC(59160185) SHA1(f520b6a2fe71f4aa28564b756a723c1f21e0a216) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -505,7 +505,7 @@ ROM_START( csw2s02 ) // crswd2rcm : Bugs: no music
 
 	NEO_BIOS_AUDIO_128K( "054s02.m1", CRC(67815eda) SHA1(95732cff849659d10087972dd4bf568509bafb82) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "054s02.v1",     0, 0x200000, CRC(45d86fa5) SHA1(8b426498ef75f1f9daa890816763a4ae869e96e7) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
@@ -4141,7 +4141,7 @@ GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2024, cbarrel,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, csw2,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (full CD music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, csw2s01,      csw2,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (update)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, csw2s02,      csw2,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (2026-10-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, csw2s02,      csw2,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (Reconstructed Cartridge Music)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, fr2s03,       fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Idol Mahjong Final Romance 2 (with music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
