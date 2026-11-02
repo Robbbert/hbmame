@@ -6330,7 +6330,6 @@ adkw                                   // port
 akiradmo
 altbeastn
 amazonn
-arena2
 badapple
 badapplea
 badappleb
@@ -6466,7 +6465,7 @@ sbpf
 sdkdemo
 seafight
 sgz
-//shadowlf
+shadowlf
 shinobin
 shinobin1
 shinobint
@@ -6511,7 +6510,8 @@ zintrick07     // full music
 
 @source:neogeosd.cpp
 ngneo                                  // .neo support
-sd_shadowlf
+sd_arena2
+//sd_shadowlf
 sd_warriorm
 
 @source:neogeo1.cpp

@@ -2574,11 +2574,11 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (v1.3.0) port by Bendk97
+// 528: Snow Bros (v1.3.1) port by Bendk97
 ROM_START( snowbrosn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x100000, CRC(c825253b) SHA1(d9316e71c5addfea0fe7e6470d423b062fc733bd) )
-	ROM_LOAD16_WORD_SWAP( "528.p2", 0x100000, 0x100000, CRC(0290e9f8) SHA1(feeefdf28b63c65bf674c7dd3ac9111ab999bdd4) )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x100000, CRC(17c655cb) SHA1(faea683cfda9b2b36edffd951aac23844527a59d) )
+	ROM_LOAD16_WORD_SWAP( "528.p2", 0x100000, 0x100000, CRC(a5738f53) SHA1(330c5c840b3973d1d690188acfbd9f72e2ed7b13) )
 
 	NEO_SFIX_128K( "528.s1", CRC(68f063f5) SHA1(9ade55f13424db36d525e1f6c2bcffbb6cb3b0f6) )
 
@@ -2588,8 +2588,8 @@ ROM_START( snowbrosn )
 	ROM_LOAD( "528.v1", 0, 0x1000000, CRC(f15f70e4) SHA1(f5f3f1f840e9fb2e1e74a56735fba1826fb1c425) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "528.c1", 0, 0x400000, CRC(51e5c413) SHA1(280e9143060c3ad98beb17fd1e93711e40690ef2) )
-	ROM_LOAD16_BYTE( "528.c2", 1, 0x400000, CRC(14c0b1f2) SHA1(547923cad188a9adb6b2c68d299ff30adce894f9) )
+	ROM_LOAD16_BYTE( "528.c1", 0, 0x400000, CRC(57c83846) SHA1(fb55f94d202c685e05756a26476ba2335def332a) )
+	ROM_LOAD16_BYTE( "528.c2", 1, 0x400000, CRC(be47f572) SHA1(073726477107f25bc5643a58767f0299abd7f1ba) )
 ROM_END
 
 
@@ -2711,11 +2711,11 @@ ROM_START( prehislen )
 ROM_END
 #endif
 
-// 534: Robocop (v9) port by Teo Tormo
+// 534: Robocop (v13) port by Teo Tormo
 // Bugs: Some parts run too fast
 ROM_START( robocopn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "534.p1", 0, 0x100000, CRC(eb0ffaed) SHA1(227a428924c9e5b2726902913b95a7d8ad973410) )
+	ROM_LOAD16_WORD_SWAP( "534.p1", 0, 0x100000, CRC(5c1a3070) SHA1(29be9c3c4177b11b00ed25c57b679411b0631f52) )
 
 	NEO_SFIX_128K( "534.s1", CRC(2ad60481) SHA1(284ece88c71499dff37d661b0e67af577fd9251d) )
 
@@ -2891,11 +2891,11 @@ ROM_START( cosmogngn )
 ROM_END
 
 
-// 543: Knights of the Round (beta-0.3.4) port by Bendk97
+// 543: Knights of the Round (beta-0.5.0) port by Bendk97
 ROM_START( knightsn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(33738e12) SHA1(38e46dab8a8f1053d2c5d07858ff1760045a6201) )
-	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(f4403da1) SHA1(7b777ff7cfb06915eadf9a8ec1a7b902dbb998a3) )
+	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(399009aa) SHA1(cb76d35e3c4ff0cd676ef50cc727fecb93c451a1) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(5adcaa5d) SHA1(d746dc49897e4671bd7ad27670193d429986f6d9) )
 
 	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
 
@@ -2905,8 +2905,8 @@ ROM_START( knightsn )
 	ROM_LOAD( "543.v1",   0, 0x1000000, CRC(cde9328f) SHA1(439e245804f024769bc679069c89191264983156) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(8507b792) SHA1(c8e69b62170f5335623ca809efb6921428ada4f1) )
-	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(f69ac783) SHA1(a0f5d2ab58af918aae3a9e72d187a9897b489e2d) )
+	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(18276209) SHA1(df17ce9bc76c9ac1ef3814d873f225bd9fbddad6) )
+	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(3067d2d3) SHA1(d99912d1e22df4201390c9b3d969548f3cef5b5f) )
 ROM_END
 
 
@@ -4025,12 +4025,12 @@ ROM_START( skylance )
 ROM_END
 
 
-// 780: Maiya (v4) by Eagle Software
+// 780: Maiya (v4.0.1) by Eagle Software
 ROM_START( maiya )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "780.p1", 0, 0x80000, CRC(5fe28a51) SHA1(2d1481933b0ba9a9f0f0e48e6e046cdabbd79b35) )
+	ROM_LOAD16_WORD_SWAP( "780.p1", 0, 0x80000, CRC(7f321556) SHA1(1134348f5dae5bd92abaed53c12d45691874b9be) )
 
-	NEO_SFIX_128K( "780.s1", CRC(5c7951e1) SHA1(b0a45c2085b5ef49f7a197bf403f103be2f21f4f) )
+	NEO_SFIX_128K( "780.s1", CRC(07999a92) SHA1(60b133bee92ba491e57235642f1469f93d005c20) )
 
 	NEO_BIOS_AUDIO_128K( "780.m1", CRC(ce7717bd) SHA1(66f3ef28d76104adeed931bc2f6b65a5f5e4c4e8) )
 
@@ -4038,51 +4038,51 @@ ROM_START( maiya )
 	ROM_LOAD( "780.v1", 0, 0x79ab00, CRC(127b89b4) SHA1(8ec212c59da5e650ed6978cf358e24220b5d33c3) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "780.c1", 0, 0x400000, CRC(48638505) SHA1(b2517c2a09efe0b196335c616ba3b2f13969f052) )
-	ROM_LOAD16_BYTE( "780.c2", 1, 0x400000, CRC(66a5c0e2) SHA1(9f3d77f2284925c82d8e26f725243083a73d6d92) )
+	ROM_LOAD16_BYTE( "780.c1", 0, 0x400000, CRC(131fc3fc) SHA1(80de27f5e2a2efd86163048dc2af8a4e04bae868) )
+	ROM_LOAD16_BYTE( "780.c2", 1, 0x400000, CRC(55a6ddcf) SHA1(443264b01d92e49cfe77d0ab02238883c6a7594d) )
 ROM_END
 
 
-// 781: Shadow League Fighting (v3) by Eagle Software
+// 781: Shadow League Fighting (v3.2.1) by Eagle Software
 ROM_START( shadowlf )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "781.p1", 0, 0x300000, CRC(20a6ea2d) SHA1(5aa5e1a9a3a84adb9d6c10cede58794f70ba68e1) )
+	ROM_LOAD16_WORD_SWAP( "781.p1", 0, 0x300000, CRC(442aa49e) SHA1(dc137efc11adea2b192e0fa89567aa3ced3d8578) )
 
-	NEO_SFIX_128K( "781.s1", CRC(636d9736) SHA1(81472c10d87a63717617c79dbb89eadc7f6c6a7f) )
+	NEO_SFIX_128K( "781.s1", CRC(9dc036cc) SHA1(05ea8e3c9b4a232dcf33e4642d9e61f434297d8f) )
 
-	NEO_BIOS_AUDIO_128K( "781.m1", CRC(ceabdb57) SHA1(f59d59155c52ebc177933ab9d4c9a26f499946d5) )
+	NEO_BIOS_AUDIO_128K( "781.m1", CRC(60928aa8) SHA1(013e512c6bdbbcc4c1b1a92ff6722e09ca8e6f39) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "781.v1", 0, 0x79c100, CRC(63c1b4e6) SHA1(718aa37a1c3754fb62196ddb121a00c323bc8533) )
+	ROM_LOAD( "781.v1", 0, 0x79d500, CRC(c4f30a19) SHA1(f800940c961be62d32a2f01578c5532360e6daa2) )
 
 	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "781.c1", 0, 0x800000, CRC(a8420eed) SHA1(0a4e257d9db251e002bd7a5549bed60a5fe0cc59) )
-	ROM_LOAD16_BYTE( "781.c2", 1, 0x800000, CRC(efd2b313) SHA1(62297ffc0737b30436aa7578e2a3d716a7535d84) )
+	ROM_LOAD16_BYTE( "781.c1", 0, 0x800000, CRC(dbb8854a) SHA1(758dcf8642dff9843511fa7b3717bc896b301471) )
+	ROM_LOAD16_BYTE( "781.c2", 1, 0x800000, CRC(e13b5303) SHA1(cd41b50283c6d67f9c95dfbbc9c84aca52638c51) )
 ROM_END
 
 
-// 782 : Seven Wonders Puzzles (v1) by Eagle Software
+// 782 : Seven Wonders Puzzles (v1.0.1) by Eagle Software
 ROM_START( 7wonders )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "782.p1", 0, 0x80000, CRC(30264e7a) SHA1(d51f7fbde1af28c4881cbd3dc026fb2b6a3e1c8b) )
+	ROM_LOAD16_WORD_SWAP( "782.p1", 0, 0x80000, CRC(51cbbaee) SHA1(f1737b00cd8e0a068a747ed440b1558139d7c7e1) )
 
-	NEO_SFIX_128K( "782.s1", CRC(eb99e197) SHA1(a5a393c0500a3e0c8a03a4bff614e23e66c57804) )
+	NEO_SFIX_128K( "782.s1", CRC(ba1031c2) SHA1(f8db5fe1854761beea03df281331c09a0384e8f4) )
 
-	NEO_BIOS_AUDIO_128K( "782.m1", CRC(a8031d28) SHA1(3ff4f7a43961f1952f499ac55c5e903dc4fa7eaa) )
+	NEO_BIOS_AUDIO_128K( "782.m1", CRC(c965f1bf) SHA1(79e90fdf1500a7971d32c3de893db1bab802a32e) )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "782.v1", 0, 0x324400, CRC(afec46cd) SHA1(274b9b049ce8285afb8def6b0e302e7a5885e4d9) )
+	ROM_LOAD( "782.v1", 0, 0x39f000, CRC(565b83c5) SHA1(d09b6e7ea4f8ca13a9be60a6d5df33bf672e1040) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "782.c1", 0, 0x400000, CRC(20efee4b) SHA1(cd81a92fb029aebc040a87b4c7d6f257bff954a4) )
-	ROM_LOAD16_BYTE( "782.c2", 1, 0x400000, CRC(2e56f9b5) SHA1(f3b0ba4d319fcb49a03d89b7182d469685cd1e1b) )
+	ROM_LOAD16_BYTE( "782.c1", 0, 0x400000, CRC(d77a28cd) SHA1(33a816e9f0e099146e84518ee826587316bad204) )
+	ROM_LOAD16_BYTE( "782.c2", 1, 0x400000, CRC(274b42d0) SHA1(50b09325593d07ef2533a8f1ca30c9e9c84cb6ab) )
 ROM_END
 
 
-// 783 : Maiya and Luna (v2) by Eagle Software
+// 783 : Maiya and Luna (v2.0.1) by Eagle Software
 ROM_START( maiyaluna )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "783.p1", 0, 0x80000, CRC(aa44e49a) SHA1(a26a3e781a7b7d046489dae39f7861c8750f5720) )
+	ROM_LOAD16_WORD_SWAP( "783.p1", 0, 0x80000, CRC(c9b74f94) SHA1(0ae9a7ce8f6a8c738798aeeddb8f42d99592ad01) )
 
 	NEO_SFIX_128K( "783.s1", CRC(74a73a67) SHA1(3046b5ef0309239297521ca5c5ec82d9081d9865) )
 
@@ -4152,7 +4152,7 @@ GAME( 2009, zintrick05,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, zintrick07,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2023, 68kng,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dekadence", "68k Inside intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, 7wonders,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Seven Wonders Puzzles (v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, 7wonders,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Seven Wonders Puzzles (v1.0.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, 240ptest1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v1.0", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
@@ -4222,7 +4222,7 @@ GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.3.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.5.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, kodn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
@@ -4230,8 +4230,8 @@ GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, mahjongd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Mahjong Demo (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4.0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v2.0.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
@@ -4279,13 +4279,13 @@ GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, rickdx,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Rick Dangerous DX", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v9)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sdkdemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "SDK Demo (v1.7.0)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sgz,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Shadow Gangs", "Shadow Gangs Zero (kick demo v2.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v3.2.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobin,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.0 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobin1,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.1 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobint,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi Test (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
@@ -4293,7 +4293,7 @@ GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.3.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.3.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
