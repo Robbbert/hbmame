@@ -9,10 +9,12 @@ New Games
 ---------------------------------
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
+- [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.5.0)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
+- [rtypen]              R-Type (Neo-Geo port, v0.5.1)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-10-29)
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-10-29)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-10-29)
