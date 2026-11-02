@@ -453,6 +453,12 @@ ROM_START( ngneo )
 	NEOSD_BASE
 ROM_END
 
+ROM_START( sd_arena2 )
+	NEOSD_BASE
+	ROM_REGION( 0x5c1000, "user", 0 )
+	ROM_LOAD( "arena2.neo",   0x000000, 0x5c1000, CRC(4bdbeef4) SHA1(7596b8a9f5235ceb162f4c35069dd2c73c8f76e8) )
+ROM_END
+
 ROM_START( sd_shadowlf )
 	NEOSD_BASE
 	ROM_REGION( 0x1b41000, "user", 0 )
@@ -470,6 +476,7 @@ ROM_END
 
 /*    YEAR  NAME          PARENT    MACHINE   INPUT    CLASS         INIT    */
 GAME( 1990, ngneo,        neogeo,   ngneo,    neogeo,  neosd_class,  empty_init,  ROT0, "SNK", "Neo-Geo .neo support", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sd_arena2,    neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Delarfab", "Arena 2 (v3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_shadowlf,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Eagle Software", "Shadow League Fighting (v3.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_warriorm,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "NK Home Entertainment", "Warrior Man (v4)", MACHINE_SUPPORTS_SAVE )
 

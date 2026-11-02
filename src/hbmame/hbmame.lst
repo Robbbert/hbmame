@@ -6348,7 +6348,6 @@ adkw                                   // port
 akiradmo
 altbeastn
 amazonn
-arena2
 badapple
 badapplea
 badappleb
@@ -6382,6 +6381,7 @@ cyborg
 cyborg1
 ddsprdmo
 didemo
+dinon
 doomgeo
 doubled1
 dti			// Duck Tales Intro
@@ -6478,13 +6478,14 @@ poknightfr
 rci
 rickdx
 robocopn
+rtypen
 samantha
 santabll
 sbpf
 sdkdemo
 seafight
 sgz
-//shadowlf
+shadowlf
 shinobin
 shinobin1
 shinobint
@@ -6529,7 +6530,8 @@ zintrick07     // full music
 
 @source:neogeosd.cpp
 ngneo                                  // .neo support
-sd_shadowlf
+sd_arena2
+//sd_shadowlf
 sd_warriorm
 
 @source:neogeo1.cpp
