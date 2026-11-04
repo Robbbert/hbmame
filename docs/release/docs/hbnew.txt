@@ -64,7 +64,7 @@ Updated Games
 - [sd_warriorm]         Warrior Man
 - [sfa3ru]              Street Fighter Alpha 3 (980904J, English Restoration, 2026-11-03)
 - [sfz3rj]              Street Fighter Zero 3 (980904J, Japanese Restoration, 2026-11-03)
-- [shadowlf]            Shadow League Fighting (v3.3.0)
+- [shadowlf]            Shadow League Fighting (v3.3.2)
 - [skylance]            Sky Lance (v2.1.1)
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.3.1)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
@@ -75,6 +75,7 @@ Updated Games
 - [usf2u]               Ultra Street Fighter II: The Final Challengers (USA, 2026-10-28)
 - [vsavs01]             Vampire Savior Arrange (English, 2026-10-27)
 - [vsavs02]             Vampire Savior Arrange (Japan, 2026-10-27)
+- [wolf3d]              Wolfenstein-3D (Neo-Geo port, v1.2.1)
 
 
 
