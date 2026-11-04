@@ -62,6 +62,8 @@ Updated Games
 - [robocopn]            Robocop (Neo-Geo port, v13)
 - [sd_arena2]           Arena 2 (v3)
 - [sd_warriorm]         Warrior Man
+- [sfa3ru]              Street Fighter Alpha 3 (980904J, English Restoration, 2026-11-03)
+- [sfz3rj]              Street Fighter Zero 3 (980904J, Japanese Restoration, 2026-11-03)
 - [shadowlf]            Shadow League Fighting (v3.3.0)
 - [skylance]            Sky Lance (v2.1.1)
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.3.1)
