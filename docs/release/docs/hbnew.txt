@@ -55,6 +55,8 @@ Updated Games
 - [mahjongd]            Mahjong Demo (v1.0.1)
 - [maiya]               Maiya Super Nature Girl (v4.1.0)
 - [maiyaluna]           Maiya & Luna (v2.0.2)
+- [mshvsfej]            Marvel Super Heroes Vs. Street Fighter EX (970707J, 2026-11-03)
+- [mshvsfex]            Marvel Super Heroes Vs. Street Fighter EX (970625U, 2026-11-03)
 - [nosignal]            No Signal Z Alpha (v3.0.1)
 - [outrunn]             Out Run (Neo-Geo port, beta-0.4.0)
 - [robocopn]            Robocop (Neo-Geo port, v13)
