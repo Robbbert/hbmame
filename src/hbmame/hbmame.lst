@@ -1666,6 +1666,9 @@ xmvsf06
 xmvsf07
 //cps2xx
 
+sfa3up
+sfz3up
+
 @source:cps2t.cpp
 sfz3mix20
 sfz3mix21
