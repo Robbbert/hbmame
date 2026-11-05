@@ -7,6 +7,8 @@
 
 New Games
 ---------------------------------
+- [sfa3up]              Street Fighter Alpha 3 Upper (060613U, Backport, 2026-11-04)
+- [sfz3up]              Street Fighter Zero 3 Upper (060525J, Backport, 2026-11-04)
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
