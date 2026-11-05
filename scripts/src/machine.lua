@@ -3631,6 +3631,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/sab3019.h,MACHINES["SAB3019"] = true
+---------------------------------------------------
+
+if MACHINES["SAB3019"] then
+	files {
+		MAME_DIR .. "src/devices/machine/sab3019.cpp",
+		MAME_DIR .. "src/devices/machine/sab3019.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/sc16is741.h,MACHINES["SC16IS741"] = true
 ---------------------------------------------------
 if MACHINES["SC16IS741"] then
@@ -4834,6 +4846,18 @@ if MACHINES["FDC37C665IR"] then
 	files {
 		MAME_DIR .. "src/devices/machine/fdc37c665ir.cpp",
 		MAME_DIR .. "src/devices/machine/fdc37c665ir.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/fdc37c669.h,MACHINES["FDC37C669"] = true
+---------------------------------------------------
+
+if MACHINES["FDC37C669"] then
+	files {
+		MAME_DIR .. "src/devices/machine/fdc37c669.cpp",
+		MAME_DIR .. "src/devices/machine/fdc37c669.h",
 	}
 end
 
