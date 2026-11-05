@@ -2811,6 +2811,7 @@ gaia
 guwange
 guwanges
 hotdogst
+hotdogstbl
 jumbogod
 korokoro
 mazinger
@@ -15929,6 +15930,7 @@ apexc
 
 @source:bordun/att.cpp
 lianhp2
+lianhp2a
 lianhp3
 
 @source:bordun/skylncr.cpp
@@ -17479,10 +17481,6 @@ clcd
 @source:commodore/kim1.cpp
 kim1
 
-@source:commodore/mps1230.cpp
-mps1000
-mps1230
-
 @source:commodore/pet.cpp
 cbm3008
 cbm3016
@@ -18648,6 +18646,8 @@ janptr96
 janptrsp
 janputer
 janputera
+janputerb
+janputerc
 jansou
 jansoua
 janyoup2
@@ -21822,6 +21822,7 @@ lucky8v
 lucky8w
 lucky8x
 lucky8y
+lucky8z
 luckybar
 luckylad
 magodds
@@ -26992,10 +26993,13 @@ kminus
 @source:kyocera/kyocera.cpp
 kc85
 m10
+m10us
+modell100
 npc8300
 pc8201
 pc8201a
 tandy102
+tandy102uk
 tandy200
 trsm100
 
@@ -31645,10 +31649,6 @@ magjoker
 @source:misc/galgame.cpp
 galgame
 
-@source:misc/gameace.cpp
-hotbody
-hotbody2
-
 @source:misc/gambl186.cpp
 gambl186
 gambl186a
@@ -31656,6 +31656,13 @@ gambl186b
 gambl186c
 gambl186d
 gambl186e
+
+@source:misc/gameace.cpp
+hotbody
+hotbody2
+
+@source:misc/gamebox.cpp
+gamebox
 
 @source:misc/gamemasters.cpp
 gmsshoot
@@ -35069,6 +35076,7 @@ skykids
 sweetlnd
 
 @source:namco/sweetland4.cpp
+sweetl4b
 sweetld4
 tairyodk
 
@@ -35580,6 +35588,7 @@ togenkyo
 @source:nichibutsu/nbmj8991.cpp
 av2mj1bb
 av2mj2rg
+bakuhato
 finalbny
 galkaika
 galkaikap
@@ -36613,13 +36622,13 @@ clrmatch
 sportmem
 
 @source:novadesitec/novadesitec_fr004.cpp
-unkfr004
-unkfr004a
-unkfr004b
-unkfr004c
+hallow2nd
+hallow2nda
+photosafa
+photosafaa
 
 @source:novadesitec/novadesitec_fr009.cpp
-unkfr009
+supcolr2
 
 @source:novag/accord.cpp
 accord
@@ -37706,7 +37715,9 @@ zito4dps
 @source:pc/pcipc_via.cpp
 ct6vta2
 ga6vx
+hot579
 ls5amvp3
+pcm573
 zidabx98
 
 @source:pc/play4texash.cpp
@@ -40846,6 +40857,7 @@ sandaha
 
 @source:sealy/sealy_z80.cpp
 bbddz
+bbddza
 ddz1
 ddz2
 ddz2a
@@ -44164,9 +44176,6 @@ ft68m
 
 @source:skeleton/galpro.cpp
 galpro
-
-@source:skeleton/gamebox.cpp
-gamebox
 
 @source:skeleton/ganbaremo.cpp
 ganbaremo

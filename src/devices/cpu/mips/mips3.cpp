@@ -190,8 +190,7 @@ mips3_device::mips3_device(const machine_config &mconfig, device_type type, cons
 	, c_secondary_cache_line_size(0)
 	, m_fastram_select(0)
 	, m_debugger_temp(0)
-	, m_drc_cache(DRC_CACHE_SIZE + sizeof(internal_mips3_state) + 0x800000)
-	, m_drcuml(nullptr)
+	, m_drcuml(*this, DRC_CACHE_SIZE + sizeof(internal_mips3_state) + 0x800000)
 	, m_drcfe(nullptr)
 	, m_drcoptions(0)
 	, m_drc_cache_dirty(0)
@@ -252,10 +251,7 @@ void mips3_device::device_stop()
 	{
 		m_drcfe = nullptr;
 	}
-	if (m_drcuml != nullptr)
-	{
-		m_drcuml = nullptr;
-	}
+	// TODO: provide a way to tear down drcuml_state
 }
 
 /***************************************************************************
@@ -458,15 +454,19 @@ void r5900_device::check_irqs()
 void mips3_device::device_start()
 {
 	m_isdrc = allow_drc();
-	m_drc_cache.allocate_cache(mconfig().options().drc_rwx());
+
+	/* initialize the UML generator */
+	// TODO: provide a way to avoid this if the recompiler is disabled
+	uint32_t flags = 0;
+	m_drcuml.initialize(flags, 8, 32, 2, COMPILE_FORWARDS_BYTES);
 
 	/* allocate the implementation-specific state from the full cache */
-	m_core = m_drc_cache.alloc_near<internal_mips3_state>();
+	m_core = m_drcuml.cache_alloc_near<internal_mips3_state>();
 	/* alloc_near() asserts on a zero size, and most drivers never configure one */
 	if (c_icache_size)
-		m_icache = (uint8_t *)m_drc_cache.alloc_near(c_icache_size, std::align_val_t(alignof(uint64_t)));
+		m_icache = (uint8_t *)m_drcuml.cache_alloc_near<uint64_t []>(c_icache_size / sizeof(uint64_t));
 	if (c_dcache_size)
-		m_dcache = (uint8_t *)m_drc_cache.alloc_near(c_dcache_size, std::align_val_t(alignof(uint64_t)));
+		m_dcache = (uint8_t *)m_drcuml.cache_alloc_near<uint64_t []>(c_dcache_size / sizeof(uint64_t));
 
 	/* lines CACHE allocates explicitly */
 	if (m_dcache_geometry)
@@ -521,100 +521,98 @@ void mips3_device::device_start()
 	/* allocate a timer for the compare interrupt */
 	m_compare_int_timer = timer_alloc(FUNC(mips3_device::compare_int_callback), this);
 
-	uint32_t flags = 0;
-	/* initialize the UML generator */
-	m_drcuml = std::make_unique<drcuml_state>(*this, m_drc_cache, flags, 8, 32, 2, COMPILE_FORWARDS_BYTES);
-
-	/* add symbols for our stuff */
-	m_drcuml->symbol_add(&m_core->pc, sizeof(m_core->pc), "pc");
-	m_drcuml->symbol_add(&m_core->icount, sizeof(m_core->icount), "icount");
-	for (int regnum = 0; regnum < 32; regnum++)
+	if (m_isdrc)
 	{
-		char buf[10];
-		snprintf(buf, 10, "r%d", regnum);
-		m_drcuml->symbol_add(&m_core->r[regnum], sizeof(m_core->r[regnum]), buf);
-		snprintf(buf, 10, "f%d", regnum);
-		m_drcuml->symbol_add(&m_core->cpr[1][regnum], sizeof(m_core->cpr[1][regnum]), buf);
-	}
-	m_drcuml->symbol_add(&m_core->r[REG_LO], sizeof(m_core->r[REG_LO]), "lo");
-	m_drcuml->symbol_add(&m_core->r[REG_HI], sizeof(m_core->r[REG_LO]), "hi");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Index], sizeof(m_core->cpr[0][COP0_Index]), "Index");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Random], sizeof(m_core->cpr[0][COP0_Random]), "Random");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_EntryLo0], sizeof(m_core->cpr[0][COP0_EntryLo0]), "EntryLo0");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_EntryLo1], sizeof(m_core->cpr[0][COP0_EntryLo1]), "EntryLo1");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Context], sizeof(m_core->cpr[0][COP0_Context]), "Context");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_PageMask], sizeof(m_core->cpr[0][COP0_PageMask]), "PageMask");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Wired], sizeof(m_core->cpr[0][COP0_Wired]), "Wired");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_BadVAddr], sizeof(m_core->cpr[0][COP0_BadVAddr]), "BadVAddr");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Count], sizeof(m_core->cpr[0][COP0_Count]), "Count");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_EntryHi], sizeof(m_core->cpr[0][COP0_EntryHi]), "EntryHi");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Compare], sizeof(m_core->cpr[0][COP0_Compare]), "Compare");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Status], sizeof(m_core->cpr[0][COP0_Status]), "Status");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Cause], sizeof(m_core->cpr[0][COP0_Cause]), "Cause");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_EPC], sizeof(m_core->cpr[0][COP0_EPC]), "EPC");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_PRId], sizeof(m_core->cpr[0][COP0_PRId]), "PRId");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_Config], sizeof(m_core->cpr[0][COP0_Config]), "Config");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_LLAddr], sizeof(m_core->cpr[0][COP0_LLAddr]), "LLAddr");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_XContext], sizeof(m_core->cpr[0][COP0_XContext]), "XContext");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_ECC], sizeof(m_core->cpr[0][COP0_ECC]), "ECC");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_CacheErr], sizeof(m_core->cpr[0][COP0_CacheErr]), "CacheErr");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_TagLo], sizeof(m_core->cpr[0][COP0_TagLo]), "TagLo");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_TagHi], sizeof(m_core->cpr[0][COP0_TagHi]), "TagHi");
-	m_drcuml->symbol_add(&m_core->cpr[0][COP0_ErrorPC], sizeof(m_core->cpr[0][COP0_ErrorPC]), "ErrorPC");
-	m_drcuml->symbol_add(&m_core->ccr[1][0], sizeof(m_core->ccr[1][0]), "fcr0");
-	m_drcuml->symbol_add(&m_core->ccr[1][31], sizeof(m_core->ccr[1][31]), "fcr31");
-	m_drcuml->symbol_add(&m_core->mode, sizeof(m_core->mode), "mode");
-	m_drcuml->symbol_add(&m_core->arg0, sizeof(m_core->arg0), "arg0");
-	m_drcuml->symbol_add(&m_core->arg1, sizeof(m_core->arg1), "arg1");
-	m_drcuml->symbol_add(&m_core->numcycles, sizeof(m_core->numcycles), "numcycles");
-	m_drcuml->symbol_add(&m_fpmode, sizeof(m_fpmode), "fpmode");
-
-	/* initialize the front-end helper */
-	m_drcfe = std::make_unique<frontend>(this, COMPILE_BACKWARDS_BYTES, COMPILE_FORWARDS_BYTES, SINGLE_INSTRUCTION_MODE ? 1 : COMPILE_MAX_SEQUENCE);
-
-	/* allocate memory for cache-local state and initialize it */
-	memcpy(m_fpmode, fpmode_source, sizeof(fpmode_source));
-
-	/* compute the register parameters */
-	for (int regnum = 0; regnum < 34; regnum++)
-	{
-		m_regmap[regnum] = (regnum == 0) ? uml::parameter(0) : uml::parameter::make_memory(&m_core->r[regnum]);
-		m_regmaplo[regnum] = (regnum == 0) ? uml::parameter(0) : uml::parameter::make_memory(LOPTR(&m_core->r[regnum]));
-	}
-
-	/* if we have registers to spare, assign r2, r3, r4 to leftovers */
-	if (!DISABLE_FAST_REGISTERS)
-	{
-		drcbe_info beinfo;
-
-		m_drcuml->get_backend_info(beinfo);
-		if (beinfo.direct_iregs > 4)
+		/* add symbols for our stuff */
+		m_drcuml.symbol_add(&m_core->pc, sizeof(m_core->pc), "pc");
+		m_drcuml.symbol_add(&m_core->icount, sizeof(m_core->icount), "icount");
+		for (int regnum = 0; regnum < 32; regnum++)
 		{
-			m_regmap[2] = uml::I4;
-			m_regmaplo[2] = uml::I4;
+			char buf[10];
+			snprintf(buf, 10, "r%d", regnum);
+			m_drcuml.symbol_add(&m_core->r[regnum], sizeof(m_core->r[regnum]), buf);
+			snprintf(buf, 10, "f%d", regnum);
+			m_drcuml.symbol_add(&m_core->cpr[1][regnum], sizeof(m_core->cpr[1][regnum]), buf);
 		}
-		if (beinfo.direct_iregs > 5)
+		m_drcuml.symbol_add(&m_core->r[REG_LO], sizeof(m_core->r[REG_LO]), "lo");
+		m_drcuml.symbol_add(&m_core->r[REG_HI], sizeof(m_core->r[REG_LO]), "hi");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Index], sizeof(m_core->cpr[0][COP0_Index]), "Index");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Random], sizeof(m_core->cpr[0][COP0_Random]), "Random");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_EntryLo0], sizeof(m_core->cpr[0][COP0_EntryLo0]), "EntryLo0");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_EntryLo1], sizeof(m_core->cpr[0][COP0_EntryLo1]), "EntryLo1");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Context], sizeof(m_core->cpr[0][COP0_Context]), "Context");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_PageMask], sizeof(m_core->cpr[0][COP0_PageMask]), "PageMask");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Wired], sizeof(m_core->cpr[0][COP0_Wired]), "Wired");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_BadVAddr], sizeof(m_core->cpr[0][COP0_BadVAddr]), "BadVAddr");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Count], sizeof(m_core->cpr[0][COP0_Count]), "Count");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_EntryHi], sizeof(m_core->cpr[0][COP0_EntryHi]), "EntryHi");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Compare], sizeof(m_core->cpr[0][COP0_Compare]), "Compare");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Status], sizeof(m_core->cpr[0][COP0_Status]), "Status");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Cause], sizeof(m_core->cpr[0][COP0_Cause]), "Cause");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_EPC], sizeof(m_core->cpr[0][COP0_EPC]), "EPC");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_PRId], sizeof(m_core->cpr[0][COP0_PRId]), "PRId");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_Config], sizeof(m_core->cpr[0][COP0_Config]), "Config");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_LLAddr], sizeof(m_core->cpr[0][COP0_LLAddr]), "LLAddr");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_XContext], sizeof(m_core->cpr[0][COP0_XContext]), "XContext");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_ECC], sizeof(m_core->cpr[0][COP0_ECC]), "ECC");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_CacheErr], sizeof(m_core->cpr[0][COP0_CacheErr]), "CacheErr");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_TagLo], sizeof(m_core->cpr[0][COP0_TagLo]), "TagLo");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_TagHi], sizeof(m_core->cpr[0][COP0_TagHi]), "TagHi");
+		m_drcuml.symbol_add(&m_core->cpr[0][COP0_ErrorPC], sizeof(m_core->cpr[0][COP0_ErrorPC]), "ErrorPC");
+		m_drcuml.symbol_add(&m_core->ccr[1][0], sizeof(m_core->ccr[1][0]), "fcr0");
+		m_drcuml.symbol_add(&m_core->ccr[1][31], sizeof(m_core->ccr[1][31]), "fcr31");
+		m_drcuml.symbol_add(&m_core->mode, sizeof(m_core->mode), "mode");
+		m_drcuml.symbol_add(&m_core->arg0, sizeof(m_core->arg0), "arg0");
+		m_drcuml.symbol_add(&m_core->arg1, sizeof(m_core->arg1), "arg1");
+		m_drcuml.symbol_add(&m_core->numcycles, sizeof(m_core->numcycles), "numcycles");
+		m_drcuml.symbol_add(&m_fpmode, sizeof(m_fpmode), "fpmode");
+
+		/* initialize the front-end helper */
+		m_drcfe = std::make_unique<frontend>(this, COMPILE_BACKWARDS_BYTES, COMPILE_FORWARDS_BYTES, SINGLE_INSTRUCTION_MODE ? 1 : COMPILE_MAX_SEQUENCE);
+
+		/* allocate memory for cache-local state and initialize it */
+		memcpy(m_fpmode, fpmode_source, sizeof(fpmode_source));
+
+		/* compute the register parameters */
+		for (int regnum = 0; regnum < 34; regnum++)
 		{
-			m_regmap[3] = uml::I5;
-			m_regmaplo[3] = uml::I5;
+			m_regmap[regnum] = (regnum == 0) ? uml::parameter(0) : uml::parameter::make_memory(&m_core->r[regnum]);
+			m_regmaplo[regnum] = (regnum == 0) ? uml::parameter(0) : uml::parameter::make_memory(LOPTR(&m_core->r[regnum]));
 		}
-		if (beinfo.direct_iregs > 6)
+
+		/* if we have registers to spare, assign r2, r3, r4 to leftovers */
+		if (!DISABLE_FAST_REGISTERS)
 		{
-			m_regmap[4] = uml::I6;
-			m_regmaplo[4] = uml::I6;
+			drcbe_info beinfo;
+
+			m_drcuml.get_backend_info(beinfo);
+			if (beinfo.direct_iregs > 4)
+			{
+				m_regmap[2] = uml::I4;
+				m_regmaplo[2] = uml::I4;
+			}
+			if (beinfo.direct_iregs > 5)
+			{
+				m_regmap[3] = uml::I5;
+				m_regmaplo[3] = uml::I5;
+			}
+			if (beinfo.direct_iregs > 6)
+			{
+				m_regmap[4] = uml::I6;
+				m_regmaplo[4] = uml::I6;
+			}
 		}
+
+		/* mark the cache dirty so it is updated on next execute */
+		m_drc_cache_dirty = true;
 	}
-
-	/* mark the cache dirty so it is updated on next execute */
-	m_drc_cache_dirty = true;
-
 
 	/* register for save states */
 	save_item(NAME(m_core->pc));
 	save_item(NAME(m_core->r));
 	save_item(NAME(m_core->cpr));
-	save_item(NAME(m_cp0_sel));
-	save_item(NAME(m_mxu));
+	save_item(NAME(m_core->cp0_sel));
+	save_item(NAME(m_core->mxu));
 	save_item(NAME(m_core->ccr));
 	save_item(NAME(m_core->llbit));
 	save_item(NAME(m_core->count_zero_time));
@@ -1226,10 +1224,10 @@ void mips3_device::device_reset()
 	m_core->count_zero_time = total_cycles();
 
 	/* MIPS32 select registers; the XBurst reports 32 TLB entries and 16 KB 4-way I and D caches with 32-byte lines */
-	memset(m_cp0_sel, 0, sizeof(m_cp0_sel));
-	memset(m_mxu, 0, sizeof(m_mxu));
+	memset(m_core->cp0_sel, 0, sizeof(m_core->cp0_sel));
+	memset(m_core->mxu, 0, sizeof(m_core->mxu));
 	if (m_flavor == MIPS3_TYPE_XBURST)
-		m_cp0_sel[COP0_Config][1] = 0x3e63318a;
+		m_core->cp0_sel[COP0_Config][1] = 0x3e63318a;
 
 	/* initialize the FPU state */
 	m_core->ccr[1][0] = compute_fpu_prid_register();
@@ -1457,7 +1455,7 @@ void mips3_device::icache_op(offs_t address)
 	if (BIT(m_dcache_code_pages[page >> 3], page & 7))
 	{
 		// drop the translations reaching the line and leave the running block
-		m_drcuml->hash_invalidate_range(address & ~31, address | 31);
+		m_drcuml.hash_invalidate_range(address & ~31, address | 31);
 		abort_timeslice();
 	}
 }
@@ -2709,14 +2707,14 @@ void mips3_device::handle_cop0(uint32_t op)
 	const int sel = (m_flavor == MIPS3_TYPE_XBURST) ? (op & 7) : 0;
 	if (sel != 0 && RSREG == 0x00)
 	{
-		if (RTREG) RTVAL64 = (int32_t)m_cp0_sel[RDREG][sel];
+		if (RTREG) RTVAL64 = (int32_t)m_core->cp0_sel[RDREG][sel];
 		return;
 	}
 	if (sel != 0 && RSREG == 0x04)
 	{
 		/* Config1 is read-only */
 		if (RDREG != COP0_Config || sel != 1)
-			m_cp0_sel[RDREG][sel] = RTVAL32;
+			m_core->cp0_sel[RDREG][sel] = RTVAL32;
 		return;
 	}
 
@@ -4227,26 +4225,26 @@ void mips3_device::handle_idt(uint32_t op)
 				}
 				uint32_t temp;
 				if (RWORD(RSVAL32 + ((int32_t(op << 12) >> 22) << 2), &temp) && ((op >> 6) & 0xf))
-					m_mxu[(op >> 6) & 0xf] = temp;
+					m_core->mxu[(op >> 6) & 0xf] = temp;
 				break;
 			}
 			case 0x11: // S32STD xra, rb, s12 (XBurst MXU): store a SIMD register
 				if (m_flavor != MIPS3_TYPE_XBURST)
 					invalid_instruction(op);
 				else
-					WWORD(RSVAL32 + ((int32_t(op << 12) >> 22) << 2), m_mxu[(op >> 6) & 0xf]);
+					WWORD(RSVAL32 + ((int32_t(op << 12) >> 22) << 2), m_core->mxu[(op >> 6) & 0xf]);
 				break;
 			case 0x2e: // S32M2I xra, rb (XBurst MXU): SIMD register to GPR
 				if (m_flavor != MIPS3_TYPE_XBURST)
 					invalid_instruction(op);
 				else if (RTREG)
-					RTVAL64 = s32(m_mxu[(op >> 6) & 0x1f]);
+					RTVAL64 = s32(m_core->mxu[(op >> 6) & 0x1f]);
 				break;
 			case 0x2f: // S32I2M xra, rb (XBurst MXU): GPR to SIMD register; xr16 is the control register
 				if (m_flavor != MIPS3_TYPE_XBURST)
 					invalid_instruction(op);
 				else if ((op >> 6) & 0x1f)
-					m_mxu[(op >> 6) & 0x1f] = RTVAL32;
+					m_core->mxu[(op >> 6) & 0x1f] = RTVAL32;
 				break;
 			case 0x20: // CLZ
 				if (RDREG) RDVAL64 = std::countl_zero(RSVAL32);
@@ -5709,7 +5707,7 @@ void mips3_device::execute_run()
 		do
 		{
 			/* run as much as we can */
-			execute_result = m_drcuml->execute(*m_entry);
+			execute_result = m_drcuml.execute(*m_entry);
 
 			/* if we need to recompile, do it */
 			if (execute_result == EXECUTE_MISSING_CODE)
