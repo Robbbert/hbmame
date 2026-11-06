@@ -35,7 +35,7 @@ New Games
 - [makprincessg]        Makaimura - Princess Prin Prin Edition (Japan revision G)
 - [makprincessgenh]     Makaimura - Princess Prin Prin Edition (Enhanced) (Japan revision G)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
-- [rtypen]              R-Type (Neo-Geo port, v0.5.2)
+- [rtypen]              R-Type (Neo-Geo port, v0.6.1)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-11-03)
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-11-03)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-11-03)

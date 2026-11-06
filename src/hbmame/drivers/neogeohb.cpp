@@ -2977,10 +2977,10 @@ ROM_START( dinon )
 ROM_END
 
 
-// 547: R-Type (beta-0.5.2) port by Bendk97
+// 547: R-Type (beta-0.6.1) port by Bendk97
 ROM_START( rtypen )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(1767074e) SHA1(b2705fca450ccadaa33598752f5f66065e83b0d7) )
+	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(126de2d3) SHA1(00d2ecf3fcbc4c1333c5335b629ac368084dd0ae) )
 	ROM_LOAD16_WORD_SWAP( "547.p2", 0x100000, 0x100000, CRC(eb53d24e) SHA1(7453ac1ba9afc7437cc1f06c8d8c704db2b06b21) )
 
 	NEO_SFIX_128K( "547.s1", CRC(19a9ce65) SHA1(4ca71ce32aca093420d786fc267dbed0c2b238fe) )
@@ -4217,7 +4217,7 @@ GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.4.0)", MACHINE_SUPPORTS_SAVE )
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.5.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.3.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
