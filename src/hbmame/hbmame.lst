@@ -1371,6 +1371,7 @@ wofs14
 //sf2mdtb
 
 @source:cps2.cpp
+hsf2re
 // CPS2 PARENTS
 1944
 19xx
