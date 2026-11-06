@@ -256,6 +256,7 @@ NUM GAME YEAR COMPANY                 TITLE
 545 0777 2026 NK Home Entertainment   Jim Power (port) (https://nicoklem.itch.io/)
 546 0300 2026 Teo Tormo               Cadillacs and Dinosaurs (port) (https://teo-tormo.itch.io/)
 547 099A 2026 Bendk97                 R-Type (port) (https://bendk97.itch.io/)
+548 0975 2026 Bendk97                 Pole Position II (port) (https://bendk97.itch.io/)
 
 
 
@@ -2996,6 +2997,24 @@ ROM_START( rtypen )
 ROM_END
 
 
+// 548: Pole Position II (beta-0.1.3) port by Bendk97
+ROM_START( polepos2n )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "548.p1", 0x000000, 0x100000, CRC(8db3225d) SHA1(8a22b9f30a4c9f796ac108e3362986fbc6f35cf0) )
+
+	NEO_SFIX_128K( "548.s1", CRC(7c0a3767) SHA1(34bd4b769fd327e0d88113afb3c66b23f4b547a2) )
+
+	NEO_BIOS_AUDIO_64K( "548.m1", CRC(17af0611) SHA1(f67b54a06aa95c21f5d868219afb8af192948a85) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "548.v1",   0, 0x100000, CRC(5d20d963) SHA1(f58855deb01d0d5f8d1a1ba3556ff2485d7fd849) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "548.c1", 0, 0x400000, CRC(8ee179d2) SHA1(8ffc34ef838cd660052fa486ecfc81835c8e1fb5) )
+	ROM_LOAD16_BYTE( "548.c2", 1, 0x400000, CRC(b5ed6801) SHA1(69e5f62b537cb8d03ac93abc6accfd98d59be6ab) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4215,6 +4234,7 @@ GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.4.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.1.3)", MACHINE_SUPPORTS_SAVE )
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.1)", MACHINE_SUPPORTS_SAVE )
