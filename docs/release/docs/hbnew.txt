@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
+- [cd_shangon]          Super Hang-On v1.0 (Neo-Geo port)[CD]
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
 - [gngprincess]         Ghosts'n Goblins - Princess Prin Prin Edition (World? 1)
@@ -20,7 +21,7 @@ New Games
 - [gngprincessenh]      Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (World? 1)
 - [gngprincesst]        Ghosts'n Goblins - Princess Prin Prin Edition (US)
 - [gngprincesstenh]     Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (US)
-- [hsf2re]             Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
+- [hsf2re]              Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.5.0)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
