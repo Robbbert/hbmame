@@ -257,6 +257,7 @@ NUM GAME YEAR COMPANY                 TITLE
 546 0300 2026 Teo Tormo               Cadillacs and Dinosaurs (port) (https://teo-tormo.itch.io/)
 547 099A 2026 Bendk97                 R-Type (port) (https://bendk97.itch.io/)
 548 0975 2026 Bendk97                 Pole Position II (port) (https://bendk97.itch.io/)
+549 0F7A 2026 ShinobiZ                Shadow Dancer (port) (https://shinobiz72.itch.io/)
 
 
 
@@ -3015,6 +3016,25 @@ ROM_START( polepos2n )
 ROM_END
 
 
+// 549: Shadow Dancer (incomplete, abandoned) port by ShinobiZ
+ROM_START( shdancern )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD( "549.p1", 0x000000, 0x100000, CRC(aa717fe5) SHA1(8deaadb7014b679efe420218b6d1567963ca090b) )
+	ROM_LOAD( "549.p2", 0x100000, 0x600000, CRC(9fcf02db) SHA1(591a920355e81d14a6e4f2614e36f8c75d2dbdd5) )
+
+	NEO_SFIX_128K( "549.s1", CRC(dad8f58f) SHA1(a2b93d01faec11856c56f94bb9fa6f691d4a7781) )
+
+	NEO_BIOS_AUDIO_128K( "549.m1", CRC(40dcd3da) SHA1(db0a7c7f1077331f95081100442f5ddd17687f3e) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "549.v1",   0, 0x1000000, CRC(5f6520d7) SHA1(83375c0d58fe5e9130c457bd47a6e1ac0c1318a0) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "549.c1", 0, 0x1000000, CRC(5781e08a) SHA1(e1f9903379807fea48006b4e9937ecf9ab5e8ed3) )
+	ROM_LOAD16_BYTE( "549.c2", 1, 0x1000000, CRC(f4e34f3d) SHA1(0b5d5517b8412d7031ac27d68c785bb2228b5a0e) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4238,6 +4258,7 @@ GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, shdancern,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Shadow Dancer (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.3.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
