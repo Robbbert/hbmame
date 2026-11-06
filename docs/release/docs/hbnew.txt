@@ -7,9 +7,6 @@
 
 New Games
 ---------------------------------
-- [hsf2re]             Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
-- [sfa3up]              Street Fighter Alpha 3 Upper (060613U, Backport, 2026-11-04)
-- [sfz3up]              Street Fighter Zero 3 Upper (060525J, Backport, 2026-11-04)
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
@@ -23,6 +20,7 @@ New Games
 - [gngprincessenh]      Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (World? 1)
 - [gngprincesst]        Ghosts'n Goblins - Princess Prin Prin Edition (US)
 - [gngprincesstenh]     Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (US)
+- [hsf2re]             Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
 - [knightsn]            Knights of the Round (Neo-Geo port, beta-0.5.0)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
@@ -36,7 +34,9 @@ New Games
 - [makprincessgenh]     Makaimura - Princess Prin Prin Edition (Enhanced) (Japan revision G)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
 - [rtypen]              R-Type (Neo-Geo port, v0.6.1)
+- [sfa3up]              Street Fighter Alpha 3 Upper (060613U, Backport, 2026-11-04)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-11-03)
+- [sfz3up]              Street Fighter Zero 3 Upper (060525J, Backport, 2026-11-04)
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-11-03)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-11-03)
 - [striderjs01]         Strider Hiryu EX (Japan, 2026-10-27)
