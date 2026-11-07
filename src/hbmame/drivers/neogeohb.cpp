@@ -2902,11 +2902,11 @@ ROM_START( cosmogngn )
 ROM_END
 
 
-// 543: Knights of the Round (beta-0.5.0) port by Bendk97
+// 543: Knights of the Round (beta-0.6.0) port by Bendk97
 ROM_START( knightsn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(399009aa) SHA1(cb76d35e3c4ff0cd676ef50cc727fecb93c451a1) )
-	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(5adcaa5d) SHA1(d746dc49897e4671bd7ad27670193d429986f6d9) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(e4c91d02) SHA1(37e13ed86db2bb99de23f28ee309e8cb0d64c330) )
 
 	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
 
@@ -2916,8 +2916,8 @@ ROM_START( knightsn )
 	ROM_LOAD( "543.v1",   0, 0x1000000, CRC(cde9328f) SHA1(439e245804f024769bc679069c89191264983156) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(18276209) SHA1(df17ce9bc76c9ac1ef3814d873f225bd9fbddad6) )
-	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(3067d2d3) SHA1(d99912d1e22df4201390c9b3d969548f3cef5b5f) )
+	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(f2a17292) SHA1(921fce38177609a14863ad7ed2dbf454524a0588) )
+	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(bbdfe6df) SHA1(7578ccb09c0ae241b0755a823c2b79fc3fb51dc6) )
 ROM_END
 
 
@@ -2979,10 +2979,10 @@ ROM_START( dinon )
 ROM_END
 
 
-// 547: R-Type (beta-0.6.1) port by Bendk97
+// 547: R-Type (beta-0.6.6) port by Bendk97
 ROM_START( rtypen )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(126de2d3) SHA1(00d2ecf3fcbc4c1333c5335b629ac368084dd0ae) )
+	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(0f0f3a7a) SHA1(79231c82a3f041e684b098336d1d016e287c5f9a) )
 	ROM_LOAD16_WORD_SWAP( "547.p2", 0x100000, 0x100000, CRC(eb53d24e) SHA1(7453ac1ba9afc7437cc1f06c8d8c704db2b06b21) )
 
 	NEO_SFIX_128K( "547.s1", CRC(19a9ce65) SHA1(4ca71ce32aca093420d786fc267dbed0c2b238fe) )
@@ -2998,10 +2998,10 @@ ROM_START( rtypen )
 ROM_END
 
 
-// 548: Pole Position II (beta-0.1.3) port by Bendk97
+// 548: Pole Position II (beta-0.1.4) port by Bendk97
 ROM_START( polepos2n )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "548.p1", 0x000000, 0x100000, CRC(8db3225d) SHA1(8a22b9f30a4c9f796ac108e3362986fbc6f35cf0) )
+	ROM_LOAD16_WORD_SWAP( "548.p1", 0x000000, 0x100000, CRC(344a940e) SHA1(704f973da24df051438c950b54327189b3ca6617) )
 
 	NEO_SFIX_128K( "548.s1", CRC(7c0a3767) SHA1(34bd4b769fd327e0d88113afb3c66b23f4b547a2) )
 
@@ -4254,10 +4254,10 @@ GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.4.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.1.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.1.4)", MACHINE_SUPPORTS_SAVE )
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, shdancern,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Shadow Dancer (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.3.1)", MACHINE_SUPPORTS_SAVE )
@@ -4331,7 +4331,7 @@ GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Dez 2020)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.5.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.6.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, kodn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
