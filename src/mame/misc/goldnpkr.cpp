@@ -1511,7 +1511,7 @@ TILE_GET_INFO_MEMBER(goldnpkr_state::phnxjokr_get_bg_tile_info)
 {
 	/*  - bits -
 	    7654 3210
-	    --xx xx--   tiles color.
+	    -xxx -x--   tiles color.
 	    ---- --x-   tiles bank.
 	    ---- ---x   tiles extended address (MSB).
 	    xx-- ----   unused.
@@ -1520,12 +1520,11 @@ TILE_GET_INFO_MEMBER(goldnpkr_state::phnxjokr_get_bg_tile_info)
 	uint16_t const attr = m_colorram[tile_index];
 	uint16_t const code = ((attr & 1) << 8) | m_videoram[tile_index];
 	uint16_t const bank = (attr & 0x02) >> 1;      // bit 1 switch the gfx banks
-	uint16_t color = (attr & 0x3c) >> 2;           // bits 2-3-4-5 for color
 
-	if (color == 4 || color == 5)
-	{
-		color -= 2;
-	}
+	// preparing the color mask 01110100
+	uint16_t const color_high = (attr & 0x70) >> 3;
+	uint16_t const color_low = (attr & 0x04) >> 2;
+	uint16_t const color = color_high | color_low;
 
 	tileinfo.set(bank, code, color, 0);
 }
@@ -5273,59 +5272,110 @@ INPUT_PORTS_END
 
 
 static INPUT_PORTS_START( phnxjokr )
-	PORT_INCLUDE( goldnpkr )
+/*
+  Multiplexed - 4x6bits
 
-	PORT_MODIFY("SW1")  // AY8910 portA
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:1")
+  E1B5: AD 46 08 lda $0846
+  E1B8: 29 3F    and #$3f
+  E1BA: 09 C0    ora #$c0
+  E1BC: 8D 46 08 sta $0846
+
+  This matrix reads 6 bits per row,
+  instead of the original 5 bits from
+  Bonanza Golden Poker and others.  
+
+*/	
+	PORT_START("IN0-0")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_GAMBLE_BET )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK )    PORT_NAME("Meters")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_GAMBLE_D_UP )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_GAMBLE_DEAL )    PORT_NAME("Deal / Draw")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_POKER_CANCEL )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER )          PORT_NAME("IN0-0 Bit 5") PORT_CODE(KEYCODE_U)
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("IN0-1")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER )          PORT_READ_LINE_DEVICE_MEMBER("hopper", FUNC(ticket_dispenser_device::line_r))
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_GAMBLE_KEYOUT )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_GAMBLE_TAKE )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_GAMBLE_HIGH )    PORT_NAME("Big")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_LOW )     PORT_NAME("Small")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER )          PORT_NAME("IN0-1 Bit 5") PORT_CODE(KEYCODE_I)
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("IN0-2")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_POKER_HOLD1 )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_POKER_HOLD2 )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_POKER_HOLD3 )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_POKER_HOLD4 )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_POKER_HOLD5 )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER )          PORT_NAME("IN0-2 Bit 5") PORT_CODE(KEYCODE_O)
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("IN0-3")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_OTHER )          PORT_NAME("IN0-3 Bit 0") PORT_CODE(KEYCODE_J)
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_OTHER )          PORT_NAME("IN0-3 Bit 1") PORT_CODE(KEYCODE_K)
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN2 )          PORT_IMPULSE(3) PORT_NAME("Note 1 In")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_COIN1 )          PORT_IMPULSE(3) PORT_NAME("Coin In")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_COIN3 )          PORT_IMPULSE(3) PORT_NAME("Note 2 In")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_OTHER )          PORT_NAME("IN0-3 Bit 5") PORT_CODE(KEYCODE_P)
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("SW1")  // AY8910 portA
+	PORT_DIPNAME( 0x01, 0x01, "2-Card Open Mode" )      PORT_DIPLOCATION("SW1:1")
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:2")
-	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:3")
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:4")
+	PORT_DIPNAME( 0x02, 0x02, "2-Card Open Type" )      PORT_DIPLOCATION("SW1:2")
+	PORT_DIPSETTING(    0x02, "Manual (HOLD Buttons)" )
+	PORT_DIPSETTING(    0x00, "Auto Open" )
+	PORT_DIPNAME( 0x04, 0x04, "Royal Flush" )           PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x04, "OK" )
+	PORT_DIPSETTING(    0x00, "Lose" )
+	PORT_DIPNAME( 0x08, 0x08, "Credit Limit" )          PORT_DIPLOCATION("SW1:4")
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:5")
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:6")
-	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:7")
-	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:8")
-	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x10, "Credit Limit Value" )    PORT_DIPLOCATION("SW1:5")
+	PORT_DIPSETTING(    0x10, "200" )
+	PORT_DIPSETTING(    0x00, "500" )
+	PORT_DIPNAME( 0x20, 0x20, "Straight Flush Payout" ) PORT_DIPLOCATION("SW1:6")
+	PORT_DIPSETTING(    0x20, "100" )
+	PORT_DIPSETTING(    0x00, "150" )
+	PORT_DIPNAME( 0x40, 0x40, "Double-Up Rate" )        PORT_DIPLOCATION("SW1:7")
+	PORT_DIPSETTING(    0x40, "90%" )
+	PORT_DIPSETTING(    0x00, "80%" )
+	PORT_DIPNAME( 0x80, 0x80, "Double-Up Joker" )       PORT_DIPLOCATION("SW1:8")
+	PORT_DIPSETTING(    0x80, "Few" )
+	PORT_DIPSETTING(    0x00, "Many" )
 
 	PORT_START("SW2")  // AY8910 portB
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:1")
-	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:2")
-	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:3")
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:4")
-	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:5")
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:6")
-	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:7")
-	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW2:8")
-	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x07, 0x07, DEF_STR( Coinage ) )      PORT_DIPLOCATION("SW2:1,2,3")
+	PORT_DIPSETTING(    0x00, "1 Coin / 1 Credit (Note1: 2, Note2: 20)" )
+	PORT_DIPSETTING(    0x01, "1 Coin / 1 Credit (Note1: 5, Note2: 50)" )
+	PORT_DIPSETTING(    0x02, "1 Coin / 1 Credit (Note1: 10, Note2: 100)" )
+	PORT_DIPSETTING(    0x03, "1 Coin / 2 Credits (Note1: 20, Note2: 200)" )
+	PORT_DIPSETTING(    0x04, "1 Coin / 3 Credits (Note1: 30, Note2: 300)" )
+	PORT_DIPSETTING(    0x05, "1 Coin / 4 Credits (Note1: 40, Note2: 400)" )
+	PORT_DIPSETTING(    0x06, "1 Coin / 5 Credits (Note1: 50, Note2: 500)" )
+	PORT_DIPSETTING(    0x07, "1 Coin / 10 Credits (Note1: 100, Note2: 1000)" )
+	PORT_DIPNAME( 0x08, 0x08, "Max Bet" )               PORT_DIPLOCATION("SW2:4")
+	PORT_DIPSETTING(    0x08, "10 (Payout Limit 10,000)" )
+	PORT_DIPSETTING(    0x00, "20 (Payout Limit 20,000)" )
+	PORT_DIPNAME( 0x10, 0x10, "Main Game Joker" )       PORT_DIPLOCATION("SW2:5")
+	PORT_DIPSETTING(    0x10, "Few" )
+	PORT_DIPSETTING(    0x00, "Many" )
+	PORT_DIPNAME( 0xe0, 0xe0, "Main Game Pay Rate" )    PORT_DIPLOCATION("SW2:6,7,8")
+	PORT_DIPSETTING(    0xe0, "90% (80~95%)" )
+	PORT_DIPSETTING(    0xc0, "90% (85~99%)" )
+	PORT_DIPSETTING(    0xa0, "80% (70~85%)" )
+	PORT_DIPSETTING(    0x80, "80% (75~89%)" )
+	PORT_DIPSETTING(    0x60, "70% (60~75%)" )
+	PORT_DIPSETTING(    0x40, "70% (65~79%)" )
+	PORT_DIPSETTING(    0x20, "60% (50~65%)" )
+	PORT_DIPSETTING(    0x00, "60% (55~69%)" )
 INPUT_PORTS_END
 
 
