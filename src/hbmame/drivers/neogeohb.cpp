@@ -452,6 +452,7 @@ YEAR COMPANY                          TITLE
 ---- BitBeamCannon                    Metal Mack (https://www.kickstarter.com/projects/bitbeamcannon/metal-mack)
 ---- MS3Research                      Z.E.N.E.K.O. (https://www.kickstarter.com/projects/zeneko/zeneko-run-n-gun-game-for-mega-drive-genesis-neo-geo)
 2027 Naula Studio                     Necro Pop
+2026 Nasprich                         Seraph Zero (https://nasprich.itch.io)
 
 
 *********************************************************************************************************/
@@ -2585,10 +2586,10 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (v1.3.1) port by Bendk97
+// 528: Snow Bros (v1.4.1) port by Bendk97
 ROM_START( snowbrosn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x100000, CRC(17c655cb) SHA1(faea683cfda9b2b36edffd951aac23844527a59d) )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x100000, CRC(d906e59b) SHA1(6715a2c02f389a605bacc0113568ba2dbac53f44) )
 	ROM_LOAD16_WORD_SWAP( "528.p2", 0x100000, 0x100000, CRC(a5738f53) SHA1(330c5c840b3973d1d690188acfbd9f72e2ed7b13) )
 
 	NEO_SFIX_128K( "528.s1", CRC(68f063f5) SHA1(9ade55f13424db36d525e1f6c2bcffbb6cb3b0f6) )
@@ -2880,7 +2881,7 @@ ROM_START( outrunn )
 ROM_END
 
 
-// 542: Cosmo Gang the video (v1.1.3) port by Bendk97
+// 542: Cosmo Gang the video (v1.1.3/v1.1.4) port by Bendk97
 ROM_START( cosmogngn )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(78adba0a) SHA1(6220dd96fab1e6a3059a7d5b0acef051f410a80e) )
@@ -2902,11 +2903,11 @@ ROM_START( cosmogngn )
 ROM_END
 
 
-// 543: Knights of the Round (beta-0.6.0) port by Bendk97
+// 543: Knights of the Round (beta-0.6.1) port by Bendk97
 ROM_START( knightsn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(399009aa) SHA1(cb76d35e3c4ff0cd676ef50cc727fecb93c451a1) )
-	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(e4c91d02) SHA1(37e13ed86db2bb99de23f28ee309e8cb0d64c330) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(cc22580f) SHA1(0cafca182535a658f24fd40f026c61ddd4c8ce7f) )
 
 	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
 
@@ -2979,10 +2980,10 @@ ROM_START( dinon )
 ROM_END
 
 
-// 547: R-Type (beta-0.6.6) port by Bendk97
+// 547: R-Type (beta-0.6.10) port by Bendk97
 ROM_START( rtypen )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(0f0f3a7a) SHA1(79231c82a3f041e684b098336d1d016e287c5f9a) )
+	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(f9653179) SHA1(1dbdda834bf520d3c6f22ebb2674f996fe97db8b) )
 	ROM_LOAD16_WORD_SWAP( "547.p2", 0x100000, 0x100000, CRC(eb53d24e) SHA1(7453ac1ba9afc7437cc1f06c8d8c704db2b06b21) )
 
 	NEO_SFIX_128K( "547.s1", CRC(19a9ce65) SHA1(4ca71ce32aca093420d786fc267dbed0c2b238fe) )
@@ -2998,10 +2999,10 @@ ROM_START( rtypen )
 ROM_END
 
 
-// 548: Pole Position II (beta-0.1.4) port by Bendk97
+// 548: Pole Position II (beta-0.2.1) port by Bendk97
 ROM_START( polepos2n )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "548.p1", 0x000000, 0x100000, CRC(344a940e) SHA1(704f973da24df051438c950b54327189b3ca6617) )
+	ROM_LOAD16_WORD_SWAP( "548.p1", 0x000000, 0x100000, CRC(120b68f2) SHA1(02c0f56a5f33ce6ad5ec549666a6cf2b898c856b) )
 
 	NEO_SFIX_128K( "548.s1", CRC(7c0a3767) SHA1(34bd4b769fd327e0d88113afb3c66b23f4b547a2) )
 
@@ -4254,13 +4255,13 @@ GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.4.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.1.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.2.1)", MACHINE_SUPPORTS_SAVE )
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, shdancern,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Shadow Dancer (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.4.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
@@ -4299,7 +4300,7 @@ GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.1.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.1.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
@@ -4331,7 +4332,7 @@ GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Dez 2020)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.6.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, beta-0.6.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, kodn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )

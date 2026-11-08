@@ -23,7 +23,7 @@ New Games
 - [gngprincesstenh]     Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (US)
 - [hsf2re]              Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
-- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.6.0)
+- [knightsn]            Knights of the Round (Neo-Geo port, beta-0.6.1)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [makprincess]         Makaimura - Princess Prin Prin Edition
 - [makprincessb]        Makaimura - Princess Prin Prin Edition (Japan revision B)
@@ -34,8 +34,8 @@ New Games
 - [makprincessg]        Makaimura - Princess Prin Prin Edition (Japan revision G)
 - [makprincessgenh]     Makaimura - Princess Prin Prin Edition (Enhanced) (Japan revision G)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
-- [polepos2n]           Pole Position II (Neo-Geo port, beta-0.1.4)
-- [rtypen]              R-Type (Neo-Geo port, v0.6.6)
+- [polepos2n]           Pole Position II (Neo-Geo port, beta-0.2.1)
+- [rtypen]              R-Type (Neo-Geo port, v0.6.10)
 - [sfa3up]              Street Fighter Alpha 3 Upper (060613U, Backport, 2026-11-04)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-11-03)
 - [sfz3up]              Street Fighter Zero 3 Upper (060525J, Backport, 2026-11-04)
@@ -52,7 +52,7 @@ New Games
 Updated Games
 ---------------------------------
 - [7wonders]            Seven Wonders Puzzles (v1.0.2)
-- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.3)
+- [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.4)
 - [ffex2j]              Final Fight EX CPS2 (Japan, 2026-11-03)
 - [ffex2r]              Final Fight EX CPS2 (English Restoration, 2026-11-03)
 - [ffex2u]              Final Fight EX CPS2 (USA, 2026-11-03)
@@ -72,7 +72,7 @@ Updated Games
 - [sfz3rj]              Street Fighter Zero 3 (980904J, Japanese Restoration, 2026-11-03)
 - [shadowlf]            Shadow League Fighting (v3.3.2)
 - [skylance]            Sky Lance (v2.1.1)
-- [snowbrosn]           Snow Bros (Neo-Geo port, v1.3.1)
+- [snowbrosn]           Snow Bros (Neo-Geo port, v1.4.1)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
 - [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (English Restoration, 2026-10-25)
 - [ssf2tuc]             Super Street Fighter II EX (USA, 2026-11-03)
