@@ -531,6 +531,7 @@ void neogeo_state::system_control_w(offs_t offset, u8 data)
 				m_use_cart_audio = bit;
 				m_sprgen->neogeo_set_fixed_layer_source(bit);
 				m_bank_audio_main->set_entry(m_use_cart_audio);
+				m_audiocpu->reset();
 			}
 			break;
 
