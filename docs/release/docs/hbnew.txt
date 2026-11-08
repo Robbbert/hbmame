@@ -51,6 +51,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [vhunt2s02]              Night Warriors 2 Arrange (RC4, USA, 2026-11-07)
+- [vhunt2s03]              Vampire Hunter 2 Arrange (RC4, Japan, 2026-11-07)
 - [vsav2s05]              Vampire Savior 2 Arrange (RC4, USA, 2026-11-07)
 - [vsav2s06]              Vampire Savior 2 Arrange (RC4, Japan, 2026-11-07)
 - [vsavs01]              Vampire Savior Arrange (RC5, USA, 2026-11-07)
