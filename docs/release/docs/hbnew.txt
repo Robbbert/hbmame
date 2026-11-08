@@ -51,6 +51,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [vsav2s05]              Vampire Savior 2 Arrange (RC4, USA, 2026-11-07)
+- [vsav2s06]              Vampire Savior 2 Arrange (RC4, Japan, 2026-11-07)
 - [vsavs01]              Vampire Savior Arrange (RC5, USA, 2026-11-07)
 - [vsavs02]              Vampire Savior Arrange (RC5, Japan, 2026-11-07)
 - [usf2u]              Ultra Street Fighter II: The Final Challengers (USA, Backport RC6, 2026-11-07)
