@@ -226,9 +226,9 @@ NUM GAME YEAR COMPANY                 TITLE
 514 F00D 2025 iq_132                  Food Fight (port)
 515 0070 2025 Pixelheart              Bang Bang Busters 2 (demo)
 516 14A6 2025 Balek Corp              Violent Vengeance: The Universal Hero
-517 0FFF 2019 Keith S                 Grime 68000
-518 5345 2025 Earok                   Halo Zero demo
-519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots
+517 0FFF 2019 Keith S                 Grime 68000 (https://chibiakumas.com/68000/grime68000.php)
+518 5345 2025 Earok                   Halo Zero demo (https://earok.itch.io)
+519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots (https://kaijuwasp.itch.io)
 520 5345 2026 Z-team                  Midnight Wanderers (port) 2-level demo
 521 5345 2026 Z-team                  Rick Dangerous DX
 522 0539 2026 Sabino                  Doom Geo (demo)
@@ -236,10 +236,10 @@ NUM GAME YEAR COMPANY                 TITLE
 524 2026 2026 Sabino                  Super Mario Bros.
 525 2027 2026 Sabino                  VS. Super Mario Bros.
 527 7026 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
-528 0999 2026 Bendk97                 Snow Bros (https://bendk97.itch.io/)
-529 0539 2026 Bendk97                 Sword of Sodan (https://bendk97.itch.io/)
+528 0999 2026 Bendk97                 Snow Bros (port) (https://bendk97.itch.io/)
+529 0539 2026 Bendk97                 Sword of Sodan (port) (https://bendk97.itch.io/)
 530 2602 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
-531 0F77 2026 ShinobiZ                Altered Beast (https://shinobiz72.itch.io/)
+531 0F77 2026 ShinobiZ                Altered Beast (port) (https://shinobiz72.itch.io/)
 532 0999 2026 Arkretro                World Rally (port)
 533 0999 2026 F.C Team                Prehistoric Isle in 1930 (port) (https://capitaine-power.itch.io/)
 534 0E58 2026 Teo Tormo               Robocop (port) (https://teo-tormo.itch.io/)
@@ -258,6 +258,7 @@ NUM GAME YEAR COMPANY                 TITLE
 547 099A 2026 Bendk97                 R-Type (port) (https://bendk97.itch.io/)
 548 0975 2026 Bendk97                 Pole Position II (port) (https://bendk97.itch.io/)
 549 0F7A 2026 ShinobiZ                Shadow Dancer (port) (https://shinobiz72.itch.io/)
+550 0A01 2026 Bendk97                 Sunset Riders (port) (https://bendk97.itch.io/)
 
 
 
@@ -3036,6 +3037,24 @@ ROM_START( shdancern )
 ROM_END
 
 
+// 550: Sunset Riders (beta-0.1.1) port by Bendk97
+ROM_START( ssridersn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "550.p1", 0x000000, 0x100000, CRC(6b6fe914) SHA1(0305b48c181018c7a28da2f52a2a01d093b9ba9e) )
+
+	NEO_SFIX_128K( "550.s1", CRC(305c75a8) SHA1(b3a6c3af6a53664b62a3afce6736b62a5e181496) )
+
+	NEO_BIOS_AUDIO_128K( "550.m1", CRC(3e000292) SHA1(1b4b01a28c97040f90a75b40b8d47215b2b5c182) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "550.v1",   0, 0xe00000, CRC(2fcc9c3e) SHA1(b82c3c960702c30bb5769e3ca912f41057c665d6) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(bc5d01ec) SHA1(f56f97a424e0f39834d7300b85c96ea81959ec03) )
+	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(25272a66) SHA1(d557a7756d7efd696e227b41f20c54e98047a6a7) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4255,7 +4274,7 @@ GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.4.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.2.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.2.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, rtypen,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v0.6.10)", MACHINE_SUPPORTS_SAVE )
@@ -4264,6 +4283,7 @@ GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.4.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssridersn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, beta 0.1.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wrallyn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Arkretro", "World Rally (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, xeviousn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (Neo-Geo port, beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
