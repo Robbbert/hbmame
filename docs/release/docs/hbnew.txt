@@ -51,6 +51,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [usf2u]              Ultra Street Fighter II: The Final Challengers (USA, Backport RC6, 2026-11-07)
+- [usf2j]              Ultra Street Fighter II: The Final Challengers (Japan, Backport RC6, 2026-11-07)
 - [7wonders]            Seven Wonders Puzzles (v1.0.2)
 - [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.3)
 - [ffex2j]              Final Fight EX CPS2 (Japan, 2026-11-03)
