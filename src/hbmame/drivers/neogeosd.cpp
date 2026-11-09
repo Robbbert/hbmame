@@ -467,8 +467,9 @@ ROM_END
 
 ROM_START( sd_warriorm )
 	NEOSD_BASE
-	ROM_REGION( 0x20cea9c, "user", 0 )
-	ROM_LOAD( "warriorm.neo", 0x000000, 0x20cea9c, CRC(6780e12a) SHA1(e582d8af30960a2385982d201cdf16488355fa1f) )
+	ROM_REGION( 0x20ce374, "user", 0 )
+	//ROM_LOAD( "warriorm.neo", 0x000000, 0x20cea9c, CRC(6780e12a) SHA1(e582d8af30960a2385982d201cdf16488355fa1f) )  // v5
+	ROM_LOAD( "warriorm.neo", 0x000000, 0x20ce374, CRC(e1621077) SHA1(6eda351b1a07a08c9978b54abc72c8a3bfe1fa7e) )  // v6
 ROM_END
 
 
@@ -478,5 +479,5 @@ ROM_END
 GAME( 1990, ngneo,        neogeo,   ngneo,    neogeo,  neosd_class,  empty_init,  ROT0, "SNK", "Neo-Geo .neo support", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_arena2,    neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Delarfab", "Arena 2 (v3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_shadowlf,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Eagle Software", "Shadow League Fighting (v3.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sd_warriorm,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "NK Home Entertainment", "Warrior Man (v4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sd_warriorm,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "NK Home Entertainment", "Warrior Man (v6)", MACHINE_SUPPORTS_SAVE )
 

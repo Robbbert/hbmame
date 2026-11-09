@@ -3491,6 +3491,23 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/bus/maccomm/maccomm.h,BUSES["MACCOMM"] = true
+---------------------------------------------------
+
+if BUSES["MACCOMM"] then
+	files {
+		MAME_DIR .. "src/devices/bus/maccomm/cards.cpp",
+		MAME_DIR .. "src/devices/bus/maccomm/cards.h",
+		MAME_DIR .. "src/devices/bus/maccomm/maccomm.cpp",
+		MAME_DIR .. "src/devices/bus/maccomm/maccomm.h",
+		MAME_DIR .. "src/devices/bus/maccomm/sonicsmc.cpp",
+		MAME_DIR .. "src/devices/bus/maccomm/sonicsmc.h",
+	}
+end
+
+
+---------------------------------------------------
+--
 --@src/devices/bus/mackbd/mackbd.h,BUSES["MACKBD"] = true
 ---------------------------------------------------
 
@@ -4826,6 +4843,8 @@ if BUSES["PCI"] then
 		MAME_DIR .. "src/devices/bus/pci/ds2416.h",
 		MAME_DIR .. "src/devices/bus/pci/ess_maestro.cpp",
 		MAME_DIR .. "src/devices/bus/pci/ess_maestro.h",
+		MAME_DIR .. "src/devices/bus/pci/et4kw32p.cpp",
+		MAME_DIR .. "src/devices/bus/pci/et4kw32p.h",
 		MAME_DIR .. "src/devices/bus/pci/geforce.cpp",
 		MAME_DIR .. "src/devices/bus/pci/geforce.h",
 		MAME_DIR .. "src/devices/bus/pci/mga2064w.cpp",
@@ -6088,6 +6107,21 @@ if BUSES["TECHNICS_KN5000"] then
 		MAME_DIR .. "src/devices/bus/technics/kn5000/kn5000_extension.h",
 		MAME_DIR .. "src/devices/bus/technics/kn5000/hdae5000.cpp",
 		MAME_DIR .. "src/devices/bus/technics/kn5000/hdae5000.h",
+	}
+end
+
+
+---------------------------------------------------
+--
+--@src/devices/bus/technics/kn6000/kn6000_expansion.h,BUSES["TECHNICS_KN6000"] = true
+---------------------------------------------------
+
+if BUSES["TECHNICS_KN6000"] then
+	files {
+		MAME_DIR .. "src/devices/bus/technics/kn6000/kn6000_expansion.cpp",
+		MAME_DIR .. "src/devices/bus/technics/kn6000/kn6000_expansion.h",
+		MAME_DIR .. "src/devices/bus/technics/kn6000/hdsx6.cpp",
+		MAME_DIR .. "src/devices/bus/technics/kn6000/hdsx6.h",
 	}
 end
 

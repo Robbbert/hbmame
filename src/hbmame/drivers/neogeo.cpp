@@ -510,6 +510,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 void neogeo_state::system_control_w(offs_t offset, u8 data)
 {
 	u8 bit = (offset >> 3) & 0x01;
+	u8 bankbit;
 
 	switch (offset & 0x07)
 	{
@@ -528,10 +529,12 @@ void neogeo_state::system_control_w(offs_t offset, u8 data)
 		case 0x05:
 			if (m_type == NEOGEO_MVS)
 			{
+				bankbit = (bit != m_use_cart_audio);
 				m_use_cart_audio = bit;
 				m_sprgen->neogeo_set_fixed_layer_source(bit);
 				m_bank_audio_main->set_entry(m_use_cart_audio);
-				m_audiocpu->reset();
+				if (bankbit)
+					m_audiocpu->reset();
 			}
 			break;
 
