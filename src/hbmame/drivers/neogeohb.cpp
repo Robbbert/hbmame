@@ -259,7 +259,9 @@ NUM GAME YEAR COMPANY                 TITLE
 548 0975 2026 Bendk97                 Pole Position II (port) (https://bendk97.itch.io/)
 549 0F7A 2026 ShinobiZ                Shadow Dancer (port) (https://shinobiz72.itch.io/)
 550 0A01 2026 Bendk97                 Sunset Riders (port) (https://bendk97.itch.io/)
-
+551 0539 2026 Happy-Ferret            Paprium (Vertical Slice) (port) (https://neoprium.itch.io)
+552 2610 2026 TheSEGAshop             1st Defence: The Final Upgrade (https://thesegashop.itch.io)
+553 0DE5 2026 TheSEGAshop             Veil Riot (https://thesegashop.itch.io)
 
 
 ********************** Non-playable demos (600-699) ************************
@@ -3003,7 +3005,7 @@ ROM_END
 // 548: Pole Position II (beta-0.2.5) port by Bendk97
 ROM_START( polepos2n )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "548.p1", 0x000000, 0x100000, CRC(19d8c026) SHA1(b0e97ca27f76d4a88c3c1779b368f86e3ef43e19) )
+	ROM_LOAD16_WORD_SWAP( "548.p1", 0, 0x100000, CRC(19d8c026) SHA1(b0e97ca27f76d4a88c3c1779b368f86e3ef43e19) )
 
 	NEO_SFIX_128K( "548.s1", CRC(7436043e) SHA1(a5721298471a5f2dd687f150af142e65cdc959e7) )
 
@@ -3040,7 +3042,7 @@ ROM_END
 // 550: Sunset Riders (beta-0.3.2) port by Bendk97
 ROM_START( ssridersn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "550.p1", 0x000000, 0x100000, CRC(0da050a7) SHA1(0f0c96c294b940ef29509abc2642ef64516120da) )
+	ROM_LOAD16_WORD_SWAP( "550.p1", 0, 0x100000, CRC(0da050a7) SHA1(0f0c96c294b940ef29509abc2642ef64516120da) )
 
 	NEO_SFIX_128K( "550.s1", CRC(305c75a8) SHA1(b3a6c3af6a53664b62a3afce6736b62a5e181496) )
 
@@ -3052,6 +3054,62 @@ ROM_START( ssridersn )
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(bf6f8665) SHA1(3939b539ea77f692e4d993818198525bf6da3bd9) )
 	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(51abff36) SHA1(856c3aec392a47944be360591bcdd536347af0da) )
+ROM_END
+
+
+// 551: Paprium Vertical Slice port by Happy-Ferret
+ROM_START( paprium )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "551.p1", 0, 0x100000, CRC(36c7d720) SHA1(87c59bd4273fbd764b979990ef648f39d3af6c32) )
+
+	NEO_SFIX_128K( "551.s1", CRC(04c4919d) SHA1(d2ca858594e36cff9d72dd5df3d65389fffab31a) )
+
+	NEO_BIOS_AUDIO_128K( "551.m1", CRC(f7a16ddf) SHA1(573605f35b208f96c168befe50fe3c2dfebe25c7) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "551.v1",   0x000000, 0x400000, CRC(00d9f09a) SHA1(440b7f86692e27d3513bbed03397881fd4c0fe8a) )
+	ROM_LOAD( "551.v2",   0x400000, 0x100000, CRC(ca212522) SHA1(9eb7eb0d6a740e7df8ea93dcfde0b3b544197fba) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "551.c1", 0, 0x80000, CRC(5ca87ea3) SHA1(fb70cd6109dbda089c3aeacb4b46397e1131f469) )
+	ROM_LOAD16_BYTE( "551.c2", 1, 0x80000, CRC(70d9ace9) SHA1(81b8928157177dbf70d0aa893dcd508b7dc51073) )
+ROM_END
+
+
+// 552: 1st Defence by The SEGA shop
+ROM_START( 1stdef )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "552.p1", 0, 0x100000, CRC(dc0235df) SHA1(5b592b65cd3d6494e3cfe1499ecf5e9b7ec2a6e3) )
+
+	NEO_SFIX_128K( "552.s1", CRC(17e94385) SHA1(2faaae470555df07bc0014fcbc0e46ec598a6e1e) )
+
+	NEO_BIOS_AUDIO_256K( "552.m1", CRC(149b36b2) SHA1(a1fb111f4de02356c0e1f0b58b63a4d6dcac1c5c) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "552.v1",   0x000000, 0x100000, CRC(eda57c3c) SHA1(491bb519a93abce1936404fce1f35bb192f3cafd) )
+	ROM_LOAD( "552.v2",   0x100000, 0x100000, CRC(4223d4e0) SHA1(118b304c33e6ba9ebb3d3ee2aad6bb71ca1b2480) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "552.c1", 0, 0x200000, CRC(b8693182) SHA1(d2fc7011e6e84de60aca5314391814f30f072fb1) )
+	ROM_LOAD16_BYTE( "552.c2", 1, 0x200000, CRC(6f6ab114) SHA1(f0b1ade32f1028e9e11b23eef0ca1e9e0f616cab) )
+ROM_END
+
+
+// 553: Veil Riot by The SEGA shop
+ROM_START( veilriot )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "553.p1", 0, 0x80000, CRC(ffc48e0f) SHA1(a96e19545227ec9bfd3e6cd55d33774296ab1e3a) )
+
+	NEO_SFIX_128K( "553.s1", CRC(c06809a1) SHA1(c34922af1a64a4738b834049e0a185abf700437f) )
+
+	NEO_BIOS_AUDIO_128K( "553.m1", CRC(2c078a01) SHA1(727f90c65b5e6eed47e0cddd2fca04b03f2efa8c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "553.v1",   0, 0x1000000, CRC(c9ba932f) SHA1(8f14d30ee345be40b414c32cec758d195c7336e1) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "553.c1", 0, 0x200000, CRC(8416a243) SHA1(77f7c32b5bd7d2b5946e13886fea36a77a413037) )
+	ROM_LOAD16_BYTE( "553.c2", 1, 0x200000, CRC(180e7bbe) SHA1(476106788e593e17cb4f5b1f88ba064976ee5bd1) )
 ROM_END
 
 
@@ -4292,6 +4350,7 @@ GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.5.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, paprium,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Happy-Ferret / Neoprium", "Paprium Vertical Slice (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, polepos2n,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, beta-0.2.5)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 //GAME( 2026, prehislen,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
@@ -4311,6 +4370,8 @@ GAME( 2025, xeviousn03,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, xeviousn04,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, xeviousn05,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "pierpa86", "Xevious (Neo-Geo port, gfx fix)", MACHINE_SUPPORTS_SAVE )
 // homebrew
+GAME( 2026, 1stdef,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "The SEGA Shop", "1st Defence: The Last Upgrade", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, veilriot,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "The SEGA Shop", "Veil Riot", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, 68kng,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dekadence", "68k Inside intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, 7wonders,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Seven Wonders Puzzles (v1.0.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
