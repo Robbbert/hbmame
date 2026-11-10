@@ -6373,6 +6373,7 @@ cakefght1                              // port
 caravan                                // HB
 cbarrel                                // HB
 centuryxi
+cheshire
 cndi		/* Chip n Dale Intro */
 cndia
 cnbe
@@ -6543,6 +6544,7 @@ zintrick07     // full music
 @source:neogeosd.cpp
 ngneo                                  // .neo support
 sd_arena2
+sd_ffightn
 //sd_shadowlf
 sd_warriorm
 

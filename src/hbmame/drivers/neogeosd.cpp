@@ -453,23 +453,29 @@ ROM_START( ngneo )
 	NEOSD_BASE
 ROM_END
 
-ROM_START( sd_arena2 )
+ROM_START( sd_arena2 ) // #2602
 	NEOSD_BASE
 	ROM_REGION( 0x5c1000, "user", 0 )
-	ROM_LOAD( "arena2.neo",   0x000000, 0x5c1000, CRC(4bdbeef4) SHA1(7596b8a9f5235ceb162f4c35069dd2c73c8f76e8) )
+	ROM_LOAD( "arena2.neo",   0, 0x5c1000, CRC(4bdbeef4) SHA1(7596b8a9f5235ceb162f4c35069dd2c73c8f76e8) )
+ROM_END
+
+ROM_START( sd_ffightn ) // #0772
+	NEOSD_BASE
+	ROM_REGION( 0x2141000, "user", 0 )
+	ROM_LOAD( "ffightn.neo",  0, 0x2141000, CRC(90cf85ba) SHA1(bef40700cf278e4cf0a57053b17df71dbd2ccf07) ) // beta-1.0.1
 ROM_END
 
 ROM_START( sd_shadowlf )
 	NEOSD_BASE
 	ROM_REGION( 0x1b41000, "user", 0 )
-	ROM_LOAD( "shadowlf.neo", 0x000000, 0x1b41000, CRC(9138a0e7) SHA1(fdca9a3da1b59a209592a49eea9f39e88693428c) )
+	ROM_LOAD( "shadowlf.neo", 0, 0x1b41000, CRC(9138a0e7) SHA1(fdca9a3da1b59a209592a49eea9f39e88693428c) )
 ROM_END
 
-ROM_START( sd_warriorm )
+ROM_START( sd_warriorm ) // #0001
 	NEOSD_BASE
 	ROM_REGION( 0x20ce374, "user", 0 )
-	//ROM_LOAD( "warriorm.neo", 0x000000, 0x20cea9c, CRC(6780e12a) SHA1(e582d8af30960a2385982d201cdf16488355fa1f) )  // v5
-	ROM_LOAD( "warriorm.neo", 0x000000, 0x20ce374, CRC(e1621077) SHA1(6eda351b1a07a08c9978b54abc72c8a3bfe1fa7e) )  // v6
+	//ROM_LOAD( "warriorm.neo", 0, 0x20cea9c, CRC(6780e12a) SHA1(e582d8af30960a2385982d201cdf16488355fa1f) )  // v5
+	ROM_LOAD( "warriorm.neo", 0, 0x20ce374, CRC(e1621077) SHA1(6eda351b1a07a08c9978b54abc72c8a3bfe1fa7e) )  // v6
 ROM_END
 
 
@@ -478,6 +484,7 @@ ROM_END
 /*    YEAR  NAME          PARENT    MACHINE   INPUT    CLASS         INIT    */
 GAME( 1990, ngneo,        neogeo,   ngneo,    neogeo,  neosd_class,  empty_init,  ROT0, "SNK", "Neo-Geo .neo support", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_arena2,    neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Delarfab", "Arena 2 (v3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sd_ffightn,   neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Vendza", "Final Fight Neo (beta-1.0.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_shadowlf,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "Eagle Software", "Shadow League Fighting (v3.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sd_warriorm,  neogeo,   ngneo,    neogeo,  neosd_class,  init_neosd,  ROT0, "NK Home Entertainment", "Warrior Man (v6)", MACHINE_SUPPORTS_SAVE )
 

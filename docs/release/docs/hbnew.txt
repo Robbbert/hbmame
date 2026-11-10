@@ -11,6 +11,7 @@ New Games
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [cd_shangon]          Super Hang-On v1.0 (Neo-Geo port)[CD]
 - [centuryxi]           Century XI: The Road to 2030 (v4.0.0)
+- [cheshire]            Cheshire 4 Console (demo, v0.1)
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
 - [gngprincess]         Ghosts'n Goblins - Princess Prin Prin Edition (World? 1)
@@ -39,6 +40,7 @@ New Games
 - [paprium]             Paprium (Vertical Slice)
 - [polepos2n]           Pole Position II (Neo-Geo port, beta-0.2.5)
 - [rtypen]              R-Type (Neo-Geo port, v1.2.1)
+- [sd_ffightn]          Final Fight Neo (beta-1.0.1)
 - [sfa3up]              Street Fighter Alpha 3 Upper (060613U, Backport, 2026-11-04)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-11-03)
 - [sfz3up]              Street Fighter Zero 3 Upper (060525J, Backport, 2026-11-04)
