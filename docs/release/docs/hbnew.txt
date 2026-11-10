@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [cd_shangon]          Super Hang-On v1.0 (Neo-Geo port)[CD]
+- [centuryxi]           Century XI: The Road to 2030 (v4.0.0)
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
 - [gngprincess]         Ghosts'n Goblins - Princess Prin Prin Edition (World? 1)

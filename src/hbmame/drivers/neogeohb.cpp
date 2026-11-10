@@ -321,6 +321,7 @@ NUM GAME YEAR COMPANY                 TITLE
 783 0783 2026 Eagle Software          Maiya & Luna (https://github.com/eaglesoftware777/neogeosdk/)
 784 0784 2026 Eagle Software          No Signal Z Alpha (https://github.com/eaglesoftware777/neogeosdk/)
 785 0785 2026 Eagle Software          Mahjong Demo (https://github.com/eaglesoftware777/neogeosdk/)
+787 0787 2026 Eagle Software          Century XI (https://github.com/eaglesoftware777/neogeosdk/)
 
 
 
@@ -4240,6 +4241,24 @@ ROM_START( mahjongd )
 	ROM_LOAD16_BYTE( "785.c2", 1, 0x400000, CRC(f9d40dc0) SHA1(1de0002667d1771308f216464f6d84933f9f7afb) )
 ROM_END
 
+
+// 787 : Century XI (v4.0.0) by Eagle Software
+ROM_START( centuryxi )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "787.p1", 0, 0x80000, CRC(123d1197) SHA1(2816ab7f80cf51cea0c06b88a954b95a4861a133) )
+
+	NEO_SFIX_128K( "787.s1", CRC(fc83bf13) SHA1(aee95bed36cca437b292142946fa226ce9a5bc58) )
+
+	NEO_BIOS_AUDIO_128K( "787.m1", CRC(4a077d51) SHA1(5b3a57ca8da4d27541dd788b69bf0830e73d226a) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "787.v1", 0, 0x73bf00, CRC(18ecd70b) SHA1(c91f851bfbeed6dd7225d2068b4fe9353eb6ed28) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "787.c1", 0, 0x400000, CRC(6f2011b2) SHA1(34eb9ff7e09a477eba2c85ae8ffe35e5029f486d) )
+	ROM_LOAD16_BYTE( "787.c2", 1, 0x400000, CRC(907bc964) SHA1(0edb2b0d3d3c091f5684a87fbd4a97babc448034) )
+ROM_END
+
 // commercial
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
@@ -4312,6 +4331,7 @@ GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, bubbleopen,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neslou", "Bubble Open (demo 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, centuryxi,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Century XI: The Road to 2030 (v4.0.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
