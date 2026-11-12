@@ -6399,6 +6399,7 @@ dwi			/* DarkWing Duck Intro */
 dwia
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
+ffightn
 flapchck
 foodfn
 fr2         // cd conv no music
@@ -6545,8 +6546,6 @@ zintrick07     // full music
 @source:neogeosd.cpp
 ngneo                                  // .neo support
 sd_arena2
-sd_ffightn
-//sd_shadowlf
 sd_warriorm
 
 @source:neogeo1.cpp

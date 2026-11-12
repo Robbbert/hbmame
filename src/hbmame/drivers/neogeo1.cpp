@@ -480,7 +480,7 @@ ROM_START( bjourney01 ) // bjourneypx
 	ROM_LOAD16_BYTE( "022.c4", 0x200001, 0x080000, CRC(71bfd48a) SHA1(47288be69e6992d09ebef108b4de9ffab6293dc8) )
 ROM_END
 
-ROM_START( bjourney02 ) // bjourneyplus
+ROM_START( bjourney02 ) // you must use unibios to select AES
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "022s02.p1", 0x000000, 0x100000, CRC(275ec18f) SHA1(bf7e42429ea895b369b991ca5508300ba2df967a) )
 
