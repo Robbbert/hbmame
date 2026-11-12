@@ -8,6 +8,8 @@
 New Games
 ---------------------------------
 - [1stdef]              1st Defence: The Final Upgrade
+- [bjourney02]          Blue's Journey Plus
+- [cd_biolab]           Biolab Hazard: Zero [CD]
 - [cd_sf2coll]          Street Fighter II' Collection (Neo-Geo port, v1.1)[CD]
 - [cd_shangon]          Super Hang-On v1.0 (Neo-Geo port)[CD]
 - [centuryxi]           Century XI: The Road to 2030 (v4.0.0)

@@ -470,14 +470,33 @@ ROM_START( bjourney01 ) // bjourneypx
 	NEO_BIOS_AUDIO_128K( "022.m1", CRC(8e1d4ab6) SHA1(deabc11ab81e7e68a3e041c03a127ae28d0d7264) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "022.v11", 0x000000, 0x100000, CRC(2cb4ad91) SHA1(169ec7303c4275155a66a88cc08270c24132bb36) )
-	ROM_LOAD( "022.v22", 0x100000, 0x100000, CRC(65a54d13) SHA1(a591fbcedca8f679dacbebcd554e3aa3fd163e92) )
+	ROM_LOAD( "022.v1", 0x000000, 0x100000, CRC(2cb4ad91) SHA1(169ec7303c4275155a66a88cc08270c24132bb36) )
+	ROM_LOAD( "022.v2", 0x100000, 0x100000, CRC(65a54d13) SHA1(a591fbcedca8f679dacbebcd554e3aa3fd163e92) )
 
 	ROM_REGION( 0x300000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "022.c1", 0x000000, 0x100000, CRC(4d47a48c) SHA1(6e282285be72583d828e7765b1c1695ecdc44777) )
 	ROM_LOAD16_BYTE( "022.c2", 0x000001, 0x100000, CRC(e8c1491a) SHA1(c468d2556b3de095aaa05edd1bc16d71303e9478) )
 	ROM_LOAD16_BYTE( "022.c3", 0x200000, 0x080000, CRC(66e69753) SHA1(974b823fc62236fbc23e727f25b61a805a707a9e) )
 	ROM_LOAD16_BYTE( "022.c4", 0x200001, 0x080000, CRC(71bfd48a) SHA1(47288be69e6992d09ebef108b4de9ffab6293dc8) )
+ROM_END
+
+ROM_START( bjourney02 ) // bjourneyplus
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "022s02.p1", 0x000000, 0x100000, CRC(275ec18f) SHA1(bf7e42429ea895b369b991ca5508300ba2df967a) )
+
+	NEO_SFIX_128K( "022s02.s1", CRC(69c6c9e7) SHA1(90232f572c7cba49b99b4a7735c3f59b6014d353) )
+
+	NEO_BIOS_AUDIO_128K( "022s02.m1", CRC(167f9b3e) SHA1(496016c9014a80eef65891f3448624d4607525c9) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "022.v1", 0x000000, 0x100000, CRC(2cb4ad91) SHA1(169ec7303c4275155a66a88cc08270c24132bb36) )
+	ROM_LOAD( "022.v2", 0x100000, 0x100000, CRC(65a54d13) SHA1(a591fbcedca8f679dacbebcd554e3aa3fd163e92) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "022s02.c1", 0x000000, 0x100000, CRC(b5c183e4) SHA1(69111268d67403dbade13e6f2ed567eaa5cebfa2) )
+	ROM_LOAD16_BYTE( "022s02.c2", 0x000001, 0x100000, CRC(f5ff9eed) SHA1(7383dff712e9fed2a6501c3df17af27a4d6ef9c3) )
+	ROM_LOAD16_BYTE( "022s02.c3", 0x200000, 0x100000, CRC(fb41685d) SHA1(59bd87594573cfaa5f9335c74cf324958304010a) )
+	ROM_LOAD16_BYTE( "022s02.c4", 0x200001, 0x100000, CRC(08229c0b) SHA1(57538e46ecf96ac94df2f80ed0c47102718f5bab) )
 ROM_END
 
 
@@ -5094,7 +5113,8 @@ GAME( 1996, aof3s02,        aof3,     neogeo_noslot, neogeo,   neogeo_state, ini
 GAME( 2000, bangbead01,     bangbead, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Visco", "Bang Bead (decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, bangbead02,     bangbead, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Visco", "Bang Bead (prototype)", MACHINE_SUPPORTS_SAVE ) // commented out in official MAME source
 // Blues Journey
-GAME( 1990, bjourney01,     bjourney, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Blue's Journey / Raguy (Plus Max)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, bjourney01,     bjourney, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Blue's Journey (Plus Max)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, bjourney02,     bjourney, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Loren Vanderbilt III", "Blue's Journey Plus", MACHINE_SUPPORTS_SAVE )
 // Blazing Star
 GAME( 2021, blazstar01,     blazstar, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "NeoCvera", "Blazing Star (Stage Select hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, blazstar02,     blazstar, neogeo_noslot, neogeo,   neogeo_state, init_neogeo,    ROT0, "Kuze", "Blazing Star (remove bonus sound)", MACHINE_SUPPORTS_SAVE )
