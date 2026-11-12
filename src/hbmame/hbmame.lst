@@ -1996,7 +1996,7 @@ amidar                                 //parent
 amidar01
 amidar02
 amidar03
-galnamco	/* The Original Namco */
+galnamco                               // The Original Namco
 galaxian01
 galaxian02
 galaxian03
@@ -2012,22 +2012,23 @@ galapx03
 galapx04
 galxtest1
 galxtest2
+hoverbov
 mooncrst                               //parent
 mooncrst01
 mooncrst02
 moontest
 pisces                                 //parent
-starfgh2	/* Bootleg of Pisces */
+starfgh2                               // Bootleg of Pisces
 scramble                               //parent
-offender	/* Chris Henry hack of scramble */
-superdog	/* Jerky Hack Hack of scramble */
+offender                               // Chris Henry hack of scramble
+superdog                               // Jerky Hack Hack of scramble
 scratest
 frogger                                //parent
 froggerp
 frogtest
 frogtest2
 kazzy
-trukker		/* Grimlick hack of Frogger */
+trukker                                // Grimlick hack of Frogger
 scobra                                 //parent
 scobtest
 kingball                               //parent

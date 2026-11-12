@@ -27,6 +27,7 @@ New Games
 - [gngprincessenh]      Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (World? 1)
 - [gngprincesst]        Ghosts'n Goblins - Princess Prin Prin Edition (US)
 - [gngprincesstenh]     Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (US)
+- [hoverbov]            Hover Bovver
 - [hsf2re]              Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
 - [knightsn]            Knights of the Round (Neo-Geo port, v1.0.0)

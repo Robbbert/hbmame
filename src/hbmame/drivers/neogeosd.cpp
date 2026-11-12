@@ -16,7 +16,7 @@
   define just below, compile, and load your neo rom
   with "ngneo". On exit, you'll find the extracted
   roms in your hbmame folder. The files names start
-  with 555.
+  with 000.
 ******************************************************/
 #include "includes/neogeo.h"
 #include "softlist_dev.h"
@@ -165,10 +165,10 @@ QUICKLOAD_LOAD_MEMBER(neosd_class::neo_q_cb)
 	FILE *f;
 	if (psize)
 	{
-		f = fopen("555.p1", "wb");
+		f = fopen("000.p1", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.p1'\n");
+			printf("Error opening file '000.p1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		fwrite(&cpuregion[0], 1, psize, f);
@@ -177,10 +177,10 @@ QUICKLOAD_LOAD_MEMBER(neosd_class::neo_q_cb)
 
 	if (ssize)
 	{
-		f = fopen("555.s1", "wb");
+		f = fopen("000.s1", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.s1'\n");
+			printf("Error opening file '000.s1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		fwrite(&fix_region[0], 1, ssize, f);
@@ -189,10 +189,10 @@ QUICKLOAD_LOAD_MEMBER(neosd_class::neo_q_cb)
 
 	if (msize)
 	{
-		f = fopen("555.m1", "wb");
+		f = fopen("000.m1", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.m1'\n");
+			printf("Error opening file '000.m1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		fwrite(&audiocpu_region[0x10000], 1, msize, f);
@@ -201,10 +201,10 @@ QUICKLOAD_LOAD_MEMBER(neosd_class::neo_q_cb)
 
 	if (vsize)
 	{
-		f = fopen("555.v1", "wb");
+		f = fopen("000.v1", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.v1'\n");
+			printf("Error opening file '000.v1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		fwrite(&ym_region[0], 1, vsize, f);
@@ -213,10 +213,10 @@ QUICKLOAD_LOAD_MEMBER(neosd_class::neo_q_cb)
 
 	if (v2size)
 	{
-		f = fopen("555.v21", "wb");
+		f = fopen("000.v21", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.v21'\n");
+			printf("Error opening file '000.v21'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		fwrite(&memregion("ymsnd:adpcmb")->base()[0], 1, v2size, f);
@@ -226,20 +226,20 @@ QUICKLOAD_LOAD_MEMBER(neosd_class::neo_q_cb)
 	if (csize)
 	{
 		uint32_t i;
-		f = fopen("555.c1", "wb");
+		f = fopen("000.c1", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.c1'\n");
+			printf("Error opening file '000.c1'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		for (i = 0; i < csize; i+=2)
 			fwrite(&spr_region[i], 1, 1, f);
 		fclose(f);
 
-		f = fopen("555.c2", "wb");
+		f = fopen("000.c2", "wb");
 		if (!f)
 		{
-			printf("Error opening file '555.c2'\n");
+			printf("Error opening file '000.c2'\n");
 			return std::make_pair(image_error::UNSPECIFIED, " ");
 		}
 		for (i = 1; i < csize; i+=2)
