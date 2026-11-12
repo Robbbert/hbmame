@@ -44,6 +44,7 @@ New Games
 - [paprium]             Paprium (Vertical Slice)
 - [polepos2n]           Pole Position II (Neo-Geo port, v1.0.0)
 - [rtypen]              R-Type (Neo-Geo port, v1.2.1)
+- [seraph]              Seraph Zero
 - [sfa3up]              Street Fighter Alpha 3 Upper (060613U, Backport, 2026-11-10)
 - [sfaexu]              Street Fighter Alpha EX (USA, 2026-11-03)
 - [sfz3up]              Street Fighter Zero 3 Upper (060525J, Backport, 2026-11-10)

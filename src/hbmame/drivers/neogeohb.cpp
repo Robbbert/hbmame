@@ -262,6 +262,7 @@ NUM GAME YEAR COMPANY                 TITLE
 553 0DE5 2026 TheSEGAshop             Veil Riot (https://thesegashop.itch.io)
 554 0539 2026 Happy-Ferret            Cheshire 4 Console (https://happy-ferret.itch.io)
 555 0772 2026 Vendza                  Final Fight Neo (https://vendza.itch.io)
+556 ---- 2026 Nasprich                Seraph Zero (https://nasprich.itch.io)
 
 
 ********************** Non-playable demos (600-699) ************************
@@ -3112,6 +3113,28 @@ ROM_START( ffightn )
 ROM_END
 
 
+// 556: Seraph Zero (1.0) by Nasprich
+ROM_START( seraph )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "556.p1", 0x000000, 0x100000, CRC(cb398334) SHA1(a4172b7d7e9cbc4af4cf1692fb9dc3cfc454dcb9) )
+	ROM_LOAD16_WORD_SWAP( "556.p2", 0x100000, 0x400000, CRC(6591304a) SHA1(79226e7fb06b115c09b54ed4ec4e51d088762560) )
+
+	NEO_SFIX_128K( "556.s1", CRC(7e06eac6) SHA1(64e3f97208abaff936a1b27d3b8fa91893002abf) )
+
+	NEO_BIOS_AUDIO_128K( "556.m1", CRC(829eb8e3) SHA1(21966bbdf3e1da724683b11ecc0cd6725aeb23b1) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "556.v1",   0x000000, 0x1000000, CRC(59800649) SHA1(8f99620e3b1a8b28f43de1693e80c06ad823181c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", ROMREGION_ERASE00 )
+	ROM_LOAD( "556.v21",   0x000000, 0x1000000, CRC(6e5ff882) SHA1(ad62bed4a06a8c7d6cd5f2d44fe08a8a3630e4b5) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "556.c1", 0, 0x2000000, CRC(262080d7) SHA1(d7e6ed449f9a74b17d2657dd565c8836790646b1) )
+	ROM_LOAD16_BYTE( "556.c2", 1, 0x2000000, CRC(1c14fd52) SHA1(e071e0db73a0278b0b4241afe8f6c2c130f46f24) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4520,6 +4543,7 @@ GAME( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sdkdemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "SDK Demo (v1.7.0)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, seraph,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Nasprich", "Seraph Zero", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sgz,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Shadow Gangs", "Shadow Gangs Zero (kick demo v2.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v3.3.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, shinobin,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.0 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
