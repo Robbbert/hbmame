@@ -173,6 +173,49 @@ QUICKLOAD_LOAD_MEMBER(neogn_class::gno_q_cb)
 					image.fread(&fix_region[0],region_size);
 					ssize = region_size;
 					// unscramble
+					for (uint32_t h = 0; h < ssize; h += 0x20)
+					{
+						uint8_t t = fix_region[h|0x00];
+						// circle 1
+						fix_region[h|0x00] = fix_region[h|0x02];
+						fix_region[h|0x02] = fix_region[h|0x0a];
+						fix_region[h|0x0a] = fix_region[h|0x0b];
+						fix_region[h|0x0b] = fix_region[h|0x0f];
+						fix_region[h|0x0f] = fix_region[h|0x1f];
+						fix_region[h|0x1f] = fix_region[h|0x1d];
+						fix_region[h|0x1d] = fix_region[h|0x15];
+						fix_region[h|0x15] = fix_region[h|0x14];
+						fix_region[h|0x14] = fix_region[h|0x10];
+						fix_region[h|0x10] = t;
+						// circle 2
+						t = fix_region[h|0x01];
+						fix_region[h|0x01] = fix_region[h|0x06];
+						fix_region[h|0x06] = fix_region[h|0x1a];
+						fix_region[h|0x1a] = fix_region[h|0x09];
+						fix_region[h|0x09] = fix_region[h|0x07];
+						fix_region[h|0x07] = fix_region[h|0x1e];
+						fix_region[h|0x1e] = fix_region[h|0x19];
+						fix_region[h|0x19] = fix_region[h|0x05];
+						fix_region[h|0x05] = fix_region[h|0x16];
+						fix_region[h|0x16] = fix_region[h|0x18];
+						fix_region[h|0x18] = t;
+						// circle 3
+						t = fix_region[h|0x03];
+						fix_region[h|0x03] = fix_region[h|0x0e];
+						fix_region[h|0x0e] = fix_region[h|0x1b];
+						fix_region[h|0x1b] = fix_region[h|0x0d];
+						fix_region[h|0x0d] = fix_region[h|0x17];
+						fix_region[h|0x17] = fix_region[h|0x1c];
+						fix_region[h|0x1c] = fix_region[h|0x11];
+						fix_region[h|0x11] = fix_region[h|0x04];
+						fix_region[h|0x04] = fix_region[h|0x12];
+						fix_region[h|0x12] = fix_region[h|0x08];
+						fix_region[h|0x08] = t;
+						// circle 4
+						t = fix_region[h|0x13];
+						fix_region[h|0x13] = fix_region[h|0x0c];
+						fix_region[h|0x0c] = t;
+					}
 				}
 				break;
 
