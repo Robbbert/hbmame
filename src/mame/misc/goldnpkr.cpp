@@ -1223,7 +1223,7 @@ public:
 	void init_vkdlswwc() ATTR_COLD;
 	void init_vkdlswwr() ATTR_COLD;
 	void init_vkdlswwv() ATTR_COLD;
-	void init_vkdlswww() ATTR_COLD;	
+	void init_vkdlswww() ATTR_COLD;
 	void init_bchancep() ATTR_COLD;
 	void init_bonuspkr() ATTR_COLD;
 	void init_super98() ATTR_COLD;
@@ -2126,7 +2126,7 @@ void goldnpkr_state::witchcrd_map(address_map &map)
 	map(0x2000, 0x2000).portr("SW2");
 //  map(0x2108, 0x210b).noprw(); // unknown 40-pin device
 	map(0x2800, 0x2fff).ram();
-	map(0x4000, 0x7fff).rom();
+	map(0x3000, 0x7fff).rom();
 }
 /*
    Witch Card (Video klein)
@@ -3483,6 +3483,56 @@ static INPUT_PORTS_START( witchcdf )
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 INPUT_PORTS_END
+
+static INPUT_PORTS_START( witchgme )
+	// Multiplexed - 4x5bits
+	PORT_INCLUDE( witchcrd )
+
+	PORT_MODIFY("SW1")
+	// only bits 4-7 are connected here and were routed to SW1 1-4
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unused ) )       PORT_DIPLOCATION("SW1:1")  // unused. only checked to draw the status on screen
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unused ) )       PORT_DIPLOCATION("SW1:2")  // unused. only checked to draw the status on screen
+	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )      PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )      PORT_DIPLOCATION("SW1:4")
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_MODIFY("SW2")
+	PORT_DIPNAME( 0x03, 0x03, "Max Bet" )               PORT_DIPLOCATION("SW2:1,2")
+	PORT_DIPSETTING(    0x03, "10" )
+	PORT_DIPSETTING(    0x02, "20" )
+	PORT_DIPSETTING(    0x01, "50" )
+	PORT_DIPSETTING(    0x00, "100" )
+	PORT_DIPNAME( 0x04, 0x04, "Coin Lockout" )          PORT_DIPLOCATION("SW2:3")  // coin lock function need to be connected to pia0, porta, bit1
+	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x00, "NVRAM Reset" )           PORT_DIPLOCATION("SW2:4")
+	PORT_DIPSETTING(    0x08, "Reset" )
+	PORT_DIPSETTING(    0x00, "Normal" )
+	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unused ) )       PORT_DIPLOCATION("SW2:5")  // unused. only checked to draw the status on screen
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, "50hz/60hz" )             PORT_DIPLOCATION("SW2:6")
+	PORT_DIPSETTING(    0x20, "50hz" )
+	PORT_DIPSETTING(    0x00, "60hz" )
+	PORT_DIPNAME( 0x40, 0x00, "Initial Harcoded Coinage" )  PORT_DIPLOCATION("SW2:7")
+	PORT_DIPSETTING(    0x40, "1 Coin 1 Credits; 1 Note 5 Credits" )
+	PORT_DIPSETTING(    0x00, "1 Coin 10 Credits; 1 Note 50 Credits" )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )      PORT_DIPLOCATION("SW2:8")  // checked, but noped. maybe functional in other sets
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+INPUT_PORTS_END
+
 
 static INPUT_PORTS_START( wldwitch )
 	// Multiplexed - 4x5bits
@@ -6442,6 +6492,10 @@ void goldnpkr_state::witchcrd(machine_config &config)
 
 	// basic machine hardware
 	m_maincpu->set_addrmap(AS_PROGRAM, &goldnpkr_state::witchcrd_map);
+
+//  code checks the first 0x2f positions of nvram if values are greater than 10
+//  to take the correct init of the game coinage.
+	subdevice<nvram_device>("nvram")->set_default_value(nvram_device::DEFAULT_ALL_1);
 
 	m_pia[0]->readpa_handler().set(FUNC(goldnpkr_state::pottnpkr_mux_port_r));
 	m_pia[0]->writepa_handler().set(FUNC(goldnpkr_state::mux_port_w));
@@ -17100,19 +17154,19 @@ GAMEL( 1994, witchcrdh, witchcrd, witchcrd, witchcdd, goldnpkr_state, empty_init
 GAMEL( 1994, witchcrdi, witchcrd, witchcrd, witchcdd, goldnpkr_state, empty_init,    ROT0,   "Proma",                    "Witch Card (German, WC3050, 27-4-94)",       0,                   layout_goldnpkr )
 GAME(  199?, witchcrdj, witchcrd, witchcdj, witchcrd, goldnpkr_state, init_icp1db,   ROT0,   "<unknown>",                "Witch Card (ICP-1, encrypted)",              0 )
 
-GAMEL( 1991, witchgme,  0,        witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG12T1)",                        0,                   layout_goldnpkr )
-GAMEL( 1997, witchgmea, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG12T1E)",               MACHINE_NOT_WORKING, layout_goldnpkr )
-GAMEL( 1997, witchgmeb, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG12T1F)",               MACHINE_NOT_WORKING, layout_goldnpkr )
-GAMEL( 1997, witchgmec, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG12T1FL)",              MACHINE_NOT_WORKING, layout_goldnpkr )
-GAMEL( 1994, witchgmed, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG12T1H)",                       0,                   layout_goldnpkr )
-GAMEL( 1991, witchgmee, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG12T1L)",                       0,                   layout_goldnpkr )
-GAMEL( 1997, witchgmef, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG6T1E)",                MACHINE_NOT_WORKING, layout_goldnpkr )
-GAMEL( 1997, witchgmeg, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG6T1F)",                MACHINE_NOT_WORKING, layout_goldnpkr )
-GAMEL( 1994, witchgmeh, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG6T1H)",                        0,                   layout_goldnpkr )
-GAMEL( 1991, witchgmei, witchgme, witchcrd, witchcrd, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG6T1L)",                        0,                   layout_goldnpkr )
+GAMEL( 1991, witchgme,  0,        witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG12T1)",                        0,                   layout_goldnpkr )
+GAMEL( 1997, witchgmea, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG12T1E)",               0,                   layout_goldnpkr )
+GAMEL( 1997, witchgmeb, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG12T1F)",               0,                   layout_goldnpkr )
+GAMEL( 1997, witchgmec, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG12T1FL)",              0,                   layout_goldnpkr )
+GAMEL( 1994, witchgmed, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG12T1H)",                       0,                   layout_goldnpkr )
+GAMEL( 1991, witchgmee, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG12T1L)",                       0,                   layout_goldnpkr )
+GAMEL( 1997, witchgmef, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG6T1E)",                0,                   layout_goldnpkr )
+GAMEL( 1997, witchgmeg, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (Export, WG6T1F)",                0,                   layout_goldnpkr )
+GAMEL( 1994, witchgmeh, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG6T1H)",                        0,                   layout_goldnpkr )
+GAMEL( 1991, witchgmei, witchgme, witchcrd, witchgme, goldnpkr_state, empty_init,    ROT0,   "Video Klein",              "Witch Game (WG6T1L)",                        0,                   layout_goldnpkr )
 
 
-GAME(  199?, jokercar,  witchcrd, witchcrd, witchcda, goldnpkr_state, empty_init,    ROT0,   "<unknown>",                "Joker Card (witch game)",                    0 )
+GAME(  199?, jokercar,  witchcrd, witchcrd, witchcda, goldnpkr_state, empty_init,    ROT0,   "<unknown>",                "Joker Card (witch game)",                    0 )  // similar style than witchcrda-b-c with jokers.
 
 GAMEL( 1994, witchjol,  0,        wcrdxtnd, witchjol, goldnpkr_state, init_vkdlsa,   ROT0,   "Video Klein",              "Jolli Witch (Export, 6T/12T ver 1.57D)",     0,                   layout_goldnpkr )
 
