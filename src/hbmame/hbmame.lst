@@ -6144,8 +6144,6 @@ spcloneo	// v0.7.2.2
 @source:neogeo.cpp
 // These are the parents of our hacks
 neogeo
-//nggno                                  // .gno support
-ngmvs                                  // multimvs support
 2020bb			// 030
 3countb			// 043
 alpham2			// 007
@@ -6341,6 +6339,12 @@ cd_speedball
 cd_ssrpg
 cd_subspecies
 cd_visualnovel
+
+@source:neogeods.cpp   // darksoft multi-mvs
+ngmvs                                  // multimvs support
+
+@source:neogeogn.cpp   // gngeo support
+//nggno                                  // .gno support
 
 @source:neogeohb.cpp
 19yy

@@ -667,6 +667,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/ngwh.cpp",
 	MAME_DIR .. "src/hbmame/video/neogeo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/neogeo_noslot.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeods.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeogn.cpp",
 	MAME_DIR .. "src/hbmame/drivers/neogeosd.cpp",
 	MAME_DIR .. "src/hbmame/video/neogeo_spr.cpp",
 	MAME_DIR .. "src/hbmame/machine/hbng_memcard.cpp",
