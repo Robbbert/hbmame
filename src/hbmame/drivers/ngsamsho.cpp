@@ -1050,13 +1050,13 @@ ROM_START( samsho2s21 ) // samsho2pe v2.4
 	ROM_LOAD16_BYTE( "063.c8", 0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
 ROM_END
 
-ROM_START( samsho2s22 ) // samsho2pe v2.9
+ROM_START( samsho2s22 ) // samsho2pe v3.2
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "063s22.p1", 0x000000, 0x100000, CRC(c47446f7) SHA1(d58bacfb99d75ace9579b751585109e402f65cc3) )
-	ROM_LOAD16_WORD_SWAP( "063s22.p2", 0x100000, 0x100000, CRC(269e9be3) SHA1(66303cc839c0da1d168c0c6128d8f5ebf4f8b1a2) )
+	ROM_LOAD16_WORD_SWAP( "063s22.p1", 0x000000, 0x100000, CRC(8928e40a) SHA1(d705fbcf6fa2052dc664f4241c20fdadd7a23108) )
+	ROM_LOAD16_WORD_SWAP( "063s22.p2", 0x100000, 0x100000, CRC(4813c6ce) SHA1(d411aa395df699949848b8fc0edad4ee1cff6fe8) )
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
-	ROM_LOAD16_WORD_SWAP( "063s22.p3", 0x000000, 0x020000, CRC(7e9083e9) SHA1(ddc0c03d339415fe47ed9c43f035d84487bde9da) )
+	ROM_LOAD16_WORD_SWAP( "063s22.p3", 0x000000, 0x020000, CRC(5e912569) SHA1(63432c950f71fd63b4a289e62c4b0599e5d26777) )
 
 	NEO_SFIX_128K( "063.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
 
@@ -1075,8 +1075,8 @@ ROM_START( samsho2s22 ) // samsho2pe v2.9
 	ROM_LOAD16_BYTE( "063.c4", 0x400001, 0x200000, CRC(751025ce) SHA1(e1bbaa7cd67fd04e4aab7f7ea77f63ae1cbc90d0) )
 	ROM_LOAD16_BYTE( "063.c5", 0x800000, 0x200000, CRC(20d3a475) SHA1(28da44a136bd14c73c62c147c3f6e6bcfa1066de) )
 	ROM_LOAD16_BYTE( "063.c6", 0x800001, 0x200000, CRC(ae4c0a88) SHA1(cc8a7d11daa3821f83a6fd0942534706f939e576) )
-	ROM_LOAD16_BYTE( "063.c7", 0xc00000, 0x200000, CRC(2df3cbcf) SHA1(e54f9022359963711451c2025825b862d36c6975) )
-	ROM_LOAD16_BYTE( "063.c8", 0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
+	ROM_LOAD16_BYTE( "063s22.c7", 0xc00000, 0x200000, CRC(423f2fe0) SHA1(cf3bc66c28c6cd589e725e556e86d0bb03b8d53a) )
+	ROM_LOAD16_BYTE( "063s22.c8", 0xc00001, 0x200000, CRC(9d54dae0) SHA1(f092ec0fe6411dcb44c442256c518b26ded003f3) )
 ROM_END
 
 ROM_START( samsho2s23 ) // samsho2q
@@ -4895,7 +4895,7 @@ GAME( 2009, samsho2s18, samsho2,  neogeo_noslot, neogeo, neogeo_state, init_neog
 GAME( 1994, samsho2s19, samsho2,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Yashional", "Samurai Shodown II (Boss hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, samsho2s20, samsho2,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Blackheart", "Samurai Shodown II (Moves hack, 2009-08-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, samsho2s21, samsho2,  gsc,           neogeo, neogeo_state, init_neogeo,   ROT0, "Bear", "Samurai Shodown II (Perfect v2.4, 2025-01-27)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, samsho2s22, samsho2,  gsc,           neogeo, neogeo_state, init_neogeo,   ROT0, "Bear", "Samurai Shodown II (Perfect v2.9, 2026-06-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, samsho2s22, samsho2,  gsc,           neogeo, neogeo_state, init_neogeo,   ROT0, "Bear", "Samurai Shodown II (Perfect v3.2, 2026-11-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2s23, samsho2,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "zerov", "Samurai Shodown II (Kuroko Version v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, samsho2s24, samsho2,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Samurai Shodown II (Special v0.12, 2008-08-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho2s25, samsho2,  gsc,           neogeo, neogeo_state, init_neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0122)", MACHINE_SUPPORTS_SAVE )
