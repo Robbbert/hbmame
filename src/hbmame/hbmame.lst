@@ -6531,7 +6531,7 @@ vaporous
 veilriot
 violentv
 vssmbn
-//warriorm
+warriorm
 wrallyn
 wolf3d
 wrldracr
@@ -6552,7 +6552,6 @@ zintrick07     // full music
 @source:neogeosd.cpp
 ngneo                                  // .neo support
 sd_arena2
-sd_warriorm
 
 @source:neogeo1.cpp
 2020bb01
