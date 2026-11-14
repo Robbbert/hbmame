@@ -17,6 +17,7 @@ New Games
 - [cheshire]            Cheshire 4 Console (demo, v0.1)
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music)
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
+- [dkong26]             Donkey Kong (Blue Barrels)
 - [ffightn]             Final Fight Neo (beta-1.0.9)
 - [gngprincess]         Ghosts'n Goblins - Princess Prin Prin Edition (World? 1)
 - [gngprincessa]        Ghosts'n Goblins - Princess Prin Prin Edition (World? 2)
