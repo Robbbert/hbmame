@@ -79,6 +79,7 @@ Updated Games
 - [outrunn]             Out Run (Neo-Geo port, v1.0.1)
 - [perfectf]            Perfect Fighter, the (demo v5.1)
 - [robocopn]            Robocop (Neo-Geo port, v13)
+- [samsho2s22]          Samurai Shodown II (Perfect v3.2, 2026-11-02)
 - [sd_arena2]           Arena 2 (v3)
 - [sfa3ru]              Street Fighter Alpha 3 (980904J, English Restoration, 2026-11-03)
 - [sfz3rj]              Street Fighter Zero 3 (980904J, Japanese Restoration, 2026-11-03)
