@@ -121,10 +121,14 @@ void primetimeiii_device::device_add_mconfig(machine_config &config)
 {
 	primetimeii_device::device_add_mconfig(config);
 
+	m_fdc->set_clock(31.3344_MHz_XTAL);
+
 	ASC_PRIMETIME3(config.replace(), m_asc, 45.1584_MHz_XTAL);
 	m_asc->add_route(0, "speaker", 1.0, 0);
 	m_asc->add_route(1, "speaker", 1.0, 1);
 	m_asc->irqf_callback().set(FUNC(primetimeiii_device::asc_irq));
+
+	m_via2->set_button_reset_state(0x01); // volume down
 }
 
 //-------------------------------------------------
@@ -268,7 +272,8 @@ TIMER_CALLBACK_MEMBER(iosb_base::mac_6015_tick)
 
 uint8_t iosb_base::via_in_a()
 {
-	u8 result = m_pa1() << 1;
+	u8 result = 0x80; // PA7
+	result |= m_pa1() << 1;
 	result |= m_pa2() << 2;
 	result |= m_pa4() << 4;
 	result |= m_pa6() << 6;
