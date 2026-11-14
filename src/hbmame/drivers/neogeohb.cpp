@@ -263,6 +263,7 @@ NUM GAME YEAR COMPANY                 TITLE
 553 0DE5 2026 TheSEGAshop             Veil Riot (https://thesegashop.itch.io)
 554 0539 2026 Happy-Ferret            Cheshire 4 Console (https://happy-ferret.itch.io)
 555 0772 2026 Vendza                  Final Fight Neo (https://vendza.itch.io)
+556 7777 2026 Neofid Studios          Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
 
 
 ********************** Non-playable demos (600-699) ************************
@@ -443,7 +444,6 @@ YEAR COMPANY                          TITLE
 2023 Nalua Studio                     Vengeance Hunters (GAME#0365?)(https://shop.naluastudio.com/shop/products)
 2023 Shadow Gangs                     Shadow Gangs (demo exists) (https://www.shadowgangs.net)
 2023 PixelHeart                       Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
-2025 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
 2025 Neofid Studios                   Copper Storm
 2025 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
 2025 Retro Sumus                      SovietBorgs (video on youtube)
@@ -3137,6 +3137,27 @@ ROM_START( ffightn )
 ROM_END
 
 
+// 556: Demons of Asteborg DX (demo) by Neofid Studio
+// Bugs: When it says to press Start, sometimes nothing happens. Hold INS until it starts by itself.
+//       If 5 pressed, the music gets stuck on the current note, until you press 1.
+ROM_START( asteborg )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "556.p1", 0x000000, 0x100000, CRC(944d8053) SHA1(b4f86e8b1955f679c2b628fd94edefd8e930fea6) )
+	ROM_LOAD16_WORD_SWAP( "556.p2", 0x100000, 0x800000, CRC(b78472c6) SHA1(309c8fd14f784ccb84772578e7a8805c286c809f) )
+
+	NEO_SFIX_128K( "556.s1", CRC(40e699f5) SHA1(932623c094cde2814a88953d17fd9bfd25c399f0) )
+
+	NEO_BIOS_AUDIO_512K( "556.m1", CRC(5e213165) SHA1(adfeb785ac1dfa6837da2e83b5a9da7dfcdafa66) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "556.v1",   0, 0x1000000, CRC(dd4c85be) SHA1(ea6360013971b365a479d9753b44e22714b586a9) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "556.c1", 0, 0x2000000, CRC(42c58d68) SHA1(ac779444390d98029e742082f2db43a0c0524221) )
+	ROM_LOAD16_BYTE( "556.c2", 1, 0x2000000, CRC(7a455567) SHA1(da6087ae00f59f0332d08ad00e9837003b174ae0) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4442,6 +4463,7 @@ GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, arena2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Delarfab", "Arena 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, asteborg,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neofid Studio", "Demons of Asteborg DX (demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
