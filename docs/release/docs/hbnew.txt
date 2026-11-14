@@ -55,6 +55,7 @@ New Games
 - [striderjs01]         Strider Hiryu EX (Japan, 2026-10-27)
 - [striderus01]         Strider EX (USA, 2026-10-27)
 - [tempcax]             Tempest CAX 2026 (v1.2)
+- [umk3jre]             Ultimate Mortal Kombat 3 (JustFrame Redux Edition, 2020-10-29)
 - [valkyrienmv5]        Valkyrie no Densetsu (English Translation from Namco Museum Vol. 5)
 - [veilriot]            Veil Riot
 - [wrallyn]             World Rally (Neo-Geo port)
