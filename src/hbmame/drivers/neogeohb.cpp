@@ -446,7 +446,7 @@ YEAR COMPANY                          TITLE
 2023 PixelHeart                       Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
 2025 Neofid Studios                   Copper Storm
 2025 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
-2025 Retro Sumus                      SovietBorgs (video on youtube)
+2025 Retro Sumus                      SovietBorgs (video on youtube) (team disbanded, project abandoned)
 2025 Bit Beam Cannon                  Metal Mack
 2026 Tigerskunk                       Ormanauta (https://tigerskunk.itch.io/hyperblaster)
 2026 tcdev                            Frogger (https://tcdev.itch.io)
@@ -3019,10 +3019,10 @@ ROM_START( shdancern )
 ROM_END
 
 
-// 550: Sunset Riders (beta-0.5.6) port by Bendk97
+// 550: Sunset Riders (beta-0.6.0) port by Bendk97
 ROM_START( ssridersn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "550.p1", 0, 0x100000, CRC(8d848e9c) SHA1(a78034f057c3ad0b1b3d48709ace7ac5cd57dc0d) )
+	ROM_LOAD16_WORD_SWAP( "550.p1", 0, 0x100000, CRC(67fdf3e4) SHA1(5e89bddb684a77835e1dc1a0cf5993f465b52482) )
 
 	NEO_SFIX_128K( "550.s1", CRC(305c75a8) SHA1(b3a6c3af6a53664b62a3afce6736b62a5e181496) )
 
@@ -3032,8 +3032,8 @@ ROM_START( ssridersn )
 	ROM_LOAD( "550.v1",   0, 0xe00000, CRC(2fcc9c3e) SHA1(b82c3c960702c30bb5769e3ca912f41057c665d6) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(a52099ee) SHA1(27f2bfd9b378ee4ab2b8bd6d363c61f6a220446b) )
-	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(e4dd6133) SHA1(6544139a529b19026e2ccc032d13f895ed9021fe) )
+	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(d41e711a) SHA1(b74c0588268354112aedf72eb7a243ae36bd1997) )
+	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(95e389c7) SHA1(c0ce56fed53ccbb1f55012361d75fae02c65f694) )
 ROM_END
 
 
@@ -4443,7 +4443,7 @@ GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.4.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ssridersn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, beta 0.5.6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssridersn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, beta 0.6.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wrallyn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Arkretro", "World Rally (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, xeviousn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (Neo-Geo port, beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
