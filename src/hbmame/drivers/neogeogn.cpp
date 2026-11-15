@@ -111,7 +111,7 @@ QUICKLOAD_LOAD_MEMBER(neogn_class::gno_q_cb)
 		// Get a region header
 		// 4 bytes = size
 		// 1 byte  = region code
-		// 1 byte  = type (we don't use, 00 assumed)
+		// 1 byte  = type (0 = normal, 1 = compressed)
 		// size bytes = data
 		uint8_t region_code = 0, region_type = 0;
 		image.fread( &region_size, 4);
@@ -119,7 +119,7 @@ QUICKLOAD_LOAD_MEMBER(neogn_class::gno_q_cb)
 		image.fread( &region_type, 1);
 		offset += 6;
 		// choose region, check size, and write to it
-		printf ("region code = %d with size %08X at offset %08X\n",region_code,region_size,offset);
+		printf ("region code = %d with size %08X at offset %08X (type %d)\n",region_code,region_size,offset,region_type);
 		offset += region_size;
 		switch (region_code)
 		{
@@ -241,7 +241,9 @@ QUICKLOAD_LOAD_MEMBER(neogn_class::gno_q_cb)
 				{
 					image.fread(&spr_region[0],region_size);
 					csize = region_size;
-					// unscramble
+					// uncompress if region_type==1 (it normally is)
+					// File firstly consists of a series of 32-bit block offsets. This is followed by a single blob of zipped data.
+					// Unknown how to deal with this.
 				}
 				break;
 

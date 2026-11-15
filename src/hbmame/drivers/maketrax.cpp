@@ -516,6 +516,26 @@ ROM_START( ghohunt )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( goldrun )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "goldrun.6e",     0x0000, 0x1000, CRC(6b46822b) SHA1(9f01a094e406421adf4ae7414eaf4852441ce135) )
+	ROM_LOAD( "goldrun.6f",     0x1000, 0x1000, CRC(6ee5a7a4) SHA1(9eac62e35ee24f44bf2b87721b01366172689914) )
+	ROM_LOAD( "goldrun.6h",     0x2000, 0x1000, CRC(14f6bcff) SHA1(6d5b0a0a73a30d33f14daa40c8f486fe6fcd8c3d) )
+	ROM_LOAD( "goldrun.6j",     0x3000, 0x1000, CRC(a1dd0c44) SHA1(a2e9b9799ae545d4011c5eeafb61e06fb996a9ec) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "goldrun.5e",     0x0000, 0x1000, CRC(28b22685) SHA1(66455d29dc072a58e082ae5c1114932b6fcfd507) )
+	ROM_LOAD( "goldrun.5f",     0x1000, 0x1000, CRC(cd1dc828) SHA1(8e4224b72ffbcf940cd6a83822b5152866d144f1) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "goldrun.7f",     0x0000, 0x0020, CRC(f3c11d15) SHA1(4296dae874840ba1b0ff32ac2e5e7c1401dd04ba) )
+	ROM_LOAD( "goldrun.4a",     0x0020, 0x0100, CRC(528f4290) SHA1(34b4b5b03081213ea828bfc2cdde8da9cbb88ced) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "goldrun.1m",     0x0000, 0x0100, CRC(5166f921) SHA1(2e57c680f489910342b7765aad6388d2e2c4641e) )
+	ROM_LOAD( "goldrun.3m",     0x0100, 0x0100, CRC(5166f921) SHA1(2e57c680f489910342b7765aad6388d2e2c4641e) )
+ROM_END
+
 ROM_START( kangaroh )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "kangaroh.1",     0x0000, 0x1000, CRC(bcdd9dff) SHA1(0243d9aaeaa82afb04d40eee192fdd65197fb87e) )
@@ -1019,6 +1039,7 @@ GAME( 2025, pacupacu1, puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2025, pakupaku,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku2, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku3, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, goldrun,   0,        pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "Don Panetta", "Gold Runner", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/
