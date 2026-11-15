@@ -16998,6 +16998,9 @@ sz1
 dg10
 dg20
 
+@source:casio/dh100.cpp
+dh100
+
 @source:casio/fp200.cpp
 fp200
 
@@ -18817,6 +18820,7 @@ vintkeys
 
 @source:ensoniq/enmirage.cpp
 enmirage
+enmirdms
 
 @source:ensoniq/esq1.cpp
 esq1
@@ -21520,6 +21524,9 @@ tpad600e
 tpad600x
 tpad760xd
 tpad770z
+
+@source:ibm/thinkpad750.cpp
+tpad750cs
 
 @source:ibm/thinkpad8xx.cpp
 tpad850
