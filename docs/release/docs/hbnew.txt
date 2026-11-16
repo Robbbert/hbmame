@@ -35,7 +35,7 @@ New Games
 - [hoverbov]            Hover Bovver
 - [hsf2re]              Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)
 - [jimpower]            Jim Power (Neo-Geo port, v1.1)
-- [knightsn]            Knights of the Round (Neo-Geo port, v1.0.0)
+- [knightsn]            Knights of the Round (Neo-Geo port, v1.1.0)
 - [kodn]                King of Dragons, the (Neo-Geo port, beta 16)
 - [makprincess]         Makaimura - Princess Prin Prin Edition
 - [makprincessb]        Makaimura - Princess Prin Prin Edition (Japan revision B)
@@ -46,7 +46,7 @@ New Games
 - [makprincessg]        Makaimura - Princess Prin Prin Edition (Japan revision G)
 - [makprincessgenh]     Makaimura - Princess Prin Prin Edition (Enhanced) (Japan revision G)
 - [mp_sonic01]          Sonic The Hedgehog (Mega Play) (No Timer)
-- [mysticrin]           Mystic Riders (Neo-Geo port, beta-0.1.0)
+- [mysticrin]           Mystic Riders (Neo-Geo port, beta-0.2.2)
 - [paprium]             Paprium (Vertical Slice)
 - [polepos2n]           Pole Position II (Neo-Geo port, v1.0.0)
 - [rtypen]              R-Type (Neo-Geo port, v1.2.2)
@@ -57,7 +57,7 @@ New Games
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-11-03)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-11-03)
 - [shdancern]           Shadow Dancer (Neo-Geo port)
-- [ssridersn]           Sunset Riders (Neo-Geo port, beta 0.7.0)
+- [ssridersn]           Sunset Riders (Neo-Geo port, beta 0.7.2)
 - [striderjs01]         Strider Hiryu EX (Japan, 2026-10-27)
 - [striderus01]         Strider EX (USA, 2026-10-27)
 - [tempcax]             Tempest CAX 2026 (v1.2)
