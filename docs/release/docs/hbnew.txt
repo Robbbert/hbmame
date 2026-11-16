@@ -70,6 +70,9 @@ New Games
 
 Updated Games
 ---------------------------------
+- [sfaexu] sfa-ex RC4 (2026-11-14)
+- [sfzexa] sfa-ex RC4 (2026-11-14)
+- [sfzexj] sfa-ex RC4 (2026-11-14)
 - [7wonders]            Seven Wonders Puzzles (v1.0.2)
 - [cosmogngn]           Cosmo Gang the video (Neo-Geo port, v1.1.4)
 - [ffex2j]              Final Fight EX CPS2 (Japan, 2026-11-03)
