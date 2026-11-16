@@ -70,6 +70,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [ssf2tuc] ssf2-ex RC14 (2026-11-14)
+- [ssf2xuc] ssf2-ex RC14 (2026-11-14)
 - [sfa2ex] sfa2-ex RC5 (2026-11-14)
 - [sfz2ex] sfa2-ex RC5 (2026-11-14)
 - [sfa2d] sfa2-gold RC9 (2026-11-14)
