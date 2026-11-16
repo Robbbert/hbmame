@@ -70,6 +70,7 @@ New Games
 
 Updated Games
 ---------------------------------
+- [hsf2re] hsf2-restoration RC2 (2026-11-14)
 - [vhunt2s02] vhunt2-arrange RC5 (2026-11-14)
 - [vhunt2s03] vhunt2-arrange RC5 (2026-11-14)
 - [vsav2s05] vsav2-arrange RC5 (2026-11-14)

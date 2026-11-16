@@ -8806,7 +8806,7 @@ GAME( 2026, sfz3up, sfa3, cps2plus, cps2_2p6b, cps2plus_state, init_cps2plus, RO
 
 ROM_START( hsf2re )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "hs2re.03c", 0x000000, 0x80000, CRC(c773cb30) SHA1(bd95d17ea5e123412b78d9fbe1234b62ae8f40d2) )
+	ROM_LOAD16_WORD_SWAP( "hs2re.03c", 0x000000, 0x80000, CRC(d61d0069) SHA1(623b6fd530d7cfa58dde5d230b93476e2bd72a8b) )
 	ROM_LOAD16_WORD_SWAP( "hs2re.04b", 0x080000, 0x80000, CRC(008c3478) SHA1(192231774cd73a8047e050a8c937b9703f8aeca8) )
 	ROM_LOAD16_WORD_SWAP( "hs2j.05",  0x100000, 0x80000, CRC(dde34a35) SHA1(f5be2d2916db6e86e0886d61d55bddf138273ebc) )
 	ROM_LOAD16_WORD_SWAP( "hs2j.06",  0x180000, 0x80000, CRC(f4e56dda) SHA1(c6490707c2a416ab88612c2d73abbe5853d8cb92) )
@@ -8833,4 +8833,4 @@ ROM_START( hsf2re )
 	ROM_LOAD( "hsf2j.key",    0x00, 0x14, CRC(19455a93) SHA1(925cee29b37cb7a4048383ac715ad96f83280d37) )
 ROM_END
 
-GAME( 2026, hsf2re, hsf2, cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, hsf2re, hsf2, cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "strygo", "Hyper Street Fighter II: The Anniversary Edition (English Restoration, 2026-11-14)", MACHINE_SUPPORTS_SAVE )
