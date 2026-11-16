@@ -70,6 +70,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [vsav2s05] vsav2-arrange RC5 (2026-11-14)
+- [vsav2s06] vsav2-arrange RC5 (2026-11-14)
 - [vsavs01] vsav-arrange RC6 (2026-11-14)
 - [vsavs02] vsav-arrange RC6 (2026-11-14)
 - [ssf2tuc] ssf2-ex RC14 (2026-11-14)
