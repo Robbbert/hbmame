@@ -267,6 +267,7 @@ NUM GAME YEAR COMPANY                 TITLE
 557 0992 2026 Bendk97                 Mystic Riders (port) (https://bendk97.itch.io/)
 558 5454 2026 ShinobiZ                Atari Tetris (port) (https://shinobiz72.itch.io/)
 559 7786 2026 ShinobiZ                Wonder Boy (port) (https://shinobiz72.itch.io/)
+560 0912 2026 Format-c                Gals Panic (port) (https://format-c.itch.io/)
 
 
 ********************** Non-playable demos (600-699) ************************
@@ -3218,6 +3219,31 @@ ROM_START( wboyn )
 ROM_END
 
 
+// 560: Gals Panic port by Format-c
+ROM_START( galpanicn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "560.p1", 0x100000, 0x100000, CRC(c023a7ff) SHA1(6ec0e3efe0d55a7d87d083f6f8f7223ed09c07e7) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "560.s1", CRC(fac7e29f) SHA1(aae0442b5bdc09d5b4f0416b4bbc93c6996d439f) )
+
+	NEO_BIOS_AUDIO_128K( "560.m1", CRC(46cefe87) SHA1(e5223d995a2bb4d5f2dacb5cfcbd2785dd2c0829) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "560.v1",   0x000000, 0x400000, CRC(edd68493) SHA1(db2112c182e67829d8d9a9838ef9b6c5e65fd353) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "560.c1", 0x0000000, 0x800000, CRC(4ece8760) SHA1(a898dd41d63b0647d2b24dfdac2878473eb7e60b) )
+	ROM_LOAD16_BYTE( "560.c2", 0x0000001, 0x800000, CRC(0e6625eb) SHA1(e1f08f754f6131c1664c4f3524b5955939bf7200) )
+	ROM_LOAD16_BYTE( "560.c3", 0x1000000, 0x800000, CRC(ad9f409e) SHA1(a953170df79ca0c12518cb3c74950c9335c3de9d) )
+	ROM_LOAD16_BYTE( "560.c4", 0x1000001, 0x800000, CRC(359a57d3) SHA1(a1b3f363e7afdc13d795f6bb975e0aee1a1d91c6) )
+	ROM_LOAD16_BYTE( "560.c5", 0x2000000, 0x800000, CRC(3eb647a2) SHA1(468fe4699f5460041707d4cefb33ca056707ab39) )
+	ROM_LOAD16_BYTE( "560.c6", 0x2000001, 0x800000, CRC(d4576833) SHA1(2f584186934d5f09085159d73ab63a7538e01a96) )
+	ROM_LOAD16_BYTE( "560.c7", 0x3000000, 0x800000, CRC(7b606f06) SHA1(7902f13fd24cbf58ef3c0f15a56aeeb5d9607423) )
+	ROM_LOAD16_BYTE( "560.c8", 0x3000001, 0x800000, CRC(a2f366ba) SHA1(32c27f1772aa5a5c9813cadbab539a37679536cb) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -4485,6 +4511,7 @@ GAME( 2026, ffightn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, foodfn,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Food Fight (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann2,   galaxiann,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, galpanicn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Format-c", "Gals Panic (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Hang On (Neo-Geo port, v2.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )

@@ -20,6 +20,7 @@ New Games
 - [dinon]               Cadillacs and Dinosaurs (Neo-Geo port, test-47)
 - [dkong26]             Donkey Kong (Blue Barrels)
 - [ffightn]             Final Fight Neo (beta-1.0.9)
+- [galpanicn]           Gals Panic (Neo-Geo port)
 - [gngprincess]         Ghosts'n Goblins - Princess Prin Prin Edition (World? 1)
 - [gngprincessa]        Ghosts'n Goblins - Princess Prin Prin Edition (World? 2)
 - [gngprincessaenh]     Ghosts'n Goblins - Princess Prin Prin Edition (Enhanced) (World? 2)
