@@ -70,6 +70,9 @@ New Games
 
 Updated Games
 ---------------------------------
+- [ffex2j] final-fight-ex-cps2 RC4 (2026-11-14)
+- [ffex2r] final-fight-ex-cps2 RC4 (2026-11-14)
+- [ffex2u] final-fight-ex-cps2 RC4 (2026-11-14)
 - [hsf2re] hsf2-restoration RC3 (2026-11-14)
 - [mshvsfej] mshvsf-ex RC7 (2026-11-14)
 - [mshvsfex] mshvsf-ex RC7 (2026-11-14)
