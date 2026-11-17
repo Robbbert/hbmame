@@ -21772,6 +21772,13 @@ fl7_50_gs37
 fl7_50_gs38
 fl7_50_gs39
 fl7_500
+fl7_500_gs01
+fl7_500_gs02
+fl7_500_gs03
+fl7_500_gs04
+fl7_500_gs05
+fl7_500_gs06
+fl7_500_gs07
 fl7_1000
 fl7_2000
 fl7_2k16
@@ -32764,6 +32771,7 @@ fruitstbn
 fruitstbo
 goldnjkr
 goldnjkra
+goldnjkrb
 
 @source:misc/mpu2000.cpp
 gw606
@@ -40898,7 +40906,9 @@ st1714
 jinsanse
 
 @source:sealy/sealy_eagle.cpp
+abaozang
 qczl
+zduoxing
 
 @source:sealy/sealy_fr.cpp
 snowbwar

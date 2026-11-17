@@ -162,6 +162,7 @@ tipi_card_device::tipi_card_device(const machine_config &mconfig, const char *ta
 	m_listener(nullptr),
 	m_connected(false),
 	m_rpiconn(false),
+	m_client_started(false),
 	m_pausetime(PAUSEBASE),
 	m_pending_read(false),
 	m_tc(0),
@@ -455,6 +456,7 @@ TIMER_CALLBACK_MEMBER(tipi_card_device::open_websocket)
 	if (m_wsclient)
 	{
 		LOG("Open websocket in new thread\n");
+		m_client_started = true;
 		m_listener = std::make_unique<asio::thread>([this]() {
 				m_wsclient->start();
 		});
@@ -667,7 +669,7 @@ void tipi_card_device::device_reset()
 
 void tipi_card_device::device_stop()
 {
-	if (m_wsclient != nullptr)
+	if (m_client_started)
 		m_wsclient->stop();
 
 	// Need to explicitly join, or the posix_thread implementation will
