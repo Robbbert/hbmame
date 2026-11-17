@@ -41,7 +41,7 @@ public:
 
 	void pgm(machine_config &config);
 
-protected:
+private:
 	virtual void machine_reset() override;
 	virtual void video_start() override;
 
@@ -57,14 +57,13 @@ protected:
 	void pgm_base_mem(address_map &map);
 	void pgm_mem(address_map &map);
 
-private:
 	/* memory pointers */
 	required_shared_ptr<u16> m_videoregs;
 	required_shared_ptr<u16> m_videoram;
 	required_shared_ptr<u8>  m_z80_mainram;
-	u16 *                    m_bg_videoram = nullptr;
-	u16 *                    m_tx_videoram = nullptr;
-	u16 *                    m_rowscrollram = nullptr;
+	u16 * m_bg_videoram = nullptr;
+	u16 * m_tx_videoram = nullptr;
+	u16 * m_rowscrollram = nullptr;
 
 	/* video-related */
 	struct sprite_t
@@ -79,8 +78,8 @@ private:
 
 	std::unique_ptr<sprite_t[]> m_spritelist;
 	struct sprite_t *m_sprite_ptr_pre = nullptr;
-	tilemap_t     *m_bg_tilemap = nullptr;
-	tilemap_t     *m_tx_tilemap = nullptr;
+	tilemap_t *m_bg_tilemap = nullptr;
+	tilemap_t *m_tx_tilemap = nullptr;
 
 	/* devices */
 	required_device<cpu_device>             m_soundcpu;
@@ -140,16 +139,10 @@ inline void pgm_hb::pgm_draw_pix(int xdrawpos, int pri, u16* dest, u8* destpri, 
 		if (!(destpri[xdrawpos] & 1))
 		{
 			if (!pri)
-			{
 				dest[xdrawpos] = srcdat;
-			}
 			else
-			{
-				if (!(destpri[xdrawpos] & 2))
-				{
+			if (!(destpri[xdrawpos] & 2))
 					dest[xdrawpos] = srcdat;
-				}
-			}
 		}
 
 		destpri[xdrawpos] |= 1;
@@ -161,9 +154,8 @@ inline void pgm_hb::pgm_draw_pix_nopri(int xdrawpos, u16* dest, u8* destpri, con
 	if ((xdrawpos >= cliprect.min_x) && (xdrawpos <= cliprect.max_x))
 	{
 		if (!(destpri[xdrawpos] & 1))
-		{
 			dest[xdrawpos] = srcdat;
-		}
+
 		destpri[xdrawpos] |= 1;
 	}
 }
@@ -173,12 +165,9 @@ inline void pgm_hb::pgm_draw_pix_pri(int xdrawpos, u16* dest, u8* destpri, const
 	if ((xdrawpos >= cliprect.min_x) && (xdrawpos <= cliprect.max_x))
 	{
 		if (!(destpri[xdrawpos] & 1))
-		{
 			if (!(destpri[xdrawpos] & 2))
-			{
 				dest[xdrawpos] = srcdat;
-			}
-		}
+
 		destpri[xdrawpos] |= 1;
 	}
 }
@@ -242,7 +231,8 @@ void pgm_hb::draw_sprite_line(int wide, u16* dest, u8* destpri, const rectangle 
 
 						xcntdraw++;
 					}
-					else if (xzoombit && (!xgrow))
+					else
+					if (xzoombit && !xgrow)
 					{
 						/* skip this column */
 					}
@@ -264,9 +254,13 @@ void pgm_hb::draw_sprite_line(int wide, u16* dest, u8* destpri, const rectangle 
 			{
 				const bool xzoombit = BIT(xzoom, xoffset & 0x1f);
 				xoffset++;
-				if (xzoombit && xgrow) { xcntdraw += 2; }
-				else if (xzoombit && (!xgrow)) { }
-				else { xcntdraw++; }
+				if (xzoombit && xgrow)
+					xcntdraw += 2;
+				else
+				if (xzoombit && !xgrow)
+				{ }
+				else
+					xcntdraw++;
 			}
 
 			msk >>= 1;
@@ -284,9 +278,7 @@ void pgm_hb::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int 
 	m_aoffset = (m_bdata[(m_boffset + 1) & (m_bdata.length() - 1)] << 16) | (m_bdata[(m_boffset + 0) & (m_bdata.length() - 1)] << 0);
 	m_aoffset = m_aoffset >> 2;
 	m_abit = 0;
-
 	m_boffset += 2;
-
 	int ycnt = 0;
 	int ycntdraw = 0;
 	int realysize = 0;
@@ -294,9 +286,13 @@ void pgm_hb::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int 
 	while (ycnt < high)
 	{
 		const bool yzoombit = BIT(yzoom, ycnt & 0x1f);
-		if (yzoombit && ygrow) { realysize += 2; }
-		else if (yzoombit && (!ygrow)) { }
-		else { realysize++; };
+		if (yzoombit && ygrow)
+			realysize += 2;
+		else
+		if (yzoombit && !ygrow)
+		{ }
+		else
+			realysize++;
 
 		ycnt++;
 	}
@@ -307,12 +303,18 @@ void pgm_hb::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int 
 	while (xcnt < wide * 16)
 	{
 		const bool xzoombit = BIT(xzoom, xcnt & 0x1f);
-		if (xzoombit && xgrow) { realxsize += 2; }
-		else if (xzoombit && (!xgrow)) { }
-		else { realxsize++; };
+
+		if (xzoombit && xgrow)
+			realxsize += 2;
+		else
+		if (xzoombit && !xgrow)
+		{ }
+		else
+			realxsize++;
 
 		xcnt++;
 	}
+
 	realxsize--;
 
 	/* now draw it */
@@ -341,9 +343,7 @@ void pgm_hb::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int 
 				draw_sprite_line(wide, dest, destpri, cliprect, xzoom, xgrow, flip, xpos, pri, realxsize, palt, true);
 			}
 			else
-			{
 				draw_sprite_line(wide, nullptr, nullptr, cliprect, xzoom, xgrow, flip, xpos, pri, realxsize, palt, false);
-			}
 
 			ycntdraw++;
 
@@ -410,10 +410,8 @@ void pgm_hb::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int 
 						return;
 				}
 				else
-				{
-					if (ydrawpos < cliprect.min_y)
-						return;
-				}
+				if (ydrawpos < cliprect.min_y)
+					return;
 
 			}
 
@@ -456,9 +454,7 @@ void pgm_hb::draw_sprite_line_basic(int wide, u16* dest, u8* destpri, const rect
 
 				}
 				else
-				{
 					xcntdraw++;
-				}
 
 				msk >>= 1;
 			}
@@ -492,9 +488,7 @@ void pgm_hb::draw_sprite_line_basic(int wide, u16* dest, u8* destpri, const rect
 
 				}
 				else
-				{
 					xcntdraw++;
-				}
 
 				msk >>= 1;
 			}
@@ -511,14 +505,11 @@ void pgm_hb::draw_sprite_line_basic(int wide, u16* dest, u8* destpri, const rect
 
 void pgm_hb::draw_sprite_new_basic(int wide, int high, int xpos, int ypos, int palt, int flip, bitmap_ind16 &bitmap, const rectangle &cliprect, bitmap_ind8 &priority_bitmap, int pri)
 {
-	int ydrawpos;
-
+	int ydrawpos = 0;
 	m_aoffset = (m_bdata[(m_boffset + 1) & (m_bdata.length() - 1)] << 16) | (m_bdata[(m_boffset + 0) & (m_bdata.length() - 1)] << 0);
 	m_aoffset = m_aoffset >> 2;
 	m_abit = 0;
-
 	m_boffset += 2;
-
 	const int realysize = high - 1;
 	const int realxsize = (wide * 16) - 1;
 
@@ -549,10 +540,8 @@ void pgm_hb::draw_sprite_new_basic(int wide, int high, int xpos, int ypos, int p
 					return;
 			}
 			else
-			{
-				if (ydrawpos < cliprect.min_y)
-					return;
-			}
+			if (ydrawpos < cliprect.min_y)
+				return;
 		}
 
 		ycntdraw++;
@@ -776,7 +765,8 @@ u16 pgm_hb::videoram_r(offs_t offset)
 {
 	if (offset < 0x4000 / 2)
 		return m_bg_videoram[offset & 0x7ff];
-	else if (offset < 0x7000 / 2)
+	else
+	if (offset < 0x7000 / 2)
 		return m_tx_videoram[offset & 0xfff];
 	else
 		return m_videoram[offset];
@@ -786,7 +776,8 @@ void pgm_hb::videoram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (offset < 0x4000 / 2)
 		bg_videoram_w(offset & 0x7ff, data, mem_mask);
-	else if (offset < 0x7000 / 2)
+	else
+	if (offset < 0x7000 / 2)
 		tx_videoram_w(offset & 0xfff, data, mem_mask);
 	else
 		COMBINE_DATA(&m_videoram[offset]);
@@ -819,9 +810,7 @@ void pgm_hb::z80_reset_w(offs_t offset, u16 data, u16 mem_mask)
 		m_soundcpu->pulse_input_line(INPUT_LINE_RESET, attotime::zero);
 	}
 	else
-	{
 		m_soundcpu->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
-	}
 }
 
 void pgm_hb::z80_ctrl_w(offs_t offset, u16 data, u16 mem_mask)

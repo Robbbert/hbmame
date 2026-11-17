@@ -1008,7 +1008,7 @@ void neogeo_state::main_map_noslot(address_map &map)
 	map(0x000080,0x0fffff).rom();
 }
 
-void neogeo_state::neogeo_noslot(machine_config &config)
+void neogeo_state::neogeo(machine_config &config)
 {
 	neogeo_arcade(config); // no slot config (legacy mame)
 	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_noslot);
@@ -1052,7 +1052,7 @@ void neogeo_state::neogeo_kog(machine_config &config)
 // with mahjong panel, with dial for Pop'n Bounce and with 4 controls for Kizuna...
 void neogeo_state::neogeo_mj(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 
 	//no joystick panel
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, nullptr, true);
@@ -1066,33 +1066,33 @@ void neogeo_state::neogeo_mj(machine_config &config)
 
 void neogeo_state::neogeo_dial(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "dial", true);
 }
 
 void neogeo_state::neogeo_imaze(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "irrmaze", true);
 }
 
 void neogeo_state::neogeo_kiz4p(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "kiz4p", true);
 }
 
 // this is used by V-Liner, which handles differently inputs...
 void neogeo_state::neogeo_noctrl(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	config.device_remove("ctrl1");
 	config.device_remove("ctrl2");
 }
 
 void neogeo_state::no_watchdog(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
 }
 
@@ -1104,7 +1104,7 @@ void neogeo_state::gsc_map(address_map &map)
 
 void neogeo_state::gsc(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc_map);
 }
 
@@ -1116,7 +1116,7 @@ void neogeo_state::gsc1_map(address_map &map)
 
 void neogeo_state::gsc1(machine_config &config)
 {
-	neogeo_noslot(config);
+	neogeo(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc1_map);
 }
 

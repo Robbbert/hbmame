@@ -91,7 +91,7 @@ public:
 	void neogeo_kog(machine_config &config);
 	void neogeo_mj(machine_config &config);
 	void neogeo_noctrl(machine_config &config);
-	void neogeo_noslot(machine_config &config);
+	void neogeo(machine_config &config);
 	void no_watchdog(machine_config &config);
 	void gsc(machine_config &config);
 	void gsc1(machine_config &config);
