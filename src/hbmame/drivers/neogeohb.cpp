@@ -646,11 +646,11 @@ ROM_START( lhbb )  // AES V1.1 - Last Hope with Blue Bullets (hack)
 	ROM_LOAD16_BYTE( "300.c4", 0x800001, 0x400000, CRC(8486ad9e) SHA1(19a2a73c825687e0cb9fd62bde00db91b5409529) )
 ROM_END
 
-ROM_START( lhpb )  // V1.2 - Last Hope with Pink Bullets (hack by =LoW=) - not the original
+ROM_START( lhpb )  // V1.3 - Last Hope with Pink Bullets (hack by =LoW=) - not the original
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "300pb.p1", 0, 0x100000, CRC(d6fce9c1) SHA1(9dd957fb96d874de7b1c56ab1efdcd3f9dd611cb) )
+	ROM_LOAD16_WORD_SWAP( "300pb.p1", 0, 0x100000, CRC(25c1867d) SHA1(e061e84d4a90afc114ab43dc7ceda0f8e99ebf2b) )
 
-	NEO_SFIX_128K( "300pb.s1", CRC(f0719dbb) SHA1(8d1faa2dac59579b7bda6bdafd8bac5b794ce2f0) )
+	NEO_SFIX_128K( "300pb.s1", CRC(36c54e06) SHA1(f8764dec2b9b89c7206dacdc351972ecba04cc0b) )
 
 	NEO_BIOS_AUDIO_128K( "300pb.m1", CRC(4b395814) SHA1(5fc88b369dceb6b8ff5ff42e284d7def0aad1148) )
 
@@ -3023,7 +3023,7 @@ ROM_START( shdancern )
 ROM_END
 
 
-// 550: Sunset Riders (beta-0.7.3) port by Bendk97
+// 550: Sunset Riders (beta-0.7.4) port by Bendk97
 ROM_START( ssridersn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "550.p1", 0, 0x100000, CRC(c5ffd3ff) SHA1(a48ff59dc0c341bf52bc5fcfb4baebb01aed3b35) )
@@ -3036,8 +3036,8 @@ ROM_START( ssridersn )
 	ROM_LOAD( "550.v1",   0, 0xe00000, CRC(2fcc9c3e) SHA1(b82c3c960702c30bb5769e3ca912f41057c665d6) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(5c6db5ff) SHA1(38ac3cb5948fa167c4200057afbf24abba391898) )
-	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(1d904d22) SHA1(01d95a6a698d41d990a0642738186d82c238e924) )
+	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(af3d8345) SHA1(a96ea147ab6d295824604e3fd5a4b314a8d77ca2) )
+	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(eec07b98) SHA1(9a334f45dadeaae8e136dea87a3007dba5aaa132) )
 ROM_END
 
 
@@ -3162,10 +3162,10 @@ ROM_START( asteborg )
 ROM_END
 
 
-// 557: Mystic Riders (beta-0.2.2) port by Bendk97
+// 557: Mystic Riders (beta-0.2.6) port by Bendk97
 ROM_START( mysticrin )
 	ROM_REGION( 0x400000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "557.p1", 0, 0x400000, CRC(710a1065) SHA1(6c3929f707d744a39bbf2134817bd1d2960a22b1) )
+	ROM_LOAD16_WORD_SWAP( "557.p1", 0, 0x400000, CRC(0df42c50) SHA1(719c9043c0bca2b58d0494e7f28e82cfddb31908) )
 
 	NEO_SFIX_128K( "557.s1", CRC(4a015a38) SHA1(b3d53ba1e5e25e45d111dd4b063b2793b821f415) )
 
@@ -4490,7 +4490,7 @@ GAME( 2026, csw2s02,      csw2,     neogeo,          neogeo,  neogeo_state, init
 GAME( 1995, fr2,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, fr2s03,       fr2,      neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Idol Mahjong Final Romance 2 (with music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, lhpb,         lasthope, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "=LoW=", "Last Hope (Pink Bullets, hack, v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, lhpb,         lasthope, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "=LoW=", "Last Hope (Pink Bullets, hack, v1.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, totc,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, yoyoshkn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Dr Ludos", "Yo-Yo Shuriken", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, zintrick05,   zintrckb, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
@@ -4519,7 +4519,7 @@ GAME( 2025, inthuntn,     neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2025, karnovn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, knightsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, v1.1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, kodn,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, mysticrin,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Mystic Riders (Neo-Geo port, beta-0.2.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mysticrin,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Mystic Riders (Neo-Geo port, beta-0.2.6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, nblktiger,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "Neo Black Tiger", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, v1.0.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, paprium,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Happy-Ferret", "Paprium Vertical Slice (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
@@ -4532,7 +4532,7 @@ GAME( 2026, smbn,         neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2026, snowbrosn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.4.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, sotbn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta-0.5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ssridersn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, beta-0.7.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssridersn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, beta-0.7.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wboyn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Wonder Boy (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wrallyn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arkretro", "World Rally (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
