@@ -19401,25 +19401,25 @@ ROM_START( sf2koryu04 ) // sf2koryuh
 	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
-ROM_START( sf2mix ) // 1.7
+ROM_START( sf2mix ) // 1.8
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(60d0d40d) SHA1(c1adbeced0f7231a17935e94a6d9601a1b3a8c17) ) // 8f
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(f7bd54e7) SHA1(7ac2e56eec9bdeee8ca377a31e4cb5fcd740fb77) ) // 7f
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(b580c709) SHA1(c65a416eeaa3affe08a713fe5d5400e2c738b56f) ) // 6f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(215d7dea) SHA1(fd5a9aa69ab6394f06c6a45dc9d9931e84dad64a) ) // 8f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(3e7d323b) SHA1(2ddecccce8813858c65bcdf6d89544c02c644dea) ) // 7f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(c6e902cc) SHA1(cd1eb3d40e29ef2466225a497088c65e5ffa7199) ) // 6f
 
 	ROM_REGION( 0x600000, "gfx", 0 )
-	ROM_LOAD64_WORD( "sf2mix.c01",  0x000000, 0x80000, CRC(a8f70643) SHA1(0d3ab7fe1d0d15397a79c9bd304f22593a9b8d87) ) // 3a
-	ROM_LOAD64_WORD( "sf2mix.c02",  0x000002, 0x80000, CRC(f73f1913) SHA1(b36db11822f5601726892726f8505b7e8b676ab6) ) // 5a
-	ROM_LOAD64_WORD( "sf2mix.c03",  0x000004, 0x80000, CRC(a80234b4) SHA1(e8c3e8030fa2ce69465d97ccb02de622e9214b01) ) // 4a
-	ROM_LOAD64_WORD( "sf2mix.c04",  0x000006, 0x80000, CRC(4d910b53) SHA1(1f28fe150ddf77c91c8ae998ee52e068327335d5) ) // 6a
-	ROM_LOAD64_WORD( "sf2mix.c05",  0x200000, 0x80000, CRC(26a56c2c) SHA1(7120ab4e1006729faf90c4aab15f82f789538466) ) // 7a
-	ROM_LOAD64_WORD( "sf2mix.c06",  0x200002, 0x80000, CRC(3a2c2e5f) SHA1(98f5c5b30e1bbeb3cdbacf11a1a4d6c0dbfd0263) ) // 9a
-	ROM_LOAD64_WORD( "sf2mix.c07",  0x200004, 0x80000, CRC(f71b978c) SHA1(4d462d4a58966b214c60132e8df118844545ea7b) ) // 8a
-	ROM_LOAD64_WORD( "sf2mix.c08",  0x200006, 0x80000, CRC(8fe56540) SHA1(36d6fcb184cb694d8ebd6ceb211d7acae37e02c3) ) // 10a
-	ROM_LOAD64_WORD( "sf2mix.c09",  0x400000, 0x80000, CRC(f352721f) SHA1(55721a2fc451975fe061b4fa8b9e34e7254bafe1) ) // 3c
-	ROM_LOAD64_WORD( "sf2mix.c10",  0x400002, 0x80000, CRC(810c6499) SHA1(1c992f1c70c73bc970d0aa1ce6010887d8b78cfb) ) // 5c
-	ROM_LOAD64_WORD( "sf2mix.c11",  0x400004, 0x80000, CRC(75d7c15c) SHA1(53c7969a574f375a6d3df159eb762026d2d0128e) ) // 4c
-	ROM_LOAD64_WORD( "sf2mix.c12",  0x400006, 0x80000, CRC(642c40e7) SHA1(4ac94adf896aa57a242de0ad0d7c8fbf0ff8bd2d) ) // 6c
+	ROM_LOAD64_WORD( "sf2mix.c01",  0x000000, 0x80000, CRC(924b2a5a) SHA1(08764bec273c44e23aecb84a548a4fb6b4ccf343) ) // 3a
+	ROM_LOAD64_WORD( "sf2mix.c02",  0x000002, 0x80000, CRC(d5e4bfb1) SHA1(303014c48bffb090e3d580e17b0d8fd5043413c2) ) // 5a
+	ROM_LOAD64_WORD( "sf2mix.c03",  0x000004, 0x80000, CRC(020d4a6d) SHA1(032716d1677fca41e6c833699d27a10663495740) ) // 4a
+	ROM_LOAD64_WORD( "sf2mix.c04",  0x000006, 0x80000, CRC(67285c2f) SHA1(1a1b308610b831dd6be55f271337978943a79a12) ) // 6a
+	ROM_LOAD64_WORD( "sf2mix.c05",  0x200000, 0x80000, CRC(26ab12f9) SHA1(998ff1ba5c7131845cbb84adc5a2b3c72c7dd7d6) ) // 7a
+	ROM_LOAD64_WORD( "sf2mix.c06",  0x200002, 0x80000, CRC(cb7e2920) SHA1(b962e8727d58b5d4024fe4a27d8019b0a845f31e) ) // 9a
+	ROM_LOAD64_WORD( "sf2mix.c07",  0x200004, 0x80000, CRC(150d6df2) SHA1(b436ae43c62db89acc1d51ee2107ba0272bfe855) ) // 8a
+	ROM_LOAD64_WORD( "sf2mix.c08",  0x200006, 0x80000, CRC(74f6aea8) SHA1(479f0951481d91b21c055f24407feca328f02f10) ) // 10a
+	ROM_LOAD64_WORD( "sf2mix.c09",  0x400000, 0x80000, CRC(7c7b5e88) SHA1(fdbf7484db1872140a2e385572171f6d874620ff) ) // 3c
+	ROM_LOAD64_WORD( "sf2mix.c10",  0x400002, 0x80000, CRC(293929c8) SHA1(9bb8b9f0494fd4a85b5cff9e6cae3327a31ab8ee) ) // 5c
+	ROM_LOAD64_WORD( "sf2mix.c11",  0x400004, 0x80000, CRC(c59ba878) SHA1(bb2206dec95686cdbf31f25d498f48d938b98c5f) ) // 4c
+	ROM_LOAD64_WORD( "sf2mix.c12",  0x400006, 0x80000, CRC(eb8bfce9) SHA1(30cf45848692583901556e6145f62f7826e5e7ee) ) // 6c
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "sf2mix.m1",  0x00000, 0x08000, CRC(a379fdc5) SHA1(e9de38c13bd665698528bc102b1b16e9bdcae65b) )
@@ -29074,7 +29074,7 @@ GAME( 1992, sf2koryu01,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2ha
 GAME( 1992, sf2koryu02,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2koryu03,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, sf2koryu04,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.7)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.8)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2mkot01,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)", MACHINE_SUPPORTS_SAVE ) // 920666
 GAME( 2018, sf2red01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Golden Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2red02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Hardest Level)", MACHINE_SUPPORTS_SAVE )
