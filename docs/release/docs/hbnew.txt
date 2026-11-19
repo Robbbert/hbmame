@@ -70,6 +70,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [sfa3up] sfa3-upper-cps2 RC3 (2026-11-18)
+- [sfz3up] sfa3-upper-cps2 RC3 (2026-11-18)
 - [usf2u] usf2-backport RC8 (2026-11-18)
 - [usf2j] usf2-backport RC8 (2026-11-18)
 - [ssf2tuc] ssf2-ex RC15 (2026-11-18)
