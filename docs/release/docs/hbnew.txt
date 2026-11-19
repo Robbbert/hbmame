@@ -66,6 +66,9 @@ New Games
 - [veilriot]            Veil Riot
 - [wboyn]               Wonder Boy (Neo-Geo port, v1.0)
 - [wrallyn]             World Rally (Neo-Geo port)
+- [xmvsfex]             X-Men Vs. Street Fighter EX (USA, 2026-11-18)
+- [xmvsfexj]            X-Men Vs. Street Fighter EX (Japan, 2026-11-18)
+- [xmvsfre]             X-Men Vs. Street Fighter (English Restoration, 2026-11-16)
 
 
 Updated Games
