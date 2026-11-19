@@ -70,6 +70,8 @@ New Games
 
 Updated Games
 ---------------------------------
+- [usf2u] usf2-backport RC8 (2026-11-18)
+- [usf2j] usf2-backport RC8 (2026-11-18)
 - [ssf2tuc] ssf2-ex RC15 (2026-11-18)
 - [ssf2xuc] ssf2-ex RC15 (2026-11-18)
 - [usf2j] usf2-backport RC7 (2026-11-14)
