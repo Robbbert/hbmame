@@ -1093,6 +1093,8 @@ strider01
 strider02
 strider04
 strider05
+striderjs01
+striderus01
 varth01
 varth02
 willow01
@@ -1405,6 +1407,7 @@ xmcota
 xmvsf
 
 @source:cps2mis.cpp
+hsf2re
 1944s01
 1944s02
 1944s03
@@ -1497,6 +1500,7 @@ sfa04
 sfa05
 sfa06
 sfaru
+sfaexu
 sfz01
 sfz02
 sfz03
@@ -1507,6 +1511,8 @@ sfz07
 sfz08
 sfzrj
 sfzra
+sfzexj
+sfzexa
 sfa2s01
 sfa2s02
 sfa2s03
@@ -1618,8 +1624,8 @@ ssf2t10
 ssf2tgmc
 ssf2tuc
 ssf2xuc
-usf2t8
-usf2j8
+usf2u
+usf2j
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1659,7 +1665,13 @@ xmvsf04
 xmvsf05
 xmvsf06
 xmvsf07
+xmvsfex
+xmvsfexj
+xmvsfre
 //cps2xx
+
+sfa3up
+sfz3up
 
 @source:cps2t.cpp
 sfz3mix20
@@ -1819,6 +1831,7 @@ dkong22
 dkong23
 dkong24
 dkong25
+dkong26
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -1987,7 +2000,7 @@ amidar                                 //parent
 amidar01
 amidar02
 amidar03
-galnamco	/* The Original Namco */
+galnamco                               // The Original Namco
 galaxian01
 galaxian02
 galaxian03
@@ -2003,22 +2016,23 @@ galapx03
 galapx04
 galxtest1
 galxtest2
+hoverbov
 mooncrst                               //parent
 mooncrst01
 mooncrst02
 moontest
 pisces                                 //parent
-starfgh2	/* Bootleg of Pisces */
+starfgh2                               // Bootleg of Pisces
 scramble                               //parent
-offender	/* Chris Henry hack of scramble */
-superdog	/* Jerky Hack Hack of scramble */
+offender                               // Chris Henry hack of scramble
+superdog                               // Jerky Hack Hack of scramble
 scratest
 frogger                                //parent
 froggerp
 frogtest
 frogtest2
 kazzy
-trukker		/* Grimlick hack of Frogger */
+trukker                                // Grimlick hack of Frogger
 scobra                                 //parent
 scobtest
 kingball                               //parent
@@ -2071,6 +2085,16 @@ gngmaidencenh
 gngmaidenenh
 gngmaident
 gngmaidentenh
+gngprincess
+gngprincessa
+gngprincessaenh
+gngprincessb
+gngprincessbenh
+gngprincessc
+gngprincesscenh
+gngprincessenh
+gngprincesst
+gngprincesstenh
 gngtenh
 makaimurbenh
 makaimurcenh
@@ -2092,6 +2116,14 @@ makmaidencenh
 makmaidenenh
 makmaideng
 makmaidengenh
+makprincess
+makprincessb
+makprincessbenh
+makprincessc
+makprincesscenh
+makprincessenh
+makprincessg
+makprincessgenh
 
 @source:gottlieb.cpp
 qbert                                  //parent
@@ -4434,6 +4466,7 @@ dderby			/* HB - Widel Games */
 dilith
 eyesb
 ghohunt			// HB - Hurray Banana
+goldrun
 kangaroh		/* HB - Widel Games */
 lazybug
 lazybug1
@@ -4497,6 +4530,8 @@ sargex		/* Gatinho Sarge x-rated */
 @source:megaplay.cpp
 megaplay                               // BIOS, parent
 mp_addams                              // HB
+mp_sonic                               //parent
+mp_sonic01
 
 @source:megasys1.cpp
 soldam
@@ -4617,6 +4652,7 @@ umk3te				/* UMK3 Tournament Edition 2.0.032b8 */
 umk3te2				/* UMK3 Tournament Edition 2.0.035 */
 umk3te42			/* UMK3 Tournament Edition 2.0.042 */
 umk3wn
+umk3jre
 umk3z				/* UMK3 1.2 Zeus hack */
 umk3ze
 umk3r13b101
@@ -6100,6 +6136,7 @@ phelios
 pheliosx
 valkyrie
 valkyrien
+valkyrienmv5
 
 @source:namcos86.cpp
 roishtar
@@ -6113,9 +6150,6 @@ spcloneo	// v0.7.2.2
 @source:neogeo.cpp
 // These are the parents of our hacks
 neogeo
-//nggno                                  // .gno support
-ngneo                                  // .neo support
-ngmvs                                  // multimvs support
 2020bb			// 030
 3countb			// 043
 alpham2			// 007
@@ -6284,6 +6318,7 @@ zupapa			// 070
 neocdz_bios
 cd_alice
 //cd_altbeast      // buggy
+cd_biolab
 cd_chelnov
 cd_diff
 cd_eira
@@ -6301,17 +6336,26 @@ cd_phoenix
 cd_pong
 cd_pow
 cd_pow2
+cd_shangon
 cd_shinobiarr
 cd_sdodgeb
 cd_sf2ce
+cd_sf2coll
 cd_speedball
 cd_ssrpg
 cd_subspecies
 cd_visualnovel
 
+@source:neogeods.cpp   // darksoft multi-mvs
+ngmvs                                  // multimvs support
+
+@source:neogeogn.cpp   // gngeo support
+//nggno                                  // .gno support
+
 @source:neogeohb.cpp
 19yy
 19yy01
+1stdef
 240ptest
 240ptest1
 68kng
@@ -6322,7 +6366,8 @@ adkw                                   // port
 akiradmo
 altbeastn
 amazonn
-arena2
+asteborg
+atetrisn
 badapple
 badapplea
 badappleb
@@ -6341,6 +6386,8 @@ cakefght                               // port
 cakefght1                              // port
 caravan                                // HB
 cbarrel                                // HB
+centuryxi
+cheshire
 cndi		/* Chip n Dale Intro */
 cndia
 cnbe
@@ -6351,10 +6398,12 @@ columnsncd
 cosmogngn
 csw2
 csw2s01
+csw2s02
 cyborg
 cyborg1
 ddsprdmo
 didemo
+dinon
 doomgeo
 doubled1
 dti			// Duck Tales Intro
@@ -6363,15 +6412,15 @@ dwi			/* DarkWing Duck Intro */
 dwia
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
+ffightn
 flapchck
 foodfn
-fr2			// 098 Idol Mahjong - final romance 2
-fr2s01
-fr2s02
-fr2s03
+fr2         // cd conv no music
+fr2s03      // cd conv with music
 freedoom
 galaxiann
 galaxiann2
+galpanicn
 gbi
 gladmort
 gladmortcm
@@ -6387,19 +6436,18 @@ hypernoid
 hypernoid01
 inthuntn
 iocero
+jimpower
 jumpnrund
 jumpnrund01
 jurl
 karnovn
 knacki
 knightsch
+knightsn
+kodn
 lernit
 lhbb
-lhcdb		/* 2007 (c) Last Hope CD beta */
-lhcdba
-//lhopecd                              // broken
 lhpb
-lhpb01
 looptris
 looptrsp
 ltorb
@@ -6407,6 +6455,7 @@ mahjongd
 maiya
 maiyaluna
 midnight
+mysticrin
 ndo_a_td
 neo2048
 neo2500
@@ -6418,9 +6467,6 @@ neogal1d
 neogal1t
 neogal2
 neonopon
-//neonopon_d1 // unplayable demo
-//neonopon_d2 // unplayable demo
-//neonopon_d3 // unplayable demo
 neopang
 neopong
 neoponga
@@ -6447,22 +6493,28 @@ nsmbd                 // unplayable demo
 nyan
 nyana
 outrunn
+paprium
 pcmademo
 pcmbdemo
 perfectf
 poknight              //Jeff M Kurtz
 poknightcd
 poknightfr
+polepos2n
+//prehislen    // stops after a few seconds
 rci
 rickdx
 robocopn
+rtypen
 samantha
 santabll
 sbpf
 sdkdemo
 seafight
+seraph
 sgz
 shadowlf
+shdancern
 shinobin
 shinobin1
 shinobint
@@ -6475,28 +6527,24 @@ sotbn
 spkick
 spkick2
 ssodan
+ssridersn
 syscheck
-teot_1
-teot_2
-teot_3
-teot_4
-teot_5
-teot_6
-teot_7
-teot_8
-teot_9
 teot
 test01		// MVS Test 01 by Furrtek
 timesup
 timesupd	// CeL
 tmnti		/* TMNT intro */
 tmntia
+tmntn
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 vaporous
+veilriot
 violentv
-warriorman
 vssmbn
+warriorm
+wboyn
+wrallyn
 wolf3d
 wrldracr
 wrldracr01
@@ -6510,13 +6558,12 @@ xeviousn04
 xeviousn05
 xmas2017
 yoyoshkn
-zintrick01
-zintrick02
-zintrick03
-zintrick04
-zintrick05
-zintrick06
-zintrick07
+zintrick05     // unlock 4 hidden players
+zintrick07     // full music
+
+@source:neogeosd.cpp
+ngneo                                  // .neo support
+sd_arena2
 
 @source:neogeo1.cpp
 2020bb01
@@ -6537,6 +6584,7 @@ aof3s02
 bangbead01
 bangbead02
 bjourney01
+bjourney02
 blazstar01
 blazstar02
 breakers01
@@ -6575,6 +6623,7 @@ gpilots02
 gpilots03
 ironclad01
 irrmaze01
+irrmaze02
 jockeygp01
 joyjoy01
 joyjoy02
@@ -8745,6 +8794,7 @@ schaser
 //schaserm
 //crashrd
 schasercv                              // extra sounds
+yosaku
 
 @source:scramble.cpp
 mrkougar                               //parent
@@ -9075,6 +9125,7 @@ twc_gr
 @source:tempest.cpp
 tempest                                //parent
 tempall
+tempcax
 temped
 tempm
 temptwst                               // Twisty

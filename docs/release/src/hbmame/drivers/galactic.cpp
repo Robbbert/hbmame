@@ -59,22 +59,24 @@ private:
 	bool m_flip_screen = false;
 	u8 m_port_1_last_extra = 0U;
 	u8 m_port_2_last_extra = 0U;
-	emu_timer   *m_interrupt_timer = nullptr;
-	u8 galactic_02_r();
-	void galactic_03_w(u8 data);
-	void galactic_05_w(u8 data);
-	void galactic_07_w(u8 data);
+	emu_timer *m_interrupt_timer = nullptr;
+	u8 port_02_r();
+	void port_03_w(u8 data);
+	void port_05_w(u8 data);
+	void port_07_w(u8 data);
 	void machine_start() override;
 	void machine_reset() override;
 	u8 vpos_to_vysnc_chain_counter( int vpos );
 	int vysnc_chain_counter_to_vpos( u8 counter, int vblank );
 	u32 screen_update_galactic(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
-	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
-	void mw8080bw_create_interrupt_timer(  );
-	void mw8080bw_start_interrupt_timer(  );
+	bool m_int_enable = 0;
+	void int_enable_w(int);
+	attotime m_interrupt_time;
+	TIMER_CALLBACK_MEMBER(interrupt_trigger);
+	IRQ_CALLBACK_MEMBER(interrupt_vector);
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
-	required_device<cpu_device> m_maincpu;
+	required_device<i8080_cpu_device> m_maincpu;
 	required_shared_ptr<u8> m_p_ram;
 	required_device<discrete_sound_device> m_discrete;
 	required_device<samples_device> m_samples;
@@ -178,12 +180,12 @@ DISCRETE_SOUND_START(galactic_disc)
 
 DISCRETE_SOUND_END
 
-void sm_state::galactic_07_w(u8 data)
+void sm_state::port_07_w(u8 data)
 {
 	m_discrete->write(NODE_01, data | 0xc0);
 }
 
-void sm_state::galactic_03_w(u8 data)
+void sm_state::port_03_w(u8 data)
 {
 	u8 rising_bits = data & ~m_port_1_last_extra;
 
@@ -194,7 +196,7 @@ void sm_state::galactic_03_w(u8 data)
 }
 
 // bits 0-3 make a variable background tone
-void sm_state::galactic_05_w(u8 data)
+void sm_state::port_05_w(u8 data)
 {
 	if (BIT(m_port_1_last_extra, 5))
 		m_discrete->write(NODE_02, data & 0x0f);
@@ -238,19 +240,22 @@ int sm_state::vysnc_chain_counter_to_vpos( u8 counter, int vblank )
 	return vpos;
 }
 
-
-TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
+TIMER_CALLBACK_MEMBER(sm_state::interrupt_trigger)
 {
-	u8 next_counter = 0U;
-	int next_vblank = 0;
+	int const vpos = m_screen->vpos();
+	uint8_t const counter = vpos_to_vysnc_chain_counter(vpos);
 
-	/* compute vector and set the interrupt line */
-	int vpos = m_screen->vpos();
-	u8 counter = vpos_to_vysnc_chain_counter(vpos);
-	u8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
-	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
+	if (m_int_enable)
+	{
+		m_maincpu->set_input_line(0, ASSERT_LINE);
+		m_interrupt_time = machine().time();
+	}
+	else
+		m_maincpu->set_input_line(0, CLEAR_LINE);
 
-	/* set up for next interrupt */
+	// set up for next interrupt
+	uint8_t next_counter;
+	int next_vblank;
 	if (counter == MW8080BW_INT_TRIGGER_COUNT_1)
 	{
 		next_counter = MW8080BW_INT_TRIGGER_COUNT_2;
@@ -262,21 +267,26 @@ TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
 		next_vblank = MW8080BW_INT_TRIGGER_VBLANK_1;
 	}
 
-	int next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
+	int const next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
 	m_interrupt_timer->adjust(m_screen->time_until_pos(next_vpos));
 }
 
-
-void sm_state::mw8080bw_create_interrupt_timer(  )
+void sm_state::int_enable_w(int state)
 {
-	m_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(sm_state::mw8080bw_interrupt_callback),this));
+	m_int_enable = state;
 }
 
-
-void sm_state::mw8080bw_start_interrupt_timer(  )
+IRQ_CALLBACK_MEMBER(sm_state::interrupt_vector)
 {
-	int vpos = vysnc_chain_counter_to_vpos(MW8080BW_INT_TRIGGER_COUNT_1, MW8080BW_INT_TRIGGER_VBLANK_1);
-	m_interrupt_timer->adjust(m_screen->time_until_pos(vpos));
+	int vpos = m_screen->vpos();
+	// MAME scheduling quirks cause this to happen more often than you might think, in fact far too often
+	if (machine().time() < m_interrupt_time)
+		vpos++;
+	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
+	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+
+	m_maincpu->set_input_line(0, CLEAR_LINE);
+	return vector;
 }
 
 /*************************************
@@ -287,7 +297,7 @@ void sm_state::mw8080bw_start_interrupt_timer(  )
 
 void sm_state::machine_start()
 {
-	mw8080bw_create_interrupt_timer();
+	m_interrupt_timer = timer_alloc(FUNC(sm_state::interrupt_trigger), this);
 }
 
 
@@ -299,7 +309,10 @@ void sm_state::machine_start()
 
 void sm_state::machine_reset()
 {
-	mw8080bw_start_interrupt_timer();
+	int vpos = vysnc_chain_counter_to_vpos(MW8080BW_INT_TRIGGER_COUNT_1, MW8080BW_INT_TRIGGER_VBLANK_1);
+	m_interrupt_timer->adjust(m_screen->time_until_pos(vpos));
+
+	m_interrupt_time = attotime::zero;
 }
 
 
@@ -360,7 +373,7 @@ u32 sm_state::screen_update_galactic(screen_device &screen, bitmap_rgb32 &bitmap
 	return 0;
 }
 
-u8 sm_state::galactic_02_r()
+u8 sm_state::port_02_r()
 {
 	u8 data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
@@ -377,12 +390,12 @@ void sm_state::mem_map(address_map &map) {
 void sm_state::io_map(address_map &map) {
 	map(0x00,0x00).portr("IN0");
 	map(0x01,0x01).portr("IN1");
-	map(0x02,0x02).r(FUNC(sm_state::galactic_02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
-	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(sm_state::galactic_03_w));
+	map(0x02,0x02).r(FUNC(sm_state::port_02_r)).w("mb14241",FUNC(mb14241_device::shift_count_w));
+	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(sm_state::port_03_w));
 	map(0x04,0x04).w("mb14241",FUNC(mb14241_device::shift_data_w));
-	map(0x05,0x05).w(FUNC(sm_state::galactic_05_w));
+	map(0x05,0x05).w(FUNC(sm_state::port_05_w));
 	map(0x06,0x06).nopw();  //(watchdog_reset_w)
-	map(0x07,0x07).w(FUNC(sm_state::galactic_07_w));
+	map(0x07,0x07).w(FUNC(sm_state::port_07_w));
 }
 
 static const char *const invaders_sample_names[] =
@@ -401,6 +414,8 @@ void sm_state::galactic(machine_config &config)
 	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
 	m_maincpu->set_addrmap(AS_PROGRAM, &sm_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &sm_state::io_map);
+	m_maincpu->set_irq_acknowledge_callback(FUNC(sm_state::interrupt_vector));
+	m_maincpu->out_inte_func().set(FUNC(sm_state::int_enable_w));
 
 	/* video hardware */
 	SCREEN(config, m_screen);

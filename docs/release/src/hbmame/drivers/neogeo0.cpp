@@ -1024,8 +1024,8 @@ ROM_START( bjourney ) /* MVS AND AES VERSION */
 	NEO_BIOS_AUDIO_128K( "022.m1", CRC(8e1d4ab6) SHA1(deabc11ab81e7e68a3e041c03a127ae28d0d7264) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "022.v11", 0x000000, 0x100000, CRC(2cb4ad91) SHA1(169ec7303c4275155a66a88cc08270c24132bb36) )
-	ROM_LOAD( "022.v22", 0x100000, 0x100000, CRC(65a54d13) SHA1(a591fbcedca8f679dacbebcd554e3aa3fd163e92) )
+	ROM_LOAD( "022.v1", 0x000000, 0x100000, CRC(2cb4ad91) SHA1(169ec7303c4275155a66a88cc08270c24132bb36) )
+	ROM_LOAD( "022.v2", 0x100000, 0x100000, CRC(65a54d13) SHA1(a591fbcedca8f679dacbebcd554e3aa3fd163e92) )
 
 	ROM_REGION( 0x300000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "022.c1", 0x000000, 0x100000, CRC(4d47a48c) SHA1(6e282285be72583d828e7765b1c1695ecdc44777) )
@@ -7962,307 +7962,307 @@ ROM_END
 
 /*    YEAR  NAME        PARENT    MACHINE          INPUT   INIT            MONITOR */
 /* SNK */
-GAME( 1990, nam1975,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "NAM-1975", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, bstars,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Baseball Stars Professional (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, bstarsh,    bstars,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Baseball Stars Professional (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, tpgolf,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Top Player's Golf", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, mahretsu,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Mahjong Kyo Retsuden", MACHINE_SUPPORTS_SAVE ) // does not support mahjong panel in MVS mode
-GAME( 1990, ridhero,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Riding Hero (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ridheroh,   ridhero,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Riding Hero (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, alpham2,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, alpham2p,   alpham2,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, cyberlip,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Cyber-Lip", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, superspy,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Super Spy", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, mutnat,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Mutation Nation", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, kotm,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, kotmh,      kotm,     neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, sengoku,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, sengokuh,   sengoku,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou (US)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, burningf,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Burning Fight", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, burningfh,  burningf, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Burning Fight (US)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, burningfp,  burningf, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Burning Fight (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, lbowling,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "League Bowling", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, gpilots,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Ghost Pilots", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, gpilotsh,   gpilots,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Ghost Pilots (US)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, joyjoy,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Puzzled / Joy Joy Kid", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, quizdais,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, quizdaisk,  quizdais, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, lresort,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Last Resort", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, lresortp,   lresort,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Last Resort (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, eightman,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "Eight Man", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, legendos,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Legend of Success Joe / Ashita no Joe Densetsu", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, 2020bb,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, 2020bba,    2020bb,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, 2020bbh,    2020bb,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, socbrawl,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Soccer Brawl (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, socbrawlh,  socbrawl, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Soccer Brawl (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, fatfury1,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury - King of Fighters / Garou Densetsu - shukumei no tatakai", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, roboarmy,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Robo Army", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, fbfrenzy,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Football Frenzy", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, kotm2,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, kotm2p,     kotm2,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, sengoku2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Sengoku 2 / Sengoku Denshou 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, bstars2,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Baseball Stars 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, quizdai2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Quiz Meitantei Neo & Geo - Quiz Daisousa Sen part 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, 3countb,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, aof,        neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting / Ryuuko no Ken", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, samsho,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, samshoh,    samsho,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, tophuntr,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, tophuntrh,  tophuntr, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, fatfury2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_fatfury2, ROT0, "SNK", "Fatal Fury 2 / Garou Densetsu 2 - arata-naru tatakai", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, ssideki,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_fatfury2, ROT0, "SNK", "Super Sidekicks / Tokuten Ou", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'94", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aof2,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aof2a,      aof2,     neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfursp,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, fatfurspa,  fatfursp, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, savagere,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Savage Reign / Fu'un Mokushiroku - kakutou sousei", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, ssideki2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Super Sidekicks 2 - The World Championship / Tokuten Ou 2 - real fight football", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown II / Shin Samurai Spirits - Haohmaru jigokuhen", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, samsho2k,   samsho2,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II)", MACHINE_SUPPORTS_SAVE ) // official or hack?
-GAME( 1995, fatfury3,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - haruka-naru tatakai", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, ssideki3,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - eikou e no michi", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'95 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95a,     kof95,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'95 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95h,     kof95,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'95 (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, samsho3,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, samsho3h,   samsho3,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fswords,    samsho3,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fighters Swords (Korean release of Samurai Shodown III)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, rbff1,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, rbff1a,     rbff1,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu (bug fix revision)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, aof3,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, aof3k,      aof3,     neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior (Korean release)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
-GAME( 1996, kof96,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'96 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96h,     kof96,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'96 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ssideki4,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Ultimate 11 - The SNK Football Championship / Tokuten Ou - Honoo no Libero", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kizuna,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle / Fu'un Super Tag Battle", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, nam1975,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "NAM-1975", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, bstars,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Baseball Stars Professional (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, bstarsh,    bstars,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Baseball Stars Professional (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, tpgolf,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Top Player's Golf", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, mahretsu,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Mahjong Kyo Retsuden", MACHINE_SUPPORTS_SAVE ) // does not support mahjong panel in MVS mode
+GAME( 1990, ridhero,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Riding Hero (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ridheroh,   ridhero,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Riding Hero (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, alpham2,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, alpham2p,   alpham2,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Alpha Mission II / ASO II - Last Guardian (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, cyberlip,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Cyber-Lip", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, superspy,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Super Spy", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mutnat,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Mutation Nation", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, kotm,       neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, kotmh,      kotm,     neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, sengoku,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, sengokuh,   sengoku,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Sengoku / Sengoku Denshou (US)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, burningf,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Burning Fight", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, burningfh,  burningf, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Burning Fight (US)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, burningfp,  burningf, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Burning Fight (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, lbowling,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "League Bowling", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, gpilots,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Ghost Pilots", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, gpilotsh,   gpilots,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Ghost Pilots (US)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, joyjoy,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Puzzled / Joy Joy Kid", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, quizdais,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, quizdaisk,  quizdais, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Quiz Daisousa Sen - The Last Count Down (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, lresort,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Last Resort", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, lresortp,   lresort,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Last Resort (prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, eightman,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "Eight Man", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, legendos,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Legend of Success Joe / Ashita no Joe Densetsu", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, 2020bb,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, 2020bba,    2020bb,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, 2020bbh,    2020bb,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, socbrawl,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Soccer Brawl (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, socbrawlh,  socbrawl, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Soccer Brawl (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, fatfury1,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury - King of Fighters / Garou Densetsu - shukumei no tatakai", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, roboarmy,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Robo Army", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, fbfrenzy,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Football Frenzy", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, kotm2,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, kotm2p,     kotm2,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "King of the Monsters 2 - The Next Thing (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, sengoku2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Sengoku 2 / Sengoku Denshou 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, bstars2,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Baseball Stars 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, quizdai2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Quiz Meitantei Neo & Geo - Quiz Daisousa Sen part 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, 3countb,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, aof,        neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting / Ryuuko no Ken", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, samsho,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, samshoh,    samsho,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown / Samurai Spirits (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, tophuntr,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, tophuntrh,  tophuntr, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Top Hunter - Roddy & Cathy (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, fatfury2,   neogeo,   neogeo,          neogeo, neogeo_state, init_fatfury2, ROT0, "SNK", "Fatal Fury 2 / Garou Densetsu 2 - arata-naru tatakai", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, ssideki,    neogeo,   neogeo,          neogeo, neogeo_state, init_fatfury2, ROT0, "SNK", "Super Sidekicks / Tokuten Ou", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'94", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2,       neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aof2a,      aof2,     neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 2 / Ryuuko no Ken 2 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, fatfursp,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, fatfurspa,  fatfursp, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury Special / Garou Densetsu Special (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, savagere,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Savage Reign / Fu'un Mokushiroku - kakutou sousei", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, ssideki2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Super Sidekicks 2 - The World Championship / Tokuten Ou 2 - real fight football", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, samsho2,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown II / Shin Samurai Spirits - Haohmaru jigokuhen", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, samsho2k,   samsho2,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II)", MACHINE_SUPPORTS_SAVE ) // official or hack?
+GAME( 1995, fatfury3,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - haruka-naru tatakai", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, ssideki3,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - eikou e no michi", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'95 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95a,     kof95,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'95 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95h,     kof95,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'95 (set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, samsho3,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, samsho3h,   samsho3,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, fswords,    samsho3,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Fighters Swords (Korean release of Samurai Shodown III)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, rbff1,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, rbff1a,     rbff1,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury / Real Bout Garou Densetsu (bug fix revision)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, aof3,       neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, aof3k,      aof3,     neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior (Korean release)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
+GAME( 1996, kof96,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'96 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96h,     kof96,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'96 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, ssideki4,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Ultimate 11 - The SNK Football Championship / Tokuten Ou - Honoo no Libero", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kizuna,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle / Fu'un Super Tag Battle", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kizuna4p,   kizuna,   neogeo_kiz4p,    kizuna4p, neogeo_state, init_neogeo,   ROT0, "SNK", "Kizuna Encounter - Super Tag Battle 4 Way Battle Version / Fu'un Super Tag Battle Special Version", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown IV - Amakusa's Revenge / Samurai Spirits - Amakusa Kourin", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, samsho4k,   samsho4,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Pae Wang Jeon Seol / Legend of a Warrior (Korean censored Samurai Shodown IV)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffspec,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, rbffspeck,  rbffspec, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'97 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97h,     kof97,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'97 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97k,     kof97,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'97 (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97pls,   kof97,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Kof'97 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97oro,   kof97,    neogeo_noslot,   neogeo, neogeo_state, init_kof97oro, ROT0, "bootleg", "Kof'97 Oroshi Plus 2003 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Samurai Shodown IV - Amakusa's Revenge / Samurai Spirits - Amakusa Kourin", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, samsho4k,   samsho4,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Pae Wang Jeon Seol / Legend of a Warrior (Korean censored Samurai Shodown IV)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, rbffspec,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, rbffspeck,  rbffspec, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'97 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97h,     kof97,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'97 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97k,     kof97,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'97 (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97pls,   kof97,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Kof'97 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97oro,   kof97,    neogeo,          neogeo, neogeo_state, init_kof97oro, ROT0, "bootleg", "Kof'97 Oroshi Plus 2003 (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kog,        kof97,    neogeo_kog,      neogeo, neogeo_state, init_kog,      ROT0, "bootleg", "King of Gladiator", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastblad,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastbladh,  lastblad, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, lastsold,   lastblad, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Soldier (Korean release of The Last Blade)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, lastblad,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, lastbladh,  lastblad, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Blade / Bakumatsu Roman - Gekka no Kenshi (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, lastsold,   lastblad, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Soldier (Korean release of The Last Blade)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, irrmaze,    neogeo,   neogeo_imaze,    irrmaze,neogeo_state, init_neogeo,   ROT0, "SNK / Saurus", "The Irritating Maze / Ultra Denryu Iraira Bou", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2h,     rbff2,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, rbff2k,     rbff2,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers (Korean)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
-GAME( 1998, mslug2,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Metal Slug 2 - Super Vehicle-001/II", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98a,     kof98,    neogeo_noslot,   neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98k,     kof98,    neogeo_noslot,   neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (Korean set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98ka,    kof98,    neogeo_noslot,   neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (Korean set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, kof98h,     kof98,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'98 (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, lastbld2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, neocup98,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Neo-Geo Cup '98 - The Road to the Victory", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, mslugx,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_mslugx,   ROT0, "SNK", "Metal Slug X - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, kof99,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, kof99h,     kof99,    neogeo_noslot,   neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX, crashes going into attract demo */
-GAME( 1999, kof99e,     kof99,    neogeo_noslot,   neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (earlier)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, kof99k,     kof99,    neogeo_noslot,   neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (Korean)", MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
-GAME( 1999, kof99p,     kof99,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'99 (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garou,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_garou,    ROT0, "SNK", "Garou - Mark of the Wolves (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, garouh,     garou,    neogeo_noslot,   neogeo, neogeo_state, init_garouh,   ROT0, "SNK", "Garou - Mark of the Wolves (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 1999, garoup,     garou,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Garou - Mark of the Wolves (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, garoubl,    garou,    neogeo_noslot,   neogeo, neogeo_state, init_garoubl,  ROT0, "bootleg", "Garou - Mark of the Wolves (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Bootleg of garoup */
-GAME( 2000, mslug3,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3,   ROT0, "SNK", "Metal Slug 3 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 2000, mslug3h,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3h,  ROT0, "SNK", "Metal Slug 3 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2000, mslug6,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_mslug6,   ROT0, "bootleg", "Metal Slug 6 (Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE ) /* real Metal Slug 6 is an Atomiswave HW game, see naomi.c ;-) */
-GAME( 2000, kof2000,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof2000,  ROT0, "SNK", "Kof 2000 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
-GAME( 2000, kof2000n,   kof2000,  neogeo_noslot,   neogeo, neogeo_state, init_kof2000,  ROT0, "SNK", "Kof 2000 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, zupapa,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_zupapa,   ROT0, "SNK", "Zupapa!", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, sengoku3,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_sengoku3, ROT0, "Noise Factory / SNK", "Sengoku 3 / Sengoku Densho 2001", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, kof2001,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof2001,  ROT0, "Eolith / SNK", "Kof 2001 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, kof2001h,   kof2001,  neogeo_noslot,   neogeo, neogeo_state, init_kof2001,  ROT0, "Eolith / SNK", "Kof 2001 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2003, cthd2003,   kof2001,  neogeo_noslot,   neogeo, neogeo_state, init_cthd2003, ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
-GAME( 2003, ct2k3sp,    kof2001,  neogeo_noslot,   neogeo, neogeo_state, init_ct2k3sp,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus (set 1)", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
-GAME( 2003, ct2k3sa,    kof2001,  neogeo_noslot,   neogeo, neogeo_state, init_ct2k3sa,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus (set 2)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2001 */
-GAME( 2002, kof2002,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof2002,  ROT0, "Eolith / Playmore", "Kof 2002", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kof2002b,   kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kof2002b, ROT0, "bootleg", "Kof 2002 (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kf2k2pls,   kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kof2002,  ROT0, "bootleg", "Kof 2002 Plus (bootleg set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kf2k2pla,   kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kof2002,  ROT0, "bootleg", "Kof 2002 Plus (bootleg set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kf2k2mp,    kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kf2k2mp,  ROT0, "bootleg", "Kof 2002 Magic Plus (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kf2k2mp2,   kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kf2k2mp2, ROT0, "bootleg", "Kof 2002 Magic Plus II (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2002, kof10th,    kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kof10th,  ROT0, "bootleg", "Kof 10th Anniversary", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-GAME( 2005, kf10thep,   kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kf10thep, ROT0, "bootleg", "Kof 10th Anniversary Extra Plus", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-GAME( 2004, kf2k5uni,   kof2002,  neogeo_noslot,   neogeo, neogeo_state, init_kf2k5uni, ROT0, "bootleg", "Kof 10th Anniversary 2005 Unique", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
-GAME( 2004, kof2k4se,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof2k4se, ROT0, "bootleg", "Kof Special Edition 2004", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2002 */
-GAME( 2003, mslug5,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5h,    mslug5,   neogeo_noslot,   neogeo, neogeo_state, init_mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Also found in later MVS carts */
-GAME( 2003, ms5pcb,     0,        neogeo_noslot,   dualbios, neogeo_state, init_ms5pcb, ROT0, "SNK Playmore", "Metal Slug 5 (JAMMA PCB)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5plus,    mslug5,   neogeo_noslot,   neogeo, neogeo_state, init_ms5plus,  ROT0, "bootleg", "Metal Slug 5 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcpcb,     0,        neogeo_noslot,   dualbios, neogeo_state, init_svcpcb, ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 1)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
-GAME( 2003, svcpcba,    svcpcb,   neogeo_noslot,   dualbios, neogeo_state, init_svcpcb, ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code */
-GAME( 2003, svc,        neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_svc,      ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcboot,    svc,      neogeo_noslot,   neogeo, neogeo_state, init_svcboot,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplus,    svc,      neogeo_noslot,   neogeo, neogeo_state, init_svcplus,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcplusa,   svc,      neogeo_noslot,   neogeo, neogeo_state, init_svcplusa, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, svcsplus,   svc,      neogeo_noslot,   neogeo, neogeo_state, init_svcsplus, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Super Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5h,   samsho5,  neogeo_noslot,   neogeo, neogeo_state, init_samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, samsho5b,   samsho5,  neogeo_noslot,   neogeo, neogeo_state, init_samsho5b, ROT0, "bootleg", "Samurai Shodown V / Samurai Spirits Zero (bootleg)", MACHINE_SUPPORTS_SAVE ) // different program scrambling
-GAME( 2003, kf2k3pcb,   0,        neogeo_noslot,   neogeo, neogeo_state, init_kf2k3pcb, ROT0, "SNK Playmore", "Kof 2003 (Japan, JAMMA PCB)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
-GAME( 2003, kof2003,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_kof2003,  ROT0, "SNK Playmore", "Kof 2003 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kof2003h,   kof2003,  neogeo_noslot,   neogeo, neogeo_state, init_kof2003h, ROT0, "SNK Playmore", "Kof 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kf2k3bl,    kof2003,  neogeo_noslot,   neogeo, neogeo_state, init_kof2003b, ROT0, "bootleg", "Kof 2003 (bootleg set 1)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart (unless it was a bootleg pcb with the new bios?)
-GAME( 2003, kf2k3bla,   kof2003,  neogeo_noslot,   neogeo, neogeo_state, init_kf2k3pl,  ROT0, "bootleg", "Kof 2003 (bootleg set 2)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
-GAME( 2003, kf2k3pl,    kof2003,  neogeo_noslot,   neogeo, neogeo_state, init_kf2k3pl,  ROT0, "bootleg", "Kof 2004 Plus / Hero", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
-GAME( 2003, kf2k3upl,   kof2003,  neogeo_noslot,   neogeo, neogeo_state, init_kf2k3upl, ROT0, "bootleg", "Kof 2004 Ultra Plus", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
-GAME( 2004, samsh5sp,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sph,  samsh5sp, neogeo_noslot,   neogeo, neogeo_state, init_samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (set 2, less censored)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spho, samsh5sp, neogeo_noslot,   neogeo, neogeo_state, init_samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (set 3, censored)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, rbff2,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, rbff2h,     rbff2,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, rbff2k,     rbff2,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Real Bout Fatal Fury 2 - The Newcomers (Korean)", MACHINE_SUPPORTS_SAVE ) // no Japanese title / mode
+GAME( 1998, mslug2,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Metal Slug 2 - Super Vehicle-001/II", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98,      neogeo,   neogeo,          neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98a,     kof98,    neogeo,          neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98k,     kof98,    neogeo,          neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (Korean set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98ka,    kof98,    neogeo,          neogeo, neogeo_state, init_kof98,    ROT0, "SNK", "Kof'98 (Korean set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98h,     kof98,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'98 (set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, lastbld2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, neocup98,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Neo-Geo Cup '98 - The Road to the Victory", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mslugx,     neogeo,   neogeo,          neogeo, neogeo_state, init_mslugx,   ROT0, "SNK", "Metal Slug X - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99,      neogeo,   neogeo,          neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+GAME( 1999, kof99h,     kof99,    neogeo,          neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX, crashes going into attract demo */
+GAME( 1999, kof99e,     kof99,    neogeo,          neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (earlier)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+GAME( 1999, kof99k,     kof99,    neogeo,          neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (Korean)", MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
+GAME( 1999, kof99p,     kof99,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Kof'99 (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garou,      neogeo,   neogeo,          neogeo, neogeo_state, init_garou,    ROT0, "SNK", "Garou - Mark of the Wolves (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+GAME( 1999, garouh,     garou,    neogeo,          neogeo, neogeo_state, init_garouh,   ROT0, "SNK", "Garou - Mark of the Wolves (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+GAME( 1999, garoup,     garou,    neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Garou - Mark of the Wolves (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoubl,    garou,    neogeo,          neogeo, neogeo_state, init_garoubl,  ROT0, "bootleg", "Garou - Mark of the Wolves (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Bootleg of garoup */
+GAME( 2000, mslug3,     neogeo,   neogeo,          neogeo, neogeo_state, init_mslug3,   ROT0, "SNK", "Metal Slug 3 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+GAME( 2000, mslug3h,    mslug3,   neogeo,          neogeo, neogeo_state, init_mslug3h,  ROT0, "SNK", "Metal Slug 3 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2000, mslug6,     neogeo,   neogeo,          neogeo, neogeo_state, init_mslug6,   ROT0, "bootleg", "Metal Slug 6 (Metal Slug 3 bootleg)", MACHINE_SUPPORTS_SAVE ) /* real Metal Slug 6 is an Atomiswave HW game, see naomi.c ;-) */
+GAME( 2000, kof2000,    neogeo,   neogeo,          neogeo, neogeo_state, init_kof2000,  ROT0, "SNK", "Kof 2000 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code & GFX */
+GAME( 2000, kof2000n,   kof2000,  neogeo,          neogeo, neogeo_state, init_kof2000,  ROT0, "SNK", "Kof 2000 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2001, zupapa,     neogeo,   neogeo,          neogeo, neogeo_state, init_zupapa,   ROT0, "SNK", "Zupapa!", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2001, sengoku3,   neogeo,   neogeo,          neogeo, neogeo_state, init_sengoku3, ROT0, "Noise Factory / SNK", "Sengoku 3 / Sengoku Densho 2001", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2001, kof2001,    neogeo,   neogeo,          neogeo, neogeo_state, init_kof2001,  ROT0, "Eolith / SNK", "Kof 2001 (set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2001, kof2001h,   kof2001,  neogeo,          neogeo, neogeo_state, init_kof2001,  ROT0, "Eolith / SNK", "Kof 2001 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2003, cthd2003,   kof2001,  neogeo,          neogeo, neogeo_state, init_cthd2003, ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
+GAME( 2003, ct2k3sp,    kof2001,  neogeo,          neogeo, neogeo_state, init_ct2k3sp,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus (set 1)", MACHINE_SUPPORTS_SAVE ) /* Protected Hack / Bootleg of kof2001 */
+GAME( 2003, ct2k3sa,    kof2001,  neogeo,          neogeo, neogeo_state, init_ct2k3sa,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 Super Plus (set 2)", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2001 */
+GAME( 2002, kof2002,    neogeo,   neogeo,          neogeo, neogeo_state, init_kof2002,  ROT0, "Eolith / Playmore", "Kof 2002", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2002, kof2002b,   kof2002,  neogeo,          neogeo, neogeo_state, init_kof2002b, ROT0, "bootleg", "Kof 2002 (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kf2k2pls,   kof2002,  neogeo,          neogeo, neogeo_state, init_kof2002,  ROT0, "bootleg", "Kof 2002 Plus (bootleg set 1)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2002, kf2k2pla,   kof2002,  neogeo,          neogeo, neogeo_state, init_kof2002,  ROT0, "bootleg", "Kof 2002 Plus (bootleg set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2002, kf2k2mp,    kof2002,  neogeo,          neogeo, neogeo_state, init_kf2k2mp,  ROT0, "bootleg", "Kof 2002 Magic Plus (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2002, kf2k2mp2,   kof2002,  neogeo,          neogeo, neogeo_state, init_kf2k2mp2, ROT0, "bootleg", "Kof 2002 Magic Plus II (bootleg)", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2002, kof10th,    kof2002,  neogeo,          neogeo, neogeo_state, init_kof10th,  ROT0, "bootleg", "Kof 10th Anniversary", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
+GAME( 2005, kf10thep,   kof2002,  neogeo,          neogeo, neogeo_state, init_kf10thep, ROT0, "bootleg", "Kof 10th Anniversary Extra Plus", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
+GAME( 2004, kf2k5uni,   kof2002,  neogeo,          neogeo, neogeo_state, init_kf2k5uni, ROT0, "bootleg", "Kof 10th Anniversary 2005 Unique", MACHINE_SUPPORTS_SAVE ) // fake SNK copyright
+GAME( 2004, kof2k4se,   neogeo,   neogeo,          neogeo, neogeo_state, init_kof2k4se, ROT0, "bootleg", "Kof Special Edition 2004", MACHINE_SUPPORTS_SAVE ) /* Hack / Bootleg of kof2002 */
+GAME( 2003, mslug5,     neogeo,   neogeo,          neogeo, neogeo_state, init_mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5h,    mslug5,   neogeo,          neogeo, neogeo_state, init_mslug5,   ROT0, "SNK Playmore", "Metal Slug 5 (set 2)", MACHINE_SUPPORTS_SAVE ) /* Also found in later MVS carts */
+GAME( 2003, ms5pcb,     0,        neogeo,          dualbios, neogeo_state, init_ms5pcb, ROT0, "SNK Playmore", "Metal Slug 5 (JAMMA PCB)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5plus,    mslug5,   neogeo,          neogeo, neogeo_state, init_ms5plus,  ROT0, "bootleg", "Metal Slug 5 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcpcb,     0,        neogeo,          dualbios, neogeo_state, init_svcpcb, ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 1)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
+GAME( 2003, svcpcba,    svcpcb,   neogeo,          dualbios, neogeo_state, init_svcpcb, ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos (JAMMA PCB, set 2)", MACHINE_SUPPORTS_SAVE ) /* Encrypted Code */
+GAME( 2003, svc,        neogeo,   neogeo,          neogeo, neogeo_state, init_svc,      ROT0, "SNK Playmore", "SNK vs. Capcom - SVC Chaos", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcboot,    svc,      neogeo,          neogeo, neogeo_state, init_svcboot,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcplus,    svc,      neogeo,          neogeo, neogeo_state, init_svcplus,  ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcplusa,   svc,      neogeo,          neogeo, neogeo_state, init_svcplusa, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Plus (bootleg set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, svcsplus,   svc,      neogeo,          neogeo, neogeo_state, init_svcsplus, ROT0, "bootleg", "SNK vs. Capcom - SVC Chaos Super Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5,    neogeo,   neogeo,          neogeo, neogeo_state, init_samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5h,   samsho5,  neogeo,          neogeo, neogeo_state, init_samsho5,  ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V / Samurai Spirits Zero (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, samsho5b,   samsho5,  neogeo,          neogeo, neogeo_state, init_samsho5b, ROT0, "bootleg", "Samurai Shodown V / Samurai Spirits Zero (bootleg)", MACHINE_SUPPORTS_SAVE ) // different program scrambling
+GAME( 2003, kf2k3pcb,   0,        neogeo,          neogeo, neogeo_state, init_kf2k3pcb, ROT0, "SNK Playmore", "Kof 2003 (Japan, JAMMA PCB)", MACHINE_SUPPORTS_SAVE ) // not a clone of neogeo because it's NOT a neogeo cart.
+GAME( 2003, kof2003,    neogeo,   neogeo,          neogeo, neogeo_state, init_kof2003,  ROT0, "SNK Playmore", "Kof 2003 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2003h,   kof2003,  neogeo,          neogeo, neogeo_state, init_kof2003h, ROT0, "SNK Playmore", "Kof 2003 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kf2k3bl,    kof2003,  neogeo,          neogeo, neogeo_state, init_kof2003b, ROT0, "bootleg", "Kof 2003 (bootleg set 1)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart (unless it was a bootleg pcb with the new bios?)
+GAME( 2003, kf2k3bla,   kof2003,  neogeo,          neogeo, neogeo_state, init_kf2k3pl,  ROT0, "bootleg", "Kof 2003 (bootleg set 2)", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
+GAME( 2003, kf2k3pl,    kof2003,  neogeo,          neogeo, neogeo_state, init_kf2k3pl,  ROT0, "bootleg", "Kof 2004 Plus / Hero", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
+GAME( 2003, kf2k3upl,   kof2003,  neogeo,          neogeo, neogeo_state, init_kf2k3upl, ROT0, "bootleg", "Kof 2004 Ultra Plus", MACHINE_SUPPORTS_SAVE ) // zooming is wrong because its a bootleg of the pcb version on a cart
+GAME( 2004, samsh5sp,   neogeo,   neogeo,          neogeo, neogeo_state, init_samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sph,  samsh5sp, neogeo,          neogeo, neogeo_state, init_samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (set 2, less censored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spho, samsh5sp, neogeo,          neogeo, neogeo_state, init_samsh5sp, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special / Samurai Spirits Zero Special (set 3, censored)", MACHINE_SUPPORTS_SAVE )
 
 /* Alpha Denshi Co. / ADK (changed name in 1993) */
-GAME( 1990, maglord,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, maglordh,   maglord,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ncombat,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ncombath,   ncombat,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, bjourney,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Blue's Journey / Raguy", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, crsword,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Crossed Swords", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, trally,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Thrash Rally", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, ncommand,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Commando", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wh1,        neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wh1h,       wh1,      neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wh1ha,      wh1,      neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, wh2,        neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK",              "World Heroes 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wh2j,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "World Heroes 2 Jet", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, aodk,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Aggressors of Dark Kombat / Tsuukai GANGAN Koushinkyoku", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, whp,        neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "World Heroes Perfect", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, mosyougi,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Syougi No Tatsujin - Master of Syougi", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, overtop,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK",              "Over Top", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ninjamas,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Ninja Master's - haoh-ninpo-cho", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, twinspri,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Twinkle Star Sprites", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, zintrckb,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg",          "Zintrick / Oshidashi Zentrix (bootleg of CD version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, maglord,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, maglordh,   maglord,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Magician Lord (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ncombat,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ncombath,   ncombat,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Combat (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, bjourney,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Blue's Journey / Raguy", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, crsword,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Crossed Swords", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, trally,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Thrash Rally", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, ncommand,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Ninja Commando", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wh1,        neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wh1h,       wh1,      neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, wh1ha,      wh1,      neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, wh2,        neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK",              "World Heroes 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wh2j,       neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "World Heroes 2 Jet", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, aodk,       neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Aggressors of Dark Kombat / Tsuukai GANGAN Koushinkyoku", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, whp,        neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "World Heroes Perfect", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mosyougi,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Syougi No Tatsujin - Master of Syougi", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, overtop,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK",              "Over Top", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, ninjamas,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Ninja Master's - haoh-ninpo-cho", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, twinspri,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK",        "Twinkle Star Sprites", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, zintrckb,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg",          "Zintrick / Oshidashi Zentrix (bootleg of CD version)", MACHINE_SUPPORTS_SAVE )
 
 /* Aicom (was a part of Sammy) / Yumekobo (changed name in 1996) */
-GAME( 1992, viewpoin,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Sammy / Aicom", "Viewpoint", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, viewpoin,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Sammy / Aicom", "Viewpoint", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, janshin,    neogeo,   neogeo_mj,       mjneogeo, neogeo_state, init_neogeo,   ROT0, "Aicom", "Jyanshin Densetsu - Quest of Jongmaster", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, pulstar,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Aicom", "Pulstar", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, blazstar,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Yumekobo", "Blazing Star", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, preisle2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_preisle2, ROT0, "Yumekobo", "Prehistoric Isle 2", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 1995, pulstar,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Aicom", "Pulstar", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, blazstar,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Yumekobo", "Blazing Star", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, preisle2,   neogeo,   neogeo,          neogeo, neogeo_state, init_preisle2, ROT0, "Yumekobo", "Prehistoric Isle 2", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
 
 /* Data East Corporation */
-GAME( 1993, spinmast,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Spin Master / Miracle Adventure", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wjammers,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Windjammers / Flying Power Disc", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, karnovr,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, strhoop,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Street Hoop / Street Slam / Dunk Dream", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ghostlop,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Ghostlop (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, magdrop2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Magical Drop II", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, magdrop3,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Magical Drop III", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, spinmast,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Spin Master / Miracle Adventure", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wjammers,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Windjammers / Flying Power Disc", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, karnovr,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, strhoop,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Street Hoop / Street Slam / Dunk Dream", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, ghostlop,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Ghostlop (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, magdrop2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Magical Drop II", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, magdrop3,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Magical Drop III", MACHINE_SUPPORTS_SAVE )
 
 /* Eleven */
-GAME( 2000, nitd,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_nitd,     ROT0, "Eleven / Gavaking", "Nightmare in the Dark", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2001, nitdbl,     nitd,     neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Nightmare in the Dark (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, nitd,       neogeo,   neogeo,          neogeo, neogeo_state, init_nitd,     ROT0, "Eleven / Gavaking", "Nightmare in the Dark", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2001, nitdbl,     nitd,     neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Nightmare in the Dark (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /* Face */
-GAME( 1994, gururin,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Face", "Gururin", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, miexchng,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Face", "Money Puzzle Exchanger / Money Idol Exchanger", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, dragonsh,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Face", "Dragon's Heaven (development board)", MACHINE_IS_INCOMPLETE | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // same ID code as Voltage Fighter Gowkaizer, developed by ex-Technos staff
+GAME( 1994, gururin,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Face", "Gururin", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, miexchng,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Face", "Money Puzzle Exchanger / Money Idol Exchanger", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, dragonsh,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Face", "Dragon's Heaven (development board)", MACHINE_IS_INCOMPLETE | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // same ID code as Voltage Fighter Gowkaizer, developed by ex-Technos staff
 
 /* Hudson Soft */
-GAME( 1994, panicbom,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Eighting / Hudson", "Panic Bomber", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kabukikl,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Hudson", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, neobombe,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Hudson", "Neo Bomberman", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, panicbom,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Eighting / Hudson", "Panic Bomber", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kabukikl,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Hudson", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, neobombe,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Hudson", "Neo Bomberman", MACHINE_SUPPORTS_SAVE )
 
 /* Monolith Corp. */
 GAME( 1990, minasan,    neogeo,   neogeo_mj,       mjneogeo, neogeo_state, init_neogeo,   ROT0, "Monolith Corp.", "Minasanno Okagesamadesu! Daisugorokutaikai (MOM-001)(MOH-001)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, bakatono,   neogeo,   neogeo_mj,       mjneogeo, neogeo_state, init_neogeo,   ROT0, "Monolith Corp.", "Bakatonosama Mahjong Manyuuki (MOM-002)(MOH-002)", MACHINE_SUPPORTS_SAVE )
 
 /* Nazca (later acquired by SNK) */
-GAME( 1996, turfmast,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Nazca", "Neo Turf Masters / Big Tournament Golf", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, mslug,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Nazca", "Metal Slug - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, turfmast,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Nazca", "Neo Turf Masters / Big Tournament Golf", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslug,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Nazca", "Metal Slug - Super Vehicle-001", MACHINE_SUPPORTS_SAVE )
 
 /* NMK */
-GAME( 1994, zedblade,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "NMK", "Zed Blade / Operation Ragnarok", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, zedblade,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "NMK", "Zed Blade / Operation Ragnarok", MACHINE_SUPPORTS_SAVE )
 
 /* Psikyo */
-GAME( 1999, s1945p,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_s1945p,   ROT0, "Psikyo", "Strikers 1945 Plus", MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
+GAME( 1999, s1945p,     neogeo,   neogeo,          neogeo, neogeo_state, init_s1945p,   ROT0, "Psikyo", "Strikers 1945 Plus", MACHINE_SUPPORTS_SAVE )   /* Encrypted GFX */
 
 /* Saurus */
-GAME( 1995, quizkof,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Quiz King of Fighters", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, quizkofk,   quizkof,  neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Quiz King of Fighters (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, stakwin,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Stakes Winner / Stakes Winner - GI kinzen seiha e no michi", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ragnagrd,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Ragnagard / Shin-Oh-Ken", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, pgoal,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Pleasure Goal / Futsal - 5 on 5 Mini Soccer (NGM-219)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ironclad,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Choutetsu Brikin'ger - Iron clad (proto)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, ironclado,  ironclad, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Choutetsu Brikin'ger - Iron clad (proto, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, stakwin2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Stakes Winner 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, shocktro,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Shock Troopers (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, shocktroa,  shocktro, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Shock Troopers (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, shocktr2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Shock Troopers - 2nd Squad", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, lans2004,   shocktr2, neogeo_noslot,   neogeo, neogeo_state, init_lans2004, ROT0, "bootleg", "Lansquenet 2004 (Shock Troopers - 2nd Squad bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, quizkof,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Quiz King of Fighters", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, quizkofk,   quizkof,  neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Quiz King of Fighters (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, stakwin,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Stakes Winner / Stakes Winner - GI kinzen seiha e no michi", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, ragnagrd,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Ragnagard / Shin-Oh-Ken", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, pgoal,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Pleasure Goal / Futsal - 5 on 5 Mini Soccer (NGM-219)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, ironclad,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Choutetsu Brikin'ger - Iron clad (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, ironclado,  ironclad, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Choutetsu Brikin'ger - Iron clad (proto, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, stakwin2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Stakes Winner 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, shocktro,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Shock Troopers (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, shocktroa,  shocktro, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Shock Troopers (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, shocktr2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Shock Troopers - 2nd Squad", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, lans2004,   shocktr2, neogeo,          neogeo, neogeo_state, init_lans2004, ROT0, "bootleg", "Lansquenet 2004 (Shock Troopers - 2nd Squad bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /* Sunsoft */
-GAME( 1995, galaxyfg,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Sunsoft", "Galaxy Fight - Universal Warriors", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, wakuwak7,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Sunsoft", "Waku Waku 7", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, galaxyfg,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Sunsoft", "Galaxy Fight - Universal Warriors", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, wakuwak7,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Sunsoft", "Waku Waku 7", MACHINE_SUPPORTS_SAVE )
 
 /* Taito */
-GAME( 1994, pbobblen,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Taito", "Puzzle Bobble / Bust-A-Move (NG)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, pbobblenb,  pbobblen, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (NG, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, pbobbl2n,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (SNK license)", "Puzzle Bobble 2 / Bust-A-Move Again (NG)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, pnyaa,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_pnyaa,    ROT0, "Aiky / Taito", "Pochi and Nyaa", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pbobblen,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Taito", "Puzzle Bobble / Bust-A-Move (NG)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pbobblenb,  pbobblen, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Puzzle Bobble / Bust-A-Move (NG, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, pbobbl2n,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (SNK license)", "Puzzle Bobble 2 / Bust-A-Move Again (NG)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, pnyaa,      neogeo,   neogeo,          neogeo, neogeo_state, init_pnyaa,    ROT0, "Aiky / Taito", "Pochi and Nyaa", MACHINE_SUPPORTS_SAVE )
 
 /* Takara */
-GAME( 1995, marukodq,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Takara", "Chibi Marukochan Deluxe Quiz", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, marukodq,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Takara", "Chibi Marukochan Deluxe Quiz", MACHINE_SUPPORTS_SAVE )
 
 /* Technos Japan */
-GAME( 1995, doubledr,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Technos Japan", "Double Dragon (NG)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, gowcaizr,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Technos Japan", "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, sdodgeb,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Technos Japan", "Super Dodge Ball / Kunio no Nekketsu Toukyuu Densetsu", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, doubledr,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Technos Japan", "Double Dragon (NG)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, gowcaizr,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Technos Japan", "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, sdodgeb,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Technos Japan", "Super Dodge Ball / Kunio no Nekketsu Toukyuu Densetsu", MACHINE_SUPPORTS_SAVE )
 
 /* Tecmo */
-GAME( 1996, tws96,      neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Tecmo", "Tecmo World Soccer '96", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tws96,      neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Tecmo", "Tecmo World Soccer '96", MACHINE_SUPPORTS_SAVE )
 
 /* Viccom */
-GAME( 1994, fightfev,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Viccom", "Fight Fever (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, fightfeva,  fightfev, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Viccom", "Fight Fever (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, fightfev,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Viccom", "Fight Fever (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, fightfeva,  fightfev, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Viccom", "Fight Fever (set 2)", MACHINE_SUPPORTS_SAVE )
 
 /* Video System Co. */
-GAME( 1994, pspikes2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Power Spikes II", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, sonicwi2,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Aero Fighters 2 / Sonic Wings 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sonicwi3,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Aero Fighters 3 / Sonic Wings 3", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pspikes2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Power Spikes II", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, sonicwi2,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Aero Fighters 2 / Sonic Wings 2", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sonicwi3,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Aero Fighters 3 / Sonic Wings 3", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, popbounc,   neogeo,   neogeo_dial,     neogeo, neogeo_state, init_neogeo,   ROT0, "Video System Co.", "Pop 'n Bounce / Gapporin", MACHINE_SUPPORTS_SAVE )
 
 /* Visco */
-GAME( 1992, androdun,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Andro Dunos", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, puzzledp,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon!", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, neomrdo,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Neo Mr. Do!", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, goalx3,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Goal! Goal! Goal!", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, neodrift,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Neo Drift Out - New Technology", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, breakers,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Breakers", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, puzzldpr,   puzzledp, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon! R", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, breakrev,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Breakers Revenge", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, flipshot,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Battle Flip Shot", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, ctomaday,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Captain Tomaday", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, ganryu,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_ganryu,   ROT0, "Visco", "Ganryu / Musashi Ganryuki", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
-GAME( 2000, bangbead,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_bangbead, ROT0, "Visco", "Bang Bead", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, b2b,        neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Bang Bang Busters (NCI release)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, androdun,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Andro Dunos", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, puzzledp,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon!", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, neomrdo,    neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Neo Mr. Do!", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, goalx3,     neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Goal! Goal! Goal!", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, neodrift,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Neo Drift Out - New Technology", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, breakers,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Breakers", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, puzzldpr,   puzzledp, neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon! R", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, breakrev,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Breakers Revenge", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, flipshot,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Battle Flip Shot", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, ctomaday,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Captain Tomaday", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, ganryu,     neogeo,   neogeo,          neogeo, neogeo_state, init_ganryu,   ROT0, "Visco", "Ganryu / Musashi Ganryuki", MACHINE_SUPPORTS_SAVE ) /* Encrypted GFX */
+GAME( 2000, bangbead,   neogeo,   neogeo,          neogeo, neogeo_state, init_bangbead, ROT0, "Visco", "Bang Bead", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, b2b,        neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Bang Bang Busters (NCI release)", MACHINE_SUPPORTS_SAVE )
 
 /* Mega Enterprise */
-GAME( 2002, mslug4,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4h,    mslug4,   neogeo_noslot,   neogeo, neogeo_state, init_mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, ms4plus,    mslug4,   neogeo_noslot,   neogeo, neogeo_state, init_ms4plus,  ROT0, "bootleg", "Metal Slug 4 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4,     neogeo,   neogeo,          neogeo, neogeo_state, init_mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4h,    mslug4,   neogeo,          neogeo, neogeo_state, init_mslug4,   ROT0, "Mega / Playmore", "Metal Slug 4 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, ms4plus,    mslug4,   neogeo,          neogeo, neogeo_state, init_ms4plus,  ROT0, "bootleg", "Metal Slug 4 Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /* Evoga */
-GAME( 2002, rotd,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_rotd,     ROT0, "Evoga / Playmore", "Rage of the Dragons", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, rotd,       neogeo,   neogeo,          neogeo, neogeo_state, init_rotd,     ROT0, "Evoga / Playmore", "Rage of the Dragons", MACHINE_SUPPORTS_SAVE )
 
 /* Atlus */
-GAME( 2002, matrim,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_matrim,   ROT0, "Noise Factory / Atlus", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, matrimbl,   matrim,   neogeo_noslot,   neogeo, neogeo_state, init_matrimbl, ROT0, "bootleg", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, matrim,     neogeo,   neogeo,          neogeo, neogeo_state, init_matrim,   ROT0, "Noise Factory / Atlus", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (NGM-2660) (NGH-2660)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, matrimbl,   matrim,   neogeo,          neogeo, neogeo_state, init_matrimbl, ROT0, "bootleg", "Matrimelee / Shin Gouketsuji Ichizoku Toukon (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 /***** Unlicensed commercial releases *****/
 
 /* BrezzaSoft */
-GAME( 2001, jockeygp,   neogeo,   neogeo_noslot,   jockeygp, neogeo_state, init_jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, jockeygpa,  jockeygp, neogeo_noslot,   jockeygp, neogeo_state, init_jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, jockeygp,   neogeo,   neogeo,          jockeygp, neogeo_state, init_jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, jockeygpa,  jockeygp, neogeo,          jockeygp, neogeo_state, init_jockeygp, ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, vliner,     neogeo,   neogeo_noctrl,   vliner, neogeo_state,   init_vliner,   ROT0, "Dyna / BrezzaSoft", "V-Liner (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, vliner7e,   vliner,   neogeo_noctrl,   vliner, neogeo_state,   init_vliner,  ROT0, "Dyna / BrezzaSoft", "V-Liner (v0.7e)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, vliner6e,   vliner,   neogeo_noctrl,   vliner, neogeo_state,   init_vliner,  ROT0, "Dyna / BrezzaSoft", "V-Liner (v0.6e)", MACHINE_SUPPORTS_SAVE )
@@ -8270,11 +8270,11 @@ GAME( 2001, vliner54,   vliner,   neogeo_noctrl,   vliner, neogeo_state,   init_
 GAME( 2001, vliner53,   vliner,   neogeo_noctrl,   vliner, neogeo_state,   init_vliner,  ROT0, "Dyna / BrezzaSoft", "V-Liner (v0.53)", MACHINE_SUPPORTS_SAVE )
 
 /* Kyle Hodgetts */
-GAME( 2000, diggerma,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Kyle Hodgetts", "Digger Man (proto)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, diggerma,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Kyle Hodgetts", "Digger Man (proto)", MACHINE_SUPPORTS_SAVE )
 
 /* Vektorlogic */
-GAME( 2004, sbpf,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Vektorlogic", "Super Bubble Pop (fixed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, sbpf,       neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "Vektorlogic", "Super Bubble Pop (fixed)", MACHINE_SUPPORTS_SAVE )
 
 /* NG:DEV.TEAM */
-GAME( 2005, lasthope,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (bootleg AES to MVS conversion, no coin support)", MACHINE_SUPPORTS_SAVE ) // wasn't actually released on MVS but bootleg carts have been sold, this doesn't accept coins, runs like a console game
+GAME( 2005, lasthope,   neogeo,   neogeo,          neogeo, neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (bootleg AES to MVS conversion, no coin support)", MACHINE_SUPPORTS_SAVE ) // wasn't actually released on MVS but bootleg carts have been sold, this doesn't accept coins, runs like a console game
 

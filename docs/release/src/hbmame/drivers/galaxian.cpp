@@ -595,6 +595,30 @@ ROM_START( scratest )
 	ROM_LOAD( "c01s.6e",       0x0000, 0x0020, CRC(4e3caeab) SHA1(a25083c3e36d28afdefe4af6e6d4f3155e303625) )
 ROM_END
 
+ROM_START( hoverbov )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "hoverbov.2d",   0x0000, 0x0800, CRC(013a2909) SHA1(62a6a5dc390dff678ec87c5188bc03357da0a7d0) )
+	ROM_LOAD( "hoverbov.2e",   0x0800, 0x0800, CRC(c0207df6) SHA1(c1e8eb3812ba6f4f2e43e32ce5942a17a2803db8) )
+	ROM_LOAD( "hoverbov.2f",   0x1000, 0x0800, CRC(65c80db9) SHA1(0e748197ec4406c3ebf40f69ad5aae98082c956c) )
+	ROM_LOAD( "hoverbov.2h",   0x1800, 0x0800, CRC(8e0a2aec) SHA1(810e14beedf1e0b518056f57be8bde898e697f86) )
+	ROM_LOAD( "hoverbov.2j",   0x2000, 0x0800, CRC(cdb4cd52) SHA1(f5af063ba9d6dace5e2967afdc3eb32791e13ce8) )
+	ROM_LOAD( "hoverbov.2l",   0x2800, 0x0800, CRC(914a99a1) SHA1(2342972a8965069e918e6ff4aef91efde7fbe26c) )
+	ROM_LOAD( "hoverbov.2m",   0x3000, 0x0800, CRC(4cb9456f) SHA1(15d938671761800ddf6d4d7032a5bfa2267c3f48) )
+	ROM_LOAD( "hoverbov.2p",   0x3800, 0x0800, CRC(da14b38b) SHA1(962e2f7c1c4e106101663138fe47dbb5b95f51ee) )
+
+	ROM_REGION( 0x10000, "audiocpu", ROMREGION_ERASE00 )
+	ROM_LOAD( "hoverbov.5c",   0x0000, 0x0800, CRC(09f0053e) SHA1(af3efdc8c357b7806ac6bd76bf78cc2c16049f5e) )
+	ROM_LOAD( "hoverbov.5d",   0x0800, 0x0800, CRC(48a6e43d) SHA1(3f7d249d2d341d0257bf5d4f9c167e8e08c3baff) )
+	// 5e all 00, so left out
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "hoverbov.5f",   0x0000, 0x0800, CRC(d145d380) SHA1(0351d2fe27942c53fa16393e72f42eb91edafc03) )
+	ROM_LOAD( "hoverbov.5h",   0x0800, 0x0800, CRC(9b2ad485) SHA1(f54724ebe4e247e97bac09f99ce63d6d81bf1f03) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "hoverbov.6e",   0x0000, 0x0020, CRC(6664dbf0) SHA1(f582549b68f1d73a53f20527f84a87f5ad12a190) )
+ROM_END
+
 /*********
  Frogger
 *********/
@@ -874,7 +898,7 @@ ROM_END
 
 // Frogger
 GAME( 1981, kazzy,      frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, trukker,    frogger,  frogger,  frogger,  galaxian_hbmame, init_trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, trukker,    frogger,  frogger,  frogger,  galaxian_hbmame, init_trukker,  ROT90, "Grimlick", "Trukker", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, frogtest,   frogger,  tst_frog, frogger,  galaxian_hbmame, init_frogger,  ROT90, "msmcdoug / JROK", "Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, frogtest2,  frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Phil Murray", "Frogger Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, froggerp,   frogger,  frogger,  frogger,  galaxian_state,  init_frogger,  ROT90, "philmurr", "Frogger (fixed)", MACHINE_SUPPORTS_SAVE )
@@ -890,6 +914,7 @@ GAME( 2004, amidar03,   amidar,   turtles,  amidar,   galaxian_hbmame, init_turt
 GAME( 1998, offender,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, superdog,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, scratest,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Phil Murray", "Scramble Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, hoverbov,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Jeff Minter", "Hover Bovver", MACHINE_SUPPORTS_SAVE )
 
 
 // Super Cobra

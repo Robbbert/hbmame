@@ -106,6 +106,44 @@ static INPUT_PORTS_START( aliensv )
 	PORT_BIT( 0xfc, IP_ACTIVE_LOW, IPT_UNUSED )
 INPUT_PORTS_END
 
+// https://github.com/shupac800/tempest-cas-2026
+ROM_START( tempcax ) // CAX 2026 v1.2
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "tempcax.113",  0x9000, 0x0800, CRC(0e1d57ec) SHA1(1ec619d10d5994b0b8ba781b06c64623ef253527) )
+	ROM_LOAD( "136002-114.e1",   0x9800, 0x0800, CRC(11077375) SHA1(ed8ff0ca969da6672a7683b93d4fcf2935a0d903) )
+	ROM_LOAD( "tempcax.115",   0xa000, 0x0800, CRC(5b60e6f8) SHA1(799198ce940f6771aad5979b28763c840978e284) )
+	ROM_LOAD( "tempcax.316",   0xa800, 0x0800, CRC(0d61062e) SHA1(9e4124127c268e927ff3c69a9bcda7818a20449c) )
+	ROM_LOAD( "tempcax.217",   0xb000, 0x0800, CRC(0e4f9a3a) SHA1(daabcc874967f08b28a2f3e27c54d872b050c73b) )
+	ROM_LOAD( "tempcax.118",   0xb800, 0x0800, CRC(86f3d67f) SHA1(4a924e229b95d38c1f77011f373354f69321bfe6) )
+	ROM_LOAD( "tempcax.119",   0xc000, 0x0800, CRC(4dbb1498) SHA1(8796152477e124c76b2abaa8c122516033167b8c) )
+	ROM_LOAD( "tempcax.120",   0xc800, 0x0800, CRC(315db869) SHA1(a992f08e37b634c4b88f1f9b2260579f1ee327a1) )
+	ROM_LOAD( "tempcax.121",   0xd000, 0x0800, CRC(9ac5ea67) SHA1(2b56032b2fb4e67fe84ddffeb557955a586b5da7) )
+	ROM_LOAD( "tempcax.222",   0xd800, 0x0800, CRC(42e12740) SHA1(3792e87ff011b75118dec299ad4e94f09fe65ff4) )
+	ROM_RELOAD(               0xf800, 0x0800 ) // for reset/interrupt vectors
+	// Vector ROM
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+
+	// AVG PROM
+	ROM_REGION( 0x100, "avg:prom", 0 )
+	ROM_LOAD( "136002-125.d7",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
+
+	// Mathbox PROMs
+	ROM_REGION( 0x20, "user2", 0 )
+	ROM_LOAD( "136002-126.a1",   0x0000, 0x0020, CRC(8b04f921) SHA1(317b3397482f13b2d1bc21f296d3b3f9a118787b) )
+
+	ROM_REGION32_BE( 0x400, "user3", 0 )
+	ROMX_LOAD( "136002-132.l1", 0, 0x100, CRC(2af82e87) SHA1(3816835a9ccf99a76d246adf204989d9261bb065), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
+	ROMX_LOAD( "136002-131.k1", 0, 0x100, CRC(b31f6e24) SHA1(ce5f8ca34d06a5cfa0076b47400e61e0130ffe74), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+	ROMX_LOAD( "136002-130.j1", 1, 0x100, CRC(8119b847) SHA1(c4fbaedd4ce1ad6a4128cbe902b297743edb606a), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
+	ROMX_LOAD( "136002-129.h1", 1, 0x100, CRC(09f5a4d5) SHA1(d6f2ac07ca9ee385c08831098b0dcaf56808993b), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+	ROMX_LOAD( "136002-128.f1", 2, 0x100, CRC(823b61ae) SHA1(d99a839874b45f64e14dae92a036e47a53705d16), ROM_NIBBLE | ROM_SHIFT_NIBBLE_LO | ROM_SKIP(3))
+	ROMX_LOAD( "136002-127.e1", 2, 0x100, CRC(276eadd5) SHA1(55718cd8ec4bcf75076d5ef0ee1ed2551e19d9ba), ROM_NIBBLE | ROM_SHIFT_NIBBLE_HI | ROM_SKIP(3))
+
+	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
+ROM_END
+
 ROM_START( temped )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "136002.113",   0x9000, 0x0800, CRC(65d61fe7) SHA1(38a1e8a8f65b7887cf3e190269fe4ce2c6f818aa) )
@@ -822,6 +860,7 @@ ROM_END
 
 } // anonymous namespace
 
+GAME( 2026, tempcax,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Shupac", "Tempest CAX 2026 (v1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temped,    tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "TempEd", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tempall,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest All Levels", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptwst,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisted", MACHINE_SUPPORTS_SAVE )

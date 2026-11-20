@@ -96,7 +96,6 @@ public:
 	ioport_value invaders_in2_control_r();
 	ioport_value invadpt2_in1_control_r();
 	ioport_value invadpt2_in2_control_r();
-	IRQ_CALLBACK_MEMBER(interrupt_vector);
 
 protected:
 	virtual void machine_start() override;
@@ -146,6 +145,7 @@ private:
 	bool m_sound_en = 0;
 
 	TIMER_CALLBACK_MEMBER(interrupt_trigger);
+	IRQ_CALLBACK_MEMBER(interrupt_vector);
 	uint8_t vpos_to_vysnc_chain_counter(int vpos);
 	int vysnc_chain_counter_to_vpos(uint8_t counter, int vblank);
 	void main_map(address_map &map);

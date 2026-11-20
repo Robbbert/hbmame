@@ -173,7 +173,6 @@ BUSES["GENERIC"] = true
 BUSES["NSCSI"] = true
 BUSES["NES_CTRL"] = true -- playch10
 BUSES["SAT_CTRL"] = true -- stv
-BUSES["SCSI"] = true
 
 --------------------------------------------------
 -- this is the list of driver libraries that
@@ -636,7 +635,11 @@ createHBMAMEProjects(_target, _subtarget, "neogeo")
 files {
 	MAME_DIR .. "src/hbmame/drivers/neogeo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/neogeohb.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeo0.cpp",
 	MAME_DIR .. "src/hbmame/drivers/neogeo1.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeods.cpp",
+	-- MAME_DIR .. "src/hbmame/drivers/neogeogn.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeosd.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kof94.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kof95.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kof96.cpp",
@@ -667,7 +670,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/ngsvc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ngwh.cpp",
 	MAME_DIR .. "src/hbmame/video/neogeo.cpp",
-	MAME_DIR .. "src/hbmame/drivers/neogeo_noslot.cpp",
 	MAME_DIR .. "src/hbmame/video/neogeo_spr.cpp",
 	MAME_DIR .. "src/hbmame/machine/hbng_memcard.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo/prot.cpp",
@@ -1004,9 +1006,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/skylove.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
-	MAME_DIR .. "src/mame/orca/kyugo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcatadv.cpp",
-	MAME_DIR .. "src/mame/misc/mcatadv.cpp",
+	MAME_DIR .. "src/hbmame/drivers/yosaku.cpp",
 	MAME_DIR .. "src/mame/ice/skimaxx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timelimit.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vamphalf.cpp",
@@ -1030,6 +1031,7 @@ files {
 	MAME_DIR .. "src/devices/machine/mos6530.cpp",
 	MAME_DIR .. "src/devices/machine/nandflash.cpp",
 	MAME_DIR .. "src/devices/machine/nmk112.cpp",
+	MAME_DIR .. "src/devices/machine/quadmouse.cpp",
 	MAME_DIR .. "src/devices/machine/segacrpt_device.cpp",
 	MAME_DIR .. "src/devices/machine/segacrp2_device.cpp",
 	MAME_DIR .. "src/devices/machine/z80dma.cpp",

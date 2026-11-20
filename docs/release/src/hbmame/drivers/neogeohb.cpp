@@ -191,8 +191,6 @@ NUM GAME YEAR COMPANY                 TITLE
 436 0275 2010 CeL                     Neo Pang
 443 1234 2012 M.Priewe                Santaball
 444 1234 2018 kl3mousse               Sea Fighter
-446 7777 2014 M.Priewe                Monitor Test Tool v1.0
-446 0602 2022 M.Priewe                Monitor Test Tool v1.3
 447 0600 2021 M.Priewe                Hypernoid
 461 0280 2020 Elrayzeur               Puzzle Crazy
 462 0083 2009 Elrayzeur               Puzzle Bobble Crazy beta
@@ -204,52 +202,73 @@ NUM GAME YEAR COMPANY                 TITLE
 495 1234 2020 OzzyOuzo                New! Super Mario Bros Demo
 495 1234 2020 OzzyOuzo                New! Super Mario Bros
 496 1234 2020 OzzyOuzo                Neo Black Tiger
-497 0993 2021 iq132                   Cabal (Neo-Geo port)
+497 0993 2021 iq132                   Cabal (port)
 498 0052 2021 Kako Eimon              Abyssal Infants
 499 2048 2021 Nicole Branagan         Neo 2048
-500 0993 2022 iq_132                  Kid no Hore Hore Daisakusen (Neo-Geo port)
-501 0282 2023 iq_132                  Soldier Girl Amazon (Neo-Geo port)
+500 0993 2022 iq_132                  Kid no Hore Hore Daisakusen (port)
+501 0282 2023 iq_132                  Soldier Girl Amazon (port)
 502 14A0 2023 Neo Byte Force          Cyborg Force (https://ozzyouzo.itch.io/cyborg-force)
 503 0722 2024 Pixelheart              Gladmort Demo
 503 0723 2024 Pixelheart              Gladmort Demo 2, Gladmort (full)
 503 029A 2026 Pixelheart              Gladmort Caravan Mode
-504 1337 2025 Hoffman                 Shinobi (Neo-Geo port)
+504 1337 2025 Hoffman                 Shinobi (port)
 505 14A3 2025 La Casa De Ruivo        Double Dragon One demo/beta
-506 0283 2025 iq_132                  Karnov (Neo-Geo port)
-507 1338 2025 Hoffman                 Golden Axe (Neo-Geo port)
-508 1324 2025 iq_132                  P.O.W (Neo-Geo port)
+506 0283 2025 iq_132                  Karnov (port)
+507 1338 2025 Hoffman                 Golden Axe (port)
+508 1324 2025 iq_132                  P.O.W (port)
 509 0539 2025 Kakoeimon               Super Power Kick
-510 1320 2024 iq_132                  Atomic Runner Chelnov (Neo-Geo port)
-511 14A5 2025 OzzyOuzo                Bad Dudes vs Dragonninja (Neo-Geo port)
-512 14A4 2025 OzzyOuzo                In the Hunt (Neo-Geo port)
+510 1320 2024 iq_132                  Atomic Runner Chelnov (port)
+511 14A5 2025 OzzyOuzo                Bad Dudes vs Dragonninja (port)
+512 14A4 2025 OzzyOuzo                In the Hunt (port)
 513 0539 2025 Tonsomo Entertainment   Jurl
-514 F00D 2025 iq_132                  Food Fight (Neo-Geo port)
+514 F00D 2025 iq_132                  Food Fight (port)
 515 0070 2025 Pixelheart              Bang Bang Busters 2 (demo)
 516 14A6 2025 Balek Corp              Violent Vengeance: The Universal Hero
-517 0FFF 2019 Keith S                 Grime 68000
-518 5345 2025 Earok                   Halo Zero demo
-519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots
-520 5345 2026 Z-team                  Midnight Wanderers (Neo-Geo port) 2-level demo
+517 0FFF 2019 Keith S                 Grime 68000 (https://chibiakumas.com/68000/grime68000.php)
+518 5345 2025 Earok                   Halo Zero demo (https://earok.itch.io)
+519 5345 2026 Kaiju Wasp              Blue and Red Fight the Robots (https://kaijuwasp.itch.io)
+520 5345 2026 Z-team                  Midnight Wanderers (port) 2-level demo
 521 5345 2026 Z-team                  Rick Dangerous DX
 522 0539 2026 Sabino                  Doom Geo (demo)
 523 0539 2026 Sabino                  Free Doom (demo)
 524 2026 2026 Sabino                  Super Mario Bros.
 525 2027 2026 Sabino                  VS. Super Mario Bros.
+526 0526 2026 Nasprich                Seraph Zero (https://nasprich.itch.io)
 527 7026 2026 Towea Studio            The Perfect Fighter (https://towea-studio.itch.io/)
-528 0999 2026 Bendk97                 Snow Bros (https://bendk97.itch.io/)
-529 0539 2026 Bendk97                 Sword of Sodan (https://bendk97.itch.io/)
+528 0999 2026 Bendk97                 Snow Bros (port) (https://bendk97.itch.io/)
+529 0539 2026 Bendk97                 Sword of Sodan (port) (https://bendk97.itch.io/)
 530 2602 2026 Delarfab                Arena 2 (https://delarfab.itch.io/)
-531 0F77 2026 ShinobiZ                Altered Beast (https://shinobiz72.itch.io/)
-534 0E58 2026 Teo Tormo               Robocop (https://teo-tormo.itch.io/)
-535 7771 2026 ShinobiZ                Hang On (https://shinobiz72.itch.io/)
+531 0F77 2026 ShinobiZ                Altered Beast (port) (https://shinobiz72.itch.io/)
+532 0999 2026 Arkretro                World Rally (port)
+533 0999 2026 F.C Team                Prehistoric Isle in 1930 (port) (https://capitaine-power.itch.io/)
+534 0E58 2026 Teo Tormo               Robocop (port) (https://teo-tormo.itch.io/)
+535 7771 2026 ShinobiZ                Hang On (port) (https://shinobiz72.itch.io/)
 536 0001 2026 NK Home Entertainment   Warrior Man (https://nicoklem.itch.io/warrior-man)
 537 0539 2026 Neslou                  Bubble Open (https://neslou.itch.io/bubble-open)
-538 0539 2026 Thibaut Lion            Wolfenstein-3D (Neo-Geo port) (https://www.wolfmvs.com)
+538 0539 2026 Thibaut Lion            Wolfenstein-3D (port) (https://www.wolfmvs.com)
 539 0539 2025 Shadow Gangs            Shadow Gangs Zero demo
-540 0998 2026 Bendk97                 Shadow of the Beast (Neo-Geo port) (https://bendk97.itch.io/)
-541 0997 2026 Bendk97                 Out Run (Neo-Geo port) (https://bendk97.itch.io/)
-542 0993 2026 Bendk97                 Cosmo Gang the video (Neo-Geo port) (https://bendk97.itch.io/)
-
+540 0998 2026 Bendk97                 Shadow of the Beast (port) (https://bendk97.itch.io/)
+541 0997 2026 Bendk97                 Out Run (port) (https://bendk97.itch.io/)
+542 0993 2026 Bendk97                 Cosmo Gang the video (port) (https://bendk97.itch.io/)
+543 0994 2026 Bendk97                 Knights of the Round (port) (https://bendk97.itch.io/)
+544 0927 2026 Teo Tormo               King of Dragons, the (port) (https://teo-tormo.itch.io/)
+545 0777 2026 NK Home Entertainment   Jim Power (port) (https://nicoklem.itch.io/)
+546 0300 2026 Teo Tormo               Cadillacs and Dinosaurs (port) (https://teo-tormo.itch.io/)
+547 099A 2026 Bendk97                 R-Type (port) (https://bendk97.itch.io/)
+548 0975 2026 Bendk97                 Pole Position II (port) (https://bendk97.itch.io/)
+549 0F7A 2026 ShinobiZ                Shadow Dancer (port) (https://shinobiz72.itch.io/)
+550 0A01 2026 Bendk97                 Sunset Riders (port) (https://bendk97.itch.io/)
+551 0539 2026 Happy-Ferret            Paprium (Vertical Slice) (port) (https://neoprium.itch.io)
+552 2610 2026 TheSEGAshop             1st Defence: The Final Upgrade (https://thesegashop.itch.io)
+553 0DE5 2026 TheSEGAshop             Veil Riot (https://thesegashop.itch.io)
+554 0539 2026 Happy-Ferret            Cheshire 4 Console (https://happy-ferret.itch.io)
+555 0772 2026 Vendza                  Final Fight Neo (https://vendza.itch.io)
+556 7777 2026 Neofid Studios          Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
+557 0992 2026 Bendk97                 Mystic Riders (port) (https://bendk97.itch.io/)
+558 5454 2026 ShinobiZ                Atari Tetris (port) (https://shinobiz72.itch.io/)
+559 7786 2026 ShinobiZ                Wonder Boy (port) (https://shinobiz72.itch.io/)
+560 0912 2026 Format-c                Gals Panic (port) (https://format-c.itch.io/)
+561 1989 2026 Arcade Perfect Ports    Teenage Mutant Ninja Turtles (port) (https://arcadeperfectports.itch.io/)
 
 
 ********************** Non-playable demos (600-699) ************************
@@ -270,6 +289,8 @@ NUM GAME YEAR COMPANY                 TITLE
 611 2009 2021 Blastar                 4-player multitab test
 612 07E1 2021 Blastar                 Neo Driftout Tech Demo
 616 0202 2003 Charles Doty            Neogeo Demo
+617 7777 2014 M.Priewe                Monitor Test Tool v1.0
+617 0602 2022 M.Priewe                Monitor Test Tool v1.3
 620 1234 2004 BarfHappy               Neo Castlevania demo
 621 0052 2012 Oxygene                 Neo 3D demo
 624 0275 2012 NeoGeoFreak             Transparency demo
@@ -311,6 +332,7 @@ NUM GAME YEAR COMPANY                 TITLE
 783 0783 2026 Eagle Software          Maiya & Luna (https://github.com/eaglesoftware777/neogeosdk/)
 784 0784 2026 Eagle Software          No Signal Z Alpha (https://github.com/eaglesoftware777/neogeosdk/)
 785 0785 2026 Eagle Software          Mahjong Demo (https://github.com/eaglesoftware777/neogeosdk/)
+787 0787 2026 Eagle Software          Century XI (https://github.com/eaglesoftware777/neogeosdk/)
 
 
 
@@ -425,12 +447,11 @@ YEAR COMPANY                          TITLE
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
 2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
 2023 Nalua Studio                     Vengeance Hunters (GAME#0365?)(https://shop.naluastudio.com/shop/products)
-2023 Shadow Gangs                     Shadow Gangs (https://www.shadowgangs.net)
+2023 Shadow Gangs                     Shadow Gangs (demo exists) (https://www.shadowgangs.net)
 2023 PixelHeart                       Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
-2025 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
 2025 Neofid Studios                   Copper Storm
 2025 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
-2025 Retro Sumus                      SovietBorgs (video on youtube)
+2025 Retro Sumus                      SovietBorgs (video on youtube) (team disbanded, project abandoned)
 2025 Bit Beam Cannon                  Metal Mack
 2026 Tigerskunk                       Ormanauta (https://tigerskunk.itch.io/hyperblaster)
 2026 tcdev                            Frogger (https://tcdev.itch.io)
@@ -450,72 +471,9 @@ YEAR COMPANY                          TITLE
 #include "includes/neogeo.h"
 
 
-void neogeo_state::init_fr2ch()
-{
-//// Fix rebooting at start
-
-	uint16_t *mem16 = (uint16_t*)cpuregion;
-
-	// change jsr to C004DA
-	mem16[0x01AF8 /2] = 0x04DA; // C00552 (Not used?)
-	mem16[0x01BF6 /2] = 0x04DA; // C0056A (fixes crash)
-	mem16[0x01ED8 /2] = 0x04DA; // C00570 (Not used?)
-	mem16[0x1C384 /2] = 0x04DA; // C00552 (fixes crash)
-
-	// 0x001C06 - this routine can cause a loop/freeze
-	mem16[0x01C06 /2] = 0x4E75;
-
-//// Fix text on bottom line
-
-	uint8_t *dst = fix_region;
-
-	// Move text for credit + coin info (Thanks to Kanyero), overwrites "MA" in neogeo logo
-	memcpy(dst, dst + 0x600, 0x140);
-
-	// Patch out neogeo intro (because of above line)
-//  mem16[0x114 /2]=0x200;
-
-
-//// Optional stuff
-
-
-	// Hack in the proper identification (see setup menu [F2])
-	mem16[0x3a6 / 2] = 0x4649;
-	mem16[0x3a8 / 2] = 0x4e41;
-	mem16[0x3aa / 2] = 0x4c20;
-	mem16[0x3ac / 2] = 0x524f;
-	mem16[0x3ae / 2] = 0x4d41;
-	mem16[0x3b0 / 2] = 0x4e43;
-	mem16[0x3b2 / 2] = 0x4520;
-	mem16[0x3b4 / 2] = 0x3220;
-	uint8_t  *mem8 = cpuregion;
-	memcpy(mem8+0x61e, mem8+0x3a6, 16);
-	memcpy(mem8+0x896, mem8+0x3a6, 16);
-
-	// Album Fix
-	mem16[0x1C382 /2] = 0x0008; // C00552
-	mem16[0x1C384 /2] = 0x0000;
-	mem16[0x80000 /2] = 0x33FC;
-	mem16[0x80002 /2] = 0x0001;
-	mem16[0x80004 /2] = 0x0020;
-	mem16[0x80006 /2] = 0x0002;
-	mem16[0x80008 /2] = 0x4E75;
-
-	init_neogeo();
-
-	/* old fr2cd code:
-	uint16_t *mem16 = (uint16_t*)memory_region(machine, "maincpu");
-	mem16[0x1BF2/2] = 0x4E71;
-	mem16[0x1BF4/2] = 0x4E71;
-	mem16[0x1BF6/2] = 0x4E71;
-	init_neogeo();  */
-}
-
-
-
 // 054 : Crossed Swords 2
 ROM_START( csw2 ) // crswd2blp
-	ROM_REGION( 0x200000, "maincpu", ROMREGION_BE|ROMREGION_16BIT )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "054.p1", 0x100000, 0x100000, CRC(aa14d534) SHA1(1683a63e749d48d56f71c515c1aa12e93102ba9a) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
@@ -535,7 +493,7 @@ ROM_START( csw2 ) // crswd2blp
 ROM_END
 
 ROM_START( csw2s01 ) // crswd2blpx
-	ROM_REGION( 0x200000, "maincpu", ROMREGION_BE|ROMREGION_16BIT )
+	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "054s01.p1", 0x100000, 0x100000, CRC(3e77a96f) SHA1(3876f5e0fa6f6c0381586ce4a9761e09e11aa1cb) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
@@ -554,63 +512,44 @@ ROM_START( csw2s01 ) // crswd2blpx
 	ROM_LOAD16_BYTE( "054s01.c2", 1, 0x400000, CRC(d8016890) SHA1(a3d38f9e6bbed588363c7bd598511570f9c392b5) )
 ROM_END
 
+ROM_START( csw2s02 ) // crswd2rcm
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "054s02.p1", 0x100000, 0x100000, CRC(59160185) SHA1(f520b6a2fe71f4aa28564b756a723c1f21e0a216) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "054.s1", CRC(22e02ddd) SHA1(ebd834affc763cc5854abf1c6c42f43f3f3755fd) )
+
+	NEO_BIOS_AUDIO_128K( "054s02.m1", CRC(67815eda) SHA1(95732cff849659d10087972dd4bf568509bafb82) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "054s02.v1",     0, 0x200000, CRC(45d86fa5) SHA1(8b426498ef75f1f9daa890816763a4ae869e96e7) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "054.c1", 0, 0x400000, CRC(8221b712) SHA1(7e68871f1bfc402ef27c8fa088c680cbd133f71a) )
+	ROM_LOAD16_BYTE( "054.c2", 1, 0x400000, CRC(d6c6183d) SHA1(cc546ff063fae2c01c109fabcd5b2d29ec3299db) )
+ROM_END
+
 
 // 098 : Idol Mahjong Final Romance 2
 ROM_START( fr2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "098.p1", 0x000000, 0x80000, CRC(09675541) SHA1(6afb89d43e67f93e40f3877cbedfec9566e3ff0f) )
+	ROM_LOAD16_WORD_SWAP( "098.p1", 0, 0x80000, CRC(09675541) SHA1(6afb89d43e67f93e40f3877cbedfec9566e3ff0f) )
 
 	NEO_SFIX_128K( "098.s1", CRC(0e6a7c73) SHA1(31b1194524dcc80ec4d63bac088b6fb4909f496c) )
 
 	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+	ROM_LOAD( "098.v1", 0, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "098.c1", 0, 0x400000, CRC(29148bf7) SHA1(75097fbe8877720afbcbe4dbe30bc600466d759f) )
 	ROM_LOAD16_BYTE( "098.c2", 1, 0x400000, CRC(226b1263) SHA1(dee6a4a0a727c1d8a6d298cb38ed1b9901992d5b) )
 ROM_END
 
-ROM_START( fr2s01 ) // fr2cd
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "098s01.p1", 0x000000, 0x100000, CRC(a2527a5f) SHA1(1f6e3c7de9154c0026360ee6fa0bd211ed541af1) )
-
-	NEO_SFIX_128K( "098s01.s1", CRC(764ac7aa) SHA1(cc40ad276e63084ebf3c3ee224083762a47c3cf8) )
-
-	NEO_BIOS_AUDIO_64K( "098s01.m1", CRC(a455fa31) SHA1(82ccc5e2e5869a46da7533ed10ac5eab549a0063) )
-
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "098s01.v1", 0x000000, 0x100000, CRC(92e175f0) SHA1(788a9cce9028f16d6734bff163beb1a19305b8be) )
-
-	ROM_REGION( 0x600000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "098s01.c1", 0, 0x300000, CRC(29bf9af0) SHA1(6c7e9c2b7062bf361a2290010c4e1828eb7019cc) )
-	ROM_LOAD16_BYTE( "098s01.c2", 1, 0x300000, CRC(3cf46f63) SHA1(c5316e83586e7b1c902746f8f2049baf026b52bf) )
-ROM_END
-
-ROM_START( fr2s02 ) // fr2ch - CD to MVS Conversion
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "098s02.p1", 0x000000, 0x080000, CRC(9AA8CEE0) SHA1(b2201f16d8fde4eaae9dbc754d019e7b381ecc06) )
-
-	NEO_SFIX_128K( "098s01.s1", CRC(764ac7aa) SHA1(cc40ad276e63084ebf3c3ee224083762a47c3cf8) )
-
-	NEO_BIOS_AUDIO_64K( "098s01.m1", CRC(a455fa31) SHA1(82ccc5e2e5869a46da7533ed10ac5eab549a0063) )
-
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "098s01.v1", 0x000000, 0x100000, CRC(92e175f0) SHA1(788a9cce9028f16d6734bff163beb1a19305b8be) )
-
-	ROM_REGION( 0x600000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "098s02.c1", 0x000000, 0x100000, CRC(6158CF4A) SHA1(8e34b65f2cdfccaa6eeb40fef1ab3453eab92f46) )
-	ROM_LOAD16_BYTE( "098s02.c2", 0x000001, 0x100000, CRC(93A809A3) SHA1(9b680b8b758cfc77f01d7211b67343a90462b3f3) )
-	ROM_LOAD16_BYTE( "098s02.c3", 0x200000, 0x100000, CRC(FAFA3381) SHA1(0c4f20c4d5f57c1dad50b914f9d1299a9d882b42) )
-	ROM_LOAD16_BYTE( "098s02.c4", 0x200001, 0x100000, CRC(9895E23F) SHA1(565b5fbe07f65fb48d0bde769d3245a6ac747774) )
-	ROM_LOAD16_BYTE( "098s02.c5", 0x400000, 0x100000, CRC(EEAAA818) SHA1(434c13852153d7bebe138611a836d9bf07d1d4cf) )
-	ROM_LOAD16_BYTE( "098s02.c6", 0x400001, 0x100000, CRC(F3D9A190) SHA1(44932122e044d23234235cb3899f6e1e63970983) )
-ROM_END
-
 ROM_START( fr2s03 ) // froman2bp
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "098s03.p1", 0x000000, 0x80000, CRC(e86a3e80) SHA1(4359534ae00d5913c5166a66a801e74fe0ef8144) )
+	ROM_LOAD16_WORD_SWAP( "098s03.p1", 0, 0x80000, CRC(e86a3e80) SHA1(4359534ae00d5913c5166a66a801e74fe0ef8144) )
 
 	NEO_SFIX_128K( "098.s1", CRC(0e6a7c73) SHA1(31b1194524dcc80ec4d63bac088b6fb4909f496c) )
 
@@ -651,99 +590,16 @@ ROM_END
 
 
 // 211 : Zintrick
-ROM_START( zintrick01 ) // zintricks01 - all confirmed : same as zintrckb except s1
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211.p1", 0x000000, 0x100000, CRC(06c8fca7) SHA1(b7bf38965c3d0db4d7a9684d14cac94a45b4a45b))
-
-	NEO_SFIX_128K( "211s01.s1", CRC(07948446) SHA1(10df47a2bb515f06c75d0077fee89f7193626d7b) )
-
-	NEO_BIOS_AUDIO_128K( "211.m1", CRC(fd9627ca) SHA1(b640c1f1ff466f734bb1cb5d7b589cb7e8a55346) )
-
-	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "211.v1", 0x000000, 0x200000, CRC(c09f74f1) SHA1(d0b56a780a6eba85ff092240b1f1cc6718f17c21) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "211.c1", 0, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
-	ROM_LOAD16_BYTE( "211.c2", 1, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
-ROM_END
-
-ROM_START( zintrick02 ) // zintrkcd
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211s02.p1", 0x000000, 0x100000, CRC(9a0bfe0a) SHA1(94299c51572b66fa37e3e496436299573b1faaa8) )
-
-	NEO_SFIX_128K( "211s02.s1", CRC(56d16afa) SHA1(6e1f960a781f5ef1f858c51507fe573bead8ea66) )
-
-	NEO_BIOS_AUDIO_64K( "211s02.m1", CRC(fcae1407) SHA1(5b4bff97a8c5930852eff6aee553eadc18e8f3d9) )
-
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "211s02.v1", 0x000000, 0x100000, CRC(781439da) SHA1(a80cdf3be55b5fc2ba1d167f69e222463d06ad88) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "211.c1", 0, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
-	ROM_LOAD16_BYTE( "211.c2", 1, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
-ROM_END
-
-ROM_START( zintrick03 ) // zintrkcd1
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211s03.p1", 0x000000, 0x100000, CRC(032df2ba) SHA1(dfd35d77da203ebad5319b355fd65e6ed6a553da) )
-
-	NEO_SFIX_128K( "211s02.s1", CRC(56d16afa) SHA1(6e1f960a781f5ef1f858c51507fe573bead8ea66) )
-
-	NEO_BIOS_AUDIO_64K( "211s03.m1", CRC(8e539e59) SHA1(fba718ca565a6d5f122baa6d695108632672d1b0) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "211s03.v1", 0x000000, 0x800000, CRC(00e392ed) SHA1(8a46673c02fc25e65821d45749aa6fe697fa81c1) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "211.c1", 0, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
-	ROM_LOAD16_BYTE( "211.c2", 1, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
-ROM_END
-
-ROM_START( zintrick04 ) // zintrkm
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211s04.p1", 0x000000, 0x100000, CRC(b3fb325c) SHA1(27a34ff0dfea02b1aac3ddbc7c965684694390f1) )
-
-	NEO_SFIX_128K( "211s04.s1", CRC(b67cb1fd) SHA1(3abf201bcc28ec5bd145f0848dc44c239a6ec651) )
-
-	NEO_BIOS_AUDIO_128K( "211s04.m1", CRC(a602c2c2) SHA1(19fd5d0379244c528b58343f6cbf78b4766fb23d) )
-
-	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "211s04.v1", 0x000000, 0x200000, CRC(baa2b9a5) SHA1(914782b6c81d9a76ce02251575592b0648434ba3) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "211.c1", 0, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
-	ROM_LOAD16_BYTE( "211.c2", 1, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
-ROM_END
-
 ROM_START( zintrick05 ) // zintrckbh
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211s05.p1", 0x000000, 0x100000, CRC(328af665) SHA1(ece74116955ecb9ec40ac90913d496836ecc82cf) )
+	ROM_LOAD16_WORD_SWAP( "211s05.p1", 0, 0x100000, CRC(328af665) SHA1(ece74116955ecb9ec40ac90913d496836ecc82cf) )
 
 	NEO_SFIX_128K( "211.s1", CRC(a7ab0e81) SHA1(f0649819b96cea79b05411e0b15c8edc677d79ba) )
 
 	NEO_BIOS_AUDIO_128K( "211.m1", CRC(fd9627ca) SHA1(b640c1f1ff466f734bb1cb5d7b589cb7e8a55346) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "211.v1", 0x000000, 0x200000, CRC(c09f74f1) SHA1(d0b56a780a6eba85ff092240b1f1cc6718f17c21) )
-
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "211.c1", 0, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
-	ROM_LOAD16_BYTE( "211.c2", 1, 0x200000, CRC(844ed4b3) SHA1(fb7cd057bdc6cbe8b78097dd124118bae7402256) )
-ROM_END
-
-ROM_START( zintrick06 ) // zintrckb v3
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211s06.p1", 0x000000, 0x100000, CRC(654342e6) SHA1(3755b0c6d263b8d4da3cb2ee7dd2a9984f418066) )
-
-	NEO_SFIX_128K( "211s02.s1", CRC(56d16afa) SHA1(6e1f960a781f5ef1f858c51507fe573bead8ea66) )
-
-	NEO_BIOS_AUDIO_128K( "211s06.m1", CRC(a1c68361) SHA1(d0906ca2035b3a41567cb3fdaa323241ba0798b7) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "211s06.v1", 0x000000, 0x400000, CRC(cd257055) SHA1(5361ce6f4943f6ea34a209ec15743292f05fcd7e) )
-	ROM_LOAD( "211s06.v2", 0x400000, 0x400000, CRC(5d8f89ab) SHA1(16f6308e4a1473bf5d25b1b1419b9b71a95ec029) )
-	ROM_LOAD( "211s06.v3", 0x800000, 0x400000, CRC(4626b4ff) SHA1(a3abe7a60e937a5df9cd24d418f9cfabcf9e7e48) )
-	ROM_LOAD( "211s06.v4", 0xc00000, 0x400000, CRC(48666336) SHA1(391f6782b3e833e16667005161cb520562b3c5dc) )
+	ROM_LOAD( "211.v1", 0, 0x200000, CRC(c09f74f1) SHA1(d0b56a780a6eba85ff092240b1f1cc6718f17c21) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "211.c1", 0, 0x200000, CRC(76aee189) SHA1(ad6929804c5b9a59aa609e6baebc6aa37e858a47) )
@@ -752,7 +608,7 @@ ROM_END
 
 ROM_START( zintrick07 ) // zintrckbp
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "211s07.p1", 0x000000, 0x100000, CRC(23074a8d) SHA1(38ceb4b532ff98edfacf7f8bb395ea265232c082) )
+	ROM_LOAD16_WORD_SWAP( "211s07.p1", 0, 0x100000, CRC(23074a8d) SHA1(38ceb4b532ff98edfacf7f8bb395ea265232c082) )
 
 	NEO_SFIX_128K( "211s02.s1", CRC(56d16afa) SHA1(6e1f960a781f5ef1f858c51507fe573bead8ea66) )
 
@@ -770,74 +626,10 @@ ROM_START( zintrick07 ) // zintrckbp
 ROM_END
 
 
-// 300 : Last Hope CD Beta by NG:DEV.Team
-// Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
-ROM_START( lhcdb )  // AES conv from CD
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "300cd.p1", 0x000000, 0x100000, CRC(83e7b181) SHA1(eb13909c0b062d56d20cbdfe75abf6139eae9ee0) )
-
-	NEO_SFIX_128K( "300cd.s1", CRC(298495d6) SHA1(c217aba6c1916d2e5337bb5c17d979b11a53582e) )
-
-	NEO_BIOS_AUDIO_128K( "300cd.m1", CRC(d9f6c153) SHA1(c08f7ca288be1c34f4b33ed13abd805b5cd66d4e) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "300cd.v1", 0x000000, 0x400000, CRC(de563ec3) SHA1(cd0f1a436cdac679792fc78906e718c78369b15a) )
-	ROM_LOAD( "300cd.v2", 0x400000, 0x400000, CRC(93478033) SHA1(a03e0fcb7f51c66ec0bc5d164744db00b96973c2) )
-	ROM_LOAD( "300cd.v3", 0x800000, 0x3c3500, CRC(f0ad87b8) SHA1(f992e84c6cbbc3cab79747a2ca4d646d18bebcbd) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "300cd.c1", 0x000000, 0x400000, CRC(554e6b73) SHA1(3637a8a4474e33eb75ac4a4ce0815f6a514fe337) )
-	ROM_LOAD16_BYTE( "300cd.c2", 0x000001, 0x400000, CRC(7c84b0fc) SHA1(cbd7a7865113e4f21f2b1f990a077fa5c2eae894) )
-	ROM_LOAD16_BYTE( "300cd.c3", 0x800000, 0x400000, CRC(28ec7555) SHA1(f094739272e6017a7193fa96cde3c1ed573a66b6) )
-	ROM_LOAD16_BYTE( "300cd.c4", 0x800001, 0x400000, CRC(8b7c236b) SHA1(1cb3fe81f433a2180c85be935e340da3c55aafdb) )
-ROM_END
-
-ROM_START( lhcdba ) // AES conv from CD (alt), v3,p1 rom are different, but same bugs as above
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "300cda.p1", 0x000000, 0x100000, CRC(0f7405d7) SHA1(3858564413be0bbbcb1c970de8f66bedc7d1ac6a) )
-
-	NEO_SFIX_128K( "300cd.s1", CRC(298495d6) SHA1(c217aba6c1916d2e5337bb5c17d979b11a53582e) )
-
-	NEO_BIOS_AUDIO_128K( "300cd.m1", CRC(d9f6c153) SHA1(c08f7ca288be1c34f4b33ed13abd805b5cd66d4e) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "300cd.v1", 0x000000, 0x400000, CRC(de563ec3) SHA1(cd0f1a436cdac679792fc78906e718c78369b15a) )
-	ROM_LOAD( "300cd.v2", 0x400000, 0x400000, CRC(93478033) SHA1(a03e0fcb7f51c66ec0bc5d164744db00b96973c2) )
-	ROM_LOAD( "300cda.v3", 0x800000, 0x400000, CRC(e0fc99ca) SHA1(6de935b54bf5adc4394fe824b001b38eca0291ad) ) // This is 300cd.v3 padded out with extra FFs
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "300cd.c1", 0x000000, 0x400000, CRC(554e6b73) SHA1(3637a8a4474e33eb75ac4a4ce0815f6a514fe337) )
-	ROM_LOAD16_BYTE( "300cd.c2", 0x000001, 0x400000, CRC(7c84b0fc) SHA1(cbd7a7865113e4f21f2b1f990a077fa5c2eae894) )
-	ROM_LOAD16_BYTE( "300cd.c3", 0x800000, 0x400000, CRC(28ec7555) SHA1(f094739272e6017a7193fa96cde3c1ed573a66b6) )
-	ROM_LOAD16_BYTE( "300cd.c4", 0x800001, 0x400000, CRC(8b7c236b) SHA1(1cb3fe81f433a2180c85be935e340da3c55aafdb) )
-ROM_END
-
-ROM_START( lhopecd ) // NGCD V0.52 beta (GAME#0666) - These roms were extracted from the Japanese ISO, not working at all.
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "300cdb.p1", 0x000000, 0x100000, CRC(cd108282) SHA1(bb9b3c8bb94c05b46ea24173e62245611dbc29ce) )
-	//ROM_LOAD( "300cdc.p1", 0x000000, 0x100000, CRC(a957c41c) SHA1(63fef6c72619f0e8ec7d711f18043a5f1d8f17c2) )   // HACK OF THE ABOVE
-
-	NEO_SFIX_128K( "300cd.s1", CRC(298495d6) SHA1(c217aba6c1916d2e5337bb5c17d979b11a53582e) )
-
-	NEO_BIOS_AUDIO_64K( "300cdb.m1", CRC(698372df) SHA1(1eae816223c3d0c5b501e6fdc5a62388450991a5) )
-
-	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "300cdb.v1", 0x000000, 0x80000, CRC(bc65aee1) SHA1(2090133dcbb4f5b73696aab71ed5ea5b25b09b55) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD( "lhl1spr0.spr", 0x000000, 0x178000, CRC(23448ddf) SHA1(c429c90f58125a5182255567d458883ac9ef3e85) ) // Level 1 (demo 1)
-	//ROM_LOAD( "lhl2spr0.spr", 0x000000, 0x1c0000, CRC(b3010e19) SHA1(dc9a238b6b945eacd523ef0b6bb8df6432bd3da0) ) // Level 2
-	//ROM_LOAD( "lhl3spr0.spr", 0x000000, 0x170000, CRC(db699a50) SHA1(56a94e34abfc0b45c3f33a3ac3435b107ccf9148) ) // Level 3 (demo 2)
-	//ROM_LOAD( "lhl4spr0.spr", 0x000000, 0x200000, CRC(c5741cc8) SHA1(8593b320c140456ede6a7e355fcde978e74a0ffd) ) // Level 4
-	//ROM_LOAD( "lhl5spr0.spr", 0x000000, 0x200000, CRC(a93eba1f) SHA1(da313b0ac97480cc451ba4678a819a4fab0bd5b3) ) // Level 5
-	//ROM_LOAD( "lhl6spr0.spr", 0x000000, 0x0e8000, CRC(e6a92f3c) SHA1(2e0af35e5bd65a5045410a87540c8ab1d2ef3018) ) // Level 6
-	//ROM_LOAD( "lhoutro0.spr", 0x000000, 0x02e000, CRC(698944df) SHA1(cfd6897fbf4b1be597be940418f3dfb7ba88116a) ) // ?
-	//ROM_LOAD( "lhtitel0.spr", 0x000000, 0x003400, CRC(bbff9511) SHA1(6471c68ec368d41082c34a831452bbda969b7562) ) // ?
-ROM_END
-
+// 300 : Last Hope by NG:DEV.Team
 ROM_START( lhbb )  // AES V1.1 - Last Hope with Blue Bullets (hack)
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "300bb.p1", 0x000000, 0x100000, CRC(a5e6f24b) SHA1(d5a39d146982b4847e9008600f4ea9d38a1226e0) )
+	ROM_LOAD16_WORD_SWAP( "300bb.p1", 0, 0x100000, CRC(a5e6f24b) SHA1(d5a39d146982b4847e9008600f4ea9d38a1226e0) )
 
 	NEO_SFIX_64K( "300.s1", CRC(0c0ff9e6) SHA1(c87d1ea8731ac1e63ab960b8182dd1043bcc10bb) )
 
@@ -855,31 +647,11 @@ ROM_START( lhbb )  // AES V1.1 - Last Hope with Blue Bullets (hack)
 	ROM_LOAD16_BYTE( "300.c4", 0x800001, 0x400000, CRC(8486ad9e) SHA1(19a2a73c825687e0cb9fd62bde00db91b5409529) )
 ROM_END
 
-ROM_START( lhpb )  // V1.0 - Last Hope with Pink Bullets (hack by =LoW=) - not the original
+ROM_START( lhpb )  // V1.3 - Last Hope with Pink Bullets (hack by =LoW=) - not the original
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "300pb.p1", 0x000000, 0x100000, CRC(b81dd2e0) SHA1(53cfc791267e56d07f1288a20fd1cca4a9f7c631) )
+	ROM_LOAD16_WORD_SWAP( "300pb.p1", 0, 0x100000, CRC(25c1867d) SHA1(e061e84d4a90afc114ab43dc7ceda0f8e99ebf2b) )
 
-	NEO_SFIX_128K( "300pb.s1", CRC(f0719dbb) SHA1(8d1faa2dac59579b7bda6bdafd8bac5b794ce2f0) )
-
-	NEO_BIOS_AUDIO_128K( "300pb.m1", CRC(4b395814) SHA1(5fc88b369dceb6b8ff5ff42e284d7def0aad1148) )
-
-	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "300pb.v1", 0x000000, 0x200000, CRC(2dda0948) SHA1(dc791a41d16b3aeb27f8da2fb7656b73ace579e1) )
-	ROM_LOAD( "300pb.v2", 0x200000, 0x200000, CRC(056f66ef) SHA1(d3ef0d5b75bc763f865315cbd3344e395a6673df) )
-	ROM_LOAD( "300pb.v3", 0x400000, 0x200000, CRC(3754d8f9) SHA1(620098a19151e289471cdab2230d71caacdab70c) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "300pb.c1", 0x000000, 0x400000, CRC(bc2d2a8b) SHA1(fd57c05863649ff609d3927c9d7c02d67b752f50) )
-	ROM_LOAD16_BYTE( "300pb.c2", 0x000001, 0x400000, CRC(1673318d) SHA1(6c3fafd7b3d22021c1430a9c019f63200e0cb5d7) )
-	ROM_LOAD16_BYTE( "300pb.c3", 0x800000, 0x400000, CRC(bf0e4af1) SHA1(41dac8b64e429550964529069e90a503a3b3dd35) )
-	ROM_LOAD16_BYTE( "300pb.c4", 0x800001, 0x400000, CRC(6b44c6a0) SHA1(295a60f69f6ed9a015b7d8790b88615ecf4f81f6) )
-ROM_END
-
-ROM_START( lhpb01 )  // V1.2 - Last Hope with Pink Bullets (hack by =LoW=) - not the original
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "300pb01.p1", 0x000000, 0x100000, CRC(d6fce9c1) SHA1(9dd957fb96d874de7b1c56ab1efdcd3f9dd611cb) )
-
-	NEO_SFIX_128K( "300pb.s1", CRC(f0719dbb) SHA1(8d1faa2dac59579b7bda6bdafd8bac5b794ce2f0) )
+	NEO_SFIX_128K( "300pb.s1", CRC(36c54e06) SHA1(f8764dec2b9b89c7206dacdc351972ecba04cc0b) )
 
 	NEO_BIOS_AUDIO_128K( "300pb.m1", CRC(4b395814) SHA1(5fc88b369dceb6b8ff5ff42e284d7def0aad1148) )
 
@@ -899,7 +671,7 @@ ROM_END
 // 307 : Yo-Yo Shuriken
 ROM_START( yoyoshkn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "307.p1", 0x000000, 0x100000, CRC(8a36bd7d) SHA1(5a1af3f1de96cadd9680996d3b59471dfe6768e6) )
+	ROM_LOAD16_WORD_SWAP( "307.p1", 0, 0x100000, CRC(8a36bd7d) SHA1(5a1af3f1de96cadd9680996d3b59471dfe6768e6) )
 
 	NEO_SFIX_128K( "307.s1", CRC(59ce2b22) SHA1(1b5633bd9e707f035c8a3c9811c47e1ea3c74481) )
 
@@ -919,7 +691,7 @@ ROM_END
 // 316 : Treasure of the Caribbean
 ROM_START( totc )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "316.p1", 0x000000, 0x100000, CRC(99604539) SHA1(88d5f4fe56516aa36496cafd2508f6864118f1e2) )
+	ROM_LOAD16_WORD_SWAP( "316.p1", 0, 0x100000, CRC(99604539) SHA1(88d5f4fe56516aa36496cafd2508f6864118f1e2) )
 
 	NEO_SFIX_128K( "248.s1", CRC(0a3fee41) SHA1(0ab2120e462086be942efcf6ffb37f58ea966ca3) )
 
@@ -936,181 +708,8 @@ ROM_START( totc )
 ROM_END
 
 
-// 323 : The Eye of Typhoon (demo)
-ROM_START( teot_1 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323a.p1", 0x000000, 0x100000, CRC(759b68d3) SHA1(2ccec3f12c1e35f47e5f5419c9770c72d783d27f) )
-
-	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
-
-	NEO_BIOS_AUDIO_64K( "323a.m1", CRC(2b5738dc) SHA1(53fb556a3a12030d8e4abecafc5823037ba88c1b) )
-
-	ROM_REGION( 0x900000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323a.v1",   0x000000, 0x100000, CRC(ac261416) SHA1(c9092127362fb07bc969d655dd2806f0e6c43e28) )
-	ROM_LOAD( "323a.v2",   0x100000, 0x100000, CRC(95ea979a) SHA1(54007defb7c833b0e15d08d2be2ac21f6830d625) )
-	ROM_LOAD( "323a.v3",   0x200000, 0x100000, CRC(493223d3) SHA1(eb8cc3967fd1e1228807ec79c2584b8cc0cfbbe8) )
-	ROM_LOAD( "323a.v4",   0x300000, 0x100000, CRC(fbf00c96) SHA1(4083f8efbcf748dba31f0030b82487e0ea56980b) )
-	ROM_LOAD( "323a.v5",   0x400000, 0x100000, CRC(9b2031d4) SHA1(15c8f5cb26af29b8dca53f1c1c49384a1b73b820) )
-	ROM_LOAD( "323a.v6",   0x500000, 0x100000, CRC(107cfc89) SHA1(c4ced7dfab24ff42c6fc2424b18cf199ba30cbfa) )
-	ROM_LOAD( "323a.v7",   0x600000, 0x100000, CRC(0703b761) SHA1(7d586b69bb9578d550871eda884cd6b32d86a01f) )
-	ROM_LOAD( "323a.v8",   0x700000, 0x100000, CRC(8d525588) SHA1(297871c1e8888d9adab3781fb6c2c27ecf50ca45) )
-	ROM_LOAD( "323a.v9",   0x800000, 0x100000, CRC(97f073b6) SHA1(02a4cce3f0cdb9421350ee5af49af13d7dcd16c2) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323a.c1", 0, 0x800000, CRC(76b8e9ae) SHA1(3129ab5283c1cde389c8b311fb6c469688492fdf) )
-	ROM_LOAD16_BYTE( "323a.c2", 1, 0x800000, CRC(b0c6b4d0) SHA1(38fbff87722b3ae2f3f005369dbdbdea60a3be12) )
-ROM_END
-
-ROM_START( teot_2 ) // 2nd demo, 2021-02-20
-	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323b.p1", 0x000000, 0x100000, CRC(3ab0b686) SHA1(c950bc58044a31fe3575fb5c32ba222014b65677) )
-	ROM_LOAD16_WORD_SWAP( "323b.p2", 0x100000, 0x100000, CRC(258909d5) SHA1(a4707264d39d2a06b5f9417f5d55d92cc4c328dd) )
-
-	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
-
-	NEO_BIOS_AUDIO_64K( "323b.m1", CRC(62bd5336) SHA1(dd496daca2c662f6671d3c820f0cafac1bffe0b2) )
-
-	ROM_REGION( 0x700000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323b.v1",   0x000000, 0x100000, CRC(a0906304) SHA1(681b24a72c5c082433d04feae76f9fc20af589af) )
-	ROM_LOAD( "323b.v2",   0x100000, 0x100000, CRC(c5e10c1a) SHA1(e4f48144405d8de3dde86b460f4102114e8b9525) )
-	ROM_LOAD( "323b.v3",   0x200000, 0x100000, CRC(cb78034b) SHA1(ead8368002c7858e4d14f14e1e5a1756f6a381b0) )
-	ROM_LOAD( "323b.v4",   0x300000, 0x100000, CRC(4a2d0d6d) SHA1(70703d0952146619b1dfa5fd86cce94de2aca9d6) )
-	ROM_LOAD( "323b.v5",   0x400000, 0x100000, CRC(51285019) SHA1(d279fbab0cd7c179c6c45f2604ae67c83b3bcce3) )
-	ROM_LOAD( "323b.v6",   0x500000, 0x100000, CRC(03641f40) SHA1(cc979d28b548de35e53a4c52cb1cf9508a38660d) )
-	ROM_LOAD( "323b.v7",   0x600000, 0x100000, CRC(e425eff3) SHA1(3a924e544da43daab4f782e344565cc81dade183) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323b.c1", 0, 0x800000, CRC(94080cf2) SHA1(f2464da2076466f1387d4e4b812ea4ebec80e72c) )
-	ROM_LOAD16_BYTE( "323b.c2", 1, 0x800000, CRC(fb5116b6) SHA1(d70b13b24a3b85a0881bd0fe998fc98f6a99e99b) )
-ROM_END
-
-ROM_START( teot_3 ) // Alpha5 demo, 2021-05-16  (can crash sometimes)
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323c.p1", 0x000000, 0x100000, CRC(9038ff78) SHA1(33f0ce3874e24c366177c89824c4b0cd1d30dfce) )
-	ROM_LOAD16_WORD_SWAP( "323c.p2", 0x100000, 0x800000, CRC(fe363160) SHA1(e503dd9cefa2b7d69ea2aaff60c63c00b83c158d) )
-
-	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
-
-	NEO_BIOS_AUDIO_64K( "323c.m1", CRC(31b05f06) SHA1(da1f984af58bcc7d4d496382bcb938fa7aff5ab1) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323c.v1",   0x000000, 0x800000, CRC(299d84cf) SHA1(da0bb20b8faeaf0d78f987afc775abaadcc59dfa) )
-	ROM_LOAD( "323c.v2",   0x800000, 0x800000, CRC(aced6c72) SHA1(8dc481445dbcc717c6dccb27dff446c5f05080f0) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323c.c1",   0, 0x1000000, CRC(28872e1f) SHA1(420d68ed2d417e1edfbd351619ff144fb7eacd9b) )
-	ROM_LOAD16_BYTE( "323c.c2",   1, 0x1000000, CRC(fe31d1fc) SHA1(947d4cc47905308d03423640d863e60007b2309a) )
-ROM_END
-
-ROM_START( teot_4 ) // Beta, 2022-01-05
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323d.p1", 0x000000, 0x100000, CRC(603fac98) SHA1(b5d4caf9162cac28d153fe33169cfc8acb679f84) )
-	ROM_LOAD16_WORD_SWAP( "323d.p2", 0x100000, 0x800000, CRC(5f557ad5) SHA1(9983d3b913f0d3bb315b696cd77f2ad7d04fbcd3) )
-
-	NEO_SFIX_128K( "323d.s1", CRC(aba8f74c) SHA1(c8d12f535099ce0232bb637e04ac7b79569e15fe) )
-
-	NEO_BIOS_AUDIO_64K( "323d.m1", CRC(dc29f33b) SHA1(cb1f45e93b19b00b901c5992a2646db652755d6e) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323d.v1",   0x000000, 0x800000, CRC(91b3deed) SHA1(6408ad38bcbe2712a11e30efecb47b027cabd49a) )
-	ROM_LOAD( "323d.v2",   0x800000, 0x800000, CRC(985e6f6b) SHA1(b3e92d6ab08ad42347b622dbb72a7589a7dbe885) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323d.c1",   0, 0x1000000, CRC(7919ea09) SHA1(bb8e058346ebc02b7e20f324411c6455271a837b) )
-	ROM_LOAD16_BYTE( "323d.c2",   1, 0x1000000, CRC(62aa59a8) SHA1(dc4b7dc87d43b2c61bea799d2de5344d1c1999b9) )
-ROM_END
-
-ROM_START( teot_5 ) // Beta 2, 2022-01-29
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323e.p1", 0x000000, 0x100000, CRC(0d5763ae) SHA1(53dc53f9945cd7daeb7ab1e121f3aed132c75d0a) )
-	ROM_LOAD16_WORD_SWAP( "323e.p2", 0x100000, 0x800000, CRC(bee21724) SHA1(0c37bb950568932493a1806cd1038e5935a5bddf) )
-
-	NEO_SFIX_128K( "323e.s1", CRC(52895190) SHA1(d11385c51591b685c533a9f27c4fd3aa62927bef) )
-
-	NEO_BIOS_AUDIO_64K( "323e.m1", CRC(583db6a5) SHA1(4f6e15a50b2074aa1d2eb5d1b91bead0639be963) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323e.v1",   0x000000, 0x800000, CRC(d88114d4) SHA1(981f151c2b7e63e876f350169426759e0e73cdd1) )
-	ROM_LOAD( "323e.v2",   0x800000, 0x800000, CRC(6fccb0d0) SHA1(386f7f054d1d988cca904c03ca52023236b22813) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323e.c1",   0, 0x800000, CRC(b087909a) SHA1(e4dc29edb0f5d8ea53d8c4c5934ae5e1176466fa) )
-	ROM_LOAD16_BYTE( "323e.c2",   1, 0x800000, CRC(a4d6cd16) SHA1(780e0b3eae94536951731fea1bb4145bfa5eec77) )
-ROM_END
-
-ROM_START( teot_6 ) // Beta 3, 2022-03-12
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323f.p1", 0x000000, 0x100000, CRC(2af068c0) SHA1(82f5885fbfdef47c0e9416cf9bd9accf8e5a739d) )
-	ROM_LOAD16_WORD_SWAP( "323f.p2", 0x100000, 0x800000, CRC(3ddc321d) SHA1(496573202a417d40894f69c2044ef408d3a0f01b) )
-
-	NEO_SFIX_128K( "323e.s1", CRC(52895190) SHA1(d11385c51591b685c533a9f27c4fd3aa62927bef) )
-
-	NEO_BIOS_AUDIO_64K( "323f.m1", CRC(5edaa24d) SHA1(90209de31a87da4118600be64869b36067d76c4b) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323f.v1",   0x000000, 0x800000, CRC(70042574) SHA1(368e85d38a94238b61969ee564f94bef143b808d) )
-	ROM_LOAD( "323f.v2",   0x800000, 0x800000, CRC(d84d05b2) SHA1(7ad3914b5e95572d3fc9dadc6ad0e23463983118) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323f.c1",   0, 0x1000000, CRC(360e5362) SHA1(a86a5eea49218669c5e00a6b286a7d2d6f02ab3c) )
-	ROM_LOAD16_BYTE( "323f.c2",   1, 0x1000000, CRC(1fdff0ce) SHA1(4ef77f3e01d58612e9b730426adb81d87ccb5572) )
-ROM_END
-
-ROM_START( teot_7 ) // Beta 4, 2022-05-07
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323g.p1", 0x000000, 0x100000, CRC(fdb9a8d4) SHA1(7e0d43ebe7b3841948a0de311b521b3eaa1c91d7) )
-	ROM_LOAD16_WORD_SWAP( "323g.p2", 0x100000, 0x800000, CRC(02dd52ed) SHA1(71a310cf48fe719726f60aa11e87e11bb217ac5c) )
-
-	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
-
-	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
-	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323g.c1",   0, 0x1000000, CRC(66f0afa6) SHA1(3ee249703bf4710d4ae7ac6b9928f81dcb679654) )
-	ROM_LOAD16_BYTE( "323g.c2",   1, 0x1000000, CRC(e773037f) SHA1(ac3d07091fc8f25f01b9f21f5a0abff750af8208) )
-ROM_END
-
-ROM_START( teot_8 ) // Beta 5, 2022-05-29
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323h.p1", 0x000000, 0x100000, CRC(1cd69227) SHA1(dd2669a5f0db942b4dfddaa6448179038d1852b6) )
-	ROM_LOAD16_WORD_SWAP( "323h.p2", 0x100000, 0x800000, CRC(68dc7463) SHA1(e304187c3343d6a3f4dcad05ab68a1e73434079c) )
-
-	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
-
-	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
-	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323h.c1",   0, 0x1000000, CRC(2fdbfbef) SHA1(3bc2f207538893f71a7f14800dc9f11f1788c5bf) )
-	ROM_LOAD16_BYTE( "323h.c2",   1, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
-ROM_END
-
-ROM_START( teot_9 ) // Beta 6, 2022-07-06
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "323i.p1", 0x000000, 0x100000, CRC(49b25c64) SHA1(91d2d27952818c40ad288af90df606a75ca7f824) )
-	ROM_LOAD16_WORD_SWAP( "323h.p2", 0x100000, 0x800000, CRC(68dc7463) SHA1(e304187c3343d6a3f4dcad05ab68a1e73434079c) )
-
-	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
-
-	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
-	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
-
-	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "323h.c1",   0, 0x1000000, CRC(2fdbfbef) SHA1(3bc2f207538893f71a7f14800dc9f11f1788c5bf) )
-	ROM_LOAD16_BYTE( "323h.c2",   1, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
-ROM_END
-
-ROM_START( teot ) // Beta 7, 2022-07-31
+// 323 : The Eye of Typhoon (beta-7, 2022-07-31) by OzzyOuzo
+ROM_START( teot )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "323j.p1", 0x000000, 0x100000, CRC(c0ae0a56) SHA1(d5817755641c5b105c1191b3a1f0dbca64060878) )
 	ROM_LOAD16_WORD_SWAP( "323h.p2", 0x100000, 0x800000, CRC(68dc7463) SHA1(e304187c3343d6a3f4dcad05ab68a1e73434079c) )
@@ -1140,10 +739,10 @@ ROM_START( 19yy01 ) // v1.0, first release
 	NEO_BIOS_AUDIO_128K( "334a.m1", CRC(636d8ac8) SHA1(a9155bf34f5046bb3d6fa1d740ab328054f754d5) )
 
 	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "334a.v1",  0x000000, 0x400000, CRC(7bb79a6a) SHA1(4eb92dcadf8742632ba632e16cf22ead90e3a0c9) )
+	ROM_LOAD( "334a.v1", 0x000000, 0x400000, CRC(7bb79a6a) SHA1(4eb92dcadf8742632ba632e16cf22ead90e3a0c9) )
 	ROM_LOAD( "090.v3",  0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
 
-	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "334.c1",  0, 0x400000, CRC(622719d5) SHA1(38c51619992bf9b6de07d3739d28e0098295cec0) )
 	ROM_LOAD16_BYTE( "334.c2",  1, 0x400000, CRC(41b07be5) SHA1(3f0bb6ebf2e4b396fbc72e949cff415603c0ae96) )
 ROM_END
@@ -1161,7 +760,7 @@ ROM_START( 19yy ) // sound fixed by elrayzeur, 2022-10-20
 	ROM_LOAD( "334.v1",  0x000000, 0x800000, CRC(944146c2) SHA1(e81fa519cddcc9489d013937eb366ad090fb6b74) )
 	ROM_LOAD( "334.v2",  0x800000, 0x800000, CRC(a4bafe45) SHA1(6936f842103897fed35fc0c325c71f3c024e9174) )
 
-	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "334.c1",  0, 0x400000, CRC(622719d5) SHA1(38c51619992bf9b6de07d3739d28e0098295cec0) )
 	ROM_LOAD16_BYTE( "334.c2",  1, 0x400000, CRC(41b07be5) SHA1(3f0bb6ebf2e4b396fbc72e949cff415603c0ae96) )
 ROM_END
@@ -1169,7 +768,7 @@ ROM_END
 // 335 : Cake Fighter
 ROM_START( cakefght ) // v1.0
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "335.p1", 0x000000, 0x200000, CRC(717afa0f) SHA1(b0e0556b9c996e29c16fcb3416d763d454b8e8ab) )
+	ROM_LOAD16_WORD_SWAP( "335.p1", 0, 0x200000, CRC(717afa0f) SHA1(b0e0556b9c996e29c16fcb3416d763d454b8e8ab) )
 
 	NEO_SFIX_128K( "335.s1", CRC(10037303) SHA1(7a31d747a3f3828f5b41c793a2bbbbefcd24d276) )
 
@@ -1209,14 +808,14 @@ ROM_END
 // 340: Knights Chance by Neobitz
 ROM_START( knightsch )
 	ROM_REGION( 0x200000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "340.p1", 0x000000, 0x100000, CRC(d7ac5077) SHA1(bbb72cb8eba04b7a93c1e611c50cec8cbc52eb9a) )
+	ROM_LOAD16_WORD_SWAP( "340.p1", 0, 0x100000, CRC(d7ac5077) SHA1(bbb72cb8eba04b7a93c1e611c50cec8cbc52eb9a) )
 
 	NEO_SFIX_128K( "340.s1", CRC(d007e769) SHA1(c09936ace59a25c15ba9436f8514956538ed4c2d) )
 
 	NEO_BIOS_AUDIO_128K( "340.m1", CRC(aaf76ef5) SHA1(ebfa2d30539932133dc8c9fe0255890626e145ab) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "340.v1", 0x000000, 0x800000, CRC(b8e55619) SHA1(d1e03486b9f33954e0b3f411414ff4cf764aa55f) )
+	ROM_LOAD( "340.v1", 0, 0x800000, CRC(b8e55619) SHA1(d1e03486b9f33954e0b3f411414ff4cf764aa55f) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "340.c1", 0, 0x400000, CRC(206ca233) SHA1(05490faba5b4003c1f073c94f9335e89ff14b464) )
@@ -1236,16 +835,16 @@ ROM_START( cphd )
 	NEO_BIOS_AUDIO_64K( "341.m1", CRC(535a7397) SHA1(3752017175030b05a91078bdf0709af91dee5fc3) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "341.v1",     0x0000000, 0x1000000, CRC(04eb9c07) SHA1(226f6d6e0365613fb66671775a1f8e5ca62d0549) )
+	ROM_LOAD( "341.v1",     0, 0x1000000, CRC(04eb9c07) SHA1(226f6d6e0365613fb66671775a1f8e5ca62d0549) )
 	ROM_IGNORE(0x1000000) // empty
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
-	ROM_LOAD( "341.v2",     0x0000000, 0x1000000, CRC(9c9aec7f) SHA1(dc54b4ea34724da5dc9e5b498a2b16d7f1ffc1b4) )
+	ROM_LOAD( "341.v2",     0, 0x1000000, CRC(9c9aec7f) SHA1(dc54b4ea34724da5dc9e5b498a2b16d7f1ffc1b4) )
 	ROM_IGNORE(0x1000000) // empty
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "341.c1", 0x0000000, 0x2000000, CRC(f3a4b475) SHA1(07a5e8c3a0a8e29f952e448d8eac772ccef6586e) )
-	ROM_LOAD16_BYTE( "341.c2", 0x0000001, 0x2000000, CRC(05ce93a9) SHA1(a29f7ca6d0b3c53a0b2889e716b34fe921da432c) )
+	ROM_LOAD16_BYTE( "341.c1", 0, 0x2000000, CRC(f3a4b475) SHA1(07a5e8c3a0a8e29f952e448d8eac772ccef6586e) )
+	ROM_LOAD16_BYTE( "341.c2", 1, 0x2000000, CRC(05ce93a9) SHA1(a29f7ca6d0b3c53a0b2889e716b34fe921da432c) )
 	// c3 and c4 are all zero, so not used
 ROM_END
 
@@ -1261,7 +860,7 @@ ROM_START( xeno )
 	NEO_BIOS_AUDIO_64K( "342.m1", CRC(28c13ed9) SHA1(a3c8cf36906293a24f1ed49376c9d561560d2730) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "342.v1", 0x000000, 0x1000000, CRC(60d57867) SHA1(e1f3f759b4af4404f19dd5b75135e6968b6be3c5) )
+	ROM_LOAD( "342.v1", 0, 0x1000000, CRC(60d57867) SHA1(e1f3f759b4af4404f19dd5b75135e6968b6be3c5) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "342.c1", 0, 0x200000, CRC(ae51ef89) SHA1(da82214263a99520364a2b7ab8140bdc68940f6d) )
@@ -1293,14 +892,12 @@ ROM_END
 // No sound
 ROM_START( poknight )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "403.p1", 0x000000, 0x080000, CRC(750421ee) SHA1(0a86823456a82506bc96989c361626be4b3ceeaf) )
+	ROM_LOAD16_WORD_SWAP( "403.p1", 0, 0x80000, CRC(750421ee) SHA1(0a86823456a82506bc96989c361626be4b3ceeaf) )
 
 	NEO_SFIX_128K( "403.s1", CRC(a26d2f09) SHA1(e7da6005a66e52f5479f9fe9f0cc67527dcb5d04) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "403.c1", 0, 0x80000, CRC(5fb2b761) SHA1(12ec2abcd199da866519aca767818a080d9b40bf) )
@@ -1309,14 +906,12 @@ ROM_END
 
 ROM_START( poknightcd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "403.p1", 0x000000, 0x080000, CRC(750421ee) SHA1(0a86823456a82506bc96989c361626be4b3ceeaf) )
+	ROM_LOAD16_WORD_SWAP( "403.p1", 0, 0x80000, CRC(750421ee) SHA1(0a86823456a82506bc96989c361626be4b3ceeaf) )
 
 	NEO_SFIX_64K( "403a.s1", CRC(d6919a39) SHA1(46c858249292c1077c1e4ba5a6be469eb39ed483) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "403a.c1", 0, 0x80000, CRC(0ab5143b) SHA1(73d81c09deec02174aa5528aafad28c1294e8b8e) )
@@ -1325,17 +920,15 @@ ROM_END
 
 ROM_START( poknightfr )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "403b.p1", 0x000000, 0x020000, CRC(e0b3e776) SHA1(4b5aa783d59d37a04553671830e932a35561d447) )
+	ROM_LOAD16_WORD_SWAP( "403b.p1", 0, 0x20000, CRC(e0b3e776) SHA1(4b5aa783d59d37a04553671830e932a35561d447) )
 
 	NEO_SFIX_MT(0x8000)
-	ROM_LOAD( "403b.s1", 0x00000, 0x08000, CRC(3824214d) SHA1(446bf7ec6afc80a758d7d5dc3156a12cdee3b38d) )
+	ROM_LOAD( "403b.s1", 0, 0x8000, CRC(3824214d) SHA1(446bf7ec6afc80a758d7d5dc3156a12cdee3b38d) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
+	// v1 all FF, so left out
 
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
-
-	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_REGION( 0x30000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "403b.c1", 0, 0x18000, CRC(0ee80e14) SHA1(4dbe8b0750ca8e479bc6936ecf15572ef5ff7462) )
 	ROM_LOAD16_BYTE( "403b.c2", 1, 0x18000, CRC(84f17a6d) SHA1(3a2232469274c5418e58dd48b78106d540f2c6ad) )
 ROM_END
@@ -1345,14 +938,12 @@ ROM_END
 // No sound
 ROM_START( columnsn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "404.p1", 0x000000, 0x080000, CRC(c6c9888d) SHA1(5a2ec1071872c817bf82053ca7b7d5d63fab6755) )
+	ROM_LOAD16_WORD_SWAP( "404.p1", 0, 0x80000, CRC(c6c9888d) SHA1(5a2ec1071872c817bf82053ca7b7d5d63fab6755) )
 
 	NEO_SFIX_128K( "404.s1", CRC(089a28a8) SHA1(b38b5c42eb909c57c16b016addffcd4e930806ce) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "404.c1", 0, 0x80000, CRC(9a579cab) SHA1(9efd285c1bdc49a0d1daf2a062d0f906a0f5b542) )
@@ -1361,14 +952,12 @@ ROM_END
 
 ROM_START( columnsncd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "404.p1", 0x000000, 0x080000, CRC(c6c9888d) SHA1(5a2ec1071872c817bf82053ca7b7d5d63fab6755) )
+	ROM_LOAD16_WORD_SWAP( "404.p1", 0, 0x80000, CRC(c6c9888d) SHA1(5a2ec1071872c817bf82053ca7b7d5d63fab6755) )
 
 	NEO_SFIX_64K( "404a.s1", CRC(16cdb953) SHA1(a699f05fe9fb02a9bb0f03778578a5adcae00b91) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "404a.c1", 0, 0x80000, CRC(cf503ff1) SHA1(3fb3131fa55d6137381b817dbb07b740096749b7) )
@@ -1376,72 +965,17 @@ ROM_START( columnsncd )
 ROM_END
 
 
-// 407 : Neo No Panepon by Blastar, 2002
+// 407 : Neo No Panepon (v.0.2) by Blastar, 2002
 // No sound
-/* There are 4 versions.
-   Release dates: v1a and v1b = 2002-07-07, v1c = 2002-08-22, v2 = 2002-10-05
-
-   MAME has a bug where the first 2 high scores do not show. (Change pixel clock to /6 to fix this)
-*/
-// Keeps rebooting; use Universe Bios to see opening screen, then press Space to reboot
-ROM_START( neonopon_d1 )
+// MAME has a bug where the first 2 high scores do not show. (Change pixel clock to /6 to fix this)
+ROM_START( neonopon )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "407a.p1", 0x000000, 0x080000, CRC(43b7c759) SHA1(bbb4bf7957a336be6e5daa4030a5ebb1c72d92ee) )
-
-	NEO_SFIX_64K( "407a.s1", CRC(e28ea706) SHA1(bd113a91a1303e2ec670250225a1cd35d34c7f60) )
-
-	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "407a.c1", 0, 0x100000, CRC(24dcba77) SHA1(da7ce6797bf4ac9903dbb00587815c51c835c879) )
-	ROM_LOAD16_BYTE( "407a.c2", 1, 0x100000, CRC(57c41e26) SHA1(39d810547f3f8a44b45e7807f1e6b3a0672a1688) )
-ROM_END
-// Keeps rebooting; use Universe Bios to see opening screen, then press Space to reboot
-ROM_START( neonopon_d2 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "407a.p1", 0x000000, 0x080000, CRC(43b7c759) SHA1(bbb4bf7957a336be6e5daa4030a5ebb1c72d92ee) )
-
-	NEO_SFIX_64K( "407a.s1", CRC(e28ea706) SHA1(bd113a91a1303e2ec670250225a1cd35d34c7f60) )
-
-	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "407b.c1", 0, 0x100000, CRC(0833c9e7) SHA1(62f4e093bd5b521ee3f64aa1744e324a3a50eb12) )
-	ROM_LOAD16_BYTE( "407b.c2", 1, 0x100000, CRC(fbf5f67f) SHA1(52a6a800d4afaa9675e1f6eab5ed4be772f17338) )
-ROM_END
-// Keeps rebooting; use Universe Bios to see opening screen, then press Space to reboot
-ROM_START( neonopon_d3 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "407a.p1", 0x000000, 0x080000, CRC(43b7c759) SHA1(bbb4bf7957a336be6e5daa4030a5ebb1c72d92ee) )
+	ROM_LOAD16_WORD_SWAP( "407.p1", 0, 0x80000, CRC(8a792271) SHA1(6f8db18f9ced0706cb2e4b5545da97be871352dd) )
 
 	NEO_SFIX_64K( "407.s1", CRC(93e6fe7d) SHA1(791789c33eeeaa23fe6581db2f0ee3c35c73c052) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "407c.c1", 0, 0x100000, CRC(e0573498) SHA1(80ec6ef8a6133f1f66704920332e92daa3daee14) )
-	ROM_LOAD16_BYTE( "407b.c2", 1, 0x100000, CRC(fbf5f67f) SHA1(52a6a800d4afaa9675e1f6eab5ed4be772f17338) )
-ROM_END
-// Works
-ROM_START( neonopon ) // v.0.2
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "407.p1", 0x000000, 0x080000, CRC(8a792271) SHA1(6f8db18f9ced0706cb2e4b5545da97be871352dd) )
-
-	NEO_SFIX_64K( "407.s1", CRC(93e6fe7d) SHA1(791789c33eeeaa23fe6581db2f0ee3c35c73c052) )
-
-	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "407.c1", 0, 0x100000, CRC(4a718ae3) SHA1(e59515bacd9065c4b2712710a6a9a647e42c31e6) )
@@ -1454,35 +988,36 @@ ROM_END
 // No audio files on the CD, so dummy ones used.
 ROM_START( neopl )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "408.p1", 0x000000, 0x00e7a8, CRC(2306d129) SHA1(6cdd535b6356196f42fb6d49e2cbad0c387b63ae) )
+	ROM_LOAD( "408.p1", 0, 0xe7a8, CRC(2306d129) SHA1(6cdd535b6356196f42fb6d49e2cbad0c387b63ae) )
 	ROM_FILL(0x485,1,0x30) // make it run slower
 
 	NEO_SFIX_MT(0x2000)
-	ROM_LOAD( "408.s1", 0x000000, 0x002000, CRC(18fc6ad9) SHA1(e9f0dee058c9a06f2db5fac8bf24485705ae4185) )
+	ROM_LOAD( "408.s1", 0, 0x2000, CRC(18fc6ad9) SHA1(e9f0dee058c9a06f2db5fac8bf24485705ae4185) )
 
 	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) ) // dummy m1
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD( "408.c1",  0, 0x00c900, CRC(1d3129b4) SHA1(54ac06c4c71b1500c39d7a823b328d569e6a7c43) )
+	ROM_LOAD( "408.c1",  0, 0xc900, CRC(1d3129b4) SHA1(54ac06c4c71b1500c39d7a823b328d569e6a7c43) )
 ROM_END
 
 
 // 409 : Jonas Indiana and the Lost Temple of Ra by Blastar (c) 2005
-// Bugs: Insert Coin causes reboot; You can climb into the ceiling and get stuck there; can't jump from one rope to another
+// Bugs: Insert Coin causes reboot; You can climb into the ceiling and get stuck there;
+//       can't jump from one rope to another; gets stuck at end of conveyor belt
 ROM_START( ltorb )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "409.p1", 0x000000, 0x040000, CRC(353f6b05) SHA1(ae2ebb9a08e936a86cd09aaafda9e90826461bbf) )
+	ROM_LOAD16_WORD_SWAP( "409.p1", 0, 0x40000, CRC(353f6b05) SHA1(ae2ebb9a08e936a86cd09aaafda9e90826461bbf) )
 
 	NEO_SFIX_64K( "409.s1", CRC(8224d8b7) SHA1(2e7b176e5dffd8a44fa813b928155801d80b1ee6) )
 
 	NEO_BIOS_AUDIO_64K( "409.m1", CRC(6847fd52) SHA1(6e6d9045299966d41e3f193b3aff032d5b5e135d) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "409.v1", 0x000000, 0x080000, CRC(0329c2e7) SHA1(44c7f04d4e37fb5a06b0366d291f80c3a67a46f5) )
+	ROM_LOAD( "409.v1", 0, 0x80000, CRC(0329c2e7) SHA1(44c7f04d4e37fb5a06b0366d291f80c3a67a46f5) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "409.c1", 0, 0x080000, CRC(8b607198) SHA1(23dc0b285518f3e80a8feab4d674d625e76e8896) )
-	ROM_LOAD16_BYTE( "409.c2", 1, 0x080000, CRC(6b96b59c) SHA1(a62600c337d7f6821ce56bdfd5c484f05c88187f) )
+	ROM_LOAD16_BYTE( "409.c1", 0, 0x80000, CRC(8b607198) SHA1(23dc0b285518f3e80a8feab4d674d625e76e8896) )
+	ROM_LOAD16_BYTE( "409.c2", 1, 0x80000, CRC(6b96b59c) SHA1(a62600c337d7f6821ce56bdfd5c484f05c88187f) )
 ROM_END
 
 
@@ -1490,14 +1025,14 @@ ROM_END
 // Bugs: Insert Coin causes reboot
 ROM_START( cnbe )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "410.p1", 0x000000, 0x080000, CRC(7ece4186) SHA1(fc4ed3b5ed551744542c2ff1e45a6e97c68eff88) )
+	ROM_LOAD16_WORD_SWAP( "410.p1", 0, 0x80000, CRC(7ece4186) SHA1(fc4ed3b5ed551744542c2ff1e45a6e97c68eff88) )
 
 	NEO_SFIX_64K( "410.s1", CRC(40a4698f) SHA1(be631408b261906f36c41c58c775c1a4c418a256) )
 
 	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "410.v1", 0x000000, 0x080000, CRC(70191764) SHA1(7dff2122c32886a3626c0d7befc7e7c3961c6cee) )
+	ROM_LOAD( "410.v1", 0, 0x80000, CRC(70191764) SHA1(7dff2122c32886a3626c0d7befc7e7c3961c6cee) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "410.c1", 0, 0x100000, CRC(0f4fea6f) SHA1(2eeaa661272817dc205072cd63d8bffbe7d6fbec) )
@@ -1509,45 +1044,19 @@ ROM_END
 // Seems original didn't work correctly on MVS, this fixes it. Makes no difference in emulation.
 ROM_START( cnbe2018 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "410a.p1", 0x000000, 0x40000, CRC(189fecd5) SHA1(d78ef1b3c6af9e75618dabd52fec9403f5007c36) )
+	ROM_LOAD16_WORD_SWAP( "410a.p1", 0, 0x40000, CRC(189fecd5) SHA1(d78ef1b3c6af9e75618dabd52fec9403f5007c36) )
 
 	NEO_SFIX_64K( "410a.s1", CRC(ec227c62) SHA1(07a2b5daf8a6369d4b604293ad7b0368455c386b) )
 
 	NEO_BIOS_AUDIO_64K( "410a.m1", CRC(b94f41b4) SHA1(2d6d8d6e6fdae35efedc0732e790448df4e07e9a) )
 
 	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "410a.v1", 0x000000, 0x40000, CRC(54947995) SHA1(30616f95020a06d95a77a69b07fd195c86575307) )
+	ROM_LOAD( "410a.v1", 0, 0x40000, CRC(54947995) SHA1(30616f95020a06d95a77a69b07fd195c86575307) )
 
 	ROM_REGION( 0x80000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "410a.c1", 0, 0x40000, CRC(db0e9083) SHA1(e0120e19fe0c04a4452fdc7bd3a159f116cbc412) )
 	ROM_LOAD16_BYTE( "410a.c2", 1, 0x40000, CRC(6114b6fb) SHA1(d62bc4a49c6ba2a03d637a5d06a4140e7bdc78b2) )
 ROM_END
-
-#if 0
-// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
-ROM_START( cnbe2018 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "410.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) ) // skip header
-	ROM_CONTINUE(0x000000, 0x040000)
-	ROM_IGNORE(0x0e0000)
-
-	ROM_REGION(0x120000, "asis", 0)
-	ROM_LOAD("410.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) )
-	ROM_CONTINUE(0x000000, 0x120000)
-
-	NEO_SFIX_MT(0x10000)
-	ROM_COPY("asis", 0x40000, 0x00000, 0x10000) // srctag, srcoffs, dstoffs, length
-
-	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
-	ROM_COPY("asis", 0x50000, 0x00000, 0x10000)
-
-	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
-	ROM_COPY("asis", 0x60000, 0x00000, 0x40000)
-
-	ROM_REGION( 0x80000, "sprites", 0 )
-	ROM_COPY("asis", 0xa0000, 0x00000, 0x80000)
-ROM_END
-#endif
 
 
 // 411 : NGEM2K by Blastar (c) 2006
@@ -1555,14 +1064,12 @@ ROM_END
 // Bugs: Insert Coin causes reboot
 ROM_START( ngem2k )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "411.p1", 0x000000, 0x080000, CRC(f2c42fe3) SHA1(fcd7453019ad21ecf77999a60b6792fc8d72d409) )
+	ROM_LOAD16_WORD_SWAP( "411.p1", 0, 0x80000, CRC(f2c42fe3) SHA1(fcd7453019ad21ecf77999a60b6792fc8d72d409) )
 
 	NEO_SFIX_64K( "411.s1", CRC(fb3c02d2) SHA1(961cf3cfd56e9ace059265f0ff4c283289972938) )
 
 	NEO_BIOS_AUDIO_128K( "411.m1", CRC(b1f44a15) SHA1(a1d7b498430b713b15ce886bac2ea473adadfb0c) )
-
-	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "411.v1", 0x000000, 0x080000, CRC(c32199f0) SHA1(2e17a6736c27d703c64d58fdc1b43edd8bb36d35) )
+	// v1 all FF so left out
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "411.c1", 0, 0x100000, CRC(a8e2ab47) SHA1(69a6ee8f659a63600a48e31b10782fba263e32e2) )
@@ -1573,18 +1080,18 @@ ROM_END
 // 412 : Jump n Run Tech Demo by Blastar 2020-11
 ROM_START( jumpnrund )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "412.p1", 0x000000, 0x080000, CRC(924f0e82) SHA1(6934e1f1ed5e54b25bff139fa57679958b0a0e4f) )
+	ROM_LOAD16_WORD_SWAP( "412.p1", 0, 0x80000, CRC(924f0e82) SHA1(6934e1f1ed5e54b25bff139fa57679958b0a0e4f) )
 
 	NEO_SFIX_128K( "412.s1", CRC(409a9f52) SHA1(23874ebee8698b240c18041eacad875237a5c585) )
 
 	NEO_BIOS_AUDIO_64K( "412.m1", CRC(30094ef9) SHA1(1f2b2caa7155e8b4bc9c90641d664c9d1fe2061b) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "412.v11",  0x000000, 0x080000, CRC(01a1a847) SHA1(6f82532101e19d9a60a495d562b4ef0836b10124) )
+	ROM_LOAD( "412.v11",  0, 0x80000, CRC(01a1a847) SHA1(6f82532101e19d9a60a495d562b4ef0836b10124) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcmb", 0 )
-	ROM_LOAD( "412.v21",  0x000000, 0x080000, CRC(398c3d56) SHA1(f9724345908abf2abdfd1e92e29ac7307ccc46e9) )
-	ROM_LOAD( "412.v22",  0x080000, 0x080000, CRC(47aa9572) SHA1(de02801e619537ad336361eda29ee40818de6a5c) )
+	ROM_LOAD( "412.v21",  0x00000, 0x80000, CRC(398c3d56) SHA1(f9724345908abf2abdfd1e92e29ac7307ccc46e9) )
+	ROM_LOAD( "412.v22",  0x80000, 0x80000, CRC(47aa9572) SHA1(de02801e619537ad336361eda29ee40818de6a5c) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "412.c1", 0, 0x80000, CRC(0164735f) SHA1(e5049f7bc39c6dbe886b29dac59850a333a4b58b) )
@@ -1593,18 +1100,18 @@ ROM_END
 
 ROM_START( jumpnrund01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "412a.p1", 0x000000, 0x080000, CRC(e2d0dcf3) SHA1(51864e7506f8364ec52da92cd18aef292f8aba94) )
+	ROM_LOAD16_WORD_SWAP( "412a.p1", 0, 0x80000, CRC(e2d0dcf3) SHA1(51864e7506f8364ec52da92cd18aef292f8aba94) )
 
 	NEO_SFIX_128K( "412a.s1", CRC(acc6a2a3) SHA1(77fc4397b838a7d49e9fce8e94151bc62256c9fe) )
 
 	NEO_BIOS_AUDIO_64K( "412.m1", CRC(30094ef9) SHA1(1f2b2caa7155e8b4bc9c90641d664c9d1fe2061b) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "412.v11",  0x000000, 0x080000, CRC(01a1a847) SHA1(6f82532101e19d9a60a495d562b4ef0836b10124) )
+	ROM_LOAD( "412.v11",  0, 0x80000, CRC(01a1a847) SHA1(6f82532101e19d9a60a495d562b4ef0836b10124) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcmb", 0 )
-	ROM_LOAD( "412.v21",  0x000000, 0x080000, CRC(398c3d56) SHA1(f9724345908abf2abdfd1e92e29ac7307ccc46e9) )
-	ROM_LOAD( "412.v22",  0x080000, 0x080000, CRC(47aa9572) SHA1(de02801e619537ad336361eda29ee40818de6a5c) )
+	ROM_LOAD( "412.v21",  0x00000, 0x80000, CRC(398c3d56) SHA1(f9724345908abf2abdfd1e92e29ac7307ccc46e9) )
+	ROM_LOAD( "412.v22",  0x80000, 0x80000, CRC(47aa9572) SHA1(de02801e619537ad336361eda29ee40818de6a5c) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "412.c1", 0, 0x80000, CRC(0164735f) SHA1(e5049f7bc39c6dbe886b29dac59850a333a4b58b) )
@@ -1615,54 +1122,54 @@ ROM_END
 // 413 : Looptris by Blastar 2021-12-26
 ROM_START( looptris )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "413.p1", 0x000000, 0x080000, CRC(8fcb5104) SHA1(6a0da5c4e72ef57600ecd15cba64e3871f48391e) )
+	ROM_LOAD16_WORD_SWAP( "413.p1", 0, 0x80000, CRC(8fcb5104) SHA1(6a0da5c4e72ef57600ecd15cba64e3871f48391e) )
 
 	NEO_SFIX_128K( "413.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
 
 	NEO_BIOS_AUDIO_128K( "413.m1", CRC(e7105df8) SHA1(9f4efad6dcc8b9617d59576415019820e973f45c) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "413.v1", 0x000000, 0x080000, CRC(dfa63cd2) SHA1(bbf4a74a660f12cc037cfa0ac5c664988016ee45) )
+	ROM_LOAD( "413.v1", 0, 0x80000, CRC(dfa63cd2) SHA1(bbf4a74a660f12cc037cfa0ac5c664988016ee45) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "413.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
-	ROM_LOAD16_BYTE( "413.c2", 0x000001, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
+	ROM_LOAD16_BYTE( "413.c1", 0, 0x80000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
+	ROM_LOAD16_BYTE( "413.c2", 1, 0x80000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
 ROM_END
 
 
 // 414 : Looptris Plus by Blastar 2022-12-24
 ROM_START( looptrsp )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "414.p1", 0x000000, 0x080000, CRC(894bb290) SHA1(f33ed9fe75ca7b5a6da00fe5bff76e26cba85e08) )
+	ROM_LOAD16_WORD_SWAP( "414.p1", 0, 0x80000, CRC(894bb290) SHA1(f33ed9fe75ca7b5a6da00fe5bff76e26cba85e08) )
 
 	NEO_SFIX_128K( "413.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
 
 	NEO_BIOS_AUDIO_128K( "414.m1", CRC(249bba11) SHA1(e8248ff9bc391b1163746c256b137928a9d81fe0) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "414.v1", 0x000000, 0x080000, CRC(c9f86637) SHA1(edb712d5cce180e1d5b6e338e9abfab1125c5581) )
-	ROM_LOAD( "414.v2", 0x080000, 0x080000, CRC(41b3e17a) SHA1(ef216379dbdbbea04cfffa47123436213a8cf26e) )
-	ROM_LOAD( "414.v3", 0x100000, 0x080000, CRC(1ed4e538) SHA1(921913be499194236535052ed3140fb7169d16e9) )
-	ROM_LOAD( "414.v4", 0x180000, 0x080000, CRC(705e7065) SHA1(a5eea38afa58db69c0f17e0379da3d819639971f) )
+	ROM_LOAD( "414.v1", 0x000000, 0x80000, CRC(c9f86637) SHA1(edb712d5cce180e1d5b6e338e9abfab1125c5581) )
+	ROM_LOAD( "414.v2", 0x080000, 0x80000, CRC(41b3e17a) SHA1(ef216379dbdbbea04cfffa47123436213a8cf26e) )
+	ROM_LOAD( "414.v3", 0x100000, 0x80000, CRC(1ed4e538) SHA1(921913be499194236535052ed3140fb7169d16e9) )
+	ROM_LOAD( "414.v4", 0x180000, 0x80000, CRC(705e7065) SHA1(a5eea38afa58db69c0f17e0379da3d819639971f) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "413.c1", 0, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
-	ROM_LOAD16_BYTE( "413.c2", 1, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
+	ROM_LOAD16_BYTE( "413.c1", 0, 0x80000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
+	ROM_LOAD16_BYTE( "413.c2", 1, 0x80000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
 ROM_END
 
 
 // 415 : Flappy Chicken by Blastar 2023-04-30
 ROM_START( flapchck )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "415.p1", 0x000000, 0x080000, CRC(2a7454a1) SHA1(6351645c6afdc8b1392e05c6f508217dd7af5bb2) )
+	ROM_LOAD16_WORD_SWAP( "415.p1", 0, 0x80000, CRC(2a7454a1) SHA1(6351645c6afdc8b1392e05c6f508217dd7af5bb2) )
 
 	NEO_SFIX_128K( "415.s1", CRC(3fd2b4d4) SHA1(98e6ae2c5cb6ca6b0022b7335cddc83496c4b69d) )
 
 	NEO_BIOS_AUDIO_128K( "415.m1", CRC(5abc1bf6) SHA1(150fe7580e6f9e974a1c9004862c2c50c0c67d7a) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "415.v1",  0x000000, 0x080000, CRC(c5d09e58) SHA1(6536a18a2df3eec251478ca0dd622d64accb9e40) )
-	ROM_LOAD( "415.v2",  0x080000, 0x080000, CRC(b9afe241) SHA1(f6224822730b667a38643627160278bb84eb695f) )
+	ROM_LOAD( "415.v1",  0x00000, 0x80000, CRC(c5d09e58) SHA1(6536a18a2df3eec251478ca0dd622d64accb9e40) )
+	ROM_LOAD( "415.v2",  0x80000, 0x80000, CRC(b9afe241) SHA1(f6224822730b667a38643627160278bb84eb695f) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "415.c1", 0, 0x80000, CRC(4ecdb8ca) SHA1(fb0ae76f1343f92a111763be267cec56c013972e) )
@@ -1673,17 +1180,17 @@ ROM_END
 // 416 : Block Panic DX 250101 by Blastar
 ROM_START( bpanicdx )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "416.p1", 0x000000, 0x080000, CRC(8f59134f) SHA1(ddee11eec6f53b8b6375185c341bc11d39706921) )
+	ROM_LOAD16_WORD_SWAP( "416.p1", 0, 0x80000, CRC(8f59134f) SHA1(ddee11eec6f53b8b6375185c341bc11d39706921) )
 
 	NEO_SFIX_128K( "416.s1", CRC(387a8f43) SHA1(4d9cb4f2ba9d716a5d21c9644eaaf5d158ebf090) )
 
 	NEO_BIOS_AUDIO_128K( "416.m1", CRC(d74159c0) SHA1(00730329032267e60006710f948067d4c744912c) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "416.v1",  0x000000, 0x080000, CRC(55185687) SHA1(437e042400fee20770db1975b800784c267920f2) )
-	ROM_LOAD( "416.v2",  0x080000, 0x080000, CRC(7211595d) SHA1(f4c8d0bfe16587740bd389ee98cfdfa8d5e65be4) )
-	ROM_LOAD( "416.v3",  0x100000, 0x080000, CRC(e08afa9f) SHA1(8aa9749d1a6bc592cca5c697043af9597abd59f4) )
-	ROM_LOAD( "416.v4",  0x180000, 0x080000, CRC(5a9d8d69) SHA1(f7e280e68c7eb32bf472892154466955f3f5d389) )
+	ROM_LOAD( "416.v1",  0x000000, 0x80000, CRC(55185687) SHA1(437e042400fee20770db1975b800784c267920f2) )
+	ROM_LOAD( "416.v2",  0x080000, 0x80000, CRC(7211595d) SHA1(f4c8d0bfe16587740bd389ee98cfdfa8d5e65be4) )
+	ROM_LOAD( "416.v3",  0x100000, 0x80000, CRC(e08afa9f) SHA1(8aa9749d1a6bc592cca5c697043af9597abd59f4) )
+	ROM_LOAD( "416.v4",  0x180000, 0x80000, CRC(5a9d8d69) SHA1(f7e280e68c7eb32bf472892154466955f3f5d389) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "416.c1", 0, 0x80000, CRC(9463af81) SHA1(50962cc75bb86283186a6cf5e8cb7115ed805468) )
@@ -1694,14 +1201,14 @@ ROM_END
 // 417 : World Racer by Blastar
 ROM_START( wrldracr ) // 2025-11-20
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "417.p1", 0x000000, 0x100000, CRC(cc59276f) SHA1(3e12619b00996816025e0cba5c1d6e141fe95d1f) )
+	ROM_LOAD16_WORD_SWAP( "417.p1", 0, 0x100000, CRC(cc59276f) SHA1(3e12619b00996816025e0cba5c1d6e141fe95d1f) )
 
 	NEO_SFIX_128K( "417.s1", CRC(312508af) SHA1(4370a16fc089dd01ff00d3096a9a97cb1ad6359a) )
 
 	NEO_BIOS_AUDIO_64K( "417.m1", CRC(6178075b) SHA1(1cfb82931b74868460f864fc2756dfded68d36b7) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "417.v1", 0x000000, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
+	ROM_LOAD( "417.v1", 0, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "417.c1", 0, 0x80000, CRC(44423f83) SHA1(cd6d7a9bb15033741c570d59e4788a3917f2a1ca) )
@@ -1710,14 +1217,14 @@ ROM_END
 
 ROM_START( wrldracr01 ) // 2025-12-14
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "417s01.p1", 0x000000, 0x100000, CRC(d9f8921c) SHA1(52d6057a3a550bbec533b44db0228de93d1304e3) )
+	ROM_LOAD16_WORD_SWAP( "417s01.p1", 0, 0x100000, CRC(d9f8921c) SHA1(52d6057a3a550bbec533b44db0228de93d1304e3) )
 
 	NEO_SFIX_128K( "417.s1", CRC(312508af) SHA1(4370a16fc089dd01ff00d3096a9a97cb1ad6359a) )
 
 	NEO_BIOS_AUDIO_64K( "417.m1", CRC(6178075b) SHA1(1cfb82931b74868460f864fc2756dfded68d36b7) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "417.v1", 0x000000, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
+	ROM_LOAD( "417.v1", 0, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "417s01.c1", 0, 0x80000, CRC(ec05e878) SHA1(2874add101c3131694d657a5c905466b01acac3c) )
@@ -1726,14 +1233,14 @@ ROM_END
 
 ROM_START( wrldracr02 ) // 2025-12-26
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "417s02.p1", 0x000000, 0x100000, CRC(3350fa1b) SHA1(1e5f4f3713797e0aeb4daaf0b337f9c61ef5e2e8) )
+	ROM_LOAD16_WORD_SWAP( "417s02.p1", 0, 0x100000, CRC(3350fa1b) SHA1(1e5f4f3713797e0aeb4daaf0b337f9c61ef5e2e8) )
 
 	NEO_SFIX_128K( "417s02.s1", CRC(2290a5b3) SHA1(2684864f48be7772a80a3e34d00aa85f52f428f3) )
 
 	NEO_BIOS_AUDIO_64K( "417s02.m1", CRC(f10683ac) SHA1(bf607cbc6eaaab9924b035b7f64fe5cd4e8aa97d) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "417.v1", 0x000000, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
+	ROM_LOAD( "417.v1", 0, 0x80000, CRC(a4763f5d) SHA1(bf518f70c4248b4934163bc44cc1c94ff445dcf0) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "417s02.c1", 0, 0x80000, CRC(51858e96) SHA1(2404e3369f5fabe480b55bf86d117feda779ec21) )
@@ -1744,14 +1251,14 @@ ROM_END
 // 418 : Tetris by Crim
 ROM_START( ngtetris )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "418.p1", 0x000000, 0x80000, CRC(3465569a) SHA1(51506d549fa048581321fc39403c0a3bf8f77467) )
+	ROM_LOAD16_WORD_SWAP( "418.p1", 0, 0x80000, CRC(3465569a) SHA1(51506d549fa048581321fc39403c0a3bf8f77467) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
 	NEO_BIOS_AUDIO_128K( "418.m1", CRC(6b3703c6) SHA1(6fa41b713f03e0957f410a387aa896e7d924acb2) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "418.v1", 0x000000, 0x80000, CRC(2be8e290) SHA1(198cff1b1d70f7d05344d6ab38a4354f993dc4b8) )
+	ROM_LOAD( "418.v1", 0, 0x80000, CRC(2be8e290) SHA1(198cff1b1d70f7d05344d6ab38a4354f993dc4b8) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "418.c1", 0, 0x80000, CRC(acc6d1d4) SHA1(1f6ad8578d8edaa22a35ad58dc76de8543a96db9) )
@@ -1763,7 +1270,7 @@ ROM_END
 // No sound
 ROM_START( neothund )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "419.p1", 0x000000, 0x100000, CRC(f7050757) SHA1(b73009050905ad2b1f06690e0106e59fb5ede86b) )
+	ROM_LOAD16_WORD_SWAP( "419.p1", 0, 0x100000, CRC(f7050757) SHA1(b73009050905ad2b1f06690e0106e59fb5ede86b) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
@@ -1778,14 +1285,14 @@ ROM_END
 // 420: Xevious by tcdev (beta 1)
 ROM_START( xeviousn )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "420.p1", 0x000000, 0x100000, CRC(11dff034) SHA1(ac8ebbdc96f4d2f74d1c820c1536ca1ccdc936b6) )
+	ROM_LOAD16_WORD_SWAP( "420.p1", 0, 0x100000, CRC(11dff034) SHA1(ac8ebbdc96f4d2f74d1c820c1536ca1ccdc936b6) )
 
 	NEO_SFIX_128K( "420.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
 
 	NEO_BIOS_AUDIO_64K( "420.m1", CRC(6f31c601) SHA1(9b89e7d205ee497f7b495e93328cf35eab6e56b2) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "420.v1", 0x000000, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
+	ROM_LOAD( "420.v1", 0, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "420.c1", 0, 0x100000, CRC(f963e5b6) SHA1(e80dd61476028de3ff8369e14b6fb1bb7561e370) )
@@ -1797,14 +1304,14 @@ ROM_END
 // Year on title screen says 2035, wrong obviously.
 ROM_START( xeviousn01 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "420s01.p1", 0x000000, 0x100000, CRC(31092abe) SHA1(4615e13cc560b25716792ca9434c39207f67e10a) )
+	ROM_LOAD16_WORD_SWAP( "420s01.p1", 0, 0x100000, CRC(31092abe) SHA1(4615e13cc560b25716792ca9434c39207f67e10a) )
 
 	NEO_SFIX_128K( "420.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
 
 	NEO_BIOS_AUDIO_64K( "420.m1", CRC(6f31c601) SHA1(9b89e7d205ee497f7b495e93328cf35eab6e56b2) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "420.v1", 0x000000, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
+	ROM_LOAD( "420.v1", 0, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "420s01.c1", 0, 0x100000, CRC(52ff5807) SHA1(510ec3184ccec0f8d749d1c20918fddaefb00d2e) )
@@ -1813,14 +1320,14 @@ ROM_END
 
 ROM_START( xeviousn02 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "420s02.p1", 0x000000, 0x100000, CRC(19025936) SHA1(765a41c5385efb2b3ef1a24bb376b4dd066fc2f6) )
+	ROM_LOAD16_WORD_SWAP( "420s02.p1", 0, 0x100000, CRC(19025936) SHA1(765a41c5385efb2b3ef1a24bb376b4dd066fc2f6) )
 
 	NEO_SFIX_128K( "420.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
 
 	NEO_BIOS_AUDIO_64K( "420.m1", CRC(6f31c601) SHA1(9b89e7d205ee497f7b495e93328cf35eab6e56b2) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "420.v1", 0x000000, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
+	ROM_LOAD( "420.v1", 0, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "420s02.c1", 0, 0x100000, CRC(4ce910ee) SHA1(363f054a913561bca5eb2058446bd614153c3eca) )
@@ -1829,14 +1336,14 @@ ROM_END
 
 ROM_START( xeviousn03 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "420s03.p1", 0x000000, 0x100000, CRC(8a1e9214) SHA1(6785934e08679245b40f9a88bee1eb038cfa25de) )
+	ROM_LOAD16_WORD_SWAP( "420s03.p1", 0, 0x100000, CRC(8a1e9214) SHA1(6785934e08679245b40f9a88bee1eb038cfa25de) )
 
 	NEO_SFIX_128K( "420.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
 
 	NEO_BIOS_AUDIO_64K( "420s03.m1", CRC(06773aff) SHA1(79f810790366edb38a177ff2df27402bce8058c5) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "420s03.v1", 0x000000, 0x100000, CRC(929b34ab) SHA1(f3bb51036e51621d40c2d7c3f763dcf6b5d0fea3) )
+	ROM_LOAD( "420s03.v1", 0, 0x100000, CRC(929b34ab) SHA1(f3bb51036e51621d40c2d7c3f763dcf6b5d0fea3) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "420s03.c1", 0, 0x100000, CRC(8759341e) SHA1(9f557ffed34cc6832f726261cf32ba71cb9938d1) )
@@ -1845,14 +1352,14 @@ ROM_END
 
 ROM_START( xeviousn04 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "420s04.p1", 0x000000, 0x100000, CRC(dfa5538b) SHA1(547eb0ccbfa0eb660437372491387f135f18f7e3) )
+	ROM_LOAD16_WORD_SWAP( "420s04.p1", 0, 0x100000, CRC(dfa5538b) SHA1(547eb0ccbfa0eb660437372491387f135f18f7e3) )
 
 	NEO_SFIX_128K( "420.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
 
 	NEO_BIOS_AUDIO_64K( "420s03.m1", CRC(06773aff) SHA1(79f810790366edb38a177ff2df27402bce8058c5) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "420s03.v1", 0x000000, 0x100000, CRC(929b34ab) SHA1(f3bb51036e51621d40c2d7c3f763dcf6b5d0fea3) )
+	ROM_LOAD( "420s03.v1", 0, 0x100000, CRC(929b34ab) SHA1(f3bb51036e51621d40c2d7c3f763dcf6b5d0fea3) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "420s03.c1", 0, 0x100000, CRC(8759341e) SHA1(9f557ffed34cc6832f726261cf32ba71cb9938d1) )
@@ -1861,14 +1368,14 @@ ROM_END
 
 ROM_START( xeviousn05 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "420s05.p1", 0x000000, 0x100000, CRC(aa601675) SHA1(fb7a90573aa6b283e47decac6f74a1960f3f6f76) )
+	ROM_LOAD16_WORD_SWAP( "420s05.p1", 0, 0x100000, CRC(aa601675) SHA1(fb7a90573aa6b283e47decac6f74a1960f3f6f76) )
 
 	NEO_SFIX_128K( "420.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
 
 	NEO_BIOS_AUDIO_64K( "420.m1", CRC(6f31c601) SHA1(9b89e7d205ee497f7b495e93328cf35eab6e56b2) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "420.v1", 0x000000, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
+	ROM_LOAD( "420.v1", 0, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "420s01.c1", 0, 0x100000, CRC(52ff5807) SHA1(510ec3184ccec0f8d749d1c20918fddaefb00d2e) )
@@ -1880,14 +1387,14 @@ ROM_END
 // Bugs: Invisible aliens and bullets just come from nowhere; background sound missing
 ROM_START( galaxiann )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "422.p1", 0x000000, 0x100000, CRC(e1d6f03b) SHA1(e1def1fdf659fcb0d8ce7bd4e939161d6dee4cc2) )
+	ROM_LOAD16_WORD_SWAP( "422.p1", 0, 0x100000, CRC(e1d6f03b) SHA1(e1def1fdf659fcb0d8ce7bd4e939161d6dee4cc2) )
 
 	NEO_SFIX_128K( "422.s1", CRC(05192811) SHA1(609ac057b3fcdf69207870842d26321013d47878) )
 
 	NEO_BIOS_AUDIO_64K( "422.m1", CRC(43f557ca) SHA1(5385714c04bb4030587a1d660eab4800ce722d9d) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "422.v1", 0x000000, 0x80000, CRC(67d1fe70) SHA1(d38f2abc92854b3cbad3fd2d0990a87ceff1d826) )
+	ROM_LOAD( "422.v1", 0, 0x80000, CRC(67d1fe70) SHA1(d38f2abc92854b3cbad3fd2d0990a87ceff1d826) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "422.c1", 0, 0x100000, CRC(34283c88) SHA1(cce783772e1fd33bf773bf180a48f58f107f9700) )
@@ -1899,14 +1406,14 @@ ROM_END
 // Bugs: Invisible aliens and bullets just come from nowhere; background sound missing
 ROM_START( galaxiann2 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "422a.p1", 0x000000, 0x100000, CRC(68f8097c) SHA1(7648cf481634743bd97f5e983790ceb68c45c96b) )
+	ROM_LOAD16_WORD_SWAP( "422a.p1", 0, 0x100000, CRC(68f8097c) SHA1(7648cf481634743bd97f5e983790ceb68c45c96b) )
 
 	NEO_SFIX_128K( "422.s1", CRC(05192811) SHA1(609ac057b3fcdf69207870842d26321013d47878) )
 
 	NEO_BIOS_AUDIO_64K( "422.m1", CRC(43f557ca) SHA1(5385714c04bb4030587a1d660eab4800ce722d9d) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "422.v1", 0x000000, 0x80000, CRC(67d1fe70) SHA1(d38f2abc92854b3cbad3fd2d0990a87ceff1d826) )
+	ROM_LOAD( "422.v1", 0, 0x80000, CRC(67d1fe70) SHA1(d38f2abc92854b3cbad3fd2d0990a87ceff1d826) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "422a.c1", 0, 0x100000, CRC(f2f2187a) SHA1(09c3f7c54bb9ef17ffb9d19c1638d8d63622e477) )
@@ -1917,7 +1424,7 @@ ROM_END
 // 430 : Time's UP! by NGF
 ROM_START( timesup )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "430.p1", 0x000000, 0x100000, CRC(b4be3ede) SHA1(95a9b87e674cc3af0932f5dab51d1e8e3d84385b) )
+	ROM_LOAD16_WORD_SWAP( "430.p1", 0, 0x100000, CRC(b4be3ede) SHA1(95a9b87e674cc3af0932f5dab51d1e8e3d84385b) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
@@ -1936,7 +1443,7 @@ ROM_END
 // 430 : Time's UP! demo by NGF
 ROM_START( timesupd )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "430d.p1", 0x000000, 0x200000, CRC(be86adb1) SHA1(4b363bab51dfc43b2302956f79a0b1d5202339ac) )
+	ROM_LOAD16_WORD_SWAP( "430d.p1", 0, 0x200000, CRC(be86adb1) SHA1(4b363bab51dfc43b2302956f79a0b1d5202339ac) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
@@ -1956,14 +1463,12 @@ ROM_END
 // No sound
 ROM_START( ffeastd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "431d.p1", 0x000000, 0x80000, CRC(db0417ec) SHA1(dff85b47749142b3e965b2a9b5b8857096e58464) )
+	ROM_LOAD16_WORD_SWAP( "431d.p1", 0, 0x80000, CRC(db0417ec) SHA1(dff85b47749142b3e965b2a9b5b8857096e58464) )
 
 	NEO_SFIX_64K( "431d.s1", CRC(29814a2c) SHA1(a7313fa1280a2a2340b1c8a0d522354d82496a68) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF so left out
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "431d.c1", 0, 0x100000, CRC(22a65cea) SHA1(3fb8cb92cd8d40c2b24e2b54833fde4c7dc255a4) )
@@ -1974,7 +1479,7 @@ ROM_END
 // 431 : Frog Feast by Rastersoft
 ROM_START( ffeast ) /* Frog Feast - Full Version */
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "431.p1", 0x000000, 0x080000, CRC(c26848da) SHA1(33737f8d2366b3a554ceb9ea2fcd85aaed75f344) )
+	ROM_LOAD16_WORD_SWAP( "431.p1", 0, 0x80000, CRC(c26848da) SHA1(33737f8d2366b3a554ceb9ea2fcd85aaed75f344) )
 
 	NEO_SFIX_128K( "431.s1", CRC(88f4cd13) SHA1(7f3b28c903ecf90478f2dcddf790714d7363aa2b) )
 
@@ -1993,14 +1498,14 @@ ROM_END
 // 436 : Neo Pang by CeL
 ROM_START( neopang )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "436.p1", 0x000000, 0x080000, CRC(dc5922ee) SHA1(08804fa9894b7e84375300acbdec8ea6829575d0) )
+	ROM_LOAD16_WORD_SWAP( "436.p1", 0, 0x80000, CRC(dc5922ee) SHA1(08804fa9894b7e84375300acbdec8ea6829575d0) )
 
 	NEO_SFIX_64K( "436.s1", CRC(d78bd9a0) SHA1(17a237166aede98bee27d5b52654414c8a1b071a) )
 
 	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "202.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+	ROM_LOAD( "202.v1", 0, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "436.c1", 0, 0x100000, CRC(62f5405c) SHA1(f9eb8d1838da9953aecf40c3314c608ab655cb8f) )
@@ -2013,14 +1518,14 @@ ROM_END
 // If the game misbehaves, read the FAQ.
 ROM_START( santabll )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "443.p1", 0x000000, 0x100000, CRC(2af7a77c) SHA1(ff79d4695e8060f5a7b981524303336a0ad99c0c) )
+	ROM_LOAD16_WORD_SWAP( "443.p1", 0, 0x100000, CRC(2af7a77c) SHA1(ff79d4695e8060f5a7b981524303336a0ad99c0c) )
 
 	NEO_SFIX_128K( "443.s1", CRC(ac031928) SHA1(7516593efc70e6effed8f5423e9736d6555b3baf) )
 
 	NEO_BIOS_AUDIO_64K( "443.m1", CRC(37a8d679) SHA1(957de2aa1775502a51b4e2d5cb6268cee00f6c2a) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "443.v1", 0x000000, 0x100000, CRC(d0150804) SHA1(b3d4cdb6d0f426de3801eb04d56f867bec8fe611) )
+	ROM_LOAD( "443.v1", 0, 0x100000, CRC(d0150804) SHA1(b3d4cdb6d0f426de3801eb04d56f867bec8fe611) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "443.c1", 0, 0x100000, CRC(1e271a9b) SHA1(5cae43aa094d5ee34983bc70aeab06652a6b0e7f) )
@@ -2031,14 +1536,14 @@ ROM_END
 // 444 : Sea Fighter by kl3mousse.
 ROM_START( seafight )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "444.p1", 0x000000, 0x100000, CRC(598d14ef) SHA1(da6dda92ec8cf3a5f46fae2dd4578f945f7a8ec7) )
+	ROM_LOAD16_WORD_SWAP( "444.p1", 0, 0x100000, CRC(598d14ef) SHA1(da6dda92ec8cf3a5f46fae2dd4578f945f7a8ec7) )
 
 	NEO_SFIX_128K( "444.s1", CRC(c46cf6b1) SHA1(6785e9dad6dbe339f7d8ab0d3852fb6df036c737) )
 
 	NEO_BIOS_AUDIO_64K( "444.m1", CRC(16adbe82) SHA1(88c8fbe61735c41adffb0598e6311547a739f4d5) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "444.v1", 0x000000, 0x100000, CRC(becc781e) SHA1(a5a3ed13de539ce55c4f35bb052ee35ffe29fb5d) )
+	ROM_LOAD( "444.v1", 0, 0x100000, CRC(becc781e) SHA1(a5a3ed13de539ce55c4f35bb052ee35ffe29fb5d) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "444.c1", 0, 0x100000, CRC(383a9dde) SHA1(6d54c6389f9f992c1654643a537c01fda9b83259) )
@@ -2046,43 +1551,10 @@ ROM_START( seafight )
 ROM_END
 
 
-// 446 : Monitor Test by M.Priewe.
-// No sound.
-ROM_START( ngmontst ) // v1.0
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "446.p1", 0x000000, 0x100000, CRC(17a4ad61) SHA1(38c0f2022947043f30a27ccda06cc709fe980fed) )
-
-	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
-
-	NEO_BIOS_AUDIO_128K( "052.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
-
-	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "052.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "446.c1", 0, 0x100000, CRC(715df715) SHA1(74534eb9bb48a04f25d0044b1f2b57e59f49b06f) )
-	ROM_LOAD16_BYTE( "446.c2", 1, 0x100000, CRC(d8ee3c9b) SHA1(c731eaffae34b4394e290e68ca8c3700e1c6dc2b) )
-ROM_END
-ROM_START( ngmontst3 ) // v1.3
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "446c.p1", 0x000000, 0x100000, CRC(8a140722) SHA1(a7e4ac8b7bf531a10b68460e37e7e6da59ecccfe) )
-
-	NEO_SFIX_128K( "447.s1", CRC(bb82ab71) SHA1(307f420446c2d411a65b59543b61c21d0360536b) )
-
-	NEO_BIOS_AUDIO_64K( "446c.m1", CRC(6f41ac95) SHA1(92dd52bd6717e116301f965a45aa1762e797154c) )
-
-	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "446c.v1", 0x000000, 0x200000, CRC(0f88bd1a) SHA1(75a288744533e2546fb94dddf50da0148f158d19) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "446c.c1", 0, 0x100000, CRC(5c63f88a) SHA1(418e3345c40fc1d8d964ee55ca68a56be32f4df2) )
-	ROM_LOAD16_BYTE( "446c.c2", 1, 0x100000, CRC(3c7e0729) SHA1(695d36002cc428dfaf6174bdcf5fed351df39b35) )
-ROM_END
-
 // 447 : Hypernoid by M.Priewe.
 ROM_START( hypernoid )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "447.p1", 0x000000, 0x100000, CRC(e024fa76) SHA1(6ef393ad80ec80e30929f07c95305d97fca3ad22) )
+	ROM_LOAD16_WORD_SWAP( "447.p1", 0, 0x100000, CRC(e024fa76) SHA1(6ef393ad80ec80e30929f07c95305d97fca3ad22) )
 
 	NEO_SFIX_128K( "447.s1", CRC(bb82ab71) SHA1(307f420446c2d411a65b59543b61c21d0360536b) )
 
@@ -2102,7 +1574,7 @@ ROM_END
 // 447 : Hypernoid by M.Priewe.
 ROM_START( hypernoid01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "447a.p1", 0x000000, 0x100000, CRC(43515e22) SHA1(14168cb0f51489ffbf6f4cd93ba62c4567378527) )
+	ROM_LOAD16_WORD_SWAP( "447a.p1", 0, 0x100000, CRC(43515e22) SHA1(14168cb0f51489ffbf6f4cd93ba62c4567378527) )
 
 	NEO_SFIX_128K( "447.s1", CRC(bb82ab71) SHA1(307f420446c2d411a65b59543b61c21d0360536b) )
 
@@ -2124,14 +1596,14 @@ ROM_END
 // MAME bug : On the title screen, there's a vertical blank area that slowly moves from left to right
 ROM_START( neopong ) // v1.1
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "469.p1", 0x000000, 0x020000, CRC(9f35e29d) SHA1(261ce9305950debbc2fe088a45ab0fa83d6cf10d) )
+	ROM_LOAD16_WORD_SWAP( "469.p1", 0, 0x20000, CRC(9f35e29d) SHA1(261ce9305950debbc2fe088a45ab0fa83d6cf10d) )
 
 	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
 	NEO_BIOS_AUDIO_128K( "469.m1", CRC(78c851cb) SHA1(a9923c002e4e2171a564af45cff0958c5d57b275) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "469.v1", 0x000000, 0x200000, CRC(6c31223c) SHA1(ede3a2806d7d872a0f737626a23ecce200b534e6) )
+	ROM_LOAD( "469.v1", 0, 0x200000, CRC(6c31223c) SHA1(ede3a2806d7d872a0f737626a23ecce200b534e6) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "469.c1", 0, 0x100000, CRC(f5a57d1a) SHA1(781170ae439f48fcbcee6af4cb3a1367dbb70498) )
@@ -2140,14 +1612,14 @@ ROM_END
 
 ROM_START( neoponga ) // v1.0, has no sound, does not satisfy the watchdog
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "469a.p1", 0x000000, 0x020000, CRC(31b724d7) SHA1(e374613609aeda64b547d8ce38d2078b6ed55ad5) )
+	ROM_LOAD16_WORD_SWAP( "469a.p1", 0, 0x20000, CRC(31b724d7) SHA1(e374613609aeda64b547d8ce38d2078b6ed55ad5) )
 
 	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
 	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "202.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+	ROM_LOAD( "202.v1", 0, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "469a.c1", 0, 0x100000, CRC(d7587282) SHA1(6fbc317dede78265dc4cfd2a6d79968320b8fd50) )
@@ -2159,14 +1631,14 @@ ROM_END
 // Bugs: Pressing 1 will reboot the game and can corrupt the right-hand side of the title
 ROM_START( neotrisd1 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "491.p1", 0x000000, 0x080000, CRC(6a253ce9) SHA1(b9a3949dcd7e7dd3cd8b4e739ce2c913c16435b1) )
+	ROM_LOAD16_WORD_SWAP( "491.p1", 0, 0x80000, CRC(6a253ce9) SHA1(b9a3949dcd7e7dd3cd8b4e739ce2c913c16435b1) )
 
 	NEO_SFIX_128K( "491.s1", CRC(7a30a592) SHA1(3d7fd159fafaf20b12388849e4c54192ce410fe8) )
 
 	NEO_BIOS_AUDIO_64K( "491.m1", CRC(7a38ff47) SHA1(084cdf9dea053126783a4f570a56cc2444529f44) )
 
 	ROM_REGION( 0x300000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "491.v1", 0x000000, 0x300000, CRC(95b3b726) SHA1(d0c361a78e509b083243e5f3a4b89bbaa658216e) )
+	ROM_LOAD( "491.v1", 0, 0x300000, CRC(95b3b726) SHA1(d0c361a78e509b083243e5f3a4b89bbaa658216e) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "491.c1", 0, 0x100000, CRC(d53e8069) SHA1(55a9bb30fe1ce0abd9ebe54fa806992b2a790f28) )
@@ -2175,7 +1647,7 @@ ROM_END
 
 ROM_START( neotrisd2 )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "491a.p1", 0x000000, 0x080000, CRC(33a71f8d) SHA1(f4fe090b30193da3dce895fd9f75e94372d9b8c9) )
+	ROM_LOAD16_WORD_SWAP( "491a.p1", 0, 0x80000, CRC(33a71f8d) SHA1(f4fe090b30193da3dce895fd9f75e94372d9b8c9) )
 
 	NEO_SFIX_128K( "491a.s1", CRC(6809043a) SHA1(31efdd2bd0713d7a87f2c6dc92e43f312f8d8626) )
 
@@ -2188,17 +1660,17 @@ ROM_START( neotrisd2 )
 	ROM_LOAD( "491a.v4", 0xc00000, 0x400000, CRC(6bb8a938) SHA1(3d27cd2bdfc624b3ea4dfa79bc8c615eb34d612a) )
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "491a.c1", 0x000000, 0x400000, CRC(7f9c1a22) SHA1(633918addc8c2b22f55fb9c8b85edc4fc96c9753) )
-	ROM_LOAD16_BYTE( "491a.c2", 0x000001, 0x400000, CRC(4896e921) SHA1(4abf2a36f1117a02bbf14859e3351a1ac5db9c53) )
-	ROM_LOAD16_BYTE( "491a.c3", 0x800000, 0x400000, CRC(e8e2fcc3) SHA1(7fff344a476857460129a303ce680822d270a79a) )
-	ROM_LOAD16_BYTE( "491a.c4", 0x800001, 0x400000, CRC(ec219a96) SHA1(f150d4956d32f204b51c0adf5db434d2ed258638) )
+	ROM_LOAD16_BYTE( "491a.c1", 0x0000000, 0x400000, CRC(7f9c1a22) SHA1(633918addc8c2b22f55fb9c8b85edc4fc96c9753) )
+	ROM_LOAD16_BYTE( "491a.c2", 0x0000001, 0x400000, CRC(4896e921) SHA1(4abf2a36f1117a02bbf14859e3351a1ac5db9c53) )
+	ROM_LOAD16_BYTE( "491a.c3", 0x0800000, 0x400000, CRC(e8e2fcc3) SHA1(7fff344a476857460129a303ce680822d270a79a) )
+	ROM_LOAD16_BYTE( "491a.c4", 0x0800001, 0x400000, CRC(ec219a96) SHA1(f150d4956d32f204b51c0adf5db434d2ed258638) )
 	ROM_LOAD16_BYTE( "491a.c5", 0x1000000, 0x400000, CRC(b8873b09) SHA1(4aed67ac2fac387dfaf7e0f78e127cdc98078c1d) )
 	ROM_LOAD16_BYTE( "491a.c6", 0x1000001, 0x400000, CRC(fb994623) SHA1(198dddc5e7531d6fd2f7405243671d67e80fe26e) )
 ROM_END
 
 ROM_START( neotrisd3 ) // Beta 2
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "491b.p1", 0x000000, 0x080000, CRC(4cd619cf) SHA1(081a7819c71171a37f10d1b20f8887ca90df49a8) )
+	ROM_LOAD16_WORD_SWAP( "491b.p1", 0, 0x80000, CRC(4cd619cf) SHA1(081a7819c71171a37f10d1b20f8887ca90df49a8) )
 
 	NEO_SFIX_128K( "491a.s1", CRC(6809043a) SHA1(31efdd2bd0713d7a87f2c6dc92e43f312f8d8626) )
 
@@ -2211,10 +1683,10 @@ ROM_START( neotrisd3 ) // Beta 2
 	ROM_LOAD( "491b.v4", 0xc00000, 0x400000, CRC(c25764ca) SHA1(ee0f2fa8db2da5c95b94c062bff8ee37ec2b2c7d) )
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "491b.c1", 0x000000, 0x400000, CRC(e1c8eca9) SHA1(be1babdc0ae0fd9916e8335c1635148e0498a961) )
-	ROM_LOAD16_BYTE( "491b.c2", 0x000001, 0x400000, CRC(11ca6e64) SHA1(166c1f973f4fd7f472c3ddd37e0eb945c36d7454) )
-	ROM_LOAD16_BYTE( "491b.c3", 0x800000, 0x400000, CRC(1d9e2046) SHA1(c2415775170455bd44e19e7c7c8e10817da56385) )
-	ROM_LOAD16_BYTE( "491b.c4", 0x800001, 0x400000, CRC(9091e795) SHA1(59e7a751633ce8f3db138fc818e50003da4582dc) )
+	ROM_LOAD16_BYTE( "491b.c1", 0x0000000, 0x400000, CRC(e1c8eca9) SHA1(be1babdc0ae0fd9916e8335c1635148e0498a961) )
+	ROM_LOAD16_BYTE( "491b.c2", 0x0000001, 0x400000, CRC(11ca6e64) SHA1(166c1f973f4fd7f472c3ddd37e0eb945c36d7454) )
+	ROM_LOAD16_BYTE( "491b.c3", 0x0800000, 0x400000, CRC(1d9e2046) SHA1(c2415775170455bd44e19e7c7c8e10817da56385) )
+	ROM_LOAD16_BYTE( "491b.c4", 0x0800001, 0x400000, CRC(9091e795) SHA1(59e7a751633ce8f3db138fc818e50003da4582dc) )
 	ROM_LOAD16_BYTE( "491b.c5", 0x1000000, 0x400000, CRC(bf278afe) SHA1(e7f84cb325dd4535accd44d84f61c53cb4bab312) )
 	ROM_LOAD16_BYTE( "491b.c6", 0x1000001, 0x400000, CRC(8eb17e24) SHA1(7977475bf19073b8bc38fcb88be9226453c7d6e4) )
 ROM_END
@@ -2225,14 +1697,14 @@ ROM_END
 // First time: Use video option to rotate 90CCW
 ROM_START( caravan )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "492.p1", 0x000000, 0x80000, CRC(f45cac3a) SHA1(21e283f5fa41d10f0c2bf1f9848bb8f10ea51ad5) )
+	ROM_LOAD16_WORD_SWAP( "492.p1", 0, 0x80000, CRC(f45cac3a) SHA1(21e283f5fa41d10f0c2bf1f9848bb8f10ea51ad5) )
 
 	NEO_SFIX_128K( "492.s1", CRC(f32de862) SHA1(07215b0a974ce0dff5065698a9ec00b3ba75eeee) )
 
 	NEO_BIOS_AUDIO_64K( "492.m1", CRC(6d24cf93) SHA1(5d408af31ce949a8e75c8706498043790a518589) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "492.v1", 0x000000, 0x100000, CRC(2823ca49) SHA1(09a9c52ad3be25c0e3edf380a219efb6d4c327b7) )
+	ROM_LOAD( "492.v1", 0, 0x100000, CRC(2823ca49) SHA1(09a9c52ad3be25c0e3edf380a219efb6d4c327b7) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "492.c1", 0, 0x80000, CRC(87df580b) SHA1(5c5dd1fcca16f4bb98156d2ed52a403930843f53) )
@@ -2243,14 +1715,14 @@ ROM_END
 // 494 : Bonus Stage by Totologic
 ROM_START( bonusstage )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "494.p1", 0x000000, 0x080000, CRC(de637e0b) SHA1(08f902bca19c815e7c69a0b9d3e5366eb82b944c) )
+	ROM_LOAD16_WORD_SWAP( "494.p1", 0, 0x80000, CRC(de637e0b) SHA1(08f902bca19c815e7c69a0b9d3e5366eb82b944c) )
 
 	NEO_SFIX_128K( "494.s1", CRC(a12d8990) SHA1(969db205d77cc80a1ebb88be6a265112142533ec) )
 
 	NEO_BIOS_AUDIO_64K( "494.m1", CRC(dee563b2) SHA1(75e0fca36e8c23922ed9b54942ec11170b9b505a) )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "494.v1", 0x000000, 0x400000, CRC(87bdd5fa) SHA1(e7ccc9a56aeaf1f4f79d2265fc5f19a0894dd96b) )
+	ROM_LOAD( "494.v1", 0, 0x400000, CRC(87bdd5fa) SHA1(e7ccc9a56aeaf1f4f79d2265fc5f19a0894dd96b) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "494.c1", 0, 0x400000, CRC(bfe4eb8d) SHA1(e03ccfc50cf4813833a23b152bc0e47f453532a4) )
@@ -2261,22 +1733,23 @@ ROM_END
 // 495: New! Super Mario Brothers (demo of the intro screen)
 ROM_START( nsmbd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "495d.p1", 0x000000, 0x100000, CRC(6abacc0f) SHA1(83884b5fe816a132b1a59fea36b63fa700fd44b4) )
+	ROM_LOAD16_WORD_SWAP( "495d.p1", 0, 0x100000, CRC(6abacc0f) SHA1(83884b5fe816a132b1a59fea36b63fa700fd44b4) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
 	NEO_BIOS_AUDIO_64K( "495d.m1", CRC(40d6f48d) SHA1(bad050e766d03f70008f7b5b3f1cf65ce7e85a63) )
 
-	ROM_REGION( 0x900000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "495d.v1", 0x000000, 0x100000, CRC(d94bea55) SHA1(6e31add41ff8a30b3bc4eb06a81e6453156780aa) )
 	ROM_LOAD( "495d.v2", 0x100000, 0x100000, CRC(b110df8b) SHA1(4b7a13c7de5843a669ec9bf914a48029233ba3c9) )
-	ROM_LOAD( "495d.v3", 0x200000, 0x100000, CRC(3c623679) SHA1(5fa98eacb612be496aa7937a9678398ba16f2a13) )
-	ROM_LOAD( "495d.v4", 0x300000, 0x100000, CRC(fbf00c96) SHA1(4083f8efbcf748dba31f0030b82487e0ea56980b) )
-	ROM_LOAD( "495d.v5", 0x400000, 0x100000, CRC(9b2031d4) SHA1(15c8f5cb26af29b8dca53f1c1c49384a1b73b820) )
-	ROM_LOAD( "495d.v6", 0x500000, 0x100000, CRC(107cfc89) SHA1(c4ced7dfab24ff42c6fc2424b18cf199ba30cbfa) )
-	ROM_LOAD( "495d.v7", 0x600000, 0x100000, CRC(0703b761) SHA1(7d586b69bb9578d550871eda884cd6b32d86a01f) )
-	ROM_LOAD( "495d.v8", 0x700000, 0x100000, CRC(8d525588) SHA1(297871c1e8888d9adab3781fb6c2c27ecf50ca45) )
-	ROM_LOAD( "495d.v9", 0x800000, 0x100000, CRC(97f073b6) SHA1(02a4cce3f0cdb9421350ee5af49af13d7dcd16c2) )
+	// not used
+	//ROM_LOAD( "496.v3",  0x200000, 0x100000, CRC(3c623679) SHA1(5fa98eacb612be496aa7937a9678398ba16f2a13) )
+	//ROM_LOAD( "496.v4",  0x300000, 0x100000, CRC(fbf00c96) SHA1(4083f8efbcf748dba31f0030b82487e0ea56980b) )
+	//ROM_LOAD( "496.v5",  0x400000, 0x100000, CRC(9b2031d4) SHA1(15c8f5cb26af29b8dca53f1c1c49384a1b73b820) )
+	//ROM_LOAD( "496.v6",  0x500000, 0x100000, CRC(107cfc89) SHA1(c4ced7dfab24ff42c6fc2424b18cf199ba30cbfa) )
+	//ROM_LOAD( "496.v7",  0x600000, 0x100000, CRC(0703b761) SHA1(7d586b69bb9578d550871eda884cd6b32d86a01f) )
+	//ROM_LOAD( "496.v8",  0x700000, 0x100000, CRC(8d525588) SHA1(297871c1e8888d9adab3781fb6c2c27ecf50ca45) )
+	//ROM_LOAD( "496.v9",  0x800000, 0x100000, CRC(97f073b6) SHA1(02a4cce3f0cdb9421350ee5af49af13d7dcd16c2) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "495d.c1", 0, 0x800000, CRC(81ac72e5) SHA1(e7b3a243ef826bc4833cc5d3465c03b923a72b0a) )
@@ -2287,7 +1760,7 @@ ROM_END
 // Bugs: Even though you can collect coins, there's no point score.
 ROM_START( nsmb )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "495.p1", 0x000000, 0x100000, CRC(9e0fded1) SHA1(333da236947c440e10e69ee70b8e99a818488f1d) )
+	ROM_LOAD16_WORD_SWAP( "495.p1", 0, 0x100000, CRC(9e0fded1) SHA1(333da236947c440e10e69ee70b8e99a818488f1d) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
@@ -2312,19 +1785,25 @@ ROM_END
 // Can't exit the stage at the end.
 ROM_START( nblktiger )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "496.p1", 0x000000, 0x100000, CRC(18f34200) SHA1(78b3b9ef20ddf780a81e644d996d56dd5c0e6d10) )
+	ROM_LOAD16_WORD_SWAP( "496.p1", 0, 0x100000, CRC(18f34200) SHA1(78b3b9ef20ddf780a81e644d996d56dd5c0e6d10) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
 	NEO_BIOS_AUDIO_64K( "496.m1", CRC(2037dc19) SHA1(c88588d07fc63aeed828a87f0f633c7badafeb3e) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	// incomplete sound
-	//ROM_LOAD( "496.v1", 0x000000, 0x100000, CRC(3ac066e1) SHA1(cab7f04fbce0db685f5fa0d22923f7b7ca37a804) )
-	//ROM_LOAD( "496.v2", 0x100000, 0x100000, CRC(c5a12987) SHA1(71236afffdb69aa3ba8ebc345e1e7b1830db437e) )
-	// better sound
-	ROM_LOAD( "496.v1",   0x000000, 0x400000, CRC(f44460dc) SHA1(9b31c5fae67fc40c4c6c4fe4a4c21fa92374c8c7) )
-	ROM_LOAD( "496.v2",   0x400000, 0x400000, CRC(bf52d283) SHA1(59f2d26ab21d792228d6ee0bf840080fc1f4ba5d) )
+	ROM_REGION( 0x900000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "496.v1", 0x000000, 0x100000, CRC(3ac066e1) SHA1(cab7f04fbce0db685f5fa0d22923f7b7ca37a804) )
+	ROM_LOAD( "496.v2", 0x100000, 0x100000, CRC(c5a12987) SHA1(71236afffdb69aa3ba8ebc345e1e7b1830db437e) )
+	ROM_LOAD( "496.v3", 0x200000, 0x100000, CRC(3c623679) SHA1(5fa98eacb612be496aa7937a9678398ba16f2a13) )
+	ROM_LOAD( "496.v4", 0x300000, 0x100000, CRC(fbf00c96) SHA1(4083f8efbcf748dba31f0030b82487e0ea56980b) )
+	ROM_LOAD( "496.v5", 0x400000, 0x100000, CRC(9b2031d4) SHA1(15c8f5cb26af29b8dca53f1c1c49384a1b73b820) )
+	ROM_LOAD( "496.v6", 0x500000, 0x100000, CRC(107cfc89) SHA1(c4ced7dfab24ff42c6fc2424b18cf199ba30cbfa) )
+	ROM_LOAD( "496.v7", 0x600000, 0x100000, CRC(0703b761) SHA1(7d586b69bb9578d550871eda884cd6b32d86a01f) )
+	ROM_LOAD( "496.v8", 0x700000, 0x100000, CRC(8d525588) SHA1(297871c1e8888d9adab3781fb6c2c27ecf50ca45) )
+	ROM_LOAD( "496.v9", 0x800000, 0x100000, CRC(97f073b6) SHA1(02a4cce3f0cdb9421350ee5af49af13d7dcd16c2) )
+	// Alternate sound roms
+	//ROM_LOAD( "496.v1",   0x000000, 0x400000, CRC(f44460dc) SHA1(9b31c5fae67fc40c4c6c4fe4a4c21fa92374c8c7) )
+	//ROM_LOAD( "496.v2",   0x400000, 0x400000, CRC(bf52d283) SHA1(59f2d26ab21d792228d6ee0bf840080fc1f4ba5d) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "496.c1", 0, 0x800000, CRC(aa469494) SHA1(fd98b7445c85174ccb745c74cb9e852b08353324) )
@@ -2332,11 +1811,11 @@ ROM_START( nblktiger )
 ROM_END
 
 
-// 497: Cabal (port by iq_132)
+// 497: Cabal port by iq_132
 // Bugs: A few minor graphics issues
 ROM_START( cabaln )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "497.p1", 0x000000, 0x100000, CRC(49232965) SHA1(f13352d5b853ea832eb751da508c7878fb149c20) )
+	ROM_LOAD16_WORD_SWAP( "497.p1", 0, 0x100000, CRC(49232965) SHA1(f13352d5b853ea832eb751da508c7878fb149c20) )
 
 	NEO_SFIX_128K( "497.s1", CRC(45f0bc5e) SHA1(de2533e4981c7597a768b8839c737a37243d4bdb) )
 
@@ -2353,7 +1832,7 @@ ROM_END
 
 ROM_START( cabaln01 ) // improvements by pierpa86
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "497s01.p1", 0x000000, 0x100000, CRC(bb193926) SHA1(e87473aaaa8c7af56148e86a410672870fa63d00) )
+	ROM_LOAD16_WORD_SWAP( "497s01.p1", 0, 0x100000, CRC(bb193926) SHA1(e87473aaaa8c7af56148e86a410672870fa63d00) )
 
 	NEO_SFIX_128K( "497.s1", CRC(45f0bc5e) SHA1(de2533e4981c7597a768b8839c737a37243d4bdb) )
 
@@ -2370,8 +1849,8 @@ ROM_END
 
 ROM_START( cabaln02 ) // improvements by pierpa86
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	//ROM_LOAD16_WORD_SWAP( "497s02.p1", 0x000000, 0x80000, CRC(95e6a761) SHA1(b58fb48ac96d9dd971277ac37218c5e00c4ba0bc) )
-	ROM_LOAD16_WORD_SWAP( "497s02.p1", 0x000000, 0x80000, CRC(7b894a26) SHA1(2b70e661e2c56a416eb2f887b1939bce602d6850) )
+	//ROM_LOAD16_WORD_SWAP( "497s02.p1", 0, 0x80000, CRC(95e6a761) SHA1(b58fb48ac96d9dd971277ac37218c5e00c4ba0bc) )
+	ROM_LOAD16_WORD_SWAP( "497s02.p1", 0, 0x80000, CRC(7b894a26) SHA1(2b70e661e2c56a416eb2f887b1939bce602d6850) )
 
 	NEO_SFIX_128K( "497.s1", CRC(45f0bc5e) SHA1(de2533e4981c7597a768b8839c737a37243d4bdb) )
 
@@ -2391,14 +1870,14 @@ ROM_END
 // Bugs: Various minor control issues and spelling mistakes
 ROM_START( abyssal )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "498.p1", 0x000000, 0x080000, CRC(ae12bd96) SHA1(299c66c7038edb9f8bac858172f8ce282cb89edf) )
+	ROM_LOAD16_WORD_SWAP( "498.p1", 0, 0x80000, CRC(ae12bd96) SHA1(299c66c7038edb9f8bac858172f8ce282cb89edf) )
 
 	NEO_SFIX_128K( "498.s1", CRC(1ebbb83e) SHA1(4a52fe5463db19b0617fa990c9f2b8a006ac813c) )
 
 	NEO_BIOS_AUDIO_128K( "498.m1", CRC(79b190e9) SHA1(e63232fba9fd1cb777059fac5aec41304b411212) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "498.v1", 0x000000, 0x200000, CRC(be46bf92) SHA1(4bf6b27dedba3321d9adf40543edf28e85a9f6ab) )
+	ROM_LOAD( "498.v1", 0, 0x200000, CRC(be46bf92) SHA1(4bf6b27dedba3321d9adf40543edf28e85a9f6ab) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "498.c1", 0, 0x200000, CRC(b8c84619) SHA1(1d634242281a7bf75979cd16ee5ae98b5b161b65) )
@@ -2407,14 +1886,14 @@ ROM_END
 
 ROM_START( abyssal1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "498a.p1", 0x000000, 0x080000, CRC(a8a2a8a6) SHA1(da0ea757e17531be8c8e3b0a1f6cc71b0eb04b92) )
+	ROM_LOAD16_WORD_SWAP( "498a.p1", 0, 0x80000, CRC(a8a2a8a6) SHA1(da0ea757e17531be8c8e3b0a1f6cc71b0eb04b92) )
 
 	NEO_SFIX_128K( "498.s1", CRC(1ebbb83e) SHA1(4a52fe5463db19b0617fa990c9f2b8a006ac813c) )
 
 	NEO_BIOS_AUDIO_128K( "498a.m1", CRC(3ddf772b) SHA1(9ac9dba6feac48dcead44020cb17540bba6c0590) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "498a.v1", 0x000000, 0x200000, CRC(1fae3797) SHA1(2e3b410bc52366788b18f70ae5e912a8e2d5e93f) )
+	ROM_LOAD( "498a.v1", 0, 0x200000, CRC(1fae3797) SHA1(2e3b410bc52366788b18f70ae5e912a8e2d5e93f) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "498a.c1", 0, 0x200000, CRC(24dabe27) SHA1(4b7519cbcf028b0be7b0acf9c8827a126a33007d) )
@@ -2426,14 +1905,14 @@ ROM_END
 // Bugs: No in-game sound. Going by the original rom names there's supposed to be a logo, but it never shows.
 ROM_START( neo2048 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "499.p1", 0x000000, 0x000bde, CRC(a1039bdb) SHA1(4cbeaaa1e7834d007e8cdbcb5e7bb2ac1cbdbf93) )
+	ROM_LOAD16_WORD_SWAP( "499.p1", 0, 0xbde, CRC(a1039bdb) SHA1(4cbeaaa1e7834d007e8cdbcb5e7bb2ac1cbdbf93) )
 
 	NEO_SFIX_128K( "499.s1", CRC(d1e4c798) SHA1(b0ce4b6097558b837e9fe991b66ea0ee18f53ed5) )
 
 	NEO_BIOS_AUDIO_64K( "499.m1", CRC(6e363bd2) SHA1(9005b6b34caa5405c290775b79c7cd644ce2881f) )
 
-	ROM_REGION( 0x10000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "499.v1", 0x000000, 0x00e200, CRC(dba56bf0) SHA1(0bcee505e10300108b967c0475caa92ed36e6a2b) )
+	ROM_REGION( 0xe200, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "499.v1", 0, 0xe200, CRC(dba56bf0) SHA1(0bcee505e10300108b967c0475caa92ed36e6a2b) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	// Logo roms
@@ -2445,10 +1924,10 @@ ROM_START( neo2048 )
 ROM_END
 
 
-// 500: Kid no Hore Hore Daisakusen (port by iq_132)
+// 500: Kid no Hore Hore Daisakusen port by iq_132
 ROM_START( horekidb3 ) // beta 3, incomplete?
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "500.p1", 0x000000, 0x080000, CRC(f0b31d22) SHA1(3b942f5f4de04bcaf2a46c8bc16e38b557191a10) )
+	ROM_LOAD16_WORD_SWAP( "500.p1", 0, 0x80000, CRC(f0b31d22) SHA1(3b942f5f4de04bcaf2a46c8bc16e38b557191a10) )
 
 	NEO_SFIX_128K( "500.s1", CRC(b88013e2) SHA1(99ba753412d21ee6a6f1d63c645d74a027e5a143) )
 
@@ -2456,30 +1935,30 @@ ROM_START( horekidb3 ) // beta 3, incomplete?
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "500.v1", 0x000000, 0x800000, CRC(fccb11f4) SHA1(ac027581c1b23036aab74afa79d5fefc59a45e32) )
-	ROM_LOAD( "500.v2", 0x100000, 0x800000, CRC(c65a5900) SHA1(a87f0bddb885082f1e8907a451640572f574c0b9) )
+	ROM_LOAD( "500.v2", 0x800000, 0x800000, CRC(c65a5900) SHA1(a87f0bddb885082f1e8907a451640572f574c0b9) )
 
-	ROM_REGION( 0x080000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "500.c1", 0, 0x040000, CRC(18b0b56b) SHA1(b3e4cdcb72bd1d8af6b505280774ec49de1f7c66) )
-	ROM_LOAD16_BYTE( "500.c2", 1, 0x040000, CRC(9ccea1d5) SHA1(10c7c99d2a647e90e9b2b0d005733fea786ac61c) )
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "500.c1", 0, 0x40000, CRC(18b0b56b) SHA1(b3e4cdcb72bd1d8af6b505280774ec49de1f7c66) )
+	ROM_LOAD16_BYTE( "500.c2", 1, 0x40000, CRC(9ccea1d5) SHA1(10c7c99d2a647e90e9b2b0d005733fea786ac61c) )
 ROM_END
 
 
-// 501: Soldier Girl Amazon (port by iq_132)
+// 501: Soldier Girl Amazon port by iq_132
 ROM_START( amazonn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "501.p1", 0x000000, 0x020000, CRC(f5f57b9d) SHA1(3c5c902d6db9342a0ad82568af48d34c61af46bb) )
+	ROM_LOAD16_WORD_SWAP( "501.p1", 0, 0x20000, CRC(f5f57b9d) SHA1(3c5c902d6db9342a0ad82568af48d34c61af46bb) )
 
 	NEO_SFIX_128K( "501.s1", CRC(128166bb) SHA1(152677c61b3b33f26dad377a9e8c3329a58b8a3c) )
 
 	NEO_BIOS_AUDIO_64K( "501.m1", CRC(681d2398) SHA1(3f5d3832fc8c3470dedc97f8418120895e198fcc) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "501.v1", 0x000000, 0x200000, CRC(1a1a886c) SHA1(36a43396ab04e1d95f9231dc349cf43e59e65a3b) )
-	ROM_LOAD( "501.v2", 0x100000, 0x200000, CRC(86cade60) SHA1(45d6b847675d8e7dadff83abf1a12db17e1da6f3) )
+	ROM_LOAD( "501.v2", 0x200000, 0x200000, CRC(86cade60) SHA1(45d6b847675d8e7dadff83abf1a12db17e1da6f3) )
 
-	ROM_REGION( 0x080000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "501.c1", 0, 0x020000, CRC(901c6ae1) SHA1(d4a98a0467198e2154c7838ebac3513216426310) )
-	ROM_LOAD16_BYTE( "501.c2", 1, 0x020000, CRC(a02a8679) SHA1(18d785c994630043f822f4a71207f75b1ebe7d48) )
+	ROM_REGION( 0x40000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "501.c1", 0, 0x20000, CRC(901c6ae1) SHA1(d4a98a0467198e2154c7838ebac3513216426310) )
+	ROM_LOAD16_BYTE( "501.c2", 1, 0x20000, CRC(a02a8679) SHA1(18d785c994630043f822f4a71207f75b1ebe7d48) )
 ROM_END
 
 
@@ -2524,7 +2003,7 @@ ROM_END
 // 503 : Gladmort by Pixelheart/ChipsOnSteroids
 ROM_START( gladmort )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "503.p1", 0x000000, 0x100000, CRC(64d77ca4) SHA1(8cf0e12d462dd1f4f67c782c5c643a7da29bc718) )
+	ROM_LOAD16_WORD_SWAP( "503.p1", 0, 0x100000, CRC(64d77ca4) SHA1(8cf0e12d462dd1f4f67c782c5c643a7da29bc718) )
 
 	NEO_SFIX_128K( "503.s1", CRC(c96154b9) SHA1(c95251dc566d4649496b7785c8e4cddd0aa67d7f) )
 
@@ -2544,14 +2023,14 @@ ROM_END
 // 503 : Gladmort Demo by Pixelheart
 ROM_START( gladmortd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "503d1.p1", 0x000000, 0x080000, CRC(e0ceafec) SHA1(f147fdb7c0fee02e8ae1923bf0ef3aff954588ae) )
+	ROM_LOAD16_WORD_SWAP( "503d1.p1", 0, 0x80000, CRC(e0ceafec) SHA1(f147fdb7c0fee02e8ae1923bf0ef3aff954588ae) )
 
 	NEO_SFIX_128K( "503d1.s1", CRC(8304be52) SHA1(fbeaee12553709e54e7f5134dfd2ff96df5fdee0) )
 
 	NEO_BIOS_AUDIO_64K( "503d1.m1", CRC(fb945087) SHA1(a2bae6907bf02c93068f9ee23409506277c8a027) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "503d1.v1",   0x000000, 0x1000000, CRC(49d60c52) SHA1(56134745ce1fef3272aa5ddfcd24e3e894d5cca9) )
+	ROM_LOAD( "503d1.v1",   0, 0x1000000, CRC(49d60c52) SHA1(56134745ce1fef3272aa5ddfcd24e3e894d5cca9) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "503d1.c1", 0, 0x1000000, CRC(2c4fe4c3) SHA1(7121a8713d58bf61a88fcf075cdc9529838af6e1) )
@@ -2561,7 +2040,7 @@ ROM_END
 // 503 : Gladmort Demo 2 by Pixelheart
 ROM_START( gladmortd2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "503d2.p1", 0x000000, 0x100000, CRC(d7712425) SHA1(eb9c32b584a600cc67784113cd87629c3eab4e1c) )
+	ROM_LOAD16_WORD_SWAP( "503d2.p1", 0, 0x100000, CRC(d7712425) SHA1(eb9c32b584a600cc67784113cd87629c3eab4e1c) )
 
 	NEO_SFIX_128K( "503d1.s1", CRC(8304be52) SHA1(fbeaee12553709e54e7f5134dfd2ff96df5fdee0) )
 
@@ -2581,7 +2060,7 @@ ROM_END
 // 503 : Gladmort Caravan Mode by Pixelheart/ChipsOnSteroids
 ROM_START( gladmortcm )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "503cm.p1", 0x000000, 0x100000, CRC(2e6f89a1) SHA1(b7c917470884f8b405e5fd9877162a2b2a952fb5) )
+	ROM_LOAD16_WORD_SWAP( "503cm.p1", 0, 0x100000, CRC(2e6f89a1) SHA1(b7c917470884f8b405e5fd9877162a2b2a952fb5) )
 
 	NEO_SFIX_128K( "503.s1", CRC(c96154b9) SHA1(c95251dc566d4649496b7785c8e4cddd0aa67d7f) )
 
@@ -2599,10 +2078,10 @@ ROM_START( gladmortcm )
 ROM_END
 
 
-// 504: Shinobi v1.0 (Neo-Geo port) by Hoffman
+// 504: Shinobi (v1.0) port by Hoffman
 ROM_START( shinobin )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "504.p1", 0x000000, 0x080000, CRC(3bf8e303) SHA1(84ed6ef7a2cddbc49341c3f7545b63b7d7ee67a0) )
+	ROM_LOAD16_WORD_SWAP( "504.p1", 0, 0x80000, CRC(3bf8e303) SHA1(84ed6ef7a2cddbc49341c3f7545b63b7d7ee67a0) )
 
 	NEO_SFIX_128K( "504.s1", CRC(6b8c8124) SHA1(c2fbc49234360925379024ee5c5edf7000d08127) )
 
@@ -2613,14 +2092,14 @@ ROM_START( shinobin )
 	ROM_LOAD( "504.v2",   0x400000, 0x400000, CRC(b335aa46) SHA1(3aba53c22fb1ed0c3524d6fa7ab945946e1764eb) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "504.c1", 0, 0x080000, CRC(74227c08) SHA1(a3835be816ba6afb5533c6f68500d87996f49b28) )
-	ROM_LOAD16_BYTE( "504.c2", 1, 0x080000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
+	ROM_LOAD16_BYTE( "504.c1", 0, 0x80000, CRC(74227c08) SHA1(a3835be816ba6afb5533c6f68500d87996f49b28) )
+	ROM_LOAD16_BYTE( "504.c2", 1, 0x80000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
 ROM_END
 
-// 504: Shinobi v1.1 (Neo-Geo port) by Hoffman
+// 504: Shinobi (v1.1) port by Hoffman
 ROM_START( shinobin1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "504a.p1", 0x000000, 0x080000, CRC(05fd9434) SHA1(6169b376c5258723a52c08a35d2990dd1c2eb6aa) )
+	ROM_LOAD16_WORD_SWAP( "504a.p1", 0, 0x80000, CRC(05fd9434) SHA1(6169b376c5258723a52c08a35d2990dd1c2eb6aa) )
 
 	NEO_SFIX_128K( "504.s1", CRC(6b8c8124) SHA1(c2fbc49234360925379024ee5c5edf7000d08127) )
 
@@ -2631,14 +2110,14 @@ ROM_START( shinobin1 )
 	ROM_LOAD( "504.v2",   0x400000, 0x400000, CRC(b335aa46) SHA1(3aba53c22fb1ed0c3524d6fa7ab945946e1764eb) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "504.c1", 0, 0x080000, CRC(74227c08) SHA1(a3835be816ba6afb5533c6f68500d87996f49b28) )
-	ROM_LOAD16_BYTE( "504.c2", 1, 0x080000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
+	ROM_LOAD16_BYTE( "504.c1", 0, 0x80000, CRC(74227c08) SHA1(a3835be816ba6afb5533c6f68500d87996f49b28) )
+	ROM_LOAD16_BYTE( "504.c2", 1, 0x80000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
 ROM_END
 
 // 504: Shinobi Test by Hoffman
 ROM_START( shinobint )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "504t.p1", 0x000000, 0x080000, CRC(6ea08aef) SHA1(f1a9bbceb1caa56fe10ac046df07b7bf02b70900) )
+	ROM_LOAD16_WORD_SWAP( "504t.p1", 0, 0x80000, CRC(6ea08aef) SHA1(f1a9bbceb1caa56fe10ac046df07b7bf02b70900) )
 
 	NEO_SFIX_128K( "504.s1", CRC(6b8c8124) SHA1(c2fbc49234360925379024ee5c5edf7000d08127) )
 
@@ -2649,8 +2128,8 @@ ROM_START( shinobint )
 	ROM_LOAD( "504.v2",   0x400000, 0x400000, CRC(b335aa46) SHA1(3aba53c22fb1ed0c3524d6fa7ab945946e1764eb) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "504.c1", 0, 0x080000, CRC(74227c08) SHA1(a3835be816ba6afb5533c6f68500d87996f49b28) )
-	ROM_LOAD16_BYTE( "504.c2", 1, 0x080000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
+	ROM_LOAD16_BYTE( "504.c1", 0, 0x80000, CRC(74227c08) SHA1(a3835be816ba6afb5533c6f68500d87996f49b28) )
+	ROM_LOAD16_BYTE( "504.c2", 1, 0x80000, CRC(df4104e6) SHA1(5aa9f75305107648f3065db7a4a1b570cf3d62ef) )
 ROM_END
 
 
@@ -2677,14 +2156,14 @@ ROM_END
 // 506: Karnov port by iq_132
 ROM_START( karnovn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "506.p1", 0x000000, 0x80000, CRC(79fd92aa) SHA1(4a56a325c32be69a27443776055152a0a436c1eb) )
+	ROM_LOAD16_WORD_SWAP( "506.p1", 0, 0x80000, CRC(79fd92aa) SHA1(4a56a325c32be69a27443776055152a0a436c1eb) )
 
 	NEO_SFIX_128K( "506.s1", CRC(f6a144cf) SHA1(cd8d438431d54f1451b796410864caf299787278) )
 
 	NEO_BIOS_AUDIO_64K( "506.m1", CRC(089a15b5) SHA1(bdccbf1042e0d611e30178652fdeec01e00a5b44) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "506.v1",   0x000000, 0x200000, CRC(51502fea) SHA1(cfb2bd316e2b05e8559d662569837c0ca72ff6bc) )
+	ROM_LOAD( "506.v1",   0, 0x200000, CRC(51502fea) SHA1(cfb2bd316e2b05e8559d662569837c0ca72ff6bc) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "506.c1", 0, 0x80000, CRC(a27d94ff) SHA1(1497a1e2a8b471edca7942201bd3e891f8fdb0b9) )
@@ -2695,7 +2174,7 @@ ROM_END
 // 507: Golden Axe port by Hoffman
 ROM_START( goldaxen )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "507.p1", 0x000000, 0x100000, CRC(3c3ed057) SHA1(4f3ba87fb85a6e79d9efd8da0cdf91515630e60a) )
+	ROM_LOAD16_WORD_SWAP( "507.p1", 0, 0x100000, CRC(3c3ed057) SHA1(4f3ba87fb85a6e79d9efd8da0cdf91515630e60a) )
 
 	NEO_SFIX_128K( "507.s1", CRC(707d91c0) SHA1(aa9c9c458116d5ca4c40def1f71934a1a94fcf7b) )
 
@@ -2710,39 +2189,19 @@ ROM_START( goldaxen )
 	ROM_LOAD16_BYTE( "507.c2", 1, 0x200000, CRC(a78a6647) SHA1(19a9b65701935165bd972542f868b71b3d70cb47) )
 ROM_END
 
-#if 0
-// 508: POW port by iq_132, converted from CD by Robbbert.
-// bugs: no music, because it's in separate wav files on the CD
-ROM_START( pown )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "508.p1", 0x000000, 0x60000, CRC(792d54be) SHA1(17a10c180860e99036e48873849a642c8c41f894) )
-	// supposedly fixed rom, bad gfx
-	//ROM_LOAD16_WORD_SWAP( "508a.p1", 0x000000, 0x080000, CRC(8b4a098f) SHA1(9485ed27ad35d4bf88948c80d217809aa9e9e807) )
-
-	NEO_SFIX_128K( "508.s1", CRC(89043389) SHA1(01ea488de2c401d3ee836cc7d5c696ad8cb4d8f9) )
-
-	NEO_BIOS_AUDIO_64K( "508.m1", CRC(b50f61bb) SHA1(46d5017e40ca79e280fa247de3eb74ca5092117c) )
-
-	ROM_REGION( 0x80000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "508.v1",   0x000000, 0x4c900, CRC(fba165f8) SHA1(948b19b340fe2a1d6123746d537714adaa07aa1d) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD( "508.c1",   0, 0x200000, CRC(887ca97e) SHA1(b4a1176ba6862554d8f2dbea9864afb865f6f296) )
-ROM_END
-#endif
 
 // 509: Super Power Kick beta 1 by Kakoeimon
 ROM_START( spkick )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "509.p1", 0x000000, 0x100000, CRC(c61a5d8d) SHA1(309642eb4fd466ce8bf243d9f0ac292ac25b90d2) )
+	ROM_LOAD16_WORD_SWAP( "509.p1", 0, 0x100000, CRC(c61a5d8d) SHA1(309642eb4fd466ce8bf243d9f0ac292ac25b90d2) )
 
 	NEO_SFIX_MT(0x40000)
-	ROM_LOAD( "509.s1", 0x00000, 0x40000, CRC(8856e60b) SHA1(d695fcc77770782c753fa07a35c70963fb3f2cdb) )
+	ROM_LOAD( "509.s1", 0, 0x40000, CRC(8856e60b) SHA1(d695fcc77770782c753fa07a35c70963fb3f2cdb) )
 
 	NEO_BIOS_AUDIO_256K( "509.m1", CRC(52939569) SHA1(e612e7d1563b0ef9d1b607e6f487d70a476870f1) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "509.v1",   0x000000, 0x100000, CRC(b1f6bcc0) SHA1(a134db583c6aa5f8f365381deed94634f7f745ad) )
+	ROM_LOAD( "509.v1",   0, 0x100000, CRC(b1f6bcc0) SHA1(a134db583c6aa5f8f365381deed94634f7f745ad) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "509.c1", 0, 0x200000, CRC(21012a2d) SHA1(c0d6116c808597f928d32a724fa02e6019135d5a) )
@@ -2752,40 +2211,21 @@ ROM_END
 // 509: Super Power Kick beta 2 by Kakoeimon
 ROM_START( spkick2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "509a.p1", 0x000000, 0x100000, CRC(5de08fed) SHA1(cc0a4da3cec73a8e6372b78b65a9805c28403e75) )
+	ROM_LOAD16_WORD_SWAP( "509a.p1", 0, 0x100000, CRC(5de08fed) SHA1(cc0a4da3cec73a8e6372b78b65a9805c28403e75) )
 
 	NEO_SFIX_MT(0x40000)
-	ROM_LOAD( "509.s1", 0x00000, 0x40000, CRC(8856e60b) SHA1(d695fcc77770782c753fa07a35c70963fb3f2cdb) )
+	ROM_LOAD( "509.s1", 0, 0x40000, CRC(8856e60b) SHA1(d695fcc77770782c753fa07a35c70963fb3f2cdb) )
 
 	NEO_BIOS_AUDIO_256K( "509a.m1", CRC(32e878ae) SHA1(cee0e6c5173484f23f7a89df088a11c5e7bc3b70) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "509a.v1",  0x000000, 0x100000, CRC(3159d577) SHA1(06c9c1ee9a67faa8cc8b9a7a6812b042c4b94f87) )
+	ROM_LOAD( "509a.v1",  0, 0x100000, CRC(3159d577) SHA1(06c9c1ee9a67faa8cc8b9a7a6812b042c4b94f87) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "509a.c1", 0, 0x200000, CRC(b3e8f176) SHA1(cf5225fede9b4ac62018a92ce487f69933c047b2) )
 	ROM_LOAD16_BYTE( "509a.c2", 1, 0x200000, CRC(1373b740) SHA1(3c4bb9ea85c2a233171897dbe09f2a008585c5ed) )
 ROM_END
 
-#if 0
-// 510: Atomic Runner Chelnov port by iq_132, converted from CD by Robbbert.
-// bugs: no music, because it's in separate wav files on the CD
-ROM_START( chelnovn )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "510.p1", 0x000000, 0x2c000, CRC(cfc064f2) SHA1(61c221dfd3a75a89257a1227fa0c079637218156) )
-	ROM_LOAD( "510.p2", 0x040000, 0x11400, CRC(624ceaaa) SHA1(759d099a316f4a4c39ec5753ffbb4c4e639ca7f8) )
-
-	NEO_SFIX_128K( "510.s1", CRC(3f86c046) SHA1(52262fda22c44d93a0b367f86df1111bff63949c) )
-
-	NEO_BIOS_AUDIO_64K( "510.m1", CRC(f675a58e) SHA1(71d78ace6e0bbe25094a15d953b8660be8a81328) )
-
-	ROM_REGION( 0x40000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "510.v1",   0x000000, 0x35e00, CRC(ae367d92) SHA1(3af5d584820835aee3a1c6ab21f9c76670befdb0) )
-
-	ROM_REGION( 0x80000, "sprites", 0 )
-	ROM_LOAD( "510.c1",   0, 0x80000, CRC(d8eed0b2) SHA1(ff3c81737e7045c9a39f104bf7f48406bf8895d5) )
-ROM_END
-#endif
 
 // 511: Bad Dudes vs Dragonninja port by OzzyOuzo.
 ROM_START( baddudesn )
@@ -2831,14 +2271,14 @@ ROM_END
 // bugs: no sound
 ROM_START( jurl )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "513.p1", 0x000000, 0x080000, CRC(601b540e) SHA1(d2ec144bde329a2f23c08c425a47e4661c950034) )
+	ROM_LOAD16_WORD_SWAP( "513.p1", 0, 0x80000, CRC(601b540e) SHA1(d2ec144bde329a2f23c08c425a47e4661c950034) )
 
 	NEO_SFIX_128K( "513.s1", CRC(d6c058c9) SHA1(b5f3faef8e87a517584e85e42e4af9dd90003047) )
 
 	NEO_BIOS_AUDIO_128K( "513.m1", CRC(b758c5d2) SHA1(939ab3d66cb1138cf4170432fab213beb4cef0d1) )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "513.v1",   0x000000, 0x400000, CRC(16db022e) SHA1(dab8973b95e813cc215011d6d00c6f96f651c636) )
+	ROM_LOAD( "513.v1",   0, 0x400000, CRC(16db022e) SHA1(dab8973b95e813cc215011d6d00c6f96f651c636) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "513.c1", 0, 0x100000, CRC(02811fe9) SHA1(0257251d7ce31202f7604d1eb48f2dadd09e7819) )
@@ -2850,9 +2290,9 @@ ROM_END
 // bugs: priority issues
 ROM_START( foodfn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "514.p1", 0x000000, 0x080000, CRC(904bb32f) SHA1(b6e29634485af5e88997971f0dfb7661e93e8724) )
+	ROM_LOAD16_WORD_SWAP( "514.p1", 0, 0x80000, CRC(904bb32f) SHA1(b6e29634485af5e88997971f0dfb7661e93e8724) )
 	// new rom, has an 80-second pause at start, and the controls don't work
-	//ROM_LOAD16_WORD_SWAP( "514.p1", 0x000000, 0x080000, CRC(455a609f) SHA1(d6c82c3925a8f3b1f3544de8908394bdce38b204) )
+	//ROM_LOAD16_WORD_SWAP( "514.p1", 0, 0x80000, CRC(455a609f) SHA1(d6c82c3925a8f3b1f3544de8908394bdce38b204) )
 	//ROM_FILL(0x105d4,1,0x4e)  // skip 80-second wait
 	//ROM_FILL(0x105d5,1,0x71)
 
@@ -2860,26 +2300,26 @@ ROM_START( foodfn )
 
 	NEO_BIOS_AUDIO_256K( "514.m1", CRC(35cb565b) SHA1(887b91c47e99c5b3beb92425d49e240425507afa) )
 
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "514.v1", 0x000000, 0x080000, CRC(16d20386) SHA1(79787d1a6f23937f3da6cb3d7bfea798a3ccaf1f) )
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "514.v1", 0, 0x80000, CRC(16d20386) SHA1(79787d1a6f23937f3da6cb3d7bfea798a3ccaf1f) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "514.c1", 0, 0x080000, CRC(7b4ca9e3) SHA1(ed5aa0f673e6489f608b4fe3cd16ef7f6fdcff31) )
-	ROM_LOAD16_BYTE( "514.c2", 1, 0x080000, CRC(d9f831bb) SHA1(f2bf06591506c8d142873800a55713de831c49eb) )
+	ROM_LOAD16_BYTE( "514.c1", 0, 0x80000, CRC(7b4ca9e3) SHA1(ed5aa0f673e6489f608b4fe3cd16ef7f6fdcff31) )
+	ROM_LOAD16_BYTE( "514.c2", 1, 0x80000, CRC(d9f831bb) SHA1(f2bf06591506c8d142873800a55713de831c49eb) )
 ROM_END
 
 
 // 515: Bang Bang Busters 2 demo
 ROM_START( bbb2d1 ) // demo 1
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "515.p1", 0x000000, 0x100000, CRC(3659f253) SHA1(78474a0dbf812e987cae7b7ca0f8d00c35060939) )
+	ROM_LOAD16_WORD_SWAP( "515.p1", 0, 0x100000, CRC(3659f253) SHA1(78474a0dbf812e987cae7b7ca0f8d00c35060939) )
 
 	NEO_SFIX_128K( "515.s1", CRC(e53ef3d0) SHA1(ef3ade7aadc1b57a20c1830bf1d3444dfc9ce1fb) )
 
 	NEO_BIOS_AUDIO_64K( "515.m1", CRC(bff0ad49) SHA1(e75296afefe011a2b96245065b3d97739e3c338e) )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "515.v1", 0x000000, 0x400000, CRC(f1dda8dd) SHA1(2cc21436eca6eaa08f8de82fc5252e1f4a335333) )
+	ROM_LOAD( "515.v1", 0, 0x400000, CRC(f1dda8dd) SHA1(2cc21436eca6eaa08f8de82fc5252e1f4a335333) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "515.c1", 0, 0x800000, CRC(739173e2) SHA1(5703a97bba12c63411700341abe4e2981650d59e) )
@@ -2888,7 +2328,7 @@ ROM_END
 
 ROM_START( bbb2d2 ) // demo 2
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "515s02.p1", 0x000000, 0x100000, CRC(b6f02669) SHA1(e35e612fbe7aa829d3f2dab9f5975affe31687de) )
+	ROM_LOAD16_WORD_SWAP( "515s02.p1", 0, 0x100000, CRC(b6f02669) SHA1(e35e612fbe7aa829d3f2dab9f5975affe31687de) )
 
 	NEO_SFIX_128K( "515.s1", CRC(e53ef3d0) SHA1(ef3ade7aadc1b57a20c1830bf1d3444dfc9ce1fb) )
 
@@ -2927,9 +2367,9 @@ ROM_END
 // Bugs: Dreadful sound
 ROM_START( grime )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "517.p1", 0x000000, 0x080000, CRC(e42ed460) SHA1(6e9e413fd67bb8b07ff2233adaa736f8f0e7510e) )
+	ROM_LOAD16_WORD_SWAP( "517.p1", 0, 0x80000, CRC(e42ed460) SHA1(6e9e413fd67bb8b07ff2233adaa736f8f0e7510e) )
 
-	NEO_SFIX_MT(0x40000)
+	NEO_SFIX_MT(0x20000)
 	ROM_LOAD( "517.s1", 0x00000, 0x20000, CRC(9ecf7b85) SHA1(0f02b25f3ed583c1d63532a4222db1f9877b8b04) )
 	ROM_LOAD( "517.s2", 0x10000, 0x00c00, CRC(810b6254) SHA1(c4dca993a8a3e84480b5baa704aab4eea4c61d54) )
 	ROM_LOAD( "517.s3", 0x12000, 0x00200, CRC(d30e8606) SHA1(1bf36b004628bff17040826c58b164c7f813fd59) )
@@ -2938,7 +2378,7 @@ ROM_START( grime )
 
 	NEO_BIOS_AUDIO(0xf803, "517.m1", CRC(f13f8c9b) SHA1(0abc1ffe893b32a8eb50cbc30af46d97bbd731c9) )
 
-	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "499.c1", 0, 0x100000, CRC(479543cf) SHA1(772690c872632320133a799aa41f6e68a8d07a4c) )
 	ROM_LOAD16_BYTE( "499.c2", 1, 0x100000, CRC(1f6431d5) SHA1(7c90d6ec9df9e6223a066c338b7a7886071370cf) )
 ROM_END
@@ -2947,14 +2387,14 @@ ROM_END
 // 518: Halo Zero demo by Earok (https://earok.itch.io)
 ROM_START( halozero )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "518.p1", 0x000000, 0x040000, CRC(472205ad) SHA1(9514c7975826b5f12607cc261e05904cb49007f3) )
+	ROM_LOAD16_WORD_SWAP( "518.p1", 0, 0x40000, CRC(472205ad) SHA1(9514c7975826b5f12607cc261e05904cb49007f3) )
 
 	NEO_SFIX_128K( "518.s1", CRC(9c8d137f) SHA1(78dc79de5708538cf49a4345ca6ffe5816a45f45) )
 
 	NEO_BIOS_AUDIO( 0x8000, "518.m1", CRC(61463826) SHA1(52a71d83357ba00b090ba0c956d180d78b6b1adf) )
 
 	ROM_REGION( 0x20000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "518.v1", 0x000000, 0x20000, CRC(293cf59b) SHA1(c035d433050007f3363c5037e8599c413bc8f4f5) )
+	ROM_LOAD( "518.v1", 0, 0x20000, CRC(293cf59b) SHA1(c035d433050007f3363c5037e8599c413bc8f4f5) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "518.c1", 0, 0x80000, CRC(4749a9b0) SHA1(4607ac7cd857783fef1f26960f42265e869d2d00) )
@@ -2965,16 +2405,16 @@ ROM_END
 // 519: Blue and Red Fight the Robots (v1.7) by Kaiju Wasp (https://kaijuwasp.itch.io)
 ROM_START( blueandr )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "519.p1", 0x000000, 0x100000, CRC(39755597) SHA1(12cefd1e68560ea096bcd826e7fa558475dad13c) )
+	ROM_LOAD16_WORD_SWAP( "519.p1", 0, 0x100000, CRC(39755597) SHA1(12cefd1e68560ea096bcd826e7fa558475dad13c) )
 
 	NEO_SFIX_128K( "519.s1", CRC(0d0067f5) SHA1(ed77445e94d58ed83b27480c5e939ca2c0b6a90c) )
 
 	NEO_BIOS_AUDIO_256K( "519.m1", CRC(170e7948) SHA1(824e83b15adc26be346235f29848ac7582c9bd1f) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "519.v1", 0x000000, 0xb80000, CRC(4aa33827) SHA1(2935649e4e87f6f66b8d13802ad5ea751c58ce8b) )
+	ROM_REGION( 0xb80000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "519.v1", 0, 0xb80000, CRC(4aa33827) SHA1(2935649e4e87f6f66b8d13802ad5ea751c58ce8b) )
 
-	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_REGION( 0x80000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "519.c1", 0, 0x40000, CRC(c4dada7c) SHA1(6e45be91a9e24dc7153b1052522b243be817d3b8) )
 	ROM_LOAD16_BYTE( "519.c2", 1, 0x40000, CRC(76edd8a9) SHA1(3bf89afdabd3fabbca240548f150b37d60f19cc3) )
 ROM_END
@@ -2983,14 +2423,14 @@ ROM_END
 // 520: Midnight Wanderers 2-level demo by DomKid (Z-team)
 ROM_START( midnight )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "520.p1", 0x000000, 0x080000, CRC(92fdb042) SHA1(535c6568fab3fca2b4c64a95d24eb5d3d9162902) )
+	ROM_LOAD16_WORD_SWAP( "520.p1", 0, 0x80000, CRC(92fdb042) SHA1(535c6568fab3fca2b4c64a95d24eb5d3d9162902) )
 
 	NEO_SFIX_128K( "520.s1", CRC(6f97ae2e) SHA1(c25b5dc98b7eb9759698fea7be69a9e4937b9ef4) )
 
 	NEO_BIOS_AUDIO_256K( "520.m1", CRC(64f774ea) SHA1(49df9ac5877dcb26f08c277027e484d0f89b51c7) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "520.v1", 0x000000, 0xa40000, CRC(f9506ce5) SHA1(0074040fbe6211fd9bd6dd13041c226fc24f7fc5) )
+	ROM_REGION( 0xa40000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "520.v1", 0, 0xa40000, CRC(f9506ce5) SHA1(0074040fbe6211fd9bd6dd13041c226fc24f7fc5) )
 
 	ROM_REGION( 0x1c0000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "520.c1", 0, 0xe0000, CRC(d3a28f25) SHA1(69f6cd1c2e17df466096095d1fad0f4cfc4c0713) )
@@ -3001,14 +2441,14 @@ ROM_END
 // 521: Rick Dangerous DX by Z-team
 ROM_START( rickdx )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "521.p1", 0x000000, 0x080000, CRC(d3dd7ab5) SHA1(bf96ae1fe19fa3b6edb6aef4cfa60ab31330299b) )
+	ROM_LOAD16_WORD_SWAP( "521.p1", 0, 0x80000, CRC(d3dd7ab5) SHA1(bf96ae1fe19fa3b6edb6aef4cfa60ab31330299b) )
 
 	NEO_SFIX_128K( "521.s1", CRC(4ec73f78) SHA1(cd252da99008c5055b6637ab9ac30356bf018813) )
 
 	NEO_BIOS_AUDIO_256K( "521.m1", CRC(ad8f34e8) SHA1(301b0d8a005c3dc0d71358de8a7ed8873a8f0644) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "521.v1", 0x000000, 0x6c0000, CRC(69fb1fdf) SHA1(9c610b72bfb5aa6dede6e799c39f6644c43585e5) )
+	ROM_REGION( 0x6c0000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "521.v1", 0, 0x6c0000, CRC(69fb1fdf) SHA1(9c610b72bfb5aa6dede6e799c39f6644c43585e5) )
 
 	ROM_REGION( 0x280000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "521.c1", 0, 0x140000, CRC(89e09533) SHA1(f8707be8b6665ac80dfcef6ecdb1153b8e5c3ac6) )
@@ -3017,16 +2457,17 @@ ROM_END
 
 
 // 522: Doom Geo demo by Sabino
-// No sound. V1 was all zero, left out.
+// No sound.
 // Controls: Alt = shoot; Space = Change weapon; Shift = Open door
 // Bugs: Too many to count. Bad gfx. If you get a black screen, press F3 to start over.
 ROM_START( doomgeo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "522.p1", 0x000000, 0x080000, CRC(3fbc2d79) SHA1(591799dee2053fc1e8c95091127e5e20584eb929) )
+	ROM_LOAD16_WORD_SWAP( "522.p1", 0, 0x80000, CRC(3fbc2d79) SHA1(591799dee2053fc1e8c95091127e5e20584eb929) )
 
 	NEO_SFIX_128K( "522.s1", CRC(248bc475) SHA1(c8c8da9ce21ab5ad555f9160e8b6e92f1b4f0e82) )
 
 	NEO_BIOS_AUDIO_128K( "522.m1", CRC(1c996f5d) SHA1(e7ef71811145628ae5eb253c45c5d999c728a8cd) )
+	// v1 all zero, so left out
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "522.c1", 0, 0x400000, CRC(70903dec) SHA1(325b58a476a08267143a8923562bb27ef0e237a1) )
@@ -3035,15 +2476,16 @@ ROM_END
 
 
 // 523: Free Doom
-// No sound. V1 was all zero, left out.
+// No sound.
 // This is the same as Doom Geo but with different graphics. Same issues exist.
 ROM_START( freedoom )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "523.p1", 0x000000, 0x080000, CRC(f57478f2) SHA1(ada3a015ede437312effa13f1ab98c8ae6f61780) )
+	ROM_LOAD16_WORD_SWAP( "523.p1", 0, 0x80000, CRC(f57478f2) SHA1(ada3a015ede437312effa13f1ab98c8ae6f61780) )
 
 	NEO_SFIX_128K( "523.s1", CRC(1b4ec91c) SHA1(4bc70b1fa8421571555453545f0ac340958611ce) )
 
 	NEO_BIOS_AUDIO_128K( "522.m1", CRC(1c996f5d) SHA1(e7ef71811145628ae5eb253c45c5d999c728a8cd) )
+	// v1 all zero, so left out
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "523.c1", 0, 0x400000, CRC(bb8e2a1b) SHA1(0181eb9a6dc5b920b7e8779d7c51db3c0845119c) )
@@ -3055,15 +2497,15 @@ ROM_END
 // Bugs: If the screen suddenly goes black, you'll have to restart the game
 ROM_START( smbn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	//ROM_LOAD16_WORD_SWAP( "524.p1", 0x000000, 0x100000, CRC(7f2203e2) SHA1(40c8a2aaedfde648729341da967698e46ebeee46) )
-	ROM_LOAD16_WORD_SWAP( "524a.p1", 0x000000, 0x100000, CRC(2e1a9e13) SHA1(449d339d91501d6057a77361db25ab64855dac0c) )
+	//ROM_LOAD16_WORD_SWAP( "524.p1", 0, 0x100000, CRC(7f2203e2) SHA1(40c8a2aaedfde648729341da967698e46ebeee46) )
+	ROM_LOAD16_WORD_SWAP( "524a.p1", 0, 0x100000, CRC(2e1a9e13) SHA1(449d339d91501d6057a77361db25ab64855dac0c) )
 
 	NEO_SFIX_128K( "524.s1", CRC(d26aa99f) SHA1(9157796d485fe6fcf9d6563e8f0006e0d26d7c8f) )
 
 	NEO_BIOS_AUDIO_128K( "524.m1", CRC(407e6cb6) SHA1(be0de4793809801436f8d4b1e8c639cb121e1022) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "524.v1", 0x000000, 0x80000, CRC(87a8bcb3) SHA1(36005525795ef2c4779eae3955fae722a0abafb7) )
+	ROM_LOAD( "524.v1", 0, 0x80000, CRC(87a8bcb3) SHA1(36005525795ef2c4779eae3955fae722a0abafb7) )
 
 	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "524.c1", 0, 0x200000, CRC(6ca43fd1) SHA1(35aacdc116d93d9ea719660e4d4ab13231944bc3) )
@@ -3075,14 +2517,14 @@ ROM_END
 // Bugs: Runs at half speed
 ROM_START( vssmbn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "525.p1", 0x000000, 0x100000, CRC(492d9a45) SHA1(b41aab9bfcecbbc5fd4ae3c4e34ad0a34b39b037) )
+	ROM_LOAD16_WORD_SWAP( "525.p1", 0, 0x100000, CRC(492d9a45) SHA1(b41aab9bfcecbbc5fd4ae3c4e34ad0a34b39b037) )
 
 	NEO_SFIX_128K( "525.s1", CRC(f9b8db1e) SHA1(f050d0171d85845d39e2443c38c67754c59d9ae2) )
 
 	NEO_BIOS_AUDIO_128K( "524.m1", CRC(407e6cb6) SHA1(be0de4793809801436f8d4b1e8c639cb121e1022) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "524.v1", 0x000000, 0x80000, CRC(87a8bcb3) SHA1(36005525795ef2c4779eae3955fae722a0abafb7) )
+	ROM_LOAD( "524.v1", 0, 0x80000, CRC(87a8bcb3) SHA1(36005525795ef2c4779eae3955fae722a0abafb7) )
 
 	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "525.c1", 0, 0x200000, CRC(bfa287fa) SHA1(ae85fde5636e49607aae509b89cd9786a068c749) )
@@ -3090,17 +2532,42 @@ ROM_START( vssmbn )
 ROM_END
 
 
-// 527: The Perfect Fighter (demo v5)
+// 526: Seraph Zero (1.0) by Nasprich
+ROM_START( seraph )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "526.p1", 0x000000, 0x100000, CRC(cb398334) SHA1(a4172b7d7e9cbc4af4cf1692fb9dc3cfc454dcb9) )
+	ROM_LOAD16_WORD_SWAP( "526.p2", 0x100000, 0x400000, CRC(6591304a) SHA1(79226e7fb06b115c09b54ed4ec4e51d088762560) )
+
+	NEO_SFIX_128K( "526.s1", CRC(7e06eac6) SHA1(64e3f97208abaff936a1b27d3b8fa91893002abf) )
+
+	NEO_BIOS_AUDIO_128K( "526.m1", CRC(829eb8e3) SHA1(21966bbdf3e1da724683b11ecc0cd6725aeb23b1) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "526.v1",   0, 0x1000000, CRC(59800649) SHA1(8f99620e3b1a8b28f43de1693e80c06ad823181c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", ROMREGION_ERASE00 )
+	ROM_LOAD( "526.v21",   0, 0x1000000, CRC(6e5ff882) SHA1(ad62bed4a06a8c7d6cd5f2d44fe08a8a3630e4b5) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "526.c1", 0, 0x2000000, CRC(262080d7) SHA1(d7e6ed449f9a74b17d2657dd565c8836790646b1) )
+	ROM_LOAD16_BYTE( "526.c2", 1, 0x2000000, CRC(1c14fd52) SHA1(e071e0db73a0278b0b4241afe8f6c2c130f46f24) )
+ROM_END
+
+
+// 527: The Perfect Fighter (demo v5.1)
 ROM_START( perfectf )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "527.p1", 0x000000, 0x200000, CRC(5578a712) SHA1(f391d5993118377f1894a25c2fa8c2ac1d7cecee) )
+	ROM_LOAD16_WORD_SWAP( "527.p1", 0, 0x200000, CRC(5578a712) SHA1(f391d5993118377f1894a25c2fa8c2ac1d7cecee) )
 
 	NEO_SFIX_128K( "527.s1", CRC(b0b1e3c3) SHA1(471c97f930606898b463cfc9854e47853fc53387) )
 
 	NEO_BIOS_AUDIO_128K( "527.m1", CRC(5fbc49a7) SHA1(321d815a71354841f1235220f517fa9f016f13b0) )
 
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "527.v1", 0x000000, 0x1000000, CRC(a16dfc27) SHA1(54fb5bff6c780c22f123631ba63b4ddfaffb674e) )
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "527.v1", 0, 0x100000, CRC(c1cf0e48) SHA1(a50afa4b49d528916f26451fbd93f19c29f523ee) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "527.v21", 0, 0x1000000, CRC(a16dfc27) SHA1(54fb5bff6c780c22f123631ba63b4ddfaffb674e) )
 
 	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "527.c1", 0, 0x1000000, CRC(0f9f7188) SHA1(699194d1eaca08f423eb24cefc3bbb7701d9c1e2) )
@@ -3108,35 +2575,36 @@ ROM_START( perfectf )
 ROM_END
 
 
-// 528: Snow Bros (v1.0.2) by Bendk97
+// 528: Snow Bros (v1.4.1) port by Bendk97
 ROM_START( snowbrosn )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x80000, CRC(41c5834c) SHA1(bc7a6df9c3a049a29c5369ad659364668292ba3f) )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "528.p1", 0x000000, 0x100000, CRC(d906e59b) SHA1(6715a2c02f389a605bacc0113568ba2dbac53f44) )
+	ROM_LOAD16_WORD_SWAP( "528.p2", 0x100000, 0x100000, CRC(a5738f53) SHA1(330c5c840b3973d1d690188acfbd9f72e2ed7b13) )
 
-	NEO_SFIX_128K( "528.s1", CRC(5fb678af) SHA1(40f78732f1f6c63ddfbbd9b3b9086369c1cceaef) )
+	NEO_SFIX_128K( "528.s1", CRC(68f063f5) SHA1(9ade55f13424db36d525e1f6c2bcffbb6cb3b0f6) )
 
-	NEO_BIOS_AUDIO_64K( "528.m1", CRC(ca694dcf) SHA1(0f75452eb7f72c51792ba6e29b266e31cfcd470f) )
+	NEO_BIOS_AUDIO_64K( "528.m1", CRC(e480782c) SHA1(d3df3e30124f40962c009383d6d9512176ebf360) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "528.v1", 0x000000, 0x800000, CRC(548c091b) SHA1(20997304536d0319d81df73cf43738ca208e54fc) )
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "528.v1", 0, 0x1000000, CRC(f15f70e4) SHA1(f5f3f1f840e9fb2e1e74a56735fba1826fb1c425) )
 
-	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "528.c1", 0, 0x80000, CRC(d3984dd9) SHA1(0dee55b40e17c1a82be55f96026642a60ee3459a) )
-	ROM_LOAD16_BYTE( "528.c2", 1, 0x80000, CRC(75775686) SHA1(c00b3144ee023671aa473efb89a0916287a2a988) )
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "528.c1", 0, 0x400000, CRC(57c83846) SHA1(fb55f94d202c685e05756a26476ba2335def332a) )
+	ROM_LOAD16_BYTE( "528.c2", 1, 0x400000, CRC(be47f572) SHA1(073726477107f25bc5643a58767f0299abd7f1ba) )
 ROM_END
 
 
-// 529: Sword of Sodan (beta 0.5) by Bendk97
+// 529: Sword of Sodan (beta 0.5) port by Bendk97
 ROM_START( ssodan )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "529.p1", 0x000000, 0x100000, CRC(66994776) SHA1(864a51ea7630b071a65e4bcd16f8ebba3fc3932a) )
+	ROM_LOAD16_WORD_SWAP( "529.p1", 0, 0x100000, CRC(66994776) SHA1(864a51ea7630b071a65e4bcd16f8ebba3fc3932a) )
 
 	NEO_SFIX_128K( "529.s1", CRC(8c2cfe44) SHA1(bfb8e3cf54d316e815c9da46dc56f64169859fcb) )
 
 	NEO_BIOS_AUDIO_128K( "529.m1", CRC(bf95a6a1) SHA1(0feb60965c8eab84b7123235cacfc2a85b6a1fe4) )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "529.v1", 0x000000, 0x400000, CRC(f1962c04) SHA1(640b60789f15eb11a15a0aa63d0b9893558b9d07) )
+	ROM_LOAD( "529.v1", 0, 0x400000, CRC(f1962c04) SHA1(640b60789f15eb11a15a0aa63d0b9893558b9d07) )
 
 	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "529.c1", 0, 0x200000, CRC(1255788c) SHA1(387702fef4a8de948b25ca2c607a9b266057f12d) )
@@ -3147,14 +2615,14 @@ ROM_END
 // 530: Arena 2 by Delarfab
 ROM_START( arena2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "530.p1", 0x000000, 0x100000, CRC(9ed6466d) SHA1(b14beedc6339cbc391d4c38e35bd3e0306afba95) )
+	ROM_LOAD16_WORD_SWAP( "530.p1", 0, 0x100000, CRC(9ed6466d) SHA1(b14beedc6339cbc391d4c38e35bd3e0306afba95) )
 
 	NEO_SFIX_128K( "530.s1", CRC(b2d1bed5) SHA1(c2677c8feeaed70ed97fa95c91663b378741fc31) )
 
 	NEO_BIOS_AUDIO_128K( "530.m1", CRC(eb05a2c5) SHA1(3dfc371aec1dcf2935cae702421aae8517136365) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "530.v1", 0x000000, 0x80000, CRC(634c279c) SHA1(18ede8919af3a9b71d9496273f4df8d613d58f79) )
+	ROM_LOAD( "530.v1", 0, 0x80000, CRC(634c279c) SHA1(18ede8919af3a9b71d9496273f4df8d613d58f79) )
 
 	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "530.c1", 0, 0x200000, CRC(86856821) SHA1(98247e4025311a5b6ac1f4f2790c8e673f793253) )
@@ -3162,7 +2630,7 @@ ROM_START( arena2 )
 ROM_END
 
 
-// 531: Altered Beast port (v1.3) by ShinobiZ
+// 531: Altered Beast (v1.3) port by ShinobiZ
 ROM_START( altbeastn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD( "531.p1", 0x000000, 0x100000, CRC(0b65215f) SHA1(138c9126119535f928eaee9ca7f773b99dfc2be1) )
@@ -3173,7 +2641,7 @@ ROM_START( altbeastn )
 	NEO_BIOS_AUDIO_128K( "531.m1", CRC(dc65bea7) SHA1(a4a2ddcd4e7053536e6e3dc4be6d670d156b61c4) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "531.v1", 0x000000, 0x1000000, CRC(23cbdd25) SHA1(a923a6bc6254f37ddf836b5236a01d40bdb01abd) )
+	ROM_LOAD( "531.v1", 0, 0x1000000, CRC(23cbdd25) SHA1(a923a6bc6254f37ddf836b5236a01d40bdb01abd) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "531.c1", 0, 0x400000, CRC(14712ab1) SHA1(831150a80aa46f2b60e301a2706f0e34f0f2f6b9) )
@@ -3181,18 +2649,81 @@ ROM_START( altbeastn )
 ROM_END
 
 
-// 534: Robocop (v9) by Teo Tormo
+// 532: World Rally port by Arkretro
+ROM_START( wrallyn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "532.p1", 0, 0x200000, CRC(66ae3de4) SHA1(9073fa73575365c8f3fd36fe692f36c9a1deb10b) )
+
+	NEO_SFIX_128K( "532.s1", CRC(39913a0a) SHA1(9778578f8fe0b1260b5aaf8f9c26b2ed55d6affd) )
+
+	NEO_BIOS_AUDIO_64K( "532.m1", CRC(8a3b1946) SHA1(85dfa7f134d9ed4cde3403668299c8d642768a34) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "532.v1", 0, 0x400000, CRC(edc105d0) SHA1(39566bb0927266c8536b09a4ba2d96d8a7edb8b9) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "532.c1", 0, 0x400000, CRC(b11347c2) SHA1(e974d9d283f9740a08482ad3acb1e94b3c8d9c62) )
+	ROM_LOAD16_BYTE( "532.c2", 1, 0x400000, CRC(2bfcd5fc) SHA1(cd43281f5fd3506c2bb3d5191c655691712551ba) )
+ROM_END
+
+
+#if 0
+// 533: Prehistoric Isle in 1930 (demo v1) by F.C Team
+// Bugs: Quits after a few seconds of play then does weird stuff
+ROM_START( prehislen )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0, 0x100000, CRC(6e868f53) SHA1(f0fd6eaebf340d604945d96b2fac3cbffa89c7fb) )
+
+	NEO_SFIX_128K( "533.s1", CRC(1489be8e) SHA1(cf3c838e3f992329cc05b06ccb9fd4b70762e9a3) )
+
+	NEO_BIOS_AUDIO_128K( "533.m1", CRC(ca7db0d5) SHA1(2ce1167a69d0b8a08ef9f1287a5eba2426c579a0) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "533.v1",   0, 0x100000, CRC(851288d7) SHA1(ee81053c0796026ae78bc2b1fb98ee939a40f33b) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "533.v21",  0, 0x1000000, CRC(00e1785d) SHA1(39e0f42d2d20ebeca3f17b563dec3c70e39742da) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "533.c1", 0, 0x200000, CRC(1ccfaf10) SHA1(e3be869d269135288015a378683b4e8c022eec40) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x200000, CRC(2ac1a6b7) SHA1(d93214c3c94e48d4de83287050da78a84f553902) )
+ROM_END
+
+
+// 533: Prehistoric Isle in 1930 (demo v2) by F.C Team
+// Bugs: Quits after a few seconds of play then does weird stuff
+ROM_START( prehislen )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "533.p1", 0, 0x100000, CRC(7334f9bd) SHA1(d2aeadaabd3c5396634cfa5f2c54c3e4473e5e60) )
+
+	NEO_SFIX_128K( "533.s1", CRC(1489be8e) SHA1(cf3c838e3f992329cc05b06ccb9fd4b70762e9a3) )
+
+	NEO_BIOS_AUDIO_128K( "533.m1", CRC(9860223a) SHA1(8e9c1287f2470f4e81d4178a1f57c9cf664461ad) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "533.v1",   0, 0x100000, CRC(851288d7) SHA1(ee81053c0796026ae78bc2b1fb98ee939a40f33b) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "533.v21",  0, 0x1000000, CRC(edb79e99) SHA1(18f41f09df7882d0b39ab2343f4b373da0d22d98) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "533.c1", 0, 0x200000, CRC(23c12e85) SHA1(196bbe105682f680ec9ff9cb9b078dffbf0bf3a1) )
+	ROM_LOAD16_BYTE( "533.c2", 1, 0x200000, CRC(98c519fe) SHA1(9f86421a98931d6d84283f8ac913ea3d88f48aa6) )
+ROM_END
+#endif
+
+// 534: Robocop (v13) port by Teo Tormo
 // Bugs: Some parts run too fast
 ROM_START( robocopn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "534.p1", 0x000000, 0x100000, CRC(eb0ffaed) SHA1(227a428924c9e5b2726902913b95a7d8ad973410) )
+	ROM_LOAD16_WORD_SWAP( "534.p1", 0, 0x100000, CRC(5c1a3070) SHA1(29be9c3c4177b11b00ed25c57b679411b0631f52) )
 
 	NEO_SFIX_128K( "534.s1", CRC(2ad60481) SHA1(284ece88c71499dff37d661b0e67af577fd9251d) )
 
 	NEO_BIOS_AUDIO_64K( "534.m1", CRC(19dab516) SHA1(44ad225503b5c0d46fca88c3dc828bb0a20f47f1) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "534.v1", 0x000000, 0x1000000, CRC(2cbffd4b) SHA1(6be522829fc649fc20c138304c2f2dbe088c2815) )
+	ROM_LOAD( "534.v1", 0, 0x1000000, CRC(2cbffd4b) SHA1(6be522829fc649fc20c138304c2f2dbe088c2815) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "534.c1", 0, 0x80000, CRC(44593b72) SHA1(7c9949cd39c16fda38f815709ae8206f67877206) )
@@ -3200,8 +2731,7 @@ ROM_START( robocopn )
 ROM_END
 
 
-// 535: Hang On (v2.1) by ShinobiZ
-// Bugs: Had to change ym interrupt to HOLD_LINE to get sound
+// 535: Hang On (v2.1) port by ShinobiZ
 ROM_START( hangonn )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "535.p1", 0x000000, 0x100000, CRC(8cdee388) SHA1(a75f507e947be7c0131758d98f433019172eb030) )
@@ -3212,7 +2742,7 @@ ROM_START( hangonn )
 	NEO_BIOS_AUDIO_256K( "535.m1", CRC(ca5311b0) SHA1(c0dfa8bddb7b4d61371b49402bb64d3a84d55d75) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "535.v1", 0x000000, 0x200000, CRC(3aed32bd) SHA1(63a1d5961b1ca9318875728743542e14b724c444) )
+	ROM_LOAD( "535.v1", 0, 0x200000, CRC(3aed32bd) SHA1(63a1d5961b1ca9318875728743542e14b724c444) )
 
 	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "535.c1", 0, 0x800000, CRC(4440a35d) SHA1(d553a3f7ef31be3ef88adac50a547f267d0e1151) )
@@ -3220,47 +2750,47 @@ ROM_START( hangonn )
 ROM_END
 
 
-// 536: Warrior Man by NK Home Entertainment
-ROM_START( warriorman )
+// 536: Warrior Man (v6) by NK Home Entertainment
+ROM_START( warriorm )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "536.p1", 0x000000, 0x80000, CRC(90328b30) SHA1(2e4b52ef586f7e72ac9fee2dcd5be289dfc9c2b1) )
+	ROM_LOAD16_WORD_SWAP( "536.p1", 0, 0x100000, CRC(11f2fe7b) SHA1(d3a1244bd0b1d0c5f5c452b3cb87dd7d5086ef63) )
 
-	NEO_SFIX_128K( "536.s1", CRC(4c175fa4) SHA1(06834aa930d981959c4be0f4391b1d37c8688785) )
+	NEO_SFIX_128K( "536.s1", CRC(cf448b94) SHA1(ca3fbb2065700ac25617e2a9f9d6e92aebc2b131) )
 
-	NEO_BIOS_AUDIO_128K( "536.m1", CRC(b0cf3a68) SHA1(3be6e3bb27f961feeb7021f33243bcfaca31797a) )
+	NEO_BIOS_AUDIO_128K( "536.m1", CRC(e2425869) SHA1(500693d0d353f266b1d267217a6db2d2ca7d2093) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "536.v1", 0x000000, 0x1000000, CRC(7b4f4f0b) SHA1(6426e81c917e1bb7b8d1fd8b4c652e03db79bd3f) )
+	ROM_LOAD( "536.v1", 0, 0x1000000, CRC(8175e920) SHA1(d2c68082629e467fec2513674d1611dadb9de80d) )
 
-	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "536.c1", 0, 0x3f4780, CRC(764f7202) SHA1(2c3d1ca7651ec44408f9573f1c94bc04a5e5701b) )
-	ROM_LOAD16_BYTE( "536.c2", 1, 0x3f4780, CRC(f928b28e) SHA1(d1ed6afc91c1e7738e2e356add752bdac9600a03) )
+	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "536.c1", 0, 0x800000, CRC(8ab6df31) SHA1(962339809fdda3c71e756b5d5f8bf2c57909ffea) )
+	ROM_LOAD16_BYTE( "536.c2", 1, 0x800000, CRC(7c9f5790) SHA1(d7f9b268ab3ef1a2c51b38c872d23195b9a61b3b) )
 ROM_END
 
 
 // 537: Bubble Open by Neslou
 ROM_START( bubbleopen )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "537.p1", 0x000000, 0x100000, CRC(e931552d) SHA1(fe1322c6253b9d53c575fc6fcfb75f4ec03208a1) )
+	ROM_LOAD16_WORD_SWAP( "537.p1", 0, 0x100000, CRC(e931552d) SHA1(fe1322c6253b9d53c575fc6fcfb75f4ec03208a1) )
 
 	NEO_SFIX_128K( "537.s1", CRC(64f8b8f3) SHA1(fbdbb489a2be1c3613a0c6950a3a3ae08f0ee94a) )
 
 	NEO_BIOS_AUDIO_128K( "537.m1", CRC(323eff7a) SHA1(b23333abb81799c6a01ac2195a0aaabe76e6436a) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "537.v1", 0x000000, 0x800000, CRC(929cacaa) SHA1(f53d6d572be0824eabc7401ab933627a36ae0854) )
+	ROM_LOAD( "537.v1", 0, 0x800000, CRC(929cacaa) SHA1(f53d6d572be0824eabc7401ab933627a36ae0854) )
 
-	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "537.c1", 0, 0x200000, CRC(c300583b) SHA1(d4ab2f2309634f255ae26d5c2cbbf4ad53ee08c6) )
 	ROM_LOAD16_BYTE( "537.c2", 1, 0x200000, CRC(4e9d9d52) SHA1(23e651661aa6a5dfb19973c25d2ee1c5e59d3e4d) )
 ROM_END
 
 
-// 538: Wolfenstein-3D by Thibaut Lion
+// 538: Wolfenstein-3D port (v1.2.1) by Thibaut Lion
 // Bugs: Many, many bugs.
 ROM_START( wolf3d )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "538.p1", 0x000000, 0x80000, CRC(00b38f35) SHA1(2d8fa290062fc56f13cf0e7b95fa26f84d1172d5) )
+	ROM_LOAD16_WORD_SWAP( "538.p1", 0, 0x80000, CRC(b94c3dbd) SHA1(7f2bbc6e44430ae0350e5b83c3bd2fc4e5bd49f4) )
 
 	NEO_SFIX_128K( "538.s1", CRC(67bfa3a2) SHA1(3f18d15aba79ab171676826065ab66003c2328e5) )
 
@@ -3268,7 +2798,7 @@ ROM_START( wolf3d )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
 	// This is used in adpcma and adpcmb, mame will auto-copy the data into both areas
-	ROM_LOAD( "538.v1", 0x000000, 0x200000, CRC(cc0f0f7d) SHA1(084bafd31ec595f87df4ffb9755ced21dacd32a9) )
+	ROM_LOAD( "538.v1", 0, 0x200000, CRC(cc0f0f7d) SHA1(084bafd31ec595f87df4ffb9755ced21dacd32a9) )
 
 	ROM_REGION( 0x6000000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE( "538.c1", 0x0000000, 0x1000000, CRC(cba29aef) SHA1(86a506e3374227d241bd1a45d03fa21c6d9342c9) )
@@ -3292,7 +2822,7 @@ ROM_START( sgz ) // demo
 	NEO_BIOS_AUDIO_128K( "539.m1", CRC(11c56b34) SHA1(5c5efc07c0dea8d2d36ba449e00839379b69d889) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "539.v1",   0x000000, 0x200000, CRC(8928bcf2) SHA1(aa139c5bfa79f12188794c373fdc91d6cae972de) )
+	ROM_LOAD( "539.v1",   0, 0x200000, CRC(8928bcf2) SHA1(aa139c5bfa79f12188794c373fdc91d6cae972de) )
 	// v2 included in the set is all zero, so left out
 
 	ROM_REGION( 0x400000, "sprites", 0 )
@@ -3301,76 +2831,452 @@ ROM_START( sgz ) // demo
 ROM_END
 
 
-// 540: Shadow of the Beast (beta-0.2.1) by Bendk97
+// 540: Shadow of the Beast (beta-0.2.7) port by Bendk97
+// Cheat menu: At the title screen press one at a time: B C D C B
 ROM_START( sotbn )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(bb674355) SHA1(c9ef07a8f16382de5b5558b0b742c06e87e2494d) )
-	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(895856dd) SHA1(99e00c7195f6ea81b395a45c325e6361856aa0a7) )
+	ROM_LOAD16_WORD_SWAP( "540.p1", 0x000000, 0x100000, CRC(747a756b) SHA1(13bd74addd3b4f1472b32b96dfb41116fca7344f) )
+	ROM_LOAD16_WORD_SWAP( "540.p2", 0x100000, 0x400000, CRC(2e7a9d52) SHA1(65fdf1545f2d0f6a13dd33299754831957251235) )
 
-	NEO_SFIX_128K( "540.s1", CRC(f3ae362e) SHA1(5ea908046965226432d0ab4ba967542971047e9d) )
+	NEO_SFIX_128K( "540.s1", CRC(195de445) SHA1(e56db25d0d8367d64db949585a513f48f97dd6e7) )
 
-	NEO_BIOS_AUDIO_128K( "540.m1", CRC(7cf328f0) SHA1(41ecca61282fd4ef306c9663606d748093eb0e67) )
+	NEO_BIOS_AUDIO_128K( "540.m1", CRC(e64c3a64) SHA1(ab9d4cd803206878cd116a761b2af6ed53161beb) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "540.v1",   0x000000, 0x1000000, CRC(640b1088) SHA1(03f99fbd75a1a65e8bf371bb3ad7adba64b625e2) )
+	ROM_LOAD( "540.v1",   0, 0x1000000, CRC(92292c8f) SHA1(167c707d1ddd249facada278865d157f0baaa188) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "540.c1", 0, 0x200000, CRC(f6beef52) SHA1(d1a2218c9807fda56833657edcc9d7374e5b0fd7) )
-	ROM_LOAD16_BYTE( "540.c2", 1, 0x200000, CRC(7429c5cb) SHA1(869f81a48dbbb7db128a79d062ed9ede10cc8cbe) )
+	ROM_LOAD16_BYTE( "540.c1", 0, 0x200000, CRC(fc5116a4) SHA1(b557cbcc257768cb9879932a8c3786e4b8dae1a3) )
+	ROM_LOAD16_BYTE( "540.c2", 1, 0x200000, CRC(b976ca99) SHA1(de9791fe6a08c7670a03ca31942ec2f3e97fc173) )
 ROM_END
 
 
-// 541: Out Run (beta-0.3.2) by Bendk97
+// 541: Out Run (v1.0.1) port by Bendk97
 ROM_START( outrunn )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "541.p1", 0x000000, 0x800000, CRC(6fcc7265) SHA1(b80f834a7d134eeaff4d42fb8b5c038e4e03b210) )
+	ROM_LOAD16_WORD_SWAP( "541.p1", 0, 0x800000, CRC(60186e29) SHA1(a9b479eb48aa499253174211298404679944ed1a) )
 
 	NEO_SFIX_128K( "541.s1", CRC(1f21c37f) SHA1(36bc8732f73fe93fd1b8655a57cdf078ce00b78d) )
 
 	NEO_BIOS_AUDIO_128K( "541.m1", CRC(f4309dd8) SHA1(06ec1fd208bdd701f6cdc03e791afd846885d9b1) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "541.v1",   0x000000, 0x1000000, CRC(c7f9348d) SHA1(11c5a404886ecbc645d6186bc8fd2214f1545f6f) )
+	ROM_LOAD( "541.v1",   0, 0x1000000, CRC(c7f9348d) SHA1(11c5a404886ecbc645d6186bc8fd2214f1545f6f) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "541.c1", 0, 0x2000000, CRC(850168f4) SHA1(ef231da6a1fdc0314ff8e3bf728b6caafd20d63c) )
-	ROM_LOAD16_BYTE( "541.c2", 1, 0x2000000, CRC(cc9552f5) SHA1(1f14ab722f1fd0df8fdbacf512dec47636ed820d) )
+	ROM_LOAD16_BYTE( "541.c1", 0, 0x2000000, CRC(4a01f4bd) SHA1(3ab362b53270be049ea9413a9e8ae20c8116469f) )
+	ROM_LOAD16_BYTE( "541.c2", 1, 0x2000000, CRC(95896759) SHA1(d115434822d7756bb76d2f3b219d9391c11193aa) )
 ROM_END
 
 
-// 542: Cosmo Gang the video (beta-0.2.1) by Bendk97
+// 542: Cosmo Gang the video (v1.1.3/v1.1.4) port by Bendk97
 ROM_START( cosmogngn )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(f7daad87) SHA1(fbdd4ff485cbd8ae0f7f112ce065a864b394f17b) )
-	ROM_LOAD16_WORD_SWAP( "542.p2", 0x100000, 0x200000, CRC(993317a4) SHA1(db275d90718335d32f5fcdc8676ac5dda1f7dc88) )
+	ROM_LOAD16_WORD_SWAP( "542.p1", 0x000000, 0x100000, CRC(78adba0a) SHA1(6220dd96fab1e6a3059a7d5b0acef051f410a80e) )
+	ROM_LOAD16_WORD_SWAP( "542.p2", 0x100000, 0x200000, CRC(d24a1af5) SHA1(b6f06f76e5d46c6a5646a1ce17ecf2b2070c643f) )
 
 	NEO_SFIX_128K( "542.s1", CRC(03f56b5b) SHA1(387931fe9a2c9830698cfe3e6338d8adbdb861be) )
 
-	NEO_BIOS_AUDIO_128K( "542.m1", CRC(c3e9a425) SHA1(0ec59b6f0451d297db6685feffef34819654b17e) )
+	NEO_BIOS_AUDIO_128K( "542.m1", CRC(06d21b03) SHA1(27f486cbf2b9c09249d4a20972bfecb70cdb5cdd) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "542.v1",   0x000000, 0x800000, CRC(c01e3384) SHA1(90b602615fedca540f203ba87a250b51996ec6c6) )
+	ROM_LOAD( "542.v1",   0, 0x800000, CRC(c01e3384) SHA1(90b602615fedca540f203ba87a250b51996ec6c6) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
-	ROM_LOAD( "542.v21",   0x000000, 0x1000000, CRC(e10ecb05) SHA1(19170f261041ec4236cb7ba4b256d2f801779d04) )
+	ROM_LOAD( "542.v21",  0, 0x1000000, CRC(e10ecb05) SHA1(19170f261041ec4236cb7ba4b256d2f801779d04) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "542.c1", 0, 0x1000000, CRC(782b6dbc) SHA1(0f8b3e50208c65a245e9a6f8569d00254e39e54f) )
-	ROM_LOAD16_BYTE( "542.c2", 1, 0x1000000, CRC(3c03f273) SHA1(922f50e769980202d082f3ee5d9691c8bbd67e53) )
+	ROM_LOAD16_BYTE( "542.c1", 0, 0x1000000, CRC(26d5557c) SHA1(66dd78c0cfe6dd3f57cc2adfeca26c4e70ba544d) )
+	ROM_LOAD16_BYTE( "542.c2", 1, 0x1000000, CRC(2e68ae0d) SHA1(f703da36b442d6e06f283a0b0251c0d2a231947a) )
+ROM_END
+
+
+// 543: Knights of the Round (v1.1.1) port by Bendk97
+ROM_START( knightsn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "543.p1", 0x000000, 0x100000, CRC(399009aa) SHA1(cb76d35e3c4ff0cd676ef50cc727fecb93c451a1) )
+	ROM_LOAD16_WORD_SWAP( "543.p2", 0x100000, 0x100000, CRC(356027c5) SHA1(a067563248df6b240c5a892f65f00bce0a4d51ae) )
+
+	NEO_SFIX_128K( "543.s1", CRC(aa4726a4) SHA1(11e927f7b8ae3d2da0e94b78772d2705cbca3335) )
+
+	NEO_BIOS_AUDIO_128K( "543.m1", CRC(c4c44838) SHA1(0a1a7ef0a6a3f0bb97ee91f48d60051044ace8fe) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "543.v1",   0, 0x1000000, CRC(cde9328f) SHA1(439e245804f024769bc679069c89191264983156) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "543.c1", 0, 0x800000, CRC(f2a17292) SHA1(921fce38177609a14863ad7ed2dbf454524a0588) )
+	ROM_LOAD16_BYTE( "543.c2", 1, 0x800000, CRC(bbdfe6df) SHA1(7578ccb09c0ae241b0755a823c2b79fc3fb51dc6) )
+ROM_END
+
+
+// 544: King of Dragons (beta 16) port by Teo Tormo
+ROM_START( kodn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "544.p1", 0, 0x200000, CRC(defe9d25) SHA1(f82b5c7771031d75b5930191a560dac400b6a9c9) )
+
+	NEO_SFIX_128K( "544.s1", CRC(c121499c) SHA1(0d711fc6af155311f20cd161621c7cc2ef0db98b) )
+
+	NEO_BIOS_AUDIO_128K( "544.m1", CRC(ad0870b4) SHA1(32779c5a3cc2e8a13509bfce855fb48ce77179b8) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "544.v1",   0, 0x1000000, CRC(767527ad) SHA1(9b34fb6819098caddcc3959732034c1da58f437a) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "544.c1", 0, 0x200000, CRC(ee6a06b9) SHA1(f2981db9587b71a11a12741dab4a3c7173331e3c) )
+	ROM_LOAD16_BYTE( "544.c2", 1, 0x200000, CRC(ab59e980) SHA1(8ce75259f12f12da5a32712db7f6e4bc7c00cacf) )
+ROM_END
+
+
+// 545: Jim Power port by NK Home Entertainment
+ROM_START( jimpower )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "545.p1", 0, 0x80000, CRC(9c5fe235) SHA1(2cdc4e95c4c70911c116acb93cfc4d1a1a680e08) )
+
+	NEO_SFIX_128K( "545.s1", CRC(f468127b) SHA1(6d40d6944e01dfb0c8a54f831c54a58778c49ef4) )
+
+	NEO_BIOS_AUDIO_128K( "545.m1", CRC(9c2c2367) SHA1(e03e8b76dac88f6ccdbaed3eca0662351dbae05c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "545.v1",   0, 0x1000000, CRC(59a4ea3b) SHA1(8b67b9a69bb9d6c82fa294e6e9e409edbb435ed2) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "545.c1", 0, 0x400000, CRC(0d5e1e87) SHA1(981034cc1c7afd28ba954140d08d6e0f37a2e22a) )
+	ROM_LOAD16_BYTE( "545.c2", 1, 0x400000, CRC(2bf95f79) SHA1(11d3fdbb74e1ef190debd0e6cd57ccd6af84e635) )
+ROM_END
+
+
+// 546: Cadillacs and Dinosaurs (test 47) port by Teo Tormo
+ROM_START( dinon )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "546.p1", 0x000000, 0x100000, CRC(e560bd6a) SHA1(e0afcb203f6473da8dc94acfc9b39479ecd4ccbd) )
+	ROM_LOAD16_WORD_SWAP( "546.p2", 0x100000, 0x100000, CRC(2234ae31) SHA1(d172f5979e09bc9f99b1e1778ab19f589bc29f88) )
+
+	NEO_SFIX_128K( "546.s1", CRC(787d4809) SHA1(940de57ccafe172ef6ede1693eccbcecc740a1bb) )
+
+	NEO_BIOS_AUDIO_128K( "546.m1", CRC(0e4e4de4) SHA1(0aab1823e5fbcb476fa77791c574ac63a7bccd28) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "546.v1",   0x000000, 0x400000, CRC(c1196da4) SHA1(f0fcbc1cc6ab86d37a47ce3434886b9c62bcb22c) )
+	ROM_LOAD( "546.v2",   0x400000, 0x400000, CRC(e7b0c54d) SHA1(87e140b9e7f70d34e5dc36e5949c78f20f15ac78) )
+	ROM_LOAD( "546.v3",   0x800000, 0x400000, CRC(aead8ee1) SHA1(2f91217c4cf3a57ce8dad7c0e13da42e94c8a461) )
+	ROM_LOAD( "546.v4",   0xc00000, 0x400000, CRC(fcf02a41) SHA1(80cd921c43f6de4b7ecad2462302603084034d0e) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "546.c1", 0, 0x200000, CRC(19df98d7) SHA1(ce6e9d048525f2d37f0faf860565c767154e6a0e) )
+	ROM_LOAD16_BYTE( "546.c2", 1, 0x200000, CRC(eef954f7) SHA1(1218ae46a8fd98e11cf260eea8a202a88f9acb5f) )
+ROM_END
+
+
+// 547: R-Type (v1.2.2) port by Bendk97
+ROM_START( rtypen )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "547.p1", 0x000000, 0x100000, CRC(cd016cdb) SHA1(eef6d8b2cb92b635b1e9f6aa36ef753c7bb3f0e5) )
+	ROM_LOAD16_WORD_SWAP( "547.p2", 0x100000, 0x100000, CRC(eb53d24e) SHA1(7453ac1ba9afc7437cc1f06c8d8c704db2b06b21) )
+
+	NEO_SFIX_128K( "547.s1", CRC(19a9ce65) SHA1(4ca71ce32aca093420d786fc267dbed0c2b238fe) )
+
+	NEO_BIOS_AUDIO_128K( "547.m1", CRC(4db45ee4) SHA1(ecfb4b1061195b1cef5086c76412f21686039e9c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "547.v1",   0, 0x1000000, CRC(861c0f49) SHA1(b4c2b28e858be8b654c8ac30d773e12ccc962a4d) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "547.c1", 0, 0x400000, CRC(204b348c) SHA1(41b16560f153ece9839c1f61fed6caf5b8769987) )
+	ROM_LOAD16_BYTE( "547.c2", 1, 0x400000, CRC(ee2e7cf4) SHA1(d4e5e4f73cd214dbf8e834138dd2a63e725742e0) )
+ROM_END
+
+
+// 548: Pole Position II (v1.0.0) port by Bendk97
+ROM_START( polepos2n )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "548.p1", 0, 0x100000, CRC(aa71bcdc) SHA1(725202a9cf11a2af63cc92c7ef3711390e646843) )
+
+	NEO_SFIX_128K( "548.s1", CRC(7436043e) SHA1(a5721298471a5f2dd687f150af142e65cdc959e7) )
+
+	NEO_BIOS_AUDIO_64K( "548.m1", CRC(17af0611) SHA1(f67b54a06aa95c21f5d868219afb8af192948a85) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "548.v1",   0, 0x100000, CRC(5d20d963) SHA1(f58855deb01d0d5f8d1a1ba3556ff2485d7fd849) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "548.c1", 0, 0x400000, CRC(6380acd1) SHA1(9b26853a43a3a7880a6a638ae0050f8e9f5cc7e1) )
+	ROM_LOAD16_BYTE( "548.c2", 1, 0x400000, CRC(a9efdb06) SHA1(260588b6d29a4fc1da3acb10ff9ce52ddfdaaac8) )
+ROM_END
+
+
+// 549: Shadow Dancer (incomplete, abandoned) port by ShinobiZ
+ROM_START( shdancern )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD( "549.p1", 0x000000, 0x100000, CRC(aa717fe5) SHA1(8deaadb7014b679efe420218b6d1567963ca090b) )
+	ROM_LOAD( "549.p2", 0x100000, 0x600000, CRC(9fcf02db) SHA1(591a920355e81d14a6e4f2614e36f8c75d2dbdd5) )
+
+	NEO_SFIX_128K( "549.s1", CRC(dad8f58f) SHA1(a2b93d01faec11856c56f94bb9fa6f691d4a7781) )
+
+	NEO_BIOS_AUDIO_128K( "549.m1", CRC(40dcd3da) SHA1(db0a7c7f1077331f95081100442f5ddd17687f3e) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "549.v1",   0, 0x1000000, CRC(5f6520d7) SHA1(83375c0d58fe5e9130c457bd47a6e1ac0c1318a0) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "549.c1", 0, 0x1000000, CRC(5781e08a) SHA1(e1f9903379807fea48006b4e9937ecf9ab5e8ed3) )
+	ROM_LOAD16_BYTE( "549.c2", 1, 0x1000000, CRC(f4e34f3d) SHA1(0b5d5517b8412d7031ac27d68c785bb2228b5a0e) )
+ROM_END
+
+
+// 550: Sunset Riders (beta-0.8.0) port by Bendk97
+ROM_START( ssridersn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "550.p1", 0, 0x100000, CRC(f42a315f) SHA1(c5d25defc8a2acbf51286f49f51b5df26df1c870) )
+
+	NEO_SFIX_128K( "550.s1", CRC(305c75a8) SHA1(b3a6c3af6a53664b62a3afce6736b62a5e181496) )
+
+	NEO_BIOS_AUDIO_128K( "550.m1", CRC(40b8da88) SHA1(3f2d598899795d4af569423493dd8674b0a95860) )
+
+	ROM_REGION( 0xe00000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "550.v1",   0, 0xe00000, CRC(2fcc9c3e) SHA1(b82c3c960702c30bb5769e3ca912f41057c665d6) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "550.c1", 0, 0x1000000, CRC(d18f70d0) SHA1(b704e90bebde0a857c5d9d33d1481302111a45df) )
+	ROM_LOAD16_BYTE( "550.c2", 1, 0x1000000, CRC(b05bceec) SHA1(9e74c16a24e0e7d491381dd3210eceabc4132799) )
+ROM_END
+
+
+// 551: Paprium Vertical Slice port by Happy-Ferret
+ROM_START( paprium )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "551.p1", 0, 0x100000, CRC(36c7d720) SHA1(87c59bd4273fbd764b979990ef648f39d3af6c32) )
+
+	NEO_SFIX_128K( "551.s1", CRC(04c4919d) SHA1(d2ca858594e36cff9d72dd5df3d65389fffab31a) )
+
+	NEO_BIOS_AUDIO_128K( "551.m1", CRC(f7a16ddf) SHA1(573605f35b208f96c168befe50fe3c2dfebe25c7) )
+
+	ROM_REGION( 0x500000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "551.v1",   0x000000, 0x400000, CRC(00d9f09a) SHA1(440b7f86692e27d3513bbed03397881fd4c0fe8a) )
+	ROM_LOAD( "551.v2",   0x400000, 0x100000, CRC(ca212522) SHA1(9eb7eb0d6a740e7df8ea93dcfde0b3b544197fba) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "551.c1", 0, 0x80000, CRC(5ca87ea3) SHA1(fb70cd6109dbda089c3aeacb4b46397e1131f469) )
+	ROM_LOAD16_BYTE( "551.c2", 1, 0x80000, CRC(70d9ace9) SHA1(81b8928157177dbf70d0aa893dcd508b7dc51073) )
+ROM_END
+
+
+// 552: 1st Defence by The SEGA shop
+ROM_START( 1stdef )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "552.p1", 0, 0x100000, CRC(dc0235df) SHA1(5b592b65cd3d6494e3cfe1499ecf5e9b7ec2a6e3) )
+
+	NEO_SFIX_128K( "552.s1", CRC(17e94385) SHA1(2faaae470555df07bc0014fcbc0e46ec598a6e1e) )
+
+	NEO_BIOS_AUDIO_256K( "552.m1", CRC(149b36b2) SHA1(a1fb111f4de02356c0e1f0b58b63a4d6dcac1c5c) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "552.v1",   0x000000, 0x100000, CRC(eda57c3c) SHA1(491bb519a93abce1936404fce1f35bb192f3cafd) )
+	ROM_LOAD( "552.v2",   0x100000, 0x100000, CRC(4223d4e0) SHA1(118b304c33e6ba9ebb3d3ee2aad6bb71ca1b2480) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "552.c1", 0, 0x200000, CRC(b8693182) SHA1(d2fc7011e6e84de60aca5314391814f30f072fb1) )
+	ROM_LOAD16_BYTE( "552.c2", 1, 0x200000, CRC(6f6ab114) SHA1(f0b1ade32f1028e9e11b23eef0ca1e9e0f616cab) )
+ROM_END
+
+
+// 553: Veil Riot by The SEGA shop
+ROM_START( veilriot )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "553.p1", 0, 0x80000, CRC(ffc48e0f) SHA1(a96e19545227ec9bfd3e6cd55d33774296ab1e3a) )
+
+	NEO_SFIX_128K( "553.s1", CRC(c06809a1) SHA1(c34922af1a64a4738b834049e0a185abf700437f) )
+
+	NEO_BIOS_AUDIO_128K( "553.m1", CRC(2c078a01) SHA1(727f90c65b5e6eed47e0cddd2fca04b03f2efa8c) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "553.v1",   0, 0x1000000, CRC(c9ba932f) SHA1(8f14d30ee345be40b414c32cec758d195c7336e1) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "553.c1", 0, 0x200000, CRC(8416a243) SHA1(77f7c32b5bd7d2b5946e13886fea36a77a413037) )
+	ROM_LOAD16_BYTE( "553.c2", 1, 0x200000, CRC(180e7bbe) SHA1(476106788e593e17cb4f5b1f88ba064976ee5bd1) )
+ROM_END
+
+
+// 554: Cheshire 4 Console (demo, 0.1) by Happy-Ferret
+// No sound
+ROM_START( cheshire )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "554.p1", 0, 0x80000, CRC(a6c6ea4e) SHA1(a95450ea3559976617a06ad86a46b83460ff7fbe) )
+
+	NEO_SFIX_MT_128K  // supplied s1 empty, not needed
+
+	NEO_BIOS_AUDIO_128K( "554.m1", CRC(897de46d) SHA1(c5aedc1bce519c47d84175cb392b93da554b7bbb) )
+	// supplied v1 empty, not needed
+
+	ROM_REGION( 0x40000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "554.c1", 0, 0x20000, CRC(6879803c) SHA1(a0d5a9335111415f513420453520b158484de11a) )
+	ROM_LOAD16_BYTE( "554.c2", 1, 0x20000, CRC(a94b0b07) SHA1(98d233ad9ed4e18cf6305143ae6fe5b33a66637f) )
+ROM_END
+
+
+// 555: Final Fight Neo (beta-1.0.9) by Vendza
+ROM_START( ffightn )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "555.p1", 0x000000, 0x100000, CRC(1a5cb56d) SHA1(7f9463759d58d1867400857894981d7908d95394) )
+	ROM_LOAD16_WORD_SWAP( "555.p2", 0x100000, 0x400000, CRC(b023cd8b) SHA1(11b4d3828c0bfb4d818e0271e727f52243bb967d) )
+
+	NEO_SFIX_128K( "555.s1", CRC(8d3d3bf9) SHA1(b50fca96c2cc531e4b67cc727dd92c17534ee387) )
+
+	NEO_BIOS_AUDIO_128K( "555.m1", CRC(7615bc1b) SHA1(a50b06e797d5ad862066874807cf4b7810ba1e09) )
+
+	ROM_REGION( 0xa00000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "555.v1",   0x000000, 0x400000, CRC(7d6ba95f) SHA1(68ded137350853cef6c3fe7da23e957e669e2097) )
+	ROM_LOAD( "555.v2",   0x400000, 0x400000, CRC(6c33bb5d) SHA1(f0aaf1f7ad63349be1c399c01f4bc1b2a84c6988) )
+	ROM_LOAD( "555.v3",   0x800000, 0x200000, CRC(831ea8c0) SHA1(5fb54611240720c8cce169b84b224617aa37c003) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "555.c1", 0x0000000, 0x400000, CRC(68f2ed95) SHA1(ead7db68c01bb36c0b8039b90deff38e52e20522) )
+	ROM_LOAD16_BYTE( "555.c2", 0x0000001, 0x400000, CRC(a6e9aff0) SHA1(14ad743ca0d3be6aa911ffc832bb518f424e360d) )
+	ROM_LOAD16_BYTE( "555.c3", 0x0800000, 0x400000, CRC(c91b40f4) SHA1(b52b289667e1af4598ba9eede5996b2cdc1e2e4c) )
+	ROM_LOAD16_BYTE( "555.c4", 0x0800001, 0x400000, CRC(359510a4) SHA1(a2ca2506524c4e821159db3c7bfca953b482c727) )
+	ROM_LOAD16_BYTE( "555.c5", 0x1000000, 0x400000, CRC(9cfbb22d) SHA1(5b2b5bb5b679f60098c5db4956b2d5bfad21d312) )
+	ROM_LOAD16_BYTE( "555.c6", 0x1000001, 0x400000, CRC(685efc32) SHA1(ff193afcc54e95070f8de904d75c7cb97d748930) )
+	ROM_LOAD16_BYTE( "555.c7", 0x1800000, 0x400000, CRC(d0f86f0d) SHA1(a127942d07845163978c811133876dcbff28a8c9) )
+	ROM_LOAD16_BYTE( "555.c8", 0x1800001, 0x400000, CRC(adfc50e3) SHA1(8b4dded0b3f1413e4352244d62c851c3acdb36a7) )
+ROM_END
+
+
+// 556: Demons of Asteborg DX (demo) by Neofid Studio
+// Bugs: When it says to press Start, sometimes nothing happens. Hold INS until it starts by itself.
+//       If 5 pressed, the music gets stuck on the current note, until you press 1.
+ROM_START( asteborg )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "556.p1", 0x000000, 0x100000, CRC(944d8053) SHA1(b4f86e8b1955f679c2b628fd94edefd8e930fea6) )
+	ROM_LOAD16_WORD_SWAP( "556.p2", 0x100000, 0x800000, CRC(b78472c6) SHA1(309c8fd14f784ccb84772578e7a8805c286c809f) )
+
+	NEO_SFIX_128K( "556.s1", CRC(40e699f5) SHA1(932623c094cde2814a88953d17fd9bfd25c399f0) )
+
+	NEO_BIOS_AUDIO_512K( "556.m1", CRC(5e213165) SHA1(adfeb785ac1dfa6837da2e83b5a9da7dfcdafa66) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "556.v1",   0, 0x1000000, CRC(dd4c85be) SHA1(ea6360013971b365a479d9753b44e22714b586a9) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "556.c1", 0, 0x2000000, CRC(42c58d68) SHA1(ac779444390d98029e742082f2db43a0c0524221) )
+	ROM_LOAD16_BYTE( "556.c2", 1, 0x2000000, CRC(7a455567) SHA1(da6087ae00f59f0332d08ad00e9837003b174ae0) )
+ROM_END
+
+
+// 557: Mystic Riders (beta-0.3.0) port by Bendk97
+ROM_START( mysticrin )
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "557.p1", 0, 0x400000, CRC(4c17cfc9) SHA1(5c9e079639ccf604570c8126e62a8b98eb5281f9) )
+
+	NEO_SFIX_128K( "557.s1", CRC(4a015a38) SHA1(b3d53ba1e5e25e45d111dd4b063b2793b821f415) )
+
+	NEO_BIOS_AUDIO_128K( "557.m1", CRC(aebdef47) SHA1(9bcb5b7b6baefefcd96abc1547a575d036f01510) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "557.v1", 0, 0x1000000, CRC(78495cab) SHA1(044dca2cab89f61ed4b4f8216e1166f3e07b0c1a) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "557.c1", 0, 0x200000, CRC(44059bfb) SHA1(5d3c50a2190973e6cf21c07fda779d103158d0e6) )
+	ROM_LOAD16_BYTE( "557.c2", 1, 0x200000, CRC(8d4faffb) SHA1(d4fec49e1bc35de7d036dff39723bdf8282ce540) )
+ROM_END
+
+
+// 558: Atari Tetris port by ShinobiZ
+ROM_START( atetrisn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "558.p1", 0, 0x100000, CRC(83a7702c) SHA1(eae717cd49cf691d46b03b4c2e9d366b319e494d) )
+
+	NEO_SFIX_128K( "558.s1", CRC(5ea8536b) SHA1(4cca5ab4e880844b37423c1652d87c213d8c561e) )
+
+	NEO_BIOS_AUDIO_128K( "558.m1", CRC(d119bf5f) SHA1(7b13a0b9d1d8770f3d3ae8f20374aa3200773bf5) )
+
+	ROM_REGION( 0x280000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "558.v1", 0, 0x280000, CRC(6e2c8425) SHA1(8dabac806f55b4c72a75498641d7ecf63425f905) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "558.c1", 0, 0x80000, CRC(078d0562) SHA1(9149d70831ee13362cc44fcb200089db9a013818) )
+	ROM_LOAD16_BYTE( "558.c2", 1, 0x80000, CRC(49425fa0) SHA1(f51cbb417745715536ad634539955fc074ceb937) )
+ROM_END
+
+
+// 559: Wonder Boy port by ShinobiZ
+ROM_START( wboyn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "559.p1", 0, 0x100000, CRC(421f6da8) SHA1(c253b714a7acbf52a0f7ab8e602d4748cc38761a) )
+
+	NEO_SFIX_128K( "559.s1", CRC(33e5b708) SHA1(12c79593492a06caa1ab544b8150ea5c236d4a0d) )
+
+	NEO_BIOS_AUDIO_128K( "559.m1", CRC(3cfbedf1) SHA1(2d449140efb8e12f76a7767d7e6fed34bca38665) )
+
+	ROM_REGION( 0x20000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "559.v1", 0, 0x20000, CRC(2653a1af) SHA1(1389baefaf3f4b9fff720c3c5b05d29336e4a660) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "559.v21", 0, 0x800000, CRC(9046a188) SHA1(4690ce6530ee20a528caad2c57648dc44dad80e5) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "559.c1", 0, 0x80000, CRC(e77a9b57) SHA1(4425748e65b666b701f9c34998daff64b76db073) )
+	ROM_LOAD16_BYTE( "559.c2", 1, 0x80000, CRC(d0ac95d7) SHA1(798e5cb77b14014d3a8f08cfe211fa549e2585a0) )
+ROM_END
+
+
+// 560: Gals Panic port by Format-c
+ROM_START( galpanicn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "560.p1", 0x100000, 0x100000, CRC(c023a7ff) SHA1(6ec0e3efe0d55a7d87d083f6f8f7223ed09c07e7) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "560.s1", CRC(fac7e29f) SHA1(aae0442b5bdc09d5b4f0416b4bbc93c6996d439f) )
+
+	NEO_BIOS_AUDIO_128K( "560.m1", CRC(46cefe87) SHA1(e5223d995a2bb4d5f2dacb5cfcbd2785dd2c0829) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "560.v1", 0, 0x400000, CRC(edd68493) SHA1(db2112c182e67829d8d9a9838ef9b6c5e65fd353) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "560.c1", 0x0000000, 0x800000, CRC(4ece8760) SHA1(a898dd41d63b0647d2b24dfdac2878473eb7e60b) )
+	ROM_LOAD16_BYTE( "560.c2", 0x0000001, 0x800000, CRC(0e6625eb) SHA1(e1f08f754f6131c1664c4f3524b5955939bf7200) )
+	ROM_LOAD16_BYTE( "560.c3", 0x1000000, 0x800000, CRC(ad9f409e) SHA1(a953170df79ca0c12518cb3c74950c9335c3de9d) )
+	ROM_LOAD16_BYTE( "560.c4", 0x1000001, 0x800000, CRC(359a57d3) SHA1(a1b3f363e7afdc13d795f6bb975e0aee1a1d91c6) )
+	ROM_LOAD16_BYTE( "560.c5", 0x2000000, 0x800000, CRC(3eb647a2) SHA1(468fe4699f5460041707d4cefb33ca056707ab39) )
+	ROM_LOAD16_BYTE( "560.c6", 0x2000001, 0x800000, CRC(d4576833) SHA1(2f584186934d5f09085159d73ab63a7538e01a96) )
+	ROM_LOAD16_BYTE( "560.c7", 0x3000000, 0x800000, CRC(7b606f06) SHA1(7902f13fd24cbf58ef3c0f15a56aeeb5d9607423) )
+	ROM_LOAD16_BYTE( "560.c8", 0x3000001, 0x800000, CRC(a2f366ba) SHA1(32c27f1772aa5a5c9813cadbab539a37679536cb) )
+ROM_END
+
+
+// 561: Teenage Mutant Ninja Turtles (v1.1) port by Arcade Perfect Ports
+ROM_START( tmntn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "561.p1", 0x000000, 0x100000, CRC(98619c13) SHA1(034aeebdef1e30c5feccbebb3bed5adf420cde99) )
+	ROM_LOAD16_WORD_SWAP( "561.p2", 0x100000, 0x100000, CRC(0d19adcf) SHA1(01d39d583a14fd20227d131c5ae4f67c105f1ded) )
+
+	NEO_SFIX_128K( "561.s1", CRC(9184cfdd) SHA1(97d0c5ac7f1df94d08a8ae06f81329609a36573e) )
+
+	NEO_BIOS_AUDIO_128K( "561.m1", CRC(a3e3b973) SHA1(ede09bda81fb6760104f0dca122a2d04a22f08a0) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "561.v1",   0, 0x800000, CRC(1c9752c4) SHA1(d68b528f326030f5ee6143c516503d928e6b31d7) )
+
+	ROM_REGION( 0xc00000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "561.c1", 0x000000, 0x200000, CRC(d01b9ea4) SHA1(8354906620d384f218edffbe2b48e18e8157eaf4) )
+	ROM_LOAD16_BYTE( "561.c2", 0x000001, 0x200000, CRC(e9871d67) SHA1(e55b9839f9ece0e6070b0c576e3ea7d76ed86fc7) )
+	ROM_LOAD16_BYTE( "561.c3", 0x800000, 0x200000, CRC(0e3ae39b) SHA1(88ff015fc4b88764d7d69e987a6bad7ffff8bf17) )
+	ROM_LOAD16_BYTE( "561.c4", 0x800001, 0x200000, CRC(8a025d7e) SHA1(e64cc9c1aa32f64d5a01d42a39a6b251ea8a48cd) )
 ROM_END
 
 
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "600.p1", 0x000000, 0x100000, CRC(5ce36ff3) SHA1(c59beaed2e82955dc2954f844ce9be93b0024bdf) )
+	ROM_LOAD16_WORD_SWAP( "600.p1", 0, 0x100000, CRC(5ce36ff3) SHA1(c59beaed2e82955dc2954f844ce9be93b0024bdf) )
 
 	NEO_SFIX_128K( "600.s1", CRC(5023f1ee) SHA1(7bbf9fa1a93daf1d4e3a28b0bc12d228efbdea36) )
 
 	NEO_BIOS_AUDIO_64K( "600.m1", CRC(92065500) SHA1(040bf5a293c4140dd9a5c2a9592cf3fb5835a119) )
 
-	ROM_REGION( 0x040000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "600.v1", 0x000000, 0x040000, CRC(727a6292) SHA1(57666210b311c9f366203cfe88eaf10507eca143) )
+	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "600.v1", 0, 0x40000, CRC(727a6292) SHA1(57666210b311c9f366203cfe88eaf10507eca143) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "600.c1", 0, 0x100000, CRC(7f0e11b9) SHA1(302d82521c90017b84782bc4e50676b38be96dbf) )
@@ -3379,14 +3285,14 @@ ROM_END
 
 ROM_START( 240ptest1 ) // 1.0
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "600a.p1", 0x000000, 0x100000, CRC(69196380) SHA1(2fb81767ee78eff58cdbe0513ceb3d0b2fdb75f9) )
+	ROM_LOAD16_WORD_SWAP( "600a.p1", 0, 0x100000, CRC(69196380) SHA1(2fb81767ee78eff58cdbe0513ceb3d0b2fdb75f9) )
 
 	NEO_SFIX_128K( "600.s1", CRC(5023f1ee) SHA1(7bbf9fa1a93daf1d4e3a28b0bc12d228efbdea36) )
 
 	NEO_BIOS_AUDIO_64K( "600a.m1", CRC(25058131) SHA1(705241b9c1a6b1d3b031e863910bd70263637857) )
 
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "600a.v1", 0x000000, 0x080000, CRC(74730639) SHA1(27a59eaf5ea9b50d0c028b44dc680bf6d6a59a95) )
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "600a.v1", 0, 0x80000, CRC(74730639) SHA1(27a59eaf5ea9b50d0c028b44dc680bf6d6a59a95) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "600a.c1", 0, 0x100000, CRC(1df22c5b) SHA1(e85b7b86fb3d5f50093eb5959f3c53af4da1672b) )
@@ -3398,14 +3304,12 @@ ROM_END
 // No sound
 ROM_START( beast )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "601.p1", 0x000000, 0x080000, CRC(1f9e62a4) SHA1(f245ce9802c5deb257a11fa714b2d1d4d72fc786) )
+	ROM_LOAD16_WORD_SWAP( "601.p1", 0, 0x80000, CRC(1f9e62a4) SHA1(f245ce9802c5deb257a11fa714b2d1d4d72fc786) )
 
 	NEO_SFIX_128K( "601.s1", CRC(05a417f5) SHA1(932eeab5ba06f654ed39112c71a4e5a1f78c70bd) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "601.c1", 0, 0x80000, CRC(e1974741) SHA1(175b09778875a18f12e7b34c53862ac8c93141c1) )
@@ -3418,7 +3322,7 @@ ROM_END
 // On first run there's an address error. Press F3.
 ROM_START( ng4psyschk )
 	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "603.p1", 0x000000, 0x100000, CRC(3c3d741b) SHA1(1788eecb02f1ff2a19c1ce04571b08c55203fa04) )
+	ROM_LOAD16_WORD_SWAP( "603.p1", 0, 0x100000, CRC(3c3d741b) SHA1(1788eecb02f1ff2a19c1ce04571b08c55203fa04) )
 
 	NEO_SFIX_128K( "262n.s1", CRC(de828076) SHA1(7f79d0245b02e64bd4b50c103722f7e115d1e711) )
 
@@ -3433,14 +3337,12 @@ ROM_END
 // No sound
 ROM_START( syscheck )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "606.p1", 0x000000, 0x80000, CRC(a4adbe1e) SHA1(eee4a8ebe62a2c97282f0350b3c28c615ea44956) )
+	ROM_LOAD16_WORD_SWAP( "606.p1", 0, 0x80000, CRC(a4adbe1e) SHA1(eee4a8ebe62a2c97282f0350b3c28c615ea44956) )
 
 	NEO_SFIX_64K( "606.s1", CRC(4774f28e) SHA1(f381dac250fca3dfe1eb8c8f1b9b3bf0d521000e) )
 
 	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x80000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	// v1 all FF, so left out
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
@@ -3451,7 +3353,7 @@ ROM_END
 // No sound
 ROM_START( neo2500 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "607.p1", 0x000000, 0x080000, CRC(2321c0d8) SHA1(e0d535af20f271794dc14c83ff3ffbc1f6bf98d9) )
+	ROM_LOAD16_WORD_SWAP( "607.p1", 0, 0x80000, CRC(2321c0d8) SHA1(e0d535af20f271794dc14c83ff3ffbc1f6bf98d9) )
 
 	NEO_SFIX_64K( "607.s1", CRC(1a37925c) SHA1(2060196c3a4d5dcc75aa62e5f02b0d397ec54b1b) )
 
@@ -3466,14 +3368,14 @@ ROM_END
 // 608 : Twister in a mirror intro by Blastar.
 ROM_START( twister )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "608.p1", 0x000000, 0x080000, CRC(514bf0fd) SHA1(d7d084b83ae5ae776d6cc7b7d183bd79b2ab114a) )
+	ROM_LOAD16_WORD_SWAP( "608.p1", 0, 0x80000, CRC(514bf0fd) SHA1(d7d084b83ae5ae776d6cc7b7d183bd79b2ab114a) )
 
 	NEO_SFIX_128K( "608.s1", CRC(111ea86c) SHA1(1251d7ef30493b76b15ddc8975a0278ad4a48434) )
 
 	NEO_BIOS_AUDIO_128K( "608.m1", CRC(c1c27b33) SHA1(655c1b01deacacbdbfe3a89196d4b0d9d3aae1eb) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "608.v1", 0x000000, 0x80000, CRC(0c5e044c) SHA1(e5717ea0e6daaf7c529f1e8cf5e4e73ee4a3f26f) )
+	ROM_LOAD( "608.v1", 0, 0x80000, CRC(0c5e044c) SHA1(e5717ea0e6daaf7c529f1e8cf5e4e73ee4a3f26f) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "608.c1", 0, 0x100000, CRC(72ceed51) SHA1(aa5ead993db739cf34917287988aeb43afa7f7d5) )
@@ -3484,15 +3386,15 @@ ROM_END
 // 609 : Xmas/NewYear2017 demo by Blastar (c) 2016
 ROM_START( xmas2017 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "609.p1", 0x000000, 0x004000, CRC(fde7cb36) SHA1(d85ef72dc33e18a7bfebf61ce5bd3d315a1399e6) )
+	ROM_LOAD16_WORD_SWAP( "609.p1", 0, 0x4000, CRC(fde7cb36) SHA1(d85ef72dc33e18a7bfebf61ce5bd3d315a1399e6) )
 
 	NEO_SFIX_MT(0x8000)
-	ROM_LOAD( "609.s1", 0x000000, 0x008000, CRC(750b643c) SHA1(fb4cac813ba5ab9eb93b1b6391b73b6e3ed0e0a6) )
+	ROM_LOAD( "609.s1", 0, 0x8000, CRC(750b643c) SHA1(fb4cac813ba5ab9eb93b1b6391b73b6e3ed0e0a6) )
 
 	NEO_BIOS_AUDIO_64K( "609.m1", CRC(7f4c51e6) SHA1(9d3e4e2a57b7bd38c05398c569baa2b8f7ae5296) )
 
 	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "609.v1", 0x00000, 0x40000, CRC(aa5dc85c) SHA1(b07372624110833c292fd2e66332be23b535d8b7) )
+	ROM_LOAD( "609.v1", 0, 0x40000, CRC(aa5dc85c) SHA1(b07372624110833c292fd2e66332be23b535d8b7) )
 
 	ROM_REGION( 0x20000, "sprites", 0 )
 	ROM_LOAD( "609.c1", 0, 0x20000, CRC(18cde781) SHA1(2b28f3ee7a332532a20694436167cf19f33a2753) )
@@ -3503,17 +3405,17 @@ ROM_END
 // Bugs: ADPCMA no longer works after the YM emulation was rewritten
 ROM_START( ngym2610 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "610.p1", 0x000000, 0x100000, CRC(61c31db6) SHA1(7f43848b5a5ad321849e3c80f640449ba73c3716) )
+	ROM_LOAD16_WORD_SWAP( "610.p1", 0, 0x100000, CRC(61c31db6) SHA1(7f43848b5a5ad321849e3c80f640449ba73c3716) )
 
 	NEO_SFIX_128K( "610.s1", CRC(64030dbd) SHA1(9ff13be4b37e0c0985163bb58e5d3d9f0aa392be) )
 
 	NEO_BIOS_AUDIO_128K( "610.m1", CRC(494bf458) SHA1(f6e2bc2c57f9c8bd9233f98663ba6707f2c0a4d9) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "610.v1", 0x000000, 0x1000000, CRC(cb87831f) SHA1(22572f4dbe3a85fe05d0818efeb90611b1078245) )
+	ROM_LOAD( "610.v1",  0, 0x1000000, CRC(cb87831f) SHA1(22572f4dbe3a85fe05d0818efeb90611b1078245) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcmb", 0 )
-	ROM_LOAD( "610.v21", 0x000000, 0x1000000, CRC(23f83969) SHA1(c29fd0a8ab2b2f8511f8724221c2614dea026503) )
+	ROM_LOAD( "610.v21", 0, 0x1000000, CRC(23f83969) SHA1(c29fd0a8ab2b2f8511f8724221c2614dea026503) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "610.c1", 0, 0x100000, CRC(c8050090) SHA1(7168328582c5ce336b58d662fbb59c2d382bf30e) )
@@ -3525,14 +3427,14 @@ ROM_END
 // No Sound.
 ROM_START( ng4ptest )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "611.p1", 0x000000, 0x0028b6, CRC(2326f2f4) SHA1(4c982e750d9ea2e29748f02d5b916b38548daaa5) )
+	ROM_LOAD( "611.p1", 0, 0x28b6, CRC(2326f2f4) SHA1(4c982e750d9ea2e29748f02d5b916b38548daaa5) )
 
 	NEO_SFIX_128K( "611.s1", CRC(4d15e0ca) SHA1(7ae00a68ad479b6a3a7988844649c95e0394b65a) )
 
 	NEO_BIOS_AUDIO_64K( "611.m1", CRC(432dc48d) SHA1(3852feb672ea158cc855cab95c8e92ee9fe11639) )
 
 	ROM_REGION( 0x10000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "611.v1", 0x000000, 0x010000, CRC(62ea940e) SHA1(65e22c4435d3950b1fc3d2949494b5fe3370e855) )
+	ROM_LOAD( "611.v1", 0, 0x10000, CRC(62ea940e) SHA1(65e22c4435d3950b1fc3d2949494b5fe3370e855) )
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
@@ -3544,18 +3446,18 @@ ROM_END
 // Bugs: Can get stuck in position 00
 ROM_START( ndo_a_td )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "612.p1", 0x000000, 0x080000, CRC(0b42acff) SHA1(3a52fdedf99acb9a49c2a952465766d1e2cf644d) )
+	ROM_LOAD16_WORD_SWAP( "612.p1", 0, 0x80000, CRC(0b42acff) SHA1(3a52fdedf99acb9a49c2a952465766d1e2cf644d) )
 
 	NEO_SFIX_128K( "612.s1", CRC(00bef8e5) SHA1(e5523d896f04d92981bca4fe270b5f20ad699457) )
 
 	NEO_BIOS_AUDIO_64K( "612.m1", CRC(0125c35b) SHA1(e4d35447e18c2e398afb4d883fd02b620b4e299a) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "612.v1", 0x000000, 0x080000, CRC(23ce128d) SHA1(d6423525ffbb3a59c5fc2fc0f14dcddcfd8c5687) )
+	ROM_LOAD( "612.v1", 0, 0x80000, CRC(23ce128d) SHA1(d6423525ffbb3a59c5fc2fc0f14dcddcfd8c5687) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "612.c1", 0, 0x080000, CRC(3913d0d5) SHA1(c1bb4d336676828c5754f763bc75d310aed6d73f) )
-	ROM_LOAD16_BYTE( "612.c2", 1, 0x080000, CRC(0a70ac8e) SHA1(b7371609001ff73907bee49f1e9944fdd269eaab) )
+	ROM_LOAD16_BYTE( "612.c1", 0, 0x80000, CRC(3913d0d5) SHA1(c1bb4d336676828c5754f763bc75d310aed6d73f) )
+	ROM_LOAD16_BYTE( "612.c2", 1, 0x80000, CRC(0a70ac8e) SHA1(b7371609001ff73907bee49f1e9944fdd269eaab) )
 ROM_END
 
 
@@ -3564,7 +3466,7 @@ ROM_END
 // No sound
 ROM_START( neodemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "616.p1", 0x000000, 0x080000, CRC(fbfce2a4) SHA1(53472533456e131bee9fa792996b4110999b5c21) )
+	ROM_LOAD16_WORD_SWAP( "616.p1", 0, 0x80000, CRC(fbfce2a4) SHA1(53472533456e131bee9fa792996b4110999b5c21) )
 
 	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
@@ -3576,11 +3478,45 @@ ROM_START( neodemo )
 ROM_END
 
 
+// 617 : Monitor Test by M.Priewe.
+// No sound.
+ROM_START( ngmontst ) // v1.0
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "617.p1", 0, 0x100000, CRC(17a4ad61) SHA1(38c0f2022947043f30a27ccda06cc709fe980fed) )
+
+	NEO_SFIX_128K( "sfix.sfix", CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	NEO_BIOS_AUDIO_128K( "052.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "052.v1", 0, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "617.c1", 0, 0x100000, CRC(715df715) SHA1(74534eb9bb48a04f25d0044b1f2b57e59f49b06f) )
+	ROM_LOAD16_BYTE( "617.c2", 1, 0x100000, CRC(d8ee3c9b) SHA1(c731eaffae34b4394e290e68ca8c3700e1c6dc2b) )
+ROM_END
+ROM_START( ngmontst3 ) // v1.3
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "617c.p1", 0, 0x100000, CRC(8a140722) SHA1(a7e4ac8b7bf531a10b68460e37e7e6da59ecccfe) )
+
+	NEO_SFIX_128K( "447.s1", CRC(bb82ab71) SHA1(307f420446c2d411a65b59543b61c21d0360536b) )
+
+	NEO_BIOS_AUDIO_64K( "617c.m1", CRC(6f41ac95) SHA1(92dd52bd6717e116301f965a45aa1762e797154c) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "617c.v1", 0, 0x200000, CRC(0f88bd1a) SHA1(75a288744533e2546fb94dddf50da0148f158d19) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "617c.c1", 0, 0x100000, CRC(5c63f88a) SHA1(418e3345c40fc1d8d964ee55ca68a56be32f4df2) )
+	ROM_LOAD16_BYTE( "617c.c2", 1, 0x100000, CRC(3c7e0729) SHA1(695d36002cc428dfaf6174bdcf5fed351df39b35) )
+ROM_END
+
+
 // 620 : Castlevania demo by BarfHappy
 // No sound.
 ROM_START( neocstlv )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "620.p1", 0x000000, 0x080000, CRC(8d6cd9f2) SHA1(23258690b0268367420cb25ef951cfb15f79b88e) )
+	ROM_LOAD16_WORD_SWAP( "620.p1", 0, 0x80000, CRC(8d6cd9f2) SHA1(23258690b0268367420cb25ef951cfb15f79b88e) )
 
 	NEO_SFIX( 0x40000, "620.s1", CRC(be950195) SHA1(883a99b79b495f66f81025bf4c1f5fb23cc0b4c7) )
 
@@ -3595,14 +3531,14 @@ ROM_END
 // 621 : 3D demo by Oxygene
 ROM_START( neo3d )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "621.p1", 0x000000, 0x080000, CRC(791f6042) SHA1(d44848322d08daad91c67c7dc7e9ee985d582b2b) )
+	ROM_LOAD16_WORD_SWAP( "621.p1", 0, 0x80000, CRC(791f6042) SHA1(d44848322d08daad91c67c7dc7e9ee985d582b2b) )
 
 	NEO_SFIX_128K( "469.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
 
 	NEO_BIOS_AUDIO_128K( "621.m1", CRC(7e74cc1f) SHA1(2855577a9785baa4076567de0b37fc0d0117abe5) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "202.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+	ROM_LOAD( "202.v1", 0, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "621.c1", 0, 0x100000, CRC(a7eaca76) SHA1(7b046932466092e250dc879d76656227102037c5) )
@@ -3613,14 +3549,14 @@ ROM_END
 // 624 : Transparency demo by NGF
 ROM_START( ngftdemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "624.p1", 0x000000, 0x080000, CRC(84d87190) SHA1(7b944603a47a062c050faf9d7e2f9ed754c325cf) )
+	ROM_LOAD16_WORD_SWAP( "624.p1", 0, 0x80000, CRC(84d87190) SHA1(7b944603a47a062c050faf9d7e2f9ed754c325cf) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
 	NEO_BIOS_AUDIO_128K( "624.m1", CRC(5ea216be) SHA1(5ae7e878a08dcd5a1a3b5d25abfe98eea0dfc7d3) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "624.v1", 0x000000, 0x200000, CRC(d03c87eb) SHA1(033815e3cf8fa3732c481ef308aacea595e3e008) )
+	ROM_LOAD( "624.v1", 0, 0x200000, CRC(d03c87eb) SHA1(033815e3cf8fa3732c481ef308aacea595e3e008) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "624.c1", 0, 0x200000, CRC(b2fba994) SHA1(278bc9b2f969cec8160dbea879426bbf2c7ea2d4) )
@@ -3631,7 +3567,7 @@ ROM_END
 // 625 : Chip n Dale intro from Raregame
 ROM_START( cndi )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "625.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
+	ROM_LOAD16_WORD_SWAP( "625.p1", 0, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3639,8 +3575,8 @@ ROM_START( cndi )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "625.m1", CRC(591adc4f) SHA1(02886106b5bbcd1c63a7ccd5c91456a785b0621a) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "625.v1", 0x000000, 0x091000, CRC(15d318a6) SHA1(10f99dbded4093bac104ce954e93dba7ce8c4ade) )
+	ROM_REGION( 0x91000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "625.v1", 0, 0x91000, CRC(15d318a6) SHA1(10f99dbded4093bac104ce954e93dba7ce8c4ade) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "625.c1", 0x0000000, 0x400000, CRC(55bd32fc) SHA1(9ca14628b50182257e812a64ae7779b677f49b3a) )
@@ -3656,7 +3592,7 @@ ROM_END
 // 625 : Chip n Dale intro from Raregame
 ROM_START( cndia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "625.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
+	ROM_LOAD16_WORD_SWAP( "625.p1", 0, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3664,8 +3600,8 @@ ROM_START( cndia )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "625a.m1", CRC(ae120a59) SHA1(11a49a82007810890ac01757af217ce76c78335b) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "625a.v1", 0x000000, 0x092000, CRC(91d45537) SHA1(2e3fe9733a49a7d5597fea40f59274133c331795) )
+	ROM_REGION( 0x92000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "625a.v1", 0, 0x92000, CRC(91d45537) SHA1(2e3fe9733a49a7d5597fea40f59274133c331795) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "625.c1", 0x0000000, 0x400000, CRC(55bd32fc) SHA1(9ca14628b50182257e812a64ae7779b677f49b3a) )
@@ -3682,18 +3618,17 @@ ROM_END
 // 626 : Darkwing Duck intro from Raregame
 ROM_START( dwi )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "626.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
+	ROM_LOAD16_WORD_SWAP( "626.p1", 0, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "626.s1", CRC(3dc5c1ef) SHA1(fa194481524cd95ec7188fef0857ef4d2435d7eb) )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "626.m1", CRC(2249e065) SHA1(3dc737888846acfbe693452b03ee2b5c09ff9408) )
-
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "626.v1", 0x000000, 0x09b000, CRC(13bb4ce4) SHA1(0762db7991a5958ae7d8fd5cad2a850f1803a372) )
+	ROM_REGION( 0x9b000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "626.v1", 0, 0x9b000, CRC(13bb4ce4) SHA1(0762db7991a5958ae7d8fd5cad2a850f1803a372) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "626.c1", 0x0000000, 0x400000, CRC(2b8bda94) SHA1(68a8239a620dba52762fec548b44c7d0e703fca3) )
@@ -3709,7 +3644,7 @@ ROM_END
 // 626 : Darkwing Duck intro from Raregame
 ROM_START( dwia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "626.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
+	ROM_LOAD16_WORD_SWAP( "626.p1", 0, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3717,8 +3652,8 @@ ROM_START( dwia )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "626a.m1", CRC(b9f8df96) SHA1(8472b7308df7b7d3f1fc8824b17d81f670e6d68e) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "626.v1", 0x000000, 0x09b000, CRC(13bb4ce4) SHA1(0762db7991a5958ae7d8fd5cad2a850f1803a372) )
+	ROM_REGION( 0x9b000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "626.v1", 0, 0x9b000, CRC(13bb4ce4) SHA1(0762db7991a5958ae7d8fd5cad2a850f1803a372) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "626.c1", 0x0000000, 0x400000, CRC(2b8bda94) SHA1(68a8239a620dba52762fec548b44c7d0e703fca3) )
@@ -3744,8 +3679,8 @@ ROM_START( gbi )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "627.m1", CRC(6624e642) SHA1(03a723c477905425ced965a63fb6d006abd045e9) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "627.v1", 0x000000, 0x094a00, CRC(44864761) SHA1(35334b93c65b3e27338290c2ba1f73aa902aa893) )
+	ROM_REGION( 0x94a00, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "627.v1", 0, 0x94a00, CRC(44864761) SHA1(35334b93c65b3e27338290c2ba1f73aa902aa893) )
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "627.c1", 0x0000000, 0x400000, CRC(4281fecd) SHA1(a4f4c278b28740cde042f81769c8c10e5d274fcf) )
@@ -3760,7 +3695,7 @@ ROM_END
 // 628 : Robocop intro from Raregame
 ROM_START( rci )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "628.p1", 0x000000, 0x800000, CRC(adcb4fe0) SHA1(596242e344d1e171eed7ef242c10aec1a0090acf) )
+	ROM_LOAD16_WORD_SWAP( "628.p1", 0, 0x800000, CRC(adcb4fe0) SHA1(596242e344d1e171eed7ef242c10aec1a0090acf) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3768,8 +3703,8 @@ ROM_START( rci )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "628.m1", CRC(c4d35e83) SHA1(0f2bb58e6e545090a11f7fbf471dcd46768a313b) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "628.v1", 0x000000, 0x096000, CRC(ecb284a9) SHA1(1ff34e6f3091ddf0da7b8afb06b903ab39d0b629) )
+	ROM_REGION( 0x96000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "628.v1", 0, 0x96000, CRC(ecb284a9) SHA1(1ff34e6f3091ddf0da7b8afb06b903ab39d0b629) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "628.c1", 0x0000000, 0x400000, CRC(8cf565a0) SHA1(c8d383d96b03be9e96fcea94b355c5c33717b4e1) )
@@ -3795,8 +3730,8 @@ ROM_START( smi )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "629.m1", CRC(6a02cb1d) SHA1(fffd39708bfb121496c78d01e53f07aa9a539c47) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "629.v1", 0x000000, 0x096100, CRC(95c138da) SHA1(7bfcd525ecf01737ec85db88355323d676f1f03b) )
+	ROM_REGION( 0x96100, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "629.v1", 0, 0x96100, CRC(95c138da) SHA1(7bfcd525ecf01737ec85db88355323d676f1f03b) )
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "629.c1", 0x0000000, 0x400000, CRC(8e5ccfdd) SHA1(a26a3cadf67f864ded64daca3af13a8db8a73b62) )
@@ -3811,7 +3746,7 @@ ROM_END
 // 630 : Teenage Mutant Ninja Turtles intro from Raregame
 ROM_START( tmnti )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "630.p1", 0x000000, 0x800000, CRC(2d5066ff) SHA1(e1109c1e7532fa167ba5c9c90648d019740efd8e) )
+	ROM_LOAD16_WORD_SWAP( "630.p1", 0, 0x800000, CRC(2d5066ff) SHA1(e1109c1e7532fa167ba5c9c90648d019740efd8e) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3819,8 +3754,8 @@ ROM_START( tmnti )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "630.m1", CRC(953542ef) SHA1(95e93833b938b8d374d29f925777cf296468ae9e) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "630.v1", 0x000000, 0x094900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
+	ROM_REGION( 0x94900, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "630.v1", 0, 0x94900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "630.c1", 0x0000000, 0x400000, CRC(ae1735c1) SHA1(a7a943fb088bccbd5e2c0fa34766bab8169000fa) )
@@ -3835,7 +3770,7 @@ ROM_END
 
 ROM_START( tmntia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "630a.p1", 0x000000, 0x800000, CRC(ed4f5fec) SHA1(6f3d00137b44ab2734d84bc6cea4ea58b9b2350d) )
+	ROM_LOAD16_WORD_SWAP( "630a.p1", 0, 0x800000, CRC(ed4f5fec) SHA1(6f3d00137b44ab2734d84bc6cea4ea58b9b2350d) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3843,8 +3778,8 @@ ROM_START( tmntia )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "630.m1", CRC(953542ef) SHA1(95e93833b938b8d374d29f925777cf296468ae9e) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "630.v1", 0x000000, 0x094900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
+	ROM_REGION( 0x94900, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "630.v1", 0, 0x94900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "630.c1", 0x0000000, 0x400000, CRC(ae1735c1) SHA1(a7a943fb088bccbd5e2c0fa34766bab8169000fa) )
@@ -3861,7 +3796,7 @@ ROM_END
 // 631 : Duck Tales intro from Raregame
 ROM_START( dti )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "631.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
+	ROM_LOAD16_WORD_SWAP( "631.p1", 0, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3869,8 +3804,8 @@ ROM_START( dti )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "631.m1", CRC(7761d993) SHA1(b269e9878ca28faa1d36c7fa3dd8e9939714a5f4) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "631.v1", 0x000000, 0x090200, CRC(b40c3a5a) SHA1(fda5e4bf3af75aa70df32b21f132c41670212c52) )
+	ROM_REGION( 0x90200, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "631.v1", 0, 0x90200, CRC(b40c3a5a) SHA1(fda5e4bf3af75aa70df32b21f132c41670212c52) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "631.c1", 0x0000000, 0x400000, CRC(02adabba) SHA1(7b1eafebed09dbfc1b8d9612f0ed477e25ab152d) )
@@ -3886,7 +3821,7 @@ ROM_END
 // 631 : Duck Tales intro from Raregame
 ROM_START( dtia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "631.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
+	ROM_LOAD16_WORD_SWAP( "631.p1", 0, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
 	ROM_FILL(0x30A,1,0x70)
 	ROM_FILL(0x30B,1,0x04)
 
@@ -3894,8 +3829,8 @@ ROM_START( dtia )
 
 	NEO_JAPAN_BIOS_AUDIO(0x2000, "631.m1", CRC(7761d993) SHA1(b269e9878ca28faa1d36c7fa3dd8e9939714a5f4) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "631a.v1", 0x000000, 0x090200, CRC(24b716ee) SHA1(ec153b7f4054644a8dbeacfc1c03a464a7c47c3b) )
+	ROM_REGION( 0x90200, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "631a.v1", 0, 0x90200, CRC(24b716ee) SHA1(ec153b7f4054644a8dbeacfc1c03a464a7c47c3b) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "631.c1", 0x0000000, 0x400000, CRC(02adabba) SHA1(7b1eafebed09dbfc1b8d9612f0ed477e25ab152d) )
@@ -3912,14 +3847,14 @@ ROM_END
 // 635 : Neo Rom Jukebox by CeL
 ROM_START( neoromjb )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "635.p1", 0x000000, 0x080000, CRC(fc301f3d) SHA1(e7e02963167a612e29e14cfaa53a8eb441961885) )
+	ROM_LOAD16_WORD_SWAP( "635.p1", 0, 0x80000, CRC(fc301f3d) SHA1(e7e02963167a612e29e14cfaa53a8eb441961885) )
 
-	NEO_SFIX_64K( "436.s1", CRC(d78bd9a0) SHA1(17a237166aede98bee27d5b52654414c8a1b071a) ) // same rom is in Neo Pang
+	NEO_SFIX_64K( "436.s1", CRC(d78bd9a0) SHA1(17a237166aede98bee27d5b52654414c8a1b071a) )
 
 	NEO_BIOS_AUDIO_128K( "635.m1", CRC(60bf52f5) SHA1(86fcb7693ce0c3ee97f3fd2715d3bcb575511cd7) )
 
-	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "635.v1", 0x000000, 0x080000, CRC(68a2a556) SHA1(8343465cca82db43c0decea74c314f641e4bbb7a) )
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "635.v1", 0, 0x80000, CRC(68a2a556) SHA1(8343465cca82db43c0decea74c314f641e4bbb7a) )
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
@@ -3930,7 +3865,7 @@ ROM_END
 // No sound.
 ROM_START( iocero )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "639.p1", 0x000000, 0x100000, CRC(a315fb81) SHA1(c958d78de5d83ff31c9545d54c6429c85cdbdb64) )
+	ROM_LOAD16_WORD_SWAP( "639.p1", 0, 0x100000, CRC(a315fb81) SHA1(c958d78de5d83ff31c9545d54c6429c85cdbdb64) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
@@ -3946,7 +3881,7 @@ ROM_END
 // No sound.
 ROM_START( neogal1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "640_1.p1", 0x000000, 0x100000, CRC(7226db5c) SHA1(d598096265286b5d32a3c6abbea8c281ee94458c) )
+	ROM_LOAD16_WORD_SWAP( "640_1.p1", 0, 0x100000, CRC(7226db5c) SHA1(d598096265286b5d32a3c6abbea8c281ee94458c) )
 
 	NEO_SFIX( 0x2000, "640_1.s1", CRC(90557449) SHA1(a6aac83715a5d2c7d0436c3d0b80d61459316ee7) )
 
@@ -3960,7 +3895,7 @@ ROM_END
 // No sound.
 ROM_START( neogal1t )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "640_1t.p1", 0x000000, 0x100000, CRC(01dc85fd) SHA1(7fed5c859901066e27bac777d3846e69185648e6) )
+	ROM_LOAD16_WORD_SWAP( "640_1t.p1", 0, 0x100000, CRC(01dc85fd) SHA1(7fed5c859901066e27bac777d3846e69185648e6) )
 
 	NEO_SFIX( 0x2000, "640_1.s1", CRC(90557449) SHA1(a6aac83715a5d2c7d0436c3d0b80d61459316ee7) )
 
@@ -3974,7 +3909,7 @@ ROM_END
 // No sound.
 ROM_START( neogal1d )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "640_1d.p1", 0x000000, 0x100000, CRC(2c49e6ec) SHA1(69602bce2a119f644385b1cfda5ee38dbc081679) )
+	ROM_LOAD16_WORD_SWAP( "640_1d.p1", 0, 0x100000, CRC(2c49e6ec) SHA1(69602bce2a119f644385b1cfda5ee38dbc081679) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
@@ -3987,14 +3922,14 @@ ROM_END
 
 ROM_START( neogal2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "640_2.p1", 0x000000, 0x100000, CRC(a6321942) SHA1(e2085c677e124708770846c2b9f1d3ba9e6a4323) )
+	ROM_LOAD16_WORD_SWAP( "640_2.p1", 0, 0x100000, CRC(a6321942) SHA1(e2085c677e124708770846c2b9f1d3ba9e6a4323) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
 	NEO_BIOS_AUDIO_128K( "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "202.v1", 0x000000, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+	ROM_LOAD( "202.v1", 0, 0x80000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "640_1.c1", 0, 0x100000, CRC(6de8c6f6) SHA1(51d29bab7b482a5a850af08f9939a42e7127df3b) )
@@ -4006,14 +3941,14 @@ ROM_END
 // Bugs: Insert Coin causes reboot
 ROM_START( neotest )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "641.p1", 0x000000, 0x80000, CRC(2ee900b2) SHA1(4b083f4e1e502ac17e3e396d8655870dbac7fba7) )
+	ROM_LOAD16_WORD_SWAP( "641.p1", 0, 0x80000, CRC(2ee900b2) SHA1(4b083f4e1e502ac17e3e396d8655870dbac7fba7) )
 
 	NEO_SFIX( 0x2000, "640_1.s1", CRC(90557449) SHA1(a6aac83715a5d2c7d0436c3d0b80d61459316ee7) )
 
 	NEO_BIOS_AUDIO_128K( "641.m1", CRC(ad14cc39) SHA1(852f71ebb54c2c26795e8a2771d1638e42e0c634) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "641.v1", 0x000000, 0x100000, CRC(c1c07bd5) SHA1(79a25211590dc1192913a7655d7f2d1682acdc97) )
+	ROM_LOAD( "641.v1", 0, 0x100000, CRC(c1c07bd5) SHA1(79a25211590dc1192913a7655d7f2d1682acdc97) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "640_1.c1", 0, 0x100000, CRC(6de8c6f6) SHA1(51d29bab7b482a5a850af08f9939a42e7127df3b) )
@@ -4024,7 +3959,7 @@ ROM_END
 // 642 : Bad Apple demo by BEY
 // No colours
 ROM_START( badapple )
-	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_REGION( 0x500000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD16_WORD( "642.p1", 0x000000, 0x09e0f, CRC(c8068de3) SHA1(f240b23f5f2aed998ebcbb95680225e3e35a8051) )
 	ROM_LOAD16_WORD( "642.p2", 0x100000, 0xeeb5c, CRC(f5fe8e16) SHA1(68398a9719eb9f4e42668991384683965c5787bf) )
 	ROM_LOAD16_WORD( "642.p3", 0x200000, 0xf4764, CRC(a70f49bd) SHA1(1b8a70e0f5467ea750586e3c0cb7a6188dc482d2) )
@@ -4036,17 +3971,17 @@ ROM_START( badapple )
 	NEO_BIOS_AUDIO_128K( "642.m1", CRC(ad7f4d47) SHA1(8700ed799c013db270c5b80002c23733dfaaa534) )
 
 	ROM_REGION( 0x300000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "642.v1", 0x000000, 0x300000, CRC(ce9bf279) SHA1(d14133414570d30ac477c226771175fa4b54073b) )
+	ROM_LOAD( "642.v1", 0, 0x300000, CRC(ce9bf279) SHA1(d14133414570d30ac477c226771175fa4b54073b) )
 
-	ROM_REGION( 0x1800000, "sprites", 0 )
-	ROM_LOAD16_WORD( "642.c1",  0x000000, 0x5a3b80, CRC(5fd2d36d) SHA1(13a045627029ade7a1e0f5cdcce3bf2b92de9559) )
-	ROM_LOAD16_WORD( "642.c2",  0x600000, 0x5bb580, CRC(5cbbc6e0) SHA1(aad04b9b7cdf7c3951006b39676ee4ee989338b0) )
-	ROM_LOAD16_WORD( "642.c3",  0xc00000, 0x5b1200, CRC(befd5392) SHA1(49f0610b9a4e1bdbb881c2156f01631cc45915c1) )
+	ROM_REGION( 0x1800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_WORD( "642.c1",  0x0000000, 0x5a3b80, CRC(5fd2d36d) SHA1(13a045627029ade7a1e0f5cdcce3bf2b92de9559) )
+	ROM_LOAD16_WORD( "642.c2",  0x0600000, 0x5bb580, CRC(5cbbc6e0) SHA1(aad04b9b7cdf7c3951006b39676ee4ee989338b0) )
+	ROM_LOAD16_WORD( "642.c3",  0x0c00000, 0x5b1200, CRC(befd5392) SHA1(49f0610b9a4e1bdbb881c2156f01631cc45915c1) )
 	ROM_LOAD16_WORD( "642.c4",  0x1200000, 0x2c7480, CRC(e4b70cf5) SHA1(af717a650dbde0c4a852f8ee87a1d55ac9349172) )
 ROM_END
 
 ROM_START( badapplea )
-	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_REGION( 0x900000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "642a.p1",    0x000000, 0x00c5b0, CRC(f916d0bf) SHA1(21b7bdb47893e00ef77abca9aba831059e0d48dc) )
 	ROM_LOAD( "642a.p2",    0x100000, 0x0c628c, CRC(6e0e218c) SHA1(f15ceae5c9fb4b268d8b1c6513a3954746ace550) )
 	ROM_LOAD( "642a.p3",    0x200000, 0x0872cc, CRC(475877e0) SHA1(f6fa2aeab36264a544895bb49c3858286a3edde7) )
@@ -4062,9 +3997,9 @@ ROM_START( badapplea )
 	NEO_BIOS_AUDIO_128K( "642a.m1", CRC(6432e6e8) SHA1(5cc0547320cf6ccb4c5641497d5469f867d33eee) )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "642a.v1",    0x000000, 0x400000, CRC(77656df1) SHA1(c95a1b09ee77020c19d5ab58de4ab8dc8b94a3b4) )
+	ROM_LOAD( "642a.v1",    0, 0x400000, CRC(77656df1) SHA1(c95a1b09ee77020c19d5ab58de4ab8dc8b94a3b4) )
 
-	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_REGION( 0x2800000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD( "642a.c0",    0x0000000, 0x413b00, CRC(d5a0e4dc) SHA1(a3a34ba916c7df9ffdafdc25579d627784cfbdf1) )
 	ROM_LOAD( "642a.c1",    0x0500000, 0x464d80, CRC(35da6dbc) SHA1(f5cc58620074a11363f0937f16c0eec6b6c0438e) )
 	ROM_LOAD( "642a.c2",    0x0a00000, 0x398e80, CRC(34482b96) SHA1(a6a88e99d55a56a9e84e65e9edc68099214cdbd6) )
@@ -4077,14 +4012,14 @@ ROM_END
 
 ROM_START( badappleb )
 	ROM_REGION( 0x400000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "642b.p1", 0x000000, 0x400000, CRC(f68ade5a) SHA1(c2aa87783bc04cccb9d5df0ed74524787be1860f) )
+	ROM_LOAD16_WORD_SWAP( "642b.p1", 0, 0x400000, CRC(f68ade5a) SHA1(c2aa87783bc04cccb9d5df0ed74524787be1860f) )
 
 	NEO_SFIX_128K( "642b.s1", CRC(bc7ebee7) SHA1(401d98fc4dbecf0281ee04718cf549cd35a80fed) )
 
 	NEO_BIOS_AUDIO_64K( "642b.m1", CRC(c11e8874) SHA1(5b3316757b77e43ac5d18206bdeb90f7e8bc882a) )
 
 	ROM_REGION( 0x500000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "642b.v1", 0x000000, 0x500000, CRC(3b741894) SHA1(c3e509830b53e36211823d6b912d5a2acb983ed9) )
+	ROM_LOAD( "642b.v1", 0, 0x500000, CRC(3b741894) SHA1(c3e509830b53e36211823d6b912d5a2acb983ed9) )
 
 	ROM_REGION( 0x6200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "642b.c1",  0, 0x3100000, CRC(88ddc443) SHA1(b682f86647903c10bd7b525bb92dfd0a13499b36) )
@@ -4096,14 +4031,14 @@ ROM_END
 // Bugs: At end, black screen. Pressing 5 will get it to run again, about halfway, before it internally crashes.
 ROM_START( 68kng )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "643.p1",       0x000000, 0x080000, CRC(b10d2cb6) SHA1(6a63f5424e3b5ae3e97fbf0e1841b8cdfd5740f2) )
+	ROM_LOAD16_WORD_SWAP( "643.p1",  0, 0x80000, CRC(b10d2cb6) SHA1(6a63f5424e3b5ae3e97fbf0e1841b8cdfd5740f2) )
 
 	NEO_SFIX_128K( "539.s1", CRC(2e4238d1) SHA1(f556cd9afcf53c3a1128cdaa639d49fb3abfa3ed) )
 
 	NEO_BIOS_AUDIO_64K( "643.m1", CRC(de1963da) SHA1(f133785dfe437a2a1235f39521c6a64949cf4823) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "643.v1",       0x000000, 0x100000, CRC(d1b3294e) SHA1(1aa1cf1951b8848a5e5a58b155656101dc51298e) )
+	ROM_LOAD( "643.v1",  0, 0x100000, CRC(d1b3294e) SHA1(1aa1cf1951b8848a5e5a58b155656101dc51298e) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "643.c1",  0, 0x100000, CRC(d1d755d8) SHA1(7d892886db756cae59474f619a814c97d4041154) )
@@ -4114,7 +4049,7 @@ ROM_END
 // 644: Vaporous intro by TTE
 ROM_START( vaporous )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "644.p1",  0x000000, 0x100000, CRC(536517ca) SHA1(448cc860cb4e91e8a9ce9fcd24fe7a8b9e45c760) )
+	ROM_LOAD16_WORD_SWAP( "644.p1",  0, 0x100000, CRC(536517ca) SHA1(448cc860cb4e91e8a9ce9fcd24fe7a8b9e45c760) )
 
 	NEO_SFIX_128K( "644.s1", CRC(11ac8ba5) SHA1(c58496d0a2d7674b5eb6ec4809ac7c3ac8814825) )
 
@@ -4135,14 +4070,14 @@ ROM_END
 // Bugs: Insert Coin freezes HBMAME.
 ROM_START( nyan )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "653.p1", 0x000000, 0x20000, CRC(1c9e076f) SHA1(95361da308bf8f946fa218424c991ace872fd374) )
+	ROM_LOAD( "653.p1", 0, 0x20000, CRC(1c9e076f) SHA1(95361da308bf8f946fa218424c991ace872fd374) )
 
 	NEO_SFIX_128K( "653.s1", CRC(2e7f15ec) SHA1(b41ac46ca2a81cf240dc6df4a80694ecebf65202) )
 
 	NEO_BIOS_AUDIO_128K( "653.m1", CRC(97b9a8e0) SHA1(161a06ac0a6d33a6b337a5c6ec65345cd10472e4) )
 
-	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "653.v1", 0x000000, 0x3d400, CRC(8870e0bb) SHA1(5f6f33c07f04bb00337cca6ee4db1cfa7beaa63e) )
+	ROM_REGION( 0x3d400, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "653.v1", 0, 0x3d400, CRC(8870e0bb) SHA1(5f6f33c07f04bb00337cca6ee4db1cfa7beaa63e) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "653.c1", 0, 0x400000, CRC(71128701) SHA1(76ae8ef8f032621706cb39161f01ef7e747ceb70) )
@@ -4151,14 +4086,14 @@ ROM_END
 
 ROM_START( nyana )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "653a.p1", 0x000000, 0x80000, CRC(91bbcb56) SHA1(e35906e7ecf8735a4c16d9c1463674c4f29a8b9d) )
+	ROM_LOAD16_WORD_SWAP( "653a.p1", 0, 0x80000, CRC(91bbcb56) SHA1(e35906e7ecf8735a4c16d9c1463674c4f29a8b9d) )
 
 	NEO_SFIX_128K( "653.s1", CRC(2e7f15ec) SHA1(b41ac46ca2a81cf240dc6df4a80694ecebf65202) )
 
 	NEO_BIOS_AUDIO_128K( "653.m1", CRC(97b9a8e0) SHA1(161a06ac0a6d33a6b337a5c6ec65345cd10472e4) )
 
-	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "653.v1", 0x000000, 0x3d400, CRC(8870e0bb) SHA1(5f6f33c07f04bb00337cca6ee4db1cfa7beaa63e) )
+	ROM_REGION( 0x3d400, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "653.v1", 0, 0x3d400, CRC(8870e0bb) SHA1(5f6f33c07f04bb00337cca6ee4db1cfa7beaa63e) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "653.c1", 0, 0x400000, CRC(71128701) SHA1(76ae8ef8f032621706cb39161f01ef7e747ceb70) )
@@ -4169,19 +4104,19 @@ ROM_END
 // 657 : MVS Test 01 by Furrtek.
 ROM_START( test01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "657.p1", 0x000000, 0x080000, CRC(dd059433) SHA1(17cc7c48464d2d2a3d104f47e70a5f7cf3e19a5e) )
+	ROM_LOAD16_WORD_SWAP( "657.p1", 0, 0x80000, CRC(dd059433) SHA1(17cc7c48464d2d2a3d104f47e70a5f7cf3e19a5e) )
 
 	NEO_SFIX_128K( "052.s1", CRC(97689804) SHA1(fa8dab3b3353d7115a0368f3fc749950c0186fbc) )
 
 	NEO_BIOS_AUDIO_128K( "052.m1", CRC(49f17d2d) SHA1(70971fcf71ae3a6b2e26e7ade8063941fb178ae5) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "052.v1", 0x000000, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
+	ROM_LOAD( "052.v1", 0, 0x200000, CRC(22c097a5) SHA1(328c4e6db0a026f54a633cff1443a3f964a8daea) )
 
 	ROM_REGION( 0x600000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "052-c1.c1", 0x000000, 0x100000, CRC(53e1c002) SHA1(2125b1be379ea7933893ffb1cd65d6c4bf8b03bd) )
+	ROM_LOAD16_BYTE( "052-c1.c1", 0, 0x100000, CRC(53e1c002) SHA1(2125b1be379ea7933893ffb1cd65d6c4bf8b03bd) )
 	ROM_CONTINUE( 0x400000, 0x100000 )
-	ROM_LOAD16_BYTE( "052-c2.c2", 0x000001, 0x100000, CRC(776a2d1f) SHA1(bca0bac87443e9e78c623d284f6cc96cc9c9098f) )
+	ROM_LOAD16_BYTE( "052-c2.c2", 1, 0x100000, CRC(776a2d1f) SHA1(bca0bac87443e9e78c623d284f6cc96cc9c9098f) )
 	ROM_CONTINUE( 0x400001, 0x100000 )
 ROM_END
 
@@ -4193,7 +4128,7 @@ ROM_END
 // No sound.
 ROM_START( knacki )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "658.p1", 0x000000, 0x080000, CRC(56c0d270) SHA1(aebb3223e519f76e2abfa59f48626aa5e970ce4c) )
+	ROM_LOAD16_WORD_SWAP( "658.p1", 0, 0x80000, CRC(56c0d270) SHA1(aebb3223e519f76e2abfa59f48626aa5e970ce4c) )
 	ROM_COPY("maincpu",0x3e2, 0x3e4, 16) // move code so we can insert 5019
 	ROM_FILL(0x12d, 1, 0xf4) // jump to another rts as we are overwriting this one's destination
 	ROM_FILL(0x3e2, 1, 0x50) // insert 50
@@ -4205,12 +4140,12 @@ ROM_START( knacki )
 	NEO_BIOS_AUDIO_128K( "658.m1", CRC(183c234a) SHA1(366c875703ced09c460d1810aadb3cd2f2fcd067) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "658.v1", 0x000000, 0x200000, CRC(ad1d1925) SHA1(4fa973bd8d2793ef553ea4e536193d3b89027828) )
+	ROM_LOAD( "658.v1", 0, 0x200000, CRC(ad1d1925) SHA1(4fa973bd8d2793ef553ea4e536193d3b89027828) )
 
 	ROM_REGION( 0x600000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "658.c1", 0x000000, 0x100000, CRC(71dd4d25) SHA1(682671b55375dea8f86b25031320611a8c60326e) )
+	ROM_LOAD16_BYTE( "658.c1", 0, 0x100000, CRC(71dd4d25) SHA1(682671b55375dea8f86b25031320611a8c60326e) )
 	ROM_CONTINUE( 0x400000, 0x100000 )
-	ROM_LOAD16_BYTE( "658.c2", 0x000001, 0x100000, CRC(0deccb3d) SHA1(ee9d1e5d3efcea0545a6dae8cd28b913e6f106b6) )
+	ROM_LOAD16_BYTE( "658.c2", 1, 0x100000, CRC(0deccb3d) SHA1(ee9d1e5d3efcea0545a6dae8cd28b913e6f106b6) )
 	ROM_CONTINUE( 0x400001, 0x100000 )
 ROM_END
 
@@ -4218,14 +4153,14 @@ ROM_END
 // 669 : ADPCM-A Playback Demo by freem.
 ROM_START( pcmademo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "669.p1", 0x000000, 0x080000, CRC(a198ce30) SHA1(17b9ad5fe5136c0425823f49a65d428c544170c5) )
+	ROM_LOAD16_WORD_SWAP( "669.p1", 0, 0x80000, CRC(a198ce30) SHA1(17b9ad5fe5136c0425823f49a65d428c544170c5) )
 
 	NEO_SFIX_128K( "669.s1", CRC(c3dddf6e) SHA1(cce290e869ecbd52b7a7ed1e35c2c825450cc24c) )
 
 	NEO_BIOS_AUDIO_128K( "669.m1", CRC(1c667c87) SHA1(3bc2cb708aa9c4618d901da1f627ae719dee445d) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "669.v1", 0x000000, 0x80000, CRC(e7ef9bd8) SHA1(d5de1f63189b3a18382da81f02b20af68996ad7e) )
+	ROM_LOAD( "669.v1", 0, 0x80000, CRC(e7ef9bd8) SHA1(d5de1f63189b3a18382da81f02b20af68996ad7e) )
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
@@ -4238,14 +4173,14 @@ ROM_END
 // CRC(7b8abba4) SHA1(c492c468b34f0a7d57e2abd54d6057f3e470ee27) )
 ROM_START( pcmbdemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "670.p1", 0x000000, 0x080000, CRC(904e90ad) SHA1(1e13a81a2e0b1926d1745288e81dc51cd1ade5ac) )
+	ROM_LOAD16_WORD_SWAP( "670.p1", 0, 0x80000, CRC(904e90ad) SHA1(1e13a81a2e0b1926d1745288e81dc51cd1ade5ac) )
 
 	NEO_SFIX_128K( "670.s1", CRC(9647ff8a) SHA1(ecfaa4649d490fae1697e34cc5bbbc386ffa5ef6) )
 
 	NEO_BIOS_AUDIO_128K( "670.m1", CRC(df4acc0c) SHA1(9c2999312ede7a1a415fa151a9acc6c98e510bf0) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "670.v1", 0x000000, 0x80000, CRC(baffec3e) SHA1(58ec4b684220ea558ed7dea99dfed1d24c57e662) )
+	ROM_LOAD( "670.v1", 0, 0x80000, CRC(baffec3e) SHA1(58ec4b684220ea558ed7dea99dfed1d24c57e662) )
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
@@ -4256,18 +4191,18 @@ ROM_END
 // Bugs: The first time 5 is pressed, the game resets. After that it has no effect.
 ROM_START( snddemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "674.p1", 0x000000, 0x080000, CRC(fbb26284) SHA1(80837fb870e36360f2c8c4576d1b43f3feef3ff5) )
+	ROM_LOAD16_WORD_SWAP( "674.p1", 0, 0x80000, CRC(fbb26284) SHA1(80837fb870e36360f2c8c4576d1b43f3feef3ff5) )
 
 	NEO_SFIX_128K( "674.s1", CRC(a7a76e2a) SHA1(894194f43b0bb884cb6f392bb0c9d1284639e577) )
 
 	NEO_BIOS_AUDIO_64K( "674.m1", CRC(ba37ca7d) SHA1(4bb0897b74eadd7eb2782fcf2ae0a9897b9e8c8f) )
 
 	ROM_REGION( 0x10000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "674.v1", 0x000000, 0x10000, CRC(95101457) SHA1(81ca771f441edc01019b8c629709eccc746059ba) )
+	ROM_LOAD( "674.v1", 0, 0x10000, CRC(95101457) SHA1(81ca771f441edc01019b8c629709eccc746059ba) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "674.c1", 0, 0x080000, CRC(cad47785) SHA1(538c072417d849f33d1da3f61f98be4674c10762) )
-	ROM_LOAD16_BYTE( "674.c2", 1, 0x080000, CRC(c43d0953) SHA1(1ceb394b495f8a082452d50f78d2d7d8d1ec9a56) )
+	ROM_LOAD16_BYTE( "674.c1", 0, 0x80000, CRC(cad47785) SHA1(538c072417d849f33d1da3f61f98be4674c10762) )
+	ROM_LOAD16_BYTE( "674.c2", 1, 0x80000, CRC(c43d0953) SHA1(1ceb394b495f8a082452d50f78d2d7d8d1ec9a56) )
 ROM_END
 
 
@@ -4275,7 +4210,7 @@ ROM_END
 // No sound.
 ROM_START( didemo )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "677.p1", 0x000000, 0x200000, CRC(732691f4) SHA1(40bddb4e636799f77b85a5b46fd9c90f9e125dce) )
+	ROM_LOAD16_WORD_SWAP( "677.p1", 0, 0x200000, CRC(732691f4) SHA1(40bddb4e636799f77b85a5b46fd9c90f9e125dce) )
 
 	NEO_SFIX_MT_128K
 
@@ -4300,9 +4235,9 @@ ROM_START(akiradmo)
 	NEO_BIOS_AUDIO_128K( "678.m1", CRC(37d8cb43) SHA1(b89baa6f41aefad57fb546fd1135506538ab9099) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", ROMREGION_ERASEFF )
-	ROM_LOAD( "678.v1", 0x000000, 0x100000, CRC(148c5203) SHA1(8ddbfeeac4493f6e6ed7df834fcf1f0cede42ac3) )
+	ROM_LOAD( "678.v1", 0, 0x100000, CRC(148c5203) SHA1(8ddbfeeac4493f6e6ed7df834fcf1f0cede42ac3) )
 
-	ROM_REGION( 0xc00000, "sprites", 0 )
+	ROM_REGION( 0xc00000, "sprites", ROMREGION_ERASE00 )
 	ROM_LOAD( "678.c1", 0x000000, 0x34c700, CRC(84eba506) SHA1(a771cbc5efe7b61114db6b7f776b5ab93f09b2bc) )
 	ROM_LOAD( "678.c2", 0x400000, 0x2e0400, CRC(a731451c) SHA1(aae521c38430a2797c7a60d970a0179673f05215) )
 	ROM_LOAD( "678.c3", 0x800000, 0x249a80, CRC(87b2a616) SHA1(915d5c7bf832b725a3678b3735790f503dd34f48) )
@@ -4313,14 +4248,14 @@ ROM_END
 // No sound. No text. This is a beta, much earlier than the one shown on youtube.
 ROM_START( ngtd2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "680.p1", 0x000000, 0x100000, CRC(35131b60) SHA1(74877b4f1bdbba712b04afdf65bede1d30f846b0) )
+	ROM_LOAD16_WORD_SWAP( "680.p1", 0, 0x100000, CRC(35131b60) SHA1(74877b4f1bdbba712b04afdf65bede1d30f846b0) )
 
 	NEO_SFIX_64K( "680.s1", CRC(9a246f50) SHA1(1f1358dd9c2f88d2197d6c8272ec899b7c9a524b) )
 
 	NEO_BIOS_AUDIO_128K( "680.m1", CRC(5ef0d5eb) SHA1(a327d6a88f3c7ccd242fceaffb3ef33a0171c215) ) // bad code
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "680.v1", 0x000000, 0x100000, CRC(5ea51b63) SHA1(62126f407175cd7bf44fb5acc1df12fbc0e23df6) )
+	ROM_LOAD( "680.v1", 0, 0x100000, CRC(5ea51b63) SHA1(62126f407175cd7bf44fb5acc1df12fbc0e23df6) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "680.c1", 0, 0x100000, CRC(0ecfa2ba) SHA1(a5a7cbd3b79260f8cc99992067df315b20ae6741) )
@@ -4333,17 +4268,17 @@ ROM_END
 // Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
 ROM_START( lernit )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "682.p1", 0x000000, 0x00b6f1, CRC(63d5cf31) SHA1(331a65cec376b0c780ec506001b59f74cccbd5a3) )
+	ROM_LOAD( "682.p1", 0, 0xb6f1, CRC(63d5cf31) SHA1(331a65cec376b0c780ec506001b59f74cccbd5a3) )
 
 	NEO_SFIX_128K( "681.s1", CRC(e3ab9cde) SHA1(c438deaef29a705f5aa62116ad206ecec4bec282) )
 
 	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+	ROM_LOAD( "098.v1", 0, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
 
-	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD( "682.c1", 0, 0x047e80, CRC(5e85884b) SHA1(7d7ba5718cddc582f7f2ec20ed8e46e5800589a6) )
+	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD( "682.c1", 0, 0x47e80, CRC(5e85884b) SHA1(7d7ba5718cddc582f7f2ec20ed8e46e5800589a6) )
 ROM_END
 
 
@@ -4352,25 +4287,25 @@ ROM_END
 // Supplied m1 is actually 071.s1 (yes, s1) from b2b. Used a real m1.
 ROM_START( samantha )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "683.p1", 0x000000, 0x035651, CRC(709fc946) SHA1(b9190e74ab626a1cdae6c220767e87ad5ddaed53) )
+	ROM_LOAD( "683.p1", 0, 0x35651, CRC(709fc946) SHA1(b9190e74ab626a1cdae6c220767e87ad5ddaed53) )
 
 	NEO_SFIX_128K( "683.s1", CRC(2f6c5cff) SHA1(5c429af7b1f1204f961472ba93eee55e68c8c739) )
 
 	NEO_BIOS_AUDIO_128K( "098.m1", CRC(da4878cf) SHA1(ce13d18a4c5d01974df8542c67c4df00dbc6e7c1) )
 
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "098.v1", 0x000000, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
+	ROM_LOAD( "098.v1", 0, 0x100000, CRC(6f8ccddc) SHA1(696df2d0f416c2374b0eb7c858486054688c5bca) )
 
-	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD( "683.c1", 0, 0x0a7000, CRC(d302cab0) SHA1(fa558640fea8c85d7416d74a604a59169447a944) )
+	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD( "683.c1", 0, 0xa7000, CRC(d302cab0) SHA1(fa558640fea8c85d7416d74a604a59169447a944) )
 ROM_END
 
 
 // 687 : Double Dragon SpritePool Demo by Vasily Familiya
 ROM_START( ddsprdmo )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "687.p1", 0x000000, 0x0062bf, CRC(ad865bda) SHA1(10b83b3d90094fc0a1cdec3398c406d741871bac) )
-	ROM_LOAD( "687.p2", 0x100000, 0x01e190, CRC(2decf0cf) SHA1(73a3b36edaef65ea0936dba7d2556bd06b74cb2c) )
+	ROM_LOAD( "687.p1", 0x000000, 0x062bf, CRC(ad865bda) SHA1(10b83b3d90094fc0a1cdec3398c406d741871bac) )
+	ROM_LOAD( "687.p2", 0x100000, 0x1e190, CRC(2decf0cf) SHA1(73a3b36edaef65ea0936dba7d2556bd06b74cb2c) )
 
 	NEO_SFIX_128K( "684.s1", CRC(b7070d6f) SHA1(546934c53d854347e4812bbfb014d3c58284da73) )
 
@@ -4382,39 +4317,38 @@ ROM_START( ddsprdmo )
 	ROM_LOAD( "687.v3", 0x200000, 0x100000, CRC(c37bb043) SHA1(6fcfeccad763a91c07ce7e2ab8ef5efd4aa7bda9) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD( "687.c1", 0, 0x0b8d00, CRC(1f508463) SHA1(d77c758729b7792d14ddec344a96dd4a07cba023) )
+	ROM_LOAD( "687.c1", 0, 0xb8d00, CRC(1f508463) SHA1(d77c758729b7792d14ddec344a96dd4a07cba023) )
 ROM_END
 
 
 // 690 : Casanova She And She (Girl X Girl) Demo by Vasily Familiya
 ROM_START( gxg )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "690.p1", 0x000000, 0x027a7e, CRC(caf04493) SHA1(6b97dfd861e05762e31c3496bbc18d014ff3d98f) )
+	ROM_LOAD( "690.p1", 0, 0x27a7e, CRC(caf04493) SHA1(6b97dfd861e05762e31c3496bbc18d014ff3d98f) )
 
 	NEO_SFIX_128K( "690.s1", CRC(b386f0e0) SHA1(113dd36cb710403b58b9eb860b7abc9f04ef5348) )
 
 	NEO_BIOS_AUDIO_64K( "690.m1", CRC(5bb91b91) SHA1(5a96d09808fe709a0bd07681c13a3be70e3fb685) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "690.v1", 0x000000, 0x800000, CRC(61f5a37f) SHA1(870d25530898c5de5f1f93e673fc9490f594d57c) )
+	ROM_LOAD( "690.v1", 0, 0x800000, CRC(61f5a37f) SHA1(870d25530898c5de5f1f93e673fc9490f594d57c) )
 
-	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD( "690.c1", 0, 0x086780, CRC(e0dbb8cc) SHA1(26963461716cc45cc2fab4fa820ae292ee82afb9) )
+	ROM_REGION( 0x400000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD( "690.c1", 0, 0x86780, CRC(e0dbb8cc) SHA1(26963461716cc45cc2fab4fa820ae292ee82afb9) )
 ROM_END
 
 
 // 777 : SDK Demo (v1.7.0) by Eagle Software
-// No Sound
 ROM_START( sdkdemo )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "777.p1", 0x000000, 0x80000, CRC(bb24b668) SHA1(32e9cf74514c4776f6fcabe39e1844892e863337) )
+	ROM_LOAD16_WORD_SWAP( "777.p1", 0, 0x80000, CRC(bb24b668) SHA1(32e9cf74514c4776f6fcabe39e1844892e863337) )
 
 	NEO_SFIX_128K( "777.s1", CRC(375809b8) SHA1(8e66116eeb64654ef5617b982cd5725d084653a1) )
 
 	NEO_BIOS_AUDIO_128K( "777.m1", CRC(7fca1d07) SHA1(5cfd435161de15397535896dcabd34edae88eb45) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "777.v1", 0x000000, 0x708700, CRC(bb2f8632) SHA1(eb1b4bfccda6da4aa753c8da6acba00c2296282a) )
+	ROM_REGION( 0x708700, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "777.v1", 0, 0x708700, CRC(bb2f8632) SHA1(eb1b4bfccda6da4aa753c8da6acba00c2296282a) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "777.c1", 0, 0x800000, CRC(b61b6077) SHA1(f044b00d6d90ce192d5b2aac450b7bb151163ae3) )
@@ -4422,125 +4356,125 @@ ROM_START( sdkdemo )
 ROM_END
 
 
-// 779: Sky Lance (v2) by Eagle Software
+// 779: Sky Lance (v2.1.1) by Eagle Software
 ROM_START( skylance )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "779.p1", 0x000000, 0x80000, CRC(ae68c9a1) SHA1(155475e9dad4d970e738c4f10d293818d4ce7bae) )
+	ROM_LOAD16_WORD_SWAP( "779.p1", 0, 0x80000, CRC(37407333) SHA1(b01ff4f74e5c06825e9d6b293dce1340f2ee98e8) )
 
 	NEO_SFIX_128K( "779.s1", CRC(bd69c9ff) SHA1(e0694292073549d50cbcb1e02f853c3122805bff) )
 
-	NEO_BIOS_AUDIO_128K( "779.m1", CRC(cb88d068) SHA1(074a5a4be1e2bbb296709937053a3bd52b79a4c5) )
+	NEO_BIOS_AUDIO_128K( "779.m1", CRC(a90b6479) SHA1(723cff77d5e70e2b8936847423b4fab71ab0b494) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "779.v1", 0x000000, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
+	ROM_REGION( 0x455f00, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "779.v1", 0, 0x455f00, CRC(897c1fbc) SHA1(7c539a98a9c95cf4eccda2e5f432a42628af4102) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "779.c1", 0, 0x400000, CRC(e80e7df9) SHA1(f3234d43b9c78630f4100d30e79820ba48a20969) )
-	ROM_LOAD16_BYTE( "779.c2", 1, 0x400000, CRC(0668da32) SHA1(216fc99e3929dd6d6f08196546aa900000d17248) )
+	ROM_LOAD16_BYTE( "779.c1", 0, 0x400000, CRC(c1a3ebfd) SHA1(96f152f24e457e2b227560de67ab0ba598c4e060) )
+	ROM_LOAD16_BYTE( "779.c2", 1, 0x400000, CRC(75a51449) SHA1(65fb4f78d942e54f176addcb838a135036fc3728) )
 ROM_END
 
 
-// 780: Maiya (v4) by Eagle Software
+// 780: Maiya (v4.1.0) by Eagle Software
 ROM_START( maiya )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "780.p1", 0x000000, 0x80000, CRC(5fe28a51) SHA1(2d1481933b0ba9a9f0f0e48e6e046cdabbd79b35) )
+	ROM_LOAD16_WORD_SWAP( "780.p1", 0, 0x80000, CRC(dea0d97d) SHA1(367e0a65d34c5a79595a82f9d7a14b5be5eb8419) )
 
-	NEO_SFIX_128K( "780.s1", CRC(5c7951e1) SHA1(b0a45c2085b5ef49f7a197bf403f103be2f21f4f) )
+	NEO_SFIX_128K( "780.s1", CRC(07999a92) SHA1(60b133bee92ba491e57235642f1469f93d005c20) )
 
-	NEO_BIOS_AUDIO_128K( "780.m1", CRC(ce7717bd) SHA1(66f3ef28d76104adeed931bc2f6b65a5f5e4c4e8) )
+	NEO_BIOS_AUDIO_128K( "780.m1", CRC(0f629a39) SHA1(8d82b1976d25636f13cf127bce81348f7882db48) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "780.v1", 0x000000, 0x79ab00, CRC(127b89b4) SHA1(8ec212c59da5e650ed6978cf358e24220b5d33c3) )
+	ROM_REGION( 0x79ac00, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "780.v1", 0, 0x79ac00, CRC(da7df961) SHA1(c73381d804d572c65219bc5e73639ca32a4919c9) )
 
 	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "780.c1", 0, 0x400000, CRC(48638505) SHA1(b2517c2a09efe0b196335c616ba3b2f13969f052) )
-	ROM_LOAD16_BYTE( "780.c2", 1, 0x400000, CRC(66a5c0e2) SHA1(9f3d77f2284925c82d8e26f725243083a73d6d92) )
+	ROM_LOAD16_BYTE( "780.c1", 0, 0x400000, CRC(131fc3fc) SHA1(80de27f5e2a2efd86163048dc2af8a4e04bae868) )
+	ROM_LOAD16_BYTE( "780.c2", 1, 0x400000, CRC(55a6ddcf) SHA1(443264b01d92e49cfe77d0ab02238883c6a7594d) )
 ROM_END
 
 
-// 781: Shadow League Fighting (v3) by Eagle Software
+// 781: Shadow League Fighting (v3.3.2) by Eagle Software
 ROM_START( shadowlf )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "781.p1", 0x000000, 0x300000, CRC(20a6ea2d) SHA1(5aa5e1a9a3a84adb9d6c10cede58794f70ba68e1) )
+	ROM_LOAD16_WORD_SWAP( "781.p1", 0, 0x300000, CRC(6ea6d3d7) SHA1(98731b460b8dd8122807c264465fbe5b4ae7e250) )
 
-	NEO_SFIX_128K( "781.s1", CRC(636d9736) SHA1(81472c10d87a63717617c79dbb89eadc7f6c6a7f) )
+	NEO_SFIX_128K( "781.s1", CRC(00d14585) SHA1(eff54a1ca2854bceb68ec40dd587a89084f73c7b) )
 
-	NEO_BIOS_AUDIO_128K( "781.m1", CRC(ceabdb57) SHA1(f59d59155c52ebc177933ab9d4c9a26f499946d5) )
+	NEO_BIOS_AUDIO_128K( "781.m1", CRC(ff00178f) SHA1(69e8e14920d0dd24e9f6cc41e4889c7436e4cab1) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "781.v1", 0x000000, 0x79c100, CRC(63c1b4e6) SHA1(718aa37a1c3754fb62196ddb121a00c323bc8533) )
+	ROM_REGION( 0x9a7100, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "781.v1", 0, 0x9a7100, CRC(a58dbef4) SHA1(61a9536b1bf8599504648ebb2afbe8aa019ade92) )
 
-	ROM_REGION( 0x1000000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "781.c1", 0, 0x800000, CRC(a8420eed) SHA1(0a4e257d9db251e002bd7a5549bed60a5fe0cc59) )
-	ROM_LOAD16_BYTE( "781.c2", 1, 0x800000, CRC(efd2b313) SHA1(62297ffc0737b30436aa7578e2a3d716a7535d84) )
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "781.c1", 0, 0x1000000, CRC(ae6501d5) SHA1(0488e185e6d28e34bcd0f5bd0ebeb04b9f562faa) )
+	ROM_LOAD16_BYTE( "781.c2", 1, 0x1000000, CRC(bb93cb6c) SHA1(d8c27198f9e032028b3a158ee166cee169838199) )
 ROM_END
 
 
-// 782 : Seven Wonders Puzzles (v1) by Eagle Software
+// 782 : Seven Wonders Puzzles (v1.0.2) by Eagle Software
 ROM_START( 7wonders )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "782.p1", 0x000000, 0x80000, CRC(30264e7a) SHA1(d51f7fbde1af28c4881cbd3dc026fb2b6a3e1c8b) )
+	ROM_LOAD16_WORD_SWAP( "782.p1", 0, 0x80000, CRC(940645d5) SHA1(633b08b6f43fae75e5faf82c6575e530d6dae22c) )
 
-	NEO_SFIX_128K( "782.s1", CRC(eb99e197) SHA1(a5a393c0500a3e0c8a03a4bff614e23e66c57804) )
+	NEO_SFIX_128K( "782.s1", CRC(ba1031c2) SHA1(f8db5fe1854761beea03df281331c09a0384e8f4) )
 
-	NEO_BIOS_AUDIO_128K( "782.m1", CRC(a8031d28) SHA1(3ff4f7a43961f1952f499ac55c5e903dc4fa7eaa) )
+	NEO_BIOS_AUDIO_128K( "782.m1", CRC(d8b445f0) SHA1(91f9c0bb773b6b8ae0f63e3d8d2180b65a5bdbd2) )
 
-	ROM_REGION( 0x400000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "782.v1", 0x000000, 0x324400, CRC(afec46cd) SHA1(274b9b049ce8285afb8def6b0e302e7a5885e4d9) )
+	ROM_REGION( 0x39f000, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "782.v1", 0, 0x39f000, CRC(565b83c5) SHA1(d09b6e7ea4f8ca13a9be60a6d5df33bf672e1040) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "782.c1", 0, 0x400000, CRC(20efee4b) SHA1(cd81a92fb029aebc040a87b4c7d6f257bff954a4) )
-	ROM_LOAD16_BYTE( "782.c2", 1, 0x400000, CRC(2e56f9b5) SHA1(f3b0ba4d319fcb49a03d89b7182d469685cd1e1b) )
+	ROM_LOAD16_BYTE( "782.c1", 0, 0x400000, CRC(d77a28cd) SHA1(33a816e9f0e099146e84518ee826587316bad204) )
+	ROM_LOAD16_BYTE( "782.c2", 1, 0x400000, CRC(274b42d0) SHA1(50b09325593d07ef2533a8f1ca30c9e9c84cb6ab) )
 ROM_END
 
 
-// 783 : Maiya and Luna (v1) by Eagle Software
+// 783 : Maiya and Luna (v2.0.2) by Eagle Software
 ROM_START( maiyaluna )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "783.p1", 0x000000, 0x80000, CRC(dda3c6e9) SHA1(60dfea90600b4ce6702b24f2ca1782b3e804bebd) )
+	ROM_LOAD16_WORD_SWAP( "783.p1", 0, 0x80000, CRC(15d8fdd3) SHA1(03b564997c06604396c461746504e1aa5e0a0d72) )
 
 	NEO_SFIX_128K( "783.s1", CRC(74a73a67) SHA1(3046b5ef0309239297521ca5c5ec82d9081d9865) )
 
-	NEO_BIOS_AUDIO_128K( "783.m1", CRC(f8436258) SHA1(6ce3894e89a59cca4c5af8c656ba9eb4e0ca0941) )
+	NEO_BIOS_AUDIO_128K( "783.m1", CRC(b291e256) SHA1(646eaba9b13e227c2e9066ca9e9671e41d31f36e) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "783.v1", 0x000000, 0x76c400, CRC(0518d9fc) SHA1(b328636be66f6aedd5fcc5b48a59434858201163) )
+	ROM_REGION( 0x76c400, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "783.v1", 0, 0x76c400, CRC(0518d9fc) SHA1(b328636be66f6aedd5fcc5b48a59434858201163) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "783.c1", 0, 0x400000, CRC(cd2c43bb) SHA1(cba8d7ca848393919ddd0233eca849623ccd8d30) )
-	ROM_LOAD16_BYTE( "783.c2", 1, 0x400000, CRC(60b12724) SHA1(b28f2710d55bbf9162c7197b7967d356964c3a15) )
+	ROM_LOAD16_BYTE( "783.c1", 0, 0x400000, CRC(b73a67ac) SHA1(3dcc38dc7dd22462a80209e1c22fee704cd44f82) )
+	ROM_LOAD16_BYTE( "783.c2", 1, 0x400000, CRC(9707b70a) SHA1(33f0ea6b4d94dfd40643a49df347fa2058f2a2f9) )
 ROM_END
 
 
-// 784 : No Signal Z Alpha (v1) by Eagle Software
+// 784 : No Signal Z Alpha (v3.0.1) by Eagle Software
 ROM_START( nosignal )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "784.p1", 0x000000, 0x80000, CRC(3c898fec) SHA1(2ed2070951df80b195ecea3c716412fb4d9a16a2) )
+	ROM_LOAD16_WORD_SWAP( "784.p1", 0, 0x80000, CRC(1d6039d6) SHA1(2b4b741c8212c075a87d57111c6e11d2fe0de5ae) )
 
-	NEO_SFIX_128K( "784.s1", CRC(fb90dfcc) SHA1(542820e191a41c407affd1a267f7be62ac0e5508) )
+	NEO_SFIX_128K( "784.s1", CRC(9f97dd8c) SHA1(7d1798a99b93330850f34ae63db6bae91d781e80) )
 
-	NEO_BIOS_AUDIO_128K( "784.m1", CRC(f9cc515e) SHA1(1a32c447887b2bf80c7c6a8b8c92b7ce868dfd1f) )
+	NEO_BIOS_AUDIO_128K( "784.m1", CRC(2a611d71) SHA1(71e6a2d9cf0d9ac67ca1c9bf034c18cd6747927a) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "784.v1", 0x000000, 0x5bdb00, CRC(d57dbcf8) SHA1(8c9760d6141952ddd3be543c6869b4308088d78d) )
+	ROM_REGION( 0x5bc900, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "784.v1", 0, 0x5bc900, CRC(14b1eaa1) SHA1(cbc57efbbfb36dc803fb1d307364f7db3e349019) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "784.c1", 0, 0x400000, CRC(814b6a0d) SHA1(b53aa3a93092d43d1e418d4ab9b787ac816bb423) )
-	ROM_LOAD16_BYTE( "784.c2", 1, 0x400000, CRC(3f67cee5) SHA1(591f0e7dfd29c00d29434d2604c6d4d867071355) )
+	ROM_LOAD16_BYTE( "784.c1", 0, 0x400000, CRC(91d38b2c) SHA1(bd322a352f91e6ad522e5f9d4ecfb66ac4218b15) )
+	ROM_LOAD16_BYTE( "784.c2", 1, 0x400000, CRC(1e73b533) SHA1(f7409b14a7570627339d6ba70b064a569c566cdc) )
 ROM_END
 
 
-// 785 : Mahjong Demo (v1) by Eagle Software
+// 785 : Mahjong Demo (v1.0.1) by Eagle Software
 ROM_START( mahjongd )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "785.p1", 0x000000, 0x80000, CRC(c88f560f) SHA1(66675304e79830014cbaf8b287d05a1884506fb4) )
+	ROM_LOAD16_WORD_SWAP( "785.p1", 0, 0x80000, CRC(4408262b) SHA1(69256e51db59496d3286db954930a39fdcc92195) )
 
 	NEO_SFIX_128K( "785.s1", CRC(fa8680fe) SHA1(b15c9960b777e6c235d84e08066c19c2492948b2) )
 
-	NEO_BIOS_AUDIO_128K( "785.m1", CRC(a227f905) SHA1(1c1a9332380cee7fb29e0c6bb205f26b809a7200) )
+	NEO_BIOS_AUDIO_128K( "785.m1", CRC(7ff60c6e) SHA1(dc9e0eade89663cbf40685ca9a0f51edfe4a2e1f) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
-	ROM_LOAD( "785.v1", 0x000000, 0x200000, CRC(f04d0f8d) SHA1(276f8a8e420e8e5d5418c887abaf0b6dc3c23eed) )
+	ROM_LOAD( "785.v1", 0, 0x200000, CRC(f04d0f8d) SHA1(276f8a8e420e8e5d5418c887abaf0b6dc3c23eed) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "785.c1", 0, 0x400000, CRC(96cd3e55) SHA1(372e185127b3d3f7fb20ef4ffaaf24ee30a09980) )
@@ -4548,214 +4482,234 @@ ROM_START( mahjongd )
 ROM_END
 
 
-GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, adkw,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, cbarrel,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, csw2,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (full CD music)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, csw2s01,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (update)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2s01,       fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2s02,       fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, fr2s03,       fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Idol Mahjong Final Romance 2 (with music)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, yoyoshkn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dr Ludos", "Yo-Yo Shuriken", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, zintrick01,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, zintrick02,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, zintrick03,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, zintrick04,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, zintrick05,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, zintrick06,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks, old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, zintrick07,   zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks)", MACHINE_SUPPORTS_SAVE )
+// 787 : Century XI (v4.0.0) by Eagle Software
+ROM_START( centuryxi )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "787.p1", 0, 0x80000, CRC(123d1197) SHA1(2816ab7f80cf51cea0c06b88a954b95a4861a133) )
 
-GAME( 2023, 68kng,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dekadence", "68k Inside intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, 7wonders,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Seven Wonders Puzzles (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, 240ptest1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, altbeastn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Altered Beast (Neo-Geo port, v1.3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, amazonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Soldier Girl Amazon (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, arena2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Delarfab", "Arena 2", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, baddudesn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Bad Dudes vs Dragonninja Burger Edition demo (2025-06-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, bbb2d1,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, bbb2d2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo-Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2026, blueandr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kaiju Wasp", "Blue and Red Fight the Robots v1.7", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, bubbleopen,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neslou", "Bubble Open (demo 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, cabaln,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, cabaln01,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cabaln02,     cabaln,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
-//GAME( 2024, chelnovn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "Atomic Runner Chelnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cosmogngn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, beta-0.2.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, cyborg,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, doomgeo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Doom Geo demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, doubled1,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-09-16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, flapchck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Flappy Chicken (2023-04-30)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, foodfn,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Food Fight (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, freedoom,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Freedoom demo (v0.13.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, galaxiann2,   galaxiann,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, gladmort,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart / ChipsOnSteroids", "Gladmort", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, gladmortcm,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart / ChipsOnSteroids", "Gladmort (Caravan Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, gladmortd2,   gladmortd,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, goldaxen,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, grime,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime 68000", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, halozero,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Earok", "Halo Zero demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2026, hangonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Hang On (Neo-Geo port, v2.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, hypernoid01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Nov 2020)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, jumpnrund01,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Dez 2020)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (CD conversion 2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "NG:DEV.TEAM", "Last Hope JP NGCD (Beta v0.52)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2026, lhpb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "=LoW=", "Last Hope (Pink Bullets, hack, v1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, lhpb01,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "=LoW=", "Last Hope (Pink Bullets, hack, v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, mahjongd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Mahjong Demo (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, maiya,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, maiyaluna,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, midnight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, neo2048,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Nicole Branagan", "Neo 2048", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal1,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R001", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal1d,     neogal1,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R001 (debug)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal1t,     neogal1,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R001 (text)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neogal2,      neogal1,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R002", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neonopon,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (V.0.2, 2002-10-05)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neonopon_d1,  neonopon, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (demo 1, 2002-07-07)", MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neonopon_d2,  neonopon, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (demo 2, 2002-07-07)", MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neonopon_d3,  neonopon, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (demo 3, 2002-08-22)", MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2010, neopang,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "Neo Pang", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, neopl,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "Blastar", "Neo Puzzle League (from CD)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, neopong,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neodev", "Neo Pong (v1.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+	NEO_SFIX_128K( "787.s1", CRC(fc83bf13) SHA1(aee95bed36cca437b292142946fa226ce9a5bc58) )
+
+	NEO_BIOS_AUDIO_128K( "787.m1", CRC(4a077d51) SHA1(5b3a57ca8da4d27541dd788b69bf0830e73d226a) )
+
+	ROM_REGION( 0x73bf00, "ymsnd:adpcma", ROMREGION_ERASE00 )
+	ROM_LOAD( "787.v1", 0, 0x73bf00, CRC(18ecd70b) SHA1(c91f851bfbeed6dd7225d2068b4fe9353eb6ed28) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "787.c1", 0, 0x400000, CRC(6f2011b2) SHA1(34eb9ff7e09a477eba2c85ae8ffe35e5029f486d) )
+	ROM_LOAD16_BYTE( "787.c2", 1, 0x400000, CRC(907bc964) SHA1(0edb2b0d3d3c091f5684a87fbd4a97babc448034) )
+ROM_END
+
+// commercial
+GAME( 2022, 19yy,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, 19yy01,       19yy,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, adkw,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ADK World", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cakefght,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cakefght1,    cakefght, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[ADK]/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, cbarrel,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, csw2,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (full CD music)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, csw2s01,      csw2,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (update)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, csw2s02,      csw2,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo-Alec", "Crossed Swords 2 (Reconstructed Cartridge Music)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, fr2,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, fr2s03,       fr2,      neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Idol Mahjong Final Romance 2 (with music)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, lhbb,         lasthope, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, lhpb,         lasthope, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "=LoW=", "Last Hope (Pink Bullets, hack, v1.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, totc,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, yoyoshkn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Dr Ludos", "Yo-Yo Shuriken", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, zintrick05,   zintrckb, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, zintrick07,   zintrckb, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "ZinTricK (Music tracks)", MACHINE_SUPPORTS_SAVE )
+
+// ports
+GAME( 2026, altbeastn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Altered Beast (Neo-Geo port, v1.3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, atetrisn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Atari Tetris (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, amazonn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Soldier Girl Amazon (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, cabaln,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, cabaln01,     cabaln,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cabaln02,     cabaln,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, columnsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, columnsncd,   columnsn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cosmogngn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.1.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, dinon,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Cadillacs and Dinosaurs (Neo-Geo port, test-47)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffightn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Vendza", "Final Fight Neo (beta-1.0.9)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, foodfn,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Food Fight (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, galaxiann,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, galaxiann2,   galaxiann,neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, galpanicn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Format-c", "Gals Panic (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, goldaxen,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Golden Axe (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, hangonn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Hang On (Neo-Geo port, v2.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, horekidb3,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "iq_132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, inthuntn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, karnovn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, knightsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, v1.1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, kodn,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mysticrin,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Mystic Riders (Neo-Geo port, beta-0.3.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, nblktiger,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "Neo Black Tiger", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, outrunn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, v1.0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, paprium,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Happy-Ferret", "Paprium Vertical Slice (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, polepos2n,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Pole Position II (Neo-Geo port, v1.0.0)", MACHINE_SUPPORTS_SAVE )
+//GAME( 2026, prehislen,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "F.C Team", "Prehistoric Isle in 1930 (Neo-Geo port, demo-v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, robocopn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, rtypen,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "R-Type (Neo-Geo port, v1.2.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, shdancern,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Shadow Dancer (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, smbn,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, snowbrosn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.4.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sotbn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssodan,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta-0.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ssridersn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, beta-0.8.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, tmntn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arcade Perfect Ports", "Teenage Mutant Ninja Turtles (Neo-Geo port, v1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, vssmbn,       smbn,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wboyn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Wonder Boy (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wrallyn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arkretro", "World Rally (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, xeviousn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (Neo-Geo port, beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, xeviousn01,   xeviousn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, xeviousn02,   xeviousn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, xeviousn03,   xeviousn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, xeviousn04,   xeviousn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, xeviousn05,   xeviousn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT270, "pierpa86", "Xevious (Neo-Geo port, gfx fix)", MACHINE_SUPPORTS_SAVE )
+
+// homebrew
+GAME( 2026, 1stdef,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "The SEGA Shop", "1st Defence: The Last Upgrade", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, 68kng,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Dekadence", "68k Inside intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, 7wonders,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Seven Wonders Puzzles (v1.0.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, 240ptest,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, 240ptest1,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, abyssal,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, abyssal1,     abyssal,  neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, akiradmo,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, arena2,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Delarfab", "Arena 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, asteborg,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neofid Studio", "Demons of Asteborg DX (demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, badapple,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, badapplea,    badapple, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, badappleb,    badapple, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, baddudesn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Bad Dudes vs Dragonninja Burger Edition demo (2025-06-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, bbb2d1,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, bbb2d2,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Bang Bang Busters 2 (demo 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, beast,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo-Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2026, blueandr,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Kaiju Wasp", "Blue and Red Fight the Robots v1.7", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, bonusstage,   neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, bpanicdx,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, bubbleopen,   neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neslou", "Bubble Open (demo 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, caravan,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, centuryxi,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Century XI: The Road to 2030 (v4.0.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cheshire,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Happy-Ferret", "Cheshire 4 Console (demo, v0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, cnbe,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, cnbe2018,     cnbe,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, cndi,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, cndia,        cndi,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, cphd,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, cyborg,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, cyborg1,      cyborg,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, ddsprdmo,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, didemo,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, doomgeo,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Doom Geo demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, doubled1,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-09-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dti,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dtia,         dti,      neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dwi,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dwia,         dwi,      neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, ffeast,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast (Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ffeastd,      ffeast,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, flapchck,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Flappy Chicken (2023-04-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, freedoom,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Freedoom demo (v0.13.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, gbi,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, gladmort,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart / ChipsOnSteroids", "Gladmort", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, gladmortcm,   neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart / ChipsOnSteroids", "Gladmort (Caravan Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, gladmortd,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, gladmortd2,   gladmortd,neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, grime,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ChibiAkumas", "Grime 68000", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, gxg,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, halozero,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Earok", "Halo Zero demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2021, hypernoid,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, hypernoid01,  neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2022-02-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, iocero,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, jimpower,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Jim Power (Neo-Geo port, v1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, jumpnrund,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Nov 2020)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, jumpnrund01,  neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo (Dez 2020)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, jurl,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, knightsch,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, lernit,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2021, looptris,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, looptrsp,     looptris, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ltorb,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, knacki,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mahjongd,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Mahjong Demo (v1.0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiya,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya Super Nature Girl (v4.1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, maiyaluna,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Maiya & Luna (v2.0.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, midnight,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Midnight Wanderers 2-level demo (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, ndo_a_td,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, neo2500,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, neo2048,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Nicole Branagan", "Neo 2048", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, neo3d,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, neocstlv,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2003, neodemo,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal1,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R001", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal1d,     neogal1,  neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R001 (debug)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal1t,     neogal1,  neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R001 (text)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neogal2,      neogal1,  neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Cristiano Bei", "NeoGeo Galaga Demo R002", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neonopon,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo No Panepon (V.0.2, 2002-10-05)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2010, neopang,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "Neo Pang", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, neopl,        neogeo,   neogeo,          neogeo,  neogeo_state, init_cdc,      ROT0, "Blastar", "Neo Puzzle League (from CD)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, neopong,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neodev", "Neo Pong (v1.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, neoponga,     neopong,  no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "Neodev", "Neo Pong (v1.0)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2010, neoromjb,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "Neo Rom Jukebox", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, neotest,      neogal1,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "NeoGeo Sound Test", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, neothund,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, neotrisd1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 1", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, neotrisd2,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 2", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, neotrisd3,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 3", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, nblktiger,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "Neo Black Tiger", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2021, ng4ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "4 Player Multitab Test (from CD)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, ng4psyschk,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "MVS 4P Key System Check", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta, 2006-01-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test v1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, ngmontst3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test v1.3", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Crim/Stephen", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, ngym2610,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NeoGeo YM2610 Test", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, nosignal,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "No Signal Z Alpha (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, nsmb,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, nsmbd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, outrunn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, beta-0.3.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, perfectf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
-//GAME( 2025, pown,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq_132", "P.O.W. (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, rickdx,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Rick Dangerous DX", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, robocopn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Robocop (Neo-Geo port, v9)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sdkdemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "SDK Demo (v1.7.0)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, sgz,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Shadow Gangs", "Shadow Gangs Zero (kick demo v2.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, shadowlf,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, shinobin,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.0 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, shinobin1,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.1 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, shinobint,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi Test (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, skylance,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Sky Lance (v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, smbn,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, snowbrosn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Snow Bros (Neo-Geo port, v1.0.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sotbn,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, spkick2,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ssodan,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta 0.5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, syscheck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, teot_1,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, teot_2,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo 2, 2021-02-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, teot_3,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, alpha 5, 2021-05-16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_4,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta, 2022-01-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_5,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_6,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_7,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_8,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_9,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 6, 2022-07-06)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 7, 2022-07-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, test01,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, timesup,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up!", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, vaporous,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "TTE", "Vaporous intro", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, violentv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 3.28, 2026-02-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, vssmbn,       smbn,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, warriorman,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Warrior Man", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, wolf3d,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Thibaut Lion", "Wolfenstein-3D (Neo-Geo port, v1.2.0)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2025, wrldracr,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, wrldracr01,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, wrldracr02,   wrldracr, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, xeno,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bitmap Bureau", "Xeno Crisis v1.0.0", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, xeviousn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (Neo-Geo port, beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, xeviousn01,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, xeviousn02,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, xeviousn03,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, xeviousn04,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "Zeroco", "Zetsu Xevious (beta 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, xeviousn05,   xeviousn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "pierpa86", "Xevious (Neo-Geo port, gfx fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, xmas2017,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Xmas/Happy New Year 2017 demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, neoromjb,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "Neo Rom Jukebox", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, neotest,      neogal1,  neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "NeoGeo Sound Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, neothund,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, neotrisd1,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 1", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, neotrisd2,    neotrisd1,neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, neotrisd3,    neotrisd1,neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 3", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, ng4ptest,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "4 Player Multitab Test (from CD)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ng4psyschk,   neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "MVS 4P Key System Check", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, ngem2k,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta, 2006-01-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, ngftdemo,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ngmontst,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test v1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ngmontst3,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test v1.3", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, ngtd2,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, ngtetris,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Crim/Stephen", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, ngym2610,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NeoGeo YM2610 Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, nosignal,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "No Signal Z Alpha (v3.0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, nsmb,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, nsmbd,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "New! Super Mario Bros Demo Screen", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, nyan,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, nyana,        nyan,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pcmademo,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pcmbdemo,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, perfectf,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Towea Studio", "Perfect Fighter, the (demo v5.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, poknight,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, poknightcd,   poknight, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, poknightfr,   poknight, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, rci,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, rickdx,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Z-team", "Rick Dangerous DX", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, samantha,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2012, santabll,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sdkdemo,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "SDK Demo (v1.7.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, seafight,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, seraph,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Nasprich", "Seraph Zero", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sgz,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Shadow Gangs", "Shadow Gangs Zero (kick demo v2.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, shadowlf,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Shadow League Fighting (v3.3.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, shinobin,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.0 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, shinobin1,    shinobin, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi v1.1 (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, shinobint,    shinobin, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "H0ffman", "Shinobi Test (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, skylance,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Eagle Software", "Sky Lance (v2.1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, smi,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, snddemo,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, spkick,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, spkick2,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, syscheck,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 7, 2022-07-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, test01,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, timesup,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up!", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, timesupd,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tmnti,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tmntia,       tmnti,    neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, twister,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, vaporous,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "TTE", "Vaporous intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, veilriot,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "The SEGA Shop", "Veil Riot", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, violentv,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp", "Violent Vengeance: the universe hero (beta 3.28, 2026-02-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, warriorm,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "NK Home Entertainment", "Warrior Man (v6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, wolf3d,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Thibaut Lion", "Wolfenstein-3D (Neo-Geo port, v1.2.1)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2025, wrldracr,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-11-14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, wrldracr01,   wrldracr, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, wrldracr02,   wrldracr, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "World Racer (2025-12-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, xeno,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bitmap Bureau", "Xeno Crisis v1.0.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, xmas2017,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Xmas/Happy New Year 2017 demo", MACHINE_SUPPORTS_SAVE )
 
 

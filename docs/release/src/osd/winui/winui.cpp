@@ -4901,8 +4901,13 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		break;
 
 	case COLUMN_SRCDRIVERS:
-		value = _stricmp(GetDriverFilename(index1), GetDriverFilename(index2));
-		break;
+		{
+			char file1[MAX_PATH], file2[MAX_PATH];
+			snprintf(file1, MAX_PATH, "%s", GetDriverFilename(index1));
+			snprintf(file2, MAX_PATH, "%s", GetDriverFilename(index2));
+			value = core_stricmp(file1, file2);
+			break;
+		}
 
 	case COLUMN_PLAYTIME:
 		value = GetPlayTime(index1) - GetPlayTime(index2);

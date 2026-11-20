@@ -3,9 +3,10 @@ cls
 echo.
 echo Pre-compile steps
 echo.
-rem echo 1. HBMAME - CLEAN, update MAKEFILE, update VERSION.CPP
+rem echo 1. HBMAME - CLEAN, update MAKEFILE.
 rem echo.
 echo 2. ARCADE - CLEAN, update MAKEFILE, check HK, check sets that NEED ROMS
+echo             extract latest M1, run HH,13 to get folders/M1.ini
 echo.
 echo 3. MAMEUI - CLEAN, update MAKEFILE and run SWLIST
 echo.

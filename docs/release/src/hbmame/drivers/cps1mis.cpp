@@ -13747,11 +13747,11 @@ ROM_END
 
 ROM_START( ffightus01 ) //ffightu with a 6 MB gfx region for Final Fight EX (USA disc)
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(08ebc951) SHA1(46e9b1553ebeeac45eb9bf50ad7a02a1cadf9bf5) )
-	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(cb6961d0) SHA1(a378af1b2e9b9713006895501ae49c4d8122b1ef) )
-	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(118eb060) SHA1(12188886993438298a83d2f4c0377672c809994b) )
-	ROM_LOAD16_BYTE( "c07u.p4",     0x40001, 0x20000, CRC(38964eff) SHA1(e450f3d872198b1c9de8f74ee250e9e5fb896110) )
-	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(b662dda9) SHA1(7ba4a7a9d2fcc1a2fb34681eed1c5891da015b46) )
+	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(1bbe6639) SHA1(1cf29c8d3c1c2345a07bf3f9a13c3f8d0c9b9648) )
+	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(9a9fe4f3) SHA1(749e2aea8a2bc77d4d9f26866f53ab567dbdac54) )
+	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(d3c9e580) SHA1(216fc0c5602847c79d907f56e709ca0b2dba0ee9) )
+	ROM_LOAD16_BYTE( "c07u.p4",     0x40001, 0x20000, CRC(55a29283) SHA1(c1cf96470fcf8ccfbfca71e27ffdc3ef7e515506) )
+	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(1c9b1b36) SHA1(a811501800ae0b90ffea410d405a56d4b773c0f8) )
 	ROM_LOAD16_WORD_SWAP( "c07us01.p7", 0x100000, 0x100000, CRC(e6e4df5f) SHA1(f2c9b9c4166a06959006af6a150834cc82cb6869) ) // cutscene script/palette/tilemap tables (CRC pinned at ship)
 
 	ROM_REGION( 0x600000, "gfx", 0 )
@@ -13782,12 +13782,12 @@ ROM_END
 
 ROM_START( ffightjs01 ) //ffightj with a 6 MB gfx region for Final Fight EX (Japan disc)
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(89b6ed01) SHA1(e500beab69560437ddfa568554566c7582a1955a) )
-	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(3b3694e9) SHA1(1aa5932976e842fb7d669a4d581e2f0e2cd8922d) )
-	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(118eb060) SHA1(12188886993438298a83d2f4c0377672c809994b) )
-	ROM_LOAD16_BYTE( "c07j.p4",     0x40001, 0x20000, CRC(26242617) SHA1(49f7970114e28f97cc58c46e87941002c1d59f75) )
-	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(1888fb77) SHA1(3a6efb570c7c5b3716c1cf02e77ba47cf43aa37d) )
-	ROM_LOAD16_WORD_SWAP( "c07js01.p7", 0x100000, 0x100000, CRC(ed618024) SHA1(bf9d12479f6896e29661b60f9688f23289d4015d) ) // cutscene script/palette/tilemap tables (JP disc timeline)
+	ROM_LOAD16_BYTE( "c07.p1",      0x00000, 0x20000, CRC(4dcd780e) SHA1(742591af4bd65c6128b72b2a98b8f2af171f9d37) )
+	ROM_LOAD16_BYTE( "c07.p2",      0x00001, 0x20000, CRC(fd0623ca) SHA1(7dc3ed7d883ffff93f1c7629725a3c67bf46de88) )
+	ROM_LOAD16_BYTE( "c07.p3",      0x40000, 0x20000, CRC(4d30793c) SHA1(88e3da70513268f089e2be2ae8543b854ab3b753) )
+	ROM_LOAD16_BYTE( "c07j.p4",     0x40001, 0x20000, CRC(dabe8850) SHA1(b3e78e5bd387c6f9278b987a9578955ba2060fce) )
+	ROM_LOAD16_WORD_SWAP( "c07.p5", 0x80000, 0x80000, CRC(f9e7b052) SHA1(69f2ecbaa1b147e24039cae4429b833ea9e4146e) )
+	ROM_LOAD16_WORD_SWAP( "c07js01.p7", 0x100000, 0x100000, CRC(8bdfd316) SHA1(cc9354d5250849fe2b891b6026ecefbff6428ceb) ) // cutscene script/palette/tilemap tables (JP disc timeline)
 
 	ROM_REGION( 0x600000, "gfx", 0 )
 	ROM_LOAD64_WORD( "c07.c01",     0x000000, 0x80000, CRC(976bcfbb) SHA1(7df44df92e1dedf50c44bf683fb3c53354a6d570) ) // J content (77 SCROLL1 text tiles) in World layout
@@ -13798,13 +13798,13 @@ ROM_START( ffightjs01 ) //ffightj with a 6 MB gfx region for Final Fight EX (Jap
 	ROM_LOAD64_WORD( "c07js01.c11", 0x200002, 0x80000, CRC(2699067e) SHA1(260e08c1083d5bcae8aab1773d739493c8e21661) )
 	ROM_LOAD64_WORD( "c07js01.c13", 0x200004, 0x80000, CRC(ed5833cb) SHA1(7588b7e7309ad7d7600c90b40f1d98a22892ec16) )
 	ROM_LOAD64_WORD( "c07js01.c15", 0x200006, 0x80000, CRC(bed965c8) SHA1(5a874dc45e6fbd4dd7f0986563f15c01d2e0280d) )
-	ROM_LOAD64_WORD( "c07js01.c17", 0x400000, 0x80000, CRC(4611c2a6) SHA1(d92ed42690a8ca1231bdd05ab7c69b418f9f608f) )
-	ROM_LOAD64_WORD( "c07js01.c19", 0x400002, 0x80000, CRC(2044be8a) SHA1(0c1ee6ecab181af66aa7ff321422a827033b607a) )
-	ROM_LOAD64_WORD( "c07js01.c21", 0x400004, 0x80000, CRC(ed030a5c) SHA1(fde7403146971f2e9b0380beec912739a1f1e2e5) )
-	ROM_LOAD64_WORD( "c07js01.c23", 0x400006, 0x80000, CRC(b75abe81) SHA1(5fb3eed3945459a18da69d2c4dba9b46be65aae2) )
+	ROM_LOAD64_WORD( "c07js01.c17", 0x400000, 0x80000, CRC(7d0a63fa) SHA1(9934499f177c42de828879b1293ed896878e37aa) )
+	ROM_LOAD64_WORD( "c07js01.c19", 0x400002, 0x80000, CRC(b61bca08) SHA1(df15ac1001487d8c606afb1c5b6b10310534d042) )
+	ROM_LOAD64_WORD( "c07js01.c21", 0x400004, 0x80000, CRC(8e33931b) SHA1(885a46338f3f34297cd473fae985b2d507322e77) )
+	ROM_LOAD64_WORD( "c07js01.c23", 0x400006, 0x80000, CRC(d60af261) SHA1(a2e74954fe7f194e0eb471ba7da937c461803c06) )
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "c07.m1", 0x00000, 0x08000, CRC(283b10ed) SHA1(3d7979967145bd28c01490dd7ef9d9716dede2dd) )
+	ROM_LOAD( "c07.m1", 0x00000, 0x08000, CRC(57a4cf41) SHA1(7111b27356c28c8e6bc421c7414097da2e3ccb63) )
 	ROM_CONTINUE(          0x10000, 0x08000 )
 
 	ROM_REGION( 0x40000, "oki", 0 )
@@ -19401,25 +19401,25 @@ ROM_START( sf2koryu04 ) // sf2koryuh
 	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
-ROM_START( sf2mix ) // 1.7
+ROM_START( sf2mix ) // 1.8
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(60d0d40d) SHA1(c1adbeced0f7231a17935e94a6d9601a1b3a8c17) ) // 8f
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(f7bd54e7) SHA1(7ac2e56eec9bdeee8ca377a31e4cb5fcd740fb77) ) // 7f
-	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(b580c709) SHA1(c65a416eeaa3affe08a713fe5d5400e2c738b56f) ) // 6f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(215d7dea) SHA1(fd5a9aa69ab6394f06c6a45dc9d9931e84dad64a) ) // 8f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(3e7d323b) SHA1(2ddecccce8813858c65bcdf6d89544c02c644dea) ) // 7f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(c6e902cc) SHA1(cd1eb3d40e29ef2466225a497088c65e5ffa7199) ) // 6f
 
 	ROM_REGION( 0x600000, "gfx", 0 )
-	ROM_LOAD64_WORD( "sf2mix.c01",  0x000000, 0x80000, CRC(a8f70643) SHA1(0d3ab7fe1d0d15397a79c9bd304f22593a9b8d87) ) // 3a
-	ROM_LOAD64_WORD( "sf2mix.c02",  0x000002, 0x80000, CRC(f73f1913) SHA1(b36db11822f5601726892726f8505b7e8b676ab6) ) // 5a
-	ROM_LOAD64_WORD( "sf2mix.c03",  0x000004, 0x80000, CRC(a80234b4) SHA1(e8c3e8030fa2ce69465d97ccb02de622e9214b01) ) // 4a
-	ROM_LOAD64_WORD( "sf2mix.c04",  0x000006, 0x80000, CRC(4d910b53) SHA1(1f28fe150ddf77c91c8ae998ee52e068327335d5) ) // 6a
-	ROM_LOAD64_WORD( "sf2mix.c05",  0x200000, 0x80000, CRC(26a56c2c) SHA1(7120ab4e1006729faf90c4aab15f82f789538466) ) // 7a
-	ROM_LOAD64_WORD( "sf2mix.c06",  0x200002, 0x80000, CRC(3a2c2e5f) SHA1(98f5c5b30e1bbeb3cdbacf11a1a4d6c0dbfd0263) ) // 9a
-	ROM_LOAD64_WORD( "sf2mix.c07",  0x200004, 0x80000, CRC(f71b978c) SHA1(4d462d4a58966b214c60132e8df118844545ea7b) ) // 8a
-	ROM_LOAD64_WORD( "sf2mix.c08",  0x200006, 0x80000, CRC(8fe56540) SHA1(36d6fcb184cb694d8ebd6ceb211d7acae37e02c3) ) // 10a
-	ROM_LOAD64_WORD( "sf2mix.c09",  0x400000, 0x80000, CRC(f352721f) SHA1(55721a2fc451975fe061b4fa8b9e34e7254bafe1) ) // 3c
-	ROM_LOAD64_WORD( "sf2mix.c10",  0x400002, 0x80000, CRC(810c6499) SHA1(1c992f1c70c73bc970d0aa1ce6010887d8b78cfb) ) // 5c
-	ROM_LOAD64_WORD( "sf2mix.c11",  0x400004, 0x80000, CRC(75d7c15c) SHA1(53c7969a574f375a6d3df159eb762026d2d0128e) ) // 4c
-	ROM_LOAD64_WORD( "sf2mix.c12",  0x400006, 0x80000, CRC(642c40e7) SHA1(4ac94adf896aa57a242de0ad0d7c8fbf0ff8bd2d) ) // 6c
+	ROM_LOAD64_WORD( "sf2mix.c01",  0x000000, 0x80000, CRC(924b2a5a) SHA1(08764bec273c44e23aecb84a548a4fb6b4ccf343) ) // 3a
+	ROM_LOAD64_WORD( "sf2mix.c02",  0x000002, 0x80000, CRC(d5e4bfb1) SHA1(303014c48bffb090e3d580e17b0d8fd5043413c2) ) // 5a
+	ROM_LOAD64_WORD( "sf2mix.c03",  0x000004, 0x80000, CRC(020d4a6d) SHA1(032716d1677fca41e6c833699d27a10663495740) ) // 4a
+	ROM_LOAD64_WORD( "sf2mix.c04",  0x000006, 0x80000, CRC(67285c2f) SHA1(1a1b308610b831dd6be55f271337978943a79a12) ) // 6a
+	ROM_LOAD64_WORD( "sf2mix.c05",  0x200000, 0x80000, CRC(26ab12f9) SHA1(998ff1ba5c7131845cbb84adc5a2b3c72c7dd7d6) ) // 7a
+	ROM_LOAD64_WORD( "sf2mix.c06",  0x200002, 0x80000, CRC(cb7e2920) SHA1(b962e8727d58b5d4024fe4a27d8019b0a845f31e) ) // 9a
+	ROM_LOAD64_WORD( "sf2mix.c07",  0x200004, 0x80000, CRC(150d6df2) SHA1(b436ae43c62db89acc1d51ee2107ba0272bfe855) ) // 8a
+	ROM_LOAD64_WORD( "sf2mix.c08",  0x200006, 0x80000, CRC(74f6aea8) SHA1(479f0951481d91b21c055f24407feca328f02f10) ) // 10a
+	ROM_LOAD64_WORD( "sf2mix.c09",  0x400000, 0x80000, CRC(7c7b5e88) SHA1(fdbf7484db1872140a2e385572171f6d874620ff) ) // 3c
+	ROM_LOAD64_WORD( "sf2mix.c10",  0x400002, 0x80000, CRC(293929c8) SHA1(9bb8b9f0494fd4a85b5cff9e6cae3327a31ab8ee) ) // 5c
+	ROM_LOAD64_WORD( "sf2mix.c11",  0x400004, 0x80000, CRC(c59ba878) SHA1(bb2206dec95686cdbf31f25d498f48d938b98c5f) ) // 4c
+	ROM_LOAD64_WORD( "sf2mix.c12",  0x400006, 0x80000, CRC(eb8bfce9) SHA1(30cf45848692583901556e6145f62f7826e5e7ee) ) // 6c
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "sf2mix.m1",  0x00000, 0x08000, CRC(a379fdc5) SHA1(e9de38c13bd665698528bc102b1b16e9bdcae65b) )
@@ -20608,6 +20608,81 @@ ROM_START( strider05 )
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "strider.key", 0x00, 0x80, CRC(39065af5) SHA1(ffff84fd87e851718c564062564970677da923c9) )
+ROM_END
+
+ROM_START( striderjs01 ) // striderjr with a 2 MB program and an 8 MB gfx region for the PC Engine CD backport
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c03js01.p1", 0x00000, 0x80000, CRC(39260f46) SHA1(84f6a1aba00fd498aa29ecc339bad646ff945bce) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03js01.p5", 0x80000, 0x80000, CRC(abc6d8ff) SHA1(d7e825abc7de0c0b81a7aa36597feacb340b0dcf) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03js01.p6", 0x100000, 0x100000, CRC(150e1549) SHA1(490b398310595aed8cc372daa447e60b7cd3624b) ) // EX bank: scene player, scene streams, subtitles, desert stage
+
+	ROM_REGION( 0x800000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c03js01.c01", 0x000000, 0x80000, CRC(f92cc010) SHA1(7cec7f7cdc7efce28fd49ae0220a41d2fa811fd0) ) // EX build
+	ROM_LOAD64_WORD( "c03js01.c03", 0x000002, 0x80000, CRC(9abd7b1e) SHA1(cb00c37ad5b53daee8a1d7bb949adc3559561d13) ) // EX build
+	ROM_LOAD64_WORD( "c03js01.c05", 0x000004, 0x80000, CRC(085ec243) SHA1(3bd523f041b6d2144f983642f6e4e14f951f0c90) ) // EX build
+	ROM_LOAD64_WORD( "c03js01.c07", 0x000006, 0x80000, CRC(2443df27) SHA1(a9ba2d641280794181aa4d4000dbd14e08161198) ) // EX build
+	ROM_LOAD64_WORD( "c03.c17", 0x200000, 0x80000, CRC(005f000b) SHA1(e6f65af7cc3295be9efaaded352e7ae6320b4133) )
+	ROM_LOAD64_WORD( "c03.c19", 0x200002, 0x80000, CRC(b9441519) SHA1(bb0926dc484dae4f64c5e5a6bce20afdc7aeba55) )
+	ROM_LOAD64_WORD( "c03.c21", 0x200004, 0x80000, CRC(b7d04e8b) SHA1(5c5a079baa694927c33d0e0c23e5ff09d6c9d985) )
+	ROM_LOAD64_WORD( "c03.c23", 0x200006, 0x80000, CRC(6b4713b4) SHA1(759b8b1fc7a5c4b00d74a27c2dd11667db44b09e) )
+
+	ROM_LOAD64_WORD( "c03js01.c25", 0x400000, 0x100000, CRC(e8507e5b) SHA1(4e5eb01ad95fa0b9bc7a75bda48b8a899c4c3801) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03js01.c27", 0x400002, 0x100000, CRC(1120f48d) SHA1(d7be842534e9b6ec98d007d16873dae0c237e9be) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03js01.c29", 0x400004, 0x100000, CRC(f7a36cd4) SHA1(dfbb046838dc2d477a3421810c9bbf6759289d48) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03js01.c31", 0x400006, 0x100000, CRC(b0ef929a) SHA1(59e22eb73ab4b987a6318ac19be63286ff85f8a2) ) // EX gfx bank
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c03js01.m1", 0x00000, 0x08000, CRC(a08e24b9) SHA1(9cb9f86196b123b7c50749e0a986766eb04dff27) ) // EX build
+	ROM_CONTINUE(            0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c03js01.v1", 0x00000, 0x20000, CRC(897269dd) SHA1(0fe2e81296fd88e1cac82c861c26f19d81704015) ) // EX build
+	ROM_LOAD( "c03js01.v2", 0x20000, 0x20000, CRC(3f56c8cc) SHA1(1a1030f55f651b62c7b23fe260ecfb63aeee03e0) ) // EX build
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "striderjs01.key", 0x00, 0x80, CRC(6802a1a5) SHA1(410528a5288b5896c2ce5060f8036145ddc2a8ac) ) // CPS_B_21_DEF with the EX gfx bank
+ROM_END
+
+ROM_START( striderus01 ) // striderua with a 2 MB program and an 8 MB gfx region for the PC Engine CD backport
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "c03us01.p1", 0x00000, 0x20000, CRC(457395b9) SHA1(b8dbcfc3219b1176d89ae3d04433f70c27b1ce64) ) // EX build
+	ROM_LOAD16_BYTE( "c03us01.p2", 0x00001, 0x20000, CRC(118f8690) SHA1(e2bb22f470bd4ecc643ba8ec20b86913b047ca6e) ) // EX build
+	ROM_LOAD16_BYTE( "c03us01.p3", 0x40000, 0x20000, CRC(3306fd0f) SHA1(297bf81e08336d913b70f04ddcfead84045ec180) ) // EX build
+	ROM_LOAD16_BYTE( "c03us01.p4", 0x40001, 0x20000, CRC(1ac8cad9) SHA1(29f345dfe5b5ebf740d4c8a7068eee2777fde218) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03us01.p5", 0x80000, 0x80000, CRC(06edfbaf) SHA1(1d6a1b7a42c768eae58775f503eb72ca3c536005) ) // EX build
+	ROM_LOAD16_WORD_SWAP( "c03us01.p6", 0x100000, 0x100000, CRC(075dfc39) SHA1(a6ea9e5359acbdcdfb0147ca9f90661e51468393) ) // EX bank: scene player, scene streams, subtitles, desert stage
+
+	ROM_REGION( 0x800000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c03us01.c01", 0x000000, 0x80000, CRC(f92cc010) SHA1(7cec7f7cdc7efce28fd49ae0220a41d2fa811fd0) ) // EX build
+	ROM_LOAD64_WORD( "c03us01.c03", 0x000002, 0x80000, CRC(9abd7b1e) SHA1(cb00c37ad5b53daee8a1d7bb949adc3559561d13) ) // EX build
+	ROM_LOAD64_WORD( "c03us01.c05", 0x000004, 0x80000, CRC(085ec243) SHA1(3bd523f041b6d2144f983642f6e4e14f951f0c90) ) // EX build
+	ROM_LOAD64_WORD( "c03us01.c07", 0x000006, 0x80000, CRC(2443df27) SHA1(a9ba2d641280794181aa4d4000dbd14e08161198) ) // EX build
+	ROM_LOAD64_WORD( "c03.c17", 0x200000, 0x80000, CRC(005f000b) SHA1(e6f65af7cc3295be9efaaded352e7ae6320b4133) )
+	ROM_LOAD64_WORD( "c03.c19", 0x200002, 0x80000, CRC(b9441519) SHA1(bb0926dc484dae4f64c5e5a6bce20afdc7aeba55) )
+	ROM_LOAD64_WORD( "c03.c21", 0x200004, 0x80000, CRC(b7d04e8b) SHA1(5c5a079baa694927c33d0e0c23e5ff09d6c9d985) )
+	ROM_LOAD64_WORD( "c03.c23", 0x200006, 0x80000, CRC(6b4713b4) SHA1(759b8b1fc7a5c4b00d74a27c2dd11667db44b09e) )
+
+	ROM_LOAD64_WORD( "c03us01.c25", 0x400000, 0x100000, CRC(e8507e5b) SHA1(4e5eb01ad95fa0b9bc7a75bda48b8a899c4c3801) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03us01.c27", 0x400002, 0x100000, CRC(1120f48d) SHA1(d7be842534e9b6ec98d007d16873dae0c237e9be) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03us01.c29", 0x400004, 0x100000, CRC(f7a36cd4) SHA1(dfbb046838dc2d477a3421810c9bbf6759289d48) ) // EX gfx bank
+	ROM_LOAD64_WORD( "c03us01.c31", 0x400006, 0x100000, CRC(b0ef929a) SHA1(59e22eb73ab4b987a6318ac19be63286ff85f8a2) ) // EX gfx bank
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c03us01.m1", 0x00000, 0x08000, CRC(a08e24b9) SHA1(9cb9f86196b123b7c50749e0a986766eb04dff27) ) // EX build
+	ROM_CONTINUE(         0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c03us01.v1", 0x00000, 0x20000, CRC(897269dd) SHA1(0fe2e81296fd88e1cac82c861c26f19d81704015) ) // EX build
+	ROM_LOAD( "c03us01.v2", 0x20000, 0x20000, CRC(3f56c8cc) SHA1(1a1030f55f651b62c7b23fe260ecfb63aeee03e0) ) // EX build
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "striderus01.key", 0x00, 0x80, CRC(db7ce280) SHA1(e212a15a81eeaa6ff4624defd62c530ec75efab5) ) // CPS_B_01 with the EX gfx bank
 ROM_END
 
 
@@ -28816,8 +28891,8 @@ GAME( 2020, ffightj2s03,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 GAME( 2020, ffightj2s04,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition, 2020-06-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ffightj1s01,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (1VS2 Enhanced Version, 2017-11-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, ffightjk,      ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Korean)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ffightus01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (USA, 2026-10-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, ffightjs01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (Japan, 2026-10-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffightus01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (USA, 2026-10-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, ffightjs01,    ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "strygo", "Final Fight EX (Japan, 2026-10-24)", MACHINE_SUPPORTS_SAVE )
 // Forgotten Worlds
 GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
@@ -28999,7 +29074,7 @@ GAME( 1992, sf2koryu01,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2ha
 GAME( 1992, sf2koryu02,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2koryu03,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, sf2koryu04,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.7)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.8)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2mkot01,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)", MACHINE_SUPPORTS_SAVE ) // 920666
 GAME( 2018, sf2red01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Golden Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2red02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Hardest Level)", MACHINE_SUPPORTS_SAVE )
@@ -29034,6 +29109,8 @@ GAME( 1989, strider01,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,
 GAME( 2017, strider02,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "System 11", "Strider (JP, fixes graphics and music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, strider04,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "Arcadefixer", "Strider (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, strider05,     strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "hack", "Strider (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, striderjs01, strider, cps1_12MHz, strider, cps_state, init_cps1, ROT0, "strygo", "Strider Hiryu EX (Japan, 2026-10-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, striderus01, strider, cps1_10MHz, stridrua, cps_state, init_cps1, ROT0, "strygo", "Strider EX (USA, 2026-10-27)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero
 GAME( 2007, sfzch02,       sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "Pipi899[EZ]", "Street Fighter Zero (Move Hack, 2007-02-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzch03,       sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Asia 950925)", MACHINE_SUPPORTS_SAVE )
