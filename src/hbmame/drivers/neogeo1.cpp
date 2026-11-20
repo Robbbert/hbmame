@@ -1370,7 +1370,7 @@ ROM_START( irrmaze01 ) // standard joystick
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
 	/* special BIOS with trackball support, we only have one Irritating Maze bios and thats asia */
-	ROM_LOAD16_WORD_SWAP("236-bios.sp1", 0x00000, 0x020000, CRC(853e6b96) SHA1(de369cb4a7df147b55168fa7aaf0b98c753b735e) )
+	ROM_LOAD16_WORD_SWAP("236-bios.sp1", 0x00000, 0x20000, CRC(853e6b96) SHA1(de369cb4a7df147b55168fa7aaf0b98c753b735e) )
 
 	ROM_REGION( 0x30000, "audiocpu", 0 )
 	ROM_LOAD( "236.m1", 0x00000, 0x20000, CRC(880a1abd) SHA1(905afa157aba700e798243b842792e50729b19a0) )
@@ -1380,9 +1380,33 @@ ROM_START( irrmaze01 ) // standard joystick
 	ROM_LOAD( "236.v1", 0x000000, 0x200000, CRC(5f89c3b4) SHA1(dc8fd561cf8dfdd41696dcf14ea8d2d0ac4eec4b) )
 	ROM_LOAD( "236.v2", 0x200000, 0x100000, CRC(72e3add7) SHA1(dc49f05274693255416d2e41ecc088027b798eb9) )
 
-	ROM_REGION( 0x0800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "236.c1", 0x000000, 0x400000, CRC(c1d47902) SHA1(727001c34f979226fc8f581113ce2aaac4fc0d42) )
-	ROM_LOAD16_BYTE( "236.c2", 0x000001, 0x400000, CRC(e15f972e) SHA1(6a329559c57a67be73a6733513b59e9e6c8d61cc) )
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "236.c1", 0, 0x400000, CRC(c1d47902) SHA1(727001c34f979226fc8f581113ce2aaac4fc0d42) )
+	ROM_LOAD16_BYTE( "236.c2", 1, 0x400000, CRC(e15f972e) SHA1(6a329559c57a67be73a6733513b59e9e6c8d61cc) )
+ROM_END
+
+ROM_START( irrmaze02 ) // plus
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "236s02.p1", 0x100000, 0x100000, CRC(dc3611db) SHA1(30273756d777170ef321ece21e14c61d500ad3ac) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "236s02.s1", CRC(16f02642) SHA1(6569400f68477b9633d31a65fcd422e12e1cdee9) )
+
+//	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	/* special BIOS with trackball support, we only have one Irritating Maze bios and thats asia */
+//	ROM_LOAD16_WORD_SWAP("236-bios.sp1", 0, 0x20000, CRC(853e6b96) SHA1(de369cb4a7df147b55168fa7aaf0b98c753b735e) )
+
+//	ROM_REGION( 0x30000, "audiocpu", 0 )
+	NEO_BIOS_AUDIO_128K( "236s02.m1", CRC(b77930d0) SHA1(d4efa0035fb887e20ebd42988d1c4f8c2c0cc706) )
+//	ROM_RELOAD( 0x10000, 0x20000 )
+
+	ROM_REGION( 0x300000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "236.v1", 0x000000, 0x200000, CRC(5f89c3b4) SHA1(dc8fd561cf8dfdd41696dcf14ea8d2d0ac4eec4b) )
+	ROM_LOAD( "236.v2", 0x200000, 0x100000, CRC(72e3add7) SHA1(dc49f05274693255416d2e41ecc088027b798eb9) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "236s02.c1", 0, 0x400000, CRC(a9530f3b) SHA1(4354c60e9957a708ef8973bf126a96de44854f3c) )
+	ROM_LOAD16_BYTE( "236s02.c2", 1, 0x400000, CRC(a2b8cd52) SHA1(a4b53e1ee81d68cd5d7f46e8468e954b8b0964d7) )
 ROM_END
 
 
@@ -5168,6 +5192,7 @@ GAME( 1991, gpilots03,      gpilots,  neogeo,        neogeo,   neogeo_state, ini
 GAME( 1996, ironclad01,     ironclad, neogeo,        neogeo,   neogeo_state, init_neogeo,    ROT0, "Saurus", "Ironclad (Conversion from Wii)", MACHINE_SUPPORTS_SAVE )
 // Irritating Maze
 GAME( 2025, irrmaze01,      irrmaze,  neogeo,        neogeo,   neogeo_state, init_neogeo,    ROT0, "NeoGeoFreak", "Irritating Maze (standard joystick)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, irrmaze02,      irrmaze,  neogeo,        neogeo,   neogeo_state, init_neogeo,    ROT0, "Loren Vanderbilt", "Irritating Maze Plus", MACHINE_SUPPORTS_SAVE )
 // Jockey GP
 GAME( 2001, jockeygp01,     jockeygp, neogeo,        jockeygp, neogeo_state, init_jckeygpd,  ROT0, "Sun Amusement / BrezzaSoft", "Jockey Grand Prix (decrypted C)", MACHINE_SUPPORTS_SAVE )
 // Joy Joy / Puzzled

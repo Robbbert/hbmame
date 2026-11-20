@@ -6535,6 +6535,7 @@ timesup
 timesupd	// CeL
 tmnti		/* TMNT intro */
 tmntia
+tmntn
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 vaporous
@@ -6622,6 +6623,7 @@ gpilots02
 gpilots03
 ironclad01
 irrmaze01
+irrmaze02
 jockeygp01
 joyjoy01
 joyjoy02
@@ -8792,6 +8794,7 @@ schaser
 //schaserm
 //crashrd
 schasercv                              // extra sounds
+yosaku
 
 @source:scramble.cpp
 mrkougar                               //parent
