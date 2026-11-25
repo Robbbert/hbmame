@@ -11,6 +11,11 @@ New Games
 
 Updated Games
 ---------------------------------
+- [knightsn]            Knights of the Round (Neo-Geo port, v1.1.2)
+- [mysticrin]           Mystic Riders (Neo-Geo port, beta-0.5.1)
+- [perfectf]            Perfect Fighter, the (demo v6)
+- [rtypen]              R-Type (Neo-Geo port, v1.3.1)
+- [ssridersn]           Sunset Riders (Neo-Geo port, v1.1.0)
 
 
 
