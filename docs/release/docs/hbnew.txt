@@ -1,6 +1,20 @@
 ﻿What's new in HBMAME
 ====================
 
+2026-12-xx 0.289.8
+
+
+
+New Games
+---------------------------------
+
+
+Updated Games
+---------------------------------
+
+
+
+
 2026-11-20 0.289.6
 
 
@@ -64,9 +78,6 @@ New Games
 - [sfzexa]              Street Fighter Zero EX (Asia, 2026-11-14)
 - [sfzexj]              Street Fighter Zero EX (Japan, 2026-11-14)
 - [shdancern]           Shadow Dancer (Neo-Geo port)
-- [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (940311J, English Restoration, 2026-11-14)
-- [ssf2tuc]             Super Street Fighter II EX: The Ultimate Championship (940223U, 2026-11-18)
-- [ssf2xuc]             Super Street Fighter II EX: The Ultimate Championship (940223J, 2026-11-18)
 - [ssridersn]           Sunset Riders (Neo-Geo port, beta 0.8.0)
 - [striderjs01]         Strider Hiryu EX (Japan, 2026-10-27)
 - [striderus01]         Strider EX (USA, 2026-10-27)
@@ -111,9 +122,9 @@ Updated Games
 - [skylance]            Sky Lance (v2.1.1)
 - [snowbrosn]           Snow Bros (Neo-Geo port, v1.4.1)
 - [sotbn]               Shadow of the Beast (Neo-Geo port, beta-0.2.7)
-- [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (English Restoration, 2026-10-25)
-- [ssf2tuc]             Super Street Fighter II EX (USA, 2026-11-14)
-- [ssf2xuc]             Super Street Fighter II EX (Japan, 2026-11-14)
+- [ssf2tgmc]            Super Street Fighter II Turbo: Grand Master Challenge (940311J, English Restoration, 2026-11-14)
+- [ssf2tuc]             Super Street Fighter II EX: The Ultimate Championship (940223U, 2026-11-18)
+- [ssf2xuc]             Super Street Fighter II EX: The Ultimate Championship (940223J, 2026-11-18)
 - [usf2j]               Ultra Street Fighter II: The Final Challengers (Japan, Backport RC8, 2026-11-18)
 - [usf2u]               Ultra Street Fighter II: The Final Challengers (USA, Backport RC8, 2026-11-18)
 - [vhunt2s02]           Night Warriors 2 Arrange (RC5, USA, 2026-11-14)
