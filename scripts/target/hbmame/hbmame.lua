@@ -448,6 +448,7 @@ files {
 	MAME_DIR .. "src/mame/igs/pgmprot_igs025_igs028.cpp",
 	MAME_DIR .. "src/mame/igs/pgmprot_orlegend.cpp",
 	MAME_DIR .. "src/mame/igs/pgmcrypt.cpp",
+	MAME_DIR .. "src/mame/igs/igs003.cpp",
 	MAME_DIR .. "src/mame/igs/igs012.cpp",
 	MAME_DIR .. "src/mame/igs/igs025.cpp",
 	MAME_DIR .. "src/mame/igs/igs022.cpp",

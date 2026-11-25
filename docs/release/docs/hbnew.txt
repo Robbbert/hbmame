@@ -80,6 +80,7 @@ New Games
 - [xmvsfex]             X-Men Vs. Street Fighter EX (USA, 2026-11-18)
 - [xmvsfexj]            X-Men Vs. Street Fighter EX (Japan, 2026-11-18)
 - [xmvsfre]             X-Men Vs. Street Fighter (English Restoration, 2026-11-16)
+- [yosaku]              Yosaku
 
 
 Updated Games
