@@ -8,6 +8,8 @@
 New Games
 ---------------------------------
 - [cninjan]             Caveman Ninja (Neo-Geo port, v0.1.5)
+- [tumblepn]            Tumble Pop (Neo-Geo port, beta-0.1.1)
+- [vendettan]           Vendetta (Neo-Geo port, v1.0)
 
 
 Updated Games
