@@ -7,15 +7,18 @@
 
 New Games
 ---------------------------------
+- [cninjan]             Caveman Ninja (Neo-Geo port, v0.1.5)
 
 
 Updated Games
 ---------------------------------
+- [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music, v2)
 - [knightsn]            Knights of the Round (Neo-Geo port, v1.1.2)
 - [mysticrin]           Mystic Riders (Neo-Geo port, beta-0.5.1)
 - [perfectf]            Perfect Fighter, the (demo v6)
 - [rtypen]              R-Type (Neo-Geo port, v1.3.1)
 - [ssridersn]           Sunset Riders (Neo-Geo port, v1.1.0)
+- [tmntn]               Teenage Mutant Ninja Turtles (Neo-Geo port, v1.2)
 
 
 

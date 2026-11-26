@@ -269,6 +269,7 @@ NUM GAME YEAR COMPANY                 TITLE
 559 7786 2026 ShinobiZ                Wonder Boy (port) (https://shinobiz72.itch.io/)
 560 0912 2026 Format-c                Gals Panic (port) (https://format-c.itch.io/)
 561 1989 2026 Arcade Perfect Ports    Teenage Mutant Ninja Turtles (port) (https://arcadeperfectports.itch.io/)
+562 0931 2026 Bendk97                 Caveman Ninja (port) (https://bendk97.itch.io/)
 
 
 ********************** Non-playable demos (600-699) ************************
@@ -519,7 +520,7 @@ ROM_START( csw2s02 ) // crswd2rcm
 
 	NEO_SFIX_128K( "054.s1", CRC(22e02ddd) SHA1(ebd834affc763cc5854abf1c6c42f43f3f3755fd) )
 
-	NEO_BIOS_AUDIO_128K( "054s02.m1", CRC(67815eda) SHA1(95732cff849659d10087972dd4bf568509bafb82) )
+	NEO_BIOS_AUDIO_128K( "054s02.m1", CRC(2a491bab) SHA1(f9584f338c0a8bc34306838911370350842276eb) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )
 	ROM_LOAD( "054s02.v1",     0, 0x200000, CRC(45d86fa5) SHA1(8b426498ef75f1f9daa890816763a4ae869e96e7) )
@@ -3242,24 +3243,44 @@ ROM_START( galpanicn )
 ROM_END
 
 
-// 561: Teenage Mutant Ninja Turtles (v1.1) port by Arcade Perfect Ports
+// 561: Teenage Mutant Ninja Turtles (v1.2) port by Arcade Perfect Ports
 ROM_START( tmntn )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "561.p1", 0x000000, 0x100000, CRC(98619c13) SHA1(034aeebdef1e30c5feccbebb3bed5adf420cde99) )
-	ROM_LOAD16_WORD_SWAP( "561.p2", 0x100000, 0x100000, CRC(0d19adcf) SHA1(01d39d583a14fd20227d131c5ae4f67c105f1ded) )
+	ROM_LOAD16_WORD_SWAP( "561.p1", 0x000000, 0x100000, CRC(88bf515e) SHA1(3eb1cbc58801b1f439ce20f8abd9c640920a7d9e) )
+	ROM_LOAD16_WORD_SWAP( "561.p2", 0x100000, 0x100000, CRC(7dcfa8b5) SHA1(06405757c88d5dc7f30b46858180c65b8439e4d5) )
 
-	NEO_SFIX_128K( "561.s1", CRC(9184cfdd) SHA1(97d0c5ac7f1df94d08a8ae06f81329609a36573e) )
+	NEO_SFIX_128K( "561.s1", CRC(b50109d6) SHA1(949b295374023ec010313cc9ff3e2d4766bb9b48) )
 
-	NEO_BIOS_AUDIO_128K( "561.m1", CRC(a3e3b973) SHA1(ede09bda81fb6760104f0dca122a2d04a22f08a0) )
+	NEO_BIOS_AUDIO_128K( "561.m1", CRC(19e70aff) SHA1(33dd3f64eaac0b37a83ef581521140a49aff6700) )
 
 	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "561.v1",   0, 0x800000, CRC(1c9752c4) SHA1(d68b528f326030f5ee6143c516503d928e6b31d7) )
 
 	ROM_REGION( 0xc00000, "sprites", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "561.c1", 0x000000, 0x200000, CRC(d01b9ea4) SHA1(8354906620d384f218edffbe2b48e18e8157eaf4) )
-	ROM_LOAD16_BYTE( "561.c2", 0x000001, 0x200000, CRC(e9871d67) SHA1(e55b9839f9ece0e6070b0c576e3ea7d76ed86fc7) )
+	ROM_LOAD16_BYTE( "561.c1", 0x000000, 0x200000, CRC(a2440134) SHA1(0a42a7a3315645148cd654a22de0674e68c63e1a) )
+	ROM_LOAD16_BYTE( "561.c2", 0x000001, 0x200000, CRC(2c28a853) SHA1(3159ea4b18613111333802453769ea1cc2d700be) )
 	ROM_LOAD16_BYTE( "561.c3", 0x800000, 0x200000, CRC(0e3ae39b) SHA1(88ff015fc4b88764d7d69e987a6bad7ffff8bf17) )
 	ROM_LOAD16_BYTE( "561.c4", 0x800001, 0x200000, CRC(8a025d7e) SHA1(e64cc9c1aa32f64d5a01d42a39a6b251ea8a48cd) )
+ROM_END
+
+
+// 562: Caveman Ninja (beta-0.1.5) port by Bendk97
+ROM_START( cninjan )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "562.p1", 0x000000, 0x200000, CRC(9703a3dc) SHA1(fa6928f685e4c31561a546798efdcd2e8f1ded16) )
+
+	NEO_SFIX_128K( "562.s1", CRC(ceee8ba9) SHA1(d159a442db65c21dbda96f53534fa984fb82f405) )
+
+	NEO_BIOS_AUDIO_128K( "562.m1", CRC(1259e2bb) SHA1(dc08bf6ad8523e15964739af95099e3da3cb4f01) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "562.v1",   0, 0x1000000, CRC(aeea977f) SHA1(0c47a9534e040748c16cea4942895e38e0941401) )
+
+	ROM_REGION( 0x800000, "sprites", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE( "562.c1", 0x000000, 0x200000, CRC(3adc7801) SHA1(fb0d36c479bec929b3e058f2ef66fc24d6a2d74e) )
+	ROM_LOAD16_BYTE( "562.c2", 0x000001, 0x200000, CRC(a7485cc7) SHA1(e9e95f86565ebcbdf58f379a63457ba61e21bba9) )
+	ROM_LOAD16_BYTE( "562.c3", 0x400000, 0x200000, CRC(899b3bc7) SHA1(74a232a33a88459b3647547658a5e88dd9661d2b) )
+	ROM_LOAD16_BYTE( "562.c4", 0x400001, 0x200000, CRC(22c7734e) SHA1(345a07a00ee179bf0aa11b90ca660562b95b45fa) )
 ROM_END
 
 
@@ -4505,7 +4526,7 @@ GAME( 2022, cakefght1,    cakefght, neogeo,          neogeo,  neogeo_state, init
 GAME( 2024, cbarrel,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Captain Barrel", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, csw2,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (full CD music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, csw2s01,      csw2,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Crossed Swords 2 (update)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, csw2s02,      csw2,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo-Alec", "Crossed Swords 2 (Reconstructed Cartridge Music)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, csw2s02,      csw2,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo-Alec", "Crossed Swords 2 (Reconstructed Cartridge Music, v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, fr2s03,       fr2,      neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Idol Mahjong Final Romance 2 (with music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
@@ -4522,7 +4543,8 @@ GAME( 2023, amazonn,      neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2021, cabaln,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabaln01,     cabaln,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, cabaln02,     cabaln,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, columnsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cninjan,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Caveman Ninja (Neo-Geo port, v0.1.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, columnsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsncd,   columnsn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, cosmogngn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.1.4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, dinon,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "Cadillacs and Dinosaurs (Neo-Geo port, test-47)", MACHINE_SUPPORTS_SAVE )
@@ -4552,7 +4574,7 @@ GAME( 2026, snowbrosn,    neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2026, sotbn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Shadow of the Beast (Neo-Geo port, beta-0.2.7)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssodan,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta-0.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssridersn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, v1.1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, tmntn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arcade Perfect Ports", "Teenage Mutant Ninja Turtles (Neo-Geo port, v1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, tmntn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arcade Perfect Ports", "Teenage Mutant Ninja Turtles (Neo-Geo port, v1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wboyn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Wonder Boy (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wrallyn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arkretro", "World Rally (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
