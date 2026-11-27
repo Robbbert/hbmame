@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [cninjan]             Caveman Ninja (Neo-Geo port, v0.1.7)
+- [goldnmame]           Golden Poker (MAME tribute edition)
 - [tumblepn]            Tumble Pop (Neo-Geo port, beta-0.2.0)
 - [vendettan]           Vendetta (Neo-Geo port, v1.0)
 

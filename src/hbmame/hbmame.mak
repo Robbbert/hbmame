@@ -71,4 +71,10 @@ LAYOUTS += \
 	$(SRC)/mame/layout/dblaxle.lay \
 	$(SRC)/mame/layout/enforceja.lay \
 	$(SRC)/mame/layout/cv1k_touch.lay \
+	$(SRC)/mame/layout/goldnpkr.lay \
+	$(SRC)/mame/layout/goldnswp.lay \
+	$(SRC)/mame/layout/lespendu.lay \
+	$(SRC)/mame/layout/pmpoker.lay \
+	$(SRC)/mame/layout/upndown.lay \
+	$(SRC)/mame/layout/smb_be4k.lay \
 

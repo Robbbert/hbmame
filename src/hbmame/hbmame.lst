@@ -2125,6 +2125,9 @@ makprincessenh
 makprincessg
 makprincessgenh
 
+@source:goldnpkr.cpp
+goldnmame
+
 @source:gottlieb.cpp
 qbert                                  //parent
 myqbert                                // in mame
@@ -8930,9 +8933,6 @@ silkroad03
 @source:shaolins.cpp
 kicker                                 //parent
 kfjohnny
-
-@source:skimaxx.cpp
-skimaxx                                // HB, no parent
 
 @source:skylove.cpp
 skylove
