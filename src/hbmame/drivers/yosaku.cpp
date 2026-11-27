@@ -141,13 +141,13 @@ DISCRETE_SOUND_END
 const char *const yosaku_sample_names[] =
 {
 	"*yosaku",
-	"cap",      // go to jail
-	"bark",     // dog barking
-	"walk1",    // walk, get money
-	"walk2",    // walk, get money
-	"warp",     // translocate, deposit money
-	"extend",   // bonus man
-	"kick",     // lands on top of building, wife kicks man
+	"cap",      // boar
+	"bark",     // beat thud, running on into the start tune
+	"walk1",    // tree falls
+	"walk2",    // boar hit (groan)
+	"warp",     // axe chop
+	"extend",   // bird
+	"kick",     // death tune
 	nullptr
 };
 
@@ -163,15 +163,15 @@ void yosaku_class::port03_w(uint8_t data)
 
 	if (BIT(rising_bits, 0))
 	{
-		m_samples->start(0, lupin3_step);               // Walking, steal money
+		m_samples->start(0, lupin3_step);
 		lupin3_step ^= 1;
 	}
 
-	m_sn->enable_w(BIT(~data, 1));                      // Helicopter
+	m_sn->enable_w(BIT(~data, 1));
 
-	if (BIT(rising_bits, 2)) m_samples->start(1, 4);     // Translocate
-	if (BIT(rising_bits, 3)) m_samples->start(0, 0);     // Jail
-	if (BIT(rising_bits, 4)) m_samples->start(2, 5);     // Bonus Man
+	if (BIT(rising_bits, 2)) m_samples->start(1, 4);
+	if (BIT(rising_bits, 3)) m_samples->start(0, 0);
+	if (BIT(rising_bits, 4)) m_samples->start(2, 5);
 
 	m_port03 = data;
 }
@@ -180,8 +180,8 @@ void yosaku_class::port05_w(uint8_t data)
 {
 	uint8_t rising_bits = data & ~m_port05;
 
-	if (rising_bits & 0x01) m_samples->start(0, 6);     /* Lands on top of building, wife kicks man */
-	if (rising_bits & 0x10) m_samples->start(3, 1);        /* Dog barking */
+	if (rising_bits & 0x01) m_samples->start(0, 6);
+	if (rising_bits & 0x10) m_samples->start(3, 1);
 
 	m_flip_screen = BIT(data, 5) & BIT(ioport("IN2")->read(), 2);
 
@@ -432,10 +432,18 @@ void yosaku_class::yosaku(machine_config &config)
 
 ROM_START( yosaku )
 	ROM_REGION( 0x10000, "maincpu", 0 )
+#if 0
+	// v1
 	ROM_LOAD( "yosaku.1", 0x0000, 0x0800, CRC(37fecee4) SHA1(e1ca44dcf42d7c9ed67044cef8d23bb5fd044f97) )
 	ROM_LOAD( "yosaku.2", 0x0800, 0x0800, CRC(ceb6c3b4) SHA1(603392413124eec1acf8bd3a07590e270d41bfb7) )
 	ROM_LOAD( "yosaku.3", 0x1000, 0x0800, CRC(c433a113) SHA1(ae793e9e550f88d875854fa585d56c089971bbb8) )
 	ROM_LOAD( "yosaku.4", 0x1800, 0x0800, CRC(6cac14c1) SHA1(db3e37771ed8b440fdd7f8b6b4fd74c8da131977) )
+#endif
+	// v2
+	ROM_LOAD( "yosaku.1", 0x0000, 0x0800, CRC(19bc1db4) SHA1(fbdb8f611c7c767379402ebf35c25588eef447a3) )
+	ROM_LOAD( "yosaku.2", 0x0800, 0x0800, CRC(1fb43a59) SHA1(a9e8f4002922be5a3b3b0813b478acb017adb219) )
+	ROM_LOAD( "yosaku.3", 0x1000, 0x0800, CRC(c418d5a3) SHA1(a8cbdbaa3a19644b217f784b7fe78d748389bd43) )
+	ROM_LOAD( "yosaku.4", 0x1800, 0x0800, CRC(b76d9e6f) SHA1(479494503d22bb718c09a111427c59bc60e9e3fd) )
 ROM_END
 
 } // anonymous namespace

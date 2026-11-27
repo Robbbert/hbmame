@@ -22,6 +22,7 @@ Updated Games
 - [rtypen]              R-Type (Neo-Geo port, v1.3.2)
 - [ssridersn]           Sunset Riders (Neo-Geo port, v1.1.1)
 - [tmntn]               Teenage Mutant Ninja Turtles (Neo-Geo port, v1.2)
+- [yosaku]              Yosaku
 
 
 
