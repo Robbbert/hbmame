@@ -7,8 +7,8 @@
 
 New Games
 ---------------------------------
-- [cninjan]             Caveman Ninja (Neo-Geo port, v0.1.5)
-- [tumblepn]            Tumble Pop (Neo-Geo port, beta-0.1.1)
+- [cninjan]             Caveman Ninja (Neo-Geo port, v0.1.7)
+- [tumblepn]            Tumble Pop (Neo-Geo port, beta-0.2.0)
 - [vendettan]           Vendetta (Neo-Geo port, v1.0)
 
 
@@ -16,10 +16,11 @@ Updated Games
 ---------------------------------
 - [csw2s02]             Crossed Swords 2 (Reconstructed Cartridge Music, v2)
 - [knightsn]            Knights of the Round (Neo-Geo port, v1.1.2)
+- [lhpb]                Last Hope (Pink Bullets, hack, v1.4)
 - [mysticrin]           Mystic Riders (Neo-Geo port, beta-0.5.1)
 - [perfectf]            Perfect Fighter, the (demo v6)
-- [rtypen]              R-Type (Neo-Geo port, v1.3.1)
-- [ssridersn]           Sunset Riders (Neo-Geo port, v1.1.0)
+- [rtypen]              R-Type (Neo-Geo port, v1.3.2)
+- [ssridersn]           Sunset Riders (Neo-Geo port, v1.1.1)
 - [tmntn]               Teenage Mutant Ninja Turtles (Neo-Geo port, v1.2)
 
 
