@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 // Metal Slug 4
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 //	Hacks for decrypted sets
 //	ROM_FILL(0x1741,1,0x78) // select LEVEL-8 by default

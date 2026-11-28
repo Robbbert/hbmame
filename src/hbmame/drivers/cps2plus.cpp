@@ -19,7 +19,7 @@
 
 ***************************************************************************/
 
-#include "includes/cps2plus.h"
+#include "cps2plus.h"
 
 #pragma push_macro("qsound_device")
 #pragma push_macro("QSOUND")

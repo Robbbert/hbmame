@@ -1,7 +1,7 @@
 // license:CC BY-NC-ND 3.0 (copying this code into another project is not permitted)
 // copyright-holders:Robbbert
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 /*************************************

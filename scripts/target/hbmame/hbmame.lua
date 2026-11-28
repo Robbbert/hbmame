@@ -291,7 +291,7 @@ files {
 	MAME_DIR .. "src/mame/atari/atarimo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mhavoc_hb.cpp",
-	MAME_DIR .. "src/hbmame/machine/mhavoc_hb.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mhavoc_hb_m.cpp",
 	MAME_DIR .. "src/mame/atari/atarisy1_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
 	MAME_DIR .. "src/mame/atari/atarixga.cpp",
@@ -309,9 +309,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/commando.cpp",
 	MAME_DIR .. "src/hbmame/drivers/sonson.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps1.cpp",
-	MAME_DIR .. "src/hbmame/video/cps1.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cps1_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps2.cpp",
-	MAME_DIR .. "src/hbmame/video/cps2.cpp",
+	MAME_DIR .. "src/hbmame/drivers/cps2_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps3.cpp",
 	MAME_DIR .. "src/mame/capcom/cps3_a.cpp",
 	MAME_DIR .. "src/hbmame/drivers/fcrash.cpp",
@@ -670,7 +670,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/ngsengoku.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ngsvc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ngwh.cpp",
-	MAME_DIR .. "src/hbmame/video/neogeo.cpp",
+	MAME_DIR .. "src/hbmame/drivers/neogeo_v.cpp",
 	MAME_DIR .. "src/hbmame/video/neogeo_spr.cpp",
 	MAME_DIR .. "src/hbmame/machine/hbng_memcard.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo/prot.cpp",
@@ -722,7 +722,7 @@ createHBMAMEProjects(_target, _subtarget, "puckman")
 files {
 	MAME_DIR .. "src/hbmame/drivers/jrpacman.cpp",
 	MAME_DIR .. "src/hbmame/drivers/puckman.cpp",
-	MAME_DIR .. "src/hbmame/video/puckman.cpp",
+	MAME_DIR .. "src/hbmame/drivers/puckman_v.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pengo.cpp",
 }
 

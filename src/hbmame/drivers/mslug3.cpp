@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 // Metal Slug 3
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 // set default level to 8: ROM_FILL(0x2ea7,1,0x78) decrypted sets only
 

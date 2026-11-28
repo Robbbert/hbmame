@@ -3,7 +3,7 @@
 // Miscellaneous King of Fighters games
 // kog, cthd, kof2k4, kof10th etc
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 void neogeo_state::init_kof2k4pls()

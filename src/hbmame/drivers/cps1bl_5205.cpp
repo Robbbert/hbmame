@@ -27,10 +27,12 @@ sf2mdta, sf2ceb: Scroll 2X has strange 0x200 writes that cause missing fighters'
 captcommb2:      OK.
 knightsb3:       OK.
 
+This source file not used in HBMAME, will get deleted soon.
+
 */
 
 #include "emu.h"
-#include "includes/fcrash.h"
+#include "fcrash.h"
 
 #include "cpu/z80/z80.h"
 #include "cpu/m68000/m68000.h"

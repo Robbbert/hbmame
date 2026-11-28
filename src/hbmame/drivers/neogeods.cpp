@@ -11,7 +11,7 @@
   at this time.
 ******************************************************/
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 #include "unzip.h"
 //#include "softlist_dev.h"
 

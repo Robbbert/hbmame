@@ -44,7 +44,7 @@ Each rom has a header
 size bytes : the data
 ******************************************************/
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 //#include "softlist_dev.h"
 
 namespace {

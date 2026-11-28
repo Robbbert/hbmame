@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 // kof96ep has an extra rom with crossed wires which overrides part of the

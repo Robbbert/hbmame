@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 // Garou Mark of the Wolves: mostly hacks of the prototype
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 void neogeo_state::init_garoud()

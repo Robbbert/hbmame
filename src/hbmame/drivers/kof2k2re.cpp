@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 // This uses 4 audio cpus, with sounds and M1 taken from other games.
 // Everything is hooked up as far as I can tell, but there's no extra sounds. No idea which fighters need them.

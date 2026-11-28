@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/galaxian/galaxian.cpp"
-#include "includes/galaxian.h"
+#include "galaxian.h"
 
 
 /*************************************

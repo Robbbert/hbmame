@@ -1,6 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:S. Smith,David Haywood
-#include "neogeo.h"
+#include "drivers/neogeo.h"
 #include "endianness.h"
 
 DEFINE_DEVICE_TYPE(NGBOOTLEG_PROT, ngbootleg_prot_device, "ngbootleg_prot", "NeoGeo Protection (Bootleg)")

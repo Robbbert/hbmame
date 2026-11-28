@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 // Neogeo hacks that don't warrant their own file
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 void neogeo_state::init_jckeygpd()

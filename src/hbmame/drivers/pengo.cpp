@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 
 #include "emu.h"
-#include "includes/puckman.h"
+#include "puckman.h"
 
 #include "cpu/z80/z80.h"
 #include "machine/74259.h"

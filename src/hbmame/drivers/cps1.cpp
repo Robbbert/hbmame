@@ -106,7 +106,7 @@ CC59      Changer     1995         Street Fighter Alpha / Street Fighter Zero
 ***************************************************************************/
 
 #include "emu.h"
-#include "includes/cps1.h"
+#include "cps1.h"
 
 #include "cpu/z80/z80.h"
 #include "cpu/pic16c5x/pic16c5x.h"

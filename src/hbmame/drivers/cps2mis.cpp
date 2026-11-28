@@ -1,6 +1,6 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
-#include "includes/cps2plus.h"   // CPS+ sets (vhunt2s02-s03, vsav2s05-s06); the driver is included after this file
+#include "cps2plus.h"   // CPS+ sets (vhunt2s02-s03, vsav2s05-s06); the driver is included after this file
 
 /*********************************************
 Super Street Fighter II: The New Challengers

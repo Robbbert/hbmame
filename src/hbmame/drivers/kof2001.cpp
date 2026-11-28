@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 void neogeo_state::init_kf2k1pa()

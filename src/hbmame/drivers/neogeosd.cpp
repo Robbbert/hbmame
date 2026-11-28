@@ -18,7 +18,7 @@
   roms in your hbmame folder. The files names start
   with 000.
 ******************************************************/
-#include "includes/neogeo.h"
+#include "neogeo.h"
 #include "softlist_dev.h"
 
 //#define DUMP_NEO_ROMS

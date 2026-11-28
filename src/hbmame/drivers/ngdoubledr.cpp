@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 // Double Dragon
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 

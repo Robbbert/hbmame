@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/namco/galaga.cpp"
-#include "includes/galaga.h"
+#include "galaga.h"
 
 // Produce pacman death sound in galagost
 void galaga_hbmame::galaga_sample_w(offs_t offset, u8 data)

@@ -8,7 +8,7 @@
 ****************************************************************************/
 
 #include "emu.h"
-#include "includes/neogeo.h"
+#include "neogeo.h"
 #include "video/resnet.h"
 
 #define NUM_PENS    (0x1000)

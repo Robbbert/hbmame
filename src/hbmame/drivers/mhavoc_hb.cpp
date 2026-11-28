@@ -7,7 +7,7 @@ Documentation for Major Havoc - look in MAME driver
 ***************************************************************************/
 
 #include "emu.h"
-#include "includes/mhavoc_hb.h"
+#include "mhavoc_hb.h"
 
 #include "cpu/m6502/m6502.h"
 #include "machine/eeprompar.h"

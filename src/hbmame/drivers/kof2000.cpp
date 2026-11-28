@@ -1,7 +1,7 @@
 // license:GPL_2.0
 // copyright-holders:Robbbert
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 ROM_START( kof2000d )

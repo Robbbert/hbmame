@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 // The King of Fighters '95
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 /************************

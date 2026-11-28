@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 // The Last Blade
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 

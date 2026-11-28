@@ -471,7 +471,7 @@ YEAR COMPANY                          TITLE
 
 *********************************************************************************************************/
 
-#include "includes/neogeo.h"
+#include "neogeo.h"
 
 
 // 054 : Crossed Swords 2
