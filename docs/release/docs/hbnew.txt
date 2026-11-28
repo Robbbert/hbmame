@@ -9,6 +9,8 @@ New Games
 ---------------------------------
 - [cninjan]             Caveman Ninja (Neo-Geo port, v1.0.0)
 - [goldnmame]           Golden Poker (MAME tribute edition)
+- [nbajam08]            NBA Jam Tournament Edition 2027
+- [nbajam09]            NBA Jam Tournament Edition Legends
 - [tumblepn]            Tumble Pop (Neo-Geo port, v1.0.0)
 - [vendettan]           Vendetta (Neo-Geo port, v1.0)
 

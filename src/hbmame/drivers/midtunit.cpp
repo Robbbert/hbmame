@@ -878,6 +878,77 @@ ROM_START( nbajam07 ) // nbajamr4j
 	ROM_LOAD32_BYTE( "nbajam02.uj23", 0x600003, 0x80000, CRC(b5bf66f9) SHA1(de12e47e44f9cf7c611d674fe6c9b3466fde2081) )
 ROM_END
 
+ROM_START( nbajam08 ) // The players heads are too large and always looking at you. Both weird and creepy.
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
+	ROM_RELOAD(             0x030000, 0x20000 )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "nbajam08.u12", 0x000000, 0x80000, CRC(aae180b8) SHA1(620a68e828d7ebb8ffecdc4ccb994f142572db85) )
+	ROM_LOAD( "nbajam08.u13", 0x080000, 0x80000, CRC(227defa4) SHA1(be4eb271d58bbc49f1e96a9dc024a568c3dc0a92) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "nbajam08.uj12", 0x00000, 0x80000, CRC(3d136ead) SHA1(8819c88618cd027db12b87daaa5e641110e653fa) )
+	ROM_LOAD16_BYTE( "nbajam08.ug12", 0x00001, 0x80000, CRC(a1800cb0) SHA1(12e18bdb3104a2f9a76d7cf5b46432bc4ca44da3) )
+
+	ROM_REGION( 0xc00000, "video", 0 )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj19.uj19", 0x000003, 0x80000, CRC(8130a8a2) SHA1(f23f124024285d07d8cf822817b62e42c38b82db) )
+
+	ROM_LOAD32_BYTE( "nbajam08.ug16", 0x200000, 0x80000, CRC(0924dbf2) SHA1(8002fddcc50e6ac34e7c47bc023e9c0988b9af94) )
+	ROM_LOAD32_BYTE( "nbajam08.uj16", 0x200001, 0x80000, CRC(3453d218) SHA1(dcc8e445933a01aa4a0a7782bc0f5487eee9006d) )
+	ROM_LOAD32_BYTE( "nbajam08.ug20", 0x200002, 0x80000, CRC(209c9cbe) SHA1(7d8b0fa923513066c9ebf8d9310013508183a989) )
+	ROM_LOAD32_BYTE( "nbajam08.uj20", 0x200003, 0x80000, CRC(2d91f009) SHA1(c3d4c50d16495a08431b34169d2f6d1628c93f7c) )
+
+	ROM_LOAD32_BYTE( "nbajam08.ug17", 0x400000, 0x80000, CRC(89fcbdc8) SHA1(4d672aaddc095a112cdb6ad7e85c5b4ab558c161) )
+	ROM_LOAD32_BYTE( "nbajam08.uj17", 0x400001, 0x80000, CRC(552a1668) SHA1(3259135187d5765ada7fa42c218659b3b5a9bd73) )
+	ROM_LOAD32_BYTE( "nbajam08.ug22", 0x400002, 0x80000, CRC(de28d995) SHA1(59e39773b06ce6f1a607709dde300b1e068dc1eb) )
+	ROM_LOAD32_BYTE( "nbajam08.uj22", 0x400003, 0x80000, CRC(a5cb33e0) SHA1(594405ca285befde748374d9f5aec20c3d1deee3) )
+
+	ROM_LOAD32_BYTE( "nbajam08.ug18", 0x600000, 0x80000, CRC(3be14aa4) SHA1(7361bf0c79e1e843a720170494d94d02462855ee) )
+	ROM_LOAD32_BYTE( "nbajam08.uj18", 0x600001, 0x80000, CRC(dda108a0) SHA1(1122d6fd1f7b010517f420537d705b33bd96a99c) )
+	ROM_LOAD32_BYTE( "nbajam08.ug23", 0x600002, 0x80000, CRC(656f6f03) SHA1(c425d4a3c51f28b7ea64ec44b3ee6a39df957bbb) )
+	ROM_LOAD32_BYTE( "nbajam08.uj23", 0x600003, 0x80000, CRC(789c701b) SHA1(5114cc49475dc6c168c4155906fae5e761077981) )
+ROM_END
+
+// May crash on first run, due to existing mame bug.
+ROM_START( nbajam09 ) // The players heads are too large and always looking at you. Both weird and creepy.
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
+	ROM_RELOAD(             0x030000, 0x20000 )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "nbajam09.u12", 0x000000, 0x80000, CRC(4364a3fc) SHA1(7704487f14fc370b3e1576a8cdb6237b4bd86a3a) )
+	ROM_LOAD( "nbajam09.u13", 0x080000, 0x80000, CRC(789e2792) SHA1(0c65cdfb06b4ed2a1009eac5bc780b7fd214f343) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "nbajam09.uj12", 0x00000, 0x80000, CRC(8320aaed) SHA1(c257fb7ff6e3a5c96206a2e7357c312092a09390) )
+	ROM_LOAD16_BYTE( "nbajam09.ug12", 0x00001, 0x80000, CRC(29e86bac) SHA1(fafdaee2a9b712b1d66ccf12d8c0fbb7ddfc82ec) )
+
+	ROM_REGION( 0xc00000, "video", 0 )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj19.uj19", 0x000003, 0x80000, CRC(8130a8a2) SHA1(f23f124024285d07d8cf822817b62e42c38b82db) )
+
+	ROM_LOAD32_BYTE( "nbajam09.ug16", 0x200000, 0x80000, CRC(531a6448) SHA1(faf02062e2f8b30cd0c0c6088594920bd393feee) )
+	ROM_LOAD32_BYTE( "nbajam09.uj16", 0x200001, 0x80000, CRC(d3991f68) SHA1(8800c98d400172a7ec4c88ccbe63ec130d91d8cc) )
+	ROM_LOAD32_BYTE( "nbajam09.ug20", 0x200002, 0x80000, CRC(6faf32f9) SHA1(cfdfd7a63f22544c558537329b27d46aac39a1aa) )
+	ROM_LOAD32_BYTE( "nbajam09.uj20", 0x200003, 0x80000, CRC(ce062875) SHA1(28c046226d1671602cba590730dceb3442acdca2) )
+
+	ROM_LOAD32_BYTE( "nbajam09.ug17", 0x400000, 0x80000, CRC(4d8c7ec5) SHA1(2eda9253d79556dd887978460a8a3c6de2670f7a) )
+	ROM_LOAD32_BYTE( "nbajam09.uj17", 0x400001, 0x80000, CRC(6197bfa8) SHA1(20bc24c9824d2d889f75bdfda356e3aa92b099fe) )
+	ROM_LOAD32_BYTE( "nbajam09.ug22", 0x400002, 0x80000, CRC(9b9f3a67) SHA1(5542ee7ed22a97b72aab765fcc8851ac8b3fe4df) )
+	ROM_LOAD32_BYTE( "nbajam09.uj22", 0x400003, 0x80000, CRC(8be5611c) SHA1(96043d9df635a0730b5d6850fea4d39c73960c44) )
+
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug18.ug18", 0x600000, 0x80000, CRC(6fd08f57) SHA1(5b7031dffc88374c5bfdf3021aa01ec4e28d0631) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj18.uj18", 0x600001, 0x80000, CRC(4eb73c26) SHA1(693bf45f777da8e55b7bcd8699ea5bd711964941) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug23.ug23", 0x600002, 0x80000, CRC(854f73bc) SHA1(242cc8ce28711f6f0787524a1070eb4b0956e6ae) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj23.uj23", 0x600003, 0x80000, CRC(f8c30998) SHA1(33e2f982d74e9f3686b1f4a8172c49fb8b604cf5) )
+ROM_END
+
 /**********
  Roadkill
  **********/
@@ -951,6 +1022,8 @@ GAME( 2023, nbajam03,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, 
 GAME( 2023, nbajam04,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam05,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam07,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "hack", "NBA Rewind 4 Jam (unprotected, v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, nbajam08,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "bubbly-eth", "NBA Jam Tournament Edition 2027", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, nbajam09,    nbajamte, tunit_adpcm, nbajamte, midtunit_adpcm_state, init_nbajamte, ROT0, "bubbly-eth", "NBA Jam Tournament Edition Legends", MACHINE_SUPPORTS_SAVE )
 // Roadkill
 GAME( 2023, roadkill,    0,        tunit_adpcm, nbajam,   midtunit_adpcm_state, init_nbajamte, ROT0, "Midway", "Roadkill demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // inputs broken
 
