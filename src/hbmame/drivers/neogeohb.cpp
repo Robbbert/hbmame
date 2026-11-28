@@ -3163,7 +3163,7 @@ ROM_START( asteborg )
 ROM_END
 
 
-// 557: Mystic Riders (beta-0.5.1) port by Bendk97
+// 557: Mystic Riders (v1.0.0) port by Bendk97
 ROM_START( mysticrin )
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "557.p1", 0, 0x400000, CRC(ebc7c91b) SHA1(fe916118da23ce15036f94d7e6d26eab1eefa21a) )
@@ -3266,7 +3266,7 @@ ROM_START( tmntn )
 ROM_END
 
 
-// 562: Caveman Ninja (beta-0.1.7) port by Bendk97
+// 562: Caveman Ninja (v1.0.0) port by Bendk97
 ROM_START( cninjan )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "562.p1", 0, 0x200000, CRC(7c761dcb) SHA1(12271c334239467313756211e6e72a31a4d32aae) )
@@ -3286,10 +3286,10 @@ ROM_START( cninjan )
 ROM_END
 
 
-// 563: Tumble Pop (beta-0.2.0) port by Bendk97
+// 563: Tumble Pop (v1.0.0) port by Bendk97
 ROM_START( tumblepn )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "563.p1", 0, 0x100000, CRC(1d7474bc) SHA1(e9b76703b8766828cdfcdd109fba9fd37150ac05) )
+	ROM_LOAD16_WORD_SWAP( "563.p1", 0, 0x100000, CRC(26b84055) SHA1(b461a90593772c4dc504eb7b134ce89d14571ea8) )
 
 	NEO_SFIX_128K( "563.s1", CRC(734125e0) SHA1(a51758b1403e3caa8d630e4f46de80ae2491b6d1) )
 
@@ -4582,7 +4582,7 @@ GAME( 2023, amazonn,      neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2021, cabaln,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabaln01,     cabaln,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, cabaln02,     cabaln,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "pierpa86", "Cabal (Neo-Geo port, more sprite fixes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, cninjan,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Caveman Ninja (Neo-Geo port, v0.1.7)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, cninjan,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Caveman Ninja (Neo-Geo port, v1.0.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, columnsncd,   columnsn, neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, cosmogngn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Cosmo Gang the video (Neo-Geo port, v1.1.4)", MACHINE_SUPPORTS_SAVE )
@@ -4599,7 +4599,7 @@ GAME( 2025, inthuntn,     neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2025, karnovn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "iq_132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, knightsn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Knights of the Round (Neo-Geo port, v1.1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, kodn,         neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Teo Tormo", "King of Dragons, the (Neo-Geo port, beta 16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, mysticrin,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Mystic Riders (Neo-Geo port, beta-0.5.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, mysticrin,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Mystic Riders (Neo-Geo port, v1.0.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, nblktiger,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "Neo Black Tiger", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2026, outrunn,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Out Run (Neo-Geo port, v1.0.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, paprium,      neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Happy-Ferret", "Paprium Vertical Slice (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
@@ -4614,7 +4614,7 @@ GAME( 2026, sotbn,        neogeo,   neogeo,          neogeo,  neogeo_state, init
 GAME( 2026, ssodan,       neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sword of Sodan (Neo-Geo port, beta-0.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, ssridersn,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Sunset Riders (Neo-Geo port, v1.1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, tmntn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arcade Perfect Ports", "Teenage Mutant Ninja Turtles (Neo-Geo port, v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2026, tumblepn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Tumble Pop (Neo-Geo port, beta-0.2.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, tumblepn,     neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Bendk97", "Tumble Pop (Neo-Geo port, v1.0.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vendettan,    neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Arcade Perfect Ports", "Vendetta (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, vssmbn,       smbn,     neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "Sabino", "VS. Super Mario Bros.", MACHINE_SUPPORTS_SAVE )
 GAME( 2026, wboyn,        neogeo,   neogeo,          neogeo,  neogeo_state, init_neogeo,   ROT0, "ShinobiZ", "Wonder Boy (Neo-Geo port, v1.0)", MACHINE_SUPPORTS_SAVE )

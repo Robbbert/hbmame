@@ -94,6 +94,52 @@ ROM_START( 1942fpa )
 	ROM_LOAD( "sb-1.k6",  0x0000, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
 ROM_END
 
+ROM_START( fixfelix )
+	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD( "felix.m3", 0x00000, 0x4000, CRC(dd8674bc) SHA1(99ded22e4cb965b0e7494f9f7f67f7fa73607a7c) )
+	ROM_LOAD( "felix.m4", 0x04000, 0x4000, CRC(5132aa07) SHA1(900a3dbdffafe88754772fbe3827be86993e44a6) )
+	ROM_LOAD( "felix.m5", 0x10000, 0x4000, CRC(577c67b7) SHA1(8a96cfb0d10d1e0b2bb25382f41feabf78166fd2) )
+	ROM_LOAD( "sr-06.m6", 0x14000, 0x2000, CRC(821c6481) SHA1(06becb6bf8b4bde3a458098498eecad566a87711) )
+	ROM_LOAD( "sr-07.m7", 0x18000, 0x4000, CRC(5df525e1) SHA1(70cd2910e2945db76bd6ebfa0ff09a5efadc2d0b) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "felix.c11", 0x0000, 0x4000, CRC(c5bc3c50) SHA1(1b76bdc9df3767cc3b767750294deacfb522ec2c) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "felix.f2", 0x0000, 0x2000, CRC(4ad5d2da) SHA1(85691eb5d8d4ae02ea3b8d117bc2ac554e8e1526) )
+
+	ROM_REGION( 0xc000, "gfx2", 0 )
+	ROM_LOAD( "felix.a1", 0x0000, 0x2000, CRC(b680a87e) SHA1(52fb40009cced76f88998fb27ac0b74436dd1ba7) )
+	ROM_LOAD( "felix.a2", 0x2000, 0x2000, CRC(7012777b) SHA1(fe01e8d1a46e649d72f2f107ea77d0612056cabe) )
+	ROM_LOAD( "felix.a3", 0x4000, 0x2000, CRC(6f66de6f) SHA1(bd10929db3c2addbd761587391ca8e45e756fffd) )
+	ROM_LOAD( "felix.a4", 0x6000, 0x2000, CRC(82a48938) SHA1(ac671e62a24f4407f09e0dfabf414faba6b711d1) )
+	ROM_LOAD( "felix.a5", 0x8000, 0x2000, CRC(47b9c9bc) SHA1(775499fb686d941c7f4c2767a1ef57ef3540240f) )
+	ROM_LOAD( "felix.a6", 0xa000, 0x2000, CRC(334ffec6) SHA1(5760fb08f4a84d9e0cf3fe25dfdda8599f2ebd74) )
+
+	ROM_REGION( 0x10000, "gfx3", 0 )
+	ROM_LOAD( "felix.l1", 0x00000, 0x4000, CRC(f6eafcf0) SHA1(b5f5f21fb9684e825971630c9d8d386588c9eb84) )
+	ROM_LOAD( "felix.l2", 0x04000, 0x4000, CRC(da769a27) SHA1(3ab1d205574c7b7c108b722be65cf6ef7273b31b) )
+	ROM_LOAD( "felix.n1", 0x08000, 0x4000, CRC(102856b3) SHA1(5d8e3b4835339ca8f714407c3bcb9d1171ce7a8b) )
+	ROM_LOAD( "felix.n2", 0x0c000, 0x4000, CRC(e9944bee) SHA1(f15ac776052494902f8ea10d8f40e2dd43bf540d) )
+
+	ROM_REGION( 0x0300, "palproms", 0 )
+	ROM_LOAD( "felix.e8",  0x0000, 0x0100, CRC(353aa3a5) SHA1(979b2bededa9c88d05bd4de3f5c11b8135d61218) )
+	ROM_LOAD( "felix.e9",  0x0100, 0x0100, CRC(1eeca407) SHA1(9091c893f0da318271226b853bb2805c9d6be86f) )
+	ROM_LOAD( "felix.e10", 0x0200, 0x0100, CRC(2ea68c66) SHA1(553b22cb9e9f1a5f01b3f1d9e3110b41aeb6b1cb) )
+
+	ROM_REGION( 0x0100, "charprom", 0 )
+	ROM_LOAD( "felix.f1",  0x0000, 0x0100, CRC(a7221b0c) SHA1(6d87881afc60cd8cdd18836f1355b5fe426f5d0b) )
+
+	ROM_REGION( 0x0100, "tileprom", 0 )
+	ROM_LOAD( "felix.d6",  0x0000, 0x0100, CRC(16c50185) SHA1(0aedee434e7f4cc803ee03bcd4f44e46d4b42c00) )
+
+	ROM_REGION( 0x0100, "sprprom", 0 )
+	ROM_LOAD( "felix.k3",  0x0000, 0x0100, CRC(17301db2) SHA1(a2b2e2e07403a624224547ef1dae8146de5748f8) )
+
+	ROM_REGION( 0x0100, "irqprom", 0 )
+	ROM_LOAD( "sb-1.k6",  0x0000, 0x0100, CRC(712ac508) SHA1(5349d722ab6733afdda65f6e0a98322f0d515e86) )
+ROM_END
+
 ROM_START( galagax )
 	ROM_REGION( 0x20000, "maincpu", ROMREGION_ERASEFF )
 	ROM_LOAD( "galagax1.n3", 0x00000, 0x4000, CRC(c78cdc46) SHA1(50ac4ab7a884b8555f15d959dac2b33e317fcd16) )
@@ -141,7 +187,8 @@ ROM_START( galagax )
 ROM_END
 
 
-GAME( 2015, 1942c64, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Minwah", "1942 (With C64 music)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, 1942fpa, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "cmonkey", "1942 (With attract mode in free play)", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, galagax, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Jerky and Chris Moore", "1942 (Galaga X)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, 1942c64,  1942, _1942, 1942, _1942_state, driver_init, ROT270, "Minwah", "1942 (With C64 music)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, 1942fpa,  1942, _1942, 1942, _1942_state, driver_init, ROT270, "cmonkey", "1942 (With attract mode in free play)", MACHINE_SUPPORTS_SAVE )
+GAME( 2026, fixfelix, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "hack", "Fix-it Felix Jr", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1984, galagax,  1942, _1942, 1942, _1942_state, driver_init, ROT270, "Jerky and Chris Moore", "1942 (Galaga X)", MACHINE_SUPPORTS_SAVE )
 

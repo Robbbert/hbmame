@@ -14,6 +14,7 @@
 1942h
 1942c64                                // 1942 with C64 sounds (by minwah)
 1942fpa                                // 1942 with free play (by cmonkey)
+//fixfelix          // bad sprites
 galagax
 
 @source:1943.cpp
@@ -6448,7 +6449,7 @@ karnovn
 knacki
 knightsch
 knightsn
-kodn
+//kodn
 lernit
 lhbb
 lhpb
@@ -6570,6 +6571,7 @@ zintrick07     // full music
 @source:neogeosd.cpp
 ngneo                                  // .neo support
 sd_arena2
+sd_kodn
 
 @source:neogeo1.cpp
 2020bb01
